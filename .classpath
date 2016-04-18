@@ -3,5 +3,10 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="src/Quizlet/org.json.jar"/>
+	<classpathentry kind="lib" path="src/mariadb-java-client-1.4.2.jar"/>
+	<classpathentry kind="lib" path="src/mysql-connector-java-5.1.38-bin.jar"/>
+	<classpathentry kind="lib" path="src/opencsv-3.7.jar"/>
+	<classpathentry kind="lib" path="src/org.json.jar"/>
+	<classpathentry kind="lib" path="src/sqlite-jdbc-3.8.11.2.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

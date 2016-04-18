@@ -1,0 +1,269 @@
+/////		POST.java file
+
+package Quizlet;
+
+import java.awt.Desktop;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.Scanner;
+import java.util.UUID;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+public class POST
+{
+
+	private static JSONObject obj;
+	private static JSONArray arr;
+	
+	public static JSONArray main () throws MalformedURLException, IOException
+	{
+		
+		String clientID = "3RhaPk5H9C";
+		String randString = UUID.randomUUID().toString();
+		
+		String allowQuizlet = "https://quizlet.com/authorize?response_type=code&client_id="+clientID+"&scope=read&state="+randString;
+
+		openWebpage(allowQuizlet);
+		
+		System.out.println("Code einfügen:");
+		
+		Scanner scan = new Scanner(System.in);
+		
+		
+		String authURL = "https://api.quizlet.com/oauth/token";
+		
+		String charset = "UTF-8";
+		
+		String code = scan.nextLine();
+		scan.close();
+		String data = "grant_type=authorization_code&code=" + code;
+		
+		java.net.URLConnection connection = new URL(authURL).openConnection();
+		connection.setDoOutput(true); // Triggers POST.
+		connection.setRequestProperty("Accept-Charset", charset);
+		connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded;charset=" + charset);
+		connection.setRequestProperty("Authorization", "Basic M1JoYVBrNUg5Qzp0RjlER1FjR2FkdVlYSHV5Q0JEMk50");
+		
+		connection.setRequestProperty("redirect_uri", "http://bund2015.wiss-bern.ch/quizlet.php");
+		
+		OutputStreamWriter wr = new OutputStreamWriter(connection.getOutputStream());
+	    wr.write(data);
+	    wr.flush();
+	    
+	    InputStream response = connection.getInputStream();
+
+		// Erzeugt das JSONObject und gibt es zurück
+		try (Scanner scanner = new Scanner(response))
+		{
+			String responseBody = scanner.useDelimiter("\\A").next();
+			obj = new JSONObject(responseBody);
+		}
+		catch (Exception e)
+		{
+			System.out.println("Error (Read Token):");
+			System.out.println(e.getMessage());
+			return null;
+		}
+		
+	    wr.close();
+	    
+	    
+	    String user = obj.getString("user_id");
+	    String token = obj.getString("access_token");
+	    // Request 
+		System.out.println(user + " " + token + "\n" + obj.getInt("expires_in"));
+		String requestURL = "https://api.quizlet.com/2.0/users/"+user+"/sets?client_id="+clientID;
+		
+		connection = new URL(requestURL).openConnection();
+		connection.setRequestProperty("Accept-Charset", charset);
+		connection.setRequestProperty("Authorization", "Bearer " + token);
+	    
+		//InputStream response1 = connection.getInputStream();
+		
+		String json = "";
+		BufferedReader rd = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+	    String line;
+	    while ((line = rd.readLine()) != null) {
+	        json = json + line;
+	    }
+	    rd.close();
+		
+		// Erzeugt das JSONObject und gibt es zurück
+		try (Scanner scanner = new Scanner(json))
+		{
+			String responseBody = scanner.useDelimiter("\\A").next();
+			arr = new JSONArray(responseBody);
+			return arr;
+		}
+		catch (Exception e)
+		{
+			System.out.println("Error (Request):");
+			System.out.println(e.getMessage());
+			return null;
+		}
+	    
+	}
+	
+	public static void openWebpage(String urlString) {
+	    try {
+	        Desktop.getDesktop().browse(new URL(urlString).toURI());
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	}
+
+}
+
+
+/////	main.java file
+
+package Quizlet;
+
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.util.ArrayList;
+import java.util.Scanner;
+
+// Pull Test
+
+/**
+ * Beispiel zur Verwendung der Quizlet Klasse
+ * 
+ * @author ma
+ *
+ */
+public class Main
+{
+	// Neues Quizlet Objekt mit Token
+	static final Quizlet	q			= new Quizlet("3RhaPk5H9C");
+
+	// Scanner fÃ¼r Input
+	static Scanner			scan		= new Scanner(System.in);
+
+	static String			goToMenu	= "menu";
+	static String			more		= "more";
+
+	public static void main (String[] args) throws MalformedURLException, IOException, InterruptedException
+	{
+		
+		
+		System.out.println("Suchbegriff eingeben:");
+
+		// Liest Begriff ein ...
+		String search = scan.nextLine();
+		System.out.print("Einen Moment warten");
+
+		// Lade Effekt
+		for (int i = 0; i < 3; i++)
+		{
+			Thread.sleep(500);
+			System.out.print(".");
+		}
+		System.out.println("\n");
+
+		// ... und sucht danach
+		//ArrayList<String> result = q.SearchSet(search);
+		ArrayList<String> result = q.PrivateSets();
+
+		for (String set : result)
+		{
+			String[] sArray = set.split(q.separator);
+/*
+			// Gibt Infos zur Suche aus
+			if (result.indexOf(set) == 0)
+			{
+				System.out.println(sArray[0] + " Sets gefunden\n"
+						+ sArray[2] + " davon enthalten Bilder\n"
+						+ "Seite " + sArray[3] + " von " + sArray[1] + "\n");
+				System.out.println("Enter drÃ¼cken um Sets anzuzeigen");
+				scan.nextLine();
+				System.out.println(sArray[0]);
+			}
+			else*/
+			{
+				// Gibt Sets aus
+				String hasImages = sArray[4].equals("true") ? "Ja" : "Nein";
+
+				System.out.println("'" + sArray[1] + "' von " + sArray[2]
+						+ "\n\n   Karten\t\t" + sArray[3]
+						+ "\n   Bilder\t\t" + hasImages
+						+ "\n   Sprache\t\t" + sArray[6] + " - " + sArray[7]
+						+ "\n   Beschreibung\t\t" + sArray[5] + "\n");
+
+				// String x = scan.nextLine();
+				Thread.sleep(1000);
+
+				// Will der User die Karten des Sets ansehen ('more')?
+				if (/*x.equals(more)*/ false)
+				{
+					try
+					{
+						ArrayList<String> terms = q.GetSet(sArray[0]);
+
+						System.out.println("");
+
+						// Gibt ganzes Set aus
+						for (String term : terms)
+						{
+							String[] tArray = term.split(q.separator);
+							System.out.println(tArray[1] + "\n" + tArray[2]);
+							if (scan.nextLine().equals("quit"))
+							{
+								System.out.println("");
+								break;
+							}
+						}
+					}
+					catch (Exception e)
+					{
+						System.out.println("Error, das Set kann nicht ausgegeben werden (Main.java, Line 84)");
+						return;
+					}
+				}
+				else if (/*x.equals("quit")*/ false) { return; }
+			}
+		}
+		
+		
+	}
+}
+
+/////	add to quizlet.java file
+
+public ArrayList<String> PrivateSets () throws MalformedURLException, IOException
+{
+	JSONArray arr = POST.main();
+	
+	if (arr == null)
+	{
+		System.out.println("POST main returned null");
+		return null;
+	}
+	
+	tempList = new ArrayList<String>();
+	
+	String tempString;
+
+	for (int i = 0; i < arr.length(); i++)
+	{
+		tempString = Integer.toString(arr.getJSONObject(i).getInt("id"))
+				+ separator + arr.getJSONObject(i).getString("title")
+				+ separator + arr.getJSONObject(i).getString("created_by")
+				+ separator + arr.getJSONObject(i).getInt("term_count")
+				+ separator + arr.getJSONObject(i).getBoolean("has_images")
+				+ separator + arr.getJSONObject(i).getString("description")
+				+ separator + arr.getJSONObject(i).getString("lang_terms")
+				+ separator + arr.getJSONObject(i).getString("lang_definitions")
+				+ separator + i;
+		tempList.add(tempString);
+	}
+
+	return tempList;
+}

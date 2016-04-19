@@ -20,6 +20,42 @@ public class QuizletTest
 
 	public static void main (String[] args) throws MalformedURLException, IOException, InterruptedException
 	{
+		do
+		{
+			// TODO Print Menu
+			System.out.println("[1] Search, [0] quit");
+
+			String userCommand = scan.nextLine();
+			int command;
+
+			try
+			{
+				command = Integer.parseInt(userCommand);
+			}
+			catch (Exception e)
+			{
+				// TODO Error handling
+				System.out.println("Not valid command. Type any of the displayed numbers");
+				continue;
+			}
+
+			switch (command)
+			{
+				case 0:
+					System.out.println("Really want to quit? Type 'quit'");
+					break;
+				case 1:
+					Search();
+					break;
+			}
+
+		} while (!scan.nextLine().equals("quit"));
+
+		
+	}
+	
+	private static void Search() throws InterruptedException, MalformedURLException, IOException
+	{
 		System.out.println("Suchbegriff eingeben:");
 
 		// Liest Begriff ein ...
@@ -47,7 +83,8 @@ public class QuizletTest
 				System.out.println(sArray[0] + " Sets gefunden\n"
 						+ sArray[2] + " davon enthalten Bilder\n"
 						+ "Seite " + sArray[3] + " von " + sArray[1] + "\n");
-				System.out.println("Enter drücken um Sets anzuzeigen,\n'" + more + "' eingeben um Karten anzuzeigen,\n'quit' um Prgoramm zu verlassen");
+				System.out.println("Enter drücken um Sets anzuzeigen,\n'" + more
+						+ "' eingeben um Karten anzuzeigen,\n'quit' um Prgoramm zu verlassen");
 				scan.nextLine();
 				System.out.println(sArray[0]);
 			}

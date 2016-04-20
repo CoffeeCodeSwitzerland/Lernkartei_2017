@@ -6,55 +6,74 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 
+/**
+ * Diese Klasse dient lediglich der Demonstration (Kommandozeile) und
+ * Überprüfung der Quizlet-Funktionalität
+ * 
+ * @author ma
+ *
+ */
 public class QuizletTest
 {
 	// Neues Quizlet Objekt mit Token
-	static final Quizlet	q			= new Quizlet("3RhaPk5H9C");
+	static final Quizlet	q					= new Quizlet("3RhaPk5H9C");
 
 	// Scanner für Input
-	static Scanner			scan		= new Scanner(System.in);
+	static Scanner			scan				= new Scanner(System.in);
 
 	// Strings für Steuerung
-	static String			goToMenu	= "menu";
-	static String			more		= "more";
+	static String			goToMenu			= "menu";
+	static String			more				= "more";
+	static String			back				= "back";
+
+	static String			menuErrorMessage	= "%s is not a valid input!\n";
+	static String			menuMessage			= "Menu";
+	static String			quitMessage			= "Thx & bye";
+
+	static int				setCounter			= 1;
 
 	public static void main (String[] args) throws MalformedURLException, IOException, InterruptedException
 	{
+		// Menu Loop
+		boolean exit = false;
 		do
 		{
-			// TODO Print Menu
-			System.out.println("[1] Search, [0] quit");
+			System.out.println(menuMessage);
 
+			// Userinput einlesen
 			String userCommand = scan.nextLine();
-			int command;
 
-			try
+			// Userinput ausführen
+			switch (userCommand)
 			{
-				command = Integer.parseInt(userCommand);
-			}
-			catch (Exception e)
-			{
-				// TODO Error handling
-				System.out.println("Not valid command. Type any of the displayed numbers");
-				continue;
-			}
-
-			switch (command)
-			{
-				case 0:
-					System.out.println("Really want to quit? Type 'quit'");
+				// Programm verlassen
+				case "0":
+					System.out.println(quitMessage);
+					exit = true;
 					break;
-				case 1:
+
+				// Suchen
+				case "1":
 					Search();
 					break;
+
+				// Menu Loop wiederholen
+				default:
+					System.out.printf(menuErrorMessage, userCommand);
+					break;
 			}
 
-		} while (!scan.nextLine().equals("quit"));
-
-		
+		} while (!exit);
 	}
-	
-	private static void Search() throws InterruptedException, MalformedURLException, IOException
+
+	/**
+	 * Führt eine Suche durch
+	 * 
+	 * @throws InterruptedException
+	 * @throws MalformedURLException
+	 * @throws IOException
+	 */
+	private static void Search () throws InterruptedException, MalformedURLException, IOException
 	{
 		System.out.println("Suchbegriff eingeben:");
 
@@ -65,7 +84,7 @@ public class QuizletTest
 		// Lade Effekt
 		for (int i = 0; i < 3; i++)
 		{
-			Thread.sleep(500);
+			Thread.sleep(400);
 			System.out.print(".");
 		}
 		System.out.println("\n");
@@ -75,61 +94,70 @@ public class QuizletTest
 
 		for (String set : result)
 		{
-			String[] sArray = set.split(q.separator);
+			String[] setEntry = set.split(q.separator);
 
 			// Gibt Infos zur Suche aus
 			if (result.indexOf(set) == 0)
 			{
-				System.out.println(sArray[0] + " Sets gefunden\n"
-						+ sArray[2] + " davon enthalten Bilder\n"
-						+ "Seite " + sArray[3] + " von " + sArray[1] + "\n");
+				System.out.println(setEntry[0] + " Sets gefunden\n"
+						+ setEntry[2] + " davon enthalten Bilder\n"
+						+ "Seite " + setEntry[3] + " von " + setEntry[1] + "\n");
 				System.out.println("Enter drücken um Sets anzuzeigen,\n'" + more
-						+ "' eingeben um Karten anzuzeigen,\n'quit' um Prgoramm zu verlassen");
+						+ "' eingeben um Karten anzuzeigen,\n'" + back + "' um zum Menu zurück zu kehren");
 				scan.nextLine();
-				System.out.println(sArray[0]);
+				System.out.println("");
 			}
-			else
+			else // Gibt Sets aus
 			{
-				// Gibt Sets aus
-				String hasImages = sArray[4].equals("true") ? "Ja" : "Nein";
 
-				System.out.println("'" + sArray[1] + "' von " + sArray[2]
-						+ "\n\n   Karten\t\t" + sArray[3]
+				String hasImages = setEntry[4].equals("true") ? "Ja" : "Nein";
+
+				System.out.println("'" + setEntry[1] + "' von " + setEntry[2]
+						+ "\n\n   Karten\t\t" + setEntry[3]
 						+ "\n   Bilder\t\t" + hasImages
-						+ "\n   Sprache\t\t" + sArray[6] + " - " + sArray[7]
-						+ "\n   Beschreibung\t\t" + sArray[5] + "\n");
+						+ "\n   Sprache\t\t" + setEntry[6] + " - " + setEntry[7]
+						+ "\n   Beschreibung\t\t" + setEntry[5] + "\n");
 
-				String x = scan.nextLine();
-				Thread.sleep(1000);
-
-				// Will der User die Karten des Sets ansehen ('more')?
-				if (x.equals(more))
+				// So können (je nach Wert von setCounter) mehrere Sets
+				// nacheinander angezeigt werden, ohne dass der User jedes Mal
+				// mit Enter bestätigen muss
+				if (result.indexOf(set) % setCounter == 0)
 				{
-					try
+					String x = scan.nextLine();
+
+					// Will der User die Karten des Sets ansehen ('more')?
+					if (x.equals(more))
 					{
-						ArrayList<String> terms = q.GetSet(sArray[0]);
-
-						System.out.println("\n'quit' um zu den Suchresultaten zurückzukehren\n");
-
-						// Gibt ganzes Set aus
-						for (String term : terms)
+						try
 						{
-							String[] tArray = term.split(q.separator);
-							System.out.println(tArray[1] + "\n" + tArray[2]);
-							if (scan.nextLine().equals("quit"))
+							ArrayList<String> terms = q.GetSet(setEntry[0]);
+
+							System.out.println("\n'" + back + "' um zu den Suchresultaten zurückzukehren\n");
+
+							// Gibt ganzes Set aus
+							for (String term : terms)
 							{
-								System.out.println("");
-								break;
+								String[] tArray = term.split(q.separator);
+								System.out.println(tArray[1] + "\n" + tArray[2]);
+								if (scan.nextLine().equals(back))
+								{
+									System.out.println("");
+									break;
+								}
 							}
 						}
+						catch (Exception e)
+						{
+							System.out.println("Das Set kann leider nicht ausgegeben werden");
+							return;
+						}
 					}
-					catch (Exception e)
-					{
-						System.out.println("Error, das Set kann nicht ausgegeben werden (Main.java, Line 84)");
-						return;
-					}
+					else if (x.equals(back)) { return; }
 				}
-				else if (x.equals("quit")) { return; }
+				else
+				{
+					Thread.sleep(400);
+				}
 			}
 		}
 	}

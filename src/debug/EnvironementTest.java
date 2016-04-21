@@ -7,13 +7,13 @@ import org.junit.Test;
 public class EnvironementTest {
 
 	public static void myTest() {
-		Environement e = new Environement();
+		Environment e = new Environment();
 		assertEquals("\\", e.getFileSep());
 	}
 
 	@Test
 	public void test() {
-		Environement e = new Environement();
+		Environment e = new Environment();
 		String out = "This is: " + this.getClass();
 		Debugger.out(out);
 		for (int i = 0; i < out.length(); i++)

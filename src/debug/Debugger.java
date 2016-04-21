@@ -2,6 +2,15 @@ package debug;
 
 public final class Debugger {
 
+	/*-
+	 * Purpose:	
+	 * - to simplify debug
+	 * - you may toggle debug activity with
+	 * 			calling setDebugActive(true¦false)
+	 * 
+	 * @AUTHOR Hugo Lucca
+	 */
+
 	private static boolean debugActive = true;
 
 	public static void out(String debugText) {

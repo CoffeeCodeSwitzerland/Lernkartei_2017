@@ -13,8 +13,10 @@ public class MyFile extends File {
 	 * 
 	 * Stand V1.0: - für random access und logfile spezialisiert (kein Problem
 	 * mit close)
+	 * 
+	 * @AUTHOR Hugo Lucca
 	 */
-	private static final Environement myEnv = new Environement();
+	private static final Environment myEnv = new Environment();
 	private boolean appendActive = true; // =false, to overwrite older file
 											// (default: true)
 

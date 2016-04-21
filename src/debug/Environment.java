@@ -2,7 +2,15 @@ package debug;
 
 import java.nio.file.Paths;
 
-public class Environement {
+public class Environment {
+
+	/*-
+	 * Purpose:	
+	 * - to simplify environment variable access (system properties)
+	 * - you may get file-separator, endOfLine-char, user-path's etc. 
+	 * 
+	 * @AUTHOR Hugo Lucca
+	 */
 
 	private String fileSep;
 	private String endOfLine;
@@ -37,7 +45,7 @@ public class Environement {
 	 * "user.home"			User home directory "user.name" User account name
 	 */
 
-	public Environement() {
+	public Environment() {
 		homePath = System.getProperty("user.dir");
 		fileSep = System.getProperty("file.separator");
 		classPath = System.getProperty("java.class.path");

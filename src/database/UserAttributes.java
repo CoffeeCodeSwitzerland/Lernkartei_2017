@@ -1,4 +1,4 @@
-package datenbank;
+package database;
 
 public class UserAttributes {
 	

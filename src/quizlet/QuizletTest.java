@@ -94,7 +94,7 @@ public class QuizletTest
 
 		for (String set : result)
 		{
-			String[] setEntry = set.split(quizlet.separator);
+			String[] setEntry = set.split(q.separator);
 
 			// Gibt Infos zur Suche aus
 			if (result.indexOf(set) == 0)
@@ -137,7 +137,7 @@ public class QuizletTest
 							// Gibt ganzes Set aus
 							for (String term : terms)
 							{
-								String[] tArray = term.split(quizlet.separator);
+								String[] tArray = term.split(q.separator);
 								System.out.println(tArray[1] + "\n" + tArray[2]);
 								if (scan.nextLine().equals(back))
 								{

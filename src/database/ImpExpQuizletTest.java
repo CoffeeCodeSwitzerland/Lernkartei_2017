@@ -1,4 +1,4 @@
-package datenbank;
+package database;
 
 import Quizlet.*;
 import java.io.IOException;

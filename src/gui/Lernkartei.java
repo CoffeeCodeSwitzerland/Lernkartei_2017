@@ -30,6 +30,8 @@ public class Lernkartei extends Application
 	// Alle verwendeten Layouts
 	BorderPane	tempBorderPane;
 	VBox		tempVBox;
+	
+	String stylePath = "gui/style.css";
 
 	public static void main (String[] args)
 	{
@@ -49,8 +51,8 @@ public class Lernkartei extends Application
 		optionsScene = new Scene(options(), 800, 450);
 
 		// Setzt CSS für die Szenen
-		homeScene.getStylesheets().add("style.css");
-		optionsScene.getStylesheets().add("style.css");
+		homeScene.getStylesheets().add(stylePath);
+		optionsScene.getStylesheets().add(stylePath);
 
 		// Setzt erste Szene und zeigt Fenster an
 		window.setScene(homeScene);

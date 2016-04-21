@@ -2,9 +2,9 @@ package debug;
 
 public final class Debugger {
 
-	private static boolean debugActive   = true;
+	private static boolean debugActive = true;
 
-	public static void out (String debugText) {
+	public static void out(String debugText) {
 		if (debugActive) {
 			if (debugText == null) {
 				out();
@@ -17,6 +17,28 @@ public final class Debugger {
 	public static void out() {
 		if (debugActive) {
 			System.out.print("*");
+		}
+	}
+
+	public static void eol() {
+		if (debugActive) {
+			System.out.println("");
+		}
+	}
+
+	public static void out(char c, int len) {
+		if (debugActive) {
+			for (int i = 0; i < len; i++) {
+				System.out.print(c);
+			}
+		}
+		eol();
+	}
+
+	public static void title(String debugText) {
+		if (debugActive) {
+			out(debugText);
+			out('=', debugText.length());
 		}
 	}
 

@@ -6,9 +6,7 @@ import org.junit.Test;
 
 public class SupervisorTest {
 
-	@Test
-	public void test() {
-
+	public static void myTest () {
 		Supervisor.setSupervisorExitState(3);
 		assertEquals(3,Supervisor.getSupervisorExitState());
 
@@ -32,7 +30,11 @@ public class SupervisorTest {
 
 		Supervisor.setSupervisorShowState(0);
 		assertEquals(0,Supervisor.getSupervisorShowState());
+	}
 
+	@Test
+	public void test() {
+		SupervisorTest.myTest();
 		//fail("Not yet implemented");
 	}
 

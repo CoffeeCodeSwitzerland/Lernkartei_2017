@@ -57,7 +57,7 @@ public class Quizlet
 	 * @throws MalformedURLException
 	 * @throws IOException
 	 */
-	public ArrayList<String> SearchSet (String query) throws MalformedURLException, IOException
+	public ArrayList<String> searchSet (String query) throws MalformedURLException, IOException
 	{
 		if (query == null)
 			return null;
@@ -114,7 +114,7 @@ public class Quizlet
 	 * @throws MalformedURLException
 	 * @throws IOException
 	 */
-	public ArrayList<String> GetSet (String id) throws MalformedURLException, IOException
+	public ArrayList<String> getSet (String id) throws MalformedURLException, IOException
 	{
 		if (id == null)
 			return null;

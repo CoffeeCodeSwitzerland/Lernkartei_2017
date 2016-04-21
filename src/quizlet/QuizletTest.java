@@ -90,7 +90,7 @@ public class QuizletTest
 		System.out.println("\n");
 
 		// ... und sucht danach
-		ArrayList<String> result = q.SearchSet(search);
+		ArrayList<String> result = q.searchSet(search);
 
 		for (String set : result)
 		{
@@ -130,7 +130,7 @@ public class QuizletTest
 					{
 						try
 						{
-							ArrayList<String> terms = q.GetSet(setEntry[0]);
+							ArrayList<String> terms = q.getSet(setEntry[0]);
 
 							System.out.println("\n'" + back + "' um zu den Suchresultaten zurückzukehren\n");
 

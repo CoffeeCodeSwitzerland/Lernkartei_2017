@@ -1,8 +1,10 @@
-package debug;
+package debugTest;
 
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
+
+import debug.Debugger;
 
 public class DebuggerTest {
 

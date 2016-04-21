@@ -1,8 +1,11 @@
-package debug;
+package debugTest;
 
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
+
+import debug.Debugger;
+import debug.Environment;
 
 public class EnvironementTest {
 

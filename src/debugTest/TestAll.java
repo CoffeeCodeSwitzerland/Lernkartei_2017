@@ -1,4 +1,4 @@
-package debug;
+package debugTest;
 
 import org.junit.Test;
 

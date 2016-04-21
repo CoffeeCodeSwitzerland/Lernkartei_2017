@@ -1,8 +1,10 @@
-package debug;
+package debugTest;
 
 import static org.junit.Assert.*;
 
 import org.junit.Test;
+
+import debug.Supervisor;
 
 public class SupervisorTest {
 

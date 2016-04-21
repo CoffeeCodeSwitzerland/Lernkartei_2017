@@ -1,8 +1,12 @@
-package debug;
+package debugTest;
 
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
+
+import debug.Debugger;
+import debug.Logger;
+import debug.MyFile;
 
 public class LoggerTest {
 

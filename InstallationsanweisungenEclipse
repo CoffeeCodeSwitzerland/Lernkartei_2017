@@ -16,11 +16,13 @@ Zu Java FX:
 
 Zu JUnit:
 ========
-- auch schon integriert
+- auch schon in Eclipse Mars und Java 1.8 integriert
 - einfach rechts-klick auf zu testende Klasse und New->New JUnit testCase
 - dann Testprozeduren wie assertEquals()-Methode hinzuprogrammieren
+- um Integrationstests oder Gesamttests (wie zum Bsp. TestAll()) durchführen zu können, sollten Testsequenzen 
+  in einer statischen Methode (siehe Bsp. myTest()) ausgelagert werden, damit man sie von TestAll() aufrufen kann.
 
-Zu GutHub:
+Zu GitHub:
 =========
 - benötigt die Installation von 2 Plug-Ins aus:
    Eclipse EGit Mylyn EGit Repository - http://download.eclipse.org/egit/updates

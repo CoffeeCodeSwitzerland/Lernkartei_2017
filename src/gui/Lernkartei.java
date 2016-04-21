@@ -6,6 +6,8 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
@@ -24,8 +26,6 @@ public class Lernkartei extends Application
 	// Alle Szenen
 	Scene		homeScene;
 	Scene		optionsScene;
-	
-	ArrayList<Scene> scenes;
 
 	// Alle verwendeten Layouts
 	BorderPane	tempBorderPane;
@@ -52,10 +52,6 @@ public class Lernkartei extends Application
 		homeScene.getStylesheets().add("style.css");
 		optionsScene.getStylesheets().add("style.css");
 
-		scenes = new ArrayList<>();
-		scenes.add(homeScene);
-		scenes.add(optionsScene);
-		
 		// Setzt erste Szene und zeigt Fenster an
 		window.setScene(homeScene);
 		window.show();
@@ -105,6 +101,7 @@ public class Lernkartei extends Application
 
 		// Verhalten der Buttons
 		menuButtons.get(2).setOnAction(e -> window.setScene(optionsScene));
+		menuButtons.get(4).setOnAction(e -> help());
 		menuButtons.get(5).setOnAction(e -> window.close());
 
 		return tempBorderPane;
@@ -149,17 +146,30 @@ public class Lernkartei extends Application
 			{
 				enableSound.setStyle("-fx-text-fill: black");
 			}
-			for (Scene scene : scenes)
-			{
-				scene.getStylesheets().add("-fx-background-color: rgb("
+			tempVBox.setStyle("-fx-background-color: rgb("
 					+ col.getValue().getRed() * 255 + ","
 					+ col.getValue().getGreen() * 255 + ","
 					+ col.getValue().getBlue() * 255 + ")");
-			}
-			
 		});
 		back.setOnAction(e -> window.setScene(homeScene));
 
 		return tempVBox;
+	}
+	
+	private void help()
+	{
+		Image helpdesk = new Image("gui/helpdesk.jpg", true);
+		
+		ImageView view = new ImageView(helpdesk);
+		
+		VBox center = new VBox();
+		center.setAlignment(Pos.CENTER);
+		center.getChildren().add(view);
+		
+		Stage helpWindow = new Stage();
+		helpWindow.setTitle("Lernkartei Hilfe [Alpha]");
+		helpWindow.setResizable(false);
+		helpWindow.setScene(new Scene(center, 800, 600));
+		helpWindow.show();
 	}
 }

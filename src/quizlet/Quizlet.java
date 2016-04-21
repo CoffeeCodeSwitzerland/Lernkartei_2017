@@ -1,4 +1,4 @@
-package Quizlet;
+package quizlet;
 
 import java.io.IOException;
 import java.net.MalformedURLException;

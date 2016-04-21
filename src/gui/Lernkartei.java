@@ -24,6 +24,8 @@ public class Lernkartei extends Application
 	// Alle Szenen
 	Scene		homeScene;
 	Scene		optionsScene;
+	
+	ArrayList<Scene> scenes;
 
 	// Alle verwendeten Layouts
 	BorderPane	tempBorderPane;
@@ -50,6 +52,10 @@ public class Lernkartei extends Application
 		homeScene.getStylesheets().add("style.css");
 		optionsScene.getStylesheets().add("style.css");
 
+		scenes = new ArrayList<>();
+		scenes.add(homeScene);
+		scenes.add(optionsScene);
+		
 		// Setzt erste Szene und zeigt Fenster an
 		window.setScene(homeScene);
 		window.show();
@@ -143,10 +149,14 @@ public class Lernkartei extends Application
 			{
 				enableSound.setStyle("-fx-text-fill: black");
 			}
-			tempVBox.setStyle("-fx-background-color: rgb("
+			for (Scene scene : scenes)
+			{
+				scene.getStylesheets().add("-fx-background-color: rgb("
 					+ col.getValue().getRed() * 255 + ","
 					+ col.getValue().getGreen() * 255 + ","
 					+ col.getValue().getBlue() * 255 + ")");
+			}
+			
 		});
 		back.setOnAction(e -> window.setScene(homeScene));
 

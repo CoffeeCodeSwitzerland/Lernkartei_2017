@@ -25,7 +25,7 @@ public class kategorienAbrufen extends JFrame implements ActionListener {
 
 		if (e.getSource() == showDatabase) {
 
-			for (String[] s : Kategorien.Kategorie.Ausgabe()) {
+			for (String[] s : Kategorie.Ausgabe()) {
 
 				for (int i = 0; i < s.length; i++) {
 					
@@ -33,7 +33,7 @@ public class kategorienAbrufen extends JFrame implements ActionListener {
 				}
 				
 				Anzeige.setSize(400, 800);
-				Anzeige.setLayout(new GridLayout(Kategorien.Kategorie.Ausgabe().size(),0));
+				Anzeige.setLayout(new GridLayout(Kategorie.Ausgabe().size(),0));
 				Anzeige.setVisible(true);
 
 			}

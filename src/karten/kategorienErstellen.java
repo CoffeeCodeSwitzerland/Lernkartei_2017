@@ -56,7 +56,7 @@ public class kategorienErstellen extends JFrame implements ActionListener {
 			// Überschrift für den Kasten einfügen und in SQL einfügen
 			// Hier in KAtegorien Tabelle einfügen SQL..
 
-			Kategorien.Kategorie.Eingabe(Eingabe);
+			Kategorie.Eingabe(Eingabe);
 
 			System.out.println(Eingabe);
 

@@ -16,7 +16,7 @@ import javafx.stage.Stage;
  * Erste Version des GUI. Noch unvollständig
  * 
  * @author miro-albrecht
- *
+ * @deprecated Wurde ersetzt durch {@link MainController} und View-Klassen
  */
 public class Lernkartei extends Application
 {
@@ -30,8 +30,8 @@ public class Lernkartei extends Application
 	// Alle verwendeten Layouts
 	BorderPane	tempBorderPane;
 	VBox		tempVBox;
-	
-	String stylePath = "gui/style.css";
+
+	String		stylePath	= "gui/style.css";
 
 	public static void main (String[] args)
 	{
@@ -153,22 +153,22 @@ public class Lernkartei extends Application
 					+ col.getValue().getGreen() * 255 + ","
 					+ col.getValue().getBlue() * 255 + ")");
 		});
-		
+
 		back.setOnAction(e -> window.setScene(homeScene));
 
 		return tempVBox;
 	}
-	
-	private void help()
+
+	private void help ()
 	{
 		Image helpdesk = new Image("gui/helpdesk.jpg", true);
-		
+
 		ImageView view = new ImageView(helpdesk);
-		
+
 		VBox center = new VBox();
 		center.setAlignment(Pos.CENTER);
 		center.getChildren().add(view);
-		
+
 		Stage helpWindow = new Stage();
 		helpWindow.setTitle("Lernkartei Hilfe [Alpha]");
 		helpWindow.setResizable(false);

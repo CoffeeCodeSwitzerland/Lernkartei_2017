@@ -65,6 +65,7 @@ public class MainView
 		layout.setCenter(menu);
 
 		// Behaviour
+		startButton.setOnAction(e -> controller.showDoors());
 		optionsButton.setOnAction(e -> controller.showOptions());
 		helpButton.setOnAction(e -> controller.showHelp());
 		quitButton.setOnAction(e -> {

@@ -3,8 +3,9 @@ package database;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import SQLite.Attributes;
-import SQLite.Table;
+
+import sqlite.Attributes;
+import sqlite.Table;
 
 public class ImpCSV {
 

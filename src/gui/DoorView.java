@@ -1,11 +1,11 @@
 package gui;
 
+import application.MainController;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import model.MainController;
 
 public class DoorView
 {

@@ -2,6 +2,7 @@ package gui;
 
 import java.util.ArrayList;
 
+import application.MainController;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -9,7 +10,6 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import model.MainController;
 
 
 /**
@@ -18,11 +18,8 @@ import model.MainController;
  * @author miro-albrecht
  *
  */
-public class MainView
+public class MainView extends SceneView
 {
-	Stage	window;
-	Scene	scene;
-
 	public MainView (Stage primaryStage, MainController controller)
 	{
 		window = primaryStage;
@@ -77,10 +74,5 @@ public class MainView
 
 		show();
 		window.show();
-	}
-
-	public void show ()
-	{
-		window.setScene(scene);
 	}
 }

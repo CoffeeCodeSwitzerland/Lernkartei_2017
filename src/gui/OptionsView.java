@@ -1,5 +1,6 @@
 package gui;
 
+import application.MainController;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -8,7 +9,6 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import model.MainController;
 
 
 /**
@@ -17,11 +17,8 @@ import model.MainController;
  * @author miro-albrecht
  *
  */
-public class OptionsView
+public class OptionsView extends SceneView
 {
-	Stage	window;
-	Scene	scene;
-
 	public OptionsView (Stage primaryStage, MainController controller)
 	{
 		window = primaryStage;
@@ -68,10 +65,5 @@ public class OptionsView
 		back.setOnAction(e -> controller.showMain());
 
 		scene = new Scene(tempVBox, 800, 450);
-	}
-
-	public void show ()
-	{
-		window.setScene(scene);
 	}
 }

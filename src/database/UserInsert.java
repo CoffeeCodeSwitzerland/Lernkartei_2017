@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
+import sqlite.Table;
+
 public class UserInsert {
 
 	public final ArrayList<String> values = new ArrayList<String>();
@@ -12,7 +14,7 @@ public class UserInsert {
 	private String attributes = "";
 	private String insertValues = "";
 
-	public UserInsert(UserTable table_name) {
+	public UserInsert(Table table_name) {
 
 		if (table_name != null) {
 
@@ -27,7 +29,7 @@ public class UserInsert {
 
 	}
 
-	public void pushToDB(UserTable table_name) {
+	public void pushToDB(Table table_name) {
 
 		if (table_name != null) {
 
@@ -101,7 +103,7 @@ public class UserInsert {
 		}
 	}
 
-	public void delValues(UserTable table_name) {
+	public void delValues(Table table_name) {
 
 		if (table_name != null) {
 
@@ -126,7 +128,7 @@ public class UserInsert {
 		}
 	}
 
-	public void pullFromDB(UserTable table_name) {
+	public void pullFromDB(Table table_name) {
 
 		if (table_name != null) {
 
@@ -168,21 +170,21 @@ public class UserInsert {
 										
 										System.out.println("\nFREMDSCHLÜSSELVERWEIS AUF: " + splited[1] + "\n");
 										
-										for (int o = 0; o < UserTable.Tables.size(); o++) {
+										for (int o = 0; o < Table.Tables.size(); o++) {
 											
-											if (UserTable.Tables.get(o).getName().toUpperCase().equals(splited[1].toUpperCase())) {
+											if (Table.Tables.get(o).getName().toUpperCase().equals(splited[1].toUpperCase())) {
 												
-												for (int i = 0; i < UserTable.Tables.get(o).Attrs.size(); i++) {
+												for (int i = 0; i < Table.Tables.get(o).Attrs.size(); i++) {
 													
-													if (UserTable.Tables.get(o).Attrs.get(i).getDatatype().equals("INTEGER")) {
+													if (Table.Tables.get(o).Attrs.get(i).getDatatype().equals("INTEGER")) {
 														
-														Integer print = sct.getInt(UserTable.Tables.get(o).Attrs.get(i).getName());
-														System.out.println(UserTable.Tables.get(o).Attrs.get(i).getName() + " = " + print.toString());
+														Integer print = sct.getInt(Table.Tables.get(o).Attrs.get(i).getName());
+														System.out.println(Table.Tables.get(o).Attrs.get(i).getName() + " = " + print.toString());
 														
 													} else {
 													
-														String print2 = sct.getString(UserTable.Tables.get(o).Attrs.get(i).getName());
-														System.out.println(UserTable.Tables.get(o).Attrs.get(i).getName() + " = " + print2);
+														String print2 = sct.getString(Table.Tables.get(o).Attrs.get(i).getName());
+														System.out.println(Table.Tables.get(o).Attrs.get(i).getName() + " = " + print2);
 														
 													}
 													

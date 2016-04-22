@@ -5,27 +5,37 @@ import gui.MainView;
 import gui.OptionsView;
 import javafx.stage.Stage;
 
+
 public class MainController
 {
-	MainView main;
-	HelpView help;
-	OptionsView options;
-	
+	// Alle Views
+	MainView	main;
+	HelpView	help;
+	OptionsView	options;
+
 	public MainController (Stage primaryStage)
 	{
+		primaryStage.setTitle("WISS Learn Cards [Alpha]");
+
 		main = new MainView(primaryStage, this);
-		help = new HelpView();
 		options = new OptionsView(primaryStage, this);
-	}
-	
-	public void setMainView()
-	{
-		main.setMainScene();
-	}
-	
-	public void setOptionsView()
-	{
-		options.setOptionsScene();
+		help = new HelpView();
 	}
 
+	public void showMain ()
+	{
+		main.show();
+	}
+
+	public void showOptions ()
+	{
+		options.show();
+	}
+
+	public void showHelp ()
+	{
+		help.show();
+	}
+
+	// TODO quit method
 }

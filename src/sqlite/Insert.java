@@ -1,4 +1,4 @@
-package SQLite;
+package sqlite;
 import java.sql.*;
 import java.util.ArrayList;
 

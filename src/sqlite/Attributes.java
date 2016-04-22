@@ -1,4 +1,4 @@
-package SQLite;
+package sqlite;
 
 public class Attributes {
 	

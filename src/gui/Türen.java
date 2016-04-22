@@ -1,4 +1,4 @@
-package gui;
+/* package gui;
 
 import javafx.application.Application;
 import javafx.geometry.Insets;
@@ -9,7 +9,7 @@ import javafx.stage.Stage;
 
 public class Türen extends Application{
 	
-	Stage window;
+	//Stage window;
 	Scene doorScene;
 	Button zurückButton;
 
@@ -20,8 +20,8 @@ public class Türen extends Application{
 	public void start(Stage primaryStage) throws Exception {
 	
 	//Fenster
-	window = primaryStage;
-	window.setTitle("Türen/Themen");
+	//window = primaryStage;
+	//window.setTitle("Türen/Themen");
 	
 	//Buttons
 	zurückButton = new Button("zurück");
@@ -41,3 +41,4 @@ public class Türen extends Application{
 	}
 	
 }
+*/

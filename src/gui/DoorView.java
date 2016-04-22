@@ -2,6 +2,7 @@ package gui;
 
 import application.MainController;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
@@ -31,9 +32,9 @@ public class DoorView
 		weitereTueren = new Button("weitere Türen");
 		
 		// Box und Pane erstellen
-		HBox hBox = new HBox();
+		HBox hBox = new HBox(20);
 		borderPane = new BorderPane();
-		
+		hBox.setAlignment(Pos.CENTER);
 		//Alle Buttons in die HBox
 		hBox.getChildren().addAll(zurueckButton, neueTuer, loescheTuer, weitereTueren);
 		
@@ -46,7 +47,7 @@ public class DoorView
 		loescheTuer.setMinWidth(150);
 		weitereTueren.setMinWidth(150);
 		
-		
+		borderPane.setPadding(new Insets(15));
 		zurueckButton.setOnAction(e -> controller.showMain());
 		
 		scene = new Scene(borderPane, 800, 450);

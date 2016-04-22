@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="10" height="5" tilewidth="30" tileheight="30">
+ <tileset firstgid="1" name="ClearBricks" tilewidth="30" tileheight="30">
+  <image source="../../Tiles/Dev/Template30x30.png" width="480" height="30"/>
+ </tileset>
+ <tileset firstgid="17" name="RedBricks" tilewidth="30" tileheight="30">
+  <image source="../../Tiles/Dev/Template30x30_red.png" width="480" height="30"/>
+ </tileset>
+ <layer name="BackGround1" width="10" height="5">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,
+0,0,0,23,19,29,0,0,0,0,
+0,0,0,22,0,22,0,0,0,0,
+0,0,0,22,0,18,0,0,0,0,
+0,0,0,18,0,0,0,0,0,0
+</data>
+ </layer>
+ <layer name="Foreground" width="10" height="5">
+  <data encoding="csv">
+0,6,0,0,0,0,0,0,0,0,
+0,6,0,0,0,0,5,0,0,0,
+0,2,0,0,0,0,2,0,0,0,
+0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+</map>

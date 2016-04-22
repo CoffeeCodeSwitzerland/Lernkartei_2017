@@ -1,6 +1,6 @@
-package datenbank;
+package database;
 
-import Quizlet.*;
+import quizlet.*;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
@@ -38,7 +38,7 @@ public class ImpExpQuizletTest {
 		
 		System.out.println("Geben sie einen Suchbegriff ein:");
 		String search = scan.nextLine();
-		ArrayList<String> result = q.SearchSet(search);
+		ArrayList<String> result = q.searchSet(search);
 
 		for (String s : result) {
 			System.out.println(s);
@@ -55,7 +55,7 @@ public class ImpExpQuizletTest {
 
 			set = result.get(setNr).split(q.separator);
 
-			terms = q.GetSet(set[0]);
+			terms = q.getSet(set[0]);
 
 			for (String s : terms) {
 				System.out.println(s);

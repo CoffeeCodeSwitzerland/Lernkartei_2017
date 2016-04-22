@@ -90,11 +90,11 @@ public class QuizletTest
 		System.out.println("\n");
 
 		// ... und sucht danach
-		ArrayList<String> result = q.SearchSet(search);
+		ArrayList<String> result = q.searchSet(search);
 
 		for (String set : result)
 		{
-			String[] setEntry = set.split(quizlet.separator);
+			String[] setEntry = set.split(q.separator);
 
 			// Gibt Infos zur Suche aus
 			if (result.indexOf(set) == 0)
@@ -130,14 +130,14 @@ public class QuizletTest
 					{
 						try
 						{
-							ArrayList<String> terms = q.GetSet(setEntry[0]);
+							ArrayList<String> terms = q.getSet(setEntry[0]);
 
 							System.out.println("\n'" + back + "' um zu den Suchresultaten zurückzukehren\n");
 
 							// Gibt ganzes Set aus
 							for (String term : terms)
 							{
-								String[] tArray = term.split(quizlet.separator);
+								String[] tArray = term.split(q.separator);
 								System.out.println(tArray[1] + "\n" + tArray[2]);
 								if (scan.nextLine().equals(back))
 								{

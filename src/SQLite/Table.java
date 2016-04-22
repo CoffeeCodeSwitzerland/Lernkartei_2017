@@ -1,8 +1,8 @@
-package database;
+package SQLite;
 import java.sql.*;
 import java.util.ArrayList;
 
-public class ImpTable {
+public class Table {
 
 	// Variabeldeklaration
 
@@ -11,8 +11,8 @@ public class ImpTable {
 	// Changeable Database Name --> DB_Name
 
 	private String DB_Name = "test.db";
-	public ArrayList<ImpAttributes> Attrs = new ArrayList<ImpAttributes>();
-	public static ArrayList<ImpTable> Tables = new ArrayList<ImpTable>();
+	public ArrayList<Attributes> Attrs = new ArrayList<Attributes>();
+	public static ArrayList<Table> Tables = new ArrayList<Table>();
 	private Connection c = null;
 	private Statement stmt = null;
 	private String sql = "";
@@ -21,7 +21,7 @@ public class ImpTable {
 
 	// Konstruktor, welche den Namen gibt und die Datenbank erstellt
 
-	public ImpTable(String Table_name) {
+	public Table(String Table_name) {
 
 		Tbl_Name = Table_name;
 		
@@ -39,7 +39,7 @@ public class ImpTable {
 
 	// Methode, welche Attribute der Liste Attrs hinzufügt
 
-	public void addAttrs(ImpAttributes attr) {
+	public void addAttrs(Attributes attr) {
 
 		Attrs.add(attr);
 

@@ -34,8 +34,7 @@ public class SupervisorTest {
 
 	@Test
 	public void test() {
-		SupervisorTest.myTest();
-		//fail("Not yet implemented");
+		myTest();
 	}
 
 }

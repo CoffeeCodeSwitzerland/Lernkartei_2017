@@ -1,26 +1,33 @@
-package database;
+package SQLite;
 import java.sql.*;
 import java.util.ArrayList;
 
-public class ImpInsert {
+import javax.swing.JOptionPane;
 
-	public ArrayList<String> values = null;
+public class Insert {
+
+	public final ArrayList<String> values = new ArrayList<String>();
 	private Connection c = null;
 	private Statement stmt = null;
 	private String attributes = "";
 	private String insertValues = "";
 
-	public ImpInsert(ImpTable table_name, ArrayList<String> insValues) {
+	public Insert(Table table_name) {
 
 		if (table_name != null) {
 
-			values = insValues;
+			for (int i = 0; i < table_name.Attrs.size(); i++) {
+
+				values.add(JOptionPane.showInputDialog("Enter a value for: " + table_name.Attrs.get(i).getName()
+						+ "\nFollowing Datatype: " + table_name.Attrs.get(i).getDatatype()));
+
+			}
 
 		}
 
 	}
 
-	public void pushToDB(ImpTable table_name) {
+	public void pushToDB(Table table_name) {
 
 		if (table_name != null) {
 
@@ -94,7 +101,7 @@ public class ImpInsert {
 		}
 	}
 
-	public void delValues(ImpTable table_name) {
+	public void delValues(Table table_name) {
 
 		if (table_name != null) {
 
@@ -119,7 +126,7 @@ public class ImpInsert {
 		}
 	}
 
-	public void pullFromDB(ImpTable table_name) {
+	public void pullFromDB(Table table_name) {
 
 		if (table_name != null) {
 
@@ -161,21 +168,21 @@ public class ImpInsert {
 										
 										System.out.println("\nFREMDSCHLÜSSELVERWEIS AUF: " + splited[1] + "\n");
 										
-										for (int o = 0; o < ImpTable.Tables.size(); o++) {
+										for (int o = 0; o < Table.Tables.size(); o++) {
 											
-											if (ImpTable.Tables.get(o).getName().toUpperCase().equals(splited[1].toUpperCase())) {
+											if (Table.Tables.get(o).getName().toUpperCase().equals(splited[1].toUpperCase())) {
 												
-												for (int i = 0; i < ImpTable.Tables.get(o).Attrs.size(); i++) {
+												for (int i = 0; i < Table.Tables.get(o).Attrs.size(); i++) {
 													
-													if (ImpTable.Tables.get(o).Attrs.get(i).getDatatype().equals("INTEGER")) {
+													if (Table.Tables.get(o).Attrs.get(i).getDatatype().equals("INTEGER")) {
 														
-														Integer print = sct.getInt(ImpTable.Tables.get(o).Attrs.get(i).getName());
-														System.out.println(ImpTable.Tables.get(o).Attrs.get(i).getName() + " = " + print.toString());
+														Integer print = sct.getInt(Table.Tables.get(o).Attrs.get(i).getName());
+														System.out.println(Table.Tables.get(o).Attrs.get(i).getName() + " = " + print.toString());
 														
 													} else {
 													
-														String print2 = sct.getString(ImpTable.Tables.get(o).Attrs.get(i).getName());
-														System.out.println(ImpTable.Tables.get(o).Attrs.get(i).getName() + " = " + print2);
+														String print2 = sct.getString(Table.Tables.get(o).Attrs.get(i).getName());
+														System.out.println(Table.Tables.get(o).Attrs.get(i).getName() + " = " + print2);
 														
 													}
 													

@@ -1,4 +1,4 @@
-package datenbank;
+package database;
 
 import java.sql.*;
 import java.util.ArrayList;

@@ -1,12 +1,12 @@
-package database;
+package SQLite;
 
-public class UserAttributes {
+public class Attributes {
 	
 	private String Name;
 	private String Datatype;
 	private Boolean NotNull;
 	
-	public UserAttributes (String name, String datatype, boolean notNull) {
+	public Attributes (String name, String datatype, boolean notNull) {
 		
 		Name = name;
 		Datatype = datatype;

@@ -6,41 +6,64 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
 
+/**
+ * Erste Version des GUI. Noch unvollständig
+ * 
+ * @author miro-albrecht
+ *
+ */
 public class Lernkartei extends Application
 {
+	// Das Fenster
 	Stage		window;
 
+	// Alle Szenen
 	Scene		homeScene;
 	Scene		optionsScene;
 
-	BorderPane	tempBoerderPane;
+	// Alle verwendeten Layouts
+	BorderPane	tempBorderPane;
 	VBox		tempVBox;
+	
+	String stylePath = "gui/style.css";
 
 	public static void main (String[] args)
 	{
+		// Startet JavaFX und ruft start() auf
 		launch(args);
 	}
 
 	@Override
 	public void start (Stage primaryStage) throws Exception
 	{
+		// Fenster und Titel werden gesetzt
 		window = primaryStage;
 		window.setTitle("Lernkartei [Alpha]");
 
+		// Erstellt alle Szenen
 		homeScene = new Scene(home(), 800, 450);
 		optionsScene = new Scene(options(), 800, 450);
 
-		homeScene.getStylesheets().add("style.css");
-		optionsScene.getStylesheets().add("style.css");
+		// Setzt CSS für die Szenen
+		homeScene.getStylesheets().add(stylePath);
+		optionsScene.getStylesheets().add(stylePath);
 
+		// Setzt erste Szene und zeigt Fenster an
 		window.setScene(homeScene);
 		window.show();
 	}
 
+	/**
+	 * Methode für den Startbildschirm der Lernkartei
+	 * 
+	 * @return BorderPane für die Erstellung der Szene
+	 */
 	private BorderPane home ()
 	{
 		// Buttons
@@ -60,7 +83,8 @@ public class Lernkartei extends Application
 		menuButtons.add(helpButton);
 		menuButtons.add(quitButton);
 
-		// Set max width
+		// Setzt maximale Breite aller Button, damit sie alle gleich gross
+		// dargestellt werden
 		for (Button b : menuButtons)
 		{
 			b.setMaxWidth(200);
@@ -71,39 +95,50 @@ public class Lernkartei extends Application
 		menu.setPadding(new Insets(10));
 		menu.setSpacing(10);
 		menu.setAlignment(Pos.CENTER);
+		// Fügt Buttons hinzu
 		menu.getChildren().addAll(menuButtons);
 
-		tempBoerderPane = new BorderPane();
-		tempBoerderPane.setCenter(menu);
+		tempBorderPane = new BorderPane();
+		tempBorderPane.setCenter(menu);
 
-		// Behaviour
+		// Verhalten der Buttons
 		menuButtons.get(2).setOnAction(e -> window.setScene(optionsScene));
+		menuButtons.get(4).setOnAction(e -> help());
 		menuButtons.get(5).setOnAction(e -> window.close());
 
-		return tempBoerderPane;
+		return tempBorderPane;
 	}
 
+	/**
+	 * Funktion für die Optionen
+	 * 
+	 * @return VBox für die Erstellung der Szene
+	 */
 	private VBox options ()
 	{
+		// Contorls
 		Button resetStats = new Button("Statistiken zurücksetzten");
 		CheckBox enableSound = new CheckBox("Audio");
 		ColorPicker col = new ColorPicker();
 		Button applyColor = new Button("Farbe speichern");
 
+		// Setzt maximale Breite
 		Button back = new Button("Zurück");
-
 		resetStats.setMaxWidth(200);
 		enableSound.setMaxWidth(200);
 		col.setMaxWidth(200);
 		applyColor.setMaxWidth(200);
 		back.setMaxWidth(200);
 
+		// Erstellt Layout
 		tempVBox = new VBox();
 		tempVBox.setPadding(new Insets(10));
 		tempVBox.setSpacing(10);
 		tempVBox.setAlignment(Pos.CENTER);
 		tempVBox.getChildren().addAll(resetStats, enableSound, col, applyColor, back);
 
+		// Setzt Verhalten
+		// TODO Design 100% auslagern
 		applyColor.setOnAction(e -> {
 			if (col.getValue().getBrightness() < 0.6)
 			{
@@ -121,5 +156,22 @@ public class Lernkartei extends Application
 		back.setOnAction(e -> window.setScene(homeScene));
 
 		return tempVBox;
+	}
+	
+	private void help()
+	{
+		Image helpdesk = new Image("gui/helpdesk.jpg", true);
+		
+		ImageView view = new ImageView(helpdesk);
+		
+		VBox center = new VBox();
+		center.setAlignment(Pos.CENTER);
+		center.getChildren().add(view);
+		
+		Stage helpWindow = new Stage();
+		helpWindow.setTitle("Lernkartei Hilfe [Alpha]");
+		helpWindow.setResizable(false);
+		helpWindow.setScene(new Scene(center, 800, 600));
+		helpWindow.show();
 	}
 }

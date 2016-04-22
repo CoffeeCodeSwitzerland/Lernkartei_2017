@@ -18,17 +18,24 @@ public class Türen extends Application{
 	}
 
 	public void start(Stage primaryStage) throws Exception {
+	
+	//Fenster
 	window = primaryStage;
 	window.setTitle("Türen/Themen");
-
+	
+	//Buttons
 	zurückButton = new Button("zurück");
 	
+	//Layouts
 	VBox layout = new VBox(10);
 	layout.setPadding(new Insets(10));
 	layout.getChildren().addAll(zurückButton);
 	
+	//Erstelle Scene
 	Scene doorScene = new Scene(layout, 800, 450);
 	window.setScene(doorScene);
+	
+	//Zeige Fenster
 	window.show();
 		
 	}

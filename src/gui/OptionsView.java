@@ -17,10 +17,11 @@ import javafx.stage.Stage;
  * @author miro-albrecht
  *
  */
-public class OptionsView extends SceneView
+public class OptionsView extends View
 {
 	public OptionsView (Stage primaryStage, MainController controller)
 	{
+		name = "optionsview";
 		window = primaryStage;
 
 		// Contorls (Sample)
@@ -62,7 +63,7 @@ public class OptionsView extends SceneView
 		});
 
 		// Behaviour
-		back.setOnAction(e -> controller.showMain());
+		back.setOnAction(e -> controller.show("mainview"));
 
 		scene = new Scene(tempVBox, 800, 450);
 	}

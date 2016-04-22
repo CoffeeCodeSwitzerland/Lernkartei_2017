@@ -1,48 +1,37 @@
 package application;
 
-import gui.HelpView;
-import gui.MainView;
-import gui.OptionsView;
-import gui.DoorView;
+import gui.*;
+
+import java.util.ArrayList;
+
 import javafx.stage.Stage;
 
 
 public class MainController
 {
-	// Alle Views
-	MainView	main;
-	DoorView doors;
-	HelpView	help;
-	OptionsView	options;
+	ArrayList<View>	views	= new ArrayList<>();
 
 	public MainController (Stage primaryStage)
 	{
 		primaryStage.setTitle("WISS Learn Cards [Alpha]");
 
-		main = new MainView(primaryStage, this);
-		doors = new DoorView(primaryStage, this);
-		options = new OptionsView(primaryStage, this);
-		help = new HelpView();
+		views.add(new MainView(primaryStage, this));
+		views.add(new StatisticsView(primaryStage, this));
+		views.add(new DoorView(primaryStage, this));
+		views.add(new OptionsView(primaryStage, this));
+		views.add(new HelpView());
 	}
 
-	public void showMain()
+	public void show (String name)
 	{
-		main.show();
-	}
-	
-	public void showDoors()
-	{
-		doors.show();
-	}
-
-	public void showOptions ()
-	{
-		options.show();
-	}
-
-	public void showHelp ()
-	{
-		help.show();
+		for (View v : views)
+		{
+			if (v.getName().equals(name))
+			{
+				v.show();
+				return;
+			}
+		}
 	}
 
 	// TODO quit method

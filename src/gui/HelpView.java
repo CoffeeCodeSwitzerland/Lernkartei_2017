@@ -14,12 +14,14 @@ import javafx.stage.Stage;
  * @author miro-albrecht
  *
  */
-public class HelpView
+public class HelpView extends View
 {
-	Stage helpWindow = new Stage();
 
 	public HelpView ()
 	{
+		name = "helpview";
+		window = new Stage();
+		
 		Image helpdesk = new Image("gui/helpdesk.jpg", true);
 
 		ImageView view = new ImageView(helpdesk);
@@ -28,13 +30,16 @@ public class HelpView
 		center.setAlignment(Pos.CENTER);
 		center.getChildren().add(view);
 
-		helpWindow.setTitle("Lernkartei Hilfe [Alpha]");
-		helpWindow.setResizable(false);
-		helpWindow.setScene(new Scene(center, 800, 600));
+		window.setTitle("Lernkartei Hilfe [Alpha]");
+		window.setResizable(false);
+		scene = new Scene(center, 800, 600);
+		window.setScene(scene);
 	}
-
-	public void show ()
+	
+	@Override
+	public void show()
 	{
-		helpWindow.show();
+		window.show();
 	}
+	
 }

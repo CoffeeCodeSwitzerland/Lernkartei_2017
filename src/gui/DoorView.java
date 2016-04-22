@@ -7,16 +7,16 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class DoorView
+public class DoorView extends View
 {
 	Stage	window;
 	Scene	scene;
 
 	public DoorView (Stage primaryStage, MainController controller)
 	{
+		name = "doorview";
 		window = primaryStage;
 		BorderPane borderPane;
 		Button zurueckButton;
@@ -48,7 +48,7 @@ public class DoorView
 		weitereTueren.setMinWidth(150);
 		
 		borderPane.setPadding(new Insets(15));
-		zurueckButton.setOnAction(e -> controller.showMain());
+		zurueckButton.setOnAction(e -> controller.show("mainview"));
 		
 		scene = new Scene(borderPane, 800, 450);
 	}

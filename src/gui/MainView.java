@@ -18,10 +18,11 @@ import javafx.stage.Stage;
  * @author miro-albrecht
  *
  */
-public class MainView extends SceneView
+public class MainView extends View
 {
 	public MainView (Stage primaryStage, MainController controller)
 	{
+		name = "mainview";
 		window = primaryStage;
 
 		// Buttons
@@ -62,9 +63,13 @@ public class MainView extends SceneView
 		layout.setCenter(menu);
 
 		// Behaviour
-		startButton.setOnAction(e -> controller.showDoors());
-		optionsButton.setOnAction(e -> controller.showOptions());
-		helpButton.setOnAction(e -> controller.showHelp());
+		startButton.setOnAction(e -> controller.show("doorview"));
+		statButton.setOnAction(e -> controller.show("statisticsview"));
+		optionsButton.setOnAction(e -> controller.show("optionsview"));
+		gameButton.setOnAction(e -> {
+			scrollyv8.ScrollyV8.main(null);
+		});
+		helpButton.setOnAction(e -> controller.show("helpview"));
 		quitButton.setOnAction(e -> {
 			// TODO controller close
 			window.close();

@@ -17,11 +17,8 @@ import model.MainController;
  * @author miro-albrecht
  *
  */
-public class OptionsView
+public class OptionsView extends SceneView
 {
-	Stage	window;
-	Scene	scene;
-
 	public OptionsView (Stage primaryStage, MainController controller)
 	{
 		window = primaryStage;
@@ -68,10 +65,5 @@ public class OptionsView
 		back.setOnAction(e -> controller.showMain());
 
 		scene = new Scene(tempVBox, 800, 450);
-	}
-
-	public void show ()
-	{
-		window.setScene(scene);
 	}
 }

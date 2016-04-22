@@ -18,11 +18,8 @@ import model.MainController;
  * @author miro-albrecht
  *
  */
-public class MainView
+public class MainView extends SceneView
 {
-	Stage	window;
-	Scene	scene;
-
 	public MainView (Stage primaryStage, MainController controller)
 	{
 		window = primaryStage;
@@ -77,10 +74,5 @@ public class MainView
 
 		show();
 		window.show();
-	}
-
-	public void show ()
-	{
-		window.setScene(scene);
 	}
 }

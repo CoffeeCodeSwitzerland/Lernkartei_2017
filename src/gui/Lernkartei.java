@@ -153,6 +153,7 @@ public class Lernkartei extends Application
 					+ col.getValue().getGreen() * 255 + ","
 					+ col.getValue().getBlue() * 255 + ")");
 		});
+		
 		back.setOnAction(e -> window.setScene(homeScene));
 
 		return tempVBox;

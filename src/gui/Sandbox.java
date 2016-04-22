@@ -15,7 +15,7 @@ import javafx.stage.Stage;
  * gedacht!
  * 
  * @author miro-albrecht
- *
+ * @deprecated Nicht zur Verwendung gedacht
  */
 public class Sandbox extends Application
 {

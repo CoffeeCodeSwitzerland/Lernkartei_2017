@@ -3,29 +3,47 @@ package model;
 import gui.HelpView;
 import gui.MainView;
 import gui.OptionsView;
+import gui.DoorView;
 import javafx.stage.Stage;
+
 
 public class MainController
 {
-	MainView main;
-	HelpView help;
-	OptionsView options;
-	
+	// Alle Views
+	MainView	main;
+	DoorView doors;
+	HelpView	help;
+	OptionsView	options;
+
 	public MainController (Stage primaryStage)
 	{
+		primaryStage.setTitle("WISS Learn Cards [Alpha]");
+
 		main = new MainView(primaryStage, this);
-		help = new HelpView();
+		doors = new DoorView(primaryStage, this);
 		options = new OptionsView(primaryStage, this);
-	}
-	
-	public void setMainView()
-	{
-		main.setMainScene();
-	}
-	
-	public void setOptionsView()
-	{
-		options.setOptionsScene();
+		help = new HelpView();
 	}
 
+	public void showMain()
+	{
+		main.show();
+	}
+	
+	public void showDoors()
+	{
+		doors.show();
+	}
+
+	public void showOptions ()
+	{
+		options.show();
+	}
+
+	public void showHelp ()
+	{
+		help.show();
+	}
+
+	// TODO quit method
 }

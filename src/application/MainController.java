@@ -1,4 +1,4 @@
-package model;
+package application;
 
 import gui.HelpView;
 import gui.MainView;

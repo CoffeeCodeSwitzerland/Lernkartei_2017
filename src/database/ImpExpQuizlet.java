@@ -1,9 +1,17 @@
 package database;
 import java.sql.*;
 import java.util.ArrayList;
+
+import sqlite.Table;
 public class ImpExpQuizlet {
 	
-	// Private Variables
+	// Name der Datenbank
+	String DB_Name = "test";
+		
+	// Name des Treibers
+	String driver = "org.sqlite.JDBC";
+	
+	// Private Variabeln
 	
 	private Connection c = null;
 	private Statement stmt = null;
@@ -13,9 +21,15 @@ public class ImpExpQuizlet {
 	private String infos = "";
 	private ArrayList<String> exportTerms = new ArrayList<String>();
 	
-	// Methode, welche Quizlet Array importiert
+	/**
+	 * Methode, welche Quizlet Daten in die Tabelle schreibt
+	 *  
+	 * @param newTable --> Tabelle, in welche Quizlet importiert werden soll
+	 * @param terms --> ArrayListe mit String (QuizletID:::Vorderseite:::Rückseite)
+	 *
+	 */
 	
-	public void ImportQuizlet(ImpTable newTable, ArrayList<String> terms) {
+	public void ImportQuizlet(Table newTable, ArrayList<String> terms) {
 		
 		// Abfrage ob Bilder enthalten sind
 		
@@ -32,8 +46,8 @@ public class ImpExpQuizlet {
 			// Einfügen in Tabelle Quizlet mit INSERT
 			
 			try {
-				Class.forName("org.sqlite.JDBC");
-				c = DriverManager.getConnection("jdbc:sqlite:test.db");
+				Class.forName(driver);
+				c = DriverManager.getConnection("jdbc:sqlite:" + DB_Name + ".db");
 				c.setAutoCommit(false);
 				stmt = c.createStatement();
 				
@@ -44,7 +58,7 @@ public class ImpExpQuizlet {
 				{
 					values = "";
 
-					for (int i = 0; i < 3; i++) {
+					for (int i = 0; i < terms.size(); i++) {
 
 						values += "'" + terms.get(j).split(":::")[i] + "'";
 
@@ -78,15 +92,23 @@ public class ImpExpQuizlet {
 		
 	}
 	
+	/**
+	 * Exportiert Tabelleninhalten im selben Format wie QuizletImport
+	 *  	
+	 * @param table --> Tabelle welche exportiert werden soll
+	 * @return --> retourniert eine ArrayList mit Separator exportSeparator
+	 * 
+	 */
+	
 	// Methode, welche Tabelle für Quizlet exportiert
 	
-	public ArrayList<String> ExportQuizlet(ImpTable table) {
+	public ArrayList<String> ExportQuizlet(Table table) {
 		
 		Connection c = null;
 	    Statement stmt = null;
 	    try {
-	      Class.forName("org.sqlite.JDBC");
-	      c = DriverManager.getConnection("jdbc:sqlite:test.db");
+	      Class.forName(driver);
+	      c = DriverManager.getConnection("jdbc:sqlite:" + DB_Name + ".db");
 	      c.setAutoCommit(false); 
 
 	      stmt = c.createStatement();

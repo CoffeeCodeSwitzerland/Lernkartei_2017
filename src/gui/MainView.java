@@ -2,6 +2,7 @@ package gui;
 
 import java.util.ArrayList;
 
+import application.MainController;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -9,7 +10,6 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import model.MainController;
 
 
 /**
@@ -18,13 +18,11 @@ import model.MainController;
  * @author miro-albrecht
  *
  */
-public class MainView
+public class MainView extends View
 {
-	Stage	window;
-	Scene	scene;
-
 	public MainView (Stage primaryStage, MainController controller)
 	{
+		name = "mainview";
 		window = primaryStage;
 
 		// Buttons
@@ -65,9 +63,13 @@ public class MainView
 		layout.setCenter(menu);
 
 		// Behaviour
-		startButton.setOnAction(e -> controller.showDoors());
-		optionsButton.setOnAction(e -> controller.showOptions());
-		helpButton.setOnAction(e -> controller.showHelp());
+		startButton.setOnAction(e -> controller.show("doorview"));
+		statButton.setOnAction(e -> controller.show("statisticsview"));
+		optionsButton.setOnAction(e -> controller.show("optionsview"));
+		gameButton.setOnAction(e -> {
+			scrollyv8.ScrollyV8.main(null);
+		});
+		helpButton.setOnAction(e -> controller.show("helpview"));
 		quitButton.setOnAction(e -> {
 			// TODO controller close
 			window.close();
@@ -77,10 +79,5 @@ public class MainView
 
 		show();
 		window.show();
-	}
-
-	public void show ()
-	{
-		window.setScene(scene);
 	}
 }

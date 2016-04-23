@@ -1,6 +1,8 @@
 package database;
-
 import quizlet.*;
+import sqlite.Attributes;
+import sqlite.Table;
+
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
@@ -8,6 +10,10 @@ import java.util.Scanner;
 
 
 public class ImpExpQuizletTest {
+	
+	// ---------
+	// Test Main
+	// ---------
 	
 	// Statische Variabeln
 	
@@ -24,10 +30,10 @@ public class ImpExpQuizletTest {
 
 		// Tabelle erstellen
 
-		ImpTable newTable = new ImpTable("Quizlet");
-		ImpAttributes attr = new ImpAttributes("QuizletID", "INTEGER", false);
-		ImpAttributes attr2 = new ImpAttributes("Term", "TEXT", false);
-		ImpAttributes attr3 = new ImpAttributes("Definition", "TEXT", false);
+		Table newTable = new Table("Quizlet");
+		Attributes attr = new Attributes("QuizletID", "INTEGER", false);
+		Attributes attr2 = new Attributes("Term", "TEXT", false);
+		Attributes attr3 = new Attributes("Definition", "TEXT", false);
 		newTable.addAttrs(attr);
 		newTable.addAttrs(attr2);
 		newTable.addAttrs(attr3);

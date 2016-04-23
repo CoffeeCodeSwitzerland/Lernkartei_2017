@@ -6,6 +6,9 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import sqlite.Attributes;
+import sqlite.Table;
+
 public class UserDatabase {
 
 	// Variabeldeklaration
@@ -13,8 +16,8 @@ public class UserDatabase {
 	private boolean teachPossible = true;
 	private boolean pwdCorr = true;
 	private boolean studPossible = true;
-	private UserTable teacher;
-	private UserTable student;
+	private Table teacher;
+	private Table student;
 	private String selTable;
 	private String selUsern;
 	private Connection c = null;
@@ -31,16 +34,16 @@ public class UserDatabase {
 
 		// Erstellen der Tabellen, Attribute (Spaltenname, Datentyp, NotNull)
 
-		UserAttributes usern = new UserAttributes("Username", "TEXT", true);
-		UserAttributes email = new UserAttributes("E-Mail", "TEXT", true);
-		UserAttributes passwd = new UserAttributes("Password", "TEXT", true);
+		Attributes usern = new Attributes("Username", "TEXT", true);
+		Attributes email = new Attributes("E-Mail", "TEXT", true);
+		Attributes passwd = new Attributes("Password", "TEXT", true);
 
-		teacher = new UserTable("Lehrer");
+		teacher = new Table("Lehrer");
 		teacher.addAttrs(usern);
 		teacher.addAttrs(email);
 		teacher.addAttrs(passwd);
 
-		student = new UserTable("Lernender");
+		student = new Table("Lernender");
 		student.addAttrs(usern);
 		student.addAttrs(email);
 		student.addAttrs(passwd);

@@ -1,38 +1,56 @@
 package gui;
 
+import application.MainController;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
-import model.MainController;
 
-public class DoorView
+public class DoorView extends View
 {
 	Stage	window;
 	Scene	scene;
 
 	public DoorView (Stage primaryStage, MainController controller)
 	{
+		name = "doorview";
 		window = primaryStage;
-
+		BorderPane borderPane;
 		Button zurueckButton;
+		Button neueTuer;
+		Button loescheTuer;
+		Button weitereTueren;
 		
-		//Fenster
-		//window = primaryStage;
-		//window.setTitle("Türen/Themen");
 		
 		//Buttons
 		zurueckButton = new Button("zurück");
+		neueTuer = new Button("Neue Tür");
+		loescheTuer = new Button("Lösche Tür");
+		weitereTueren = new Button("weitere Türen");
 		
-		//Layouts
-		VBox layout = new VBox(10);
-		layout.setPadding(new Insets(10));
-		layout.getChildren().addAll(zurueckButton);
+		// Box und Pane erstellen
+		HBox hBox = new HBox(20);
+		borderPane = new BorderPane();
+		hBox.setAlignment(Pos.CENTER);
+		//Alle Buttons in die HBox
+		hBox.getChildren().addAll(zurueckButton, neueTuer, loescheTuer, weitereTueren);
 		
-		zurueckButton.setOnAction(e -> controller.showMain());
+		//Die HBox in die Bottom BorderPane
+		borderPane.setBottom(hBox);
 		
-		scene = new Scene(layout, 800, 450);
+		
+		zurueckButton.setMinWidth(150);
+		neueTuer.setMinWidth(150);
+		loescheTuer.setMinWidth(150);
+		weitereTueren.setMinWidth(150);
+		
+		borderPane.setPadding(new Insets(15));
+		zurueckButton.setOnAction(e -> controller.show("mainview"));
+		
+		scene = new Scene(borderPane, 800, 450);
 	}
 
 	public void show ()

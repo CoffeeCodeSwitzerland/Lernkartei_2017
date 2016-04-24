@@ -13,13 +13,9 @@ public class StatisticsView extends View
 		super (setName, window);
 		
 		Button b = new Button("Back");
-		
 		BorderPane bp = new BorderPane();
-		
 		bp.setCenter(b);
-		
 		b.setOnAction(e -> controller.show("mainview"));
-		
-		scene = new Scene(bp, 800, 450);
+		this.setScene(new Scene(bp, 800, 450));
 	}
 }

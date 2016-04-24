@@ -50,13 +50,9 @@ public class DoorView extends View
 		borderPane.setPadding(new Insets(15));
 		zurueckButton.setOnAction(e -> controller.show("mainview"));
 		
-		scene = new Scene(borderPane, 800, 450);
+		this.setScene(new Scene(borderPane, 800, 450));
 	}
 
-	public void show ()
-	{
-		window.setScene(scene);
-	}
 }
 
 

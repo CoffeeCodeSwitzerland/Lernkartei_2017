@@ -1,10 +1,11 @@
 .root
 {
 	-fx-color: yellow;
+	-fx-background-image: url(cockpit_B747.jpg);
 }
 
 .check-box
 {
 	-fx-color: red;
-	-fx-text-fill: #ffffff;
+	-fx-background: blue;
 }

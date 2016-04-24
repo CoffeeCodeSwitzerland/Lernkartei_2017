@@ -29,16 +29,9 @@ public class HelpView extends View
 		center.setAlignment(Pos.CENTER);
 		center.getChildren().add(view);
 
-		window.setTitle("Lernkartei Hilfe [Alpha]");
-		window.setResizable(false);
-		scene = new Scene(center, 800, 600);
-		window.setScene(scene);
-	}
-	
-	@Override
-	public void show()
-	{
-		window.show();
+		this.getWindow().setTitle("Lernkartei Hilfe [Alpha]");
+		this.getWindow().setResizable(false);
+		this.setScene(new Scene(center, 800, 600));
 	}
 	
 }

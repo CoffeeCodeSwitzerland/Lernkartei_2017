@@ -64,6 +64,6 @@ public class OptionsView extends View
 		// Behaviour
 		back.setOnAction(e -> controller.show("mainview"));
 
-		scene = new Scene(tempVBox, 800, 450);
+		this.setScene(new Scene(tempVBox, 800, 450));
 	}
 }

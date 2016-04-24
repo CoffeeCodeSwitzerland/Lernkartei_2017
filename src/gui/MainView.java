@@ -71,12 +71,10 @@ public class MainView extends View
 		helpButton.setOnAction(e -> controller.show("helpview"));
 		quitButton.setOnAction(e -> {
 			// TODO controller close
-			window.close();
+			getWindow().close();
 		});
 
-		scene = new Scene(layout, 800, 450);
-
-		show();
-		window.show();
+		this.setScene(new Scene(layout, 800, 450));
+		this.show();
 	}
 }

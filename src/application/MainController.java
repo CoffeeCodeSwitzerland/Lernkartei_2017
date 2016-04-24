@@ -11,6 +11,7 @@ public class MainController
 {
 	private final ArrayList<View>	views	= new ArrayList<>();
 
+
 	public MainController (Stage primaryStage)
 	{
 		primaryStage.setTitle("WISS Learn Cards [Alpha]");

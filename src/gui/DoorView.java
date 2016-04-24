@@ -14,10 +14,10 @@ public class DoorView extends View
 	Stage	window;
 	Scene	scene;
 
-	public DoorView (Stage primaryStage, MainController controller)
+	public DoorView (String setName, Stage primaryStage, MainController controller)
 	{
-		name = "doorview";
-		window = primaryStage;
+		super (setName, primaryStage);
+
 		BorderPane borderPane;
 		Button zurueckButton;
 		Button neueTuer;

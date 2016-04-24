@@ -20,10 +20,9 @@ import javafx.stage.Stage;
  */
 public class MainView extends View
 {
-	public MainView (Stage primaryStage, MainController controller)
+	public MainView (String setName, Stage primaryStage, MainController controller)
 	{
-		name = "mainview";
-		window = primaryStage;
+		super (setName, primaryStage);
 
 		// Buttons
 		Button startButton = new Button("Lernen");

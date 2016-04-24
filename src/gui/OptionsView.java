@@ -19,10 +19,9 @@ import javafx.stage.Stage;
  */
 public class OptionsView extends View
 {
-	public OptionsView (Stage primaryStage, MainController controller)
+	public OptionsView (String setName, Stage primaryStage, MainController controller)
 	{
-		name = "optionsview";
-		window = primaryStage;
+		super (setName, primaryStage);
 
 		// Contorls (Sample)
 		Button resetStats = new Button("Statistiken zurücksetzten");

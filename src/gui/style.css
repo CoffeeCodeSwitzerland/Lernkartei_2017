@@ -1,9 +1,10 @@
 .root
 {
-	-fx-background-color: #383838;
+	-fx-color: yellow;
 }
 
 .check-box
 {
+	-fx-color: red;
 	-fx-text-fill: #ffffff;
 }

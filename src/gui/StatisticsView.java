@@ -8,10 +8,9 @@ import javafx.stage.Stage;
 
 public class StatisticsView extends View
 {
-	public StatisticsView(Stage window, MainController controller)
+	public StatisticsView(String setName, Stage window, MainController controller)
 	{
-		name = "statisticsview";
-		this.window = window;
+		super (setName, window);
 		
 		Button b = new Button("Back");
 		

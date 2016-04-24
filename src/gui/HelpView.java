@@ -17,10 +17,9 @@ import javafx.stage.Stage;
 public class HelpView extends View
 {
 
-	public HelpView ()
+	public HelpView (String setName)
 	{
-		name = "helpview";
-		window = new Stage();
+		super (setName, new Stage());
 		
 		Image helpdesk = new Image("gui/helpdesk.jpg", true);
 

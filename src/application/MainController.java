@@ -4,6 +4,8 @@ import gui.*;
 
 import java.util.ArrayList;
 
+import javax.swing.JFrame;
+
 import javafx.stage.Stage;
 
 
@@ -21,6 +23,7 @@ public class MainController
 		views.add(new DoorView("doorview", primaryStage, this));
 		views.add(new OptionsView("optionsview", primaryStage, this));
 		views.add(new HelpView("helpview"));
+		views.add(new GameView("gameview", primaryStage, this));
 	}
 
 	public View show (String name)

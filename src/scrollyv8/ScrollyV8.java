@@ -6,13 +6,20 @@ package scrollyv8;
  */
 
 import javax.swing.*;
+
+import debug.Debugger;
+
 import java.awt.*;
 import java.awt.event.*;
 //import java.io.File;
 
-public class ScrollyV8 extends JFrame implements KeyListener
+public class ScrollyV8 extends JFrame implements KeyListener, WindowListener
 {    
-    gamePanel gPanel = new gamePanel();
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	gamePanel gPanel = new gamePanel();
 
     public void init()
     {        
@@ -24,7 +31,7 @@ public class ScrollyV8 extends JFrame implements KeyListener
     public ScrollyV8()
     {
 //Settings for frame
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(900-30, 600-15);
         setResizable(false);
         setTitle("Funky Application Monkey's Jump 'n' Run!");
@@ -57,4 +64,49 @@ public class ScrollyV8 extends JFrame implements KeyListener
         mf.setVisible(true);
         mf.init();
     }
+
+	@Override
+	public void windowActivated(WindowEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowClosed(WindowEvent e) {
+		// TODO Auto-generated method stub
+		this.dispose();
+		Debugger.out("Game dispose...");
+	}
+
+	@Override
+	public void windowClosing(WindowEvent e) {
+		// TODO Auto-generated method stub
+		this.dispose();
+		Debugger.out("Game dispose...");
+		
+	}
+
+	@Override
+	public void windowDeactivated(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowDeiconified(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowIconified(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowOpened(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
 }

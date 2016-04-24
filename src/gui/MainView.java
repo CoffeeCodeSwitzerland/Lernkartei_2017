@@ -2,7 +2,10 @@ package gui;
 
 import java.util.ArrayList;
 
+import javax.swing.JFrame;
+
 import application.MainController;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -10,6 +13,7 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 
 /**
@@ -65,13 +69,17 @@ public class MainView extends View
 		startButton.setOnAction(e -> controller.show("doorview"));
 		statButton.setOnAction(e -> controller.show("statisticsview"));
 		optionsButton.setOnAction(e -> controller.show("optionsview"));
-		gameButton.setOnAction(e -> {
-			scrollyv8.ScrollyV8.main(null);
-		});
+		gameButton.setOnAction(e -> controller.show("gameview"));
 		helpButton.setOnAction(e -> controller.show("helpview"));
 		quitButton.setOnAction(e -> {
 			// TODO controller close
 			getWindow().close();
+		});
+		getWindow().setOnCloseRequest(new EventHandler<WindowEvent>() {
+		    @Override public void handle(WindowEvent t) {
+		        System.out.println("CLOSING");
+				getWindow().close();
+		    }
 		});
 
 		this.setScene(new Scene(layout, 800, 450));

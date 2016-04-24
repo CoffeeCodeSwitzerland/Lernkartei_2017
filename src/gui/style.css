@@ -1,7 +1,12 @@
 .root
 {
-	-fx-color: yellow;
-	-fx-background-image: url(cockpit_B747.jpg);
+	-fx-color: blue;
+	-fx-background: yellow;
+	-fx-background-image: url(hausuebersicht.gif);
+	-fx-background-repeat: stretch;   
+    -fx-background-size: 800 600;
+    -fx-background-position: center center;
+    -fx-effect: dropshadow(three-pass-box, black, 30, 0.5, 0, 0);
 }
 
 .check-box

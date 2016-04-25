@@ -20,8 +20,8 @@ public final class Logger {
 	private final static ArrayList<String> logData = new ArrayList<String>(); // faster
 	private final static MyFile myLogfile = new MyFile("logfile.txt"); // slower
 
-	private static boolean ramLoggingActive = true;
-	private static boolean fileLoggingActive = false;
+	private static boolean ramLoggingActive = false;
+	private static boolean fileLoggingActive = true;
 
 	public static void log(String logLine) {
 		if (logLine == null)

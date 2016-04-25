@@ -11,6 +11,7 @@ import debug.MyFile;
 public class LoggerTest {
 
 	public static void myTest() {
+		Logger.log("Testfehler 0");
 		Logger.setFileLoggingActive(true);
 		assertEquals(true, Logger.isFileLoggingActive());
 		Logger.setFileLoggingActive(false);

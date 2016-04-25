@@ -24,6 +24,14 @@ public class Supervisor {
 		}
 	}
 
+	public static void errorAndDebug(Object callingObject, String myError) {
+		warn (callingObject, myError);
+		if (callingObject == null)
+			Debugger.out(">>>ERROR: "+myError+" at ???");
+		else
+			Debugger.out(">>>ERROR: "+myError+" at "+ callingObject.toString());
+	}
+
 	public static void warn(Object callingObject, String myWarning) {
 		if (supervisorShowState < 1) {
 			Logger.log("Warning", callingObject, myWarning);
@@ -31,6 +39,14 @@ public class Supervisor {
 				System.exit(1);
 			}
 		}
+	}
+
+	public static void warnAndDebug(Object callingObject, String myWarning) {
+		warn (callingObject, myWarning);
+		if (callingObject == null)
+			Debugger.out(">>>WRNING: "+myWarning+" at ???");
+		else
+			Debugger.out(">>>WRNING: "+myWarning+" at "+ callingObject.toString());
 	}
 
 	public static void exception(Exception e, String text) {

@@ -28,7 +28,7 @@ import javafx.util.Duration;
 /**
  * Gamestartfenster
  * 
- * @author miro-albrecht
+ * @author miro-albrecht & hugo-lucca
  *
  */
 @SuppressWarnings("restriction")
@@ -39,12 +39,9 @@ public class GameView extends View
 	 * mann kann dann alternativ weiter lernen.
 	 * TODO: das game darf die LK nicht anhalten! 
 	 */
-	MainController myController; // falls ich später zum Haupt-BS zurück will
-	
 	public GameView (String setName, Stage window, MainController controller)
 	{
 		super (setName, window);
-		myController = controller;
 
 		// CSS formatierte Meldung auf BS bringen (mit div. Schrifteffekten)
 		Text t = new Text("Starting game (please wait)...");
@@ -79,6 +76,5 @@ public class GameView extends View
 		//
 		super.show();
 		scrollyv8.ScrollyV8.main(null); // starte hier Spiel
-		
 	}
 }

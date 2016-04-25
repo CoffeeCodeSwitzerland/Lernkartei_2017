@@ -1,16 +1,30 @@
 package application;
 
-import gui.*;
-
 import java.util.ArrayList;
 
-import javax.swing.JFrame;
-
+import debug.Debugger;
+import debug.Supervisor;
+import gui.DoorView;
+import gui.GameView;
+import gui.HelpView;
+import gui.MainView;
+import gui.OptionsView;
+import gui.StatisticsView;
+import gui.View;
 import javafx.stage.Stage;
 
-
+/**
+ * Main Controller
+ * 
+ * @author miro-albrecht & hugo-lucca
+ *
+ */
 public class MainController
 {
+	/**
+	 * Diese Klasse Kontrolliert alle Sichten und bietet die naviagtion zur nächsten Sicht an.
+	 * Alle Sichten (ausser Modalfenster) werden hier mit eindeutigen Namen versehen.
+	 */
 	private final ArrayList<View>	views	= new ArrayList<>();
 
 
@@ -36,7 +50,11 @@ public class MainController
 				return v;
 			}
 		}
-		return null;
+		if (name != null)
+			Supervisor.warnAndDebug(this, "show("+name+") not found!");
+		else
+			Supervisor.warnAndDebug(this, "show(null) not allowed!");
+		return null; // not found
 	}
 
 	// TODO quit method

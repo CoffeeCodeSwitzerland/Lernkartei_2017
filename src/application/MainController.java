@@ -25,19 +25,25 @@ public class MainController
 	 * Diese Klasse Kontrolliert alle Sichten und bietet die naviagtion zur nächsten Sicht an.
 	 * Alle Sichten (ausser Modalfenster) werden hier mit eindeutigen Namen versehen.
 	 */
+	private final String mainView  = "mainview";
+	private final String appTitle = "Auto Simulator (Java FX Demo)";
 	private final ArrayList<View>	views	= new ArrayList<>();
-
 
 	public MainController (Stage primaryStage)
 	{
 		primaryStage.setTitle("WISS Learn Cards [Alpha]");
 
-		views.add(new MainView("mainview", primaryStage, this));
-		views.add(new StatisticsView("statisticsview", primaryStage, this));
-		views.add(new DoorView("doorview", primaryStage, this));
-		views.add(new OptionsView("optionsview", primaryStage, this));
-		views.add(new HelpView("helpview"));
-		views.add(new GameView("gameview", primaryStage, this));
+		views.add(new MainView			( mainView, primaryStage, this) );
+		views.add(new StatisticsView	("statisticsview", primaryStage, this) );
+		views.add(new DoorView			("doorview", primaryStage, this) );
+		views.add(new OptionsView		("optionsview", primaryStage, this) );
+		views.add(new HelpView			("helpview") );
+		views.add(new GameView			("gameview", primaryStage, this));
+	}
+
+	public View showMain ()
+	{
+		return show(mainView);
 	}
 
 	public View show (String name)

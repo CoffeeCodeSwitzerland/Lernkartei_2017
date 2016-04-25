@@ -2,6 +2,7 @@ package gui;
 
 
 import application.MainController;
+import application.WISSLearnCards;
 import debug.Debugger;
 import javafx.animation.PauseTransition;
 import javafx.animation.RotateTransition;
@@ -48,8 +49,8 @@ public class GameView extends View
 		t.setId("fancytext");
 
 		// Button für Zurück zum Hauptmenue:
-		Button b = new Button("Zurück...");
-		b.setOnAction(e -> controller.show("mainview"));
+		AppButton b = new AppButton("Zurück...");
+		b.setOnAction(e -> controller.showMain());
 
 		// Erstellt VBox Layout für beide obige Elemente:
 		VBox tempVBox = new VBox();
@@ -65,7 +66,7 @@ public class GameView extends View
 		bp.setId("gamebg");
 		
 		// BP in Scene einfügen:
-		this.setScene(new Scene(bp, 800, 450));
+		this.setScene(new Scene(bp, WISSLearnCards.OPTIMAL_WIDTH, WISSLearnCards.OPTIMAL_HEIGHT));
 	}
 
 	public void show () {

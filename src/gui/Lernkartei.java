@@ -1,6 +1,8 @@
 package gui;
 
 import java.util.ArrayList;
+
+import application.WISSLearnCards;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -172,7 +174,7 @@ public class Lernkartei extends Application
 		Stage helpWindow = new Stage();
 		helpWindow.setTitle("Lernkartei Hilfe [Alpha]");
 		helpWindow.setResizable(false);
-		helpWindow.setScene(new Scene(center, 800, 600));
+		helpWindow.setScene(new Scene(center, WISSLearnCards.OPTIMAL_WIDTH, 150+WISSLearnCards.OPTIMAL_HEIGHT));
 		helpWindow.show();
 	}
 }

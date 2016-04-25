@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import javax.swing.JFrame;
 
 import application.MainController;
+import application.WISSLearnCards;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -29,49 +30,32 @@ public class MainView extends View
 		super (setName, primaryStage);
 
 		// Buttons
-		Button startButton = new Button("Lernen");
-		Button statButton = new Button("Statistiken");
-		Button optionsButton = new Button("Optionen");
-		Button gameButton = new Button("Jump 'n' Run");
-		Button helpButton = new Button("Hilfe");
-		Button quitButton = new Button("Beenden");
-
-		ArrayList<Button> menuButtons = new ArrayList<>();
-
-		menuButtons.add(startButton);
-		menuButtons.add(statButton);
-		menuButtons.add(optionsButton);
-		menuButtons.add(gameButton);
-		menuButtons.add(helpButton);
-		menuButtons.add(quitButton);
-
-		// Setzt maximale Breite aller Button, damit sie alle gleich gross
-		// dargestellt werden
-		for (Button b : menuButtons)
-		{
-			b.setMaxWidth(200);
-		}
+		AppButton startBtn 	 = new AppButton("Lernen");
+		AppButton statBtn 	 = new AppButton("Statistiken");
+		AppButton optionsBtn = new AppButton("Optionen");
+		AppButton gameBtn 	 = new AppButton("Jump 'n' Run");
+		AppButton helpBtn 	 = new AppButton("Hilfe");
+		AppButton quitBtn 	 = new AppButton("Beenden");
 
 		// Layout
-
 		VBox menu = new VBox();
 		menu.setPadding(new Insets(10));
 		menu.setSpacing(10);
 		menu.setAlignment(Pos.CENTER);
 
 		// Fügt Buttons hinzu
-		menu.getChildren().addAll(menuButtons);
+		menu.getChildren().addAll(startBtn, statBtn, optionsBtn, gameBtn, helpBtn, quitBtn);
 
 		BorderPane layout = new BorderPane();
 		layout.setCenter(menu);
 
 		// Behaviour
-		startButton.setOnAction(e -> controller.show("doorview"));
-		statButton.setOnAction(e -> controller.show("statisticsview"));
-		optionsButton.setOnAction(e -> controller.show("optionsview"));
-		gameButton.setOnAction(e -> controller.show("gameview"));
-		helpButton.setOnAction(e -> controller.show("helpview"));
-		quitButton.setOnAction(e -> {
+		startBtn.setOnAction(e -> controller.show("doorview"));
+		statBtn.setOnAction(e -> controller.show("statisticsview"));
+		optionsBtn.setOnAction(e -> controller.show("optionsview"));
+		gameBtn.setOnAction(e -> controller.show("gameview"));
+		helpBtn.setOnAction(e -> controller.show("helpview"));
+		quitBtn.setOnAction(e -> {
 			// TODO controller close
 			getWindow().close();
 		});
@@ -82,7 +66,7 @@ public class MainView extends View
 		    }
 		});
 
-		this.setScene(new Scene(layout, 800, 450));
+		this.setScene(new Scene(layout, WISSLearnCards.OPTIMAL_WIDTH, WISSLearnCards.OPTIMAL_HEIGHT));
 		this.show();
 	}
 }

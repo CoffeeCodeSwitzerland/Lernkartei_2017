@@ -1,6 +1,7 @@
 package gui;
 
 import application.MainController;
+import application.WISSLearnCards;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
@@ -12,10 +13,11 @@ public class StatisticsView extends View
 	{
 		super (setName, window);
 		
-		Button b = new Button("Back");
+		AppButton b = new AppButton("Back");
+		b.setOnAction(e -> controller.showMain());
+
 		BorderPane bp = new BorderPane();
 		bp.setCenter(b);
-		b.setOnAction(e -> controller.show("mainview"));
-		this.setScene(new Scene(bp, 800, 450));
+		this.setScene(new Scene(bp, WISSLearnCards.OPTIMAL_WIDTH, WISSLearnCards.OPTIMAL_HEIGHT));
 	}
 }

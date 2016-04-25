@@ -1,6 +1,7 @@
 package gui;
 
 import application.MainController;
+import application.WISSLearnCards;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -24,36 +25,34 @@ public class OptionsView extends View
 		super (setName, primaryStage);
 
 		// Contorls (Sample)
-		Button resetStats = new Button("Statistiken zurücksetzten");
+		AppButton resetStats = new AppButton("Statistiken zurücksetzten");
 		CheckBox enableSound = new CheckBox("Audio");
 		ColorPicker col = new ColorPicker();
-		Button applyColor = new Button("Farbe speichern");
 
-		// Setzt maximale Breite (ArrayList möglich)
-		Button back = new Button("Zurück");
-		resetStats.setMaxWidth(200);
-		enableSound.setMaxWidth(200);
-		col.setMaxWidth(200);
-		applyColor.setMaxWidth(200);
-		back.setMaxWidth(200);
+		// Setzt maximale Breite der nicht-Button Elemente:
+		enableSound.setMaxWidth(AppButton.DEFAULT_BUTTON_WIDTH);
+		col.setMaxWidth(AppButton.DEFAULT_BUTTON_WIDTH);
 
-		// Erstellt Layout
+		// Buttons:
+		AppButton applyColor = new AppButton("Farbe speichern");
+		AppButton back = new AppButton("Zurück");
+
+		// Erstellt Layout:
 		VBox tempVBox = new VBox();
 		tempVBox.setPadding(new Insets(10));
 		tempVBox.setSpacing(10);
 		tempVBox.setAlignment(Pos.CENTER);
 		tempVBox.getChildren().addAll(resetStats, enableSound, col, applyColor, back);
 
-		// Setzt Verhalten
-		// TODO Design 100% auslagern
+		// Setzt Verhalten  -> TODO in CSS auslagern
 		applyColor.setOnAction(e -> {
 			if (col.getValue().getBrightness() < 0.6)
 			{
-				enableSound.setStyle("-fx-text-fill: white");
+				enableSound.setStyle("-fx-text-fill: white"); // TODO in CSS auslagern
 			}
 			else
 			{
-				enableSound.setStyle("-fx-text-fill: black");
+				enableSound.setStyle("-fx-text-fill: black"); // TODO in CSS auslagern
 			}
 			tempVBox.setStyle("-fx-background-color: rgb("
 					+ col.getValue().getRed() * 255 + ","
@@ -61,9 +60,9 @@ public class OptionsView extends View
 					+ col.getValue().getBlue() * 255 + ")");
 		});
 
-		// Behaviour
-		back.setOnAction(e -> controller.show("mainview"));
+		// Behavior
+		back.setOnAction(e -> controller.showMain());
 
-		this.setScene(new Scene(tempVBox, 800, 450));
+		this.setScene(new Scene(tempVBox, WISSLearnCards.OPTIMAL_WIDTH, WISSLearnCards.OPTIMAL_HEIGHT));
 	}
 }

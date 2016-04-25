@@ -34,37 +34,51 @@ import javafx.util.Duration;
 @SuppressWarnings("restriction")
 public class GameView extends View
 {
-	MainController myController;
+	/**
+	 * Zweck dieses BS ist eine Art Warte- und Info-BS (zum Bsp. Anzahl Punkte) zum Gamestart, 
+	 * mann kann dann alternativ weiter lernen.
+	 * TODO: das game darf die LK nicht anhalten! 
+	 */
+	MainController myController; // falls ich später zum Haupt-BS zurück will
 	
 	public GameView (String setName, Stage window, MainController controller)
 	{
 		super (setName, window);
 		myController = controller;
-		BorderPane bp = new BorderPane();
+
+		// CSS formatierte Meldung auf BS bringen (mit div. Schrifteffekten)
 		Text t = new Text("Starting game (please wait)...");
 		t.setId("fancytext");
+
+		// Button für Zurück zum Hauptmenue:
 		Button b = new Button("Zurück...");
 		b.setOnAction(e -> controller.show("mainview"));
 
-		// Erstellt Layout
+		// Erstellt VBox Layout für beide obige Elemente:
 		VBox tempVBox = new VBox();
 		tempVBox.setPadding(new Insets(10));
 		tempVBox.setSpacing(10);
 		tempVBox.setAlignment(Pos.CENTER);
 		tempVBox.getChildren().addAll(t, b);
+		
+		// VBox in neuem Borderpane einfügen, zwingend wenn Hintergrund neu sein soll
+		// CSS liefert neue Darstellung:
+		BorderPane bp = new BorderPane();
 		bp.setCenter(tempVBox);
 		bp.setId("gamebg");
+		
+		// BP in Scene einfügen:
 		this.setScene(new Scene(bp, 800, 450));
 	}
 
 	public void show () {
 
-		// TODO funktioniert noch nicht richtig...
+		// TODO funktioniert noch nicht ganz richtig...
 		// - keine Umschaltung auf dieses Game BS, wenn Spiel aufgerufen wird
 		// - und auch kein Zurück zum Main-menü möglich (Swing ist schuld)
 		//
 		super.show();
-		scrollyv8.ScrollyV8.main(null);
+		scrollyv8.ScrollyV8.main(null); // starte hier Spiel
 		
 	}
 }

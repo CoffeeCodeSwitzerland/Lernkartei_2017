@@ -1,4 +1,4 @@
-package gui;
+package guiexample;
 
 import javafx.geometry.Pos;
 import javafx.scene.Scene;

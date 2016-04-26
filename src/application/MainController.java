@@ -2,7 +2,7 @@ package application;
 
 import java.util.ArrayList;
 
-import debug.Debugger;
+import autosim.ModelInterface;
 import debug.Supervisor;
 import gui.DoorView;
 import gui.GameView;
@@ -29,6 +29,8 @@ public class MainController
 	private final String appTitle = "Auto Simulator (Java FX Demo)";
 	private final ArrayList<View>	views	= new ArrayList<>();
 
+	private final ModelInterface myModel = null; // Lernkartei
+
 	public MainController (Stage primaryStage)
 	{
 		primaryStage.setTitle("WISS Learn Cards [Alpha]");
@@ -39,6 +41,10 @@ public class MainController
 		views.add(new OptionsView		("optionsview", primaryStage, this) );
 		views.add(new HelpView			("helpview") );
 		views.add(new GameView			("gameview", primaryStage, this));
+	}
+
+	public ModelInterface getMyModel() {
+		return myModel;
 	}
 
 	public View showMain ()

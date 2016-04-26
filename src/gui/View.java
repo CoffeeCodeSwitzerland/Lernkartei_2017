@@ -2,6 +2,7 @@ package gui;
 
 import java.net.URL;
 
+import application.MainController;
 import debug.Debugger;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -11,6 +12,7 @@ public class View
 	private Stage window;
 	private Scene scene;
 	private String name;
+	private MainController myController = null;
 	private static String stylePath	= "style.css";
 
 	public View (String setName, Stage primary) {
@@ -52,4 +54,13 @@ public class View
 		if (window == null) window = new Stage();
 		return window;
 	}
+
+	public MainController getMyController() {
+		return myController;
+	}
+
+	public void setMyController(MainController myController) {
+		this.myController = myController;
+	}
+
 }

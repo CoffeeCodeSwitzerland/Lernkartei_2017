@@ -25,14 +25,14 @@ public class MainController
 	 * Alle Sichten (ausser Modalfenster) werden hier mit eindeutigen Namen versehen.
 	 */
 	private final String mainView  = "mainview";
-	private final String appTitle = "Auto Simulator (Java FX Demo)";
+	private final String appTitle = "WISS Learn Cards [Alpha]";
 	private final ArrayList<View>	views	= new ArrayList<>();
 
 	private final ModelInterface myModel = null; // Lernkartei
 
 	public MainController (Stage primaryStage)
 	{
-		primaryStage.setTitle("WISS Learn Cards [Alpha]");
+		primaryStage.setTitle(appTitle);
 
 		views.add(new MainView			( mainView, primaryStage, this) );
 		views.add(new StatisticsView	("statisticsview", primaryStage, this) );

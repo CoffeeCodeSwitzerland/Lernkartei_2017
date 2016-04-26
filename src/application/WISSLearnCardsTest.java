@@ -17,7 +17,8 @@ public class WISSLearnCardsTest extends Application {
 
 	@Test
 	public void test() {
-		launch(null);
+		String [] args = new String [1];
+		launch(args);
 	}
 
 	@Override

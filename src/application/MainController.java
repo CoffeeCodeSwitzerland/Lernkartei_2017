@@ -2,7 +2,6 @@ package application;
 
 import java.util.ArrayList;
 
-import autosim.ModelInterface;
 import debug.Supervisor;
 import gui.DoorView;
 import gui.GameView;

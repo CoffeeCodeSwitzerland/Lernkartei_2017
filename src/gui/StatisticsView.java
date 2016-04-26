@@ -1,7 +1,7 @@
 package gui;
 
+import application.Constants;
 import application.MainController;
-import application.WISSLearnCards;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
@@ -17,6 +17,6 @@ public class StatisticsView extends View
 
 		BorderPane bp = new BorderPane();
 		bp.setCenter(b);
-		this.setScene(new Scene(bp, WISSLearnCards.OPTIMAL_WIDTH, WISSLearnCards.OPTIMAL_HEIGHT));
+		this.setScene(new Scene(bp, Constants.OPTIMAL_WIDTH, Constants.OPTIMAL_HEIGHT));
 	}
 }

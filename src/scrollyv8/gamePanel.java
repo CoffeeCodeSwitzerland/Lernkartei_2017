@@ -41,7 +41,11 @@ import javax.xml.stream.events.XMLEvent;
 public class gamePanel extends JPanel implements Runnable
 {
 
-    final int HOME = 0;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	final int HOME = 0;
     final int OFFICE = 1;
     final int LAPTOP = 2;
     final int JAR = 3;

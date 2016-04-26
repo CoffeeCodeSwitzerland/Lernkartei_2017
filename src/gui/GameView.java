@@ -1,8 +1,8 @@
 package gui;
 
 
+import application.Constants;
 import application.MainController;
-import application.WISSLearnCards;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -51,7 +51,7 @@ public class GameView extends View
 		bp.setId("gamebg");
 		
 		// BP in Scene einfügen:
-		this.setScene(new Scene(bp, WISSLearnCards.OPTIMAL_WIDTH, WISSLearnCards.OPTIMAL_HEIGHT));
+		this.setScene(new Scene(bp, Constants.OPTIMAL_WIDTH, Constants.OPTIMAL_HEIGHT));
 	}
 
 	public void show () {

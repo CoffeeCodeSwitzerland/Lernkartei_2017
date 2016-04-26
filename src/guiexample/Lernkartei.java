@@ -2,15 +2,19 @@ package guiexample;
 
 import java.util.ArrayList;
 
-import application.WISSLearnCards;
+import application.Constants;
+import application.MainController;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.ColorPicker;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.*;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 
@@ -174,7 +178,7 @@ public class Lernkartei extends Application
 		Stage helpWindow = new Stage();
 		helpWindow.setTitle("Lernkartei Hilfe [Alpha]");
 		helpWindow.setResizable(false);
-		helpWindow.setScene(new Scene(center, WISSLearnCards.OPTIMAL_WIDTH, 150+WISSLearnCards.OPTIMAL_HEIGHT));
+		helpWindow.setScene(new Scene(center, Constants.OPTIMAL_WIDTH, 150+Constants.OPTIMAL_HEIGHT));
 		helpWindow.show();
 	}
 }

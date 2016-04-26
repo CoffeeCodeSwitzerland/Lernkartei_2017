@@ -1,10 +1,12 @@
 package karten;
 
-import java.awt.BorderLayout;
 import java.awt.GridLayout;
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-import javax.swing.*;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
 
 public class kategorienAbrufen extends JFrame implements ActionListener {
 

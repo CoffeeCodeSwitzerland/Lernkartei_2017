@@ -1,7 +1,7 @@
 package gui;
 
+import application.Constants;
 import application.MainController;
-import application.WISSLearnCards;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -61,7 +61,7 @@ public class MainView extends View
 		    }
 		});
 
-		this.setScene(new Scene(layout, WISSLearnCards.OPTIMAL_WIDTH, WISSLearnCards.OPTIMAL_HEIGHT));
+		this.setScene(new Scene(layout, Constants.OPTIMAL_WIDTH, Constants.OPTIMAL_HEIGHT));
 		this.show();
 	}
 }

@@ -1,7 +1,7 @@
 package gui;
 
+import application.Constants;
 import application.MainController;
-import application.WISSLearnCards;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -62,6 +62,6 @@ public class OptionsView extends View
 		// Behavior
 		back.setOnAction(e -> controller.showMain());
 
-		this.setScene(new Scene(tempVBox, WISSLearnCards.OPTIMAL_WIDTH, WISSLearnCards.OPTIMAL_HEIGHT));
+		this.setScene(new Scene(tempVBox, Constants.OPTIMAL_WIDTH, Constants.OPTIMAL_HEIGHT));
 	}
 }

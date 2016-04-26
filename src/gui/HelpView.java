@@ -1,6 +1,6 @@
 package gui;
 
-import application.WISSLearnCards;
+import application.Constants;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -32,7 +32,7 @@ public class HelpView extends View
 
 		this.getWindow().setTitle("Lernkartei Hilfe [Alpha]");
 		this.getWindow().setResizable(false);
-		this.setScene(new Scene(center, WISSLearnCards.OPTIMAL_WIDTH, 150+WISSLearnCards.OPTIMAL_HEIGHT));
+		this.setScene(new Scene(center, Constants.OPTIMAL_WIDTH, 150+Constants.OPTIMAL_HEIGHT));
 	}
 	
 }

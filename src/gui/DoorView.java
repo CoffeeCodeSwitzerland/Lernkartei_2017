@@ -1,7 +1,7 @@
 package gui;
 
+import application.Constants;
 import application.MainController;
-import application.WISSLearnCards;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -43,7 +43,7 @@ public class DoorView extends View
 		borderPane.setPadding(new Insets(15));
 		zurueckButton.setOnAction(e -> controller.showMain());
 		
-		this.setScene(new Scene(borderPane, WISSLearnCards.OPTIMAL_WIDTH, WISSLearnCards.OPTIMAL_HEIGHT));
+		this.setScene(new Scene(borderPane, Constants.OPTIMAL_WIDTH, Constants.OPTIMAL_HEIGHT));
 	}
 
 }

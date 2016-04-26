@@ -1,16 +1,11 @@
 package gui;
 
-import java.util.ArrayList;
-
-import javax.swing.JFrame;
-
 import application.MainController;
 import application.WISSLearnCards;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;

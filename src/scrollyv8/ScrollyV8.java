@@ -21,6 +21,13 @@ public class ScrollyV8 extends JFrame implements KeyListener, WindowListener
 	private static final long serialVersionUID = 1L;
 	gamePanel gPanel = new gamePanel();
 
+    public void dispose()
+    {        
+    	Debugger.out("Killing Player...");
+        gPanel.killPlayer();
+    	super.dispose();
+    }
+
     public void init()
     {        
         gPanel.setFocusable(true);

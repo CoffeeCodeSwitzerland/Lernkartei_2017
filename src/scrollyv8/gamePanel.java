@@ -164,8 +164,6 @@ public class gamePanel extends JPanel implements Runnable
         spritePath = pathFile + "Images/Sprites/";
         soundPath = pathFile + "Sounds/";
 
-        ClipPlayer clips;
-
         mPlayer = new MidiPlayer(soundPath + "Level3.mid",true);
 
         resetTiles();
@@ -1285,7 +1283,7 @@ public class gamePanel extends JPanel implements Runnable
         return false;
     }
 
-    private void killPlayer()
+    public void killPlayer()
     {
         if (sound)
         {

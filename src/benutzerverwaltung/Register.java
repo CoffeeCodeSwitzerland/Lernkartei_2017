@@ -225,8 +225,8 @@ public class Register implements ActionListener
 	// udn auf Redundanzen überprüfen)
 	public void askDatabase()
 	{
-		if (UserDatabase.checkPossible(Userdata)) {
-			UserDatabase.newUser(Userdata, Lehrer.isSelected());
+		if (UserLogin.checkPossible(Userdata)) {
+			UserLogin.newUser(Userdata, Lehrer.isSelected());
 		} else {
 			System.out.println("Username oder E-Mail bereits vorhanden / verwendet");
 		}

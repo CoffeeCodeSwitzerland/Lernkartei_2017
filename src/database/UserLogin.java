@@ -3,7 +3,7 @@ package database;
 import java.sql.*;
 
 
-public class UserDatabase {
+public class UserLogin {
 
 	/**
 	 * Fügt der Datenbank einen neuen User hinzu

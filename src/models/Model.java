@@ -46,8 +46,5 @@ public abstract class Model implements ModelInterface {
 		}
 	}
 
-	public ArrayList<String> getData (String query) {
-		return getData(query);
-	}
 
 }

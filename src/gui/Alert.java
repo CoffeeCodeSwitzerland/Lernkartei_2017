@@ -81,4 +81,45 @@ public final class Alert
 	{
 		simpleInfoBox(title, message, "OK");
 	}
+	
+	private static String outp = "";
+	public static String simpleString (String title, String placeholder)
+	{
+		// Neues Fenster
+		Stage window = new Stage();
+		// Minimalistischer Stil ohne Buttons um das Fenster zu minimieren oder
+		// zu maximieren
+		window.initStyle(StageStyle.UTILITY);
+		window.setResizable(false);
+		// Blockiere alle anderen Fenster
+		window.initModality(Modality.APPLICATION_MODAL);
+		window.setTitle(title);
+		
+		
+		
+		// Neues Label und neuer Button
+		TextField tf = new TextField();
+		Button b = new Button("OK");
+		// Schliesst Fenster wenn der User auf OK klickt
+		b.setOnAction(e -> {
+			outp = tf.getText();
+			window.close();
+		});
+
+		// Neues Layout
+		VBox layout = new VBox(20);
+		layout.getChildren().addAll(tf, b);
+		// Zentriert Elemente
+		layout.setAlignment(Pos.CENTER);
+
+		// Passt Breite des Fensters an den Text an
+
+
+
+		// Zeigt Fenster an
+		window.setScene(new Scene(layout, 250, 150));
+		window.show();
+		
+		return outp;
+	}
 }

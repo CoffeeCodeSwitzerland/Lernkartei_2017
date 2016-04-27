@@ -12,9 +12,7 @@ import gui.OptionsView;
 import gui.StatisticsView;
 import gui.View;
 import javafx.stage.Stage;
-import models.GameModel;
-import models.Model;
-import models.ModelInterface;
+import models.*;
 
 /**
  * Main Controller
@@ -44,6 +42,7 @@ public class MainController
 		views.add(new GameView			("gameview", primaryStage, this));
 		
 		models.add(new GameModel("game"));
+		models.add(new DoorModel("door"));
 	}
 
 	public Model getMyModel(String name) {

@@ -1,5 +1,7 @@
 package models;
 
+import java.util.ArrayList;
+
 import javax.swing.SwingUtilities;
 
 import javafx.embed.swing.SwingNode;
@@ -35,5 +37,12 @@ public class GameModel extends Model {
         	createSwingContent(swingNode);
 		}
 		return 0;
+	}
+
+	@Override
+	public ArrayList<String> getData (String query)
+	{
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

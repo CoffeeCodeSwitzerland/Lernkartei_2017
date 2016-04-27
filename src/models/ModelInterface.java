@@ -1,5 +1,7 @@
 package models;
 
+import java.util.ArrayList;
+
 import gui.ViewInterface;
 
 public interface ModelInterface {
@@ -8,6 +10,7 @@ public interface ModelInterface {
 	public int doAction(String functionName);
 
 	public abstract void registerView(ViewInterface theView);
+	ArrayList<String> getData (String query);
 
 //	public abstract ListModel<ModelInterface> getEntity();
 //	public abstract ListModel<ModelInterface> saveEntity(ModelInterface theRecord);

@@ -19,13 +19,16 @@ public class Doors {
 	 * 
 	 * @param eingabe
 	 *            --> String Name der Tür
+	 *            
+	 * @return --> True, wenn Eintrag eingefügt, false, wenn Eintrag bereits vorhanden
 	 *
 	 */
 
-	public static void newDoor (String eingabe) {
+	public static boolean newDoor (String eingabe) {
 
 		Connection c = null;
 		Statement stmt = null;
+		boolean worked = false;
 
 		try {
 			Class.forName(driver);
@@ -39,19 +42,42 @@ public class Doors {
 			System.out.println(sql);
 			stmt.executeUpdate(sql);
 
-			String insert = "INSERT INTO Doors (Doorname)" +
-					"VALUES ('" + eingabe + "')";
+			// Überprüft, ob bereits ein Eintrag mit dem Selben Namen enthalten ist
+			
+			c.setAutoCommit(false);
+			
+			ResultSet checkName = stmt.executeQuery("SELECT Doorname FROM Doors WHERE Doorname = " + "'" + eingabe + "'");
+			
+			if (!checkName.next()) {
+				
+				checkName.close();
+				c.setAutoCommit(true);
+				
+				// Einfügen des Datensatzes in Doors
+				
+				String insert = "INSERT INTO Doors (Doorname)" +
+						"VALUES ('" + eingabe + "')";
 
-			stmt.executeUpdate(insert);
-			stmt.close();
-			c.close();
+				stmt.executeUpdate(insert);
+				stmt.close();
+				c.close();
+				
+				System.out.println("Successfull!");
+				worked = true;
+				
+			} else {
+				
+				worked = false;
+				
+			}
 
-			System.out.println("Successfull!");
 		}
 		catch (Exception e) {
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
 			System.exit(0);
 		}
+		
+		return worked;
 
 	}
 

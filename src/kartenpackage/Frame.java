@@ -10,23 +10,25 @@ public class Frame extends JFrame implements ActionListener{
 
 	private static final long serialVersionUID = 1L;
 	
+	//Deklarieren der Attribute
 	public JButton newbtn = new JButton("Neue Karte");
 	public JButton editbtn = new JButton("Karte bearbeiten");
-	public JButton backup;
+	public JButton backup = new JButton("Backup");
+	private JFrame myframe = new JFrame();
 	
 	public  Frame(){
-		JFrame myframe = new JFrame();
 		
-		backup = new JButton("Backup");
-		
+		//Elemente auf Frame adden
 		myframe.add(newbtn);
 		myframe.add(editbtn);
 		myframe.add(backup);
 		
+		//ActionListener für Button 
 		newbtn.addActionListener(this);
 		editbtn.addActionListener(this);
 		backup.addActionListener(this);
 		
+		//Windows Einstellungen
 		myframe.setLayout(new GridLayout(3, 0));
 		myframe.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		myframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -36,15 +38,15 @@ public class Frame extends JFrame implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
+		//If/Else Statement um erkennen welcher Button geklickt wurde
 		if(e.getSource() == newbtn){
-			NewCard nc = new NewCard();
+			new NewCard();
 		}else if(e.getSource() == editbtn){
-			EditCard nc = new EditCard();
+			new EditCard();
 		}else{
 			Backup.BackUp(Database.pullFromStock());
 		}
 		
 	}
-	
 	
 }

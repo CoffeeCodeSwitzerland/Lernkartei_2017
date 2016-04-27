@@ -1,12 +1,18 @@
 .root
 {
-	-fx-color: blue;
-	-fx-background: yellow;
-	-fx-background-image: url(hausuebersicht.gif);
+	-fx-color: #eeeeee;
+	-fx-background: #cecebb;
 	-fx-background-repeat: stretch;   
     -fx-background-size: 800 600;
     -fx-background-position: center center;
     -fx-effect: dropshadow(three-pass-box, black, 30, 0.5, 0, 0);
+}
+
+#main
+{
+	
+	-fx-background: #ddddaa;
+	-fx-background-image: url("pictures/haus-blur.png");
 }
 
 #gamebg {

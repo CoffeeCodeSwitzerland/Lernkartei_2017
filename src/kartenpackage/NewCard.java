@@ -1,101 +1,56 @@
 package kartenpackage;
 
-import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JTextField;
 
-public class NewCard extends JFrame implements MouseListener, ActionListener{
+public class NewCard extends JFrame implements ActionListener{
+	
+	/*TODO - David
+	 *------------
+	 *-Editable Text
+	 *-Schöneres UI(Überall)
+	 *-values[2] editable machen
+	 */
 
 	private static final long serialVersionUID = 1L;
+	
+	//Deklarieren der Attribute
 	public static Database db;
-	public static JTextField antwort, frage;
-	public static String s;
-	public Graphics g;
-	public String q;
-	public JButton changebtn, savebtn;
-	//private ArrayList<String> card = new ArrayList<String>();
+	public static String s, q;
+	public JTextField antwort = new JTextField();
+	public JTextField frage = new JTextField();
+	public JButton boldbtn = new JButton("Bold");
+	public JButton savebtn = new JButton("Speichern");
+	private JFrame myframe = new JFrame();
 	
 	public NewCard(){
 		
-		JFrame myframe = new JFrame();
-		
-		antwort = new JTextField();
-		frage = new JTextField();
-		changebtn = new JButton("BOLD");
-		savebtn = new JButton("SAVE");
-		
+		//Elemente auf Frame adden
 		myframe.add(antwort);
 		myframe.add(frage);
-		myframe.add(changebtn);
+		myframe.add(boldbtn);
 		myframe.add(savebtn);
 		
-		//antwort.addMouseListener(this);
-		changebtn.addActionListener(this);
+		//ActionListener für Button 
+		boldbtn.addActionListener(this);
 		savebtn.addActionListener(this);
 		
-		//tfq.setContentType("text/html");
-		//tfa.setContentType("text/html");
-		
+		//Windows Einstellungen
 		myframe.setLayout(new GridLayout(4, 0));
 		myframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		myframe.setVisible(true);
 		myframe.setExtendedState(JFrame.MAXIMIZED_BOTH); 
 		
 	}
-	
-	 public void mouseReleased(MouseEvent e) {
-	    //if (tfq.getSelectedText() != null) { // See if they selected something 
-	      //  s = tfq.getSelectedText();
-	        //tfq.setContentType("text/html");
-	        
-	       //s = "<html><body><b>" + s + "</b></body></html>";
-	        
-	       //tfq.setText(s);
-	        
-	              
-	        //System.out.println(s);
-	        
-	        //Font myFont = new Font("Segoe UI", Font.ITALIC | Font.BOLD, 12);
-			
-		
-	        
-	   // }
-	}
-
-	@Override
-	public void mouseClicked(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mouseEntered(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mouseExited(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mousePressed(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		
+		//Nimmt den Text von JTextFields und speichert sie in DB 
 		String[] values = new String[3];
 		values[0] = antwort.getText();
 		values[1] = frage.getText();
@@ -106,6 +61,3 @@ public class NewCard extends JFrame implements MouseListener, ActionListener{
 		}
 		
 	}
-
-	
-

@@ -2,7 +2,6 @@ package kartenpackage;
 
 import java.sql.*;
 import java.util.ArrayList;
-
 import javax.swing.JTextField;
 
 public class Database
@@ -76,13 +75,13 @@ public class Database
 	        set[2] = rs.getString("Frontside");
 	        set[3] = rs.getString("Description");
 	        
-	        results.add(set);
-	        
-	        
+	        results.add(set);          
 	    }
+	    
 	      rs.close();
 	      stmt.close();
 	      c.close();
+	      
 	    } catch ( Exception e ) {
 	      System.err.println( e.getClass().getName() + ": " + e.getMessage() );
 	      System.exit(0);
@@ -107,6 +106,7 @@ public class Database
 	      stmt.executeUpdate(del);
 	      stmt.close();
 	      c.close();
+	      
 	    } catch ( Exception e ) {
 	      System.err.println( e.getClass().getName() + ": " + e.getMessage() );
 	      System.exit(0);
@@ -114,17 +114,12 @@ public class Database
 		
 	}
 	
-	// swaghetti yolognese
-	
 	public static ArrayList<String> getEdited () {
 		
 		ArrayList<String> swalues = new ArrayList<String>();
 		
-		for (JTextField s : EditCard.editTxfs) {
-			
-			swalues.add(s.getText());
-			// Wenn du dass liest, bist du am Lesen
-			
+		for (JTextField s : EditCard.addJFs) {			
+			swalues.add(s.getText());		
 		}
 		
 		return swalues;
@@ -146,38 +141,12 @@ public class Database
 	      stmt.executeUpdate(del);
 	      stmt.close();
 	      c.close();
+	      
 	    } catch ( Exception e ) {
 	      System.err.println( e.getClass().getName() + ": " + e.getMessage() );
 	      System.exit(0);
 	    }
 		
 	}
-	
-	
-//	public static void editEntry (String id, ArrayList<String> values){
-//		
-//		Connection c = null;
-//	    Statement stmt = null;
-//	    
-//	    try {
-//	      Class.forName("org.sqlite.JDBC");
-//	      c = DriverManager.getConnection("jdbc:sqlite:" + DB_Name);
-//	      stmt = c.createStatement();
-//	      
-//	      String del = "UPDATE Stock SET Frontside = '"+ values.get(0) +"', Backside = '" 
-//	    		  		+ values.get(1) + "', Description = '" 
-//	    		  		+ values.get(2) + "' WHERE PK_Stk = " + id;
-//	      
-//	      System.out.println(del);
-//	      
-//	      stmt.executeUpdate(del);
-//	      stmt.close();
-//	      c.close();
-//	    } catch ( Exception e ) {
-//	      System.err.println( e.getClass().getName() + ": " + e.getMessage() );
-//	      System.exit(0);
-//	    }
-//		
-//	}
 	
 }

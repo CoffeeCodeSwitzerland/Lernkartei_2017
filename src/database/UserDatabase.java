@@ -1,8 +1,6 @@
 package database;
 
 import java.sql.*;
-import java.util.ArrayList;
-import sqlite.*;
 
 
 public class UserDatabase {
@@ -16,7 +14,7 @@ public class UserDatabase {
 	 *            --> Boolean: true = Lehrer, false = Schüler
 	 */
 
-	public void newUser (String[] values, boolean teacher) {
+	public static void newUser (String[] values, boolean teacher) {
 
 		Connection c = null;
 		Statement stmt = null;
@@ -35,7 +33,7 @@ public class UserDatabase {
 
 			for (int i = 0; i < values.length; i++) {
 
-				if (i > values.length - 1) {
+				if (i < values.length - 1) {
 
 					studValues += "'" + values[i] + "',";
 
@@ -52,14 +50,14 @@ public class UserDatabase {
 
 			for (int i = 0; i < values.length; i++) {
 
-				if (i > values.length - 1) {
+				if (i < values.length - 1) {
 
-					studValues += "'" + values[i] + "',";
+					teachValues += "'" + values[i] + "',";
 
 				}
 				else {
 
-					studValues += "'" + values[i] + "'";
+					teachValues += "'" + values[i] + "'";
 
 				}
 
@@ -71,20 +69,20 @@ public class UserDatabase {
 			System.out.println("Opened database successfully");
 
 			String sql1 = "CREATE TABLE IF NOT EXISTS Teachers " +
-					"(PK_Lehrer INT PRIMARY KEY AUTO_INCREMENT," +
+					"(PK_Teachers INT PRIMARY KEY AUTO_INCREMENT," +
 					" Username TEXT NOT NULL," +
 					" Email TEXT NOT NULL," +
-					" Password TEXT" + ")";
+					" Password TEXT NOT NULL" + ")";
 
 			System.out.println(sql1);
 			stmt.executeUpdate(sql1);
 			System.out.println("Lehrertabelle erstellt!");
 
 			String sql2 = "CREATE TABLE IF NOT EXISTS Students " +
-					"(PK_Lehrer INT PRIMARY KEY AUTO_INCREMENT," +
+					"(PK_Students INT PRIMARY KEY AUTO_INCREMENT," +
 					" Username TEXT NOT NULL," +
 					" Email TEXT NOT NULL," +
-					" Password TEXT" + ")";
+					" Password TEXT NOT NULL" + ")";
 
 			System.out.println(sql2);
 			stmt.executeUpdate(sql2);
@@ -93,6 +91,7 @@ public class UserDatabase {
 			if (teacher) {
 
 				String newTeach = "INSERT INTO Teachers (Username, Email, Password) VALUES (" + teachValues + ")";
+				stmt.executeUpdate(newTeach);
 				System.out.println(newTeach);
 				System.out.println("Teacher sucessfully added!");
 
@@ -101,6 +100,7 @@ public class UserDatabase {
 
 				String newStud = "INSERT INTO Students (Username, Email, Password) VALUES (" + studValues + ")";
 				System.out.println(newStud);
+				stmt.executeUpdate(newStud);
 				System.out.println("Student sucessfully added!");
 
 			}
@@ -123,7 +123,7 @@ public class UserDatabase {
 	 * @return --> Retourniert true, wenn möglich, sonst false
 	 */
 
-	public boolean checkPossible (String[] values) {
+	public static boolean checkPossible (String[] values) {
 
 		boolean possible = true;
 		boolean noTeacher = true;
@@ -142,11 +142,31 @@ public class UserDatabase {
 		try {
 			Class.forName(driver);
 			c = DriverManager.getConnection(url, username, password);
-			c.setAutoCommit(false);
 			stmt = c.createStatement();
+			
+			String sql1 = "CREATE TABLE IF NOT EXISTS Teachers " +
+					"(PK_Lehrer INT PRIMARY KEY AUTO_INCREMENT," +
+					" Username TEXT NOT NULL," +
+					" Email TEXT NOT NULL," +
+					" Password TEXT NOT NULL" + ")";
 
-			ResultSet rsUsern = stmt.executeQuery("SELECT Username FROM Teacher WHERE Username = " + values[0]);
-			ResultSet rsEmail = stmt.executeQuery("SELECT Email FROM Teacher WHERE Email = " + values[1]);
+			System.out.println(sql1);
+			stmt.executeUpdate(sql1);
+			System.out.println("Lehrertabelle erstellt!");
+
+			String sql2 = "CREATE TABLE IF NOT EXISTS Students " +
+					"(PK_Lehrer INT PRIMARY KEY AUTO_INCREMENT," +
+					" Username TEXT NOT NULL," +
+					" Email TEXT NOT NULL," +
+					" Password TEXT NOT NULL" + ")";
+
+			System.out.println(sql2);
+			stmt.executeUpdate(sql2);
+			System.out.println("Schülertabelle erstellt!");
+
+			c.setAutoCommit(false);
+			ResultSet rsUsern = stmt.executeQuery("SELECT Username FROM Teachers WHERE Username = " + "'" + values[0] + "'");
+			ResultSet rsEmail = stmt.executeQuery("SELECT Email FROM Teachers WHERE Email = " + "'" + values[1] + "'");
 
 			if (rsUsern.next() || rsEmail.next()) {
 
@@ -172,8 +192,8 @@ public class UserDatabase {
 			c.setAutoCommit(false);
 			stmt = c.createStatement();
 
-			ResultSet rsUsern = stmt.executeQuery("SELECT Username FROM Student WHERE Username = " + values[0]);
-			ResultSet rsEmail = stmt.executeQuery("SELECT Email FROM Student WHERE Email = " + values[1]);
+			ResultSet rsUsern = stmt.executeQuery("SELECT Username FROM Students WHERE Username = " + "'" + values[0] + "'");
+			ResultSet rsEmail = stmt.executeQuery("SELECT Email FROM Students WHERE Email = " + "'" + values[1] + "'");
 
 			if (rsUsern.next() || rsEmail.next()) {
 
@@ -218,7 +238,7 @@ public class UserDatabase {
 	 *         nicht korrekt
 	 */
 
-	public boolean delUser (String[] values) {
+	public static boolean delUser (String[] values) {
 
 		boolean deleted = false;
 		

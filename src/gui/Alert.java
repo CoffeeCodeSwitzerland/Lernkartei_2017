@@ -1,5 +1,6 @@
 package gui;
 
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -111,8 +112,7 @@ public final class Alert
 		layout.getChildren().addAll(tf, b);
 		// Zentriert Elemente
 		layout.setAlignment(Pos.CENTER);
-
-		// Passt Breite des Fensters an den Text an
+		layout.setPadding(new Insets(20));
 
 
 

@@ -20,6 +20,8 @@ import javafx.stage.Stage;
  */
 public class DoorView extends View
 {
+	HBox doorLayout;
+	
 	public DoorView (String setName, Stage primaryStage, MainController controller)
 	{
 		super(setName, primaryStage, controller);
@@ -48,7 +50,7 @@ public class DoorView extends View
 
 		hBox.getChildren().addAll(zurueckButton, neueTuer, loescheTuer, weitereTueren);
 
-		HBox doorLayout = new HBox(20);
+		doorLayout = new HBox(20);
 		doorLayout.setAlignment(Pos.CENTER);
 		doorLayout.getChildren().addAll(doors);
 
@@ -78,6 +80,17 @@ public class DoorView extends View
 	@Override
 	public void refreshView ()
 	{
+		doorLayout.getChildren().clear();
+		ArrayList<String> doorNames = getController().getMyModel("door").getData("doors");
+		ArrayList<AppButton> doors = new ArrayList<>();
+		if (doorNames != null)
+		{
+			for (String s : doorNames)
+			{
+				doors.add(new AppButton(s));
+			}
+		}
+		doorLayout.getChildren().addAll(doors);
 		refresh();
 	}
 

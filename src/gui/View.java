@@ -54,8 +54,8 @@ public abstract class View implements ViewInterface
 	}
 
 	public void refresh() {
-		getWindow().hide();
-		getWindow().show();
+		//getWindow().hide();
+		//getWindow().show();
 	}
 	
 	public Stage getWindow() {

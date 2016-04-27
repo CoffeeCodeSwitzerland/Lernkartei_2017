@@ -72,6 +72,8 @@ public class Doors {
 			else {
 
 				worked = false;
+				stmt.close();
+				c.close();
 
 			}
 
@@ -127,6 +129,8 @@ public class Doors {
 			else {
 
 				System.out.println("Table Doors is not created yet.");
+				stmt.close();
+				c.close();
 
 			}
 		}
@@ -178,10 +182,11 @@ public class Doors {
 			else {
 
 				worked = false;
+				stmt.close();
+				c.close();
 
 			}
 
-			c.setAutoCommit(false);
 		}
 		catch (Exception e) {
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());

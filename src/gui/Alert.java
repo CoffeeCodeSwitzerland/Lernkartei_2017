@@ -118,7 +118,7 @@ public final class Alert
 
 		// Zeigt Fenster an
 		window.setScene(new Scene(layout, 250, 150));
-		window.show();
+		window.showAndWait();
 		
 		return outp;
 	}

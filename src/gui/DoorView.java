@@ -34,9 +34,12 @@ public class DoorView extends View
 
 		ArrayList<AppButton> doors = new ArrayList<>();
 
-		for (String s : doorNames)
+		if (doorNames != null)
 		{
-			doors.add(new AppButton(s));
+			for (String s : doorNames)
+			{
+				doors.add(new AppButton(s));
+			}
 		}
 
 		// Layout für Controls

@@ -46,7 +46,7 @@ public class MainController
 		models.add(new GameModel("game"));
 	}
 
-	public ModelInterface getMyModel(String name) {
+	public Model getMyModel(String name) {
 		//return myModel;
 		for (Model m : models)
 		{

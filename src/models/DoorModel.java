@@ -40,7 +40,15 @@ public class DoorModel extends Model {
 
 		if (query.equals("doors")) {
 			
-			return Doors.getDoors();
+			try
+			{
+				return Doors.getDoors();
+			}
+			catch (Exception e)
+			{
+				// TODO Auto-generated catch block
+				return null;
+			}
 			
 		}
 		

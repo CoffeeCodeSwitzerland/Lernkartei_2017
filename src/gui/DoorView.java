@@ -38,7 +38,7 @@ public class DoorView extends View
 
 		ArrayList<String> doorNames = getController().getMyModel("door").getData("doors");
 
-		ArrayList<AppButton> doors = new ArrayList<>();
+		ArrayList<AppButton> doors = new ArrayList<AppButton>();
 
 		if (doorNames != null)
 		{
@@ -83,21 +83,6 @@ public class DoorView extends View
 				a.setId(delMode ? "delMode" : "");
 			}
 		});
-		
-		for (int i = 0; i < doors.size(); i++)
-		{
-			AppButton a = doors.get(i);
-			a.setOnAction(e -> {
-				if (!delMode)
-				{
-					Alert.simpleInfoBox("Öffne Tür", "Tür wird geöffnet");
-				}
-				else
-				{
-					Alert.simpleInfoBox("Löschen?", "Wirklich " + a.getText() + " löschen?");
-				}
-			});
-		}
 		
 		weitereTueren.setDisable(true);
 

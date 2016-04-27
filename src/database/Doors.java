@@ -180,6 +180,8 @@ public class Doors {
 				worked = false;
 
 			}
+
+			c.setAutoCommit(false);
 		}
 		catch (Exception e) {
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());

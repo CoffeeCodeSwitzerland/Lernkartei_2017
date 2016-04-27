@@ -6,28 +6,34 @@ import javax.swing.SwingUtilities;
 
 import javafx.embed.swing.SwingNode;
 import scrollyv8.ScrollyV8;
+import debug.*;
 
 public class GameModel extends Model {
 
-	private final ScrollyV8 mf = new ScrollyV8();
+	private ScrollyV8 mf;
 
     public GameModel(String myName) {
 		super(myName);
+		mf = new ScrollyV8();
 	}
 
 	private void createSwingContent(final SwingNode swingNode) {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                mf.setVisible(true);
-                mf.init();
+            	if (mf != null) {
+                    mf.setVisible(true);
+                    mf.init();
+            	}
            }
-            
         });
     }
 	
 	public void dispose () {
+		Debugger.out("Dispose Game");
+        mf.setVisible(false);
 		mf.dispose();
+		mf = null;
 	}
 
 	@Override

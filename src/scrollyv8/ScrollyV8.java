@@ -60,6 +60,7 @@ public class ScrollyV8 extends JFrame implements KeyListener, WindowListener
     
     public static void main(String[] args)
     {
+		Debugger.out("START Game via main...");
         ScrollyV8 mf = new ScrollyV8();
         mf.setVisible(true);
         mf.init();

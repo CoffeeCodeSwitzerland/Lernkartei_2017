@@ -10,7 +10,8 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
-
+import models.GameModel;
+import debug.*;
 
 /**
  * Hauptfenster
@@ -52,14 +53,18 @@ public class MainView extends View
 		gameBtn.setOnAction(e -> getController().show("gameview"));
 		//gameBtn.setDisable(true); // TODO verbessere Spielintegration
 		helpBtn.setOnAction(e -> getController().show("helpview"));
+
 		quitBtn.setOnAction(e -> {
-			// TODO controller close
+	        Debugger.out("CLOSING 1");
+			GameModel gm = (GameModel) getController().getMyModel("game");
+			if (gm != null) gm.dispose();
 			getWindow().close();
-			//scrollyv8.
 		});
 		getWindow().setOnCloseRequest(new EventHandler<WindowEvent>() {
 		    @Override public void handle(WindowEvent t) {
-		        System.out.println("CLOSING");
+		        Debugger.out("CLOSING 2");
+				GameModel gm = (GameModel) getController().getMyModel("game");
+				if (gm != null) gm.dispose();
 				getWindow().close();
 		    }
 		});

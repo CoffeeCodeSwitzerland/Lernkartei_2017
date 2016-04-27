@@ -11,6 +11,7 @@ public class StatisticsView extends View
 	public StatisticsView(String setName, Stage window, MainController controller)
 	{
 		super (setName, window);
+		this.setMyController(controller);
 		
 		AppButton b = new AppButton("Back");
 		b.setOnAction(e -> controller.showMain());
@@ -18,5 +19,11 @@ public class StatisticsView extends View
 		BorderPane bp = new BorderPane();
 		bp.setCenter(b);
 		this.setScene(new Scene(bp, Constants.OPTIMAL_WIDTH, Constants.OPTIMAL_HEIGHT));
+	}
+
+	@Override
+	public void refreshView() {
+		// TODO Auto-generated method stub
+		
 	}
 }

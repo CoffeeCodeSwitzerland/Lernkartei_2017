@@ -7,7 +7,7 @@ import debug.Debugger;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-public class View
+public abstract class View implements ViewInterface
 {
 	private Stage window;
 	private Scene scene;
@@ -62,5 +62,4 @@ public class View
 	public void setMyController(MainController myController) {
 		this.myController = myController;
 	}
-
 }

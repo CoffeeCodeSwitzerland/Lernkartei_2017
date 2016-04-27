@@ -34,5 +34,11 @@ public class HelpView extends View
 		this.getWindow().setResizable(false);
 		this.setScene(new Scene(center, Constants.OPTIMAL_WIDTH, 150+Constants.OPTIMAL_HEIGHT));
 	}
+
+	@Override
+	public void refreshView() {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }

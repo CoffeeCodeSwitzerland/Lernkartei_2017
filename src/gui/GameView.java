@@ -28,6 +28,7 @@ public class GameView extends View
 	public GameView (String setName, Stage window, MainController controller)
 	{
 		super (setName, window);
+		this.setMyController(controller);
 
 		// CSS formatierte Meldung auf BS bringen (mit div. Schrifteffekten)
 		Text t = new Text("Starting game (please wait)...");
@@ -62,5 +63,11 @@ public class GameView extends View
 		//
 		super.show();
 		scrollyv8.ScrollyV8.main(null); // starte hier Spiel
+	}
+
+	@Override
+	public void refreshView() {
+		// TODO Auto-generated method stub
+		
 	}
 }

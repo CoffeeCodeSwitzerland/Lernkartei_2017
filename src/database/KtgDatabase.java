@@ -6,9 +6,13 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-
 public class KtgDatabase
 {
+	// URL und Driver	
+	
+	private static String url = "jdbc:sqlite:test.db";
+	private static String driver = "org.sqlite.JDBC";
+	
 	/**
 	 * Methode, zum Einfügen einer neuen Kategorie 
 	 * 
@@ -16,14 +20,11 @@ public class KtgDatabase
 	 *
 	 */
 
-	public static void Eingabe (String eingabe)
+	public static void newKategorie (String eingabe)
 	{
 
 		Connection c = null;
 		Statement stmt = null;
-
-		String url = "jdbc:sqlite:test.db";
-		String driver = "org.sqlite.JDBC";
 
 		try
 		{
@@ -58,7 +59,8 @@ public class KtgDatabase
 		}
 
 	}
-public static ArrayList<String[]> Ausgabe() {
+	
+public static ArrayList<String[]> getKategorien() {
 		
 		Connection c = null;
 		Statement stmt = null;
@@ -66,8 +68,8 @@ public static ArrayList<String[]> Ausgabe() {
 		ArrayList<String[]> datensatz = new ArrayList<String[]>();
 		
 		try {
-			Class.forName("org.sqlite.JDBC");
-			c = DriverManager.getConnection("jdbc:sqlite:test.db");
+			Class.forName(driver);
+			c = DriverManager.getConnection(url);
 			c.setAutoCommit(false);
 			stmt = c.createStatement();
 			ResultSet rs = stmt.executeQuery("SELECT * FROM Kategorie;");

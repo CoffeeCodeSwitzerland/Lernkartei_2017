@@ -14,6 +14,9 @@ public class GameModel extends Model {
 
     public GameModel(String myName) {
 		super(myName);
+	}
+
+    public void init() {
 		mf = new ScrollyV8();
 	}
 
@@ -40,6 +43,7 @@ public class GameModel extends Model {
 	@Override
 	public int doAction(String functionName, String paramS, double paramD) {
 		if (functionName.equals("start")) {
+			if (mf == null) init();
 	        final SwingNode swingNode = new SwingNode();
         	createSwingContent(swingNode);
 		}

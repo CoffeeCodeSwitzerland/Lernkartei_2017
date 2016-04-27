@@ -76,8 +76,8 @@ public class DoorView extends View
 			String s  = "";
 			for (Node n : doorLayout.getChildren())
 			{
-//				if (n.isFocused())
-//					s = n.getAccessibleText();
+				if (n.isFocused())
+					s = n.getAccessibleText();
 			}
 			Alert.simpleInfoBox("Achtung", "Willst du wirklich die Tür " + s + " löschen?");
 		});

@@ -1,5 +1,6 @@
 package guiexample;
 
+import gui.Alert;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;

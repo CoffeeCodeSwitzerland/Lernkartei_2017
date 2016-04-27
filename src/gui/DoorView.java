@@ -9,6 +9,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
+
 /**
  * Gamestartfenster
  * 
@@ -19,37 +20,41 @@ public class DoorView extends View
 {
 	public DoorView (String setName, Stage primaryStage, MainController controller)
 	{
-		super (setName, primaryStage);
+		super(setName, primaryStage);
 		this.setMyController(controller);
 
-		//Buttons
+		// Buttons
 		AppButton zurueckButton = new AppButton("zurück");
-		AppButton neueTuer 		= new AppButton("Neue Tür");
-		AppButton loescheTuer 	= new AppButton("Lösche Tür");
+		AppButton neueTuer = new AppButton("Neue Tür");
+		AppButton loescheTuer = new AppButton("Lösche Tür");
 		AppButton weitereTueren = new AppButton("weitere Türen");
 
-		// Box und Pane erstellen
+		// Layout für Controls
 		HBox hBox = new HBox(20);
-		BorderPane borderPane = new BorderPane();
 		hBox.setAlignment(Pos.CENTER);
-		//Alle Buttons in die HBox
-		hBox.getChildren().addAll(zurueckButton, neueTuer, loescheTuer, weitereTueren);
 		
-		//Die HBox in die Bottom BorderPane
+		hBox.getChildren().addAll(zurueckButton, neueTuer, loescheTuer, weitereTueren);
+
+		
+		// Laayout für die Scene
+		BorderPane borderPane = new BorderPane();
+		borderPane.setPadding(new Insets(15));
+		
 		borderPane.setBottom(hBox);
 		
-		borderPane.setPadding(new Insets(15));
-		zurueckButton.setOnAction(e -> controller.showMain());
-		
+		// Behaviour
+		zurueckButton.setOnAction(e -> getMyController().showMain());
+		neueTuer.setOnAction(e -> Alert.simpleInfoBox("Info", "Noch nicht implementiert"));
+		loescheTuer.setOnAction(e -> Alert.simpleInfoBox("Info", "Noch nicht implementiert"));
+		weitereTueren.setDisable(true);
+
 		this.setScene(new Scene(borderPane, Constants.OPTIMAL_WIDTH, Constants.OPTIMAL_HEIGHT));
 	}
 
 	@Override
-	public void refreshView() {
+	public void refreshView ()
+	{
 		// TODO Auto-generated method stub
-		
 	}
 
 }
-
-

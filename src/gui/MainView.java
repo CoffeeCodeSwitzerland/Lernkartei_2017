@@ -53,7 +53,7 @@ public class MainView extends View
 		statBtn.setOnAction(e -> controller.show("statisticsview"));
 		optionsBtn.setOnAction(e -> controller.show("optionsview"));
 		gameBtn.setOnAction(e -> controller.show("gameview"));
-		gameBtn.setDisable(true); // TODO verbessere Spielintegration
+		//gameBtn.setDisable(true); // TODO verbessere Spielintegration
 		helpBtn.setOnAction(e -> controller.show("helpview"));
 		quitBtn.setOnAction(e -> {
 			// TODO controller close

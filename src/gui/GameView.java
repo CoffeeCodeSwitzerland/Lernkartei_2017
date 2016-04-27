@@ -53,12 +53,12 @@ public class GameView extends View
 		
 		// BP in Scene einfügen:
 		this.setScene(new Scene(bp, Constants.OPTIMAL_WIDTH, Constants.OPTIMAL_HEIGHT));
-		this.getMyController().getMyModel("game").doAction("start");
+
 	}
 
 	@Override
 	public void refreshView() {
 		// TODO Auto-generated method stub
-		
+		this.getMyController().getMyModel("game").doAction("start");
 	}
 }

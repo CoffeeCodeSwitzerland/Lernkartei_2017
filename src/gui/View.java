@@ -27,6 +27,7 @@ public abstract class View implements ViewInterface
 			getWindow().setScene(scene);
 		}
 		getWindow().show();
+		this.refreshView();
 	}
 	
 	public String getName()

@@ -1,18 +1,13 @@
 package application;
 
-import javafx.application.Application;
-import javafx.embed.swing.SwingNode;
-import javafx.scene.Scene;
-import javafx.scene.layout.StackPane;
-import javafx.stage.Stage;
-import javax.swing.JButton;
 import javax.swing.SwingUtilities;
+
+import javafx.embed.swing.SwingNode;
 
 public class GameModel extends Model {
 
     public GameModel(String myName) {
 		super(myName);
-		// TODO Auto-generated constructor stub
 	}
 
 	private void createSwingContent(final SwingNode swingNode) {

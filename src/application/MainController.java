@@ -2,6 +2,7 @@ package application;
 
 import java.util.ArrayList;
 
+import debug.Debugger;
 import debug.Supervisor;
 import gui.DoorView;
 import gui.GameView;
@@ -46,6 +47,7 @@ public class MainController
 		//return myModel;
 		for (Model m : models)
 		{
+			Debugger.out("model found: "+m.getName());
 			if (m.getName().equals(name))
 			{
 				return m;

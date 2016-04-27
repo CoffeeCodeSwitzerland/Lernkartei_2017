@@ -15,20 +15,20 @@ public class DoorModel extends Model {
 
 		if (functionName == "new") {
 			try {
-				Doors.newDoor(paramS);	
-				return 1;
+				boolean success = Doors.newDoor(paramS);
+				return success ? 1 : -1;
 			}
 			catch (Exception e) {
-				return -1;
+				return -2;
 			}	
 			
 		} else if (functionName == "delete") {
 			try {
-				Doors.delDoor(paramS);
-				return 1;
+				boolean success = Doors.delDoor(paramS);
+				return success ? 1 : -1;
 			}
 			catch (Exception e) {
-				return -1;
+				return -2;
 			}			
 		} 
 		

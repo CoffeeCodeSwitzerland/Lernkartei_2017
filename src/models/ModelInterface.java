@@ -1,4 +1,4 @@
-package application;
+package models;
 
 import gui.ViewInterface;
 

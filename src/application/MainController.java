@@ -44,7 +44,6 @@ public class MainController
 		views.add(new OptionsView		("optionsview", primaryStage, this) );
 		views.add(new HelpView			("helpview") );
 		views.add(new GameView			("gameview", primaryStage, this));
-		
 	}
 
 	public Model getMyModel(String name) {

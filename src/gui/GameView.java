@@ -59,6 +59,6 @@ public class GameView extends View
 	public void refreshView() {
 		// TODO Auto-generated method stub
 		getController().getMyModel("game").doAction("start");
-		refresh();
+		//refresh();
 	}
 }

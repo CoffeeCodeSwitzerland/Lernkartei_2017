@@ -10,7 +10,7 @@ Einen alternativen Weg zum Bsp. mit setDefaultCloseOperation(JFrame.DISPOSE_ON_C
 (roter Knopf bleibt an), Java FX kann dann selbst Swing Rückstände nicht mehr aufräumen.
 Also @Tim+Miro: das Spiel muss auf Java FX portiert werden.
 
-Erledigt am:  ....
+Erledigt am:  27.4.16 von hugo
 ================================================
 
 ------------

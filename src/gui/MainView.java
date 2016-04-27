@@ -20,9 +20,13 @@ import javafx.stage.WindowEvent;
  */
 public class MainView extends View
 {
+	private final String appTitle = "WISS Learn Cards [Alpha]";
+
 	public MainView (String setName, Stage primaryStage, MainController controller)
 	{
 		super (setName, primaryStage);
+		this.setMyController(controller);
+		primaryStage.setTitle(appTitle);
 
 		// Buttons
 		AppButton startBtn 	 = new AppButton("Lernen");
@@ -63,5 +67,11 @@ public class MainView extends View
 
 		this.setScene(new Scene(layout, Constants.OPTIMAL_WIDTH, Constants.OPTIMAL_HEIGHT));
 		this.show();
+	}
+
+	@Override
+	public void refreshView() {
+		// TODO Auto-generated method stub
+		
 	}
 }

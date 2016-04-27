@@ -17,12 +17,10 @@ import javafx.stage.Stage;
  */
 public class DoorView extends View
 {
-	Stage	window;
-	Scene	scene;
-
 	public DoorView (String setName, Stage primaryStage, MainController controller)
 	{
 		super (setName, primaryStage);
+		this.setMyController(controller);
 
 		//Buttons
 		AppButton zurueckButton = new AppButton("zurück");
@@ -44,6 +42,12 @@ public class DoorView extends View
 		zurueckButton.setOnAction(e -> controller.showMain());
 		
 		this.setScene(new Scene(borderPane, Constants.OPTIMAL_WIDTH, Constants.OPTIMAL_HEIGHT));
+	}
+
+	@Override
+	public void refreshView() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

@@ -8,6 +8,13 @@ import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JTextField;
+import com.notification.NotificationFactory;
+import com.notification.NotificationManager;
+import com.notification.NotificationFactory.Location;
+import com.notification.manager.SimpleManager;
+import com.notification.types.TextNotification;
+import com.theme.ThemePackagePresets;
+import com.utils.Time;
 
 public class EditCard implements ActionListener{
 
@@ -88,6 +95,21 @@ public class EditCard implements ActionListener{
 			
 			}
 			
+			//Benachrichtigung wenn es gespeichert wurde
+			
+			//Lässt die Nachricht aufpopen
+			NotificationFactory factory = new NotificationFactory(ThemePackagePresets.cleanDark());
+			
+			//Zeigt die Nachricht an der ausgewählten Position an
+			NotificationManager plain = new SimpleManager(Location.NORTHEAST);
+			
+			//Fügt Text hinzu
+			TextNotification notification = factory.buildTextNotification("Lernkartei",  "Karten wurden gespeichert!");
+			notification.setCloseOnClick(true);
+			
+			//Die Notification verschwindet nach 2sek. oder anklicken
+			plain.addNotification(notification, Time.seconds(2));
+			
 		} else {
 			
 			//Löschen
@@ -102,6 +124,21 @@ public class EditCard implements ActionListener{
 				}
 				
 			}
+			
+			//Benachrichtigung wenn es gelöscht wurde
+			
+			//Lässt die Nachricht aufpopen
+			NotificationFactory factory = new NotificationFactory(ThemePackagePresets.cleanDark());
+			
+			//Zeigt die Nachricht an der ausgewählten Position an
+			NotificationManager plain = new SimpleManager(Location.NORTHEAST);
+			
+			//Fügt Text hinzu
+			TextNotification notification = factory.buildTextNotification("Lernkartei",  "Karte wurde gelöscht!");
+			notification.setCloseOnClick(true);
+			
+			//Die Notification verschwindet nach 2sek. oder anklicken
+			plain.addNotification(notification, Time.seconds(2));
 			
 		}
 		

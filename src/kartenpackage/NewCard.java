@@ -5,7 +5,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import com.notification.NotificationFactory;
+import com.notification.NotificationFactory.Location;
+import com.notification.NotificationManager;
+import com.notification.manager.SimpleManager;
+import com.notification.types.TextNotification;
+import com.theme.ThemePackagePresets;
+import com.utils.Time;
 
 public class NewCard extends JFrame implements ActionListener{
 	
@@ -14,6 +22,8 @@ public class NewCard extends JFrame implements ActionListener{
 	 *-Editable Text
 	 *-Schöneres UI(Überall)
 	 *-values[2] editable machen
+	 *-If/Else beim kontrollieren des Speicherns funktioniert noch nicht
+	 *-Beim editieren: wenn etwas gelöscht wurde aktualisieren
 	 */
 
 	private static final long serialVersionUID = 1L;
@@ -50,14 +60,41 @@ public class NewCard extends JFrame implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		
-		//Nimmt den Text von JTextFields und speichert sie in DB 
-		String[] values = new String[3];
-		values[0] = antwort.getText();
-		values[1] = frage.getText();
-		values[2] = "English Unit 4";
+		if(antwort == null || frage == null || antwort.getText() == "" && frage.getText() == "" ){
 		
-		Database.pushToStock(values);
+			JOptionPane.showMessageDialog(null,"Du musst etwas eingeben!");
 	  
+		}else{
+			
+			//Nimmt den Text von JTextFields und speichert sie in DB 
+			String[] values = new String[3];
+			values[0] = antwort.getText();
+			values[1] = frage.getText();
+			values[2] = "English Unit 4";
+			
+			Database.pushToStock(values);
+			
+			//Löscht den Inhalt der JTextFields
+			antwort.setText("");
+			frage.setText("");
+	 
+			//Benachrichtigung wenn es gespeichert wurde
+			
+			//Lässt die Nachricht aufpopen
+			NotificationFactory factory = new NotificationFactory(ThemePackagePresets.cleanDark());
+			
+			//Zeigt die Nachricht an der ausgewählten Position an
+			NotificationManager plain = new SimpleManager(Location.NORTHEAST);
+			
+			//Fügt Text hinzu
+			TextNotification notification = factory.buildTextNotification("Lernkartei",  "Karte wurde gespeichert!");
+			notification.setCloseOnClick(true);
+			
+			//Die Notification verschwindet nach 2sek. oder anklicken
+			plain.addNotification(notification, Time.seconds(2));
+			
 		}
 		
 	}
+		
+}

@@ -34,6 +34,10 @@ public class MainController
 
 	public MainController (Stage primaryStage)
 	{
+		// Zuerst Model kreieren, dann Views!
+		models.add(new GameModel("game"));
+		models.add(new DoorModel("door"));
+
 		views.add(new MainView			( mainView, primaryStage, this) );
 		views.add(new StatisticsView	("statisticsview", primaryStage, this) );
 		views.add(new DoorView			("doorview", primaryStage, this) );
@@ -41,8 +45,6 @@ public class MainController
 		views.add(new HelpView			("helpview") );
 		views.add(new GameView			("gameview", primaryStage, this));
 		
-		models.add(new GameModel("game"));
-		models.add(new DoorModel("door"));
 	}
 
 	public Model getMyModel(String name) {

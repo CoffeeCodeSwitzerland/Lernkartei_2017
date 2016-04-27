@@ -85,7 +85,7 @@ public class Doors {
 	 * 
 	 * Methode, welche alle Türen in einer Liste ausgibt
 	 * 
-	 * @return
+	 * @return --> Retourniert die Liste mit allen Türen
 	 */
 
 	public static ArrayList<String> getDoors () {

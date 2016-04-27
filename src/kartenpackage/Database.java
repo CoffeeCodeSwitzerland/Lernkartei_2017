@@ -8,6 +8,7 @@ public class Database
 {
 	private static String DB_Name = "Kartei";
 	public static ResultSet rs;
+	public static String insert;
 	
 	/**
 	 *  Keine neue Instanz Database erstellen, sondern nur die Methode benutzen
@@ -28,13 +29,14 @@ public class Database
 	                   "(PK_Stk INTEGER PRIMARY KEY AUTOINCREMENT," +
 	                   " Backside       TEXT    NOT NULL, " + 
 	                   " Frontside      TEXT    NOT NULL, " + 
-	                   " Description        TEXT)"; 
+	                   " Description    TEXT    NOT NULL, " + 
+	                   " Color			TEXT    NOT NULL  )"; 
 	      
 	      System.out.println(sql);
 	      stmt.executeUpdate(sql);
 	      
-	      String insert = 	"INSERT INTO Stock (Backside, Frontside, Description)" + 
-	    		  		  	"VALUES ('" + values[0] + "','" + values[1] + "','" + values[2] + "')";	
+	      insert = 	"INSERT INTO Stock (Backside, Frontside, Description, Color)" + 
+	    		  		  	"VALUES ('" + values[0] + "','" + values[1] + "','" + values[2] + "', '" + values[3] + "')";	
 	      
 	      System.out.println(insert);
 	      stmt.executeUpdate(insert);
@@ -69,11 +71,12 @@ public class Database
 	      
 	    while ( rs.next() ) {
 	         
-	        String[] set = new String[4];
+	        String[] set = new String[5];
 	        set[0] = Integer.toString(rs.getInt("PK_Stk"));
 	        set[1] = rs.getString("Backside");
 	        set[2] = rs.getString("Frontside");
 	        set[3] = rs.getString("Description");
+	        set[4] = rs.getString("Color");
 	        
 	        results.add(set);          
 	    }

@@ -1,9 +1,11 @@
 package kartenpackage;
 
+import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
+import javax.swing.JColorChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -21,6 +23,7 @@ public class NewCard extends JFrame implements ActionListener{
 	 *------------
 	 *-Schöneres UI(Überall)
 	 *-Beim editieren: wenn etwas gelöscht wurde aktualisieren
+	 *-Farbe bei JTextFields abgeben 
 	 */
 
 	private static final long serialVersionUID = 1L;
@@ -30,20 +33,23 @@ public class NewCard extends JFrame implements ActionListener{
 	public static String s, q;
 	public JTextField antwort = new JTextField();
 	public JTextField frage = new JTextField();
-	public JButton boldbtn = new JButton("Bold");
+	public JButton colorbtn = new JButton("Farbe");
 	public JButton savebtn = new JButton("Speichern");
 	private JFrame myframe = new JFrame();
+	public Color c;
+	public int cop;
+	public String op = null;
 	
 	public NewCard(){
 		
 		//Elemente auf Frame adden
 		myframe.add(antwort);
 		myframe.add(frage);
-		myframe.add(boldbtn);
+		myframe.add(colorbtn);
 		myframe.add(savebtn);
 		
 		//ActionListener für Button 
-		boldbtn.addActionListener(this);
+		colorbtn.addActionListener(this);
 		savebtn.addActionListener(this);
 		
 		//Windows Einstellungen
@@ -55,41 +61,59 @@ public class NewCard extends JFrame implements ActionListener{
 	}
 
 	@Override
-	public void actionPerformed(ActionEvent arg0) {
+	public void actionPerformed(ActionEvent e) {
 		
-		if(antwort.getText().equals("") && frage.getText().equals("") || frage.getText().equals("") || antwort.getText().equals("")){
+		if(e.getSource() == savebtn){
+			if(antwort.getText().equals("") && frage.getText().equals("") || frage.getText().equals("") || antwort.getText().equals("")){
 		
-			JOptionPane.showMessageDialog(null,"Du musst etwas eingeben!");
+				JOptionPane.showMessageDialog(null,"Du musst etwas eingeben!");
 	  
+			}else{
+					
+				if(c != null){
+				  cop = c.getRGB();		
+				  op = Integer.toString(cop);
+				}
+				  //HIER FÜR EDITCARD!!!!!
+			      //Color color = new Color(cop);
+			      //frage.setForeground(color);
+			
+				//Nimmt den Text von JTextFields und speichert sie in DB 
+				String[] values = new String[4];
+				values[0] = antwort.getText();
+				values[1] = frage.getText();
+				values[2] = "Description";
+				values[3] = op;
+				
+				Database.pushToStock(values);
+				
+				//Löscht den Inhalt der JTextFields
+				antwort.setText("");
+				frage.setText("");
+		 
+				//Benachrichtigung wenn es gespeichert wurde
+				
+				//Lässt die Nachricht aufpopen
+				NotificationFactory factory = new NotificationFactory(ThemePackagePresets.cleanDark());
+				
+				//Zeigt die Nachricht an der ausgewählten Position an
+				NotificationManager plain = new SimpleManager(Location.NORTHEAST);
+				
+				//Fügt Text hinzu
+				TextNotification notification = factory.buildTextNotification("Lernkartei",  "Karte wurde gespeichert!");
+				notification.setCloseOnClick(true);
+				
+				//Die Notification verschwindet nach 2sek. oder anklicken
+				plain.addNotification(notification, Time.seconds(2));
+			}
+				
 		}else{
-			
-			//Nimmt den Text von JTextFields und speichert sie in DB 
-			String[] values = new String[3];
-			values[0] = antwort.getText();
-			values[1] = frage.getText();
-			values[2] = "Decription";
-			
-			Database.pushToStock(values);
-			
-			//Löscht den Inhalt der JTextFields
-			antwort.setText("");
-			frage.setText("");
-	 
-			//Benachrichtigung wenn es gespeichert wurde
-			
-			//Lässt die Nachricht aufpopen
-			NotificationFactory factory = new NotificationFactory(ThemePackagePresets.cleanDark());
-			
-			//Zeigt die Nachricht an der ausgewählten Position an
-			NotificationManager plain = new SimpleManager(Location.NORTHEAST);
-			
-			//Fügt Text hinzu
-			TextNotification notification = factory.buildTextNotification("Lernkartei",  "Karte wurde gespeichert!");
-			notification.setCloseOnClick(true);
-			
-			//Die Notification verschwindet nach 2sek. oder anklicken
-			plain.addNotification(notification, Time.seconds(2));
-			
+			c = JColorChooser.showDialog(null, "Wähle eine Farbe", antwort.getForeground());
+		      if (c != null){
+		        antwort.setForeground(c);
+		        frage.setForeground(c);
+		      }		      
+		      
 		}
 		
 	}

@@ -5,7 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.net.URL;
 import java.net.URLConnection;
-
+import kartenpackage.Database;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -61,7 +61,11 @@ public class Frame extends JFrame implements ActionListener{
 		if(e.getSource() == newbtn){
 			new NewCard();
 		}else if(e.getSource() == editbtn){
-			new EditCard();
+			if(Database.insert == null){
+				JOptionPane.showMessageDialog(null,"Keine Datenbank!");
+			}else{
+				new EditCard();
+			}
 		}else{		
 			InternetConnection();
 			if(connectivity == true){

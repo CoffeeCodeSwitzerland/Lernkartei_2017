@@ -19,8 +19,9 @@ public class Doors {
 	 * 
 	 * @param eingabe
 	 *            --> String Name der Tür
-	 *            
-	 * @return --> True, wenn Eintrag eingefügt, false, wenn Eintrag bereits vorhanden
+	 * 
+	 * @return --> True, wenn Eintrag eingefügt, false, wenn Eintrag bereits
+	 *         vorhanden
 	 *
 	 */
 
@@ -42,33 +43,36 @@ public class Doors {
 			System.out.println(sql);
 			stmt.executeUpdate(sql);
 
-			// Überprüft, ob bereits ein Eintrag mit dem Selben Namen enthalten ist
-			
+			// Überprüft, ob bereits ein Eintrag mit dem Selben Namen enthalten
+			// ist
+
 			c.setAutoCommit(false);
-			
-			ResultSet checkName = stmt.executeQuery("SELECT Doorname FROM Doors WHERE Doorname = " + "'" + eingabe + "'");
-			
+
+			ResultSet checkName = stmt
+					.executeQuery("SELECT Doorname FROM Doors WHERE Doorname = " + "'" + eingabe + "'");
+
 			if (!checkName.next()) {
-				
+
 				checkName.close();
 				c.setAutoCommit(true);
-				
+
 				// Einfügen des Datensatzes in Doors
-				
+
 				String insert = "INSERT INTO Doors (Doorname)" +
 						"VALUES ('" + eingabe + "')";
 
 				stmt.executeUpdate(insert);
 				stmt.close();
 				c.close();
-				
+
 				System.out.println("Successfull!");
 				worked = true;
-				
-			} else {
-				
+
+			}
+			else {
+
 				worked = false;
-				
+
 			}
 
 		}
@@ -76,7 +80,7 @@ public class Doors {
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
 			System.exit(0);
 		}
-		
+
 		return worked;
 
 	}
@@ -119,10 +123,11 @@ public class Doors {
 				stmt.close();
 				c.close();
 
-			} else {
-				
+			}
+			else {
+
 				System.out.println("Table Doors is not created yet.");
-				
+
 			}
 		}
 		catch (Exception e) {
@@ -134,28 +139,54 @@ public class Doors {
 
 	}
 
-	public static void delDoor (String delName) {
+	/**
+	 * Gibt boolean zurück, obs funktioniert hat oder nicht
+	 * 
+	 * @param delName
+	 *            --> Name, welcher gelöscht werden soll
+	 * @return --> True, Gelöscht / false, nicht Gelöscht / vorhanden
+	 */
+
+	public static boolean delDoor (String delName) {
 
 		Connection c = null;
 		Statement stmt = null;
+		boolean worked = false;
 
 		try {
 			Class.forName(driver);
 			c = DriverManager.getConnection(url);
 			stmt = c.createStatement();
+			c.setAutoCommit(false);
 
-			String delDoor = "DELETE FROM Doors WHERE Doorname = " + delName;
-			stmt.executeUpdate(delDoor);
+			ResultSet del = stmt.executeQuery("SELECT Doorname FROM Doors WHERE Doorname = " + "'" + delName + "'");
 
-			System.out.println("Successfully deleted Door: " + delName);
+			if (!del.next()) {
 
-			stmt.close();
-			c.close();
+				del.close();
+				c.setAutoCommit(true);
+				String delDoor = "DELETE FROM Doors WHERE Doorname = " + delName;
+				stmt.executeUpdate(delDoor);
+
+				System.out.println("Successfully deleted Door: " + delName);
+
+				stmt.close();
+				c.close();
+				worked = true;
+
+			}
+			else {
+
+				worked = false;
+
+			}
 		}
 		catch (Exception e) {
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
 			System.exit(0);
 		}
+
+		return worked;
 
 	}
 

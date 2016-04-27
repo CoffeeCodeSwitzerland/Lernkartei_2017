@@ -12,6 +12,8 @@ import gui.OptionsView;
 import gui.StatisticsView;
 import gui.View;
 import javafx.stage.Stage;
+import models.GameModel;
+import models.Model;
 
 /**
  * Main Controller

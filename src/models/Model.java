@@ -1,8 +1,9 @@
-package application;
+package models;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import application.ModelInterface;
 import gui.ViewInterface;
 
 public abstract class Model implements ModelInterface {

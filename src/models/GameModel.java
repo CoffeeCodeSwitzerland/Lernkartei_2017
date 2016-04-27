@@ -1,4 +1,4 @@
-package application;
+package models;
 
 import javax.swing.SwingUtilities;
 

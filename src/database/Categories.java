@@ -99,6 +99,10 @@ public static ArrayList<String[]> getKategorien() {
 		
 	}
 	
+	public static void delKategorie (int delID) {
 		
+		
+		
+	}
 
 }

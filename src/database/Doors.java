@@ -74,19 +74,30 @@ public class Doors {
 			c = DriverManager.getConnection(url);
 			c.setAutoCommit(false);
 			stmt = c.createStatement();
-			ResultSet rs = stmt.executeQuery("SELECT Doorname FROM Doors");
 
-			while (rs.next()) {
+			ResultSet tbl = stmt.executeQuery("SELECT name FROM sqlite_master WHERE type='table' AND name='Doors'");
 
-				String name = "";
-				name = rs.getString("Doorname");
-				data.add(name);
+			if (tbl.next()) {
 
+				ResultSet rs = stmt.executeQuery("SELECT Doorname FROM Doors");
+
+				while (rs.next()) {
+
+					String name = "";
+					name = rs.getString("Doorname");
+					data.add(name);
+
+				}
+
+				rs.close();
+				stmt.close();
+				c.close();
+
+			} else {
+				
+				System.out.println("Table Doors is not created yet.");
+				
 			}
-
-			rs.close();
-			stmt.close();
-			c.close();
 		}
 		catch (Exception e) {
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
@@ -98,7 +109,7 @@ public class Doors {
 	}
 
 	public static void delDoor (String delName) {
-		
+
 		Connection c = null;
 		Statement stmt = null;
 
@@ -109,9 +120,9 @@ public class Doors {
 
 			String delDoor = "DELETE FROM Doors WHERE Doorname = " + delName;
 			stmt.executeUpdate(delDoor);
-			
+
 			System.out.println("Successfully deleted Door: " + delName);
-			
+
 			stmt.close();
 			c.close();
 		}
@@ -119,7 +130,7 @@ public class Doors {
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
 			System.exit(0);
 		}
-		
+
 	}
 
 }

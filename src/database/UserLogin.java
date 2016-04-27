@@ -5,6 +5,13 @@ import java.sql.*;
 
 public class UserLogin {
 
+	// Variabeln Datenbank Verbindung
+
+	private static String	url			= "jdbc:mariadb://192.168.3.150:3306/userdb";
+	private static String	username	= "prototyp";
+	private static String	password	= "prototyp";
+	private static String	driver		= "com.mysql.jdbc.Driver";
+
 	/**
 	 * Fügt der Datenbank einen neuen User hinzu
 	 * 
@@ -18,11 +25,6 @@ public class UserLogin {
 
 		Connection c = null;
 		Statement stmt = null;
-
-		String url = "jdbc:mariadb://192.168.3.150:3306/userdb";
-		String username = "prototyp";
-		String password = "prototyp";
-		String driver = "com.mysql.jdbc.Driver";
 
 		try {
 			Class.forName(driver);
@@ -143,7 +145,7 @@ public class UserLogin {
 			Class.forName(driver);
 			c = DriverManager.getConnection(url, username, password);
 			stmt = c.createStatement();
-			
+
 			String sql1 = "CREATE TABLE IF NOT EXISTS Teachers " +
 					"(PK_Lehrer INT PRIMARY KEY AUTO_INCREMENT," +
 					" Username TEXT NOT NULL," +
@@ -165,7 +167,8 @@ public class UserLogin {
 			System.out.println("Schülertabelle erstellt!");
 
 			c.setAutoCommit(false);
-			ResultSet rsUsern = stmt.executeQuery("SELECT Username FROM Teachers WHERE Username = " + "'" + values[0] + "'");
+			ResultSet rsUsern = stmt
+					.executeQuery("SELECT Username FROM Teachers WHERE Username = " + "'" + values[0] + "'");
 			ResultSet rsEmail = stmt.executeQuery("SELECT Email FROM Teachers WHERE Email = " + "'" + values[1] + "'");
 
 			if (rsUsern.next() || rsEmail.next()) {
@@ -192,7 +195,8 @@ public class UserLogin {
 			c.setAutoCommit(false);
 			stmt = c.createStatement();
 
-			ResultSet rsUsern = stmt.executeQuery("SELECT Username FROM Students WHERE Username = " + "'" + values[0] + "'");
+			ResultSet rsUsern = stmt
+					.executeQuery("SELECT Username FROM Students WHERE Username = " + "'" + values[0] + "'");
 			ResultSet rsEmail = stmt.executeQuery("SELECT Email FROM Students WHERE Email = " + "'" + values[1] + "'");
 
 			if (rsUsern.next() || rsEmail.next()) {
@@ -230,22 +234,85 @@ public class UserLogin {
 	}
 
 	/**
-	 * Löscht einen User wenn Username / Passwort korrekt
+	 * Löscht den angegebenen User
 	 * 
-	 * @param values
-	 *            --> String Array mit Username , Passwort
-	 * @return --> True wenn gelöscht, false wenn nicht vorhanden oder Passwort
-	 *         nicht korrekt
+	 * @param delName
+	 *            --> String mit Username
+	 * 
 	 */
 
-	public static boolean delUser (String[] values) {
+	public static void delUser (String delName) {
 
-		boolean deleted = false;
-		
-		// To be continued
-		
-		return deleted;
+		Connection c = null;
+		Statement stmt = null;
 
+		try {
+			Class.forName(driver);
+			c = DriverManager.getConnection(url, username, password);
+			stmt = c.createStatement();
+
+			String delStudent = "DELETE FROM Students WHERE Username = " + delName;
+			String delTeacher = "DELETE FROM Teachers WHERE Username = " + delName;
+
+			stmt.executeUpdate(delStudent);
+			stmt.executeUpdate(delTeacher);
+
+			System.out.println("Successfully deleted User: " + delName);
+
+			stmt.close();
+			c.close();
+		}
+		catch (Exception e) {
+			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+			System.exit(0);
+		}
+
+	}
+	
+	/**
+	 * Überprüft die Login Daten
+	 * 
+	 * @param userData --> Benötigt ein String Array mit Username, Password
+	 * @return --> True = Korrekt, False = Inkorrekt
+	 */
+	
+	public static boolean loginUser (String[] userData) {
+		
+		boolean loggedIn = false;
+		String password = null;
+		
+		Connection c = null;
+		Statement stmt = null;
+		
+		try {
+			Class.forName(driver);
+			c = DriverManager.getConnection(url, username, password);
+			stmt = c.createStatement();
+			c.setAutoCommit(false);
+			
+			ResultSet rs = stmt.executeQuery("SELECT Password FROM Students WHERE Username = '" + userData[0] + "'");
+			
+			while (rs.next()) {
+				
+				password = rs.getString("Password");
+				
+			}
+			
+			stmt.close();
+			c.close();
+		}
+		catch (Exception e) {
+			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+			System.exit(0);
+		}
+		
+		if (userData[1].equals(password)) {
+			
+			loggedIn = true;
+			
+		}
+		
+		return loggedIn;
 	}
 
 }

@@ -3,8 +3,12 @@ package kartenpackage;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.URL;
+import java.net.URLConnection;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 public class Frame extends JFrame implements ActionListener{
 
@@ -15,6 +19,7 @@ public class Frame extends JFrame implements ActionListener{
 	public JButton editbtn = new JButton("Karte bearbeiten");
 	public JButton backup = new JButton("Backup");
 	private JFrame myframe = new JFrame();
+	public boolean connectivity;
 	
 	public  Frame(){
 		
@@ -35,6 +40,20 @@ public class Frame extends JFrame implements ActionListener{
 		myframe.setVisible(true);
 	}
 	
+	public void InternetConnection(){
+		//Testet die Internetverbindung um Fehler beim Backup zu verhindern
+		 try {
+		 URL url = new URL("http://www.google.com/");
+		 URLConnection conn = url.openConnection();
+		 conn.connect();
+		 connectivity = true;
+		 
+		 } catch (Exception e) {		 
+		 connectivity = false;	 
+		 }
+		 
+	}
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
@@ -43,8 +62,13 @@ public class Frame extends JFrame implements ActionListener{
 			new NewCard();
 		}else if(e.getSource() == editbtn){
 			new EditCard();
-		}else{
-			Backup.BackUp(Database.pullFromStock());
+		}else{		
+			InternetConnection();
+			if(connectivity == true){
+				Backup.BackUp(Database.pullFromStock());
+			}else{
+				JOptionPane.showMessageDialog(null,"Keine Internetverbindung!");
+			}
 		}
 		
 	}

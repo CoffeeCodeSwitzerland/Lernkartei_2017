@@ -20,8 +20,7 @@ public class DoorView extends View
 {
 	public DoorView (String setName, Stage primaryStage, MainController controller)
 	{
-		super(setName, primaryStage);
-		this.setMyController(controller);
+		super(setName, primaryStage, controller);
 
 		// Buttons
 		AppButton zurueckButton = new AppButton("zurück");
@@ -43,7 +42,7 @@ public class DoorView extends View
 		borderPane.setBottom(hBox);
 		
 		// Behaviour
-		zurueckButton.setOnAction(e -> getMyController().showMain());
+		zurueckButton.setOnAction(e -> getController().showMain());
 		neueTuer.setOnAction(e -> Alert.simpleInfoBox("Info", "Noch nicht implementiert"));
 		loescheTuer.setOnAction(e -> Alert.simpleInfoBox("Info", "Noch nicht implementiert"));
 		weitereTueren.setDisable(true);
@@ -54,6 +53,7 @@ public class DoorView extends View
 	@Override
 	public void refreshView ()
 	{
+		refresh();
 		// TODO Auto-generated method stub
 	}
 

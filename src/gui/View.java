@@ -4,6 +4,7 @@ import java.net.URL;
 
 import application.MainController;
 import debug.Debugger;
+import debug.Supervisor;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
@@ -63,6 +64,8 @@ public abstract class View implements ViewInterface
 	}
 
 	public MainController getController() {
-		return myController;
+		if (myController != null) return myController;
+		Supervisor.warnAndDebug(this, "no maincontroller defined for this stage!");
+		return null;
 	}
 }

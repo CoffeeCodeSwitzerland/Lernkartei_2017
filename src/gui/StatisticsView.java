@@ -10,8 +10,7 @@ public class StatisticsView extends View
 {
 	public StatisticsView(String setName, Stage window, MainController controller)
 	{
-		super (setName, window);
-		this.setMyController(controller);
+		super (setName, window, controller);
 		
 		AppButton b = new AppButton("Back");
 		b.setOnAction(e -> controller.showMain());
@@ -23,6 +22,7 @@ public class StatisticsView extends View
 
 	@Override
 	public void refreshView() {
+		refresh();
 		// TODO Auto-generated method stub
 		
 	}

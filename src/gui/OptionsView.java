@@ -21,8 +21,7 @@ public class OptionsView extends View
 {
 	public OptionsView (String setName, Stage primaryStage, MainController controller)
 	{
-		super (setName, primaryStage);
-		this.setMyController(controller);
+		super (setName, primaryStage, controller);
 
 		// Contorls (Sample)
 		AppButton resetStats = new AppButton("Statistiken zurücksetzten");
@@ -68,6 +67,7 @@ public class OptionsView extends View
 
 	@Override
 	public void refreshView() {
+		refresh();
 		// TODO Auto-generated method stub
 		
 	}

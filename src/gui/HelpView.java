@@ -20,7 +20,7 @@ public class HelpView extends View
 
 	public HelpView (String setName)
 	{
-		super (setName, new Stage());
+		super (setName, new Stage(), null);
 		
 		Image helpdesk = new Image("gui/pictures/helpdesk.jpg", true);
 

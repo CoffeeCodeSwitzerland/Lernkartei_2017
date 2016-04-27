@@ -27,8 +27,7 @@ public class GameView extends View
 	 */
 	public GameView (String setName, Stage window, MainController controller)
 	{
-		super (setName, window);
-		this.setMyController(controller);
+		super (setName, window, controller);
 
 		// CSS formatierte Meldung auf BS bringen (mit div. Schrifteffekten)
 		Text t = new Text("Starting game (please wait)...");
@@ -36,7 +35,7 @@ public class GameView extends View
 
 		// Button für Zurück zum Hauptmenue:
 		AppButton b = new AppButton("Zurück...");
-		b.setOnAction(e -> controller.showMain());
+		b.setOnAction(e -> getController().showMain());
 
 		// Erstellt VBox Layout für beide obige Elemente:
 		VBox tempVBox = new VBox();
@@ -59,6 +58,7 @@ public class GameView extends View
 	@Override
 	public void refreshView() {
 		// TODO Auto-generated method stub
-		this.getMyController().getMyModel("game").doAction("start");
+		getController().getMyModel("game").doAction("start");
+		refresh();
 	}
 }

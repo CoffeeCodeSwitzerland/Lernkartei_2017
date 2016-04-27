@@ -8,6 +8,5 @@
 	<classpathentry kind="lib" path="src/org.json.jar"/>
 	<classpathentry kind="lib" path="src/sqlite-jdbc-3.8.11.2.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
-	<classpathentry kind="lib" path="C:/Users/WISS/Documents/Bund Lerlinge/JCommunique-2.0.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

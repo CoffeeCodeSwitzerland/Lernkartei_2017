@@ -3,20 +3,17 @@ package kartenpackage;
 import java.sql.*;
 import java.util.ArrayList;
 
-
 public class Backup
 {
 	/**
 	 * Backup von allen Daten welche aus pullFromStock() geholt werden können,
 	 * hier mitgeben
-	 * 
 	 * @param values
 	 *            --> ArrayList<String[]> von pullFromStock()
 	 */
 
 	public static void BackUp (ArrayList<String[]> values)
 	{
-
 		Connection c = null;
 		Statement stmt = null;
 
@@ -57,16 +54,14 @@ public class Backup
 						"VALUES ('" + values.get(i)[1] + "','" + values.get(i)[2] + "','" + values.get(i)[3] + "')";
 
 				stmt.executeUpdate(insert);
-
 			}
 			
 			System.out.println("Successful");
 
 			stmt.close();
 			c.close();
-		}
-		catch (Exception e)
-		{
+		
+		}catch (Exception e){
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
 			System.exit(0);
 		}

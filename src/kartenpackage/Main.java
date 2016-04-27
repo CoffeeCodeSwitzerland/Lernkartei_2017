@@ -4,8 +4,8 @@ public class Main {
 
 	public static void main(String[] args) {
 		
-		new Frame();
-		
+		//Starte Frame.java
+		new Frame();	
 	}
 
 }

@@ -9,15 +9,27 @@ public class DoorModel extends Model {
 		super(myName);
 				
 	}
-
-	@Override
+		
+	@Override	
 	public int doAction (String functionName, String paramS, double paramD) {
 
 		if (functionName == "new") {
-					
+			try {
+				Doors.newDoor(paramS);	
+				return 1;
+			}
+			catch (Exception e) {
+				return -1;
+			}	
 			
-		} else if (functionName == "del") {
-			
+		} else if (functionName == "delete") {
+			try {
+				Doors.delDoor(paramS);
+				return 1;
+			}
+			catch (Exception e) {
+				return -1;
+			}
 			
 		} 
 		

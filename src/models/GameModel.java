@@ -16,6 +16,7 @@ public class GameModel extends Model {
             public void run() {
         		scrollyv8.ScrollyV8.main(null); // starte hier Spiel
             }
+            
         });
     }
 

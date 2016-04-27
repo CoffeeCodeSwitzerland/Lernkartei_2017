@@ -12,13 +12,14 @@ public abstract class View implements ViewInterface
 	private Stage window;
 	private Scene scene;
 	private String name;
-	private MainController myController = null;
+	private MainController myController;
 	private static String stylePath	= "style.css";
 
-	public View (String setName, Stage primary) {
+	public View (String setName, Stage primary, MainController controller) {
 		window = primary;
 		name   = setName;
 		scene  = null;
+		myController = controller;
 	}
 	
 	public void show()
@@ -51,16 +52,17 @@ public abstract class View implements ViewInterface
 		}
 	}
 
+	public void refresh() {
+		getWindow().hide();
+		getWindow().show();
+	}
+	
 	public Stage getWindow() {
 		if (window == null) window = new Stage();
 		return window;
 	}
 
-	public MainController getMyController() {
+	public MainController getController() {
 		return myController;
-	}
-
-	public void setMyController(MainController myController) {
-		this.myController = myController;
 	}
 }

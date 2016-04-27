@@ -7,6 +7,7 @@ public abstract class Constants {
 	public static final double OPTIMAL_WIDTH  = 800;
 	public static final double OPTIMAL_HEIGHT = 450;
 	public static final String appTitle = "WISSLearnCards 2016";
+	public static final String appVersion = "[V0.1 alpha]";
 
 	// Getters/Setters for non final "constants":
 	public static double getMinWidth() {

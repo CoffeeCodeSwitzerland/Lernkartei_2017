@@ -20,13 +20,10 @@ import javafx.stage.WindowEvent;
  */
 public class MainView extends View
 {
-	private final String appTitle = "WISS Learn Cards [Alpha]";
-
 	public MainView (String setName, Stage primaryStage, MainController controller)
 	{
-		super (setName, primaryStage);
-		this.setMyController(controller);
-		primaryStage.setTitle(appTitle);
+		super (setName, primaryStage, controller);
+		primaryStage.setTitle(Constants.appTitle+" "+Constants.appVersion);
 
 		// Buttons
 		AppButton startBtn 	 = new AppButton("Lernen");
@@ -49,15 +46,16 @@ public class MainView extends View
 		layout.setCenter(menu);
 
 		// Behaviour
-		startBtn.setOnAction(e -> controller.show("doorview"));
-		statBtn.setOnAction(e -> controller.show("statisticsview"));
-		optionsBtn.setOnAction(e -> controller.show("optionsview"));
-		gameBtn.setOnAction(e -> controller.show("gameview"));
+		startBtn.setOnAction(e -> getController().show("doorview"));
+		statBtn.setOnAction(e -> getController().show("statisticsview"));
+		optionsBtn.setOnAction(e -> getController().show("optionsview"));
+		gameBtn.setOnAction(e -> getController().show("gameview"));
 		//gameBtn.setDisable(true); // TODO verbessere Spielintegration
-		helpBtn.setOnAction(e -> controller.show("helpview"));
+		helpBtn.setOnAction(e -> getController().show("helpview"));
 		quitBtn.setOnAction(e -> {
 			// TODO controller close
 			getWindow().close();
+			//scrollyv8.
 		});
 		getWindow().setOnCloseRequest(new EventHandler<WindowEvent>() {
 		    @Override public void handle(WindowEvent t) {
@@ -74,6 +72,8 @@ public class MainView extends View
 
 	@Override
 	public void refreshView() {
+		refresh();
+
 		// TODO Auto-generated method stub
 		
 	}

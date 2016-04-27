@@ -39,7 +39,6 @@ public class DoorModel extends Model {
 	public ArrayList<String> getData (String query) {
 
 		if (query.equals("doors")) {
-			
 			try
 			{
 				return Doors.getDoors();
@@ -49,9 +48,7 @@ public class DoorModel extends Model {
 				// TODO Auto-generated catch block
 				return null;
 			}
-			
 		}
-		
 		return null;
 	}
 	

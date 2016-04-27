@@ -6,6 +6,7 @@ import application.Constants;
 import application.MainController;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -71,7 +72,15 @@ public class DoorView extends View
 				refreshView();
 			}
 		});
-		loescheTuer.setOnAction(e -> Alert.simpleInfoBox("Info", "Noch nicht implementiert"));
+		loescheTuer.setOnAction(e -> {
+			String s  = "";
+			for (Node n : doorLayout.getChildren())
+			{
+				if (n.isFocused())
+					s = n.getAccessibleText();
+			}
+			Alert.simpleInfoBox("Achtung", "Willst du wirklich die Tür " + s + " löschen?");
+		});
 		weitereTueren.setDisable(true);
 
 		this.setScene(new Scene(borderPane, Constants.OPTIMAL_WIDTH, Constants.OPTIMAL_HEIGHT));

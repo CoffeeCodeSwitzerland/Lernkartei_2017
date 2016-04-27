@@ -99,6 +99,7 @@ public final class Alert
 		
 		
 		// Neues Label und neuer Button
+		Label l = new Label(placeholder);
 		TextField tf = new TextField();
 		Button b = new Button("OK");
 		// Schliesst Fenster wenn der User auf OK klickt
@@ -109,7 +110,7 @@ public final class Alert
 
 		// Neues Layout
 		VBox layout = new VBox(20);
-		layout.getChildren().addAll(tf, b);
+		layout.getChildren().addAll(l, tf, b);
 		// Zentriert Elemente
 		layout.setAlignment(Pos.CENTER);
 		layout.setPadding(new Insets(20));

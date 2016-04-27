@@ -25,9 +25,10 @@ public class MainController
 	 * Alle Sichten (ausser Modalfenster) werden hier mit eindeutigen Namen versehen.
 	 */
 	private final String mainView  = "mainview";
-	private final ArrayList<View>	views	= new ArrayList<>();
+	private final ArrayList<View>	views	= new ArrayList<View>();
+	private final ArrayList<Model>	models	= new ArrayList<Model>();
 
-	private final ModelInterface myModel = null; // Lernkartei
+	//private final ModelInterface myModel = null; // Lernkartei
 
 	public MainController (Stage primaryStage)
 	{
@@ -37,10 +38,24 @@ public class MainController
 		views.add(new OptionsView		("optionsview", primaryStage, this) );
 		views.add(new HelpView			("helpview") );
 		views.add(new GameView			("gameview", primaryStage, this));
+		
+		models.add(new GameModel("game"));
 	}
 
-	public ModelInterface getMyModel() {
-		return myModel;
+	public ModelInterface getMyModel(String name) {
+		//return myModel;
+		for (Model m : models)
+		{
+			if (m.getName().equals(name))
+			{
+				return m;
+			}
+		}
+		if (name != null)
+			Supervisor.warnAndDebug(this, "model("+name+") not found!");
+		else
+			Supervisor.warnAndDebug(this, "model(null) not allowed!");
+		return null; // not found
 	}
 
 	public View showMain ()

@@ -8,6 +8,19 @@ import gui.ViewInterface;
 public abstract class Model implements ModelInterface {
 	
 	private ArrayList<ViewInterface> myViews = new ArrayList<ViewInterface>();
+	private String name;
+
+	public Model (String myName) {
+		name = myName;
+	}
+	
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
 
 	@Override
 	public int doAction(String functionName, String paramS) {

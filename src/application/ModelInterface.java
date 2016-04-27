@@ -9,4 +9,8 @@ public interface ModelInterface {
 
 	public abstract void registerView(ViewInterface theView);
 
+//	public abstract ListModel<ModelInterface> getEntity();
+//	public abstract ListModel<ModelInterface> saveEntity(ModelInterface theRecord);
+//	public abstract void deleteEntity();
+
 }

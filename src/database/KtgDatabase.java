@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class KtgDatabase
 {
 	/**
-	 * Methode, zum Einfügen einer neuen Kategorie
+	 * Methode, zum Einfügen einer neuen Kategorie 
 	 * 
 	 * @param eingabe --> String Kategorie
 	 *

@@ -21,6 +21,7 @@ public class WISSLearnCards extends Application
 	{
 		Constants.setMinHeight(primaryStage.getMaxHeight());
 		Constants.setMinWidth(primaryStage.getMaxWidth());
+		
 		new MainController(primaryStage);
 	}
 

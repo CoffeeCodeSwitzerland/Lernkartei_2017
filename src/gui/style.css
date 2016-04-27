@@ -15,6 +15,11 @@
 	-fx-background-image: url("pictures/haus-blur.png");
 }
 
+#delMode
+{
+	-fx-color: #ddaaaa;
+}
+
 #gamebg {
 	-fx-color: blue;
 	-fx-background: red;

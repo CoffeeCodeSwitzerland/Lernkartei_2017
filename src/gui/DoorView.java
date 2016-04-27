@@ -4,10 +4,12 @@ import java.util.ArrayList;
 
 import application.Constants;
 import application.MainController;
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.CheckBox;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
@@ -22,6 +24,7 @@ import javafx.stage.Stage;
 public class DoorView extends View
 {
 	HBox doorLayout;
+	boolean delMode = false;
 	
 	public DoorView (String setName, Stage primaryStage, MainController controller)
 	{
@@ -30,7 +33,7 @@ public class DoorView extends View
 		// Buttons
 		AppButton zurueckButton = new AppButton("zurück");
 		AppButton neueTuer = new AppButton("Neue Tür");
-		AppButton loescheTuer = new AppButton("Lösche Tür");
+		AppButton bearbeitenButton = new AppButton("Bearbeiten");
 		AppButton weitereTueren = new AppButton("weitere Türen");
 
 		ArrayList<String> doorNames = getController().getMyModel("door").getData("doors");
@@ -49,7 +52,7 @@ public class DoorView extends View
 		HBox hBox = new HBox(20);
 		hBox.setAlignment(Pos.CENTER);
 
-		hBox.getChildren().addAll(zurueckButton, neueTuer, loescheTuer, weitereTueren);
+		hBox.getChildren().addAll(zurueckButton, neueTuer, bearbeitenButton, weitereTueren);
 
 		doorLayout = new HBox(20);
 		doorLayout.setAlignment(Pos.CENTER);
@@ -66,21 +69,36 @@ public class DoorView extends View
 		zurueckButton.setOnAction(e -> getController().showMain());
 		neueTuer.setOnAction(e -> {
 			String doorName = Alert.simpleString("Neue Tür", "Wie soll die neue Tür heissen?");
-			if (doorName != null)
+			if (doorName != null && !doorName.equals(""))
 			{
 				getController().getMyModel("door").doAction("new", doorName);
 				refreshView();
 			}
 		});
-		loescheTuer.setOnAction(e -> {
-			String s  = "";
-			for (Node n : doorLayout.getChildren())
+		bearbeitenButton.setOnAction(e -> {
+			delMode = !delMode;
+			bearbeitenButton.setText(delMode ? "Fertig" : "Bearbeiten");
+			for (AppButton a : doors)
 			{
-				if (n.isFocused())
-					s = n.getAccessibleText();
+				a.setId(delMode ? "delMode" : "");
 			}
-			Alert.simpleInfoBox("Achtung", "Willst du wirklich die Tür " + s + " löschen?");
 		});
+		
+		for (int i = 0; i < doors.size(); i++)
+		{
+			AppButton a = doors.get(i);
+			a.setOnAction(e -> {
+				if (!delMode)
+				{
+					Alert.simpleInfoBox("Öffne Tür", "Tür wird geöffnet");
+				}
+				else
+				{
+					Alert.simpleInfoBox("Löschen?", "Wirklich " + a.getText() + " löschen?");
+				}
+			});
+		}
+		
 		weitereTueren.setDisable(true);
 
 		this.setScene(new Scene(borderPane, Constants.OPTIMAL_WIDTH, Constants.OPTIMAL_HEIGHT));
@@ -102,5 +120,4 @@ public class DoorView extends View
 		doorLayout.getChildren().addAll(doors);
 		refresh();
 	}
-
 }

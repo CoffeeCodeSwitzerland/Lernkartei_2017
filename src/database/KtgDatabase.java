@@ -99,7 +99,6 @@ public static ArrayList<String[]> getKategorien() {
 		
 	}
 	
-	
-	
+		
 
 }

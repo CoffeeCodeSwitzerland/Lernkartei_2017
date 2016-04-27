@@ -31,7 +31,7 @@ public class EditCard implements ActionListener{
 			
 		//Anzahl Datensätze = JTextField
 		for (int j = 0; j < Database.pullFromStock().size(); j++) {	
-			
+
 			IDs.add((Database.pullFromStock().get(j)[0]));
 			
 			for (int i = 0; i < Database.pullFromStock().get(j).length; i++) {	
@@ -39,7 +39,7 @@ public class EditCard implements ActionListener{
 				myframe.add(editJFs = new JTextField(Database.pullFromStock().get(j)[i]));
 				addJFs.add(editJFs);
 				
-				if(i == 3){	
+				if(i == 4){	
 					myframe.add(delbtn = new JButton(Integer.toString(j +1)));
 					delbtn.addActionListener(this);
 					btns.add(delbtn);
@@ -56,7 +56,7 @@ public class EditCard implements ActionListener{
 		savebtn.addActionListener(this);
 		
 		//Windows Einstellungen
-		myframe.setLayout(new GridLayout(0,5)); 
+		myframe.setLayout(new GridLayout(0,6)); 
 		myframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		myframe.setVisible(true);
 		myframe.setExtendedState(JFrame.MAXIMIZED_BOTH); 
@@ -68,21 +68,21 @@ public class EditCard implements ActionListener{
 		if (e.getSource() == savebtn) {
 			
 			//Speichern
-			String[] vls = new String[3];
+			String[] vls = new String[4];
 			ArrayList<String[]> vlsArray = new ArrayList<String[]>();
 
-			//überspring jedes 4te Feld(weil es eine ID ist) und speichert dann den Rest
+			//überspring jedes 5te Feld(weil es eine ID ist) und speichert dann den Rest
 			for (int i = 0; i < Database.getEdited().size(); i++) {
 
-				if (i % 4 != 0)
+				if (i % 5 != 0)
 				{
-					vls[(i % 4) - 1] = Database.getEdited().get(i);
+					vls[(i % 5) - 1] = Database.getEdited().get(i);
 				
 				}else{
 				
 					if (i != 0)
 						vlsArray.add(vls);
-					vls = new String[3];
+					vls = new String[4];
 				}
 			}
 			

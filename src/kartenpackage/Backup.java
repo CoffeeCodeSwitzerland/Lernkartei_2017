@@ -31,7 +31,7 @@ public class Backup
 			String usedb = "USE " + "backup";
 			stmt.executeQuery(usedb);
 			
-			String delTbl = "DROP TABLE Stock";
+			String delTbl = "DROP TABLE IF EXISTS Stock";
 			stmt.executeUpdate(delTbl);
 			
 			System.out.println("Opened database successfully");
@@ -41,7 +41,8 @@ public class Backup
 					" Backside TEXT NOT NULL," +
 					" Frontside TEXT NOT NULL," +
 					" Description TEXT," + 
-					" Set_ID INTEGER" + ")";
+					" Set_ID INTEGER," + 
+					" Color TEXT NOT NULL" + ")";
 
 			System.out.println(sql);
 			stmt.executeUpdate(sql);
@@ -50,8 +51,8 @@ public class Backup
 			for (int i = 0; i < values.size(); i++)
 			{
 
-				String insert = "INSERT INTO Stock (Backside, Frontside, Description)" +
-						"VALUES ('" + values.get(i)[1] + "','" + values.get(i)[2] + "','" + values.get(i)[3] + "')";
+				String insert = "INSERT INTO Stock (Backside, Frontside, Description, Color)" +
+						"VALUES ('" + values.get(i)[1] + "','" + values.get(i)[2] + "','" + values.get(i)[3] + "','" + values.get(i)[4] + "')";
 
 				stmt.executeUpdate(insert);
 			}

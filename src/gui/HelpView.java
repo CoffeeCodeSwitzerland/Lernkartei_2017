@@ -22,7 +22,7 @@ public class HelpView extends View
 	{
 		super (setName, new Stage());
 		
-		Image helpdesk = new Image("gui/helpdesk.jpg", true);
+		Image helpdesk = new Image("gui/pictures/helpdesk.jpg", true);
 
 		ImageView view = new ImageView(helpdesk);
 

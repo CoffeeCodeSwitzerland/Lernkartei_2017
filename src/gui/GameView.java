@@ -53,16 +53,7 @@ public class GameView extends View
 		
 		// BP in Scene einfügen:
 		this.setScene(new Scene(bp, Constants.OPTIMAL_WIDTH, Constants.OPTIMAL_HEIGHT));
-	}
-
-	public void show () {
-
-		// TODO funktioniert noch nicht ganz richtig...
-		// - keine Umschaltung auf dieses Game BS, wenn Spiel aufgerufen wird
-		// - und auch kein Zurück zum Main-menü möglich (Swing ist schuld)
-		//
-		super.show();
-		scrollyv8.ScrollyV8.main(null); // starte hier Spiel
+		this.getMyController().getMyModel("game").doAction("start");
 	}
 
 	@Override

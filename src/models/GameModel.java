@@ -4,9 +4,9 @@ import java.util.ArrayList;
 
 import javax.swing.SwingUtilities;
 
+import debug.Debugger;
 import javafx.embed.swing.SwingNode;
 import scrollyv8.ScrollyV8;
-import debug.*;
 
 public class GameModel extends Model {
 
@@ -34,6 +34,7 @@ public class GameModel extends Model {
         mf.setVisible(false);
 		mf.dispose();
 		mf = null;
+		System.exit(0);
 	}
 
 	@Override

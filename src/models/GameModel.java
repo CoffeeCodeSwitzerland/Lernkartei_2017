@@ -3,8 +3,11 @@ package models;
 import javax.swing.SwingUtilities;
 
 import javafx.embed.swing.SwingNode;
+import scrollyv8.ScrollyV8;
 
 public class GameModel extends Model {
+
+	private final ScrollyV8 mf = new ScrollyV8();
 
     public GameModel(String myName) {
 		super(myName);
@@ -14,11 +17,16 @@ public class GameModel extends Model {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-        		scrollyv8.ScrollyV8.main(null); // starte hier Spiel
-            }
+                mf.setVisible(true);
+                mf.init();
+           }
             
         });
     }
+	
+	public void dispose () {
+		mf.dispose();
+	}
 
 	@Override
 	public int doAction(String functionName, String paramS, double paramD) {

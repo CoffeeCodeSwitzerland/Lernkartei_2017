@@ -1,16 +1,18 @@
 package kartenpackage;
 
-import kartenpackage.Database;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import java.util.ArrayList;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JTextField;
+
 import com.notification.NotificationFactory;
-import com.notification.NotificationManager;
 import com.notification.NotificationFactory.Location;
+import com.notification.NotificationManager;
 import com.notification.manager.SimpleManager;
 import com.notification.types.TextNotification;
 import com.theme.ThemePackagePresets;

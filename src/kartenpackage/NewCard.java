@@ -19,10 +19,7 @@ public class NewCard extends JFrame implements ActionListener{
 	
 	/*TODO - David
 	 *------------
-	 *-Editable Text
 	 *-Schöneres UI(Überall)
-	 *-values[2] editable machen
-	 *-If/Else beim kontrollieren des Speicherns funktioniert noch nicht
 	 *-Beim editieren: wenn etwas gelöscht wurde aktualisieren
 	 */
 
@@ -60,7 +57,7 @@ public class NewCard extends JFrame implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		
-		if(antwort == null || frage == null || antwort.getText() == "" && frage.getText() == "" ){
+		if(antwort.getText().equals("") && frage.getText().equals("") || frage.getText().equals("") || antwort.getText().equals("")){
 		
 			JOptionPane.showMessageDialog(null,"Du musst etwas eingeben!");
 	  
@@ -70,7 +67,7 @@ public class NewCard extends JFrame implements ActionListener{
 			String[] values = new String[3];
 			values[0] = antwort.getText();
 			values[1] = frage.getText();
-			values[2] = "English Unit 4";
+			values[2] = "Decription";
 			
 			Database.pushToStock(values);
 			

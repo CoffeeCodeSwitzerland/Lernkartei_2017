@@ -14,7 +14,7 @@ public class Database
 	
 	/**
 	 *  Keine neue Instanz Database erstellen, sondern nur die Methode benutzen
-	 *  @param values --> Array mit 3 Werten: 1. Vorderseite, 2. Rückseite, 3. Beschreibung
+	 *  @param values --> Array mit 3 Werten: 1. Vorderseite, 2. Rückseite, 3. Set_ID, 4. Color
 	 */
 	
 	public static void pushToStock (String[] values) {
@@ -31,13 +31,14 @@ public class Database
 	                   "(PK_Stk INTEGER PRIMARY KEY AUTOINCREMENT," +
 	                   " Backside       TEXT    NOT NULL, " + 
 	                   " Frontside      TEXT    NOT NULL, " + 
-	                   " Description    TEXT    NOT NULL, " + 
-	                   " Color			TEXT    NOT NULL  )"; 
+	                   " Set_ID    		INTEGER NOT NULL, " + 
+	                   " Description    TEXT    		, " + 
+	                   " Color			TEXT    		 )"; 
 	      
 	      System.out.println(sql);
 	      stmt.executeUpdate(sql);
 	      
-	      insert = 	"INSERT INTO Stock (Backside, Frontside, Description, Color)" + 
+	      insert = 	"INSERT INTO Stock (Backside, Frontside, Set_ID, Color)" + 
 	    		  		  	"VALUES ('" + values[0] + "','" + values[1] + "','" + values[2] + "', '" + values[3] + "')";	
 	      
 	      System.out.println(insert);
@@ -54,7 +55,7 @@ public class Database
 	
 	/**
 	 *  Keine neue Instanz Database erstellen, sondern nur die Methode benutzen
-	 *  @return Retourniert eine ArrayList mit Arrays mit 4 Werten: PK, Vorder-, Rückseite, Beschreibung
+	 *  @return Retourniert eine ArrayList mit Arrays mit 4 Werten: PK, Vorder-, Rückseite, Set_ID
 	 */
 	
 	public static ArrayList<String[]> pullFromStock () {
@@ -67,7 +68,7 @@ public class Database
 	      Class.forName("org.sqlite.JDBC");
 	      c = DriverManager.getConnection("jdbc:sqlite:" + DB_Name);
 	      c.setAutoCommit(false);
-
+	      
 	      stmt = c.createStatement();
 	      rs = stmt.executeQuery("SELECT * FROM Stock;");
 	      
@@ -77,7 +78,7 @@ public class Database
 	        set[0] = Integer.toString(rs.getInt("PK_Stk"));
 	        set[1] = rs.getString("Backside");
 	        set[2] = rs.getString("Frontside");
-	        set[3] = rs.getString("Description");
+	        set[3] = Integer.toString(rs.getInt("Set_ID"));
 	        set[4] = rs.getString("Color");
 	        
 	        results.add(set);          
@@ -141,7 +142,7 @@ public class Database
 	      c = DriverManager.getConnection("jdbc:sqlite:" + DB_Name);
 	      stmt = c.createStatement();
 	      
-	      String del = "DROP TABLE Stock";
+	      String del = "DROP TABLE IF EXISTS Stock";
 	      
 	      stmt.executeUpdate(del);
 	      stmt.close();

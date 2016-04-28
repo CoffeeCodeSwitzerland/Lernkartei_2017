@@ -34,10 +34,12 @@ public class GameModel extends Model {
 	
 	public void dispose () {
 		Debugger.out("Dispose Game");
-        mf.setVisible(false);
-		mf.dispose();
-		mf = null;
-		System.exit(0);
+		if (mf != null) {
+	        mf.setVisible(false);
+			mf.dispose();
+			mf = null;
+			System.exit(0);
+		}
 	}
 
 	@Override

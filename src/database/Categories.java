@@ -129,10 +129,57 @@ public class Categories {
 
 	}
 
-	public static void delKategorie (int delID) {
-		
-				
-		
+	/**
+	 * Löscht den gewählten Eintrag
+	 * 
+	 * @param category --> Name der zu löschenden Kategorie
+	 */
+	
+	public static boolean delKategorie (String category) {
+
+		Connection c = null;
+		Statement stmt = null;
+		boolean worked = false;
+
+		try {
+			Class.forName(driver);
+			c = DriverManager.getConnection(url);
+			stmt = c.createStatement();
+			c.setAutoCommit(false);
+
+			ResultSet del = stmt.executeQuery("SELECT Kategorie FROM Kategorie WHERE Kategorie = '" + category + "'");
+
+			if (del.next()) {
+
+				del.close();
+				c.setAutoCommit(true);
+				String delDoor = "DELETE FROM Kategorie WHERE Kategorie = '" + category + "'";
+				stmt.executeUpdate(delDoor);
+
+				System.out.println("Successfully deleted Categorie: " + category);
+
+				stmt.close();
+				c.close();
+				worked = true;
+
+			}
+			else {
+
+				worked = false;
+				del.close();
+				stmt.close();
+				c.close();
+
+			}
+
+		}
+		catch (Exception e) {
+			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+			System.exit(0);
+		}
+
+		return worked;
+
 	}
 
 }

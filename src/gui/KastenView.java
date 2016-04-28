@@ -26,7 +26,7 @@ public class KastenView extends View
 		super(setName, primaryStage, controller);
 
 		// Buttons
-		AppButton zurueckKasten = new AppButton("zurück");
+		AppButton zurueckButton = new AppButton("zurück");
 		AppButton neuerKasten = new AppButton("Neuer Kasten");
 		AppButton bearbeitenKasten = new AppButton("Bearbeiten");
 		AppButton weitereKasten = new AppButton("weitere Kasten");
@@ -47,7 +47,7 @@ public class KastenView extends View
 		HBox hBox = new HBox(20);
 		hBox.setAlignment(Pos.CENTER);
 
-		hBox.getChildren().addAll(zurueckKasten, neuerKasten, bearbeitenKasten, weitereKasten);
+		hBox.getChildren().addAll(zurueckButton, neuerKasten, bearbeitenKasten, weitereKasten);
 
 		kastenLayout = new HBox(20);
 		kastenLayout.setAlignment(Pos.CENTER);
@@ -79,6 +79,7 @@ public class KastenView extends View
 //			}
 //		});
 //		
+		zurueckButton.setOnAction(e -> getController().show("doorview"));
 		weitereKasten.setDisable(true);
 
 		this.setupScene(new Scene(borderPane, Constants.OPTIMAL_WIDTH, Constants.OPTIMAL_HEIGHT));

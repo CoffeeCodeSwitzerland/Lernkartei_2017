@@ -1,5 +1,7 @@
 package gui;
 
+import java.util.ArrayList;
+
 import application.Constants;
 import application.MainController;
 import javafx.geometry.Insets;
@@ -18,8 +20,7 @@ import javafx.stage.Stage;
  */
 public class BoxView extends View
 {
-	HBox kastenLayout;
-	boolean delMode = false;
+	HBox boxLayout;
 	
 	public BoxView (String setName, Stage primaryStage, MainController controller)
 	{
@@ -38,19 +39,19 @@ public class BoxView extends View
 
 		hBox.getChildren().addAll(zurueckButton, neuerKasten, bearbeitenKasten, weitereKasten);
 
-		kastenLayout = new HBox(20);
-		kastenLayout.setAlignment(Pos.CENTER);
+		boxLayout = new HBox(20);
+		boxLayout.setAlignment(Pos.CENTER);
 
 		// Laayout für die Scene
 		BorderPane borderPane = new BorderPane();
 		borderPane.setPadding(new Insets(15));
 
-		borderPane.setCenter(kastenLayout);
+		borderPane.setCenter(boxLayout);
 		borderPane.setBottom(hBox);
 
 		zurueckButton.setOnAction(e -> getController().show("doorview"));
 		weitereKasten.setOnAction(e -> getController().show("karteiview"));
-		weitereKasten.setDisable(false);
+		weitereKasten.setDisable(true);
 
 		this.setupScene(new Scene(borderPane, Constants.OPTIMAL_WIDTH, Constants.OPTIMAL_HEIGHT));
 	}
@@ -58,6 +59,17 @@ public class BoxView extends View
 	@Override
 	public void refreshView ()
 	{
-
+		String data = getData();
+		
+		if (data != null)
+		{
+			ArrayList<String> setData = getController().getMyModel("set").getData(data);
+			ArrayList<AppButton> sets = new ArrayList<AppButton>();
+			
+			for (String s : setData)
+			{
+				sets.add(new AppButton(s));
+			}
+		}
 	}
 }

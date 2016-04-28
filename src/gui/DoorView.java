@@ -26,7 +26,6 @@ import javafx.stage.Stage;
 public class DoorView extends View
 {
 	VBox doorLayout;
-	boolean delMode = false;
 	
 	public DoorView (String setName, Stage primaryStage, MainController controller)
 	{
@@ -73,7 +72,7 @@ public class DoorView extends View
 			}
 		});
 		
-		weitereTueren.setOnAction(e -> getController().show("kastenview"));
+		weitereTueren.setOnAction(e -> getController().show("boxview"));
 
 		
 		view.setOnDragOver(e -> {

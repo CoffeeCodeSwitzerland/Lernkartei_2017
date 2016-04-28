@@ -6,3 +6,15 @@
 2016-04-27-49533014000000: >>>Warning: model(door) not found!' at application.MainController@3853bf4f!
 2016-04-27-49715161000000: >>>Warning: model(door) not found!' at application.MainController@188b8f96!
 2016-04-27-51553122000000: >>>Warning: model(door) not found!' at application.MainController@125d70c3!
+2016-04-28-50621057000000: >>>Warning: model(set) not found!' at application.MainController@449a5a0b!
+2016-04-28-50756671000000: >>>Warning: show(kastenview) not found!' at application.MainController@45ed53e4!
+2016-04-28-50757734000000: >>>Warning: show(kastenview) not found!' at application.MainController@45ed53e4!
+2016-04-28-50757944000000: >>>Warning: show(kastenview) not found!' at application.MainController@45ed53e4!
+2016-04-28-50758144000000: >>>Warning: show(kastenview) not found!' at application.MainController@45ed53e4!
+2016-04-28-50758647000000: >>>Warning: show(kastenview) not found!' at application.MainController@45ed53e4!
+2016-04-28-50762344000000: >>>Warning: show(kastenview) not found!' at application.MainController@45ed53e4!
+2016-04-28-50762591000000: >>>Warning: show(kastenview) not found!' at application.MainController@45ed53e4!
+2016-04-28-50762840000000: >>>Warning: show(kastenview) not found!' at application.MainController@45ed53e4!
+2016-04-28-50763032000000: >>>Warning: show(kastenview) not found!' at application.MainController@45ed53e4!
+2016-04-28-50763231000000: >>>Warning: show(kastenview) not found!' at application.MainController@45ed53e4!
+2016-04-28-50763423000000: >>>Warning: show(kastenview) not found!' at application.MainController@45ed53e4!

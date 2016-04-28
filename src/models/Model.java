@@ -3,11 +3,11 @@ package models;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import gui.ViewInterface;
+import gui.View;
 
 public abstract class Model implements ModelInterface {
 	
-	private ArrayList<ViewInterface> myViews = new ArrayList<ViewInterface>();
+	private ArrayList<View> myViews = new ArrayList<View>();
 	private String name;
 
 	public Model (String myName) {
@@ -33,14 +33,14 @@ public abstract class Model implements ModelInterface {
 	}
 
 	@Override
-	public void registerView(ViewInterface theView) {
+	public void registerView(View theView) {
 		myViews.add(theView);
 	}
 
 	public void refreshViews() {
-		Iterator<ViewInterface> it = myViews.iterator();
+		Iterator<View> it = myViews.iterator();
 		while (it.hasNext()) {
-			ViewInterface v = it.next();
+			View v = it.next();
 			v.refreshView();
 			v.notify(); // evtl. nicht nötig
 		}

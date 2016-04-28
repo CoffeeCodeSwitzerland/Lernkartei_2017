@@ -37,6 +37,7 @@ public class MainController
 		views.add(new OptionsView("optionsview", primaryStage, this));
 		views.add(new HelpView("helpview"));
 		views.add(new GameView("gameview", primaryStage, this));
+		views.add(new KarteiView("karteiview", primaryStage, this));
 		views.add(new KastenView("kastenview", primaryStage, this));
 		views.add(new DragDropView("dragview", primaryStage, this));
 	}

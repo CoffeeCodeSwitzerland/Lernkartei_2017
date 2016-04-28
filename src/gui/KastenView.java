@@ -79,7 +79,7 @@ public class KastenView extends View
 //			}
 //		});
 //		
-		zurueckButton.setOnAction(e -> getController().show("DoorView"));
+		zurueckButton.setOnAction(e -> getController().show("doorview"));
 		weitereKasten.setDisable(true);
 
 		this.setupScene(new Scene(borderPane, Constants.OPTIMAL_WIDTH, Constants.OPTIMAL_HEIGHT));

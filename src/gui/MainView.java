@@ -71,7 +71,7 @@ public class MainView extends View
 
 		layout.setId("main");
 		
-		this.setScene(new Scene(layout, Constants.OPTIMAL_WIDTH, Constants.OPTIMAL_HEIGHT));
+		this.setupScene(new Scene(layout, Constants.OPTIMAL_WIDTH, Constants.OPTIMAL_HEIGHT));
 		this.show();
 	}
 

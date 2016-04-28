@@ -62,7 +62,7 @@ public class OptionsView extends View
 		// Behavior
 		back.setOnAction(e -> controller.showMain());
 
-		this.setScene(new Scene(tempVBox, Constants.OPTIMAL_WIDTH, Constants.OPTIMAL_HEIGHT));
+		this.setupScene(new Scene(tempVBox, Constants.OPTIMAL_WIDTH, Constants.OPTIMAL_HEIGHT));
 	}
 
 	@Override

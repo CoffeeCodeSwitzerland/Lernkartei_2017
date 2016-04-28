@@ -51,7 +51,7 @@ public class GameView extends View
 		bp.setId("gamebg");
 		
 		// BP in Scene einfügen:
-		this.setScene(new Scene(bp, Constants.OPTIMAL_WIDTH, Constants.OPTIMAL_HEIGHT));
+		this.setupScene(new Scene(bp, Constants.OPTIMAL_WIDTH, Constants.OPTIMAL_HEIGHT));
 
 	}
 

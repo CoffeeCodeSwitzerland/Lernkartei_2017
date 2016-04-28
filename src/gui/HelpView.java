@@ -32,7 +32,7 @@ public class HelpView extends View
 
 		this.getWindow().setTitle("Lernkartei Hilfe [Alpha]");
 		this.getWindow().setResizable(false);
-		this.setScene(new Scene(center, Constants.OPTIMAL_WIDTH, 150+Constants.OPTIMAL_HEIGHT));
+		this.setupScene(new Scene(center, Constants.OPTIMAL_WIDTH, 150+Constants.OPTIMAL_HEIGHT));
 	}
 
 	@Override

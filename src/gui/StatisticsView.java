@@ -17,7 +17,7 @@ public class StatisticsView extends View
 
 		BorderPane bp = new BorderPane();
 		bp.setCenter(b);
-		this.setScene(new Scene(bp, Constants.OPTIMAL_WIDTH, Constants.OPTIMAL_HEIGHT));
+		this.setupScene(new Scene(bp, Constants.OPTIMAL_WIDTH, Constants.OPTIMAL_HEIGHT));
 	}
 
 	@Override

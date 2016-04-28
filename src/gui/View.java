@@ -37,7 +37,7 @@ public abstract class View implements ViewInterface
 		return name;
 	}
 	
-	public void setScene(Scene newScene) {
+	public void setupScene(Scene newScene) {
 		this.scene = newScene;
 		
 		URL url = this.getClass().getResource(stylePath);

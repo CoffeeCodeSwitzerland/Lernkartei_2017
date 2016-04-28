@@ -169,7 +169,7 @@ public class Doors {
 
 				del.close();
 				c.setAutoCommit(true);
-				String delDoor = "DELETE FROM Doors WHERE Doorname = " + delName;
+				String delDoor = "DELETE FROM Doors WHERE Doorname = '" + delName + "'";
 				stmt.executeUpdate(delDoor);
 
 				System.out.println("Successfully deleted Door: " + delName);

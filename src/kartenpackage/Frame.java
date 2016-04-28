@@ -64,11 +64,7 @@ public class Frame extends JFrame implements ActionListener{
 		if(e.getSource() == newbtn){
 			new NewCard();
 		}else if(e.getSource() == editbtn){
-			if(Database.insert == null){
-				JOptionPane.showMessageDialog(null,"Keine Datenbank!");
-			}else{
 				new EditCard();
-			}
 		}else{		
 			InternetConnection();
 			if(connectivity == true){

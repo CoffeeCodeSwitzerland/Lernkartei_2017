@@ -96,7 +96,11 @@ public class DoorView extends View
 			Dragboard db = event.getDragboard();
 	        boolean success = false;
 	        if (db.hasString()) {
-	           Alert.simpleInfoBox("löschen?", "Bist du sicher, dass du " + db.getString() + " löschen möchtest?");
+	           if (Alert.ok("Achtung", "Willst du " + db.getString() + " wirklich löschen?"))
+	           {
+	        	   getController().getMyModel("door").doAction("delete", db.getString());
+	        	   refreshView();
+	           }
 	           success = true;
 	        }
 	        /* let the source know whether the string was successfully 
@@ -140,9 +144,7 @@ public class DoorView extends View
 			});
 			a.setOnDragDone(event -> {
 				if (event.getTransferMode() == TransferMode.MOVE) {
-		            int i = getController().getMyModel("door").doAction("delete", a.getText());
-		            Alert.simpleInfoBox("Info", i == 1 ? "Sollte funzen" : "Nope");
-		            a.setDisable(true);
+		            doors.remove(a);
 		        }
 		        event.consume();
 			});

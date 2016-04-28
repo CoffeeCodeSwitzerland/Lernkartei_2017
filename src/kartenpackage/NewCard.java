@@ -23,9 +23,10 @@ public class NewCard extends JFrame implements ActionListener{
 	
 	/*TODO - David
 	 *------------
-	 *-Schöneres UI(Überall)
+	 *-In JavaFX umwandeln
 	 *-Beim editieren: wenn etwas gelöscht wurde aktualisieren
-	 *-Farbe bei JTextFields abgeben 
+	 *-Beim editieren: Farbe manuel aktualsieren
+	 *-Beim editieren: Fehler bei wiederöffnen
 	 */
 
 	private static final long serialVersionUID = 1L;
@@ -38,7 +39,7 @@ public class NewCard extends JFrame implements ActionListener{
 	public JButton colorbtn = new JButton("Farbe");
 	public JButton savebtn = new JButton("Speichern");
 	private JFrame myframe = new JFrame();
-	public Color c;
+	public Color c = Color.BLACK;
 	public int cop;
 	public String op = null;
 	
@@ -56,7 +57,7 @@ public class NewCard extends JFrame implements ActionListener{
 		
 		//Windows Einstellungen
 		myframe.setLayout(new GridLayout(4, 0));
-		myframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		myframe.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		myframe.setVisible(true);
 		myframe.setExtendedState(JFrame.MAXIMIZED_BOTH); 
 		
@@ -72,13 +73,12 @@ public class NewCard extends JFrame implements ActionListener{
 	  
 			}else{
 					
+				
 				if(c != null){
 				  cop = c.getRGB();		
 				  op = Integer.toString(cop);
 				}
-				  //HIER FÜR EDITCARD!!!!!
-			      //Color color = new Color(cop);
-			      //frage.setForeground(color);
+				  
 			
 				//Nimmt den Text von JTextFields und speichert sie in DB 
 				String[] values = new String[4];
@@ -110,7 +110,8 @@ public class NewCard extends JFrame implements ActionListener{
 			}
 				
 		}else{
-			c = JColorChooser.showDialog(null, "Wähle eine Farbe", antwort.getForeground());
+			
+			c = JColorChooser.showDialog(null, "Wähle eine Farbe", Color.BLACK);
 		      if (c != null){
 		        antwort.setForeground(c);
 		        frage.setForeground(c);

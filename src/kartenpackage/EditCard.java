@@ -1,15 +1,18 @@
 package kartenpackage;
 
+import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JTextField;
+
 import com.notification.NotificationFactory;
-import com.notification.NotificationManager;
 import com.notification.NotificationFactory.Location;
+import com.notification.NotificationManager;
 import com.notification.manager.SimpleManager;
 import com.notification.types.TextNotification;
 import com.theme.ThemePackagePresets;
@@ -23,7 +26,7 @@ public class EditCard implements ActionListener{
 	private JButton savebtn = new JButton("Speichern");
 	private JButton delbtn = new JButton();
 	public JTextField editJFs;
-	private JFrame myframe = new JFrame();
+	public static JFrame myframe = new JFrame();
 	private ArrayList<JButton> btns = new ArrayList<JButton>();
 	public ArrayList<String> IDs = new ArrayList<String>();
 	public static ArrayList<JTextField> addJFs = new ArrayList<JTextField>();
@@ -50,6 +53,57 @@ public class EditCard implements ActionListener{
 			
 		}	
 		
+		//Farbiger Text
+		int j = 4;
+		int p = 2;
+		int a = 1;
+		
+		for (int i = 0; i < addJFs.size(); i++) {
+			
+			if (i == j) {
+				
+				System.out.println(addJFs.get(i).getText());
+				j += 5;
+				
+				for(int q = 0; q < addJFs.size(); q++){
+					
+					if(q == p){
+						
+						System.out.println(addJFs.get(q).getText());
+						//addJFs.get(q).setText(addJFs.get(i).getText());
+						
+							String ko = addJFs.get(i).getText();							
+						   int op = Integer.parseInt(ko);						  
+					       Color color = new Color(op);
+					       addJFs.get(q).setForeground(color);
+							
+						
+						p+=5;
+						
+						break;
+					}
+					
+					for(int n = 0; n < addJFs.size(); n++){
+						
+						if(q == a){
+							
+							System.out.println(addJFs.get(q).getText());
+							//addJFs.get(q).setText(addJFs.get(i).getText());
+							
+								String ko = addJFs.get(i).getText();							
+							   int op = Integer.parseInt(ko);						  
+						       Color color = new Color(op);
+						       addJFs.get(q).setForeground(color);
+								
+							
+							a+=5;
+							
+							break;
+						}
+				}}
+			}			
+		}
+		
 		//Elemente auf Frame adden
 		myframe.add(savebtn);	 
 		
@@ -58,7 +112,7 @@ public class EditCard implements ActionListener{
 		
 		//Windows Einstellungen
 		myframe.setLayout(new GridLayout(0,6)); 
-		myframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		myframe.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		myframe.setVisible(true);
 		myframe.setExtendedState(JFrame.MAXIMIZED_BOTH); 
 	}

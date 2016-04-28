@@ -19,6 +19,9 @@ public class ScrollyV8 extends JFrame implements KeyListener, WindowListener
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	static int width = 900 -30;
+	static int height = 600-15;
+	static String title = "Sidegame";
 	gamePanel gPanel = new gamePanel();
 
     public void dispose()
@@ -40,7 +43,7 @@ public class ScrollyV8 extends JFrame implements KeyListener, WindowListener
     {
 //Settings for frame
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setSize(900-30, 600-15);
+        setSize(width, height);
         setResizable(false);
         setTitle("Funky Application Monkey's Jump 'n' Run!");
         Container content = getContentPane();

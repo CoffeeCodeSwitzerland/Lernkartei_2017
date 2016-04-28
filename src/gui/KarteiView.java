@@ -16,20 +16,19 @@ import javafx.stage.Stage;
  * @author nina-egger
  *
  */
-public class KastenView extends View
+public class KarteiView extends View
 {
-	HBox kastenLayout;
+	HBox karteiLayout;
 	boolean delMode = false;
 	
-	public KastenView (String setName, Stage primaryStage, MainController controller)
+	public KarteiView (String setName, Stage primaryStage, MainController controller)
 	{
 		super(setName, primaryStage, controller);
 
 		// Buttons
 		AppButton zurueckButton = new AppButton("zurück");
-		AppButton neuerKasten = new AppButton("Neuer Kasten");
-		AppButton bearbeitenKasten = new AppButton("Bearbeiten");
-		AppButton weitereKasten = new AppButton("weitere Kasten");
+		AppButton ueben = new AppButton("Üben");
+		AppButton weitereKasten = new AppButton("Alle Karten");
 
 //		ArrayList<String> doorNames = getController().getMyModel("door").getData("doors");
 //
@@ -47,17 +46,17 @@ public class KastenView extends View
 		HBox hBox = new HBox(20);
 		hBox.setAlignment(Pos.CENTER);
 
-		hBox.getChildren().addAll(zurueckButton, neuerKasten, bearbeitenKasten, weitereKasten);
+		hBox.getChildren().addAll(zurueckButton, ueben, weitereKasten);
 
-		kastenLayout = new HBox(20);
-		kastenLayout.setAlignment(Pos.CENTER);
+		karteiLayout = new HBox(20);
+		karteiLayout.setAlignment(Pos.CENTER);
 //		doorLayout.getChildren().addAll(doors);
 
 		// Laayout für die Scene
 		BorderPane borderPane = new BorderPane();
 		borderPane.setPadding(new Insets(15));
 
-		borderPane.setCenter(kastenLayout);
+		borderPane.setCenter(karteiLayout);
 		borderPane.setBottom(hBox);
 
 //		// Behaviour
@@ -79,9 +78,8 @@ public class KastenView extends View
 //			}
 //		});
 //		
-		zurueckButton.setOnAction(e -> getController().show("doorview"));
-		weitereKasten.setOnAction(e -> getController().show("karteiview"));
-		weitereKasten.setDisable(false);
+		zurueckButton.setOnAction(e -> getController().show("kastenview"));
+		weitereKasten.setDisable(true);
 
 		this.setupScene(new Scene(borderPane, Constants.OPTIMAL_WIDTH, Constants.OPTIMAL_HEIGHT));
 	}

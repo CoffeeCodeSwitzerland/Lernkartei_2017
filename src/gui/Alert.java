@@ -123,4 +123,56 @@ public final class Alert
 		
 		return outp;
 	}
+	
+	static boolean okay = false;
+	public static boolean ok (String title, String message)
+	{
+		// Neues Fenster
+		Stage window = new Stage();
+		// Minimalistischer Stil ohne Buttons um das Fenster zu minimieren oder
+		// zu maximieren
+		window.initStyle(StageStyle.UTILITY);
+		window.setResizable(false);
+		// Blockiere alle anderen Fenster
+		window.initModality(Modality.APPLICATION_MODAL);
+		window.setTitle(title);
+		
+		
+		// Neues Label und neuer Button
+		Label l = new Label(message);
+
+		Button bo = new Button("OK");
+		Button ba = new Button("Abbrechen");
+		// Schliesst Fenster wenn der User auf OK klickt
+		bo.setOnAction(e -> {
+			okay = true;
+			window.close();
+		});
+		
+		ba.setOnAction(e -> {
+			okay = false;
+			window.close();
+		});
+
+		HBox buttons = new HBox(20);
+		buttons.setAlignment(Pos.CENTER);
+		buttons.setPadding(new Insets(20));
+		
+		buttons.getChildren().addAll(bo, ba);
+		
+		// Neues Layout
+		VBox layout = new VBox(20);
+		layout.getChildren().addAll(l, buttons);
+		// Zentriert Elemente
+		layout.setAlignment(Pos.CENTER);
+		layout.setPadding(new Insets(20));
+
+
+
+		// Zeigt Fenster an
+		window.setScene(new Scene(layout, 250, 150));
+		window.showAndWait();
+		
+		return okay;
+	}
 }

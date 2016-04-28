@@ -16,12 +16,12 @@ import javafx.stage.Stage;
  * @author nina-egger
  *
  */
-public class KastenView extends View
+public class BoxView extends View
 {
 	HBox kastenLayout;
 	boolean delMode = false;
 	
-	public KastenView (String setName, Stage primaryStage, MainController controller)
+	public BoxView (String setName, Stage primaryStage, MainController controller)
 	{
 		super(setName, primaryStage, controller);
 
@@ -31,17 +31,6 @@ public class KastenView extends View
 		AppButton bearbeitenKasten = new AppButton("Bearbeiten");
 		AppButton weitereKasten = new AppButton("weitere Kasten");
 
-//		ArrayList<String> doorNames = getController().getMyModel("door").getData("doors");
-//
-//		ArrayList<AppButton> doors = new ArrayList<AppButton>();
-//
-//		if (doorNames != null)
-//		{
-//			for (String s : doorNames)
-//			{
-//				doors.add(new AppButton(s));
-//			}
-//		}
 
 		// Layout für Controls
 		HBox hBox = new HBox(20);
@@ -51,7 +40,6 @@ public class KastenView extends View
 
 		kastenLayout = new HBox(20);
 		kastenLayout.setAlignment(Pos.CENTER);
-//		doorLayout.getChildren().addAll(doors);
 
 		// Laayout für die Scene
 		BorderPane borderPane = new BorderPane();
@@ -60,25 +48,6 @@ public class KastenView extends View
 		borderPane.setCenter(kastenLayout);
 		borderPane.setBottom(hBox);
 
-//		// Behaviour
-//		zurueckButton.setOnAction(e -> getController().showMain());
-//		neueTuer.setOnAction(e -> {
-//			String doorName = Alert.simpleString("Neue Tür", "Wie soll die neue Tür heissen?");
-//			if (doorName != null && !doorName.equals(""))
-//			{
-//				getController().getMyModel("door").doAction("new", doorName);
-//				refreshView();
-//			}
-//		});
-//		bearbeitenButton.setOnAction(e -> {
-//			delMode = !delMode;
-//			bearbeitenButton.setText(delMode ? "Fertig" : "Bearbeiten");
-//			for (AppButton a : doors)
-//			{
-//				a.setId(delMode ? "delMode" : "");
-//			}
-//		});
-//		
 		zurueckButton.setOnAction(e -> getController().show("doorview"));
 		weitereKasten.setOnAction(e -> getController().show("karteiview"));
 		weitereKasten.setDisable(false);
@@ -89,17 +58,6 @@ public class KastenView extends View
 	@Override
 	public void refreshView ()
 	{
-//		doorLayout.getChildren().clear();
-//		ArrayList<String> doorNames = getController().getMyModel("door").getData("doors");
-//		ArrayList<AppButton> doors = new ArrayList<>();
-//		if (doorNames != null)
-//		{
-//			for (String s : doorNames)
-//			{
-//				doors.add(new AppButton(s));
-//			}
-//		}
-//		doorLayout.getChildren().addAll(doors);
-//		refresh();
+
 	}
 }

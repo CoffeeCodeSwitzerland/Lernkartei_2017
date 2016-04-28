@@ -38,7 +38,7 @@ public class MainController
 		views.add(new HelpView("helpview"));
 		views.add(new GameView("gameview", primaryStage, this));
 		views.add(new KarteiView("karteiview", primaryStage, this));
-		views.add(new KastenView("kastenview", primaryStage, this));
+		views.add(new BoxView("boxview", primaryStage, this));
 		views.add(new DragDropView("dragview", primaryStage, this));
 	}
 
@@ -79,6 +79,4 @@ public class MainController
 			Supervisor.warnAndDebug(this, "show(null) not allowed!");
 		return null; // not found
 	}
-
-	// TODO quit method
 }

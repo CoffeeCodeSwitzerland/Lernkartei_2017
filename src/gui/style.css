@@ -1,7 +1,7 @@
 .root
 {
 	-fx-color: #eeeeee;
-	-fx-background: #cecebb;
+	-fx-background: whitesmoke;
 	-fx-background-repeat: stretch;   
     -fx-background-size: 800 600;
     -fx-background-position: center center;
@@ -21,8 +21,8 @@
 }
 
 #gamebg {
-	-fx-color: blue;
-	-fx-background: red;
+	-fx-color: silver;
+	-fx-background: silver;
 	-fx-background-image: null;
 }
 

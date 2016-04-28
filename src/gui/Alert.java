@@ -165,12 +165,16 @@ public final class Alert
 		layout.getChildren().addAll(l, buttons);
 		// Zentriert Elemente
 		layout.setAlignment(Pos.CENTER);
-		layout.setPadding(new Insets(20));
+		layout.setPadding(new Insets(40, 20, 20, 20));
 
+		int width;
+		int x = 6;
+		int y = 150;
 
+		width = message.length() * x + y;
 
 		// Zeigt Fenster an
-		window.setScene(new Scene(layout, 250, 150));
+		window.setScene(new Scene(layout, width, 150));
 		window.showAndWait();
 		
 		return okay;

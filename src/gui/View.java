@@ -15,6 +15,7 @@ public abstract class View implements ViewInterface
 	private String name;
 	private MainController myController;
 	private static String stylePath	= "style.css";
+	private String data;
 
 	public View (String setName, Stage primary, MainController controller) {
 		window = primary;
@@ -67,5 +68,15 @@ public abstract class View implements ViewInterface
 		if (myController != null) return myController;
 		Supervisor.warnAndDebug(this, "no maincontroller defined for this stage!");
 		return null;
+	}
+
+	public void setData (String data)
+	{
+		this.data = data;
+	}
+	
+	public String getData()
+	{
+		return data;
 	}
 }

@@ -38,19 +38,18 @@ public class DoorView extends View
 		// Buttons
 		AppButton zurueckButton = new AppButton("zurück");
 		AppButton neueTuer = new AppButton("Neue Tür");
-		AppButton bearbeitenButton = new AppButton("Bearbeiten");
 		AppButton weitereTueren = new AppButton("weitere Türen");
 
 		// Trash Image
 		
-		javafx.scene.image.Image trash = new javafx.scene.image.Image("gui/pictures/Kasten_1Karte.png");
+		javafx.scene.image.Image trash = new javafx.scene.image.Image("gui/pictures/Papierkorb.png");
 		ImageView view = new ImageView(trash);
 		
 		// Layout für Controls
 		HBox hBox = new HBox(20);
 		hBox.setAlignment(Pos.CENTER);
 
-		hBox.getChildren().addAll(zurueckButton, neueTuer, bearbeitenButton, weitereTueren);
+		hBox.getChildren().addAll(zurueckButton, neueTuer, weitereTueren, view);
 		
 		
 		// Layout für die Scene
@@ -58,7 +57,6 @@ public class DoorView extends View
 		borderPane.setPadding(new Insets(15));
 
 		borderPane.setCenter(doorLayout);
-		borderPane.setRight(view);
 		borderPane.setBottom(hBox);
 
 		
@@ -73,10 +71,6 @@ public class DoorView extends View
 				getController().getMyModel("door").doAction("new", doorName);
 				refreshView();
 			}
-		});
-		
-		bearbeitenButton.setOnAction(e -> {
-			getController().show("dragview");
 		});
 		
 		weitereTueren.setOnAction(e -> getController().show("kastenview"));
@@ -131,7 +125,11 @@ public class DoorView extends View
 		
 		for (AppButton a : doors)
 		{
-			a.setOnAction(e -> System.out.println("... Button"));
+			a.setOnAction(e -> {
+				View v = getController().show("boxview");
+				v.setData(a.getText());
+				v.refreshView();
+			});
 			a.setOnDragDetected(e -> {
 				
 				Dragboard db = a.startDragAndDrop(TransferMode.MOVE);

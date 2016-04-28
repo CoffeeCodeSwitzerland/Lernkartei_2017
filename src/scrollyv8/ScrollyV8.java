@@ -26,7 +26,6 @@ public class ScrollyV8 extends JFrame implements KeyListener, WindowListener
     public void dispose()
     {        
     	Debugger.out("Killing Player...");
-    	gPanel.sound = false;
         gPanel.killPlayer();
     	super.dispose();
     }
@@ -40,12 +39,22 @@ public class ScrollyV8 extends JFrame implements KeyListener, WindowListener
 
     public ScrollyV8()
     {
-//Settings for frame
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+//Settings for frame	
         setSize(width, height);
         setResizable(false);
         setTitle("Funky Application Monkey's Jump 'n' Run!");
-        Container content = getContentPane();
+        //Schliessung vom Fenster
+		this.addWindowListener(new WindowAdapter() {
+		public void windowClosing(WindowEvent e) {
+			System.err.println("Exiting Game");
+			gamePanel.mPlayer.setTrack(gamePanel.soundPath + "end.mid",false);
+            gamePanel.mPlayer.play();
+            
+			//setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		}
+		});
+		
+		Container content = getContentPane();
 
         content.add(gPanel, BorderLayout.CENTER);
     }

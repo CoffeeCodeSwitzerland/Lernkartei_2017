@@ -52,7 +52,7 @@ public class gamePanel extends JPanel implements Runnable
     final int LAPTOP = 2;
     final int JAR = 3;
     int workLoc = JAR;
-    boolean sound = true;
+    static boolean sound = true;
     public static final int INTRO = 0, PLAYING = 1, CUTSCENE = 2, GAMEOVER = 3, JUSTDIED = 4, LOADINTRO = 5, LOADLEVEL = 6, BOSS = 7, PASSEDBOSS = 8, WON = 9;    //temporary variables
     Thread fred;
     double t = 0;
@@ -84,7 +84,7 @@ public class gamePanel extends JPanel implements Runnable
     private Graphics2D g2D;
     private GradientPaint skye;
     private Color gnd;
-    private MidiPlayer mPlayer;
+    static MidiPlayer mPlayer;
     static ClipPlayer clips;
     private Image introScreen, gameOverScreen, loadScreen, level1Screen, level2Screen,youWinScreen;
     private String status = "";
@@ -93,7 +93,7 @@ public class gamePanel extends JPanel implements Runnable
     private Player sp;
     private Enemy[] enemies;
     private int numEnemies;
-    private String spritePath, soundPath, screenPath;
+    public static String spritePath, soundPath, screenPath;
     private String levelBase, pathFile;
     private double levelMinX, levelMinY, levelMaxX, levelMaxY;
     private int sleepTime;
@@ -204,7 +204,6 @@ public class gamePanel extends JPanel implements Runnable
             
         } else if (gameState == INTRO)
         {
-        	
         	menu.render(g);
         	
             //g.drawImage(introScreen, 0, 0, drawW, drawH, null);

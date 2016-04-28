@@ -76,13 +76,13 @@ public class Categories {
 
 	}
 
-	public static ArrayList<String[]> getKategorien (String doorname) {
+	public static ArrayList<String> getKategorien (String doorname) {
 
 		Connection c = null;
 		Statement stmt = null;
 		Integer FK_ID = 0;
 
-		ArrayList<String[]> datensatz = new ArrayList<String[]>();
+		ArrayList<String> datensatz = new ArrayList<String>();
 
 		try {
 			Class.forName(driver);
@@ -105,13 +105,11 @@ public class Categories {
 
 			while (rs.next()) {
 
-				String[] data = new String[2];
+				String data;
 
-				String ID = Integer.toString(rs.getInt("PK_Kategorie"));
 				String Kategorie = rs.getString("Kategorie");
 
-				data[0] = ID;
-				data[1] = Kategorie;
+				data = Kategorie;
 
 				datensatz.add(data);
 			}

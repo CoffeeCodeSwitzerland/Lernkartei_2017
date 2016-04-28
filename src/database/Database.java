@@ -1,8 +1,10 @@
-package kartenpackage;
+package database;
 
 import java.sql.*;
 import java.util.ArrayList;
 import javax.swing.JTextField;
+
+import kartenpackage.EditCard;
 
 public class Database
 {

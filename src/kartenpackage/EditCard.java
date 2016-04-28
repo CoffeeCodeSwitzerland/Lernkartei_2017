@@ -1,6 +1,5 @@
 package kartenpackage;
 
-import kartenpackage.Database;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,6 +14,8 @@ import com.notification.manager.SimpleManager;
 import com.notification.types.TextNotification;
 import com.theme.ThemePackagePresets;
 import com.utils.Time;
+
+import database.Database;
 
 public class EditCard implements ActionListener{
 

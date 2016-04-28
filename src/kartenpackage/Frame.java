@@ -5,10 +5,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.net.URL;
 import java.net.URLConnection;
-import kartenpackage.Database;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+
+import database.Backup;
+import database.Database;
 
 public class Frame extends JFrame implements ActionListener{
 

@@ -26,12 +26,9 @@ public class kategorienAbrufen extends JFrame implements ActionListener {
 
 		if (e.getSource() == showDatabase) {
 
-			for (String[] s : database.Categories.getKategorien("Franz")) {
+			for (String s : database.Categories.getKategorien("Franz")) {
 
-				for (int i = 0; i < s.length; i++) {
-					
-					Anzeige.getContentPane().add(new JLabel(s[i]));
-				}
+				Anzeige.getContentPane().add(new JLabel(s));
 				
 				Anzeige.setSize(400, 800);
 				Anzeige.setLayout(new GridLayout(database.Categories.getKategorien("Franz").size(),0));

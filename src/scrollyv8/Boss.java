@@ -2,6 +2,7 @@ package scrollyv8;
 
 import java.awt.Graphics;
 
+
 public class Boss extends Enemy
 {
 

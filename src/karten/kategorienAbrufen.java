@@ -14,7 +14,7 @@ public class kategorienAbrufen extends JFrame implements ActionListener {
 	JButton showDatabase = new JButton("Kategorien Anzeigen");
 	JFrame Anzeige = new JFrame();
 
-	public kategorienAbrufen(JFrame f) {
+	public kategorienAbrufen(JFrame f) { 
 		f.getContentPane().add(showDatabase);
 		showDatabase.setBounds(150, 110, 200, 25);
 		showDatabase.addActionListener(this);

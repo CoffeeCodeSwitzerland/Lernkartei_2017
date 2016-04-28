@@ -7,6 +7,8 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseWheelEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
@@ -98,6 +100,7 @@ public class gamePanel extends JPanel implements Runnable
     private int mapW, mapH;
     private int mapTileW, mapTileH;
     private int spriteGID;
+    private Menu menu;
 //    private AudioClip levelClip;
 //    private AudioClip clipL1, clipL2, clipDie, clipGameOver, clipPassed, clipBoss;    
 
@@ -134,6 +137,7 @@ public class gamePanel extends JPanel implements Runnable
         level = 1;
         levelMax = 2;
         gameState = LOADINTRO;
+        menu = new Menu();
 
         right = left = up = down = false;
         screenX = x;
@@ -197,9 +201,13 @@ public class gamePanel extends JPanel implements Runnable
             g.drawImage(loadScreen, 0, 0, drawW, drawH, null);
             g.setColor(Color.white);
             g.drawString(status, 10, H - 10);
+            
         } else if (gameState == INTRO)
         {
-            g.drawImage(introScreen, 0, 0, drawW, drawH, null);
+        	
+        	menu.render(g);
+        	
+            //g.drawImage(introScreen, 0, 0, drawW, drawH, null);
         } else if (gameState == LOADLEVEL)
         {
             Image toDraw = null;
@@ -786,6 +794,11 @@ public class gamePanel extends JPanel implements Runnable
         switch (code)
         {
             case 'p': // Key Pressed
+            	 if (gameState == INTRO)
+                 {
+                 	menu.tick(e);
+                 }
+            	
                 if (e.getKeyCode() == KeyEvent.VK_UP)
                 {
                     up = true;
@@ -836,10 +849,6 @@ public class gamePanel extends JPanel implements Runnable
                 }
                 break;
             case ('t'): // Typed
-                if (gameState == INTRO)
-                {
-                    gameState = LOADLEVEL;
-                }
                 if (e.getKeyChar() == 'd')
                 {
                     System.out.println("Player Coords ("+sp.x+","+sp.y+")");

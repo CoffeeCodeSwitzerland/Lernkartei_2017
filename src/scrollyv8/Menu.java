@@ -33,7 +33,7 @@ public class Menu {
 		if(e.getKeyCode() == KeyEvent.VK_DOWN || e.getKeyCode() == KeyEvent.VK_S ){
 			currentSelection ++;
 			if(currentSelection >= options.length){currentSelection = 0;}
-		}
+		} 
 		/*boolean clicked = false;
 		for (int i = 0; i < options.length; i++) {
 			if(options[i].intersects(new Rectangle(MouseInput.getX(), MouseInput.getY(), 1 , 1))){

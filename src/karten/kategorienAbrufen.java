@@ -10,7 +10,7 @@ import javax.swing.JLabel;
 
 public class kategorienAbrufen extends JFrame implements ActionListener {
 
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L; 
 	JButton showDatabase = new JButton("Kategorien Anzeigen");
 	JFrame Anzeige = new JFrame();
 

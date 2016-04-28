@@ -23,11 +23,12 @@ public class Categories {
 	 *            --> String Doorname, zu welcher die Kategorie gehört
 	 */
 
-	public static void newKategorie (String eingabe, String fk_door) {
+	public static int newKategorie (String eingabe, String fk_door) {
 
 		Connection c = null;
 		Statement stmt = null;
 		Integer FK_ID = 0;
+		Integer errorMsg = 0;
 
 		try {
 			Class.forName(driver);
@@ -53,7 +54,18 @@ public class Categories {
 			FK_ID = id.getInt("PK_Doors");
 			} else {
 				System.out.println("Keine Tür mit dem Namen vorhanden");
-				FK_ID = 0;
+				errorMsg = -1;
+			}
+			
+			id.close();
+			
+			ResultSet check = stmt.executeQuery("SELECT * FROM Kategorie WHERE Kategorie = '" + eingabe + "'");
+			if (check.next()) {
+				check.close();
+				System.out.println("Kategorie mit diesem Namen bereits vorhanden");
+				errorMsg = -2;
+			} else {
+				check.close();
 			}
 
 			c.setAutoCommit(true);
@@ -65,7 +77,6 @@ public class Categories {
 
 			System.out.println("Successful");
 			
-			id.close();
 			stmt.close();
 			c.close();
 		}
@@ -73,6 +84,8 @@ public class Categories {
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
 			System.exit(0);
 		}
+		
+		return errorMsg;
 
 	}
 
@@ -87,8 +100,18 @@ public class Categories {
 		try {
 			Class.forName(driver);
 			c = DriverManager.getConnection(url);
-			c.setAutoCommit(false);
 			stmt = c.createStatement();
+			
+			String sql = "CREATE TABLE IF NOT EXISTS Kategorie "
+					+ "(PK_Kategorie INTEGER PRIMARY KEY AUTOINCREMENT,"
+					+ " Kategorie TEXT NOT NULL,"
+					+ " FK_Door INTEGER NOT NULL)";
+
+			System.out.println(sql);
+			stmt.executeUpdate(sql);
+			
+			System.out.println("Successful");
+			c.setAutoCommit(false);
 			
 			ResultSet id = stmt.executeQuery("SELECT PK_Doors FROM Doors WHERE Doorname = '" + doorname + "'");
 			
@@ -143,6 +166,15 @@ public class Categories {
 			Class.forName(driver);
 			c = DriverManager.getConnection(url);
 			stmt = c.createStatement();
+			
+			String sql = "CREATE TABLE IF NOT EXISTS Kategorie "
+					+ "(PK_Kategorie INTEGER PRIMARY KEY AUTOINCREMENT,"
+					+ " Kategorie TEXT NOT NULL,"
+					+ " FK_Door INTEGER NOT NULL)";
+			
+			System.out.println(sql);
+			stmt.executeUpdate(sql);
+			
 			c.setAutoCommit(false);
 
 			ResultSet del = stmt.executeQuery("SELECT Kategorie FROM Kategorie WHERE Kategorie = '" + category + "'");

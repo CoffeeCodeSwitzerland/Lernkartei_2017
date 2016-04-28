@@ -10,14 +10,26 @@ public class SetModel extends Model {
 
 	@Override
 	public int doAction (String functionName, String paramS, double paramD) {
+		
+		//  0: Falsche Parameter in doAction
+		//  1: Erfolgreich erstellt
+		//  2: Erfolgreich gelöscht
+		// -1: Keine Tür mit dem Namen
+		// -2: Kategorie bereits vorhanden
+		// -3: Konnte nicht gelöscht werden
+		
 		if (functionName.equals("new")) {
 			
 			String eingabe[] = paramS.split(application.Constants.SEPARATOR);
-			database.Categories.newKategorie(eingabe[1], eingabe[0]);	
+			return database.Categories.newKategorie(eingabe[1], eingabe[0]);	
 			
 		} else if (functionName.equals("delete")) {
 			
-			database.Categories.delKategorie(paramS);
+			if (database.Categories.delKategorie(paramS)) {
+				return 2;
+			} else {
+				return -3;
+			}
 			
 		}
 		
@@ -28,11 +40,10 @@ public class SetModel extends Model {
 	public ArrayList<String> getData (String query) {
 		
 		// query = Name der Tür
-		database.Categories.getKategorien(query);
-		return null;
+		// Return: ArrayList<String> mit allen Kategorien
+		
+		return database.Categories.getKategorien(query);
 		
 	}
-	
-	
 	
 }

@@ -18,7 +18,6 @@ public class kategorienAbrufen extends JFrame implements ActionListener {
 		f.getContentPane().add(showDatabase);
 		showDatabase.setBounds(150, 110, 200, 25);
 		showDatabase.addActionListener(this);
-
 	}
 
 	@Override

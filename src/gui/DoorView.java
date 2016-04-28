@@ -81,7 +81,7 @@ public class DoorView extends View
 			}
 		});
 		
-		weitereTueren.setDisable(true);
+		weitereTueren.setOnAction(e -> getController().show("kastenview"));
 
 		this.setupScene(new Scene(borderPane, Constants.OPTIMAL_WIDTH, Constants.OPTIMAL_HEIGHT));
 	}

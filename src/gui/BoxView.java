@@ -7,8 +7,13 @@ import application.MainController;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.ClipboardContent;
+import javafx.scene.input.Dragboard;
+import javafx.scene.input.TransferMode;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 
@@ -20,7 +25,7 @@ import javafx.stage.Stage;
  */
 public class BoxView extends View
 {
-	HBox boxLayout;
+	VBox boxLayout;
 	
 	public BoxView (String setName, Stage primaryStage, MainController controller)
 	{
@@ -32,14 +37,16 @@ public class BoxView extends View
 		AppButton bearbeitenKasten = new AppButton("Bearbeiten");
 		AppButton weitereKasten = new AppButton("weitere Kasten");
 
+		javafx.scene.image.Image trash = new javafx.scene.image.Image("gui/pictures/Papierkorb.png");
+		ImageView view = new ImageView(trash);
 
 		// Layout für Controls
 		HBox hBox = new HBox(20);
 		hBox.setAlignment(Pos.CENTER);
 
-		hBox.getChildren().addAll(zurueckButton, newBox, bearbeitenKasten, weitereKasten);
+		hBox.getChildren().addAll(zurueckButton, newBox, bearbeitenKasten, view);
 
-		boxLayout = new HBox(20);
+		boxLayout = new VBox(20);
 		boxLayout.setAlignment(Pos.CENTER);
 
 		// Laayout für die Scene
@@ -58,6 +65,35 @@ public class BoxView extends View
 				System.out.println(getController().getMyModel("set").doAction("new", getData() + application.Constants.SEPARATOR + boxName));
 			}
 		});
+		
+		view.setOnDragOver(e -> {
+			if (e.getGestureSource() != view &&
+	                e.getDragboard().hasString()) {
+	            /* allow for both copying and moving, whatever user chooses */
+	            e.acceptTransferModes(TransferMode.COPY_OR_MOVE);
+	        }
+	        
+	        // target.setText(event.getDragboard().getString());
+	        e.consume();
+		});
+		view.setOnDragDropped(event -> {
+			Dragboard db = event.getDragboard();
+	        boolean success = false;
+	        if (db.hasString()) {
+	           if (Alert.ok("Achtung", "Willst du " + db.getString() + " wirklich löschen?"))
+	           {
+	        	   getController().getMyModel("door").doAction("delete", db.getString());
+	        	   refreshView();
+	           }
+	           success = true;
+	        }
+	        /* let the source know whether the string was successfully 
+	         * transferred and used */
+	        event.setDropCompleted(success);
+	        
+	        event.consume();
+		});
+		
 		weitereKasten.setOnAction(e -> getController().show("karteiview"));
 		weitereKasten.setDisable(true);
 
@@ -67,6 +103,7 @@ public class BoxView extends View
 	@Override
 	public void refreshView ()
 	{
+		boxLayout.getChildren().clear();
 		String data = getData();
 		System.out.println(data);
 		if (data != null)
@@ -77,10 +114,31 @@ public class BoxView extends View
 			for (String s : setData)
 			{
 				AppButton a = new AppButton(s);
+				
+				sets.add(a);
+			}
+			
+			for (AppButton a : sets)
+			{
 				a.setOnAction(e -> {
 					System.out.println("Clicked on Set");
 				});
-				sets.add(a);
+				a.setOnDragDetected(e -> {
+					
+					Dragboard db = a.startDragAndDrop(TransferMode.MOVE);
+			        
+			        ClipboardContent content = new ClipboardContent();
+			        content.putString(a.getText());
+			        db.setContent(content);
+			        
+			        e.consume();
+				});
+				a.setOnDragDone(event -> {
+					if (event.getTransferMode() == TransferMode.MOVE) {
+			            sets.remove(a);
+			        }
+			        event.consume();
+				});
 			}
 			
 			boxLayout.getChildren().addAll(sets);

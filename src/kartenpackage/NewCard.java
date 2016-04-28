@@ -17,6 +17,8 @@ import com.notification.types.TextNotification;
 import com.theme.ThemePackagePresets;
 import com.utils.Time;
 
+import database.Database;
+
 public class NewCard extends JFrame implements ActionListener{
 	
 	/*TODO - David

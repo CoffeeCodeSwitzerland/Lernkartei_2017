@@ -163,9 +163,9 @@ public class Doors {
 			stmt = c.createStatement();
 			c.setAutoCommit(false);
 
-			ResultSet del = stmt.executeQuery("SELECT Doorname FROM Doors WHERE Doorname = " + "'" + delName + "'");
+			ResultSet del = stmt.executeQuery("SELECT Doorname FROM Doors WHERE Doorname = '" + delName + "'");
 
-			if (!del.next()) {
+			if (del.next()) {
 
 				del.close();
 				c.setAutoCommit(true);

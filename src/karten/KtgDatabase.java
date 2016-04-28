@@ -7,7 +7,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 
-public class Kategorie
+public class KtgDatabase
 {
 	/**
 	 * Methode, zum Einfügen einer neuen Kategorie

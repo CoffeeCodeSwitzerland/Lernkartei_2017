@@ -11,10 +11,11 @@ public class kategorienErstellen extends JFrame implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
 
-	JFrame MainFrame = new JFrame();
+	JFrame CreateKatg = new JFrame();
 
 	JButton katgeorieErstellen = new JButton("Kasten Erstellen");
 	JButton Abbrechen = new JButton("Abbrechen");
+
 	// JButton kategorieLöschen = new JButton("Kasten Löschen");
 
 	JTextField kategorieEingabe = new JTextField();
@@ -24,25 +25,26 @@ public class kategorienErstellen extends JFrame implements ActionListener {
 
 	public kategorienErstellen() {
 
-		new kategorienAbrufen(MainFrame);
+		new kategorienAbrufen(CreateKatg);
 
 		katgeorieErstellen.addActionListener(this);
 		kategorieEingabe.addActionListener(this);
+		Abbrechen.addActionListener(this);
 		// kategorieLöschen.addActionListener(this);
-		MainFrame.getContentPane().setLayout(null);
-		MainFrame.getContentPane().add(katgeorieErstellen);
+		CreateKatg.getContentPane().setLayout(null);
+		CreateKatg.getContentPane().add(katgeorieErstellen);
 		katgeorieErstellen.setBounds(25, 80, 200, 25);
-		MainFrame.getContentPane().add(kategorieEingabe);
+		CreateKatg.getContentPane().add(kategorieEingabe);
 		kategorieEingabe.setBounds(25, 50, 440, 20);
-		MainFrame.getContentPane().add(Abbrechen);
-		Abbrechen.setBounds(265,80, 200 ,25);
+		CreateKatg.getContentPane().add(Abbrechen);
+		Abbrechen.setBounds(265, 80, 200, 25);
 
 		// MainFrame.getContentPane().add(kategorieLöschen);
 
-		MainFrame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		CreateKatg.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-		MainFrame.setSize(500, 250);
-		MainFrame.setVisible(true);
+		CreateKatg.setSize(500, 250);
+		CreateKatg.setVisible(true);
 
 	}
 
@@ -57,11 +59,13 @@ public class kategorienErstellen extends JFrame implements ActionListener {
 			// Überschrift für den Kasten einfügen und in SQL einfügen
 			// Hier in KAtegorien Tabelle einfügen SQL..
 
-			Kategorie.Eingabe(Eingabe);
+			database.Categories.newKategorie(Eingabe);
 
 			System.out.println(Eingabe);
 
 			// Kasten Neben anderem Visible Einfügen
+		} else if (e.getSource() == Abbrechen) {
+			CreateKatg.setVisible(false);
 		}
 
 		// else if (e.getSource() == kategorieLöschen) {

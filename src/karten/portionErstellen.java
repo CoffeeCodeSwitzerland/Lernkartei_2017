@@ -22,7 +22,6 @@ public class portionErstellen extends JFrame implements ActionListener {
 		this.getContentPane().add(Portionwählen, BorderLayout.SOUTH);
 		this.getContentPane().add(Portioneingabe, BorderLayout.CENTER);
 		Portionwählen.addActionListener(this);
-		this.setTitle("Portion");
 		this.pack();
 		this.setVisible(true);
 	}

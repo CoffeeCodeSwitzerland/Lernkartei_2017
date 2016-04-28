@@ -18,7 +18,6 @@ public class kategorienAbrufen extends JFrame implements ActionListener {
 		f.getContentPane().add(showDatabase);
 		showDatabase.setBounds(150, 110, 200, 25);
 		showDatabase.addActionListener(this);
-		this.setVisible(true);
 
 	}
 
@@ -27,7 +26,7 @@ public class kategorienAbrufen extends JFrame implements ActionListener {
 
 		if (e.getSource() == showDatabase) {
 
-			for (String[] s : Kategorie.Ausgabe()) {
+			for (String[] s : database.Categories.getKategorien()) {
 
 				for (int i = 0; i < s.length; i++) {
 					
@@ -35,7 +34,7 @@ public class kategorienAbrufen extends JFrame implements ActionListener {
 				}
 				
 				Anzeige.setSize(400, 800);
-				Anzeige.setLayout(new GridLayout(Kategorie.Ausgabe().size(),0));
+				Anzeige.setLayout(new GridLayout(database.Categories.getKategorien().size(),0));
 				Anzeige.setVisible(true);
 
 			}

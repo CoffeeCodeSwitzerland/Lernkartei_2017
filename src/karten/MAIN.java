@@ -1,9 +1,10 @@
 package karten;
 
-public class kategorienMain {
+public class MAIN {
 
 	public static void main(String[] args) {
-		new kategorienErstellen();
+		
+		new mainfeister();
 
 	}
 

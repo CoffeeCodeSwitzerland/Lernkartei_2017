@@ -28,8 +28,7 @@
 
 .check-box
 {
-	-fx-color: red;
-	-fx-background: blue;
+	-fx-color: white;
 }
 
 #fancytext {

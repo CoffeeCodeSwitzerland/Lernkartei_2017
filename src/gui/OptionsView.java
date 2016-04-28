@@ -24,12 +24,14 @@ public class OptionsView extends View
 		super (setName, primaryStage, controller);
 
 		// Contorls (Sample)
-		AppButton resetStats = new AppButton("Statistiken zurücksetzten");
+		AppButton resetStats = new AppButton("Statistiken zurücksetzen");
 		CheckBox enableSound = new CheckBox("Audio");
+		CheckBox enableAnimation = new CheckBox("Animation");
 		ColorPicker col = new ColorPicker();
 
 		// Setzt maximale Breite der nicht-Button Elemente:
 		enableSound.setMaxWidth(AppButton.DEFAULT_BUTTON_WIDTH);
+		enableAnimation.setMaxWidth(AppButton.DEFAULT_BUTTON_WIDTH);
 		col.setMaxWidth(AppButton.DEFAULT_BUTTON_WIDTH);
 
 		// Buttons:
@@ -41,7 +43,7 @@ public class OptionsView extends View
 		tempVBox.setPadding(new Insets(10));
 		tempVBox.setSpacing(10);
 		tempVBox.setAlignment(Pos.CENTER);
-		tempVBox.getChildren().addAll(resetStats, enableSound, col, applyColor, back);
+		tempVBox.getChildren().addAll(resetStats, enableSound,enableAnimation, col, applyColor, back);
 
 		// Setzt Verhalten  -> TODO in CSS auslagern
 		applyColor.setOnAction(e -> {

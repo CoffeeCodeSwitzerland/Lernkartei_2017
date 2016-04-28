@@ -61,6 +61,30 @@ public class Score {
 		
 	}
 	
+	public static void addScore (String Kartei, double Score) {
+		
+		Connection c = null;
+		Statement stmt = null;
+		
+		try {
+			Class.forName(driver);
+			c = DriverManager.getConnection(url);
+			stmt = c.createStatement();
+			
+			String sql = "INSERT INTO Score (Kartei, Score) VALUES ('" + Kartei + "'," + Score +")";
+			
+			System.out.println(sql);
+			stmt.executeUpdate(sql);
+			stmt.close();
+			c.close();
+		}
+		catch (Exception e) {
+			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+			System.exit(0);
+		}
+		
+	}
+	
 	/**
 	 * 
 	 * Sie können den Score einer bestimmten Kartei updaten

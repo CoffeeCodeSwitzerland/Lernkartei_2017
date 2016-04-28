@@ -28,7 +28,7 @@ public class BoxView extends View
 
 		// Buttons
 		AppButton zurueckButton = new AppButton("zurück");
-		AppButton neuerKasten = new AppButton("Neuer Kasten");
+		AppButton newBox = new AppButton("Neuer Kasten");
 		AppButton bearbeitenKasten = new AppButton("Bearbeiten");
 		AppButton weitereKasten = new AppButton("weitere Kasten");
 
@@ -37,7 +37,7 @@ public class BoxView extends View
 		HBox hBox = new HBox(20);
 		hBox.setAlignment(Pos.CENTER);
 
-		hBox.getChildren().addAll(zurueckButton, neuerKasten, bearbeitenKasten, weitereKasten);
+		hBox.getChildren().addAll(zurueckButton, newBox, bearbeitenKasten, weitereKasten);
 
 		boxLayout = new HBox(20);
 		boxLayout.setAlignment(Pos.CENTER);
@@ -50,6 +50,14 @@ public class BoxView extends View
 		borderPane.setBottom(hBox);
 
 		zurueckButton.setOnAction(e -> getController().show("doorview"));
+		newBox.setOnAction(e -> 
+		{
+			final String boxName = Alert.simpleString("Neue Box", "Wie soll die neue Box heissen?");
+			if (setName != null || !boxName.equals(""))
+			{
+				System.out.println(getController().getMyModel("set").doAction("new", getData() + application.Constants.SEPARATOR + boxName));
+			}
+		});
 		weitereKasten.setOnAction(e -> getController().show("karteiview"));
 		weitereKasten.setDisable(true);
 
@@ -60,7 +68,7 @@ public class BoxView extends View
 	public void refreshView ()
 	{
 		String data = getData();
-		
+		System.out.println(data);
 		if (data != null)
 		{
 			ArrayList<String> setData = getController().getMyModel("set").getData(data);
@@ -68,8 +76,14 @@ public class BoxView extends View
 			
 			for (String s : setData)
 			{
-				sets.add(new AppButton(s));
+				AppButton a = new AppButton(s);
+				a.setOnAction(e -> {
+					System.out.println("Clicked on Set");
+				});
+				sets.add(a);
 			}
+			
+			boxLayout.getChildren().addAll(sets);
 		}
 	}
 }

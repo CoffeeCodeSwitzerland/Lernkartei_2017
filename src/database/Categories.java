@@ -28,7 +28,7 @@ public class Categories {
 		Connection c = null;
 		Statement stmt = null;
 		Integer FK_ID = 0;
-		Integer errorMsg = 0;
+		Integer errorMsg = -9;
 
 		try {
 			Class.forName(driver);
@@ -44,7 +44,7 @@ public class Categories {
 
 			System.out.println(sql);
 			stmt.executeUpdate(sql);
-			System.out.println("Successful");
+			System.out.println("Table creation successful");
 
 			c.setAutoCommit(false);
 			
@@ -75,7 +75,7 @@ public class Categories {
 
 			stmt.executeUpdate(insert);
 
-			System.out.println("Successful");
+			System.out.println("Insert Successful");
 			
 			stmt.close();
 			c.close();

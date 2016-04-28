@@ -2,10 +2,16 @@ package models;
 
 import java.util.ArrayList;
 
+import application.MainController;
+import gui.View;
+
 public class SetModel extends Model {
 
-	public SetModel (String myName) {
+	MainController m;
+	
+	public SetModel (String myName, MainController controller) {
 		super(myName);
+		m = controller;
 	}
 
 	@Override
@@ -21,7 +27,13 @@ public class SetModel extends Model {
 		if (functionName.equals("new")) {
 			
 			String eingabe[] = paramS.split(application.Constants.SEPARATOR);
-			return database.Categories.newKategorie(eingabe[1], eingabe[0]);	
+			int i = database.Categories.newKategorie(eingabe[1], eingabe[0]);
+			View v = m.getCurrent();
+			if (v != null)
+			{
+				v.refreshView();
+			}
+			return i;
 			
 		} else if (functionName.equals("delete")) {
 			

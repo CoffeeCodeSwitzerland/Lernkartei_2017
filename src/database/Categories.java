@@ -52,7 +52,7 @@ public class Categories {
 			if (id.next()) {			
 			FK_ID = id.getInt("PK_Doors");
 			} else {
-				System.out.println("Keine Türen vorhanden");
+				System.out.println("Keine Tür mit dem Namen vorhanden");
 				FK_ID = 0;
 			}
 
@@ -76,10 +76,11 @@ public class Categories {
 
 	}
 
-	public static ArrayList<String[]> getKategorien () {
+	public static ArrayList<String[]> getKategorien (String doorname) {
 
 		Connection c = null;
 		Statement stmt = null;
+		Integer FK_ID = 0;
 
 		ArrayList<String[]> datensatz = new ArrayList<String[]>();
 
@@ -88,7 +89,19 @@ public class Categories {
 			c = DriverManager.getConnection(url);
 			c.setAutoCommit(false);
 			stmt = c.createStatement();
-			ResultSet rs = stmt.executeQuery("SELECT * FROM Kategorie;");
+			
+			ResultSet id = stmt.executeQuery("SELECT PK_Doors FROM Doors WHERE Doorname = '" + doorname + "'");
+			
+			if (id.next()) {			
+			FK_ID = id.getInt("PK_Doors");
+			} else {
+				System.out.println("Keine Kategorien mit dieser Tür vorhanden");
+				FK_ID = 0;
+			}
+			
+			id.close();
+			
+			ResultSet rs = stmt.executeQuery("SELECT * FROM Kategorie WHERE FK_Door = " + FK_ID);
 
 			while (rs.next()) {
 
@@ -117,7 +130,9 @@ public class Categories {
 	}
 
 	public static void delKategorie (int delID) {
-
+		
+				
+		
 	}
 
 }

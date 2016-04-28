@@ -15,10 +15,11 @@
 	-fx-background-image: url("pictures/SchulhausOhneTuer2.png");
 }
 
-#delMode
-{
-	-fx-color: #ddaaaa;
+#bold{
+	-fx-font-weight: bold;
+	-fx-font-size: 1.2em;
 }
+
 
 #gamebg {
 	-fx-color: silver;

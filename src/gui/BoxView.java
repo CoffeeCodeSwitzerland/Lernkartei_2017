@@ -7,6 +7,8 @@ import application.MainController;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Dragboard;
@@ -26,6 +28,7 @@ import javafx.stage.Stage;
 public class BoxView extends View
 {
 	VBox boxLayout;
+	VBox options;
 	
 	public BoxView (String setName, Stage primaryStage, MainController controller)
 	{
@@ -48,12 +51,16 @@ public class BoxView extends View
 
 		boxLayout = new VBox(20);
 		boxLayout.setAlignment(Pos.CENTER);
+		
+		options = new VBox(20);
+		options.setAlignment(Pos.CENTER);
 
 		// Laayout für die Scene
 		BorderPane borderPane = new BorderPane();
 		borderPane.setPadding(new Insets(15));
 
 		borderPane.setCenter(boxLayout);
+		borderPane.setRight(options);
 		borderPane.setBottom(hBox);
 
 		zurueckButton.setOnAction(e -> getController().show("doorview"));
@@ -82,8 +89,13 @@ public class BoxView extends View
 	        if (db.hasString()) {
 	           if (Alert.ok("Achtung", "Willst du " + db.getString() + " wirklich löschen?"))
 	           {
-	        	   getController().getMyModel("door").doAction("delete", db.getString());
-	        	   refreshView();
+	        	   getController().getMyModel("set").doAction("delete", db.getString());
+	        	   if (options.getChildren().get(0).getTypeSelector().equals("Label"))
+	        	   {
+	        		   Label temp = (Label) options.getChildren().get(0);
+	        		   if (temp.getText().equals(db.getString()))
+	        			   options.getChildren().clear();
+	        	   }
 	           }
 	           success = true;
 	        }
@@ -104,6 +116,8 @@ public class BoxView extends View
 	public void refreshView ()
 	{
 		boxLayout.getChildren().clear();
+		//options.getChildren().clear();
+		
 		String data = getData();
 		System.out.println(data);
 		if (data != null)
@@ -121,7 +135,7 @@ public class BoxView extends View
 			for (AppButton a : sets)
 			{
 				a.setOnAction(e -> {
-					System.out.println("Clicked on Set");
+					setOptions(a.getText());
 				});
 				a.setOnDragDetected(e -> {
 					
@@ -143,5 +157,22 @@ public class BoxView extends View
 			
 			boxLayout.getChildren().addAll(sets);
 		}
+	}
+	
+	private void setOptions (String set)
+	{
+		options.getChildren().clear();
+		
+		Label setTitle = new Label(set);
+		AppButton lernen = new AppButton("Lernen");
+		AppButton edit = new AppButton("Bearbeiten");
+		
+		setTitle.setId("bold");
+		lernen.setOnAction(e -> {
+			System.out.println("Lerne " + set);
+		});
+		edit.setOnAction(e -> System.out.println(set + " bearbeiten"));
+		
+		options.getChildren().addAll(setTitle, lernen, edit);
 	}
 }

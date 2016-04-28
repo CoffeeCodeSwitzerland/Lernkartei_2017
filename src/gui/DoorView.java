@@ -45,6 +45,7 @@ public class DoorView extends View
 			}
 		}
 
+		
 		// Layout für Controls
 		HBox hBox = new HBox(20);
 		hBox.setAlignment(Pos.CENTER);
@@ -55,6 +56,7 @@ public class DoorView extends View
 		doorLayout.setAlignment(Pos.CENTER);
 		doorLayout.getChildren().addAll(doors);
 
+		
 		// Laayout für die Scene
 		BorderPane borderPane = new BorderPane();
 		borderPane.setPadding(new Insets(15));
@@ -62,8 +64,11 @@ public class DoorView extends View
 		borderPane.setCenter(doorLayout);
 		borderPane.setBottom(hBox);
 
+		
 		// Behaviour
+		
 		zurueckButton.setOnAction(e -> getController().showMain());
+		
 		neueTuer.setOnAction(e -> {
 			String doorName = Alert.simpleString("Neue Tür", "Wie soll die neue Tür heissen?");
 			if (doorName != null && !doorName.equals(""))
@@ -72,17 +77,14 @@ public class DoorView extends View
 				refreshView();
 			}
 		});
+		
 		bearbeitenButton.setOnAction(e -> {
-			delMode = !delMode;
-			bearbeitenButton.setText(delMode ? "Fertig" : "Bearbeiten");
-			for (AppButton a : doors)
-			{
-				a.setId(delMode ? "delMode" : "");
-			}
+			getController().show("dragview");
 		});
 		
 		weitereTueren.setOnAction(e -> getController().show("kastenview"));
 
+		
 		this.setupScene(new Scene(borderPane, Constants.OPTIMAL_WIDTH, Constants.OPTIMAL_HEIGHT));
 	}
 

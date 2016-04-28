@@ -75,7 +75,7 @@ public class gamePanel extends JPanel implements Runnable
     private int spriteRate;
     private int lives;
     private int tickCounter;
-    private int gameState;
+    static int gameState;
     private int bossIndex;
     private int level;
     private int levelMax;

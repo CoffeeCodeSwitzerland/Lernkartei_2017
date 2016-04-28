@@ -48,6 +48,7 @@ public class Menu {
 		switch(currentSelection){
 		case 0:
 			System.out.println("play");
+			gamePanel.gameState = gamePanel.LOADLEVEL;
 			break;
 		case 1:
 			System.out.println("Options");

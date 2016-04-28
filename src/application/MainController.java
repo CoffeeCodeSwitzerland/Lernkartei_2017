@@ -4,13 +4,7 @@ import java.util.ArrayList;
 
 import debug.Debugger;
 import debug.Supervisor;
-import gui.DoorView;
-import gui.GameView;
-import gui.HelpView;
-import gui.MainView;
-import gui.OptionsView;
-import gui.StatisticsView;
-import gui.View;
+import gui.*;
 import javafx.stage.Stage;
 import models.*;
 
@@ -43,7 +37,7 @@ public class MainController
 		views.add(new OptionsView("optionsview", primaryStage, this));
 		views.add(new HelpView("helpview"));
 		views.add(new GameView("gameview", primaryStage, this));
-		views.add(new GameView("kastenview", primaryStage, this));
+		views.add(new KastenView("kastenview", primaryStage, this));
 	}
 
 	public Model getMyModel (String name)

@@ -2,7 +2,6 @@ package database;
 
 import java.sql.*;
 import java.util.ArrayList;
-import javax.swing.JTextField;
 
 
 public class Database {

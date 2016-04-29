@@ -7,7 +7,7 @@ import application.MainController;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.image.ImageView;
+import javafx.scene.image.*;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
@@ -18,102 +18,97 @@ import javafx.stage.Stage;
 
 
 /**
- * Gamestartfenster
+ * Zeigt alle Türen an. Erlaubt die Erstellung und das Löschen von Türen.
  * 
- * @author miro-albrecht & hugo-lucca
+ * @author miro albrecht & hugo lucca
  *
  */
 public class DoorView extends View
 {
+	// Zeigt Türen dynamisch an
 	VBox doorLayout;
-	
+
 	public DoorView (String setName, Stage primaryStage, MainController controller)
 	{
 		super(setName, primaryStage, controller);
 
+		// Initialisiere Layout für Türen
 		doorLayout = new VBox(20);
 		doorLayout.setAlignment(Pos.CENTER);
-		
+
 		// Buttons
-		AppButton zurueckButton = new AppButton("zurück");
-		AppButton neueTuer = new AppButton("Neue Tür");
-		AppButton weitereTueren = new AppButton("weitere Türen");
+		AppButton backBtn = new AppButton("Zurück");
+		AppButton newDoorBtn = new AppButton("Neue Tür");
 
 		// Trash Image
-		
-		javafx.scene.image.Image trash = new javafx.scene.image.Image("gui/pictures/Papierkorb.png");
-		ImageView view = new ImageView(trash);
-		
-		// Layout für Controls
-		HBox hBox = new HBox(20);
-		hBox.setAlignment(Pos.CENTER);
+		Image trashImg = new Image("gui/pictures/Papierkorb.png");
+		ImageView trashImgView = new ImageView(trashImg);
 
-		hBox.getChildren().addAll(zurueckButton, neueTuer, weitereTueren, view);
-		
-		
-		// Layout für die Scene
-		BorderPane borderPane = new BorderPane();
-		borderPane.setPadding(new Insets(15));
+		// Layout für Controls (Hauptsteuerung)
+		HBox controlsLayout = new HBox(20);
+		controlsLayout.setAlignment(Pos.CENTER);
+		controlsLayout.getChildren().addAll(backBtn, newDoorBtn, trashImgView);
 
-		borderPane.setCenter(doorLayout);
-		borderPane.setBottom(hBox);
+		// Main Layout
+		BorderPane mainLayout = new BorderPane();
+		mainLayout.setPadding(new Insets(15));
+
+		mainLayout.setCenter(doorLayout);
+		mainLayout.setBottom(controlsLayout);
 
 		
 		// Behaviour
-		
-		zurueckButton.setOnAction(e -> getController().showMain());
-		
-		neueTuer.setOnAction(e -> {
+		backBtn.setOnAction(e -> getController().showMain());
+
+		newDoorBtn.setOnAction(e ->
+		{
 			String doorName = Alert.simpleString("Neue Tür", "Wie soll die neue Tür heissen?");
 			if (doorName != null && !doorName.equals(""))
 			{
 				getController().getMyModel("door").doAction("new", doorName);
-				refreshView();
 			}
 		});
-		
-		weitereTueren.setOnAction(e -> getController().show("boxview"));
 
-		
-		view.setOnDragOver(e -> {
-			if (e.getGestureSource() != view &&
-	                e.getDragboard().hasString()) {
-	            /* allow for both copying and moving, whatever user chooses */
-	            e.acceptTransferModes(TransferMode.COPY_OR_MOVE);
-	        }
-	        
-	        // target.setText(event.getDragboard().getString());
-	        e.consume();
+		trashImgView.setOnDragOver(e ->
+		{
+			if (e.getGestureSource() != trashImgView &&
+					e.getDragboard().hasString())
+			{
+				e.acceptTransferModes(TransferMode.COPY_OR_MOVE);
+			}
+
+			e.consume();
 		});
-		view.setOnDragDropped(event -> {
+		
+		trashImgView.setOnDragDropped(event ->
+		{
 			Dragboard db = event.getDragboard();
-	        boolean success = false;
-	        if (db.hasString()) {
-	           if (Alert.ok("Achtung", "Willst du " + db.getString() + " wirklich löschen?"))
-	           {
-	        	   getController().getMyModel("door").doAction("delete", db.getString());
-	        	   refreshView();
-	           }
-	           success = true;
-	        }
-	        /* let the source know whether the string was successfully 
-	         * transferred and used */
-	        event.setDropCompleted(success);
-	        
-	        event.consume();
+			boolean success = false;
+			if (db.hasString())
+			{
+				if (Alert.ok("Achtung", "Willst du die Tür '" + db.getString() + "' wirklich löschen?"))
+				{
+					getController().getMyModel("door").doAction("delete", db.getString());
+				}
+				success = true;
+			}
+			
+			event.setDropCompleted(success);
+			event.consume();
 		});
-		
-		
-		
-		this.setupScene(new Scene(borderPane, Constants.OPTIMAL_WIDTH, Constants.OPTIMAL_HEIGHT));
+
+		this.setupScene(new Scene(mainLayout, Constants.OPTIMAL_WIDTH, Constants.OPTIMAL_HEIGHT));
+		getController().getMyModel("door").registerView(this);
 	}
 
 	@Override
 	public void refreshView ()
 	{
 		doorLayout.getChildren().clear();
+		
 		ArrayList<String> doorNames = getController().getMyModel("door").getData("doors");
 		ArrayList<AppButton> doors = new ArrayList<>();
+		
 		if (doorNames != null)
 		{
 			for (String s : doorNames)
@@ -121,32 +116,34 @@ public class DoorView extends View
 				doors.add(new AppButton(s));
 			}
 		}
-		
+
 		for (AppButton a : doors)
 		{
-			a.setOnAction(e -> {
-				View v = getController().show("boxview");
-				v.setData(a.getText());
-				v.refreshView();
+			a.setOnAction(e ->
+			{
+				getController().show("boxview").setData(a.getText());
 			});
-			a.setOnDragDetected(e -> {
-				
+			
+			a.setOnDragDetected(e ->
+			{
 				Dragboard db = a.startDragAndDrop(TransferMode.MOVE);
-		        
-		        ClipboardContent content = new ClipboardContent();
-		        content.putString(a.getText());
-		        db.setContent(content);
-		        
-		        e.consume();
+
+				ClipboardContent content = new ClipboardContent();
+				content.putString(a.getText());
+				db.setContent(content);
+
+				e.consume();
 			});
-			a.setOnDragDone(event -> {
-				if (event.getTransferMode() == TransferMode.MOVE) {
-		            doors.remove(a);
-		        }
-		        event.consume();
+			a.setOnDragDone(event ->
+			{
+				if (event.getTransferMode() == TransferMode.MOVE)
+				{
+					doors.remove(a);
+				}
+				event.consume();
 			});
 		}
-		
+
 		doorLayout.getChildren().addAll(doors);
 	}
 }

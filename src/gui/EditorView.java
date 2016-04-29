@@ -13,7 +13,7 @@ public class EditorView extends View
 {
 	//ArrayList<VBox> cards;
 	
-	HBox layout = new HBox();
+	VBox layout = new VBox();
 	
 	public EditorView (String setName, Stage primary, MainController controller)
 	{
@@ -22,6 +22,7 @@ public class EditorView extends View
 		//cards = new ArrayList<VBox>();
 		
 		setupScene(new Scene(layout, Constants.OPTIMAL_WIDTH, Constants.OPTIMAL_HEIGHT));
+		getController().getMyModel("cards").registerView(this);
 	}
 
 	@Override
@@ -34,7 +35,7 @@ public class EditorView extends View
 		if (data != null)
 		{
 			ArrayList<String> cardStrings = getController().getMyModel("cards").getData(data);
-			ArrayList<VBox> cards = new ArrayList<>();
+			ArrayList<HBox> cards = new ArrayList<>();
 			
 			for (String s : cardStrings)
 			{
@@ -44,10 +45,19 @@ public class EditorView extends View
 				Button delete = new Button("X");
 				delete.setOnAction(e -> System.out.println("Delete"));
 				
-				VBox v = new VBox(4);
+				HBox v = new HBox(4);
 				v.getChildren().addAll(front, back, delete);
 				cards.add(v);
 			}
+			
+			TextField front = new TextField();
+			TextField back = new TextField();
+			Button delete = new Button("Add");
+			delete.setOnAction(e -> getController().getMyModel("cards").doAction("new", back.getText() + Constants.SEPARATOR + front.getText() + Constants.SEPARATOR + data));
+			
+			HBox v = new HBox(4);
+			v.getChildren().addAll(front, back, delete);
+			cards.add(v);
 			
 			layout.getChildren().addAll(cards);
 		}

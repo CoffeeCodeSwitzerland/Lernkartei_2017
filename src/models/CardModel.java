@@ -33,6 +33,7 @@ public class CardModel extends DataModel {
 			values[4] = "-16777216"; // Standart Farbcode für Schwarz
 			
 			if (Database.pushToStock(values)) {
+				refreshViews();
 				return 1;
 			} else {
 				return -1;
@@ -64,7 +65,7 @@ public class CardModel extends DataModel {
 		
 		if (Database.pullFromStock(query) == null) { 
 		
-			return null;
+			return result;
 		
 		} else {
 			

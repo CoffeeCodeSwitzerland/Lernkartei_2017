@@ -30,6 +30,7 @@ public class MainController
 		dataModels.add(new GameModel("game"));
 		dataModels.add(new DoorModel("door"));
 		dataModels.add(new BoxModel("box"));
+		dataModels.add(new CardModel("cards"));
 
 		views.add(new MainView(mainView, primaryStage, this));
 		views.add(new StatisticsView("statisticsview", primaryStage, this));

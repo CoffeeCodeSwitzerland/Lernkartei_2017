@@ -1,4 +1,4 @@
-package kartenpackage;
+package cards;
 
 public class Main {
 

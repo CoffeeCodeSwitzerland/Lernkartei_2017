@@ -42,6 +42,7 @@ public class Backup
 					" Frontside TEXT NOT NULL," +
 					" Description TEXT," + 
 					" Set_ID INTEGER," + 
+					" Priority INT NOT NULL," + 
 					" Color TEXT NOT NULL" + ")";
 
 			System.out.println(sql);
@@ -50,9 +51,13 @@ public class Backup
 
 			for (int i = 0; i < values.size(); i++)
 			{
-
-				String insert = "INSERT INTO Stock (Backside, Frontside, Description, Color)" +
-						"VALUES ('" + values.get(i)[1] + "','" + values.get(i)[2] + "','" + values.get(i)[3] + "','" + values.get(i)[4] + "')";
+				String insert = "INSERT INTO Stock (Backside, Frontside, Description, Set_ID, Priority, Color)" +
+						"VALUES ('" + values.get(i)[1] + "','" 
+									+ values.get(i)[2] + "','" 
+									+ values.get(i)[3] + "','" 
+									+ values.get(i)[4] + "','" 
+									+ values.get(i)[5] + "','" 
+									+ values.get(i)[6] + "')";
 
 				stmt.executeUpdate(insert);
 			}

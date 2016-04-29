@@ -4,7 +4,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import javax.swing.JTextField;
 
-import kartenpackage.EditCard;
+import cards.EditCard;
 
 public class Database
 {

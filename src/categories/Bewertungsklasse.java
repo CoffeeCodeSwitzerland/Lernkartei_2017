@@ -1,4 +1,4 @@
-package karten;
+package categories;
 
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;

@@ -1,4 +1,4 @@
-package kartenpackage;
+package cards;
 
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;

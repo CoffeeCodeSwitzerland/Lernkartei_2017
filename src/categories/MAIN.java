@@ -1,4 +1,4 @@
-package karten;
+package categories;
 
 public class MAIN {
 

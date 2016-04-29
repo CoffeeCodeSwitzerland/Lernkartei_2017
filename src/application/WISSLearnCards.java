@@ -3,16 +3,18 @@ package application;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
+
 /**
  * Startet die Lernkartei
  * 
- * @author miro-albrecht
+ * @author miro albrecht
  *
  */
 public class WISSLearnCards extends Application
 {
 	public static void main (String[] args)
 	{
+		// Initialisiert javafx
 		launch(args);
 	}
 
@@ -21,7 +23,7 @@ public class WISSLearnCards extends Application
 	{
 		Constants.setMinHeight(primaryStage.getMaxHeight());
 		Constants.setMinWidth(primaryStage.getMaxWidth());
-		
+
 		new MainController(primaryStage);
 	}
 

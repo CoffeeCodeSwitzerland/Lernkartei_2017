@@ -2,32 +2,30 @@ package application;
 
 import java.util.ArrayList;
 
-import debug.Debugger;
 import debug.Supervisor;
 import gui.*;
-import javafx.stage.Stage;
 import models.*;
+import javafx.stage.Stage;
 
 
 /**
- * Diese Klasse Kontrolliert alle Sichten und bietet die naviagtion zur nächsten
- * Sicht an. Alle Sichten (ausser Modalfenster) werden hier mit eindeutigen
- * Namen versehen.
+ * Diese Klasse Kontrolliert alle Sichten und Models. Den Sichten wird die
+ * Navigation zur Verfügung gestellt. Alle Sichten (ausser Modalfenster) werden
+ * hier mit eindeutigen Namen versehen.
  * 
- * @author miro-albrecht & hugo-lucca
+ * @author miro albrecht & hugo-lucca
  *
  */
 public class MainController
 {
-
-	private final String			mainView	= "mainview";
-	private final ArrayList<View>	views		= new ArrayList<View>();
-	private final ArrayList<DataModel>	dataModels		= new ArrayList<DataModel>();
-	private View					currentView	= null;
+	private final String				mainView	= "mainview";
+	private final ArrayList<View>		views		= new ArrayList<View>();
+	private final ArrayList<DataModel>	dataModels	= new ArrayList<DataModel>();
 
 	public MainController (Stage primaryStage)
 	{
 		// Zuerst DataModel kreieren, dann Views!
+		// Einzigartiger Name (jeweils Views & Models) ist erforderlich!
 
 		dataModels.add(new GameModel("game"));
 		dataModels.add(new DoorModel("door"));
@@ -48,7 +46,7 @@ public class MainController
 	{
 		for (DataModel m : dataModels)
 		{
-			Debugger.out("model found: " + m.getName());
+			// Debugger.out("model found: " + m.getName());
 			if (m.getName().equals(name)) { return m; }
 		}
 
@@ -57,16 +55,27 @@ public class MainController
 		else
 			Supervisor.warnAndDebug(this, "model(null) not allowed!");
 
-		return null; // not found
+		// Kein Model gefunden
+		return null;
 	}
 
+	/**
+	 * Zeigt MainView auf dem Hauptfenster an
+	 * 
+	 * @return Gibt die MainView zurück
+	 */
 	public View showMain ()
 	{
-		View v = show(mainView);
-		currentView = v;
-		return v;
+		return show(mainView);
 	}
 
+	/**
+	 * Zeigt eine View auf dem Hauptfenster an
+	 * 
+	 * @param name
+	 *            Name der View
+	 * @return View, null wenn keine gefunden wurde
+	 */
 	public View show (String name)
 	{
 		for (View v : views)
@@ -74,19 +83,16 @@ public class MainController
 			if (v.getName().equals(name))
 			{
 				v.show();
-				currentView = v;
 				return v;
 			}
 		}
+
 		if (name != null)
 			Supervisor.warnAndDebug(this, "show(" + name + ") not found!");
 		else
 			Supervisor.warnAndDebug(this, "show(null) not allowed!");
-		return null; // not found
-	}
 
-	public View getCurrent ()
-	{
-		return currentView;
+		// Keine View gefunden
+		return null;
 	}
 }

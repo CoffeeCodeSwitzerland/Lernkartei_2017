@@ -16,6 +16,7 @@ public class DoorModel extends DataModel {
 		if (functionName == "new") {
 			try {
 				boolean success = Doors.newDoor(paramS);
+				refreshViews();
 				return success ? 1 : -1;
 			}
 			catch (Exception e) {
@@ -25,6 +26,7 @@ public class DoorModel extends DataModel {
 		} else if (functionName == "delete") {
 			try {
 				boolean success = Doors.delDoor(paramS);
+				refreshViews();
 				return success ? 1 : -1;
 			}
 			catch (Exception e) {

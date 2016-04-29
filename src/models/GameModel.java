@@ -1,14 +1,12 @@
 package models;
 
-import java.util.ArrayList;
-
 import javax.swing.SwingUtilities;
 
 import debug.Debugger;
 import javafx.embed.swing.SwingNode;
 import scrollyv8.ScrollyV8;
 
-public class GameModel extends Model {
+public class GameModel extends ActionModel {
 
 	private ScrollyV8 mf;
 
@@ -50,12 +48,5 @@ public class GameModel extends Model {
         	createSwingContent(swingNode);
 		}
 		return 0;
-	}
-
-	@Override
-	public ArrayList<String> getData (String query)
-	{
-		// TODO Auto-generated method stub
-		return null;
 	}
 }

@@ -5,12 +5,12 @@ import java.util.Iterator;
 
 import gui.View;
 
-public abstract class Model implements ModelInterface {
+public abstract class DataModel implements ModelInterface {
 	
 	private ArrayList<View> myViews = new ArrayList<View>();
 	private String name;
 
-	public Model (String myName) {
+	public DataModel (String myName) {
 		name = myName;
 	}
 	
@@ -42,9 +42,13 @@ public abstract class Model implements ModelInterface {
 		while (it.hasNext()) {
 			View v = it.next();
 			v.refreshView();
-			v.notify(); // evtl. nicht nötig
 		}
 	}
 
-
+	@Override
+	public String getString (String query)
+	{
+		debug.Debugger.out("getString() wurde für Model(" + getName() + ") nicht implementiert");
+		return null;
+	}
 }

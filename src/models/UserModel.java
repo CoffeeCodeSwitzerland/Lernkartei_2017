@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import database.UserCards;
 import user.User;
 
-public class UserModel extends Model
+public class UserModel extends DataModel
 {
 
 	public UserModel(String myName)
@@ -67,6 +67,4 @@ public class UserModel extends Model
 		//Returnt alle Karteien des Benutzers in form von einer ArrayList
 		return UserCards.getCards();
 	}
-
-	
 }

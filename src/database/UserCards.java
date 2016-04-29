@@ -12,7 +12,7 @@ import java.util.ArrayList;
  * 
  * @author Joel Häberli
  *
- * @WhatIsThis? Gibt Daten für Model aus, und kann neue verabrbeiten
+ * @WhatIsThis? Gibt Daten für DataModel aus, und kann neue verabrbeiten
  */
 
 public class UserCards

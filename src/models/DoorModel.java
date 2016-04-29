@@ -3,7 +3,7 @@ package models;
 import java.util.ArrayList;
 import database.Doors;
 
-public class DoorModel extends Model {
+public class DoorModel extends DataModel {
 
 	public DoorModel (String myName) {
 		super(myName);
@@ -51,7 +51,4 @@ public class DoorModel extends Model {
 		}
 		return null;
 	}
-	
-	
-	
 }

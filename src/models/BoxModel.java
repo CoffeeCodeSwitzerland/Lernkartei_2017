@@ -2,16 +2,11 @@ package models;
 
 import java.util.ArrayList;
 
-import application.MainController;
-import gui.View;
+public class BoxModel extends DataModel {
 
-public class BoxModel extends Model {
-
-	MainController m;
 	
-	public BoxModel (String myName, MainController controller) {
+	public BoxModel (String myName) {
 		super(myName);
-		m = controller;
 	}
 
 	@Override
@@ -28,13 +23,13 @@ public class BoxModel extends Model {
 			
 			String eingabe[] = paramS.split(application.Constants.SEPARATOR);
 			int i = database.Categories.newKategorie(eingabe[1], eingabe[0]);
-			refresh();
+			refreshViews();
 			return i;
 			
 		} else if (functionName.equals("delete")) {
 			
 			if (database.Categories.delKategorie(paramS)) {
-				refresh();
+				refreshViews();
 				return 2;
 			} else {
 				return -3;
@@ -54,14 +49,4 @@ public class BoxModel extends Model {
 		return database.Categories.getKategorien(query);
 		
 	}
-	
-	private void refresh()
-	{
-		View v = m.getCurrent();
-		if (v != null)
-		{
-			v.refreshView();
-		}
-	}
-	
 }

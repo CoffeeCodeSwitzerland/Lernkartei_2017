@@ -22,16 +22,16 @@ public class MainController
 
 	private final String			mainView	= "mainview";
 	private final ArrayList<View>	views		= new ArrayList<View>();
-	private final ArrayList<Model>	models		= new ArrayList<Model>();
+	private final ArrayList<DataModel>	dataModels		= new ArrayList<DataModel>();
 	private View					currentView	= null;
 
 	public MainController (Stage primaryStage)
 	{
-		// Zuerst Model kreieren, dann Views!
+		// Zuerst DataModel kreieren, dann Views!
 
-		models.add(new GameModel("game"));
-		models.add(new DoorModel("door"));
-		models.add(new BoxModel("set", this));
+		dataModels.add(new GameModel("game"));
+		dataModels.add(new DoorModel("door"));
+		dataModels.add(new BoxModel("box"));
 
 		views.add(new MainView(mainView, primaryStage, this));
 		views.add(new StatisticsView("statisticsview", primaryStage, this));
@@ -44,9 +44,9 @@ public class MainController
 		views.add(new DragDropView("dragview", primaryStage, this));
 	}
 
-	public Model getMyModel (String name)
+	public DataModel getMyModel (String name)
 	{
-		for (Model m : models)
+		for (DataModel m : dataModels)
 		{
 			Debugger.out("model found: " + m.getName());
 			if (m.getName().equals(name)) { return m; }

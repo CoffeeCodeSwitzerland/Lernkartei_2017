@@ -7,7 +7,6 @@ import application.MainController;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.ClipboardContent;
@@ -110,6 +109,7 @@ public class BoxView extends View
 		weitereKasten.setDisable(true);
 
 		this.setupScene(new Scene(borderPane, Constants.OPTIMAL_WIDTH, Constants.OPTIMAL_HEIGHT));
+		getController().getMyModel("box").registerView(this);
 	}
 
 	@Override

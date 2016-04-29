@@ -45,7 +45,6 @@ public class Database {
 				return false;
 			}
 			
-			c.setAutoCommit(true);
 
 			String sql = "CREATE TABLE IF NOT EXISTS Stock " +
 					"(PK_Stk INTEGER PRIMARY KEY AUTOINCREMENT," +
@@ -56,12 +55,10 @@ public class Database {
 					" Description    TEXT    		, " +
 					" Color			TEXT    		 )";
 			
-			System.out.println("*** FIXING ***");
 			
 			System.out.println(sql);
 			stmt.executeUpdate(sql);
 			
-			System.out.println("*** FIXING ***");
 
 			insert = "INSERT INTO Stock (Backside, Frontside, Set_ID, Priority, Color)" +
 					"VALUES ('" + values[0] + "','" + values[1] + "'," + setID + ", " + values[3] + ", '"

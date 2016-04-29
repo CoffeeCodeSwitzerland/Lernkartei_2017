@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import application.Constants;
+
 
 public class Score {
 
@@ -147,22 +149,9 @@ public class Score {
 	//Später wenn Online-implementierung dazukommt, kann man als Parameter den Username angeben um die richtige Funktionalität dieser Funktion sicher zu stellen
 	//Wenn ein Fehler autritt, wird in catch ein Array in die Liste gespeichert, in welchem zwei Fehler stehen. Im 1. Eintrag eine Message für Entwickler 
 	//und im 2. füe den Benutzer, welcher einfacher lesbar ist, da der User nicht weiss was er mit der 1. Anfangen soll.
+	private static ArrayList<String> allScores = new ArrayList<String>();
 
-	// getScores gibt alle Pnuktzahlen zu den Kartien zurück. In der ArrayList
-	// sind Stringarrays gelistet, welche wie folgt aufgebaut sind:
-	// | 0 KarteiName | 1 Punktzahl | (!Achtung! -> Die Punktzahl wird als
-	// String übergeben -> Sie sollte am Schluss ein Double sein)
-	// Später wenn Online-implementierung dazukommt, kann man als Parameter den
-	// Username angeben um die richtige Funktion dieser Funktion sicher zu
-	// stellen
-	// Wenn ein Fehler autritt, wird in catch ein Array in die Liste
-	// gespeichert, in welchem zwei Fehler stehen. Im 1. Eintrag eine Message
-	// für Entwickler
-	// und im 2. füe den Benutzer, welcher einfacher lesbar ist, da der User
-	// nicht weiss was er mit der 1. Anfangen soll.
-	private static ArrayList<String[]> allScores = new ArrayList<String[]>();
-
-	public static ArrayList<String[]> getScores () {
+	public static ArrayList<String> getScores () {
 
 		allScores.clear();
 
@@ -181,24 +170,23 @@ public class Score {
 				String Kartei = rs.getString(1);
 				String Score = Double.toString(rs.getDouble(2));
 				// Array und in liste schreiben
-				String[] temp = new String[2];
-				temp[0] = Kartei;
-				temp[1] = Score;
-				allScores.add(temp);
+				allScores.add(genString(Kartei, Score));
 			}
 
 		}
 		catch (Exception e) {
 			String Error = e.getMessage();
 			String allgemeinerFehler = "Es tut uns leid aber wir konnten ihre Karteien nicht finden";
-			String[] temp = new String[2];
-			temp[0] = Error;
-			temp[1] = allgemeinerFehler;
 
-			allScores.add(temp);
+			allScores.add(genString(Error, allgemeinerFehler));
 		}
 
 		return allScores;
+	}
+
+	private static String genString(String Kartei, String Score)
+	{
+		return Kartei + Constants.SEPARATOR + Score;
 	}
 
 }

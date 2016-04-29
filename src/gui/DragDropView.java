@@ -116,7 +116,6 @@ public class DragDropView extends View
 	@Override
 	public void refreshView ()
 	{
-		refresh();
 	}
 
 }

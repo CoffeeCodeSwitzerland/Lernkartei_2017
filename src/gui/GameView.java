@@ -57,7 +57,6 @@ public class GameView extends View
 
 	@Override
 	public void refreshView() {
-		//this.getWindow().toBack();
 		getController().getMyModel("game").doAction("start");
 	}
 }

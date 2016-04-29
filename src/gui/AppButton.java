@@ -26,7 +26,8 @@ public class AppButton extends Button {
 	public AppButton (String value) {
 		super(value);
 		setMinWidth(DEFAULT_BUTTON_MIN_WIDTH);
-		setMaxWidth(DEFAULT_BUTTON_WIDTH);	// alle Buttons sollen gleich gross sein
+		setMaxWidth(DEFAULT_BUTTON_WIDTH);
+		// alle Buttons sollen gleich gross sein
 											// bestimme ihr aussehen in des CSS Datei
 		
 		// TODO: der Wert von defaultButtonWidth sollte sich dem Geräte-BS anpassen können

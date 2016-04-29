@@ -77,9 +77,5 @@ public class MainView extends View
 
 	@Override
 	public void refreshView() {
-		refresh();
-
-		// TODO Auto-generated method stub
-		
 	}
 }

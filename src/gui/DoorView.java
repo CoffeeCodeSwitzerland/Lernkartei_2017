@@ -148,6 +148,5 @@ public class DoorView extends View
 		}
 		
 		doorLayout.getChildren().addAll(doors);
-		refresh();
 	}
 }

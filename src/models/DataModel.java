@@ -5,41 +5,50 @@ import java.util.Iterator;
 
 import gui.View;
 
-public abstract class DataModel implements ModelInterface {
-	
-	private ArrayList<View> myViews = new ArrayList<View>();
-	private String name;
 
-	public DataModel (String myName) {
+public abstract class DataModel implements ModelInterface
+{
+	private ArrayList<View>	myViews	= new ArrayList<View>();
+	private String			name;
+
+	public DataModel (String myName)
+	{
 		name = myName;
 	}
-	
-	public String getName() {
+
+	public String getName ()
+	{
 		return name;
 	}
 
-	public void setName(String name) {
+	public void setName (String name)
+	{
 		this.name = name;
 	}
 
 	@Override
-	public int doAction(String functionName, String paramS) {
+	public int doAction (String functionName, String paramS)
+	{
 		return doAction(functionName, paramS, 0.0F);
 	}
 
 	@Override
-	public int doAction(String functionName) {
+	public int doAction (String functionName)
+	{
 		return doAction(functionName, null, 0.0F);
 	}
 
 	@Override
-	public void registerView(View theView) {
+	public void registerView (View theView)
+	{
 		myViews.add(theView);
 	}
 
-	public void refreshViews() {
+	public void refreshViews ()
+	{
 		Iterator<View> it = myViews.iterator();
-		while (it.hasNext()) {
+		while (it.hasNext())
+		{
 			View v = it.next();
 			v.refreshView();
 		}

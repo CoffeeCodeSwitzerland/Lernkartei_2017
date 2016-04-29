@@ -26,10 +26,17 @@ public abstract class View implements ViewInterface
 	
 	public void show()
 	{
-		if (scene != null) {
-			getWindow().setScene(scene);
+		Stage st = this.getWindow();
+		if (st != null) {
+			if (scene != null) {
+				st.setScene(scene);
+			} else {
+				Debugger.out("show("+name+") has no scene!");
+			}
+			st.show();
+		} else {
+			Debugger.out("show("+name+") has no window!");
 		}
-		getWindow().show();
 		this.refreshView();
 	}
 	
@@ -54,11 +61,6 @@ public abstract class View implements ViewInterface
 		}
 	}
 
-	public void refresh() {
-		//getWindow().hide();
-		//getWindow().show();
-	}
-	
 	public Stage getWindow() {
 		if (window == null) window = new Stage();
 		return window;

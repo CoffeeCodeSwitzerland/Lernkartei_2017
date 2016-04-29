@@ -2,23 +2,21 @@ package gui;
 
 import application.Constants;
 import application.MainController;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
-import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class StatisticsView extends View
 {		
-	HBox karteiLayout;
+	HBox ChartLayout;
 	
 	//Setze die namen der balken
 	final static String austria = "Austria";
@@ -43,14 +41,29 @@ public class StatisticsView extends View
 
 		hBox.getChildren().addAll(zurueck, meineKlasse, rangliste);
 
-		karteiLayout = new HBox(20);
-		karteiLayout.setAlignment(Pos.CENTER);
+		//Buttons/Labels für Info Box (Hier werden Name und so weiter angezeigt werden (wie Profil)
+		AppButton button1 = new AppButton("Button_1");
+		AppButton button2 = new AppButton("Button_2");
+		AppButton button3 = new AppButton("Button_3");
+		AppButton button4 = new AppButton("Button_4");
+		
+		//InfoBox(Links vom Chart)
+		VBox infoBox = new VBox(50);
+		infoBox.setAlignment(Pos.CENTER_LEFT);
+		infoBox.getChildren().addAll(button1, button2, button3, button4);
+		
+		//ChartLayout erstellen
+		ChartLayout = new HBox(20);
+		ChartLayout.setAlignment(Pos.CENTER);
+		
 
 		// Laayout für die Scene
 		BorderPane borderPane = new BorderPane();
 		borderPane.setPadding(new Insets(15));
 
-		borderPane.setCenter(karteiLayout);
+		
+		borderPane.setLeft(infoBox);
+		borderPane.setRight(ChartLayout);
 		borderPane.setBottom(hBox);
 		 
 		
@@ -100,7 +113,7 @@ public class StatisticsView extends View
         
         
         //Chart ins KartenLayout (center) einfügen
-        karteiLayout.getChildren().addAll(bc);
+        ChartLayout.getChildren().addAll(bc);
         
 		this.setupScene(new Scene(borderPane, Constants.OPTIMAL_WIDTH, Constants.OPTIMAL_HEIGHT));
 		zurueck.setOnAction(e -> controller.showMain());

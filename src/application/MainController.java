@@ -39,6 +39,7 @@ public class MainController
 		views.add(new GameView("gameview", primaryStage, this));
 		views.add(new KarteiView("karteiview", primaryStage, this));
 		views.add(new BoxView("boxview", primaryStage, this));
+		views.add(new EditorView("editorview", primaryStage, this));
 		views.add(new ImpressumView("impressumview", primaryStage, this));
 	}
 

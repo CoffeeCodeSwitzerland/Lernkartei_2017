@@ -33,6 +33,12 @@ public class BoxView extends View
 	{
 		super(setName, primaryStage, controller);
 
+		// Layouts für dynamische Inhalte
+		boxLayout = new VBox(20);
+		boxLayout.setAlignment(Pos.CENTER);
+		options = new VBox(20);
+		options.setAlignment(Pos.CENTER);
+		
 		// Buttons
 		AppButton backBtn = new AppButton("Zurück");
 		AppButton newBoxBtn = new AppButton("Neue Box");
@@ -45,11 +51,7 @@ public class BoxView extends View
 		hBox.setAlignment(Pos.CENTER);
 		hBox.getChildren().addAll(backBtn, newBoxBtn, trashImgView);
 
-		// Layouts für dynamische Inhalte
-		boxLayout = new VBox(20);
-		boxLayout.setAlignment(Pos.CENTER);
-		options = new VBox(20);
-		options.setAlignment(Pos.CENTER);
+		
 
 		// Layout für die Scene
 		BorderPane borderPane = new BorderPane();
@@ -116,11 +118,11 @@ public class BoxView extends View
 	{
 		boxLayout.getChildren().clear();
 
-		String data = getData();
+		String localdata = getData();
 
-		if (data != null)
+		if (localdata != null)
 		{
-			ArrayList<String> setData = getController().getMyModel("box").getData(data);
+			ArrayList<String> setData = getController().getMyModel("box").getData(localdata);
 			ArrayList<AppButton> sets = new ArrayList<AppButton>();
 
 			for (String s : setData)
@@ -174,7 +176,10 @@ public class BoxView extends View
 		{
 			System.out.println("Lerne " + set);
 		});
-		edit.setOnAction(e -> System.out.println(set + " bearbeiten"));
+		edit.setOnAction(e -> {
+			View v = getController().show("editorview");
+			v.setData(set);
+		});
 
 		options.getChildren().addAll(setTitle, lernen, edit);
 	}

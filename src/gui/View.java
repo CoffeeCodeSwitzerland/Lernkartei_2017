@@ -75,6 +75,7 @@ public abstract class View implements ViewInterface
 	public void setData (String data)
 	{
 		this.data = data;
+		refreshView();
 	}
 	
 	public String getData()

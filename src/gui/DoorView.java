@@ -121,7 +121,8 @@ public class DoorView extends View
 		{
 			a.setOnAction(e ->
 			{
-				getController().show("boxview").setData(a.getText());
+				View v = getController().show("boxview");
+				v.setData(a.getText());
 			});
 			
 			a.setOnDragDetected(e ->

@@ -26,7 +26,7 @@ public class Zufallszieher extends JFrame implements ActionListener {
 	public static int ziehen() {
 		int zufallszahl = 0;
 
-		zufallszahl = (int) ((Math.random() * Database.pullFromStock().size()));
+		//zufallszahl = (int) ((Math.random() * Database.pullFromStock().size()));
 
 		return zufallszahl;
 	}

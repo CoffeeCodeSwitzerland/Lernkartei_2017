@@ -4,8 +4,6 @@ import java.sql.*;
 import java.util.ArrayList;
 import javax.swing.JTextField;
 
-import cards.EditCard;
-
 
 public class Database {
 	public static ResultSet	rs;
@@ -164,18 +162,6 @@ public class Database {
 		}
 		
 		return deleted;
-
-	}
-
-	public static ArrayList<String> getEdited () {
-
-		ArrayList<String> swalues = new ArrayList<String>();
-
-		for (JTextField s : EditCard.addJFs) {
-			swalues.add(s.getText());
-		}
-
-		return swalues;
 
 	}
 

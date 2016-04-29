@@ -30,6 +30,8 @@ public abstract class View implements ViewInterface
 		if (st != null) {
 			if (scene != null) {
 				st.setScene(scene);
+			} else {
+				Debugger.out("show("+name+") has no scene!");
 			}
 			st.show();
 		} else {

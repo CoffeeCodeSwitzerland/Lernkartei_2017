@@ -81,11 +81,12 @@ public class NewCard extends JFrame implements ActionListener{
 				  
 			
 				//Nimmt den Text von JTextFields und speichert sie in DB 
-				String[] values = new String[4];
+				String[] values = new String[5];
 				values[0] = antwort.getText();
 				values[1] = frage.getText();
-				values[2] = "Description";
-				values[3] = op;
+				values[2] = "1";
+				values[3] = "1";
+				values[4] = op;
 				
 				Database.pushToStock(values);
 				

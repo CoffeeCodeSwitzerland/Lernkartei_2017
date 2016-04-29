@@ -14,7 +14,7 @@ public class Database
 	
 	/**
 	 *  Keine neue Instanz Database erstellen, sondern nur die Methode benutzen
-	 *  @param values --> Array mit 3 Werten: 1. Vorderseite, 2. Rückseite, 3. Set_ID, 4. Priorität (1-5), 5. Color
+	 *  @param values --> Array mit 5 Werten: 1. Vorderseite, 2. Rückseite, 3. Set_ID, 4. Priorität (1-5), 5. Color
 	 */
 	
 	public static void pushToStock (String[] values) {

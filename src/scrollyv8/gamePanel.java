@@ -7,8 +7,6 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseWheelEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
@@ -16,7 +14,11 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Iterator;
+
 import javax.imageio.ImageIO;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.swing.JPanel;
 import javax.xml.stream.XMLEventReader;
 import javax.xml.stream.XMLInputFactory;
@@ -101,6 +103,8 @@ public class gamePanel extends JPanel implements Runnable
     private int mapTileW, mapTileH;
     private int spriteGID;
     private Menu menu;
+    private Thread t1 = new Thread(new RunAudio(new Audio("alligator.mp3")));;
+    
 //    private AudioClip levelClip;
 //    private AudioClip clipL1, clipL2, clipDie, clipGameOver, clipPassed, clipBoss;    
 
@@ -788,7 +792,8 @@ public class gamePanel extends JPanel implements Runnable
     }
 // For now, only keyboard. Could generalize to mouse, etc.    
 
-    public void handleInput(char code, KeyEvent e)
+    @SuppressWarnings("deprecation")
+	public void handleInput(char code, KeyEvent e)
     {
         switch (code)
         {
@@ -813,6 +818,7 @@ public class gamePanel extends JPanel implements Runnable
                 if (e.getKeyCode() == KeyEvent.VK_LEFT)
                 {
                     left = true;
+                    System.out.println("SAli");
                 }
                 if (e.getKeyCode() == KeyEvent.VK_SPACE)
                 {
@@ -820,6 +826,31 @@ public class gamePanel extends JPanel implements Runnable
                     {
                         jump = true;
                     }
+                }
+                if(e.getKeyCode() == KeyEvent.VK_ESCAPE){
+                	System.out.println("SAli");
+                	gameState = INTRO;
+                }
+//                Mute
+                if(e.getKeyCode() == KeyEvent.VK_M){
+                	if (MidiPlayer.player.isRunning())
+                		MidiPlayer.player.stop();
+                	else MidiPlayer.player.start();
+                }
+//                Pausenmenü
+                if(e.getKeyCode() == KeyEvent.VK_P){
+          
+                	if (t1.isAlive()) {
+                		t1.stop();
+                	} else {
+                		t1 = new Thread(new RunAudio(new Audio("alligator.mp3")));
+                		t1.start();
+                	}
+                	
+                	  	
+                	
+                		
+                	//mPlayer.setTrack(soundPath + "Pause.mid",true);p
                 }
                 break;
             case 'r':  // Released

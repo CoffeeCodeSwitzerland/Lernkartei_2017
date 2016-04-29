@@ -11,7 +11,7 @@ public class MidiPlayer
 
     private String currentTrack;
     private Sequence song;
-    private Sequencer player;
+    static Sequencer player;
     private boolean loaded;
 
     public MidiPlayer(String path, boolean loop)
@@ -90,7 +90,7 @@ public class MidiPlayer
         }
     }
 
-    public void stop()
+    public static void stop()
     {
         if (player.isRunning())
         {

@@ -39,7 +39,17 @@
     -fx-stroke-width: 1;
 }
 
+/*#58a04e --> grün
+ *#ff970f --> orange/gelb
+ * 
+ * 
+ */
+
 .button
 {
-	-fx-color: green;
+	-fx-color:#ff970f;
+    -fx-text-fill: linear-gradient(white, #d0d0d0);
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
+	-fx-focus-color: white;
 }

@@ -11,7 +11,7 @@ public class Score {
 
 	// URL und Driver
 
-	private static String	windowsUser	= System.getProperty("user.name");
+	private static String	windowsUser	= debug.Environment.getUserName();
 	private static String	url			= "jdbc:sqlite:" + windowsUser + ".db";
 	private static String	driver		= "org.sqlite.JDBC";
 

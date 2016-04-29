@@ -11,7 +11,7 @@ public class Categories {
 
 	// Connectioninformationen URL & Driver
 
-	private static String	windowsUser	= System.getProperty("user.name");
+	private static String	windowsUser	= debug.Environment.getUserName();
 	private static String	url			= "jdbc:sqlite:" + windowsUser + ".db";
 	private static String	driver		= "org.sqlite.JDBC";
 
@@ -33,39 +33,43 @@ public class Categories {
 		Integer errorMsg = -9;
 
 		try {
+			
+			// Datenbankverbindung erstellen
+			
 			Class.forName(driver);
 			c = DriverManager.getConnection(url);
 			stmt = c.createStatement();
-
-			System.out.println("Opened database successfully");
+			
+			// Tabelle Kategorie erstellen, sofern sie nicht existiert
 
 			String sql = "CREATE TABLE IF NOT EXISTS Kategorie "
 					+ "(PK_Kategorie INTEGER PRIMARY KEY AUTOINCREMENT,"
 					+ " Kategorie TEXT NOT NULL,"
 					+ " FK_Door INTEGER NOT NULL)";
-
-			System.out.println(sql);
+			
 			stmt.executeUpdate(sql);
-			System.out.println("Table creation successful");
-
 			c.setAutoCommit(false);
+			
+			// SELECT Befehl, welcher die ID der Tür abruft, in welcher die Kategorie erstellt wird
 
 			ResultSet id = stmt.executeQuery("SELECT PK_Doors FROM Doors WHERE Doorname = '" + fk_door + "'");
-
+			
+			// Überprüft, ob die Tür exisitert oder nicht
+			
 			if (id.next()) {
 				FK_ID = id.getInt("PK_Doors");
 			}
 			else {
-				System.out.println("Keine Tür mit dem Namen vorhanden");
 				errorMsg = -1;
 			}
 
 			id.close();
+			
+			// Überprüft, ob die Kategorie bereits existiert
 
 			ResultSet check = stmt.executeQuery("SELECT * FROM Kategorie WHERE Kategorie = '" + eingabe + "'");
 			if (check.next()) {
 				check.close();
-				System.out.println("Kategorie mit diesem Namen bereits vorhanden");
 				errorMsg = -2;
 			}
 			else {
@@ -73,14 +77,13 @@ public class Categories {
 			}
 
 			c.setAutoCommit(true);
+			
+			// Erstellt die neue Kategorie als Eintrag in der Datenbank mit einem Fremdkey für die Tür
 
 			String insert = "INSERT INTO Kategorie (Kategorie, FK_Door)" +
 					"VALUES ('" + eingabe + "', " + FK_ID + ")";
 
 			stmt.executeUpdate(insert);
-
-			System.out.println("Insert Successful");
-
 			stmt.close();
 			c.close();
 		}
@@ -100,22 +103,26 @@ public class Categories {
 		Integer FK_ID = 0;
 
 		ArrayList<String> datensatz = new ArrayList<String>();
-
+		
 		try {
+			
+			// Verbindung erstellen
+			
 			Class.forName(driver);
 			c = DriverManager.getConnection(url);
 			stmt = c.createStatement();
+			
+			// Tabelle generieren, falls nicht vorhanden
 
 			String sql = "CREATE TABLE IF NOT EXISTS Kategorie "
 					+ "(PK_Kategorie INTEGER PRIMARY KEY AUTOINCREMENT,"
 					+ " Kategorie TEXT NOT NULL,"
 					+ " FK_Door INTEGER NOT NULL)";
-
-			System.out.println(sql);
+			
 			stmt.executeUpdate(sql);
-
-			System.out.println("Successful");
 			c.setAutoCommit(false);
+			
+			// Abfrage, ob die Tür bereits existiert
 
 			ResultSet id = stmt.executeQuery("SELECT PK_Doors FROM Doors WHERE Doorname = '" + doorname + "'");
 
@@ -126,11 +133,15 @@ public class Categories {
 				System.out.println("Keine Kategorien mit dieser Tür vorhanden");
 				FK_ID = 0;
 			}
-
+			
 			id.close();
-
+			
+			// Alle Sets ausgeben, welche in dieser Tür enthalten sind
+			
 			ResultSet rs = stmt.executeQuery("SELECT * FROM Kategorie WHERE FK_Door = " + FK_ID);
-
+			
+			// Daten werden in die Liste geschrieben
+			
 			while (rs.next()) {
 
 				String data;
@@ -169,20 +180,25 @@ public class Categories {
 		boolean worked = false;
 
 		try {
+			
+			// Verbindung erstellen
+			
 			Class.forName(driver);
 			c = DriverManager.getConnection(url);
 			stmt = c.createStatement();
+			
+			// Tabelle generieren wenn nicht vorhanden
 
 			String sql = "CREATE TABLE IF NOT EXISTS Kategorie "
 					+ "(PK_Kategorie INTEGER PRIMARY KEY AUTOINCREMENT,"
 					+ " Kategorie TEXT NOT NULL,"
 					+ " FK_Door INTEGER NOT NULL)";
-
-			System.out.println(sql);
 			stmt.executeUpdate(sql);
 
 			c.setAutoCommit(false);
-
+			
+			// Abfragen, ob zu löschende Kategorie vorhanden ist oder nicht. Wenn ja, wird gelöscht
+			
 			ResultSet del = stmt.executeQuery("SELECT Kategorie FROM Kategorie WHERE Kategorie = '" + category + "'");
 
 			if (del.next()) {
@@ -191,9 +207,6 @@ public class Categories {
 				c.setAutoCommit(true);
 				String delDoor = "DELETE FROM Kategorie WHERE Kategorie = '" + category + "'";
 				stmt.executeUpdate(delDoor);
-
-				System.out.println("Successfully deleted Categorie: " + category);
-
 				stmt.close();
 				c.close();
 				worked = true;

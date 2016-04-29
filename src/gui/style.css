@@ -45,9 +45,8 @@
 
 .button
 {
-	-fx-color:#ff970f;
-    -fx-text-fill: linear-gradient(white, #d0d0d0);
+	-fx-color:#d8d600;
+    -fx-text-fill: white;
     -fx-font-weight: bold;
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
-	-fx-focus-color: white;
+    -fx-focus-color: white;
 }

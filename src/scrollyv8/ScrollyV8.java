@@ -83,6 +83,12 @@ public class ScrollyV8 extends JFrame implements KeyListener, WindowListener
         ScrollyV8 mf = new ScrollyV8();
         mf.setVisible(true);
         mf.init();
+			
+//      Thread t = new Thread(new RunAudio(new Audio("alligator.mp3")));
+//    	t.start();
+//    	t.stop();
+
+        
     }
 
 	@Override

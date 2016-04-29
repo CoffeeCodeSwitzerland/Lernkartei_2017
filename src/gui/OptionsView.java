@@ -69,7 +69,6 @@ public class OptionsView extends View
 
 	@Override
 	public void refreshView() {
-		refresh();
 		// TODO Auto-generated method stub
 		
 	}

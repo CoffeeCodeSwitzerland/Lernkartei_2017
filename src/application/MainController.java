@@ -23,7 +23,7 @@ public class MainController
 	private final String			mainView	= "mainview";
 	private final ArrayList<View>	views		= new ArrayList<View>();
 	private final ArrayList<Model>	models		= new ArrayList<Model>();
-	private View				currentView = null;
+	private View					currentView	= null;
 
 	public MainController (Stage primaryStage)
 	{
@@ -84,7 +84,7 @@ public class MainController
 			Supervisor.warnAndDebug(this, "show(null) not allowed!");
 		return null; // not found
 	}
-	
+
 	public View getCurrent ()
 	{
 		return currentView;

@@ -39,7 +39,7 @@ public class MainController
 		views.add(new GameView("gameview", primaryStage, this));
 		views.add(new KarteiView("karteiview", primaryStage, this));
 		views.add(new BoxView("boxview", primaryStage, this));
-		views.add(new DragDropView("dragview", primaryStage, this));
+		views.add(new ImpressumView("impressumview", primaryStage, this));
 	}
 
 	public DataModel getMyModel (String name)

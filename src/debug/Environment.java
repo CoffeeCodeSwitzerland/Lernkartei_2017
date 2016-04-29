@@ -2,7 +2,7 @@ package debug;
 
 import java.nio.file.Paths;
 
-public class Environment {
+public final class Environment {
 
 	/*-
 	 * Purpose:	
@@ -12,12 +12,14 @@ public class Environment {
 	 * @AUTHOR Hugo Lucca
 	 */
 
-	private String fileSep;
-	private String endOfLine;
+	private static String fileSep = null;
+	private static String endOfLine = null;
 
-	private String classPath;
-	private String actualPath;
-	private String homePath;
+	private static String classPath = null;
+	private static String actualPath = null;
+	private static String homePath = null;
+	private static String userPath = null;
+	private static String userName = null;
 
 	/*-    (this squences deactivates the comment formatter!)
 	 * 
@@ -45,31 +47,50 @@ public class Environment {
 	 * "user.home"			User home directory "user.name" User account name
 	 */
 
-	public Environment() {
+	public static String getUserName() {
+		// geht evtl. nur bei Windows, 
+		// ansonsten TODO nimm getPath und extract Username
+		if (homePath == null) init();
+		return userName;
+	}
+
+	public static void init() {
 		homePath = System.getProperty("user.dir");
+		userPath = System.getProperty("user.home");
+		userName = System.getenv().get("USERNAME");  // evtl. nur für Windows
 		fileSep = System.getProperty("file.separator");
 		classPath = System.getProperty("java.class.path");
 		endOfLine = System.getProperty("line.separator");
 		actualPath = Paths.get(".").toAbsolutePath().normalize().toString();
 	}
 
-	public String getHomePath() {
+	public static String getHomePath() {
+		if (homePath == null) init();
 		return homePath;
 	}
 
-	public String getFileSep() {
+	public static String getUserPath() {
+		if (homePath == null) init();
+		return userPath;
+	}
+
+	public static String getFileSep() {
+		if (homePath == null) init();
 		return fileSep;
 	}
 
-	public String getClassPath() {
+	public static String getClassPath() {
+		if (homePath == null) init();
 		return classPath;
 	}
 
-	public String getEndOfLine() {
+	public static String getEndOfLine() {
+		if (homePath == null) init();
 		return endOfLine;
 	}
 
-	public String getActualPath() {
+	public static String getActualPath() {
+		if (homePath == null) init();
 		return actualPath;
 	}
 }

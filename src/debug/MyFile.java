@@ -16,10 +16,8 @@ public class MyFile extends File {
 	 * 
 	 * @AUTHOR Hugo Lucca
 	 */
-	private static final Environment myEnv = new Environment();
 	private boolean appendActive = true; // =false, to overwrite older file
 											// (default: true)
-
 	public MyFile(String pathAndFilename) {
 		super(pathAndFilename);
 	}
@@ -28,7 +26,7 @@ public class MyFile extends File {
 		File f = null;
 		RandomAccessFile myFile = null;
 		try {
-			f = new File(myEnv.getActualPath() + myEnv.getFileSep() + this.getName());
+			f = new File(Environment.getActualPath() + Environment.getFileSep() + this.getName());
 			long fileLength = f.length();
 			myFile = new RandomAccessFile(f, "rw");
 
@@ -41,7 +39,7 @@ public class MyFile extends File {
 				// wrong: appendActive = true; // activate append after first
 				// line automaticly
 			}
-			myFile.writeBytes(logLine + myEnv.getEndOfLine()); // .writeChars()
+			myFile.writeBytes(logLine + Environment.getEndOfLine()); // .writeChars()
 																// writes UTF16
 																// Chars!
 
@@ -53,7 +51,6 @@ public class MyFile extends File {
 					myFile.close();
 				} catch (IOException ex2) {
 				}
-				;
 			}
 		}
 	}
@@ -63,7 +60,7 @@ public class MyFile extends File {
 	}
 
 	public String getTargetInformation() {
-		return myEnv.getActualPath() + myEnv.getFileSep() + this.getName();
+		return Environment.getActualPath() + Environment.getFileSep() + this.getName();
 	}
 
 }

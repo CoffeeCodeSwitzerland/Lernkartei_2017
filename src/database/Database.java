@@ -42,6 +42,7 @@ public class Database {
 				setID = Integer.toString(selectSet.getInt("PK_Kategorie"));
 				selectSet.close();
 			} else {
+				selectSet.close();
 				return false;
 			}
 			
@@ -55,9 +56,13 @@ public class Database {
 					" Priority	    INTEGER DEFAULT 1," +
 					" Description    TEXT    		, " +
 					" Color			TEXT    		 )";
-
+			
+			System.out.println("*** FIXING ***");
+			
 			System.out.println(sql);
 			stmt.executeUpdate(sql);
+			
+			System.out.println("*** FIXING ***");
 
 			insert = "INSERT INTO Stock (Backside, Frontside, Set_ID, Priority, Color)" +
 					"VALUES ('" + values[0] + "','" + values[1] + "'," + setID + ", " + values[3] + ", '"

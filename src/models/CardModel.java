@@ -59,7 +59,7 @@ public class CardModel extends DataModel {
 
 	@Override
 	public ArrayList<String> getData (String query) {
-		
+
 		ArrayList<String> result = new ArrayList<String>();
 		
 		if (Database.pullFromStock(query) == null) { 

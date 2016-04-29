@@ -62,15 +62,15 @@ public class CardModel extends DataModel {
 	public ArrayList<String> getData (String query) {
 
 		ArrayList<String> result = new ArrayList<String>();
-		
-		if (Database.pullFromStock(query) == null) { 
-		
+		ArrayList<String[]> cards = Database.pullFromStock(query);
+		if (cards == null) { 
+			debug.Debugger.out("getData cards = null");
 			return result;
 		
 		} else {
 			
-			for (String[] s : Database.pullFromStock(query)) {
-				
+			for (String[] s : cards) {
+				debug.Debugger.out(s[0]);
 				String data = s[0] + application.Constants.SEPARATOR 
 							+ s[1] + application.Constants.SEPARATOR 
 							+ s[2];

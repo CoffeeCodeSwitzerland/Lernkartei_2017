@@ -36,7 +36,7 @@ public class EditorView extends View
 		{
 			ArrayList<String> cardStrings = getController().getMyModel("cards").getData(data);
 			ArrayList<HBox> cards = new ArrayList<>();
-			
+			debug.Debugger.out("" + cardStrings.size()); 
 			for (String s : cardStrings)
 			{
 				String[] cardSides = s.split(Constants.SEPARATOR);

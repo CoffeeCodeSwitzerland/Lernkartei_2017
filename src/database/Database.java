@@ -30,7 +30,21 @@ public class Database {
 		try {
 			Class.forName(driver);
 			c = DriverManager.getConnection(url);
+			c.setAutoCommit(true);
 			stmt = c.createStatement();
+			
+			String sql = "CREATE TABLE IF NOT EXISTS Stock " +
+					"(PK_Stk INTEGER PRIMARY KEY AUTOINCREMENT," +
+					" Backside       TEXT    NOT NULL, " +
+					" Frontside      TEXT    NOT NULL, " +
+					" Set_ID    		INTEGER NOT NULL, " +
+					" Priority	    INTEGER DEFAULT 1," +
+					" Description    TEXT    		, " +
+					" Color			TEXT    		 )";
+			
+			System.out.println(sql);
+			stmt.executeUpdate(sql);
+			
 			String setID;
 			c.setAutoCommit(false);
 			
@@ -44,21 +58,6 @@ public class Database {
 				selectSet.close();
 				return false;
 			}
-			
-			c.setAutoCommit(true);
-			String sql = "CREATE TABLE IF NOT EXISTS Stock " +
-					"(PK_Stk INTEGER PRIMARY KEY AUTOINCREMENT," +
-					" Backside       TEXT    NOT NULL, " +
-					" Frontside      TEXT    NOT NULL, " +
-					" Set_ID    		INTEGER NOT NULL, " +
-					" Priority	    INTEGER DEFAULT 1," +
-					" Description    TEXT    		, " +
-					" Color			TEXT    		 )";
-			
-			
-			System.out.println(sql);
-			stmt.executeUpdate(sql);
-			
 
 			insert = "INSERT INTO Stock (Backside, Frontside, Set_ID, Priority, Color)" +
 					"VALUES ('" + values[0] + "','" + values[1] + "'," + setID + ", " + values[3] + ", '"
@@ -66,14 +65,25 @@ public class Database {
 
 			System.out.println(insert);
 			stmt.executeUpdate(insert);
-
-			stmt.close();
-			c.close();
+			c.setAutoCommit(false);
+			
 		}
 		catch (Exception e) {
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
 			System.exit(0);
 		}
+		
+		try
+		{
+			stmt.close();
+			c.close();
+		}
+		catch (SQLException e)
+		{
+			debug.Debugger.out("Database, pushToStock: closing failed");
+			e.printStackTrace();
+		}
+		
 		
 		return true;
 
@@ -137,14 +147,25 @@ public class Database {
 			}
 
 			rs.close();
-			stmt.close();
-			c.close();
+			
 
 		}
 		catch (Exception e) {
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
 			System.exit(0);
 		}
+		
+		try
+		{
+			stmt.close();
+			c.close();
+		}
+		catch (SQLException e)
+		{
+			debug.Debugger.out("Database, pullFromStock: closing failed");
+			e.printStackTrace();
+		}
+		
 		
 		debug.Debugger.out("Results String[] List is empty.");		
 		return results;

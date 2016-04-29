@@ -28,17 +28,31 @@ public class UserModel extends Model
 		//Funktion von "User" --> Delete kommt hier später noch dazu
 		if (functionName.equals("register"))
 		{
+			try {
 			boolean success = User.Register(paramS, ifTeacher);
 			return success ? 1 : -1;
+			} catch (Exception e) {
+				return -2;
+			}
 		} else if (functionName.equals("login"))
 		{
+			try {
 			boolean success = User.Login(paramS);
 			return success ? 1 : -1;
+			} catch (Exception e) {
+				return -2;
+			}
+		} else if (functionName.equals("delete")) {
+			try {
+			boolean success = User.Delete(paramS);
+			return success ? 1 : -1;
+			} catch (Exception e) {
+				return -2;
+			}
 		} else
 		{
-			
+			return 0;
 		}
-		return 0;
 	}
 
 	@Override

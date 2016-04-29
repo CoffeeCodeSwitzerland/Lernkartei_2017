@@ -263,36 +263,37 @@ public class UserLogin {
 		}
 
 	}
-	
+
 	/**
 	 * Überprüft die Login Daten
 	 * 
-	 * @param userData --> Benötigt ein String Array mit Username, Password
+	 * @param userData
+	 *            --> Benötigt ein String Array mit Username, Password
 	 * @return --> True = Korrekt, False = Inkorrekt
 	 */
-	
+
 	public static boolean loginUser (String[] userData) {
-		
+
 		boolean loggedIn = false;
 		String password = null;
-		
+
 		Connection c = null;
 		Statement stmt = null;
-		
+
 		try {
 			Class.forName(driver);
 			c = DriverManager.getConnection(url, username, password);
 			stmt = c.createStatement();
 			c.setAutoCommit(false);
-			
+
 			ResultSet rs = stmt.executeQuery("SELECT Password FROM Students WHERE Username = '" + userData[0] + "'");
-			
+
 			while (rs.next()) {
-				
+
 				password = rs.getString("Password");
-				
+
 			}
-			
+
 			stmt.close();
 			c.close();
 		}
@@ -300,13 +301,13 @@ public class UserLogin {
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
 			System.exit(0);
 		}
-		
+
 		if (userData[1].equals(password)) {
-			
+
 			loggedIn = true;
-			
+
 		}
-		
+
 		return loggedIn;
 	}
 

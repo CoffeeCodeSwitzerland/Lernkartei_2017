@@ -106,6 +106,7 @@ public class Database {
 			
 			if (!tbl.next()) {
 				tbl.close();
+				debug.Debugger.out("No such table Stock exists --> First if Error");
 				return null;
 			} else {
 				tbl.close();
@@ -117,6 +118,7 @@ public class Database {
 			if (s.next()) {
 				IDwhichSet = Integer.toString(s.getInt("PK_Kategorie"));
 			} else {
+				debug.Debugger.out("No Kategorie: " + whichSet + "in Table Kategorie --> Second if Error");
 				return null;
 			}
 			
@@ -147,7 +149,8 @@ public class Database {
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
 			System.exit(0);
 		}
-
+		
+		debug.Debugger.out("Results String[] List is empty.");		
 		return results;
 
 	}

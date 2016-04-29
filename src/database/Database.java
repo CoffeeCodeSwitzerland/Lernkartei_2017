@@ -96,6 +96,15 @@ public class Database {
 			stmt = c.createStatement();
 			c.setAutoCommit(false);
 			
+			ResultSet tbl = stmt.executeQuery("SELECT name FROM sqlite_master WHERE type='table' AND name='Stock'");
+			
+			if (!tbl.next()) {
+				tbl.close();
+				return null;
+			} else {
+				tbl.close();
+			}
+			
 			String IDwhichSet = "";
 			ResultSet s = stmt.executeQuery("SELECT PK_Kategorie FROM Kategorie WHERE Kategorie = '" + whichSet + "'");
 			
@@ -106,7 +115,7 @@ public class Database {
 			}
 			
 			s.close();
-
+			
 			rs = stmt.executeQuery("SELECT * FROM Stock WHERE Set_ID = '" + IDwhichSet + "'");
 
 			while (rs.next()) {

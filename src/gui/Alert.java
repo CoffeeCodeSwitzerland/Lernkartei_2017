@@ -13,15 +13,15 @@ import javafx.stage.StageStyle;
 /**
  * Diese Klasse zeigt mit JavaFx verschiedene Alertfenster an.
  * 
- * @author miro-albrecht
+ * @author miro albrecht
  *
  */
 public final class Alert
 {
-
 	/**
 	 * Zeigt ein kleines Infofenster an. Der User muss das Fenster schliessen,
-	 * bevor er andere Fenster der Anwendung bedienen kann.
+	 * bevor er andere Fenster der Anwendung bedienen kann. Die Breite des
+	 * Fensters passt sich dem Text an.
 	 * 
 	 * @param title
 	 *            Der Titel des Fensters
@@ -82,9 +82,22 @@ public final class Alert
 	{
 		simpleInfoBox(title, message, "OK");
 	}
-	
-	private static String outp = "";
-	public static String simpleString (String title, String placeholder)
+
+	private static String output = "";
+
+	/**
+	 * Kleines Fenster, dass Input (String) vom User abfragt.
+	 * 
+	 * @param title
+	 *            Der Titel des Fensters
+	 * @param message
+	 *            Die Narchricht, die angezeigt wird. Text wird nicht von selbst
+	 *            gewrapt.
+	 * @param fieldWidth
+	 *            Setzt die Breite des Textfeldes
+	 * @return String mit dem Userinput
+	 */
+	public static String simpleString (String title, String message, double fieldWidth)
 	{
 		// Neues Fenster
 		Stage window = new Stage();
@@ -95,16 +108,15 @@ public final class Alert
 		// Blockiere alle anderen Fenster
 		window.initModality(Modality.APPLICATION_MODAL);
 		window.setTitle(title);
-		
-		
-		
+
 		// Neues Label und neuer Button
-		Label l = new Label(placeholder);
+		Label l = new Label(message);
 		TextField tf = new TextField();
+		tf.setMaxWidth(fieldWidth);
 		Button b = new Button("OK");
 		// Schliesst Fenster wenn der User auf OK klickt
 		b.setOnAction(e -> {
-			outp = tf.getText();
+			output = tf.getText();
 			window.close();
 		});
 
@@ -115,16 +127,36 @@ public final class Alert
 		layout.setAlignment(Pos.CENTER);
 		layout.setPadding(new Insets(20));
 
+		int width;
+		int x = 6;
+		int y = 150;
 
+		width = message.length() * x + y;
 
 		// Zeigt Fenster an
-		window.setScene(new Scene(layout, 250, 150));
+		window.setScene(new Scene(layout, width, 150));
 		window.showAndWait();
-		
-		return outp;
+
+		return output;
 	}
-	
+
+	/**
+	 * Kleines Fenster, dass Input (String) vom User abfragt.
+	 * 
+	 * @param title
+	 *            Der Titel des Fensters
+	 * @param message
+	 *            Die Narchricht, die angezeigt wird. Text wird nicht von selbst
+	 *            gewrapt.
+	 * @return String mit dem Userinput
+	 */
+	public static String simpleString (String title, String message)
+	{
+		return simpleString(title, message, 150);
+	}
+
 	static boolean okay = false;
+
 	public static boolean ok (String title, String message)
 	{
 		// Neues Fenster
@@ -136,8 +168,7 @@ public final class Alert
 		// Blockiere alle anderen Fenster
 		window.initModality(Modality.APPLICATION_MODAL);
 		window.setTitle(title);
-		
-		
+
 		// Neues Label und neuer Button
 		Label l = new Label(message);
 
@@ -148,7 +179,7 @@ public final class Alert
 			okay = true;
 			window.close();
 		});
-		
+
 		ba.setOnAction(e -> {
 			okay = false;
 			window.close();
@@ -157,9 +188,9 @@ public final class Alert
 		HBox buttons = new HBox(20);
 		buttons.setAlignment(Pos.CENTER);
 		buttons.setPadding(new Insets(20));
-		
+
 		buttons.getChildren().addAll(bo, ba);
-		
+
 		// Neues Layout
 		VBox layout = new VBox(20);
 		layout.getChildren().addAll(l, buttons);
@@ -176,7 +207,7 @@ public final class Alert
 		// Zeigt Fenster an
 		window.setScene(new Scene(layout, width, 150));
 		window.showAndWait();
-		
+
 		return okay;
 	}
 }

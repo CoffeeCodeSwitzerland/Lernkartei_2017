@@ -45,7 +45,7 @@ public class Database {
 				return false;
 			}
 			
-
+			c.setAutoCommit(true);
 			String sql = "CREATE TABLE IF NOT EXISTS Stock " +
 					"(PK_Stk INTEGER PRIMARY KEY AUTOINCREMENT," +
 					" Backside       TEXT    NOT NULL, " +

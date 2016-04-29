@@ -65,8 +65,7 @@ public class Doors {
 				stmt.executeUpdate(insert);
 				stmt.close();
 				c.close();
-
-				System.out.println("Successfull!");
+				
 				worked = true;
 
 			}

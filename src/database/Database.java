@@ -40,6 +40,7 @@ public class Database {
 			
 			if (selectSet.next()) {
 				setID = Integer.toString(selectSet.getInt("PK_Kategorie"));
+				selectSet.close();
 			} else {
 				return false;
 			}

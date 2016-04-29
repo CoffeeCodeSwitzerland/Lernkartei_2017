@@ -14,7 +14,7 @@ public class Database
 	
 	/**
 	 *  Keine neue Instanz Database erstellen, sondern nur die Methode benutzen
-	 *  @param values --> Array mit 3 Werten: 1. Vorderseite, 2. Rückseite, 3. Set_ID, 4. Color
+	 *  @param values --> Array mit 3 Werten: 1. Vorderseite, 2. Rückseite, 3. Set_ID, 4. Priorität (1-5), 5. Color
 	 */
 	
 	public static void pushToStock (String[] values) {
@@ -32,14 +32,15 @@ public class Database
 	                   " Backside       TEXT    NOT NULL, " + 
 	                   " Frontside      TEXT    NOT NULL, " + 
 	                   " Set_ID    		INTEGER NOT NULL, " + 
+	                   " Priority	    INTEGER DEFAULT 1," + 
 	                   " Description    TEXT    		, " + 
 	                   " Color			TEXT    		 )"; 
 	      
 	      System.out.println(sql);
 	      stmt.executeUpdate(sql);
 	      
-	      insert = 	"INSERT INTO Stock (Backside, Frontside, Set_ID, Color)" + 
-	    		  		  	"VALUES ('" + values[0] + "','" + values[1] + "','" + values[2] + "', '" + values[3] + "')";	
+	      insert = 	"INSERT INTO Stock (Backside, Frontside, Set_ID, Priority, Color)" + 
+	    		  		  	"VALUES ('" + values[0] + "','" + values[1] + "','" + values[2] + "', '" + values[3] + "', '" + values[4] + "')";	
 	      
 	      System.out.println(insert);
 	      stmt.executeUpdate(insert);
@@ -55,7 +56,7 @@ public class Database
 	
 	/**
 	 *  Keine neue Instanz Database erstellen, sondern nur die Methode benutzen
-	 *  @return Retourniert eine ArrayList mit Arrays mit 4 Werten: PK, Vorder-, Rückseite, Set_ID
+	 *  @return Retourniert eine ArrayList mit Arrays mit 7 Werten: PK, Vorder-, Rückseite, Description, Set_ID, Priorität, Farbe
 	 */
 	
 	public static ArrayList<String[]> pullFromStock () {
@@ -74,14 +75,16 @@ public class Database
 	      
 	    while ( rs.next() ) {
 	         
-	        String[] set = new String[5];
+	        String[] set = new String[7];
 	        set[0] = Integer.toString(rs.getInt("PK_Stk"));
 	        set[1] = rs.getString("Backside");
 	        set[2] = rs.getString("Frontside");
-	        set[3] = Integer.toString(rs.getInt("Set_ID"));
-	        set[4] = rs.getString("Color");
-	        
+	        set[3] = rs.getString("Description");
+	        set[4] = Integer.toString(rs.getInt("Set_ID"));
+	        set[5] = Integer.toString(rs.getInt("Priority"));
+	        set[6] = rs.getString("Color");
 	        results.add(set);          
+	        
 	    }
 	    
 	      rs.close();

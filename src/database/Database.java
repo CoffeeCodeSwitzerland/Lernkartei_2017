@@ -8,7 +8,7 @@ import cards.EditCard;
 
 public class Database
 {
-	private static String DB_Name = "Kartei";
+	private static String DB_Name = "test.db";
 	public static ResultSet rs;
 	public static String insert;
 	

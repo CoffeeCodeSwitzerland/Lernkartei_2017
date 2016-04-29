@@ -5,11 +5,11 @@ import java.util.ArrayList;
 import application.MainController;
 import gui.View;
 
-public class SetModel extends Model {
+public class BoxModel extends Model {
 
 	MainController m;
 	
-	public SetModel (String myName, MainController controller) {
+	public BoxModel (String myName, MainController controller) {
 		super(myName);
 		m = controller;
 	}
@@ -28,16 +28,13 @@ public class SetModel extends Model {
 			
 			String eingabe[] = paramS.split(application.Constants.SEPARATOR);
 			int i = database.Categories.newKategorie(eingabe[1], eingabe[0]);
-			View v = m.getCurrent();
-			if (v != null)
-			{
-				v.refreshView();
-			}
+			refresh();
 			return i;
 			
 		} else if (functionName.equals("delete")) {
 			
 			if (database.Categories.delKategorie(paramS)) {
+				refresh();
 				return 2;
 			} else {
 				return -3;
@@ -56,6 +53,15 @@ public class SetModel extends Model {
 		
 		return database.Categories.getKategorien(query);
 		
+	}
+	
+	private void refresh()
+	{
+		View v = m.getCurrent();
+		if (v != null)
+		{
+			v.refreshView();
+		}
 	}
 	
 }

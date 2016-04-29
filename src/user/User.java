@@ -3,26 +3,30 @@ package user;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import application.Constants;
 import database.UserLogin;
 
 public class User
 {
 
-	private String Username; // Username
-	private String Email; // Email
-	private String Password; // Password
+	private static String Username; // Username
+	private static String Email; // Email
+	private static String Password; // Password
 
 	// Zum Registrieren
-	private Boolean isOk;
+	private static Boolean isOk;
+	
+	private static String[] genData = new String[3];
 
-	public Boolean Register(String[] Userdata, Boolean istLehrer)
+	public static Boolean Register(String Userdata, Boolean istLehrer)
 	{
 
+		String[] Data = genArray(Userdata);
 		if (validateUsername() && validatePassword() && validateEmail())
 		{
-			if (UserLogin.checkPossible(Userdata))
+			if (UserLogin.checkPossible(Data))
 			{
-				UserLogin.newUser(Userdata, istLehrer);
+				UserLogin.newUser(Data, istLehrer);
 				isOk = true; // Wenn Success
 			} else
 			{
@@ -34,16 +38,24 @@ public class User
 		return isOk;
 	}
 
-	// Zum Einloggen im Programm
-	private Boolean isCorrect;
-
-	public Boolean Login(String[] LoginData)
+	private static String[] genArray(String toGenerate)
 	{
+		genData = toGenerate.split(Constants.SEPARATOR);
+		
+		return genData;
+	}
 
-		isCorrect = UserLogin.loginUser(LoginData);
+	// Zum Einloggen im Programm
+	private static Boolean isCorrect;
+
+	public static Boolean Login(String LoginData)
+	{
+		
+		String[] Data = genArray(LoginData);
+		isCorrect = UserLogin.loginUser(Data);
 		if (isCorrect)
 		{
-			new Profil();
+			new Profil(); //Momentan noch eine Sackgasse --> Date 28.04.2016
 			System.out.println("Es funzt ;)");
 		} else
 		{
@@ -54,9 +66,9 @@ public class User
 	}
 
 	// Zum Löschen von Benutzern --> Nur möglich wenn man eingeloggt ist
-	private Boolean isDeleted;
+	private static Boolean isDeleted;
 
-	public Boolean Delete(String Username)
+	public static Boolean Delete(String Username)
 	{
 
 		try
@@ -73,7 +85,7 @@ public class User
 	}
 
 	// Validiert Username mit Regex
-	private boolean validateUsername()
+	private static boolean validateUsername()
 	{
 		// Validierung Username
 		final String R_USERNAME = "^[A-Za-z0-9]{4,30}$";
@@ -91,7 +103,7 @@ public class User
 	}
 
 	// validiert Password mit Regex
-	private boolean validatePassword()
+	private static boolean validatePassword()
 	{
 		// Validierung Password
 		final String R_PASSWORD = "^[A-Za-z0-9!?+*,ç%&=]{8,50}$";
@@ -109,7 +121,7 @@ public class User
 	}
 
 	// validiert E-Mail mit Regex
-	private boolean validateEmail()
+	private static boolean validateEmail()
 	{
 		// Validierung Email
 		final String R_EMAIL = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"

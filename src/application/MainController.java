@@ -23,7 +23,7 @@ public class MainController
 	private final String			mainView	= "mainview";
 	private final ArrayList<View>	views		= new ArrayList<View>();
 	private final ArrayList<Model>	models		= new ArrayList<Model>();
-	private View				currentView = null;
+	private View					currentView	= null;
 
 	public MainController (Stage primaryStage)
 	{
@@ -31,7 +31,7 @@ public class MainController
 
 		models.add(new GameModel("game"));
 		models.add(new DoorModel("door"));
-		models.add(new SetModel("set", this));
+		models.add(new BoxModel("set", this));
 
 		views.add(new MainView(mainView, primaryStage, this));
 		views.add(new StatisticsView("statisticsview", primaryStage, this));
@@ -84,7 +84,7 @@ public class MainController
 			Supervisor.warnAndDebug(this, "show(null) not allowed!");
 		return null; // not found
 	}
-	
+
 	public View getCurrent ()
 	{
 		return currentView;

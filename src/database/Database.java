@@ -8,13 +8,13 @@ import cards.EditCard;
 
 public class Database
 {
-	private static String DB_Name = "Kartei";
+	private static String DB_Name = "test.db";
 	public static ResultSet rs;
 	public static String insert;
 	
 	/**
 	 *  Keine neue Instanz Database erstellen, sondern nur die Methode benutzen
-	 *  @param values --> Array mit 3 Werten: 1. Vorderseite, 2. Rückseite, 3. Set_ID, 4. Priorität (1-5), 5. Color
+	 *  @param values --> Array mit 5 Werten: 1. Vorderseite, 2. Rückseite, 3. Set_ID, 4. Priorität (1-5), 5. Color
 	 */
 	
 	public static void pushToStock (String[] values) {
@@ -155,6 +155,18 @@ public class Database
 	      System.err.println( e.getClass().getName() + ": " + e.getMessage() );
 	      System.exit(0);
 	    }
+		
+	}
+	
+	public static void plusPrio (String karte) {
+		
+		
+		
+	}
+	
+	public static void resetPrio (String karte) {
+		
+		
 		
 	}
 	

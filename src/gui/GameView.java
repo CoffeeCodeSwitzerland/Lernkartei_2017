@@ -14,35 +14,33 @@ import javafx.stage.Stage;
 
 /**
  * Gamestartfenster
- * 
- * @author miro-albrecht & hugo-lucca
+ * ================
+ * Zweck dieses BS ist eine Art Warte- und Info-BS (zum Bsp. Anzahl Punkte) zum Gamestart, 
+ * mann kann dann alternativ weiter lernen.
+ * TODO: das game darf die LK nicht anhalten! 
+ * @author hugo-lucca
  *
  */
 public class GameView extends View
 {
-	/**
-	 * Zweck dieses BS ist eine Art Warte- und Info-BS (zum Bsp. Anzahl Punkte) zum Gamestart, 
-	 * mann kann dann alternativ weiter lernen.
-	 * TODO: das game darf die LK nicht anhalten! 
-	 */
+	Text text;
 	public GameView (String setName, Stage window, MainController controller)
 	{
 		super (setName, window, controller);
 
-		// CSS formatierte Meldung auf BS bringen (mit div. Schrifteffekten)
-		Text t = new Text("Starting game (please wait)...");
-		t.setId("fancytext");
+		text = new Text("Starting game...");
+		text.setId("fancytext"); // CSS formatierte Meldung auf BS bringen (mit div. Schrifteffekten)
 
 		// Button für Zurück zum Hauptmenue:
-		AppButton b = new AppButton("Zurück...");
-		b.setOnAction(e -> getController().showMain());
+		AppButton btn = new AppButton("Zurück...");
+		btn.setOnAction(e -> getController().showMain());
 
 		// Erstellt VBox Layout für beide obige Elemente:
 		VBox tempVBox = new VBox();
 		tempVBox.setPadding(new Insets(10));
 		tempVBox.setSpacing(10);
 		tempVBox.setAlignment(Pos.CENTER);
-		tempVBox.getChildren().addAll(t, b);
+		tempVBox.getChildren().addAll(text, btn);
 		
 		// VBox in neuem Borderpane einfügen, zwingend wenn Hintergrund neu sein soll
 		// CSS liefert neue Darstellung:
@@ -57,6 +55,7 @@ public class GameView extends View
 
 	@Override
 	public void refreshView() {
+		text.setText("Starting game (please wait)...");
 		getController().getMyModel("game").doAction("start");
 	}
 }

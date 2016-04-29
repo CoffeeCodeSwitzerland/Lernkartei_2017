@@ -10,8 +10,7 @@ public class Score {
 	
 	// URL und Driver
 
-	private static String windowsUser = System.getProperty("user.name");
-	private static String	url		= "jdbc:sqlite:" + windowsUser + ".db";
+	private static String	url		= "jdbc:sqlite:test.db";
 	private static String	driver	= "org.sqlite.JDBC";
 	
 	/**
@@ -60,7 +59,6 @@ public class Score {
 		}
 		
 		return score;
-		
 	}
 	
 	public static void addScore (String Kartei, double Score) {
@@ -141,7 +139,7 @@ public class Score {
 	
 	//getScores gibt alle Pnuktzahlen zu den Kartien zurück. In der ArrayList sind Stringarrays gelistet, welche wie folgt aufgebaut sind:
 	// | 0 KarteiName | 1 Punktzahl | (!Achtung! -> Die Punktzahl wird als String übergeben -> Sie sollte am Schluss ein Double sein)
-	//Später wenn Online-implementierung dazukommt, kann man als Parameter den Username angeben um die richtige Funktion dieser Funktion sicher zu stellen
+	//Später wenn Online-implementierung dazukommt, kann man als Parameter den Username angeben um die richtige Funktionalität dieser Funktion sicher zu stellen
 	//Wenn ein Fehler autritt, wird in catch ein Array in die Liste gespeichert, in welchem zwei Fehler stehen. Im 1. Eintrag eine Message für Entwickler 
 	//und im 2. füe den Benutzer, welcher einfacher lesbar ist, da der User nicht weiss was er mit der 1. Anfangen soll.
 	private static ArrayList<String[]> allScores = new ArrayList<String[]>();

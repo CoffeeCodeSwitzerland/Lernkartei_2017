@@ -37,7 +37,34 @@ public class User
 
 		return isOk;
 	}
-
+	
+	/**
+	 * Gibt Username als String
+	 * 
+	 * @return Username
+	 */
+	public static String getUsername() {
+		return Username;
+	}
+	
+	/**
+	 * USernamen ändern
+	 * 
+	 * @param newName Neuer Name
+	 * @param oldName "Alter" Name
+	 * @return true -> erfolgreich geändert | false -> nicht geändert
+	 */
+	public static boolean setUsername(String newName, String oldName) {
+		try
+		{
+			boolean possible = UserLogin.changeUsername(newName,oldName);
+			return possible;
+		} catch (Exception e)
+		{
+			return false;
+		}
+	}
+	
 	private static String[] genArray(String toGenerate)
 	{
 		genData = toGenerate.split(Constants.SEPARATOR);

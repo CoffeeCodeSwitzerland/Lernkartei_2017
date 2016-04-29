@@ -227,6 +227,52 @@ public class UserLogin {
 		return possible;
 
 	}
+	
+	/**
+	 * Wird gebraucht bei der Änderung des Usernamens
+	 * 
+	 * @param newName -> der gewünschte neue Name
+	 * @return true -> Konnte ändern | false -> Konnte nicht ändern
+	 */
+	
+	public static boolean changeUsername(String newName, String oldName) {
+		
+		Connection c = null;
+		Statement stmt = null;
+		
+		try
+		{
+			Class.forName(driver);
+			c = DriverManager.getConnection(url, username, password);
+			stmt = c.createStatement();
+			
+			String checkT = "SELECT * FROM Teachers WHERE Username = " + newName + ";";
+			String checkS = "SELECT * FROM Students WHERE Username = " + newName + ";";
+			String insertT ="INSERT INTO Teachers (Username) VALUES (" + newName + ") WHERE Username = " + oldName + ";";
+			String insertS ="INSERT INTO Students (Username) VALUES (" + newName + ") WHERE Username = " + oldName + ";";
+			
+			ResultSet rsT = stmt.executeQuery(checkT);
+			ResultSet rsS = stmt.executeQuery(checkS);
+			
+			if (rsT == null && rsS == null)
+			{
+				try
+				{
+					stmt.executeUpdate(insertT);
+				} catch (Exception e)
+				{
+					stmt.executeUpdate(insertS);
+				}
+				return true;
+			} else {
+				return false;
+			}
+		
+		} catch (Exception e)
+		{
+			return false;
+		}
+	}
 
 	/**
 	 * Löscht den angegebenen User
@@ -311,3 +357,4 @@ public class UserLogin {
 	}
 
 }
+

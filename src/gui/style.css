@@ -29,7 +29,7 @@
 
 .check-box
 {
-	-fx-color: white;
+	-fx-color: black;
 }
 
 #fancytext {
@@ -37,4 +37,9 @@
     -fx-fill: linear-gradient(from 0% 0% to 100% 200%, repeat, aqua 0%, red 50%);
     -fx-stroke: black;
     -fx-stroke-width: 1;
+}
+
+.button
+{
+	-fx-color: green;
 }

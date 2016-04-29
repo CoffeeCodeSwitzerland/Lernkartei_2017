@@ -19,6 +19,8 @@ import javafx.stage.Stage;
 public class StatisticsView extends View
 {		
 	HBox karteiLayout;
+	
+	//Setze die namen der balken
 	final static String austria = "Austria";
 	final static String brazil = "Brazil";
 	final static String france = "France";
@@ -52,15 +54,21 @@ public class StatisticsView extends View
 		borderPane.setBottom(hBox);
 		 
 		
-		
+		//Beide Axen erstellen
 		final CategoryAxis xAxis = new CategoryAxis();
         final NumberAxis yAxis = new NumberAxis();
+        
+        //Barchart erstellen
         final BarChart<String,Number> bc = 
-            new BarChart<String,Number>(xAxis,yAxis);
+        new BarChart<String,Number>(xAxis,yAxis);
+        
+        //Titel und Label setzen
         bc.setTitle("Country Summary");
         xAxis.setLabel("Country");       
         yAxis.setLabel("Value");
  
+        
+        //Für die erste Balken Serie die Werde setzen
         XYChart.Series series1 = new XYChart.Series();
         series1.setName("2003");       
         series1.getData().add(new XYChart.Data(austria, 25601.34));
@@ -69,6 +77,7 @@ public class StatisticsView extends View
         series1.getData().add(new XYChart.Data(italy, 35407.15));
         series1.getData().add(new XYChart.Data(usa, 12000));      
         
+        //Für die zweite Balken Serie die Werde setzen
         XYChart.Series series2 = new XYChart.Series();
         series2.setName("2004");
         series2.getData().add(new XYChart.Data(austria, 57401.85));
@@ -77,6 +86,7 @@ public class StatisticsView extends View
         series2.getData().add(new XYChart.Data(italy, 117320.16));
         series2.getData().add(new XYChart.Data(usa, 14845.27));  
         
+        //Für die dritte Balken Serie die Werde setzen
         XYChart.Series series3 = new XYChart.Series();
         series3.setName("2005");
         series3.getData().add(new XYChart.Data(austria, 45000.65));
@@ -85,8 +95,11 @@ public class StatisticsView extends View
         series3.getData().add(new XYChart.Data(italy, 17557.31));
         series3.getData().add(new XYChart.Data(usa, 92633.68));
 
+        //Alles zusammenfügen
         bc.getData().addAll(series1, series2, series3);
         
+        
+        //Chart ins KartenLayout (center) einfügen
         karteiLayout.getChildren().addAll(bc);
         
 		this.setupScene(new Scene(borderPane, Constants.OPTIMAL_WIDTH, Constants.OPTIMAL_HEIGHT));

@@ -18,6 +18,12 @@ import java.util.ArrayList;
 public class UserCards
 {
 	
+	// URL und Driver
+	
+	private static String windowsUser = System.getProperty("user.name");
+	private static String	url		= "jdbc:sqlite:" + windowsUser + ".db";
+	private static String	driver	= "org.sqlite.JDBC";
+	
 	public UserCards() {
 		
 		// für Später, damit sichergestellt ist, dass die Tabelle "Score" existiert	
@@ -44,11 +50,6 @@ public class UserCards
 			e.printStackTrace();
 		}
 	}
-	
-	// URL und Driver
-
-		private static String	url		= "jdbc:sqlite:test.db";
-		private static String	driver	= "org.sqlite.JDBC";
 		
 		/**
 		 * 

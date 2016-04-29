@@ -10,7 +10,8 @@ import java.util.ArrayList;
 public class Categories {
 	// URL und Driver
 
-	private static String	url		= "jdbc:sqlite:test.db";
+	private static String windowsUser = System.getProperty("user.name");
+	private static String	url		= "jdbc:sqlite:" + windowsUser + ".db";
 	private static String	driver	= "org.sqlite.JDBC";
 
 	/**

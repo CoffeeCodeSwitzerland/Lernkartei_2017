@@ -8,9 +8,14 @@ import cards.EditCard;
 
 public class Database
 {
-	private static String DB_Name = "test.db";
 	public static ResultSet rs;
 	public static String insert;
+	
+	// Varibeln Connection
+	
+	private static String windowsUser = System.getProperty("user.name");
+	private static String	url		= "jdbc:sqlite:" + windowsUser + ".db";
+	private static String	driver	= "org.sqlite.JDBC";
 	
 	/**
 	 *  Keine neue Instanz Database erstellen, sondern nur die Methode benutzen
@@ -23,8 +28,8 @@ public class Database
 		Statement stmt = null;
 		
 	    try {
-	      Class.forName("org.sqlite.JDBC");
-	      c = DriverManager.getConnection("jdbc:sqlite:" + DB_Name);
+	      Class.forName(driver);
+	      c = DriverManager.getConnection(url);
 
 	      stmt = c.createStatement();
 	      String sql = "CREATE TABLE IF NOT EXISTS Stock " +
@@ -66,8 +71,8 @@ public class Database
 	    Statement stmt = null;
 	    
 	    try {
-	      Class.forName("org.sqlite.JDBC");
-	      c = DriverManager.getConnection("jdbc:sqlite:" + DB_Name);
+	      Class.forName(driver);
+	      c = DriverManager.getConnection(url);
 	      c.setAutoCommit(false);
 	      
 	      stmt = c.createStatement();
@@ -106,8 +111,8 @@ public class Database
 	    Statement stmt = null;
 	    
 	    try {
-	      Class.forName("org.sqlite.JDBC");
-	      c = DriverManager.getConnection("jdbc:sqlite:" + DB_Name);
+	      Class.forName(driver);
+	      c = DriverManager.getConnection(url);
 	      stmt = c.createStatement();
 	      
 	      String del = "DELETE FROM Stock WHERE PK_Stk = " + id;
@@ -141,8 +146,8 @@ public class Database
 	    Statement stmt = null;
 	    
 	    try {
-	      Class.forName("org.sqlite.JDBC");
-	      c = DriverManager.getConnection("jdbc:sqlite:" + DB_Name);
+	      Class.forName(driver);
+	      c = DriverManager.getConnection(url);
 	      stmt = c.createStatement();
 	      
 	      String del = "DROP TABLE IF EXISTS Stock";
@@ -158,15 +163,57 @@ public class Database
 		
 	}
 	
-	public static void plusPrio (String karte) {
+	/**
+	 * Erhöht die Priorität um 1, Legt die Karte nach hinten, bei 5, bleibt sie
+	 * 
+	 * @param PK_ID --> PK_Stock ID der Karte, welche erhöht wird
+	 */
+	
+	public static void updatePrio (Integer PK_ID) {
 		
-		
+		Connection c = null;
+	    Statement stmt = null;
+	    String oldPrio = "";
+	    String newPrio = "";
+	    
+	    try {
+	      Class.forName(driver);
+	      c = DriverManager.getConnection(url);
+	      stmt = c.createStatement();
+	      c.setAutoCommit(false);
+	      ResultSet actualPrio = stmt.executeQuery("SELECT Priority FROM Stock WHERE PK_Stk = " + PK_ID.toString());
+	      
+	      if (actualPrio.next()) {
+	    	  oldPrio = Integer.toString(actualPrio.getInt("Priority"));
+	    	  actualPrio.close();
+	      } else {
+	    	  System.out.println("No Card with this ID exists.");
+	    	  actualPrio.close();
+	      }
+	      
+	      if (oldPrio.equals("5")) {
+	    	  newPrio = "5";
+	      } else {
+	    	  newPrio = oldPrio + 1;
+	      }
+	      
+	      c.setAutoCommit(true);
+	      String updatePrio = "UPDATE Stock SET Priority = ID WHERE PK_Stk = " + newPrio;
+	      System.out.println(updatePrio);
+	      stmt.executeUpdate(updatePrio);
+	      stmt.close();
+	      c.close();
+	      
+	    } catch ( Exception e ) {
+	      System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+	      System.exit(0);
+	    }
 		
 	}
 	
 	public static void resetPrio (String karte) {
 		
-		
+		// TODO: Funktion, welche Priorität auf 1 setzt.
 		
 	}
 	

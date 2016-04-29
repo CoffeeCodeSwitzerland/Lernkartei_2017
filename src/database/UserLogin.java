@@ -136,11 +136,6 @@ public class UserLogin {
 		Connection c = null;
 		Statement stmt = null;
 
-		String url = "jdbc:mariadb://192.168.3.150:3306/userdb";
-		String username = "prototyp";
-		String password = "prototyp";
-		String driver = "com.mysql.jdbc.Driver";
-
 		try {
 			Class.forName(driver);
 			c = DriverManager.getConnection(url, username, password);

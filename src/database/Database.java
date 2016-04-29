@@ -180,7 +180,7 @@ public class Database {
 	 *            --> PK_Stock ID der Karte, welche erhöht wird
 	 */
 
-	public static void updatePrio (Integer PK_ID) {
+	public static void upPrio (Integer PK_ID) {
 
 		Connection c = null;
 		Statement stmt = null;
@@ -192,8 +192,13 @@ public class Database {
 			c = DriverManager.getConnection(url);
 			stmt = c.createStatement();
 			c.setAutoCommit(false);
+			
+			// Frage die Aktuelle Priorität ab
+			
 			ResultSet actualPrio = stmt.executeQuery("SELECT Priority FROM Stock WHERE PK_Stk = " + PK_ID.toString());
-
+			
+			// Überprüft ob vorhanden oder nicht
+			
 			if (actualPrio.next()) {
 				oldPrio = Integer.toString(actualPrio.getInt("Priority"));
 				actualPrio.close();
@@ -202,18 +207,22 @@ public class Database {
 				System.out.println("No Card with this ID exists.");
 				actualPrio.close();
 			}
-
+			
+			// Wenn Aktuelle Priorität = 5, bleibt die neue bei 5, sonst wird sie um 1 erhöht
+			
 			if (oldPrio.equals("5")) {
 				newPrio = "5";
 			}
 			else {
 				newPrio = oldPrio + 1;
 			}
+			
+			// Schreibt die Neue Priorität in die Datenbank
 
 			c.setAutoCommit(true);
-			String updatePrio = "UPDATE Stock SET Priority = ID WHERE PK_Stk = " + newPrio;
-			System.out.println(updatePrio);
+			String updatePrio = "UPDATE Stock SET Priority = " + newPrio + " WHERE PK_Stk = " + PK_ID;
 			stmt.executeUpdate(updatePrio);
+			
 			stmt.close();
 			c.close();
 
@@ -225,10 +234,40 @@ public class Database {
 
 	}
 
-	public static void resetPrio (String karte) {
+	/**
+	 * Bei nicht wissen der Karte, wird die Prio zurückgesetzt --> Sprich auf 0
+	 * gesetzt
+	 * 
+	 * @param karte
+	 *            --> Welche Karte reseted wird
+	 */
 
-		// TODO: Funktion, welche Priorität auf 1 setzt.
+	public static void resetPrio (Integer PK_ID) {
+		
+		Connection c = null;
+		Statement stmt = null;
+		String oldPrio = "";
+		String newPrio = "";
 
+		try {
+			Class.forName(driver);
+			c = DriverManager.getConnection(url);
+			stmt = c.createStatement();
+			
+			// Setzt die Priorität zurück auf 1
+			
+			String updatePrio = "UPDATE Stock SET Priority = 1 WHERE PK_Stk = " + PK_ID;
+			stmt.executeUpdate(updatePrio);
+			
+			stmt.close();
+			c.close();
+
+		}
+		catch (Exception e) {
+			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+			System.exit(0);
+		}		
+		
 	}
 
 }

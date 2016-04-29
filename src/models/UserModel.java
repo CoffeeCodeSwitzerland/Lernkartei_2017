@@ -25,15 +25,19 @@ public class UserModel extends Model
 			ifTeacher = false;
 		}
 		
-		//Funktion von "User" --> Delete kommt hier später noch dazu
+		//Funktionen von "User" 
 		if (functionName.equals("register"))
 		{
+			//Um User zu registrieren
+			//Als String bitte Username:::Email:::Password -> ::: = Separator (Constants.SEPARATOR)
 			try {
 			boolean success = User.Register(paramS, ifTeacher);
 			return success ? 1 : -1;
 			} catch (Exception e) {
 				return -2;
 			}
+			//Funktion von User zum Einloggen  
+			//Als String bitte Username:::Password -> ::: = Separator (Constants.SEPARATOR)
 		} else if (functionName.equals("login"))
 		{
 			try {
@@ -42,6 +46,8 @@ public class UserModel extends Model
 			} catch (Exception e) {
 				return -2;
 			}
+			//Funktion zum Löschen von Benutzern -> Nur durchführbar wenn man eingeloggt ist mit dem User, welchen man löschen will
+			//Als String wird hier nur Username nötig
 		} else if (functionName.equals("delete")) {
 			try {
 			boolean success = User.Delete(paramS);

@@ -17,16 +17,24 @@ public final class Logger {
 	 * @AUTHOR Hugo Lucca
 	 */
 
-	private final static ArrayList<String> logData = new ArrayList<String>(); // faster
-	private final static MyFile myLogfile = new MyFile("logfile.txt"); // slower
-
+	private final static ArrayList<String> logData = new ArrayList<String>(); // faster than logfile
+	private static MyFile  myLogfile = null;
 	private static boolean ramLoggingActive = false;
 	private static boolean fileLoggingActive = true;
 
+	public static void init () {
+		if (myLogfile == null) {
+			Debugger.out("Creating Logfile:"+Environment.getUserName());
+			myLogfile = new MyFile("LogfileOf"+Environment.getUserName()+".txt");
+		}
+	}
+	
+	
 	public static void log(String logLine) {
 		if (logLine == null)
 			logLine = "{Logger:null?}";
 		String log = LocalDate.now() + "-" + LocalTime.now().toNanoOfDay() + ": " + logLine;
+		if (myLogfile == null) init();
 		if (myLogfile != null && fileLoggingActive == true) {
 			myLogfile.save(log);
 		}

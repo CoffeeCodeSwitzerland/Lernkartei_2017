@@ -39,7 +39,14 @@
     -fx-stroke-width: 1;
 }
 
+/*Code Generator für die Farben
+ * http://www.2createawebsite.com/build/hex-colors.html
+ */
+
 .button
 {
-	-fx-color: green;
+	-fx-color:#d8d600;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-focus-color: white;
 }

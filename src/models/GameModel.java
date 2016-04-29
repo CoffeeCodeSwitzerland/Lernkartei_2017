@@ -15,17 +15,15 @@ public class GameModel extends ActionModel {
 	}
 
     public void init() {
-		mf = new ScrollyV8();
-	}
+		mf = new ScrollyV8(); // build game
+    }
 
 	private void createSwingContent(final SwingNode swingNode) {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-            	if (mf != null) {
-                    mf.setVisible(true);
-                    mf.init();
-            	}
+            	if (mf == null) init();
+            	mf.setVisible(true);
            }
         });
     }
@@ -43,7 +41,6 @@ public class GameModel extends ActionModel {
 	@Override
 	public int doAction(String functionName, String paramS, double paramD) {
 		if (functionName.equals("start")) {
-			if (mf == null) init();
 	        final SwingNode swingNode = new SwingNode();
         	createSwingContent(swingNode);
 		}

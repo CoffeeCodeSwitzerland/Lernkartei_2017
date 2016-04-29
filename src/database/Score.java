@@ -6,73 +6,87 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+
 public class Score {
-	
+
 	// URL und Driver
 
+<<<<<<< HEAD
 	private static String	url		= "jdbc:sqlite:test.db";
 	private static String	driver	= "org.sqlite.JDBC";
 	
+=======
+	private static String	windowsUser	= debug.Environment.getUserName();
+	private static String	url			= "jdbc:sqlite:" + windowsUser + ".db";
+	private static String	driver		= "org.sqlite.JDBC";
+
+>>>>>>> branch 'master' of https://github.com/RookStudios/Lernkartei.git
 	/**
 	 * 
 	 * Fragt den Score einer Kartei ab
 	 * 
-	 * @param Kartei 	--> Welche Kartei, welche abgefragt werden soll
-	 * @return			--> Returned einen Double Wert des Scores, returned -1, wenn kein Score vorhanden
+	 * @param Kartei
+	 *            --> Welche Kartei, welche abgefragt werden soll
+	 * @return --> Returned einen Double Wert des Scores, returned -1, wenn kein
+	 *         Score vorhanden
 	 */
-	
+
 	public static double getScore (String Kartei) {
-		
+
 		Connection c = null;
 		Statement stmt = null;
 		double score = 0;
-		
+
 		try {
 			Class.forName(driver);
 			c = DriverManager.getConnection(url);
 			stmt = c.createStatement();
 
 			String sql = "CREATE TABLE IF NOT EXISTS Score 	(PK_Score INTEGER PRIMARY KEY AUTOINCREMENT,"
-															+ "Kartei TEXT NOT NULL,"
-															+ "Score REAL NOT NULL);";
+					+ "Kartei TEXT NOT NULL,"
+					+ "Score REAL NOT NULL);";
 
 			System.out.println(sql);
 			stmt.executeUpdate(sql);
-			
+
 			c.setAutoCommit(false);
 			ResultSet rs = stmt.executeQuery("SELECT Score FROM Score WHERE Kartei = '" + Kartei + "';");
 			if (!rs.next()) {
-				
-				return -1;
-				
+
+			return -1;
+
 			}
-			
+
 			rs.close();
 			stmt.close();
 			c.close();
-			score = rs.getDouble("Score");		
+			score = rs.getDouble("Score");
 
 		}
 		catch (Exception e) {
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
 			System.exit(0);
 		}
-		
+
 		return score;
+<<<<<<< HEAD
+=======
+
+>>>>>>> branch 'master' of https://github.com/RookStudios/Lernkartei.git
 	}
-	
+
 	public static void addScore (String Kartei, double Score) {
-		
+
 		Connection c = null;
 		Statement stmt = null;
-		
+
 		try {
 			Class.forName(driver);
 			c = DriverManager.getConnection(url);
 			stmt = c.createStatement();
-			
-			String sql = "INSERT INTO Score (Kartei, Score) VALUES ('" + Kartei + "'," + Score +")";
-			
+
+			String sql = "INSERT INTO Score (Kartei, Score) VALUES ('" + Kartei + "'," + Score + ")";
+
 			System.out.println(sql);
 			stmt.executeUpdate(sql);
 			stmt.close();
@@ -82,49 +96,52 @@ public class Score {
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
 			System.exit(0);
 		}
-		
+
 	}
-	
+
 	/**
 	 * 
 	 * Sie können den Score einer bestimmten Kartei updaten
 	 * 
-	 * @param Kartei	--> Welche Kartei
-	 * @param newScore	--> Neuer Score
-	 * @return			--> Returned true wenns funktioniert hat, sonst false, wenns kein Eintrag hatte
+	 * @param Kartei
+	 *            --> Welche Kartei
+	 * @param newScore
+	 *            --> Neuer Score
+	 * @return --> Returned true wenns funktioniert hat, sonst false, wenns kein
+	 *         Eintrag hatte
 	 */
-	
+
 	public static boolean updateScore (String Kartei, double newScore) {
-		
+
 		Connection c = null;
 		Statement stmt = null;
-		
+
 		try {
 			Class.forName(driver);
 			c = DriverManager.getConnection(url);
 			stmt = c.createStatement();
 
 			String sql = "CREATE TABLE IF NOT EXISTS Score 	(PK_Score INTEGER PRIMARY KEY AUTOINCREMENT,"
-															+ "Kartei TEXT NOT NULL,"
-															+ "Score REAL NOT NULL);";
-			
+					+ "Kartei TEXT NOT NULL,"
+					+ "Score REAL NOT NULL);";
+
 			System.out.println(sql);
-			stmt.executeUpdate(sql);			
+			stmt.executeUpdate(sql);
 			c.setAutoCommit(false);
 			ResultSet rs = stmt.executeQuery("SELECT Score FROM Score WHERE Kartei = '" + Kartei + "';");
 			if (!rs.next()) {
-				
+
 				System.out.println("No Entry with that name in our Database.");
 				return false;
-				
+
 			}
 			rs.close();
 			c.setAutoCommit(true);
-			
+
 			String updt = "UPDATE Score SET Score = '" + newScore + "' WHERE Kartei = " + Kartei;
 			System.out.println(updt);
 			stmt.executeUpdate(updt);
-			
+
 			stmt.close();
 			c.close();
 		}
@@ -132,56 +149,71 @@ public class Score {
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
 			System.exit(0);
 		}
-		
+
 		return true;
-		
+
 	}
+<<<<<<< HEAD
 	
 	//getScores gibt alle Pnuktzahlen zu den Kartien zurück. In der ArrayList sind Stringarrays gelistet, welche wie folgt aufgebaut sind:
 	// | 0 KarteiName | 1 Punktzahl | (!Achtung! -> Die Punktzahl wird als String übergeben -> Sie sollte am Schluss ein Double sein)
 	//Später wenn Online-implementierung dazukommt, kann man als Parameter den Username angeben um die richtige Funktionalität dieser Funktion sicher zu stellen
 	//Wenn ein Fehler autritt, wird in catch ein Array in die Liste gespeichert, in welchem zwei Fehler stehen. Im 1. Eintrag eine Message für Entwickler 
 	//und im 2. füe den Benutzer, welcher einfacher lesbar ist, da der User nicht weiss was er mit der 1. Anfangen soll.
+=======
+
+	// getScores gibt alle Pnuktzahlen zu den Kartien zurück. In der ArrayList
+	// sind Stringarrays gelistet, welche wie folgt aufgebaut sind:
+	// | 0 KarteiName | 1 Punktzahl | (!Achtung! -> Die Punktzahl wird als
+	// String übergeben -> Sie sollte am Schluss ein Double sein)
+	// Später wenn Online-implementierung dazukommt, kann man als Parameter den
+	// Username angeben um die richtige Funktion dieser Funktion sicher zu
+	// stellen
+	// Wenn ein Fehler autritt, wird in catch ein Array in die Liste
+	// gespeichert, in welchem zwei Fehler stehen. Im 1. Eintrag eine Message
+	// für Entwickler
+	// und im 2. füe den Benutzer, welcher einfacher lesbar ist, da der User
+	// nicht weiss was er mit der 1. Anfangen soll.
+>>>>>>> branch 'master' of https://github.com/RookStudios/Lernkartei.git
 	private static ArrayList<String[]> allScores = new ArrayList<String[]>();
-	public static ArrayList<String[]> getScores() {
+
+	public static ArrayList<String[]> getScores () {
 
 		allScores.clear();
-		
+
 		Connection c = null;
 		Statement stmt = null;
-		
-		try
-		{
+
+		try {
 			Class.forName(driver);
 			c = DriverManager.getConnection(url);
 			stmt = c.createStatement();
-			
+
 			String all = "SELECT Kartei, Score FROM Score";
 			ResultSet rs = stmt.executeQuery(all);
-			
+
 			while (rs.next()) {
 				String Kartei = rs.getString(1);
 				String Score = Double.toString(rs.getDouble(2));
-				//Array und in liste schreiben
+				// Array und in liste schreiben
 				String[] temp = new String[2];
 				temp[0] = Kartei;
 				temp[1] = Score;
 				allScores.add(temp);
 			}
-			
-			
-		} catch (Exception e)
-		{
+
+		}
+		catch (Exception e) {
 			String Error = e.getMessage();
 			String allgemeinerFehler = "Es tut uns leid aber wir konnten ihre Karteien nicht finden";
 			String[] temp = new String[2];
 			temp[0] = Error;
 			temp[1] = allgemeinerFehler;
-			
-			 allScores.add(temp);
+
+			allScores.add(temp);
 		}
-		
+
 		return allScores;
 	}
-	
+
 }

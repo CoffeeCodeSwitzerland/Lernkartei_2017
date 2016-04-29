@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 public class Score {
 	
@@ -135,6 +136,53 @@ public class Score {
 		
 		return true;
 		
+	}
+	
+	//getScores gibt alle Pnuktzahlen zu den Kartien zurück. In der ArrayList sind Stringarrays gelistet, welche wie folgt aufgebaut sind:
+	// | 0 KarteiName | 1 Punktzahl | (!Achtung! -> Die Punktzahl wird als String übergeben -> Sie sollte am Schluss ein Double sein)
+	//Später wenn Online-implementierung dazukommt, kann man als Parameter den Username angeben um die richtige Funktion dieser Funktion sicher zu stellen
+	//Wenn ein Fehler autritt, wird in catch ein Array in die Liste gespeichert, in welchem zwei Fehler stehen. Im 1. Eintrag eine Message für Entwickler 
+	//und im 2. füe den Benutzer, welcher einfacher lesbar ist, da der User nicht weiss was er mit der 1. Anfangen soll.
+	private static ArrayList<String[]> allScores = new ArrayList<String[]>();
+	public static ArrayList<String[]> getScores() {
+
+		allScores.clear();
+		
+		Connection c = null;
+		Statement stmt = null;
+		
+		try
+		{
+			Class.forName(driver);
+			c = DriverManager.getConnection(url);
+			stmt = c.createStatement();
+			
+			String all = "SELECT Kartei, Score FROM Score";
+			ResultSet rs = stmt.executeQuery(all);
+			
+			while (rs.next()) {
+				String Kartei = rs.getString(1);
+				String Score = Double.toString(rs.getDouble(2));
+				//Array und in liste schreiben
+				String[] temp = new String[2];
+				temp[0] = Kartei;
+				temp[1] = Score;
+				allScores.add(temp);
+			}
+			
+			
+		} catch (Exception e)
+		{
+			String Error = e.getMessage();
+			String allgemeinerFehler = "Es tut uns leid aber wir konnten ihre Karteien nicht finden";
+			String[] temp = new String[2];
+			temp[0] = Error;
+			temp[1] = allgemeinerFehler;
+			
+			 allScores.add(temp);
+		}
+		
+		return allScores;
 	}
 	
 }

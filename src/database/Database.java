@@ -158,4 +158,16 @@ public class Database
 		
 	}
 	
+	public static void plusPrio (String karte) {
+		
+		
+		
+	}
+	
+	public static void resetPrio (String karte) {
+		
+		
+		
+	}
+	
 }

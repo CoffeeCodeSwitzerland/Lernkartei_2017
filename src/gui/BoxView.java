@@ -16,7 +16,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import mvc.Controller;
 import mvc.FXSettings;
-import mvc.FXView;
+import mvc.FXViewModel;
 import mvc.View;
 
 
@@ -26,7 +26,7 @@ import mvc.View;
  * @author nina egger & miro albrecht
  *
  */
-public class BoxView extends FXView
+public class BoxView extends FXViewModel
 {
 	VBox	boxLayout;
 	VBox	options;

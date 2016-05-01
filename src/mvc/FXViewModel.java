@@ -16,6 +16,19 @@ public abstract class FXViewModel extends FXView
 	}
 
 	public Model getMyModel() {
+		if (myModel == null) myModel = new Model(getName());
 		return myModel;
+	}
+	
+	@Override
+	public void setData (String data)
+	{
+		getMyModel().setString(data);
+	}
+	
+	@Override
+	public String getData()
+	{
+		return getMyModel().getString(null);
 	}
 }

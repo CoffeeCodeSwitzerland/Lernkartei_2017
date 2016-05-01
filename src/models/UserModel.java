@@ -3,10 +3,11 @@ package models;
 import java.util.ArrayList;
 
 import database.UserCards;
+import mvc.Model;
 import user.User;
 
 
-public class UserModel extends DataModel
+public class UserModel extends Model
 {
 	public UserModel (String myName)
 	{
@@ -81,7 +82,7 @@ public class UserModel extends DataModel
 	}
 
 	@Override
-	public ArrayList<String> getData (String query)
+	public ArrayList<String> getDataList (String query)
 	{
 		// Returnt alle Karteien des Benutzers in form von einer ArrayList
 		return UserCards.getCards();

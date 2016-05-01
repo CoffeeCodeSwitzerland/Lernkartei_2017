@@ -2,6 +2,7 @@ package application;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
+import mvc.FXSettings;
 
 
 /**
@@ -21,10 +22,9 @@ public class WISSLearnCards extends Application
 	@Override
 	public void start (Stage primaryStage) throws Exception
 	{
-		Constants.setMinHeight(primaryStage.getMaxHeight());
-		Constants.setMinWidth(primaryStage.getMaxWidth());
+		FXSettings.setPrimaryStage(primaryStage);
 
-		new MainController(primaryStage);
+		new MainController();
 	}
 
 }

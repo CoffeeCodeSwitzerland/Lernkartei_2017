@@ -16,9 +16,6 @@ import java.io.InputStream;
 import java.util.Iterator;
 
 import javax.imageio.ImageIO;
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
 import javax.swing.JPanel;
 import javax.xml.stream.XMLEventReader;
 import javax.xml.stream.XMLInputFactory;

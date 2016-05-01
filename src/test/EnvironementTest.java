@@ -10,22 +10,20 @@ import debug.Environment;
 public class EnvironementTest {
 
 	public static void myTest() {
-		Environment e = new Environment();
-		assertEquals("\\", e.getFileSep());
+		assertEquals("\\", Environment.getFileSep());
 	}
 
 	@Test
 	public void test() {
-		Environment e = new Environment();
 		String out = "This is: " + this.getClass();
 		Debugger.out(out);
 		for (int i = 0; i < out.length(); i++)
 			Debugger.out();
-		Debugger.out(e.getEndOfLine());
+		Debugger.out(Environment.getEndOfLine());
 		Debugger.out("Working paths:");
-		Debugger.out("- class  path:" + e.getClassPath());
-		Debugger.out("- actual path:" + e.getActualPath());
-		Debugger.out("- home   path:" + e.getHomePath());
+		Debugger.out("- class  path:" + Environment.getClassPath());
+		Debugger.out("- actual path:" + Environment.getActualPath());
+		Debugger.out("- home   path:" + Environment.getHomePath());
 		myTest();
 	}
 

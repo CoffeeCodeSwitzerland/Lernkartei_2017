@@ -4,9 +4,10 @@ import javax.swing.SwingUtilities;
 
 import debug.Debugger;
 import javafx.embed.swing.SwingNode;
+import mvc.Model;
 import scrollyv8.ScrollyV8;
 
-public class GameModel extends ActionModel {
+public class GameModel extends Model {
 
 	private ScrollyV8 mf;
 

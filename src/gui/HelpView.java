@@ -1,12 +1,12 @@
 package gui;
 
-import application.Constants;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
+import mvc.FXSettings;
+import mvc.FXView;
 
 
 /**
@@ -15,12 +15,12 @@ import javafx.stage.Stage;
  * @author miro-albrecht
  *
  */
-public class HelpView extends View
+public class HelpView extends FXView
 {
 
 	public HelpView (String setName)
 	{
-		super (setName, new Stage(), null);
+		super (setName, null);
 		
 		Image helpdesk = new Image("gui/pictures/helpdesk.jpg", true);
 
@@ -32,7 +32,7 @@ public class HelpView extends View
 
 		this.getWindow().setTitle("Lernkartei Hilfe [Alpha]");
 		this.getWindow().setResizable(false);
-		this.setupScene(new Scene(center, Constants.OPTIMAL_WIDTH, 150+Constants.OPTIMAL_HEIGHT));
+		this.setupScene(new Scene(center, FXSettings.OPTIMAL_WIDTH, 150+FXSettings.OPTIMAL_HEIGHT));
 	}
 
 	@Override

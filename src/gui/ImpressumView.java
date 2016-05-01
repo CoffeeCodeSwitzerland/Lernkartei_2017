@@ -1,17 +1,16 @@
 package gui;
 
-import application.Constants;
-import application.MainController;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
-import javafx.stage.Stage;
+import mvc.Controller;
+import mvc.FXSettings;
+import mvc.FXView;
 
-public class ImpressumView extends View
+public class ImpressumView extends FXView
 {
-
-	public ImpressumView (String setName, Stage primary, MainController controller)
+	public ImpressumView (String setName, Controller controller)
 	{
-		super(setName, primary, controller);
+		super(setName, controller);
 		
 		// Buttons
 		AppButton backBtn = new AppButton("Zurück");
@@ -23,7 +22,7 @@ public class ImpressumView extends View
 		BorderPane layout = new BorderPane();
 		layout.setCenter(backBtn);
 		
-		setupScene(new Scene(layout, Constants.OPTIMAL_WIDTH, Constants.OPTIMAL_HEIGHT));
+		setupScene(new Scene(layout, FXSettings.OPTIMAL_WIDTH, FXSettings.OPTIMAL_HEIGHT));
 	}
 
 	@Override

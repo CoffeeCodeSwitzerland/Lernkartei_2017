@@ -9,7 +9,7 @@ import javax.sound.midi.*;
 public class MidiPlayer
 {
 
-    private String currentTrack;
+//    private String currentTrack;
     private Sequence song;
     static Sequencer player;
     private boolean loaded;

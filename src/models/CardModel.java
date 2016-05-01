@@ -3,12 +3,12 @@ package models;
 import java.util.ArrayList;
 
 import database.Database;
+import mvc.Model;
 
-public class CardModel extends DataModel {
+public class CardModel extends Model {
 
 	public CardModel (String myName) {
 		super(myName);
-		
 	}
 
 	@Override
@@ -59,7 +59,7 @@ public class CardModel extends DataModel {
 	}
 
 	@Override
-	public ArrayList<String> getData (String query) {
+	public ArrayList<String> getDataList (String query) {
 
 		ArrayList<String> result = new ArrayList<String>();
 		ArrayList<String[]> cards = Database.pullFromStock(query);

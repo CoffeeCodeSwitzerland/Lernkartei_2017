@@ -8,8 +8,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
-import database.Database;
-
 public class Zufallszieher extends JFrame implements ActionListener {
 
 	public static int rdm = 0;

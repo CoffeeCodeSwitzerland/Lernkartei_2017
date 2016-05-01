@@ -5,9 +5,10 @@ import java.util.ArrayList;
 import application.Constants;
 import database.Score;
 import database.UserCards;
+import mvc.Model;
 import user.User;
 
-public class ProfilModel extends DataModel
+public class ProfilModel extends Model
 {
 
 	public ProfilModel(String myName)
@@ -45,7 +46,7 @@ public class ProfilModel extends DataModel
 
 	//Als Query muss man die unten gebrauchten ausdrücke eingeben, damit die gewünschte Funktion aufgerufen wird
 	@Override
-	public ArrayList<String> getData(String query)
+	public ArrayList<String> getDataList(String query)
 	{
 		if (query.equals("stats"))
 		{

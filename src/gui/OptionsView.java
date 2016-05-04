@@ -7,7 +7,6 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.layout.VBox;
 import mvc.Controller;
-import mvc.FXSettings;
 import mvc.FXView;
 /**
  * Optionen
@@ -62,7 +61,7 @@ public class OptionsView extends FXView
 		// Behavior
 		back.setOnAction(e -> getController().showMain());
 
-		this.setupScene(new Scene(tempVBox, FXSettings.OPTIMAL_WIDTH, FXSettings.OPTIMAL_HEIGHT));
+		this.setupScene(new Scene(tempVBox, getController().getFXSettings().OPTIMAL_WIDTH, getController().getFXSettings().OPTIMAL_HEIGHT));
 	}
 
 	@Override

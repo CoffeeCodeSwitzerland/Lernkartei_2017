@@ -13,7 +13,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import mvc.Controller;
-import mvc.FXSettings;
 import mvc.FXViewModel;
 
 
@@ -50,7 +49,7 @@ public class EditorView extends FXViewModel
 		mainLayout.setCenter(editLayout);
 		mainLayout.setBottom(controlLayout);
 
-		setupScene(new Scene(mainLayout, FXSettings.OPTIMAL_WIDTH, FXSettings.OPTIMAL_HEIGHT));
+		setupScene(new Scene(mainLayout, getController().getFXSettings().OPTIMAL_WIDTH, getController().getFXSettings().OPTIMAL_HEIGHT));
 		getController().getModel("cards").registerView(this);
 	}
 

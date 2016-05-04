@@ -11,7 +11,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import mvc.Controller;
-import mvc.FXSettings;
 import mvc.FXView;
 
 /**
@@ -121,7 +120,7 @@ public class StatisticsView extends FXView
         //Chart ins KartenLayout (center) einfügen
         ChartLayout.getChildren().addAll(bc);
         
-		this.setupScene(new Scene(borderPane, FXSettings.OPTIMAL_WIDTH, FXSettings.OPTIMAL_HEIGHT));
+		this.setupScene(new Scene(borderPane, getController().getFXSettings().OPTIMAL_WIDTH, getController().getFXSettings().OPTIMAL_HEIGHT));
 		zurueck.setOnAction(e -> controller.showMain());
 		
 

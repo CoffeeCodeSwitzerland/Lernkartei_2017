@@ -8,7 +8,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import mvc.Controller;
-import mvc.FXSettings;
 import mvc.FXView;
 
 public class ImpressumView extends FXView
@@ -49,7 +48,7 @@ public class ImpressumView extends FXView
 		borderPane.setCenter(BoxMitText);
 		borderPane.setTop(TitelBox);
 		
-		setupScene(new Scene(borderPane, FXSettings.OPTIMAL_WIDTH, FXSettings.OPTIMAL_HEIGHT));
+		setupScene(new Scene(borderPane, getController().getFXSettings().OPTIMAL_WIDTH, getController().getFXSettings().OPTIMAL_HEIGHT));
 	}
 
 	@Override

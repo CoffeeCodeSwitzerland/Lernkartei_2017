@@ -6,7 +6,6 @@ import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import mvc.Controller;
-import mvc.FXSettings;
 import mvc.FXView;
 /**
  * Gamestartfenster
@@ -79,7 +78,7 @@ public class KarteiView extends FXView
 		zurueckButton.setOnAction(e -> getController().getView("kastenview").show());
 		weitereKasten.setDisable(true);
 
-		this.setupScene(new Scene(borderPane, FXSettings.OPTIMAL_WIDTH, FXSettings.OPTIMAL_HEIGHT));
+		this.setupScene(new Scene(borderPane, getController().getFXSettings().OPTIMAL_WIDTH, getController().getFXSettings().OPTIMAL_HEIGHT));
 	}
 
 	@Override

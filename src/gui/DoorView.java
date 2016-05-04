@@ -14,7 +14,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import mvc.Controller;
-import mvc.FXSettings;
 import mvc.FXView;
 import mvc.View;
 
@@ -99,7 +98,7 @@ public class DoorView extends FXView
 			event.consume();
 		});
 
-		this.setupScene(new Scene(mainLayout, FXSettings.OPTIMAL_WIDTH, FXSettings.OPTIMAL_HEIGHT));
+		this.setupScene(new Scene(mainLayout, getController().getFXSettings().OPTIMAL_WIDTH, getController().getFXSettings().OPTIMAL_HEIGHT));
 		getController().getModel("door").registerView(this);
 	}
 

@@ -7,7 +7,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import mvc.Controller;
-import mvc.FXSettings;
 import mvc.FXView;
 /**
  * Gamestartfenster
@@ -46,7 +45,7 @@ public class GameView extends FXView
 		bp.setId("gamebg");
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////
 		// BP in Scene einfügen:
-		this.setupScene(new Scene(bp, FXSettings.OPTIMAL_WIDTH, FXSettings.OPTIMAL_HEIGHT));
+		this.setupScene(new Scene(bp, getController().getFXSettings().OPTIMAL_WIDTH, getController().getFXSettings().OPTIMAL_HEIGHT));
 
 	}
 

@@ -8,7 +8,6 @@ import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import mvc.Controller;
-import mvc.FXSettings;
 import mvc.FXView;
 
 /**
@@ -52,7 +51,7 @@ public class HelpView extends FXView
 		tempVBox.getChildren().addAll(impressumBtn, anleitungBtn, indexBtn);
 
 		tempVBox.setId("help");
-		this.setupScene(new Scene(tempVBox, FXSettings.OPTIMAL_WIDTH, 150+FXSettings.OPTIMAL_HEIGHT));
+		this.setupScene(new Scene(tempVBox, getController().getFXSettings().OPTIMAL_WIDTH, 150+getController().getFXSettings().OPTIMAL_HEIGHT));
 	}
 
 	@Override

@@ -12,7 +12,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import models.GameModel;
 import mvc.Controller;
-import mvc.FXSettings;
 import mvc.FXView;
 
 
@@ -38,7 +37,7 @@ public class MainView extends FXView
 	public MainView (String setName, Controller controller)
 	{
 		super(setName, controller);
-		FXSettings.getPrimaryStage().setTitle(Constants.appTitle + " " + Constants.appVersion);
+		getController().getFXSettings().getPrimaryStage().setTitle(Constants.appTitle + " " + Constants.appVersion);
 
 		// Buttons
 	
@@ -87,7 +86,7 @@ public class MainView extends FXView
 
 		Logger.log("Set scene....");
 
-		setupScene(new Scene(mainLayout, FXSettings.OPTIMAL_WIDTH, FXSettings.OPTIMAL_HEIGHT));
+		setupScene(new Scene(mainLayout, getController().getFXSettings().OPTIMAL_WIDTH, getController().getFXSettings().OPTIMAL_HEIGHT));
 
 		Logger.log("Show....");
 		show();

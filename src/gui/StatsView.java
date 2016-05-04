@@ -69,7 +69,7 @@ public class StatsView extends FXView
 		BorderPane bp = new BorderPane();
 		bp.getChildren().addAll(chartLayout, hBox, stats);
 
-		setupScene(new Scene(bp, FXSettings.OPTIMAL_WIDTH, FXSettings.OPTIMAL_HEIGHT));
+		setupScene(new Scene(bp, getController().getFXSettings().OPTIMAL_WIDTH, getController().getFXSettings().OPTIMAL_HEIGHT));
 	}
 	
 	@SuppressWarnings({ "unchecked", "rawtypes" })

@@ -27,6 +27,7 @@ public class MainView extends FXView
 	Image impressumImg = new Image("gui/pictures/ImpressumIcon.png");
 	AppButton startBtn = new AppButton("Lernen");
 	AppButton statBtn = new AppButton("Statistiken");
+	AppButton stat2Btn = new AppButton("Statistiken-2");
 	AppButton optionsBtn = new AppButton("Optionen");
 	AppButton gameBtn = new AppButton("Jump 'n' Run");
 	AppButton helpBtn = new AppButton("Hilfe");
@@ -46,7 +47,7 @@ public class MainView extends FXView
 		menuLayout.setPadding(new Insets(10));
 		menuLayout.setSpacing(10);
 		menuLayout.setAlignment(Pos.CENTER);
-		menuLayout.getChildren().addAll(startBtn, statBtn, optionsBtn, gameBtn, helpBtn, quitBtn);
+		menuLayout.getChildren().addAll(startBtn, statBtn, stat2Btn, optionsBtn, gameBtn, helpBtn, quitBtn);
 
 		// Main Layout
 		mainLayout.setPadding(new Insets(5));
@@ -55,6 +56,7 @@ public class MainView extends FXView
 		// Behaviour
 		startBtn.setOnAction(e -> getController().getView("doorview").show());
 		statBtn.setOnAction(e -> getController().getView("statisticsview").show());
+		stat2Btn.setOnAction(e -> getController().getView("statsview").show());
 		optionsBtn.setOnAction(e -> getController().getView("optionsview").show());
 		gameBtn.setOnAction(e -> getController().getView("gameview").show());
 		helpBtn.setOnAction(e -> getController().getView("helpview").show());

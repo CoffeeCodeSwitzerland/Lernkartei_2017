@@ -52,8 +52,7 @@ public class Menu {
 			System.out.println("Options");
 			break;
 		case 2:
-			System.out.println("Exit");
-
+			System.out.println("Exiting Game");
 			break;
 		}
 	}

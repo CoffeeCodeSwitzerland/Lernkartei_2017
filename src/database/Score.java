@@ -149,6 +149,7 @@ public class Score {
 	//Später wenn Online-implementierung dazukommt, kann man als Parameter den Username angeben um die richtige Funktionalität dieser Funktion sicher zu stellen
 	//Wenn ein Fehler autritt, wird in catch ein Array in die Liste gespeichert, in welchem zwei Fehler stehen. Im 1. Eintrag eine Message für Entwickler 
 	//und im 2. füe den Benutzer, welcher einfacher lesbar ist, da der User nicht weiss was er mit der 1. Anfangen soll.
+	
 	private static ArrayList<String> allScores = new ArrayList<String>();
 
 	public static ArrayList<String> getScores () {

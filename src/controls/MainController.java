@@ -1,24 +1,24 @@
-package application;
+package controls;
 
 import debug.Logger;
-import gui.BoxView;
-import gui.DoorView;
-import gui.EditorView;
-import gui.GameView;
-import gui.HelpView;
-import gui.ImpressumView;
-import gui.KarteiView;
-import gui.LearnView;
-import gui.MainView;
-import gui.OptionsView;
-import gui.StatisticsView;
-import gui.StatsView;
 import javafx.stage.Stage;
 import models.BoxModel;
 import models.CardModel;
 import models.DoorModel;
 import models.GameModel;
 import mvc.Controller;
+import views.BoxView;
+import views.DoorView;
+import views.EditorView;
+import views.GameView;
+import views.HelpView;
+import views.ImpressumView;
+import views.KarteiView;
+import views.LearnView;
+import views.MainView;
+import views.OptionsView;
+import views.StatisticsView;
+import views.StatsView;
 /**
  * Diese Klasse Kontrolliert alle Sichten und Models. Den Sichten wird die
  * Navigation zur Verfügung gestellt. Alle Sichten (ausser Modalfenster) werden

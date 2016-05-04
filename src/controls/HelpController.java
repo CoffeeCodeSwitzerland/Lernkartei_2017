@@ -1,8 +1,8 @@
-package application;
+package controls;
 
-import gui.*;
 import javafx.stage.Stage;
 import mvc.Controller;
+import views.*;
 /**
  * Diese Klasse Kontrolliert alle Sichten und Models. Den Sichten wird die
  * Navigation zur Verfügung gestellt. Alle Sichten (ausser Modalfenster) werden

@@ -3,7 +3,7 @@ package user;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import application.Constants;
+import controls.Constants;
 import database.UserLogin;
 
 public class User

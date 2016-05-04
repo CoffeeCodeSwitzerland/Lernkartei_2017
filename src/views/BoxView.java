@@ -1,4 +1,4 @@
-package gui;
+package views;
 
 import java.util.ArrayList;
 
@@ -49,7 +49,7 @@ public class BoxView extends FXViewModel
 		AppButton backBtn = new AppButton("Zurück");
 		AppButton newBoxBtn = new AppButton("Neue Box");
 
-		Image trashImg = new Image("gui/pictures/Papierkorb.png");
+		Image trashImg = new Image("views/pictures/Papierkorb.png");
 		ImageView trashImgView = new ImageView(trashImg);
 
 		// Layout für Controls
@@ -77,7 +77,7 @@ public class BoxView extends FXViewModel
 			if (setName != null || !boxName.equals(""))
 			{
 				getController().getModel("box").doAction("new",
-						getData() + application.Constants.SEPARATOR + boxName);
+						getData() + controls.Constants.SEPARATOR + boxName);
 				// TODO Feedback für den User (Fehlermeldungen)
 			}
 		});

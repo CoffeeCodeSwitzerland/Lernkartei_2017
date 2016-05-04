@@ -1,6 +1,6 @@
-package gui;
+package views;
 
-import application.Constants;
+import controls.Constants;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;

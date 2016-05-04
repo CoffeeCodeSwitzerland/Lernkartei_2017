@@ -1,6 +1,6 @@
-package gui;
+package views;
 
-import application.Constants;
+import controls.Constants;
 import debug.Debugger;
 import debug.Logger;
 import javafx.geometry.Insets;
@@ -23,7 +23,7 @@ import mvc.FXView;
 public class MainView extends FXView
 {
 	BorderPane mainLayout = new BorderPane();
-	Image impressumImg = new Image("gui/pictures/ImpressumIcon.png");
+	Image impressumImg = new Image("views/pictures/ImpressumIcon.png");
 	AppButton startBtn = new AppButton("Lernen");
 	AppButton statBtn = new AppButton("Statistiken");
 	AppButton stat2Btn = new AppButton("Statistiken-2");

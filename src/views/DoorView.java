@@ -1,4 +1,4 @@
-package gui;
+package views;
 
 import java.util.ArrayList;
 
@@ -42,7 +42,7 @@ public class DoorView extends FXView
 		AppButton newDoorBtn = new AppButton("Neue Tür");
 
 		// Trash Image
-		Image trashImg = new Image("gui/pictures/Papierkorb.png");
+		Image trashImg = new Image("views/pictures/Papierkorb.png");
 		ImageView trashImgView = new ImageView(trashImg);
 
 		// Layout für Controls (Hauptsteuerung)

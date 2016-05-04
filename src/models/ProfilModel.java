@@ -2,7 +2,7 @@ package models;
 //z
 import java.util.ArrayList;
 
-import application.Constants;
+import controls.Constants;
 import database.Score;
 import database.UserCards;
 import mvc.Model;

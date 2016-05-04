@@ -2,7 +2,7 @@ package guiexample;
 
 import java.util.ArrayList;
 
-import application.MainController;
+import controls.MainController;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -36,7 +36,7 @@ public class Lernkartei extends Application
 	BorderPane	tempBorderPane;
 	VBox		tempVBox;
 
-	String		stylePath	= "gui/style.css";
+	String		stylePath	= "views/style.css";
 
 	public static void main (String[] args)
 	{
@@ -166,7 +166,7 @@ public class Lernkartei extends Application
 
 	private void help ()
 	{
-		Image helpdesk = new Image("gui/helpdesk.jpg", true);
+		Image helpdesk = new Image("views/helpdesk.jpg", true);
 
 		ImageView view = new ImageView(helpdesk);
 

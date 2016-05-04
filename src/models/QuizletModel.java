@@ -3,8 +3,9 @@ package models;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
+
+import controls.Constants;
 import quizlet.Quizlet;
-import application.Constants;
 import mvc.Model;
 
 public class QuizletModel extends Model {

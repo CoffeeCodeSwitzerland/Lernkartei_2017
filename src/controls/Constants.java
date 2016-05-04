@@ -1,4 +1,4 @@
-package application;
+package controls;
 
 public abstract class Constants {
 

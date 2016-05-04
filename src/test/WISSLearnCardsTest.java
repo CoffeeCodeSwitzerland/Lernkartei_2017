@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import application.MainController;
+import controls.MainController;
 import javafx.application.Application;
 import javafx.stage.Stage;
 

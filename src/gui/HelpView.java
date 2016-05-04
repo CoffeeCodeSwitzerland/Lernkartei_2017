@@ -5,13 +5,10 @@ import application.HelpController;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import mvc.FXSettings;
 import mvc.FXView;
-
 
 /**
  * Hilfefenster
@@ -21,9 +18,7 @@ import mvc.FXView;
  */
 public class HelpView extends FXView
 {
-
-	BorderPane mainLayout = new BorderPane();
-	//Image helpdesk = new Image("gui/pictures/helpdesk.jpg", true);
+	BorderPane mainLayout  = new BorderPane();
 	AppButton impressumBtn = new AppButton("Impressum");
 	AppButton anleitungBtn = new AppButton("Anleitung");
 	AppButton indexBtn     = new AppButton("Index");
@@ -36,9 +31,10 @@ public class HelpView extends FXView
 		this.getWindow().setTitle(Constants.appTitle+subTitle+Constants.appVersion);
 		this.getWindow().setResizable(false);
 
-		//ImageView view = new ImageView(helpdesk);
+		impressumBtn.setOnAction(e -> getController().getView("impressum").show());
+		anleitungBtn.setOnAction(e -> getController().getView("manual").show());
+		indexBtn.setOnAction(e -> getController().getView("index").show());
 
-		
 		VBox tempVBox = new VBox();
 		tempVBox.setPadding(new Insets(10));
 		tempVBox.setSpacing(10);

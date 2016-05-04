@@ -45,14 +45,14 @@ public class OptionsView extends FXView
 
 		// Setzt Verhalten  -> TODO in CSS auslagern
 		applyColor.setOnAction(e -> {
-			if (col.getValue().getBrightness() < 0.6)
-			{
-				enableSound.setStyle("-fx-text-fill: white"); // TODO in CSS auslagern
-			}
-			else
-			{
-				enableSound.setStyle("-fx-text-fill: black"); // TODO in CSS auslagern
-			}
+//			if (col.getValue().getBrightness() < 0.6)
+//			{
+//				enableSound.setStyle("-fx-text-fill: white"); // TODO in CSS auslagern
+//			}
+//			else
+//			{
+//				enableSound.setStyle("-fx-text-fill: black"); // TODO in CSS auslagern
+//			}
 			tempVBox.setStyle("-fx-background-color: rgb("
 					+ col.getValue().getRed() * 255 + ","
 					+ col.getValue().getGreen() * 255 + ","
@@ -60,7 +60,7 @@ public class OptionsView extends FXView
 		});
 
 		// Behavior
-		back.setOnAction(e -> controller.showMain());
+		back.setOnAction(e -> getController().showMain());
 
 		this.setupScene(new Scene(tempVBox, FXSettings.OPTIMAL_WIDTH, FXSettings.OPTIMAL_HEIGHT));
 	}

@@ -40,7 +40,7 @@ public class ImpressumView extends FXView
 		BoxMitText.setAlignment(Pos.CENTER);
 		
 		// Behaviour
-		backBtn.setOnAction(e -> getController().showMain());
+		backBtn.setOnAction(e -> getController().getView("help").show());
 		
 		// Layout
 		BorderPane borderPane = new BorderPane();

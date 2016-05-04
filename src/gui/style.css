@@ -15,6 +15,13 @@
 	-fx-background-repeat: no-repeat;
 }
 
+#help
+{
+	-fx-background-color: linear-gradient(to bottom, #d6fffd 50%, #5ca55c 100%);
+	-fx-background-image: url("pictures/helpdesk.jpg");
+	-fx-background-repeat: no-repeat;
+}
+
 #bold{
 	-fx-font-weight: bold;
 	-fx-font-size: 1.2em;

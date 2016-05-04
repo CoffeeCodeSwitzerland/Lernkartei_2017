@@ -17,24 +17,24 @@ import mvc.FXView;
  */
 public class OptionsView extends FXView
 {
+	// Contorls (Sample)
+	AppButton resetStats = new AppButton("Statistiken zurücksetzen");
+	CheckBox enableSound = new CheckBox("Audio");
+	CheckBox enableAnimation = new CheckBox("Animation");
+	ColorPicker col = new ColorPicker();
+
+	// Buttons:
+	AppButton applyColor = new AppButton("Farbe speichern");
+	AppButton back = new AppButton("Zurück");
+
 	public OptionsView (String setName, Controller controller)
 	{
 		super (setName, controller);
-
-		// Contorls (Sample)
-		AppButton resetStats = new AppButton("Statistiken zurücksetzen");
-		CheckBox enableSound = new CheckBox("Audio");
-		CheckBox enableAnimation = new CheckBox("Animation");
-		ColorPicker col = new ColorPicker();
 
 		// Setzt maximale Breite der nicht-Button Elemente:
 		enableSound.setMaxWidth(AppButton.DEFAULT_BUTTON_WIDTH);
 		enableAnimation.setMaxWidth(AppButton.DEFAULT_BUTTON_WIDTH);
 		col.setMaxWidth(AppButton.DEFAULT_BUTTON_WIDTH);
-
-		// Buttons:
-		AppButton applyColor = new AppButton("Farbe speichern");
-		AppButton back = new AppButton("Zurück");
 
 		// Erstellt Layout:
 		VBox tempVBox = new VBox();

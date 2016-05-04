@@ -45,7 +45,7 @@
 .button
 {
 	-fx-font-family: "Segoe UI Semibold";
-	-fx-color:ffebb2;
+	-fx-color: #ffebb2;
     -fx-text-fill: #875100;
     -fx-focus-color: white;
 }

@@ -2,6 +2,7 @@ package models;
 
 import java.util.ArrayList;
 
+import application.Constants;
 import database.Database;
 import mvc.Model;
 
@@ -20,6 +21,8 @@ public class CardModel extends Model {
 		// -1: Fehler beim hinzufügen der Karte
 		// 	2: Erfolgreich gelöscht
 		// -2: Nicht gelöscht
+		//  3: Erfolgreich bearbeitet
+		// -3: Bearbeiten fehlgeschlagen, ID nicht gefunden
 		
 		if (functionName.equals("new")) {
 			
@@ -46,8 +49,14 @@ public class CardModel extends Model {
 			
 		} else if (functionName.equals("edit")) {
 			
-			// TODO: Funktionalität Edit hinzufügen
-			
+			if (Database.editEntry (paramS.split(Constants.SEPARATOR)[0], 
+								paramS.split(Constants.SEPARATOR)[1], 
+								paramS.split(Constants.SEPARATOR)[2])) {
+				return  3;
+			} else {		
+				return -3;
+			}
+						
 		} else if (functionName.equals("delete")) {
 			
 			// paramS = KartenID

@@ -24,7 +24,7 @@ public class GameView extends FXView
 	public GameView (String setName, Controller controller)
 	{
 		super (setName, controller);
-
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		text = new Text("Starting game...");
 		text.setId("fancytext"); // CSS formatierte Meldung auf BS bringen (mit div. Schrifteffekten)
 
@@ -44,7 +44,7 @@ public class GameView extends FXView
 		BorderPane bp = new BorderPane();
 		bp.setCenter(tempVBox);
 		bp.setId("gamebg");
-		
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////
 		// BP in Scene einfügen:
 		this.setupScene(new Scene(bp, FXSettings.OPTIMAL_WIDTH, FXSettings.OPTIMAL_HEIGHT));
 

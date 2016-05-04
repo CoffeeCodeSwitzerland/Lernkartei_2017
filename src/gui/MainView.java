@@ -24,6 +24,7 @@ import mvc.FXView;
  */
 public class MainView extends FXView
 {
+	BorderPane mainLayout = new BorderPane();
 	Image impressumImg = new Image("gui/pictures/ImpressumIcon.png");
 	AppButton startBtn = new AppButton("Lernen");
 	AppButton statBtn = new AppButton("Statistiken");
@@ -33,7 +34,6 @@ public class MainView extends FXView
 	AppButton helpBtn = new AppButton("Hilfe");
 	AppButton quitBtn = new AppButton("Beenden");
 	VBox menuLayout = new VBox();
-	BorderPane mainLayout = new BorderPane();
 
 	public MainView (String setName, Controller controller)
 	{

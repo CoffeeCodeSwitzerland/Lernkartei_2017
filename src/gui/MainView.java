@@ -49,11 +49,11 @@ public class MainView extends FXView
 		mainLayout.setCenter(menuLayout);
 
 		// Behaviour
-		startBtn.setOnAction(e -> getController().showTheView("doorview"));
-		statBtn.setOnAction(e -> getController().showTheView("statisticsview"));
-		optionsBtn.setOnAction(e -> getController().showTheView("optionsview"));
-		gameBtn.setOnAction(e -> getController().showTheView("gameview"));
-		helpBtn.setOnAction(e -> getController().showTheView("helpview"));
+		startBtn.setOnAction(e -> getController().getView("doorview").show());
+		statBtn.setOnAction(e -> getController().getView("statisticsview").show());
+		optionsBtn.setOnAction(e -> getController().getView("optionsview").show());
+		gameBtn.setOnAction(e -> getController().getView("gameview").show());
+		helpBtn.setOnAction(e -> getController().getView("helpview").show());
 
 		quitBtn.setOnAction(e ->
 		{
@@ -75,7 +75,7 @@ public class MainView extends FXView
 		Image impressumImg = new Image("gui/pictures/ImpressumIcon.png");
 		ImageView impImgView = new ImageView(impressumImg);
 		mainLayout.setBottom(impImgView);
-		impImgView.setOnMouseClicked(e -> getController().showTheView("impressumview"));
+		impImgView.setOnMouseClicked(e -> getController().getView("impressumview").show());
 
 		mainLayout.setId("main");
 

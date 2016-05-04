@@ -38,18 +38,17 @@ public abstract class Controller implements ControllerInterface
 		return null; // not found
 	}
 
-	public View showMain ()
+	public void showMain ()
 	{
-		return showTheView(getMainView());
+		getView(getMainView()).show();
 	}
 
-	public View showTheView (String name)
+	public View getView (String name)
 	{
 		for (View v : getViews())
 		{
 			if (v.getName().equals(name))
 			{
-				v.show();
 				return v;
 			}
 		}

@@ -64,7 +64,7 @@ public class BoxView extends FXViewModel
 		borderPane.setBottom(hBox);
 
 		// Behaviour
-		backBtn.setOnAction(e -> getController().showTheView("doorview"));
+		backBtn.setOnAction(e -> getController().getView("doorview").show());
 
 		newBoxBtn.setOnAction(e ->
 		{
@@ -179,7 +179,7 @@ public class BoxView extends FXViewModel
 			System.out.println("Lerne " + set);
 		});
 		edit.setOnAction(e -> {
-			View v = getController().showTheView("editorview");
+			View v = getController().getView("editorview");
 			v.setData(set);
 		});
 

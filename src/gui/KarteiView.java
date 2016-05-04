@@ -76,7 +76,7 @@ public class KarteiView extends FXView
 //			}
 //		});
 //		
-		zurueckButton.setOnAction(e -> getController().showTheView("kastenview"));
+		zurueckButton.setOnAction(e -> getController().getView("kastenview").show());
 		weitereKasten.setDisable(true);
 
 		this.setupScene(new Scene(borderPane, FXSettings.OPTIMAL_WIDTH, FXSettings.OPTIMAL_HEIGHT));

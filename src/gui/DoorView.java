@@ -123,7 +123,7 @@ public class DoorView extends FXView
 		{
 			a.setOnAction(e ->
 			{
-				View v = getController().showTheView("boxview");
+				View v = getController().getView("boxview");
 				v.setData(a.getText());
 			});
 			

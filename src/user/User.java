@@ -30,7 +30,7 @@ public class User
 				isOk = true; // Wenn Success
 			} else
 			{
-				System.out.println("Username oder E-Mail bereits vorhanden / verwendet");
+				debug.Debugger.out("Username oder E-Mail bereits vorhanden / verwendet");
 				isOk = false; // Wenn bereits vorhanden
 			}
 		}
@@ -83,10 +83,10 @@ public class User
 		if (isCorrect)
 		{
 			new Profil(); //Momentan noch eine Sackgasse --> Date 28.04.2016
-			System.out.println("Es funzt ;)");
+			debug.Debugger.out("Es funzt ;)");
 		} else
 		{
-			System.out.println("Sorry die Eingaben sind nicht korrekt");
+			debug.Debugger.out("Sorry die Eingaben sind nicht korrekt");
 		}
 
 		return isCorrect;
@@ -104,7 +104,7 @@ public class User
 			isDeleted = true; // if Successfull deleted
 		} catch (Exception e)
 		{
-			System.out.println(e.getMessage());
+			debug.Debugger.out(e.getMessage());
 			isDeleted = false;
 		}
 
@@ -120,11 +120,11 @@ public class User
 		Matcher mUsername = pUsername.matcher(Username);
 		if (mUsername.matches())
 		{
-			System.out.println("Username: True");
+			debug.Debugger.out("Username: True");
 			return true;
 		} else
 		{
-			System.out.println("Username: false");
+			debug.Debugger.out("Username: false");
 			return false;
 		}
 	}
@@ -138,11 +138,11 @@ public class User
 		Matcher mPassword = pPassword.matcher(Password);
 		if (mPassword.matches())
 		{
-			System.out.println("Password: True");
+			debug.Debugger.out("Password: True");
 			return true;
 		} else
 		{
-			System.out.println("Password: false");
+			debug.Debugger.out("Password: false");
 			return false;
 		}
 	}
@@ -157,11 +157,11 @@ public class User
 		Matcher mEmail = pEmail.matcher(Email);
 		if (mEmail.matches())
 		{
-			System.out.println("Email: True");
+			debug.Debugger.out("Email: True");
 			return true;
 		} else
 		{
-			System.out.println("Email: false");
+			debug.Debugger.out("Email: false");
 			return false;
 		}
 	}

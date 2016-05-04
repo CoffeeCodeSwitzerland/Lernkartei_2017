@@ -3,6 +3,7 @@ package gui;
 import java.util.ArrayList;
 
 import application.Constants;
+<<<<<<< HEAD
 import application.MainController;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -13,6 +14,10 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import mvc.*;
+=======
+import mvc.Controller;
+import mvc.FXView;
+>>>>>>> branch 'master' of https://github.com/RookStudios/Lernkartei.git
 
 /**
  * Diese Klasse soll die gleiche Funktionalität wie StatisticsView haben und diese dann auch ersetzen
@@ -26,6 +31,7 @@ import mvc.*;
 
 public class StatsView extends FXView
 {
+<<<<<<< HEAD
 	//Alle Daten Holen
 	private ArrayList<String> OriginalData = new ArrayList<String>();
 	//Alle Daten in zwei Arrays einteilen: Kartei[] und Points[]
@@ -41,6 +47,10 @@ public class StatsView extends FXView
 	
 	
 	public StatsView(String setName, MainController controller)
+=======
+
+	public StatsView(String setName, Controller controller)
+>>>>>>> branch 'master' of https://github.com/RookStudios/Lernkartei.git
 	{
 		super(setName, controller);
 		xAchse = new CategoryAxis();

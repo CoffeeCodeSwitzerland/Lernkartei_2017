@@ -12,8 +12,8 @@ public class WISSLearnCardsTest extends Application {
 
 	public static void myTest (Stage primaryStage) {
 		MainController m = new MainController();
-		assertEquals(null,m.showTheView("zzview"));
-		assertNotEquals(null,m.showTheView("helpview"));
+		assertEquals(null,m.getView("zzview"));
+		assertNotEquals(null,m.getView("helpview"));
 	}
 
 	@Test

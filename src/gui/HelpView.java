@@ -1,5 +1,6 @@
 package gui;
 
+import application.HelpController;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -20,7 +21,7 @@ public class HelpView extends FXView
 
 	public HelpView (String setName)
 	{
-		super (setName, null);
+		super (setName, new HelpController());
 		
 		Image helpdesk = new Image("gui/pictures/helpdesk.jpg", true);
 

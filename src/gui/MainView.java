@@ -2,6 +2,7 @@ package gui;
 
 import application.Constants;
 import debug.Debugger;
+import debug.Logger;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -28,6 +29,7 @@ public class MainView extends FXView
 		super(setName, controller);
 		FXSettings.getPrimaryStage().setTitle(Constants.appTitle + " " + Constants.appVersion);
 
+		Logger.log("Instanziere Buttons....");
 		// Buttons
 		AppButton startBtn = new AppButton("Lernen");
 		AppButton statBtn = new AppButton("Statistiken");
@@ -36,6 +38,7 @@ public class MainView extends FXView
 		AppButton helpBtn = new AppButton("Hilfe");
 		AppButton quitBtn = new AppButton("Beenden");
 
+		Logger.log("Instanziere Div....");
 		// Layout für Menu Items
 		VBox menuLayout = new VBox();
 		menuLayout.setPadding(new Insets(10));
@@ -71,6 +74,7 @@ public class MainView extends FXView
 			getWindow().close();
 		});
 		
+		Logger.log("Set impressum....");
 		// Impressum
 		Image impressumImg = new Image("gui/pictures/ImpressumIcon.png");
 		ImageView impImgView = new ImageView(impressumImg);
@@ -79,7 +83,11 @@ public class MainView extends FXView
 
 		mainLayout.setId("main");
 
+		Logger.log("Set scene....");
+
 		this.setupScene(new Scene(mainLayout, FXSettings.OPTIMAL_WIDTH, FXSettings.OPTIMAL_HEIGHT));
+
+		Logger.log("Show....");
 		this.show();
 	}
 

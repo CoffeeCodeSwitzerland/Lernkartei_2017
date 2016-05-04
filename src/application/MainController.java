@@ -1,5 +1,6 @@
 package application;
 
+import debug.Logger;
 import gui.*;
 import models.*;
 import mvc.Controller;
@@ -15,6 +16,7 @@ public class MainController extends Controller
 {
 	@Override
 	public void initMyModels() {
+		Logger.log("Instanziere Models....");
 		this.addUniqueModel(new GameModel("game"));
 		this.addUniqueModel(new DoorModel("door"));
 		this.addUniqueModel(new BoxModel("box"));
@@ -23,9 +25,13 @@ public class MainController extends Controller
 
 	@Override
 	public void initMyViews() {
+		Logger.log("Instanziere Views....");
 		this.addUniqueView(new MainView(getMainView(), this));
+		Logger.log("Instanziere Statistics....");
 		this.addUniqueView(new StatisticsView("statisticsview", this));
+		Logger.log("Instanziere Doors....");
 		this.addUniqueView(new DoorView("doorview", this));
+		Logger.log("Instanziere Options....");
 		this.addUniqueView(new OptionsView("optionsview", this));
 		this.addUniqueView(new HelpView("helpview"));
 		this.addUniqueView(new GameView("gameview", this));
@@ -33,5 +39,6 @@ public class MainController extends Controller
 		this.addUniqueView(new BoxView("boxview", this));
 		this.addUniqueView(new EditorView("editorview", this));
 		this.addUniqueView(new ImpressumView("impressumview", this));
+		Logger.log("Instanzierung beendet....");
 	}
 }

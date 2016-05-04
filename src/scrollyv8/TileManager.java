@@ -10,7 +10,7 @@ import java.awt.image.BufferedImage;
 public class TileManager 
 {
     private TilePoint[] tp;
-    private int max;
+//    private int max;
     private int sz;
     public TileManager(int max)
     {

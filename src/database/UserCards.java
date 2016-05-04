@@ -38,7 +38,7 @@ public class UserCards {
 			String sql = "CREATE TABLE IF NOT EXISTS Score 	(PK_Score INTEGER PRIMARY KEY AUTOINCREMENT,"
 					+ "Kartei TEXT NOT NULL,"
 					+ "Score REAL NOT NULL);";
-			System.out.println(sql);
+			debug.Debugger.out(sql);
 			stmt.executeUpdate(sql);
 		}
 		catch (SQLException e) {
@@ -74,7 +74,7 @@ public class UserCards {
 
 			String testEintrag = Cards.getString(Cards.findColumn("Kartei"));
 
-			System.out.println(testEintrag);
+			debug.Debugger.out(testEintrag);
 
 			Cards.afterLast();
 			int letzterEintrag = Cards.getRow() - 1;
@@ -86,7 +86,7 @@ public class UserCards {
 
 		}
 		catch (Exception e) {
-			System.out.println(e.getMessage());
+			debug.Debugger.out(e.getMessage());
 			listCards.clear();
 			return listCards;
 		}
@@ -105,7 +105,7 @@ public class UserCards {
 			c = DriverManager.getConnection(url);
 			stmt = c.createStatement();
 
-			System.out.println(query);
+			debug.Debugger.out(query);
 
 			stmt.executeUpdate(query);
 

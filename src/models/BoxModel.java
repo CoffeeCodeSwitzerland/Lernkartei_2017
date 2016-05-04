@@ -2,8 +2,10 @@ package models;
 
 import java.util.ArrayList;
 
+import mvc.Model;
 
-public class BoxModel extends DataModel
+
+public class BoxModel extends Model
 {
 	public BoxModel (String myName)
 	{
@@ -44,7 +46,7 @@ public class BoxModel extends DataModel
 	}
 
 	@Override
-	public ArrayList<String> getData (String query)
+	public ArrayList<String> getDataList (String query)
 	{
 		// query = Name der Tür
 		// Return: ArrayList<String> mit allen Kategorien

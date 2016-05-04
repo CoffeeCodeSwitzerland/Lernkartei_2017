@@ -6,8 +6,6 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 
-import cards.Frame;
-
 public class mainfeister extends JFrame implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
@@ -45,7 +43,7 @@ public class mainfeister extends JFrame implements ActionListener {
 
 		} else if (e.getSource() == KarteErstellen) {
 
-			new Frame();
+			//new Frame();
 
 		} else if (e.getSource() == KategorieErstellen) {
 

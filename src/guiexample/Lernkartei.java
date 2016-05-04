@@ -2,7 +2,6 @@ package guiexample;
 
 import java.util.ArrayList;
 
-import application.Constants;
 import application.MainController;
 import javafx.application.Application;
 import javafx.geometry.Insets;
@@ -178,7 +177,7 @@ public class Lernkartei extends Application
 		Stage helpWindow = new Stage();
 		helpWindow.setTitle("Lernkartei Hilfe [Alpha]");
 		helpWindow.setResizable(false);
-		helpWindow.setScene(new Scene(center, Constants.OPTIMAL_WIDTH, 150+Constants.OPTIMAL_HEIGHT));
+		helpWindow.setScene(new Scene(center, 800, 550));
 		helpWindow.show();
 	}
 }

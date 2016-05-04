@@ -2,19 +2,21 @@ package gui;
 
 import java.util.ArrayList;
 
-import application.Constants;
-import application.MainController;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.image.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
+import mvc.Controller;
+import mvc.FXSettings;
+import mvc.FXView;
+import mvc.View;
 
 
 /**
@@ -23,14 +25,14 @@ import javafx.stage.Stage;
  * @author miro albrecht & hugo lucca
  *
  */
-public class DoorView extends View
+public class DoorView extends FXView
 {
 	// Zeigt Türen dynamisch an
 	VBox doorLayout;
 
-	public DoorView (String setName, Stage primaryStage, MainController controller)
+	public DoorView (String setName, Controller controller)
 	{
-		super(setName, primaryStage, controller);
+		super(setName, controller);
 
 		// Initialisiere Layout für Türen
 		doorLayout = new VBox(20);
@@ -65,7 +67,7 @@ public class DoorView extends View
 			String doorName = Alert.simpleString("Neue Tür", "Wie soll die neue Tür heissen?");
 			if (doorName != null && !doorName.equals(""))
 			{
-				getController().getMyModel("door").doAction("new", doorName);
+				getController().getModel("door").doAction("new", doorName);
 			}
 		});
 
@@ -88,7 +90,7 @@ public class DoorView extends View
 			{
 				if (Alert.ok("Achtung", "Willst du die Tür '" + db.getString() + "' wirklich löschen?"))
 				{
-					getController().getMyModel("door").doAction("delete", db.getString());
+					getController().getModel("door").doAction("delete", db.getString());
 				}
 				success = true;
 			}
@@ -97,8 +99,8 @@ public class DoorView extends View
 			event.consume();
 		});
 
-		this.setupScene(new Scene(mainLayout, Constants.OPTIMAL_WIDTH, Constants.OPTIMAL_HEIGHT));
-		getController().getMyModel("door").registerView(this);
+		this.setupScene(new Scene(mainLayout, FXSettings.OPTIMAL_WIDTH, FXSettings.OPTIMAL_HEIGHT));
+		getController().getModel("door").registerView(this);
 	}
 
 	@Override
@@ -106,7 +108,7 @@ public class DoorView extends View
 	{
 		doorLayout.getChildren().clear();
 		
-		ArrayList<String> doorNames = getController().getMyModel("door").getData("doors");
+		ArrayList<String> doorNames = getController().getModel("door").getDataList("doors");
 		ArrayList<AppButton> doors = new ArrayList<>();
 		
 		if (doorNames != null)
@@ -121,7 +123,8 @@ public class DoorView extends View
 		{
 			a.setOnAction(e ->
 			{
-				getController().show("boxview").setData(a.getText());
+				View v = getController().showTheView("boxview");
+				v.setData(a.getText());
 			});
 			
 			a.setOnDragDetected(e ->

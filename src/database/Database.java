@@ -2,16 +2,11 @@ package database;
 
 import java.sql.*;
 import java.util.ArrayList;
-import javax.swing.JTextField;
-
-import cards.EditCard;
 
 
 public class Database {
-	public static ResultSet	rs;
-	public static String	insert;
 
-	// Varibeln Connection
+	// Varibeln Connection 
 
 	private static String	windowsUser	= debug.Environment.getUserName();
 	private static String	url			= "jdbc:sqlite:" + windowsUser + ".db";
@@ -25,7 +20,7 @@ public class Database {
 	 *            Set_ID, 4. Priorität (1-5), 5. Color
 	 */
 
-	public static void pushToStock (String[] values) {
+	public static boolean pushToStock (String[] values) {
 
 		Connection c = null;
 		Statement stmt = null;
@@ -33,8 +28,8 @@ public class Database {
 		try {
 			Class.forName(driver);
 			c = DriverManager.getConnection(url);
-
 			stmt = c.createStatement();
+			
 			String sql = "CREATE TABLE IF NOT EXISTS Stock " +
 					"(PK_Stk INTEGER PRIMARY KEY AUTOINCREMENT," +
 					" Backside       TEXT    NOT NULL, " +
@@ -43,24 +38,44 @@ public class Database {
 					" Priority	    INTEGER DEFAULT 1," +
 					" Description    TEXT    		, " +
 					" Color			TEXT    		 )";
-
-			System.out.println(sql);
+			
+			debug.Debugger.out(sql);
 			stmt.executeUpdate(sql);
+			
+			String setID;
+			c.setAutoCommit(false);
+			
+			ResultSet selectSet = stmt.executeQuery("SELECT PK_Kategorie FROM Kategorie WHERE Kategorie = '" 
+													+ values[2] + "'");
+			
+			if (selectSet.next()) {
+				setID = Integer.toString(selectSet.getInt("PK_Kategorie"));
+				selectSet.close();
+			} else {
+				selectSet.close();
+				stmt.close();
+				c.close();
+				return false;
+			}
+			
+			c.setAutoCommit(true);
 
-			insert = "INSERT INTO Stock (Backside, Frontside, Set_ID, Priority, Color)" +
-					"VALUES ('" + values[0] + "','" + values[1] + "','" + values[2] + "', '" + values[3] + "', '"
+			String insert = "INSERT INTO Stock (Backside, Frontside, Set_ID, Priority, Color)" +
+					"VALUES ('" + values[0] + "','" + values[1] + "'," + setID + ", " + values[3] + ", '"
 					+ values[4] + "')";
 
-			System.out.println(insert);
+			debug.Debugger.out(insert);
 			stmt.executeUpdate(insert);
-
 			stmt.close();
 			c.close();
+			
 		}
 		catch (Exception e) {
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
 			System.exit(0);
 		}
+		
+		return true;
 
 	}
 
@@ -71,7 +86,7 @@ public class Database {
 	 *         Rückseite, Description, Set_ID, Priorität, Farbe
 	 */
 
-	public static ArrayList<String[]> pullFromStock () {
+	public static ArrayList<String[]> pullFromStock (String whichSet) {
 
 		ArrayList<String[]> results = new ArrayList<String[]>();
 		Connection c = null;
@@ -80,10 +95,36 @@ public class Database {
 		try {
 			Class.forName(driver);
 			c = DriverManager.getConnection(url);
-			c.setAutoCommit(false);
-
 			stmt = c.createStatement();
-			rs = stmt.executeQuery("SELECT * FROM Stock;");
+			c.setAutoCommit(false);
+			
+			ResultSet tbl = stmt.executeQuery("SELECT name FROM sqlite_master WHERE type='table' AND name='Stock'");
+			
+			if (!tbl.next()) {
+				tbl.close();
+				debug.Debugger.out("No such table Stock exists --> First if Error");
+				stmt.close();
+				c.close();
+				return null;
+			} else {
+				tbl.close();
+			}
+			
+			String IDwhichSet = "";
+			ResultSet s = stmt.executeQuery("SELECT PK_Kategorie FROM Kategorie WHERE Kategorie = '" + whichSet + "'");
+			
+			if (s.next()) {
+				IDwhichSet = Integer.toString(s.getInt("PK_Kategorie"));
+			} else {
+				debug.Debugger.out("No Kategorie: " + whichSet + "in Table Kategorie --> Second if Error");
+				stmt.close();
+				c.close();
+				return null;
+			}
+			
+			s.close();
+			
+			ResultSet rs = stmt.executeQuery("SELECT * FROM Stock WHERE Set_ID = '" + IDwhichSet + "'");
 
 			while (rs.next()) {
 
@@ -101,31 +142,33 @@ public class Database {
 
 			rs.close();
 			stmt.close();
-			c.close();
+			c.close();		
 
 		}
 		catch (Exception e) {
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
 			System.exit(0);
-		}
-
+		}	
+				
 		return results;
 
 	}
 
-	public static void delEntry (String id) {
+	public static boolean delEntry (String id) {
 
 		Connection c = null;
 		Statement stmt = null;
+		boolean deleted = false;
 
 		try {
 			Class.forName(driver);
 			c = DriverManager.getConnection(url);
 			stmt = c.createStatement();
-
+			
 			String del = "DELETE FROM Stock WHERE PK_Stk = " + id;
-
 			stmt.executeUpdate(del);
+			deleted = true;			
+			
 			stmt.close();
 			c.close();
 
@@ -134,42 +177,8 @@ public class Database {
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
 			System.exit(0);
 		}
-
-	}
-
-	public static ArrayList<String> getEdited () {
-
-		ArrayList<String> swalues = new ArrayList<String>();
-
-		for (JTextField s : EditCard.addJFs) {
-			swalues.add(s.getText());
-		}
-
-		return swalues;
-
-	}
-
-	public static void delStock () {
-
-		Connection c = null;
-		Statement stmt = null;
-
-		try {
-			Class.forName(driver);
-			c = DriverManager.getConnection(url);
-			stmt = c.createStatement();
-
-			String del = "DROP TABLE IF EXISTS Stock";
-
-			stmt.executeUpdate(del);
-			stmt.close();
-			c.close();
-
-		}
-		catch (Exception e) {
-			System.err.println(e.getClass().getName() + ": " + e.getMessage());
-			System.exit(0);
-		}
+		
+		return deleted;
 
 	}
 
@@ -204,7 +213,7 @@ public class Database {
 				actualPrio.close();
 			}
 			else {
-				System.out.println("No Card with this ID exists.");
+				debug.Debugger.out("No Card with this ID exists.");
 				actualPrio.close();
 			}
 			
@@ -246,8 +255,8 @@ public class Database {
 		
 		Connection c = null;
 		Statement stmt = null;
-		String oldPrio = "";
-		String newPrio = "";
+//		String oldPrio = "";
+//		String newPrio = "";
 
 		try {
 			Class.forName(driver);

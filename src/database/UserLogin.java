@@ -68,7 +68,7 @@ public class UserLogin {
 			String usedb = "USE " + "userdb";
 			stmt.executeQuery(usedb);
 
-			System.out.println("Opened database successfully");
+			debug.Debugger.out("Opened database successfully");
 
 			String sql1 = "CREATE TABLE IF NOT EXISTS Teachers " +
 					"(PK_Teachers INT PRIMARY KEY AUTO_INCREMENT," +
@@ -76,9 +76,9 @@ public class UserLogin {
 					" Email TEXT NOT NULL," +
 					" Password TEXT NOT NULL" + ")";
 
-			System.out.println(sql1);
+			debug.Debugger.out(sql1);
 			stmt.executeUpdate(sql1);
-			System.out.println("Lehrertabelle erstellt!");
+			debug.Debugger.out("Lehrertabelle erstellt!");
 
 			String sql2 = "CREATE TABLE IF NOT EXISTS Students " +
 					"(PK_Students INT PRIMARY KEY AUTO_INCREMENT," +
@@ -86,24 +86,24 @@ public class UserLogin {
 					" Email TEXT NOT NULL," +
 					" Password TEXT NOT NULL" + ")";
 
-			System.out.println(sql2);
+			debug.Debugger.out(sql2);
 			stmt.executeUpdate(sql2);
-			System.out.println("Schülertabelle erstellt!");
+			debug.Debugger.out("Schülertabelle erstellt!");
 
 			if (teacher) {
 
 				String newTeach = "INSERT INTO Teachers (Username, Email, Password) VALUES (" + teachValues + ")";
 				stmt.executeUpdate(newTeach);
-				System.out.println(newTeach);
-				System.out.println("Teacher sucessfully added!");
+				debug.Debugger.out(newTeach);
+				debug.Debugger.out("Teacher sucessfully added!");
 
 			}
 			else if (!teacher) {
 
 				String newStud = "INSERT INTO Students (Username, Email, Password) VALUES (" + studValues + ")";
-				System.out.println(newStud);
+				debug.Debugger.out(newStud);
 				stmt.executeUpdate(newStud);
-				System.out.println("Student sucessfully added!");
+				debug.Debugger.out("Student sucessfully added!");
 
 			}
 
@@ -147,9 +147,9 @@ public class UserLogin {
 					" Email TEXT NOT NULL," +
 					" Password TEXT NOT NULL" + ")";
 
-			System.out.println(sql1);
+			debug.Debugger.out(sql1);
 			stmt.executeUpdate(sql1);
-			System.out.println("Lehrertabelle erstellt!");
+			debug.Debugger.out("Lehrertabelle erstellt!");
 
 			String sql2 = "CREATE TABLE IF NOT EXISTS Students " +
 					"(PK_Lehrer INT PRIMARY KEY AUTO_INCREMENT," +
@@ -157,9 +157,9 @@ public class UserLogin {
 					" Email TEXT NOT NULL," +
 					" Password TEXT NOT NULL" + ")";
 
-			System.out.println(sql2);
+			debug.Debugger.out(sql2);
 			stmt.executeUpdate(sql2);
-			System.out.println("Schülertabelle erstellt!");
+			debug.Debugger.out("Schülertabelle erstellt!");
 
 			c.setAutoCommit(false);
 			ResultSet rsUsern = stmt
@@ -298,7 +298,7 @@ public class UserLogin {
 			stmt.executeUpdate(delStudent);
 			stmt.executeUpdate(delTeacher);
 
-			System.out.println("Successfully deleted User: " + delName);
+			debug.Debugger.out("Successfully deleted User: " + delName);
 
 			stmt.close();
 			c.close();

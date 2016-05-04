@@ -2,12 +2,12 @@ package models;
 
 import java.util.ArrayList;
 import database.Doors;
+import mvc.Model;
 
-public class DoorModel extends DataModel {
+public class DoorModel extends Model {
 
 	public DoorModel (String myName) {
-		super(myName);
-				
+		super(myName);	
 	}
 		
 	@Override	
@@ -38,7 +38,7 @@ public class DoorModel extends DataModel {
 	}
 
 	@Override
-	public ArrayList<String> getData (String query) {
+	public ArrayList<String> getDataList (String query) {
 
 		if (query.equals("doors")) {
 			try

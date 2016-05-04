@@ -16,9 +16,6 @@ import java.io.InputStream;
 import java.util.Iterator;
 
 import javax.imageio.ImageIO;
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
 import javax.swing.JPanel;
 import javax.xml.stream.XMLEventReader;
 import javax.xml.stream.XMLInputFactory;
@@ -1326,8 +1323,8 @@ public class gamePanel extends JPanel implements Runnable
     {
         if (sound)
         {
-            mPlayer.stop();
-            clips.DIE.play();
+            MidiPlayer.stop();
+            ClipPlayer.DIE.play();
             System.out.println("DIE!");
         }
         lives--;
@@ -1474,19 +1471,19 @@ public class gamePanel extends JPanel implements Runnable
         switch(c)
         {
             case 'a':
-                clips.DEATH_GATOR.play();
+                ClipPlayer.DEATH_GATOR.play();
                 break;
             case 'b':
-                clips.DEATH_BOSS.play();
+                ClipPlayer.DEATH_BOSS.play();
                 break;
             case 'g':
-                clips.DEATH_GREAPER.play();
+                ClipPlayer.DEATH_GREAPER.play();
                 break;
             case 'r':
-                clips.DEATH_ROBOB.play();
+                ClipPlayer.DEATH_ROBOB.play();
                 break;     
             case 'B':
-                clips.BOSS_HIT.play();
+                ClipPlayer.BOSS_HIT.play();
                 break;     
         }
     }

@@ -1,27 +1,25 @@
 package gui;
 
-import application.Constants;
-import application.MainController;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
-
-
+import mvc.Controller;
+import mvc.FXSettings;
+import mvc.FXView;
 /**
  * Optionen
  * 
  * @author miro-albrecht
  *
  */
-public class OptionsView extends View
+public class OptionsView extends FXView
 {
-	public OptionsView (String setName, Stage primaryStage, MainController controller)
+	public OptionsView (String setName, Controller controller)
 	{
-		super (setName, primaryStage, controller);
+		super (setName, controller);
 
 		// Contorls (Sample)
 		AppButton resetStats = new AppButton("Statistiken zurücksetzen");
@@ -64,7 +62,7 @@ public class OptionsView extends View
 		// Behavior
 		back.setOnAction(e -> controller.showMain());
 
-		this.setupScene(new Scene(tempVBox, Constants.OPTIMAL_WIDTH, Constants.OPTIMAL_HEIGHT));
+		this.setupScene(new Scene(tempVBox, FXSettings.OPTIMAL_WIDTH, FXSettings.OPTIMAL_HEIGHT));
 	}
 
 	@Override

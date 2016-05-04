@@ -79,7 +79,7 @@ public class Backup {
 			System.exit(0);
 		}
 
-		System.out.println("Backup erfolgreich erstellt!");
+		debug.Debugger.out("Backup erfolgreich erstellt!");
 
 	}
 

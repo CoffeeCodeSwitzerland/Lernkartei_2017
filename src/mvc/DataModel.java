@@ -1,15 +1,20 @@
-package models;
+package mvc;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import gui.View;
-
-
+/**
+ * Diese Klasse ist des Basis Codegerüst für die Umsetzung des DatenModells in diesem MVC Konzept.
+ * 
+ * @author hugo-lucca
+ */
 public abstract class DataModel implements ModelInterface
 {
-	private ArrayList<View>	myViews	= new ArrayList<View>();
-	private String			name;
+	private final ArrayList<View> myViews = new ArrayList<View>();
+	private String name;
+	
+	private String smallData;
+	private final ArrayList<String> dataList = new ArrayList<>();
 
 	public DataModel (String myName)
 	{
@@ -57,7 +62,22 @@ public abstract class DataModel implements ModelInterface
 	@Override
 	public String getString (String query)
 	{
-		debug.Debugger.out("getString() wurde für Model(" + getName() + ") nicht implementiert");
-		return null;
+		if (smallData != null)	return smallData;
+		return "";
+	}
+
+	@Override
+	public ArrayList<String> getDataList(String query) {
+		return dataList;
+	}
+
+	@Override
+	public void setString(String data) {
+		smallData = data;
+	}
+
+	@Override
+	public void add(String data) {
+		dataList.add(data);
 	}
 }

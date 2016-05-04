@@ -1,32 +1,29 @@
 package gui;
 
-
-import application.Constants;
-import application.MainController;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
-
-
+import mvc.Controller;
+import mvc.FXSettings;
+import mvc.FXView;
 /**
  * Gamestartfenster
  * ================
  * Zweck dieses BS ist eine Art Warte- und Info-BS (zum Bsp. Anzahl Punkte) zum Gamestart, 
  * mann kann dann alternativ weiter lernen.
- * TODO: das game darf die LK nicht anhalten! 
+ * 
  * @author hugo-lucca
  *
  */
-public class GameView extends View
+public class GameView extends FXView
 {
 	Text text;
-	public GameView (String setName, Stage window, MainController controller)
+	public GameView (String setName, Controller controller)
 	{
-		super (setName, window, controller);
+		super (setName, controller);
 
 		text = new Text("Starting game...");
 		text.setId("fancytext"); // CSS formatierte Meldung auf BS bringen (mit div. Schrifteffekten)
@@ -49,13 +46,13 @@ public class GameView extends View
 		bp.setId("gamebg");
 		
 		// BP in Scene einfügen:
-		this.setupScene(new Scene(bp, Constants.OPTIMAL_WIDTH, Constants.OPTIMAL_HEIGHT));
+		this.setupScene(new Scene(bp, FXSettings.OPTIMAL_WIDTH, FXSettings.OPTIMAL_HEIGHT));
 
 	}
 
 	@Override
 	public void refreshView() {
 		text.setText("Starting game (please wait)...");
-		getController().getMyModel("game").doAction("start");
+		getController().getModel("game").doAction("start");
 	}
 }

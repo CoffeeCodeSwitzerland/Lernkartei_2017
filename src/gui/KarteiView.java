@@ -1,29 +1,27 @@
 package gui;
 
-import application.Constants;
-import application.MainController;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import javafx.stage.Stage;
-
-
+import mvc.Controller;
+import mvc.FXSettings;
+import mvc.FXView;
 /**
  * Gamestartfenster
  * 
  * @author nina-egger
  *
  */
-public class KarteiView extends View
+public class KarteiView extends FXView
 {
 	HBox karteiLayout;
 	boolean delMode = false;
 	
-	public KarteiView (String setName, Stage primaryStage, MainController controller)
+	public KarteiView (String setName, Controller controller)
 	{
-		super(setName, primaryStage, controller);
+		super(setName, controller);
 
 		// Buttons
 		AppButton zurueckButton = new AppButton("zurück");
@@ -78,10 +76,10 @@ public class KarteiView extends View
 //			}
 //		});
 //		
-		zurueckButton.setOnAction(e -> getController().show("kastenview"));
+		zurueckButton.setOnAction(e -> getController().showTheView("kastenview"));
 		weitereKasten.setDisable(true);
 
-		this.setupScene(new Scene(borderPane, Constants.OPTIMAL_WIDTH, Constants.OPTIMAL_HEIGHT));
+		this.setupScene(new Scene(borderPane, FXSettings.OPTIMAL_WIDTH, FXSettings.OPTIMAL_HEIGHT));
 	}
 
 	@Override

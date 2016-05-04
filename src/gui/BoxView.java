@@ -2,20 +2,22 @@ package gui;
 
 import java.util.ArrayList;
 
-import application.Constants;
-import application.MainController;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.image.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
+import mvc.Controller;
+import mvc.FXSettings;
+import mvc.FXViewModel;
+import mvc.View;
 
 
 /**
@@ -24,15 +26,21 @@ import javafx.stage.Stage;
  * @author nina egger & miro albrecht
  *
  */
-public class BoxView extends View
+public class BoxView extends FXViewModel
 {
 	VBox	boxLayout;
 	VBox	options;
 
-	public BoxView (String setName, Stage primaryStage, MainController controller)
+	public BoxView (String setName, Controller controller)
 	{
-		super(setName, primaryStage, controller);
+		super(setName, controller);
 
+		// Layouts für dynamische Inhalte
+		boxLayout = new VBox(20);
+		boxLayout.setAlignment(Pos.CENTER);
+		options = new VBox(20);
+		options.setAlignment(Pos.CENTER);
+		
 		// Buttons
 		AppButton backBtn = new AppButton("Zurück");
 		AppButton newBoxBtn = new AppButton("Neue Box");
@@ -45,11 +53,7 @@ public class BoxView extends View
 		hBox.setAlignment(Pos.CENTER);
 		hBox.getChildren().addAll(backBtn, newBoxBtn, trashImgView);
 
-		// Layouts für dynamische Inhalte
-		boxLayout = new VBox(20);
-		boxLayout.setAlignment(Pos.CENTER);
-		options = new VBox(20);
-		options.setAlignment(Pos.CENTER);
+		
 
 		// Layout für die Scene
 		BorderPane borderPane = new BorderPane();
@@ -60,14 +64,14 @@ public class BoxView extends View
 		borderPane.setBottom(hBox);
 
 		// Behaviour
-		backBtn.setOnAction(e -> getController().show("doorview"));
+		backBtn.setOnAction(e -> getController().showTheView("doorview"));
 
 		newBoxBtn.setOnAction(e ->
 		{
 			final String boxName = Alert.simpleString("Neue Box", "Wie soll die neue Box heissen?");
 			if (setName != null || !boxName.equals(""))
 			{
-				getController().getMyModel("box").doAction("new",
+				getController().getModel("box").doAction("new",
 						getData() + application.Constants.SEPARATOR + boxName);
 				// TODO Feedback für den User (Fehlermeldungen)
 			}
@@ -91,7 +95,7 @@ public class BoxView extends View
 			{
 				if (Alert.ok("Achtung", "Willst du die Box '" + db.getString() + "' wirklich löschen?"))
 				{
-					getController().getMyModel("box").doAction("delete", db.getString()); 
+					getController().getModel("box").doAction("delete", db.getString()); 
 					// TODO Feedback für den User (Fehlermeldungen)
 					if (options.getChildren().get(0).getTypeSelector().equals("Label"))
 					{
@@ -107,8 +111,8 @@ public class BoxView extends View
 			event.consume();
 		});
 
-		this.setupScene(new Scene(borderPane, Constants.OPTIMAL_WIDTH, Constants.OPTIMAL_HEIGHT));
-		getController().getMyModel("box").registerView(this);
+		this.setupScene(new Scene(borderPane, FXSettings.OPTIMAL_WIDTH, FXSettings.OPTIMAL_HEIGHT));
+		getController().getModel("box").registerView(this);
 	}
 
 	@Override
@@ -116,11 +120,11 @@ public class BoxView extends View
 	{
 		boxLayout.getChildren().clear();
 
-		String data = getData();
+		String localdata = getData();
 
-		if (data != null)
+		if (localdata != null)
 		{
-			ArrayList<String> setData = getController().getMyModel("box").getData(data);
+			ArrayList<String> setData = getController().getModel("box").getDataList(localdata);
 			ArrayList<AppButton> sets = new ArrayList<AppButton>();
 
 			for (String s : setData)
@@ -174,7 +178,10 @@ public class BoxView extends View
 		{
 			System.out.println("Lerne " + set);
 		});
-		edit.setOnAction(e -> System.out.println(set + " bearbeiten"));
+		edit.setOnAction(e -> {
+			View v = getController().showTheView("editorview");
+			v.setData(set);
+		});
 
 		options.getChildren().addAll(setTitle, lernen, edit);
 	}

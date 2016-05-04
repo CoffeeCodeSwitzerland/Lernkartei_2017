@@ -1,7 +1,6 @@
 package gui;
 
 import application.Constants;
-import application.MainController;
 import debug.Debugger;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -10,8 +9,10 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 import models.GameModel;
+import mvc.Controller;
+import mvc.FXSettings;
+import mvc.FXView;
 
 
 /**
@@ -20,12 +21,12 @@ import models.GameModel;
  * @author miro-albrecht
  *
  */
-public class MainView extends View
+public class MainView extends FXView
 {
-	public MainView (String setName, Stage primaryStage, MainController controller)
+	public MainView (String setName, Controller controller)
 	{
-		super(setName, primaryStage, controller);
-		primaryStage.setTitle(Constants.appTitle + " " + Constants.appVersion);
+		super(setName, controller);
+		FXSettings.getPrimaryStage().setTitle(Constants.appTitle + " " + Constants.appVersion);
 
 		// Buttons
 		AppButton startBtn = new AppButton("Lernen");
@@ -48,16 +49,16 @@ public class MainView extends View
 		mainLayout.setCenter(menuLayout);
 
 		// Behaviour
-		startBtn.setOnAction(e -> getController().show("doorview"));
-		statBtn.setOnAction(e -> getController().show("statisticsview"));
-		optionsBtn.setOnAction(e -> getController().show("optionsview"));
-		gameBtn.setOnAction(e -> getController().show("gameview"));
-		helpBtn.setOnAction(e -> getController().show("helpview"));
+		startBtn.setOnAction(e -> getController().showTheView("doorview"));
+		statBtn.setOnAction(e -> getController().showTheView("statisticsview"));
+		optionsBtn.setOnAction(e -> getController().showTheView("optionsview"));
+		gameBtn.setOnAction(e -> getController().showTheView("gameview"));
+		helpBtn.setOnAction(e -> getController().showTheView("helpview"));
 
 		quitBtn.setOnAction(e ->
 		{
 			Debugger.out("closing 1 (Beenden Button)");
-			GameModel gm = (GameModel) getController().getMyModel("game");
+			GameModel gm = (GameModel) getController().getModel("game");
 			if (gm != null) gm.dispose();
 			getWindow().close();
 		});
@@ -65,7 +66,7 @@ public class MainView extends View
 		getWindow().setOnCloseRequest(e ->
 		{
 			Debugger.out("closing 2");
-			GameModel gm = (GameModel) getController().getMyModel("game");
+			GameModel gm = (GameModel) getController().getModel("game");
 			if (gm != null) gm.dispose();
 			getWindow().close();
 		});
@@ -74,11 +75,11 @@ public class MainView extends View
 		Image impressumImg = new Image("gui/pictures/ImpressumIcon.png");
 		ImageView impImgView = new ImageView(impressumImg);
 		mainLayout.setBottom(impImgView);
-		impImgView.setOnMouseClicked(e -> getController().show("impressumview"));
+		impImgView.setOnMouseClicked(e -> getController().showTheView("impressumview"));
 
 		mainLayout.setId("main");
 
-		this.setupScene(new Scene(mainLayout, Constants.OPTIMAL_WIDTH, Constants.OPTIMAL_HEIGHT));
+		this.setupScene(new Scene(mainLayout, FXSettings.OPTIMAL_WIDTH, FXSettings.OPTIMAL_HEIGHT));
 		this.show();
 	}
 

@@ -41,7 +41,7 @@ public class Doors {
 					"(PK_Doors INTEGER PRIMARY KEY AUTOINCREMENT," +
 					" Doorname TEXT NOT NULL)";
 
-			System.out.println(sql);
+			debug.Debugger.out(sql);
 			stmt.executeUpdate(sql);
 
 			// Überprüft, ob bereits ein Eintrag mit dem Selben Namen enthalten
@@ -65,8 +65,7 @@ public class Doors {
 				stmt.executeUpdate(insert);
 				stmt.close();
 				c.close();
-
-				System.out.println("Successfull!");
+				
 				worked = true;
 
 			}
@@ -129,7 +128,7 @@ public class Doors {
 			}
 			else {
 
-				System.out.println("Table Doors is not created yet.");
+				debug.Debugger.out("Table Doors is not created yet.");
 				stmt.close();
 				c.close();
 
@@ -173,7 +172,7 @@ public class Doors {
 				String delDoor = "DELETE FROM Doors WHERE Doorname = '" + delName + "'";
 				stmt.executeUpdate(delDoor);
 
-				System.out.println("Successfully deleted Door: " + delName);
+				debug.Debugger.out("Successfully deleted Door: " + delName);
 
 				stmt.close();
 				c.close();

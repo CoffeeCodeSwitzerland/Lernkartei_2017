@@ -1,17 +1,54 @@
 =============================================================================================================
 
-	GUI (JavaFX)
+	All Application's View's: the GUI (with JavaFX)
 
 =============================================================================================================
 
-	Klassen
+	Inhalt:
+	------	
+	- alle benötigten Views und GUI-Teilkomponenten
+	- jeder eigener View mit Inhalte und Darstellungen
+	- das Verhalten der einzelnen Knöpfe wird hier bestimmt
+	- falls nötig werden Modellklassen aufgerufen oder Model's lokal in View's eingebaut
 	
-	Lernkartei:		Lernkartei GUI
-	Alert:			Klasse für Alerts (wird ausgebaut)
-	Sandbox:		Testklasse. Zum Ausprobieren und JavaFX zu verstehen
+	Abhängigkeiten:
+	--------------
+	- MainController (zum Navigieren)
+	- Weitere Controller- und Model-Klassen um die Funktionalität zu gewährleisten
+	- debug
+	- die style.css Datei (bestimmt die Darstellung)
+	- div. Darstellungsinhalte (Bilder etc., können auch ausgelagert werden)
 
 =============================================================================================================
+
+	HowTo
+	=====
+	- jede Klasse erbt von FXView oder FXVeiwModel (=mit eigenem, lokalem Daten-Modell)
+	- der Konstruktor dieser Klassen wird programmiert, dabei sind folgende Punkte zu beachten:
+		- die erste Zeile und der Konstruktor (super(...)) ist für alle gleich zu implementieren
+		- am Ende sollte die Scene erstellt werden
+		- beim zuerst anzuzeigenden View muss am Schluss noch this.show() aufgerufen werden
+		- das View kann in seinen Ereignis-Behandlungen mit den doAction()-Methoden eines Model-Objekts
+		  Befehle erteilen (Rückmeldung hier nur, ob erfolgreich oder nicht) 
+		- die entsprechenden Modelle können über den Hauptkontroller beim Namen abgerufen werden
+	- ein FXViewModel ermöglicht es, dem View ein eigenes Modell (ein String oder eine String-Liste) 
+	  direkt und lokal zu verwalten (Zwischenspeicher für Temporäre Inhalte)
+	- arbeitet das View mit einem nicht lokalen Model (Applikationsdaten), dann muss noch folgendes beachtet werden:
+		- das nicht lokale Applikationsmodel muss ein DataModel sein
+		- des View muss sich im Konstruktor beim entsprechenden Model anmelden mit:
+			(getController().getModel("ModellName").registerView(this))
+		- ein View kann sich bei mehreren Modellen anmelden, ein Modell kann mehrere Anmeldungen haben
+		- die Methode refreshViews() muss im applikations-Model nach jeder Änderung der angezeigten Daten aufrufen
+		- die Methode refreshView() vom View muss dann wie folgt angepasst werden:
+			- das Modell nach den veränderten Daten abfragen
+			- die Daten in den entsprechenden Anzeigeelemente (als Attribut im View) aktualisieren
+			- es sollte keine weiteren refresh-Aufrufe notwendig sein (FX macht den Rest)
+			
+=============================================================================================================
  
- Bei Fragen wendet euch an miro
+ Bei Fragen wendet euch an miro oder hugo
  
- 
+ ToDo (H.Lucca, 2.5.16):
+ ----------------------
+ - Keine Kasten erstellen, die schon existieren
+ - Enter-Taste satt OK-Button muss möglich sein

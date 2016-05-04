@@ -71,7 +71,7 @@ public class StatsView extends FXView
         ChartLayout.getChildren().addAll(stats);
         
         //zurueck eine Action hinzufügen
-        zurueck.setOnAction(e -> controller.showMain());
+        zurueck.setOnAction(e -> getController().showMain());
 	}
 	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
@@ -109,7 +109,6 @@ public class StatsView extends FXView
 	@Override
 	public void refreshView()
 	{
-		getController().getModel("").registerView(this);
 	}
 	
 }

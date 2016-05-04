@@ -1,8 +1,21 @@
 package application;
 
 import debug.Logger;
-import gui.*;
-import models.*;
+import gui.BoxView;
+import gui.DoorView;
+import gui.EditorView;
+import gui.GameView;
+import gui.HelpView;
+import gui.ImpressumView;
+import gui.KarteiView;
+import gui.MainView;
+import gui.OptionsView;
+import gui.StatisticsView;
+import gui.StatsView;
+import models.BoxModel;
+import models.CardModel;
+import models.DoorModel;
+import models.GameModel;
 import mvc.Controller;
 /**
  * Diese Klasse Kontrolliert alle Sichten und Models. Den Sichten wird die

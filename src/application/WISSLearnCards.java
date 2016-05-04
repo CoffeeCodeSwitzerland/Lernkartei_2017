@@ -2,7 +2,6 @@ package application;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
-import mvc.FXSettings;
 
 /**
  * Startet die Lernkartei
@@ -22,9 +21,7 @@ public class WISSLearnCards extends Application
 	@Override
 	public void start (Stage primaryStage) throws Exception
 	{
-		FXSettings.setPrimaryStage(primaryStage);
-
-		new MainController();
+		new MainController().getFXSettings().setPrimaryStage(primaryStage);
 	}
 
 }

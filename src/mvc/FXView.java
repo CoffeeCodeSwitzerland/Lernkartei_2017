@@ -26,7 +26,7 @@ public abstract class FXView extends View
 		scene  = null;
 		if (newController != null) {
 			if (newController.getClass().toString().endsWith("MainController")) {
-				window = FXSettings.getPrimaryStage();
+				window = newController.getFXSettings().getPrimaryStage();
 			}
 		}
 	}

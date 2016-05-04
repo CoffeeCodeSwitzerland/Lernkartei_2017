@@ -15,8 +15,9 @@ public abstract class Controller implements ControllerInterface
 {
 	private final String mainView = "mainview";
 	private final ArrayList<View> views	= new ArrayList<View>();
-	private final ArrayList<Model> models	= new ArrayList<Model>();
-
+	private final ArrayList<Model> models = new ArrayList<Model>();
+	private final FXSettings myFXSettings = new FXSettings();
+	
 	public Controller ()
 	{
 		initMyModels(); // Zuerst Model kreieren, 
@@ -106,4 +107,9 @@ public abstract class Controller implements ControllerInterface
 		}
 		return false;
 	}
+
+	public FXSettings getFXSettings() {
+		return myFXSettings;
+	}
+
 }

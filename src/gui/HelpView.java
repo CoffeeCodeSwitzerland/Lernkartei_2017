@@ -7,6 +7,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import mvc.Controller;
 import mvc.FXSettings;
 import mvc.FXView;
 
@@ -24,10 +25,19 @@ public class HelpView extends FXView
 	AppButton indexBtn     = new AppButton("Index");
 	String subTitle = "Hilfe";
 	
+	public HelpView (String setName, Controller controller)
+	{
+		super (setName, controller);
+		init();
+	}
+
 	public HelpView (String setName)
 	{
 		super (setName, new HelpController());
+		init();
+	}
 
+	private void init () {
 		this.getWindow().setTitle(Constants.appTitle+subTitle+Constants.appVersion);
 		this.getWindow().setResizable(false);
 

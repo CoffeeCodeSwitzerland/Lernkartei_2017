@@ -59,8 +59,8 @@ public class EditorView extends FXViewModel
 			for (String s : cardStrings)
 			{
 				String[] cardSides = s.split(Constants.SEPARATOR);
-				TextField front = new TextField(cardSides[2]);
-				TextField back = new TextField(cardSides[1]);
+				TextField front = new TextField(cardSides[1]);
+				TextField back = new TextField(cardSides[2]);
 				Button delete = new Button("X");
 				delete.setOnAction(e -> getController().getModel("cards").doAction("delete", cardSides[0]));
 				

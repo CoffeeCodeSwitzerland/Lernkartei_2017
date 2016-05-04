@@ -19,16 +19,15 @@ public abstract class FXView extends View
 	private Scene scene;
 	private static String stylePath	= "style.css";
 	
-	public FXView (String newName, Controller controller) {
-		super(newName, controller);
-		if (controller != null) {
-			if (controller.getClass().toString().endsWith("MainController")) {
-				window = FXSettings.getPrimaryStage();
-			} else {
-				Debugger.out("FXView-Constructor: Lost of MainController ("+controller.getClass().toString()+")!");
-			}
-		} else window = new Stage();
+	public FXView (String newName, Controller newController) {
+		super(newName, newController);
+		window = null;
 		scene  = null;
+		if (newController != null) {
+			if (newController.getClass().toString().endsWith("MainController")) {
+				window = FXSettings.getPrimaryStage();
+			}
+		}
 	}
 	
 	public void show()

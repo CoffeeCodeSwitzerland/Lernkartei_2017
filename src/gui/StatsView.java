@@ -3,9 +3,8 @@ package gui;
 import java.util.ArrayList;
 
 import application.Constants;
-import application.MainController;
-import javafx.stage.Stage;
-import mvc.View;
+import mvc.Controller;
+import mvc.FXView;
 
 /**
  * Diese Klasse soll die gleiche Funktionalität wie StatisticsView haben und diese dann auch ersetzen
@@ -17,10 +16,10 @@ import mvc.View;
  *
  */
 
-public class StatsView extends View
+public class StatsView extends FXView
 {
 
-	public StatsView(String setName, Stage primary, MainController controller)
+	public StatsView(String setName, Controller controller)
 	{
 		super(setName, controller);
 		//Alle Daten Holen

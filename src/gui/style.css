@@ -12,6 +12,7 @@
 	
 	-fx-background: #ddddaa;
 	-fx-background-image: url("pictures/HintergrundSchulhaus.png"),url("pictures/SchulhausEinzelnBig.png");
+	-fx-background-repeat: repeat-x, no-repeat;
 }
 
 #bold{

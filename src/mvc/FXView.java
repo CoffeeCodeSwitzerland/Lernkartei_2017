@@ -3,6 +3,7 @@ package mvc;
 import java.net.URL;
 
 import debug.Debugger;
+import debug.Logger;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
@@ -32,13 +33,16 @@ public abstract class FXView extends View
 	
 	public void show()
 	{
+		Logger.log("Get Window....");
 		Stage st = this.getWindow();
 		if (st != null) {
 			if (scene != null) {
+				Logger.log("Set scene....");
 				st.setScene(scene);
 			} else {
 				Debugger.out("show("+getName()+") has no scene!");
 			}
+			Logger.log("stage show....");
 			st.show();
 		} else {
 			Debugger.out("show("+getName()+") has no window!");

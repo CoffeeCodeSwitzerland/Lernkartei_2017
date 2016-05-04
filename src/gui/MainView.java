@@ -2,6 +2,7 @@ package gui;
 
 import application.Constants;
 import debug.Debugger;
+import debug.Logger;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -23,28 +24,31 @@ import mvc.FXView;
  */
 public class MainView extends FXView
 {
+//	Image impressumImg = new Image("gui/pictures/ImpressumIcon.png");
+	AppButton startBtn = new AppButton("Lernen");
+	AppButton statBtn = new AppButton("Statistiken");
+	AppButton optionsBtn = new AppButton("Optionen");
+	AppButton gameBtn = new AppButton("Jump 'n' Run");
+	AppButton helpBtn = new AppButton("Hilfe");
+	AppButton quitBtn = new AppButton("Beenden");
+	VBox menuLayout = new VBox();
+	BorderPane mainLayout = new BorderPane();
+
 	public MainView (String setName, Controller controller)
 	{
 		super(setName, controller);
 		FXSettings.getPrimaryStage().setTitle(Constants.appTitle + " " + Constants.appVersion);
 
 		// Buttons
-		AppButton startBtn = new AppButton("Lernen");
-		AppButton statBtn = new AppButton("Statistiken");
-		AppButton optionsBtn = new AppButton("Optionen");
-		AppButton gameBtn = new AppButton("Jump 'n' Run");
-		AppButton helpBtn = new AppButton("Hilfe");
-		AppButton quitBtn = new AppButton("Beenden");
-
+	
+		Logger.log("Instanziere Div....");
 		// Layout für Menu Items
-		VBox menuLayout = new VBox();
 		menuLayout.setPadding(new Insets(10));
 		menuLayout.setSpacing(10);
 		menuLayout.setAlignment(Pos.CENTER);
 		menuLayout.getChildren().addAll(startBtn, statBtn, optionsBtn, gameBtn, helpBtn, quitBtn);
 
 		// Main Layout
-		BorderPane mainLayout = new BorderPane();
 		mainLayout.setPadding(new Insets(5));
 		mainLayout.setCenter(menuLayout);
 
@@ -71,16 +75,20 @@ public class MainView extends FXView
 			getWindow().close();
 		});
 		
+		Logger.log("Set impressum....");
 		// Impressum
-		Image impressumImg = new Image("gui/pictures/ImpressumIcon.png");
-		ImageView impImgView = new ImageView(impressumImg);
-		mainLayout.setBottom(impImgView);
-		impImgView.setOnMouseClicked(e -> getController().getView("impressumview").show());
+//		ImageView impImgView = new ImageView(impressumImg);
+//		mainLayout.setBottom(impImgView);
+//		impImgView.setOnMouseClicked(e -> getController().getView("impressumview").show());
 
 		mainLayout.setId("main");
 
-		this.setupScene(new Scene(mainLayout, FXSettings.OPTIMAL_WIDTH, FXSettings.OPTIMAL_HEIGHT));
-		this.show();
+		Logger.log("Set scene....");
+
+		setupScene(new Scene(mainLayout, FXSettings.OPTIMAL_WIDTH, FXSettings.OPTIMAL_HEIGHT));
+
+		Logger.log("Show....");
+		show();
 	}
 
 	@Override

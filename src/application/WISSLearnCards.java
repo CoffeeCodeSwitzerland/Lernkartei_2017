@@ -4,7 +4,6 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 import mvc.FXSettings;
 
-
 /**
  * Startet die Lernkartei
  * 

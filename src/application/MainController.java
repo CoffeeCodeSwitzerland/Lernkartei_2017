@@ -16,6 +16,7 @@ public class MainController extends Controller
 {
 	@Override
 	public void initMyModels() {
+		Logger.stop();
 		Logger.log("Instanziere Models....");
 		this.addUniqueModel(new GameModel("game"));
 		this.addUniqueModel(new DoorModel("door"));

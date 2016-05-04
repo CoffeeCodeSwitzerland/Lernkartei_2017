@@ -19,8 +19,12 @@ public final class Logger {
 
 	private final static ArrayList<String> logData = new ArrayList<String>(); // faster than logfile
 	private static MyFile  myLogfile = null;
+
 	private static boolean ramLoggingActive = false;
 	private static boolean fileLoggingActive = true;
+
+	private static boolean holdRamLoggingActive = false;
+	private static boolean holdFileLoggingActive = true;
 
 	public static void init () {
 		if (myLogfile == null) {
@@ -86,10 +90,24 @@ public final class Logger {
 
 	public static void setRamLoggingActive(boolean ramLoggingActive) {
 		Logger.ramLoggingActive = ramLoggingActive;
+		Logger.holdRamLoggingActive = ramLoggingActive;
 	}
 
 	public static void setFileLoggingActive(boolean fileLoggingActive) {
 		Logger.fileLoggingActive = fileLoggingActive;
+		Logger.holdFileLoggingActive = fileLoggingActive;
+	}
+
+	public static void stop () {
+		Logger.holdFileLoggingActive = Logger.fileLoggingActive;
+		Logger.fileLoggingActive = false;
+		Logger.holdRamLoggingActive = Logger.ramLoggingActive;
+		Logger.ramLoggingActive = false;
+	}
+
+	public static void restart () {
+		Logger.fileLoggingActive = Logger.holdFileLoggingActive;
+		Logger.ramLoggingActive = Logger.holdRamLoggingActive;
 	}
 
 	public static boolean isRamLoggingActive() {

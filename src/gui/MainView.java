@@ -95,6 +95,5 @@ public class MainView extends FXView
 	@Override
 	public void refreshView ()
 	{
-		return;
 	}
 }

@@ -1,11 +1,11 @@
 package gui;
 
 import java.util.ArrayList;
-import java.util.function.ToDoubleFunction;
 
 import application.Constants;
 import application.MainController;
 import javafx.stage.Stage;
+import mvc.View;
 
 /**
  * Diese Klasse soll die gleiche Funktionalität wie StatisticsView haben und diese dann auch ersetzen
@@ -22,7 +22,7 @@ public class StatsView extends View
 
 	public StatsView(String setName, Stage primary, MainController controller)
 	{
-		super(setName, primary, controller);
+		super(setName, controller);
 		//Alle Daten Holen
 		ArrayList<String> OriginalData = new ArrayList<String>();
 		//Alle Daten in zwei Arrays einteilen: Kartei[] und Points[]
@@ -33,14 +33,22 @@ public class StatsView extends View
 			String[] temp = new String[2];
 			temp = OriginalData.get(i).split(Constants.SEPARATOR);
 			Kartei[i] = temp[0];
-			Points[i] = temp[1];
+			Points[i] = Double.parseDouble(temp[1]);
 		}
+	}
+
+	@Override
+	public void show()
+	{
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
 	public void refreshView()
 	{
-		return;
+		// TODO Auto-generated method stub
+		
 	}
 	
 }

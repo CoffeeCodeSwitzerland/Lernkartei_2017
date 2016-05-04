@@ -48,6 +48,7 @@ public class CardModel extends Model {
 			// paramS = KartenID
 			
 			if (Database.delEntry(paramS)) {
+				refreshViews();
 				return 2;
 			} else {
 				return -2;

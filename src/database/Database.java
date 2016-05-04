@@ -255,8 +255,6 @@ public class Database {
 		
 		Connection c = null;
 		Statement stmt = null;
-//		String oldPrio = "";
-//		String newPrio = "";
 
 		try {
 			Class.forName(driver);

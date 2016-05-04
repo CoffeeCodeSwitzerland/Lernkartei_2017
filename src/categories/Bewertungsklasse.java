@@ -8,6 +8,8 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
+import database.Database;
+
 public class Bewertungsklasse extends JFrame implements ActionListener {
 	
 	
@@ -24,7 +26,8 @@ public class Bewertungsklasse extends JFrame implements ActionListener {
 	JLabel NachrichtLabel = new JLabel();
 	JFrame Nachricht = new JFrame("Karte wurde Verschoben");
 	
-
+	String boxName = "";
+	
 	public int a = 1;
 	int Kartenpunkte = 1;
 
@@ -76,9 +79,9 @@ public class Bewertungsklasse extends JFrame implements ActionListener {
 			Zufallszieher.rdm++;
 			
 			//wenn zufallszahl kleiner oder gleich der höchste eintrag der DB ist wird eine zufällige karte angezeit.
-			//if (Zufallszieher.rdm <= Database.pullFromStock().size()) {
-			//	KartenAnzeigen.setText(Database.pullFromStock().get(Zufallszieher.rdm)[1]);
-			//}
+			if (Zufallszieher.rdm <= Database.pullFromStock(boxName).size()) {
+				KartenAnzeigen.setText(Database.pullFromStock(boxName).get(Zufallszieher.rdm)[1]);
+			}
 			a = 1;
 		//Punkt der Karte wird auf 1 gesetzt nächste karte erscheint
 		} else if (e.getSource() == falsch) {
@@ -88,7 +91,7 @@ public class Bewertungsklasse extends JFrame implements ActionListener {
 				KartenPunkte.setText("Kartenpunkte : " + Integer.toString(Kartenpunkte));
 
 				Zufallszieher.rdm = Zufallszieher.ziehen();
-				//KartenAnzeigen.setText(Database.pullFromStock().get(Zufallszieher.rdm)[1]);
+				KartenAnzeigen.setText(Database.pullFromStock(boxName).get(Zufallszieher.rdm)[1]);
 				Kartenpunkte = 1;
 				a = 1;
 			}
@@ -101,11 +104,11 @@ public class Bewertungsklasse extends JFrame implements ActionListener {
 			
 //dreht Karte auf lösugs seite
 			if (a % 2 == 0) {
-				//KartenAnzeigen.setText(Database.pullFromStock().get(Zufallszieher.rdm)[2]);
+				KartenAnzeigen.setText(Database.pullFromStock(boxName).get(Zufallszieher.rdm)[2]);
 				a++;
 // sollte karte zurückdrehen
 			} else if (a % 2 != 0) {
-				//KartenAnzeigen.setText(Database.pullFromStock().get(Zufallszieher.rdm)[1]);
+				KartenAnzeigen.setText(Database.pullFromStock(boxName).get(Zufallszieher.rdm)[1]);
 				a++;
 			}
 

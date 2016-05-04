@@ -182,7 +182,9 @@ public class BoxView extends FXViewModel
 		setTitle.setId("bold");
 		lernen.setOnAction(e ->
 		{
-			System.out.println("Lerne " + set);
+			View v = getController().getView("learnview");
+			v.setData(set);
+			v.show();
 		});
 		edit.setOnAction(e -> {
 			View v = getController().getView("editorview");

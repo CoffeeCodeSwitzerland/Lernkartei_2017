@@ -1,8 +1,5 @@
 package gui;
 
-import java.util.ArrayList;
-
-import application.Constants;
 import mvc.Controller;
 import mvc.FXView;
 

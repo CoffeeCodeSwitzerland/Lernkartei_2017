@@ -130,7 +130,7 @@ public class Categories {
 				FK_ID = id.getInt("PK_Doors");
 			}
 			else {
-				System.out.println("Keine Kategorien mit dieser Tür vorhanden");
+				debug.Debugger.out("Keine Kategorien mit dieser Tür vorhanden");
 				FK_ID = 0;
 			}
 			

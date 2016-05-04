@@ -41,7 +41,7 @@ public class Score {
 					+ "Kartei TEXT NOT NULL,"
 					+ "Score REAL NOT NULL);";
 
-			System.out.println(sql);
+			debug.Debugger.out(sql);
 			stmt.executeUpdate(sql);
 
 			c.setAutoCommit(false);
@@ -78,7 +78,7 @@ public class Score {
 
 			String sql = "INSERT INTO Score (Kartei, Score) VALUES ('" + Kartei + "'," + Score + ")";
 
-			System.out.println(sql);
+			debug.Debugger.out(sql);
 			stmt.executeUpdate(sql);
 			stmt.close();
 			c.close();
@@ -116,13 +116,13 @@ public class Score {
 					+ "Kartei TEXT NOT NULL,"
 					+ "Score REAL NOT NULL);";
 
-			System.out.println(sql);
+			debug.Debugger.out(sql);
 			stmt.executeUpdate(sql);
 			c.setAutoCommit(false);
 			ResultSet rs = stmt.executeQuery("SELECT Score FROM Score WHERE Kartei = '" + Kartei + "';");
 			if (!rs.next()) {
 
-				System.out.println("No Entry with that name in our Database.");
+				debug.Debugger.out("No Entry with that name in our Database.");
 				return false;
 
 			}
@@ -130,7 +130,7 @@ public class Score {
 			c.setAutoCommit(true);
 
 			String updt = "UPDATE Score SET Score = '" + newScore + "' WHERE Kartei = " + Kartei;
-			System.out.println(updt);
+			debug.Debugger.out(updt);
 			stmt.executeUpdate(updt);
 
 			stmt.close();

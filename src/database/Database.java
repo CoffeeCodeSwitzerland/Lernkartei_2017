@@ -5,10 +5,8 @@ import java.util.ArrayList;
 
 
 public class Database {
-	public static ResultSet	rs;
-	public static String	insert;
 
-	// Varibeln Connection
+	// Varibeln Connection 
 
 	private static String	windowsUser	= debug.Environment.getUserName();
 	private static String	url			= "jdbc:sqlite:" + windowsUser + ".db";
@@ -30,7 +28,6 @@ public class Database {
 		try {
 			Class.forName(driver);
 			c = DriverManager.getConnection(url);
-			c.setAutoCommit(true);
 			stmt = c.createStatement();
 			
 			String sql = "CREATE TABLE IF NOT EXISTS Stock " +
@@ -42,7 +39,7 @@ public class Database {
 					" Description    TEXT    		, " +
 					" Color			TEXT    		 )";
 			
-			System.out.println(sql);
+			debug.Debugger.out(sql);
 			stmt.executeUpdate(sql);
 			
 			String setID;
@@ -56,34 +53,27 @@ public class Database {
 				selectSet.close();
 			} else {
 				selectSet.close();
+				stmt.close();
+				c.close();
 				return false;
 			}
+			
+			c.setAutoCommit(true);
 
-			insert = "INSERT INTO Stock (Backside, Frontside, Set_ID, Priority, Color)" +
+			String insert = "INSERT INTO Stock (Backside, Frontside, Set_ID, Priority, Color)" +
 					"VALUES ('" + values[0] + "','" + values[1] + "'," + setID + ", " + values[3] + ", '"
 					+ values[4] + "')";
 
-			System.out.println(insert);
+			debug.Debugger.out(insert);
 			stmt.executeUpdate(insert);
-			c.setAutoCommit(false);
+			stmt.close();
+			c.close();
 			
 		}
 		catch (Exception e) {
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
 			System.exit(0);
 		}
-		
-		try
-		{
-			stmt.close();
-			c.close();
-		}
-		catch (SQLException e)
-		{
-			debug.Debugger.out("Database, pushToStock: closing failed");
-			e.printStackTrace();
-		}
-		
 		
 		return true;
 
@@ -113,6 +103,8 @@ public class Database {
 			if (!tbl.next()) {
 				tbl.close();
 				debug.Debugger.out("No such table Stock exists --> First if Error");
+				stmt.close();
+				c.close();
 				return null;
 			} else {
 				tbl.close();
@@ -125,12 +117,14 @@ public class Database {
 				IDwhichSet = Integer.toString(s.getInt("PK_Kategorie"));
 			} else {
 				debug.Debugger.out("No Kategorie: " + whichSet + "in Table Kategorie --> Second if Error");
+				stmt.close();
+				c.close();
 				return null;
 			}
 			
 			s.close();
 			
-			rs = stmt.executeQuery("SELECT * FROM Stock WHERE Set_ID = '" + IDwhichSet + "'");
+			ResultSet rs = stmt.executeQuery("SELECT * FROM Stock WHERE Set_ID = '" + IDwhichSet + "'");
 
 			while (rs.next()) {
 
@@ -147,27 +141,15 @@ public class Database {
 			}
 
 			rs.close();
-			
+			stmt.close();
+			c.close();		
 
 		}
 		catch (Exception e) {
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
 			System.exit(0);
-		}
-		
-		try
-		{
-			stmt.close();
-			c.close();
-		}
-		catch (SQLException e)
-		{
-			debug.Debugger.out("Database, pullFromStock: closing failed");
-			e.printStackTrace();
-		}
-		
-		
-		debug.Debugger.out("Results String[] List is empty.");		
+		}	
+				
 		return results;
 
 	}
@@ -197,30 +179,6 @@ public class Database {
 		}
 		
 		return deleted;
-
-	}
-
-	public static void delStock () {
-
-		Connection c = null;
-		Statement stmt = null;
-
-		try {
-			Class.forName(driver);
-			c = DriverManager.getConnection(url);
-			stmt = c.createStatement();
-
-			String del = "DROP TABLE IF EXISTS Stock";
-
-			stmt.executeUpdate(del);
-			stmt.close();
-			c.close();
-
-		}
-		catch (Exception e) {
-			System.err.println(e.getClass().getName() + ": " + e.getMessage());
-			System.exit(0);
-		}
 
 	}
 
@@ -255,7 +213,7 @@ public class Database {
 				actualPrio.close();
 			}
 			else {
-				System.out.println("No Card with this ID exists.");
+				debug.Debugger.out("No Card with this ID exists.");
 				actualPrio.close();
 			}
 			

@@ -25,6 +25,27 @@ public class Score {
 	 * @return --> Returned einen Double Wert des Scores, returned -1, wenn kein
 	 *         Score vorhanden
 	 */
+	
+	public Score() 
+	{
+		Connection c = null;
+		Statement stmt = null;
+
+		try {
+			Class.forName(driver);
+			c = DriverManager.getConnection(url);
+			stmt = c.createStatement();
+
+			String sql = "CREATE TABLE IF NOT EXISTS Score 	(PK_Score INTEGER PRIMARY KEY AUTOINCREMENT,"
+					+ "Kartei TEXT NOT NULL,"
+					+ "Score REAL NOT NULL);";
+
+			debug.Debugger.out(sql);
+			stmt.executeUpdate(sql);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+	}
 
 	public static double getScore (String Kartei) {
 

@@ -36,7 +36,7 @@ public class StatsView extends FXView
 	//Ein Bar Chart um Diagramm anzeigen zu können
 	private final BarChart<String, Number> stats;
 	
-
+	//Constructor
 	public StatsView(String setName, Controller controller)
 	{
 		super(setName, controller);

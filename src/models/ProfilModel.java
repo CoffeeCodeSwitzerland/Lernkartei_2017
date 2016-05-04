@@ -7,6 +7,7 @@ import database.Score;
 import database.UserCards;
 import mvc.Model;
 import user.User;
+import user.Profil;
 
 public class ProfilModel extends Model
 {
@@ -32,7 +33,7 @@ public class ProfilModel extends Model
 			//Gibt den Usernamen des Users zurück
 			User.getUsername();
 			return 1;
-		} else 
+		} else
 		{
 			//Defaultreturn
 			return -2;
@@ -54,10 +55,13 @@ public class ProfilModel extends Model
 		} else if (query.equals("karteien"))
 		{
 			return UserCards.getCards();
-		} else
+		} else if (query.equals("karteien"))
 		{
+			return Profil.getKarteien();
+		} else if (query.equals("punkte"))
+		{
+			return Profil.getPunkte();
+		} else
 			return null;
 		}
 	}
-
-}

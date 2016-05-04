@@ -16,6 +16,7 @@ public class MainController extends Controller
 {
 	@Override
 	public void initMyModels() {
+		Logger.stop();
 		Logger.log("Instanziere Models....");
 		this.addUniqueModel(new GameModel("game"));
 		this.addUniqueModel(new DoorModel("door"));
@@ -27,11 +28,9 @@ public class MainController extends Controller
 	public void initMyViews() {
 		Logger.log("Instanziere Views....");
 		this.addUniqueView(new MainView(getMainView(), this));
-		Logger.log("Instanziere Statistics....");
 		this.addUniqueView(new StatisticsView("statisticsview", this));
-		Logger.log("Instanziere Doors....");
+		this.addUniqueView(new StatsView("statsview", this));
 		this.addUniqueView(new DoorView("doorview", this));
-		Logger.log("Instanziere Options....");
 		this.addUniqueView(new OptionsView("optionsview", this));
 		this.addUniqueView(new HelpView("helpview"));
 		this.addUniqueView(new GameView("gameview", this));

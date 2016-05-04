@@ -10,9 +10,16 @@
 #main
 {
 	
-	-fx-background: #ddddaa;
-	-fx-background-image: url("pictures/HintergrundSchulhaus.png"),url("pictures/SchulhausEinzelnBig.png");
-	-fx-background-repeat: repeat-x, no-repeat;
+	-fx-background-color: linear-gradient(to bottom, #d6fffd 50%, #5ca55c 100%);
+	-fx-background-image: url("pictures/SchulhausEinzelnBig.png");
+	-fx-background-repeat: no-repeat;
+}
+
+#help
+{
+	-fx-background-color: linear-gradient(to bottom, #d6fffd 50%, #5ca55c 100%);
+	-fx-background-image: url("pictures/helpdesk.jpg");
+	-fx-background-repeat: no-repeat;
 }
 
 #bold{

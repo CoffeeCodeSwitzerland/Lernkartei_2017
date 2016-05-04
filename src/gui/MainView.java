@@ -22,15 +22,16 @@ import mvc.FXView;
  */
 public class MainView extends FXView
 {
-//	Image impressumImg = new Image("gui/pictures/ImpressumIcon.png");
+	BorderPane mainLayout = new BorderPane();
+	Image impressumImg = new Image("gui/pictures/ImpressumIcon.png");
 	AppButton startBtn = new AppButton("Lernen");
 	AppButton statBtn = new AppButton("Statistiken");
+	AppButton stat2Btn = new AppButton("Statistiken-2");
 	AppButton optionsBtn = new AppButton("Optionen");
 	AppButton gameBtn = new AppButton("Jump 'n' Run");
 	AppButton helpBtn = new AppButton("Hilfe");
 	AppButton quitBtn = new AppButton("Beenden");
 	VBox menuLayout = new VBox();
-	BorderPane mainLayout = new BorderPane();
 
 	public MainView (String setName, Controller controller)
 	{
@@ -44,7 +45,7 @@ public class MainView extends FXView
 		menuLayout.setPadding(new Insets(10));
 		menuLayout.setSpacing(10);
 		menuLayout.setAlignment(Pos.CENTER);
-		menuLayout.getChildren().addAll(startBtn, statBtn, optionsBtn, gameBtn, helpBtn, quitBtn);
+		menuLayout.getChildren().addAll(startBtn, statBtn, stat2Btn, optionsBtn, gameBtn, helpBtn, quitBtn);
 
 		// Main Layout
 		mainLayout.setPadding(new Insets(5));
@@ -53,6 +54,7 @@ public class MainView extends FXView
 		// Behaviour
 		startBtn.setOnAction(e -> getController().getView("doorview").show());
 		statBtn.setOnAction(e -> getController().getView("statisticsview").show());
+		stat2Btn.setOnAction(e -> getController().getView("statsview").show());
 		optionsBtn.setOnAction(e -> getController().getView("optionsview").show());
 		gameBtn.setOnAction(e -> getController().getView("gameview").show());
 		helpBtn.setOnAction(e -> getController().getView("helpview").show());
@@ -75,9 +77,9 @@ public class MainView extends FXView
 		
 		Logger.log("Set impressum....");
 		// Impressum
-//		ImageView impImgView = new ImageView(impressumImg);
-//		mainLayout.setBottom(impImgView);
-//		impImgView.setOnMouseClicked(e -> getController().getView("impressumview").show());
+		ImageView impImgView = new ImageView(impressumImg);
+		mainLayout.setBottom(impImgView);
+		impImgView.setOnMouseClicked(e -> getController().getView("impressumview").show());
 
 		mainLayout.setId("main");
 

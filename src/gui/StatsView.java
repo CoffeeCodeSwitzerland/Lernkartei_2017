@@ -12,15 +12,9 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import mvc.*;
-import mvc.Controller;
-import mvc.FXView;
-
-
 /**
  * Diese Klasse soll die gleiche Funktionalität wie StatisticsView haben und diese dann auch ersetzen
  * Sie soll beliebig viele Säulen generieren
- * 
- * @Joel Du hast Skizzen dazu gemacht um schneller zu entwickeln
  * 
  * @author Joel Häberli
  *
@@ -30,48 +24,52 @@ public class StatsView extends FXView
 {
 	//Alle Daten Holen
 	private ArrayList<String> OriginalData = new ArrayList<String>();
+	
 	//Alle Daten in zwei Arrays einteilen: Kartei[] und Points[]
 	private String[] Kartei = new String[OriginalData.size()];
 	private Double[] Points = new Double[OriginalData.size()];
+	
 	//X und Y Achsen erstellen
-	final CategoryAxis xAchse;
-	final NumberAxis yAchse;
+	final CategoryAxis xAchse = new CategoryAxis();
+	final NumberAxis yAchse = new NumberAxis();
+	
 	//Ein Bar Chart um Diagramm anzeigen zu können
 	private final BarChart<String, Number> stats;
-	//Box für das Diagramm
-	private HBox ChartLayout;
+	
 
 	public StatsView(String setName, Controller controller)
 	{
 		super(setName, controller);
-		xAchse = new CategoryAxis();
-		yAchse = new NumberAxis();
+
+		//Chart erstellen
 		stats = new BarChart<String, Number>(xAchse, yAchse);
-		generateTwoArrays();
-		generateSerie();
-		
-		//ChartLayout erstellen
-		ChartLayout = new HBox(20);
-		ChartLayout.setAlignment(Pos.CENTER);
-		
+		//Titel und Label setzen
+        stats.setTitle("Statistik der Karteien");
+        xAchse.setLabel("Name");       
+        yAchse.setLabel("Punkte");
+
+//        generateTwoArrays();
+//		generateSerie();
+
+		//Box für das Diagramm
+		HBox chartLayout = new HBox(50);
+		chartLayout.setAlignment(Pos.CENTER);
+        //Chart ins KartenLayout (center) einfügen
+
 		// Buttons
 		AppButton zurueck = new AppButton("zurück");
+		// zurueck eine Action hinzufügen
+        zurueck.setOnAction(e -> getController().showMain());
 		
 		// Layout für Controls
 		HBox hBox = new HBox(20);
 		hBox.setAlignment(Pos.CENTER);
 		hBox.getChildren().addAll(zurueck);
 		
-		//Titel und Label setzen
-        stats.setTitle("Statistik der Karteien");
-        xAchse.setLabel("Name");       
-        yAchse.setLabel("Punkte");
-        
-        //Chart ins KartenLayout (center) einfügen
-        ChartLayout.getChildren().addAll(stats);
-        
-        //zurueck eine Action hinzufügen
-        zurueck.setOnAction(e -> getController().showMain());
+		BorderPane bp = new BorderPane();
+		bp.getChildren().addAll(chartLayout, hBox, stats);
+
+		setupScene(new Scene(bp, FXSettings.OPTIMAL_WIDTH, FXSettings.OPTIMAL_HEIGHT));
 	}
 	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
@@ -100,15 +98,9 @@ public class StatsView extends FXView
 	}
 
 	@Override
-	public void show()
-	{
-		BorderPane borderPane = new BorderPane();
-		this.setupScene(new Scene(borderPane , FXSettings.OPTIMAL_WIDTH, FXSettings.OPTIMAL_HEIGHT));
-	}
-
-	@Override
 	public void refreshView()
 	{
+		
 	}
 	
 }

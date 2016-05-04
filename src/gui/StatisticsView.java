@@ -14,6 +14,12 @@ import mvc.Controller;
 import mvc.FXSettings;
 import mvc.FXView;
 
+/**
+ * @author nina-egger
+ *
+ */
+
+
 public class StatisticsView extends FXView
 {		
 	HBox ChartLayout;

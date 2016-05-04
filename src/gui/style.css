@@ -10,7 +10,7 @@
 #main
 {
 	
-	-fx-background-color: linear-gradient(to bottom, #d6fffd 66%, #03a518 100%);
+	-fx-background-color: linear-gradient(to bottom, #d6fffd 50%, #5ca55c 100%);
 	-fx-background-image: url("pictures/SchulhausEinzelnBig.png");
 	-fx-background-repeat: no-repeat;
 }

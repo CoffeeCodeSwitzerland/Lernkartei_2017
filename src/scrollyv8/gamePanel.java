@@ -59,14 +59,15 @@ public class gamePanel extends JPanel implements Runnable
     private int drawW = 865; //
     private int H = 600; // screen height
     private int drawH = 570; //screen width
-    private boolean left, right, up, down, jump, ground;
+    private boolean left, right, up, jump, ground; //down
     private double x, y, playerStartX, playerStartY, pw, ph;
     private double vx, vy;
     private double bossXL,bossXR, bossYU,bossYD;
     private double bossScreenX,bossScreenY;
     private double grav;
     private double CX, CY;
-    private double screenX, screenY, tmpScreenX;
+    @SuppressWarnings("unused")
+	private double screenX, screenY, tmpScreenX;
     private int skyeY = 0;    
     private double dVx = 0.3;
     private double friction = 0.2;
@@ -94,12 +95,12 @@ public class gamePanel extends JPanel implements Runnable
     private int numEnemies;
     public static String spritePath, soundPath, screenPath;
     private String levelBase, pathFile;
-    private double levelMinX, levelMinY, levelMaxX, levelMaxY;
+    @SuppressWarnings("unused")
+	private double levelMinX, levelMinY, levelMaxX, levelMaxY;
     private int sleepTime;
     private int mapW, mapH;
     private int mapTileW, mapTileH;
     private int spriteGID;
-    private Menu menu;
     private Thread t1 = new Thread(new RunAudio(new Audio("alligator.mp3")));;
     
 //    private AudioClip levelClip;
@@ -131,16 +132,16 @@ public class gamePanel extends JPanel implements Runnable
         CY = 300;
         brickWidth = 30;
         // Keylistener booleans
-        up = down = false;
+        up = false; // = down
         left = right = false;
         // Game state variables
         bossIndex = 0;
         level = 1;
         levelMax = 2;
         gameState = LOADINTRO;
-        menu = new Menu();
+        new Menu();
 
-        right = left = up = down = false;
+        right = left = up = false; // = down
         screenX = x;
         screenY = y;
         tmpScreenX = 25;
@@ -205,9 +206,8 @@ public class gamePanel extends JPanel implements Runnable
             
         } else if (gameState == INTRO)
         {
-        	menu.render(g);
-        	
-            //g.drawImage(introScreen, 0, 0, drawW, drawH, null);
+        	//menu.render(g);
+g.drawImage(introScreen, 0, 0, drawW, drawH, null);
         } else if (gameState == LOADLEVEL)
         {
             Image toDraw = null;
@@ -797,16 +797,13 @@ public class gamePanel extends JPanel implements Runnable
             case 'p': // Key Pressed
             	 if (gameState == INTRO)
                  {
-                 	menu.tick(e);
+            		 gameState = LOADLEVEL;
+                 	//menu.tick(e);
                  }
             	
                 if (e.getKeyCode() == KeyEvent.VK_UP)
                 {
                     up = true;
-                }
-                if (e.getKeyCode() == KeyEvent.VK_DOWN)
-                {
-                    down = true;
                 }
                 if (e.getKeyCode() == KeyEvent.VK_RIGHT)
                 {
@@ -843,21 +840,12 @@ public class gamePanel extends JPanel implements Runnable
                 		t1 = new Thread(new RunAudio(new Audio("alligator.mp3")));
                 		t1.start();
                 	}
-                	
-                	  	
-                	
-                		
-                	//mPlayer.setTrack(soundPath + "Pause.mid",true);p
                 }
                 break;
             case 'r':  // Released
                 if (e.getKeyCode() == KeyEvent.VK_UP)
                 {
                     up = false;
-                }
-                if (e.getKeyCode() == KeyEvent.VK_DOWN)
-                {
-                    down = false;
                 }
                 if (e.getKeyCode() == KeyEvent.VK_RIGHT)
                 {
@@ -909,7 +897,8 @@ public class gamePanel extends JPanel implements Runnable
                 if (event.isStartElement())
                 {
                     StartElement startElement = event.asStartElement();
-                    Iterator<Attribute> attributes = startElement.getAttributes();
+                    @SuppressWarnings("unchecked")
+					Iterator<Attribute> attributes = startElement.getAttributes();
                     if (startElement.getName().getLocalPart() == "map")
                     {
                         System.out.println("Map File Detected...");
@@ -976,7 +965,8 @@ public class gamePanel extends JPanel implements Runnable
                         System.out.println("Parsing image for tileset " + tileSetCounter);
                         String tileName = "";
                         int imageWidth = 480;
-                        int imageHeight = 30;
+                        @SuppressWarnings("unused")
+						int imageHeight = 30;
                         while (attributes.hasNext())
                         {
                             Attribute attribute = attributes.next(); // Bug - currently ignores first element.
@@ -1353,7 +1343,8 @@ public class gamePanel extends JPanel implements Runnable
         }
     }
 
-    private void winPlayer()
+    @SuppressWarnings("unused")
+	private void winPlayer()
     {
         x = y = 25;
         vx = vy = 0;

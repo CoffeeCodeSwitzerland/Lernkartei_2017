@@ -37,7 +37,7 @@ public class MainView extends FXView
 	public MainView (String setName, Controller controller)
 	{
 		super(setName, controller);
-		getController().getFXSettings().getPrimaryStage().setTitle(Constants.appTitle + " " + Constants.appVersion);
+		//getController().getFXSettings().getPrimaryStage().setTitle(Constants.appTitle + " " + Constants.appVersion);
 
 		// Buttons
 	

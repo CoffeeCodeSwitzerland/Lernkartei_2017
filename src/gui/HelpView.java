@@ -7,6 +7,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import mvc.Controller;
 import mvc.FXView;
 
@@ -32,7 +33,7 @@ public class HelpView extends FXView
 
 	public HelpView (String setName)
 	{
-		super (setName, new HelpController());
+		super (setName, new HelpController(new Stage()));
 		init();
 	}
 

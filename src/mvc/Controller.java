@@ -5,6 +5,7 @@ import java.util.Iterator;
 
 import debug.Debugger;
 import debug.Supervisor;
+import javafx.stage.Stage;
 /**
  * Diese Klasse ist des Basis Codegerüst für die Kontrolle View's und Model's.
  * Sie bietet die Naviagtion zum nächsten View an und die Suche nach einem bestimmten Modell.
@@ -18,8 +19,10 @@ public abstract class Controller implements ControllerInterface
 	private final ArrayList<Model> models = new ArrayList<Model>();
 	private final FXSettings myFXSettings = new FXSettings();
 	
-	public Controller ()
+	public Controller (Stage primaryStage)
 	{
+		getFXSettings().setPrimaryStage(primaryStage);
+	
 		initMyModels(); // Zuerst Model kreieren, 
 		initMyViews();	// dann die View's
 	}

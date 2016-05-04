@@ -12,6 +12,7 @@ import gui.MainView;
 import gui.OptionsView;
 import gui.StatisticsView;
 import gui.StatsView;
+import javafx.stage.Stage;
 import models.BoxModel;
 import models.CardModel;
 import models.DoorModel;
@@ -27,6 +28,10 @@ import mvc.Controller;
  */
 public class MainController extends Controller
 {
+	public MainController(Stage primaryStage) {
+		super(primaryStage);
+	}
+
 	@Override
 	public void initMyModels() {
 		Logger.stop();

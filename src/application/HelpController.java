@@ -1,6 +1,7 @@
 package application;
 
 import gui.*;
+import javafx.stage.Stage;
 import mvc.Controller;
 /**
  * Diese Klasse Kontrolliert alle Sichten und Models. Den Sichten wird die
@@ -12,6 +13,10 @@ import mvc.Controller;
  */
 public class HelpController extends Controller
 {
+	public HelpController(Stage primaryStage) {
+		super(primaryStage);
+	}
+
 	@Override
 	public void initMyModels() {
 		// no Models for Help

@@ -11,7 +11,7 @@ import javafx.stage.Stage;
 public class WISSLearnCardsTest extends Application {
 
 	public static void myTest (Stage primaryStage) {
-		MainController m = new MainController();
+		MainController m = new MainController(primaryStage);
 		assertEquals(null,m.getView("zzview"));
 		assertNotEquals(null,m.getView("helpview"));
 	}

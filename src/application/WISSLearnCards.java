@@ -11,6 +11,7 @@ import mvc.FXSettings;
  * @author miro albrecht
  *
  */
+
 public class WISSLearnCards extends Application
 {
 	public static void main (String[] args)

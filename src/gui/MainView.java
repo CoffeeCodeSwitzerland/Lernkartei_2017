@@ -24,7 +24,7 @@ import mvc.FXView;
  */
 public class MainView extends FXView
 {
-//	Image impressumImg = new Image("gui/pictures/ImpressumIcon.png");
+	Image impressumImg = new Image("gui/pictures/ImpressumIcon.png");
 	AppButton startBtn = new AppButton("Lernen");
 	AppButton statBtn = new AppButton("Statistiken");
 	AppButton optionsBtn = new AppButton("Optionen");
@@ -77,9 +77,9 @@ public class MainView extends FXView
 		
 		Logger.log("Set impressum....");
 		// Impressum
-//		ImageView impImgView = new ImageView(impressumImg);
-//		mainLayout.setBottom(impImgView);
-//		impImgView.setOnMouseClicked(e -> getController().getView("impressumview").show());
+		ImageView impImgView = new ImageView(impressumImg);
+		mainLayout.setBottom(impImgView);
+		impImgView.setOnMouseClicked(e -> getController().getView("impressumview").show());
 
 		mainLayout.setId("main");
 

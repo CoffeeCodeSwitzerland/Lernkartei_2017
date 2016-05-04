@@ -8,6 +8,7 @@ import gui.GameView;
 import gui.HelpView;
 import gui.ImpressumView;
 import gui.KarteiView;
+import gui.LearnView;
 import gui.MainView;
 import gui.OptionsView;
 import gui.StatisticsView;
@@ -55,6 +56,7 @@ public class MainController extends Controller
 		this.addUniqueView(new KarteiView("karteiview", this));
 		this.addUniqueView(new BoxView("boxview", this));
 		this.addUniqueView(new EditorView("editorview", this));
+		this.addUniqueView(new LearnView("learnview", this));
 		this.addUniqueView(new ImpressumView("impressumview", this));
 		Logger.log("Instanzierung beendet....");
 	}

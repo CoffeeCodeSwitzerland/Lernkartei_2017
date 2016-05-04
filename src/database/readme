@@ -1,0 +1,35 @@
+============================================================================================================
+
+	All Database Functions
+
+============================================================================================================
+	
+	Inhalt:
+	------	
+	- alle benötigten Views und GUI-Teilkomponenten
+	- jeder eigener View mit Inhalte und Darstellungen
+	- das Verhalten der einzelnen Knöpfe wird hier bestimmt
+	- falls nötig werden Modellklassen aufgerufen oder Model's lokal in View's eingebaut
+	
+	Abhängigkeiten:
+	--------------
+	- MainController
+	- Mehrere Models --> Doors, Sets und Cards
+	- Debug
+	- Alle .db Datenbank Files
+	
+============================================================================================================
+
+	HowTo
+	=====
+	- Alle Funktionen stehen im Package models zur Verfügung. Um diese zu verwenden, können die Funktionen
+	via getMyModel("irgendeinmodel").doAction oder .getData
+	- doAction sind zum Beispiel: Delete, New oder Update. So können Funktionen ohne Datenrückgabe ausge-
+	führt werden
+	- getData holt Daten aus der Datenbank, zum Beispiel kann so alle Doors und/oder alle Sets abgerufen
+	werden. Ausserdem können alle Karten abgeholt werden.
+			
+============================================================================================================
+
+	Bei Fragen zur Datenbank wendet euch an Roger Schneiter und für Fragen zum Model an Miro/Hugo
+	

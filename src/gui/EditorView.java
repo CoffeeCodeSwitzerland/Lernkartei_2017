@@ -26,7 +26,7 @@ public class EditorView extends FXViewModel
 		super(setName, controller);
 
 		AppButton backBtn = new AppButton("Zurück");
-		backBtn.setOnAction(e -> getController().showMain());
+		backBtn.setOnAction(e -> getController().getView("boxview").show());
 		
 		editLayout.setPadding(new Insets(10));
 		editLayout.setAlignment(Pos.TOP_CENTER);
@@ -77,7 +77,7 @@ public class EditorView extends FXViewModel
 			{
 				if (back.getText() != null && !back.getText().equals("") && front.getText() != null && !front.getText().equals(""))
 				{
-					getController().getModel("cards").doAction("new", back.getText() + Constants.SEPARATOR + front.getText() + Constants.SEPARATOR + data);
+					getController().getModel("cards").doAction("new", front.getText() + Constants.SEPARATOR + back.getText() + Constants.SEPARATOR + data);
 				}
 			});
 			

@@ -25,6 +25,11 @@ public class CardModel extends Model {
 			
 			// paramS = Vorderseite:::Rückseite:::SetName
 			
+			if (paramS.contains("'"))
+			{
+				paramS = paramS.replaceAll("'", "''");
+			}
+			
 			String[] values = new String[5];
 			values[0] = paramS.split(application.Constants.SEPARATOR)[0];
 			values[1] = paramS.split(application.Constants.SEPARATOR)[1];

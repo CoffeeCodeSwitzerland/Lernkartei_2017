@@ -20,6 +20,11 @@ public abstract class FXViewModel extends FXView
 		return myModel;
 	}
 	
+	//
+	// Beide folgende Methoden sind eigentlich nur "Kosmetik". Man könnte
+	// auch die sich darin befindenden Aufrufe direkt tätigen.
+	// Um Verwechslugen zu vermeiden wird hier "Data" statt "String" verwendet.
+	//
 	@Override
 	public void setData (String data)
 	{

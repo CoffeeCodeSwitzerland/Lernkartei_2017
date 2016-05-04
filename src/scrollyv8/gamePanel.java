@@ -815,7 +815,6 @@ public class gamePanel extends JPanel implements Runnable
                 if (e.getKeyCode() == KeyEvent.VK_LEFT)
                 {
                     left = true;
-                    System.out.println("SAli");
                 }
                 if (e.getKeyCode() == KeyEvent.VK_SPACE)
                 {
@@ -825,7 +824,6 @@ public class gamePanel extends JPanel implements Runnable
                     }
                 }
                 if(e.getKeyCode() == KeyEvent.VK_ESCAPE){
-                	System.out.println("SAli");
                 	gameState = INTRO;
                 }
 //                Mute
@@ -839,7 +837,9 @@ public class gamePanel extends JPanel implements Runnable
           
                 	if (t1.isAlive()) {
                 		t1.stop();
+                		MidiPlayer.player.start();
                 	} else {
+                		MidiPlayer.player.stop();
                 		t1 = new Thread(new RunAudio(new Audio("alligator.mp3")));
                 		t1.start();
                 	}

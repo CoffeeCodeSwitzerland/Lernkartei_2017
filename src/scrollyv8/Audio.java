@@ -32,9 +32,8 @@ public class Audio {
 		try {
 
 			FileInputStream in = new FileInputStream(fullPath);
-
 			pl = new javazoom.jl.player.Player(in);
-			pl.play();
+			pl.play();			
 			pl.close();
 
 		}

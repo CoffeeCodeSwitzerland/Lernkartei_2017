@@ -96,19 +96,20 @@ public class Database {
 			Class.forName(driver);
 			c = DriverManager.getConnection(url);
 			stmt = c.createStatement();
+			
+			String sql = "CREATE TABLE IF NOT EXISTS Stock " +
+					"(PK_Stk INTEGER PRIMARY KEY AUTOINCREMENT," +
+					" Backside       TEXT    NOT NULL, " +
+					" Frontside      TEXT    NOT NULL, " +
+					" Set_ID    		INTEGER NOT NULL, " +
+					" Priority	    INTEGER DEFAULT 1," +
+					" Description    TEXT    		, " +
+					" Color			TEXT    		 )";
+			
+			debug.Debugger.out(sql);
+			stmt.executeUpdate(sql);
+			
 			c.setAutoCommit(false);
-			
-			ResultSet tbl = stmt.executeQuery("SELECT name FROM sqlite_master WHERE type='table' AND name='Stock'");
-			
-			if (!tbl.next()) {
-				tbl.close();
-				debug.Debugger.out("No such table Stock exists --> First if Error");
-				stmt.close();
-				c.close();
-				return null;
-			} else {
-				tbl.close();
-			}
 			
 			String IDwhichSet = "";
 			ResultSet s = stmt.executeQuery("SELECT PK_Kategorie FROM Kategorie WHERE Kategorie = '" + whichSet + "'");
@@ -116,7 +117,7 @@ public class Database {
 			if (s.next()) {
 				IDwhichSet = Integer.toString(s.getInt("PK_Kategorie"));
 			} else {
-				debug.Debugger.out("No Kategorie: " + whichSet + "in Table Kategorie --> Second if Error");
+				debug.Debugger.out("No Kategorie: " + whichSet + "in Table Kategorie");
 				stmt.close();
 				c.close();
 				return null;

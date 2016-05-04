@@ -38,8 +38,13 @@ public class BoxView extends FXViewModel
 		// Layouts für dynamische Inhalte
 		boxLayout = new VBox(20);
 		boxLayout.setAlignment(Pos.CENTER);
+		
 		options = new VBox(20);
 		options.setAlignment(Pos.CENTER);
+		options.setMinWidth(200);
+		
+		VBox placeholder = new VBox();
+		placeholder.setMinWidth(200);
 		
 		// Buttons
 		AppButton backBtn = new AppButton("Zurück");
@@ -60,7 +65,8 @@ public class BoxView extends FXViewModel
 		borderPane.setPadding(new Insets(15));
 
 		borderPane.setCenter(boxLayout);
-		borderPane.setRight(options);
+		borderPane.setLeft(options);
+		borderPane.setRight(placeholder);
 		borderPane.setBottom(hBox);
 
 		// Behaviour
@@ -119,6 +125,7 @@ public class BoxView extends FXViewModel
 	public void refreshView ()
 	{
 		boxLayout.getChildren().clear();
+		options.getChildren().clear();
 
 		String localdata = getData();
 

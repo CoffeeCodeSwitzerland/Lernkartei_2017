@@ -27,18 +27,18 @@ public abstract class View implements ViewInterface
 	
 	public Controller getController() {
 		if (myController != null) return myController;
-		Supervisor.warnAndDebug(this, "no maincontroller defined for this stage!");
+		Supervisor.warnAndDebug(this, "view.getController(): no controller defined for this stage!");
 		return null;
 	}
 
 	public void setData (String data)
 	{
-		Debugger.out("the model "+name+" does not have an own Model to setData()");
+		Debugger.out("view.setData(): view '"+name+"' does not have a Model (try 'extends FXViewModel')");
 	}
 	
 	public String getData()
 	{
-		Debugger.out("the model "+name+" does not have an own Model to getData()");
+		Debugger.out("view.setData(): view '"+name+"' does not have a Model  (try 'extends FXViewModel')");
 		return "";
 	}
 }

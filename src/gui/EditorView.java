@@ -3,7 +3,6 @@ package gui;
 import java.util.ArrayList;
 
 import application.Constants;
-import debug.Debugger;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;

@@ -181,6 +181,7 @@ public class BoxView extends FXViewModel
 		edit.setOnAction(e -> {
 			View v = getController().getView("editorview");
 			v.setData(set);
+			v.show();
 		});
 
 		options.getChildren().addAll(setTitle, lernen, edit);

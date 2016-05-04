@@ -125,6 +125,7 @@ public class DoorView extends FXView
 			{
 				View v = getController().getView("boxview");
 				v.setData(a.getText());
+				v.show();
 			});
 			
 			a.setOnDragDetected(e ->

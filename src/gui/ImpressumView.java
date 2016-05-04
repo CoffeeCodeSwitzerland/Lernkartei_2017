@@ -26,8 +26,8 @@ public class ImpressumView extends FXView
 		labelText.setWrapText(true);
 		
 		//Box für die Navigation
-		HBox hBox = new HBox(10);
-		hBox.getChildren().addAll(backBtn);
+		HBox naviBox = new HBox(10);
+		naviBox.getChildren().addAll(backBtn);
 			
 		//Box für Titel
 		VBox TitelBox = new VBox(10);
@@ -35,9 +35,9 @@ public class ImpressumView extends FXView
 		TitelBox.setAlignment(Pos.CENTER);
 				
 		//Box für Mitte Text
-		VBox vBox = new VBox(20);
-		vBox.getChildren().addAll(labelText);
-		vBox.setAlignment(Pos.CENTER);
+		VBox BoxMitText = new VBox(20);
+		BoxMitText.getChildren().addAll(labelText);
+		BoxMitText.setAlignment(Pos.CENTER);
 		
 		// Behaviour
 		backBtn.setOnAction(e -> getController().showMain());
@@ -45,9 +45,8 @@ public class ImpressumView extends FXView
 		// Layout
 		BorderPane borderPane = new BorderPane();
 		borderPane.setPadding(new Insets(15));
-		borderPane.setBottom(hBox);
-		borderPane.setCenter(vBox);
-		
+		borderPane.setBottom(naviBox);
+		borderPane.setCenter(BoxMitText);
 		borderPane.setTop(TitelBox);
 		
 		setupScene(new Scene(borderPane, FXSettings.OPTIMAL_WIDTH, FXSettings.OPTIMAL_HEIGHT));

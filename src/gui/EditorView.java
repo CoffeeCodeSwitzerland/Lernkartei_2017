@@ -3,35 +3,51 @@ package gui;
 import java.util.ArrayList;
 
 import application.Constants;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import mvc.Controller;
 import mvc.FXSettings;
-import mvc.FXView;
+import mvc.FXViewModel;
 
-public class EditorView extends FXView
+public class EditorView extends FXViewModel
 {
 	//ArrayList<VBox> cards;
 	
-	VBox layout = new VBox();
+	VBox editLayout= new VBox(10);
 	
 	public EditorView (String setName, Controller controller)
 	{
 		super(setName, controller);
 
-		//cards = new ArrayList<VBox>();
+		AppButton backBtn = new AppButton("Zurück");
+		backBtn.setOnAction(e -> getController().showMain());
 		
-		setupScene(new Scene(layout, FXSettings.OPTIMAL_WIDTH, FXSettings.OPTIMAL_HEIGHT));
+		editLayout.setPadding(new Insets(10));
+		editLayout.setAlignment(Pos.TOP_CENTER);
+		
+		VBox controlLayout = new VBox(20);
+		controlLayout.setAlignment(Pos.CENTER);
+		controlLayout.getChildren().addAll(backBtn);
+		
+		BorderPane mainLayout = new BorderPane();
+		mainLayout.setPadding(new Insets(10));
+		mainLayout.setCenter(editLayout);
+		mainLayout.setBottom(controlLayout);
+		
+		setupScene(new Scene(mainLayout, FXSettings.OPTIMAL_WIDTH, FXSettings.OPTIMAL_HEIGHT));
 		getController().getModel("cards").registerView(this);
 	}
 
 	@Override
 	public void refreshView ()
 	{
-		layout.getChildren().clear();
+		editLayout.getChildren().clear();
 		
 		String data = getData();
 		
@@ -43,10 +59,10 @@ public class EditorView extends FXView
 			for (String s : cardStrings)
 			{
 				String[] cardSides = s.split(Constants.SEPARATOR);
-				TextField front = new TextField(cardSides[1]);
-				TextField back = new TextField(cardSides[2]);
+				TextField front = new TextField(cardSides[2]);
+				TextField back = new TextField(cardSides[1]);
 				Button delete = new Button("X");
-				delete.setOnAction(e -> System.out.println("Delete"));
+				delete.setOnAction(e -> getController().getModel("cards").doAction("delete", cardSides[0]));
 				
 				HBox v = new HBox(4);
 				v.getChildren().addAll(front, back, delete);
@@ -56,13 +72,21 @@ public class EditorView extends FXView
 			TextField front = new TextField();
 			TextField back = new TextField();
 			Button delete = new Button("Add");
-			delete.setOnAction(e -> getController().getModel("cards").doAction("new", back.getText() + Constants.SEPARATOR + front.getText() + Constants.SEPARATOR + data));
+			
+			delete.setOnAction(e ->
+			{
+				if (back.getText() != null && !back.getText().equals("") && front.getText() != null && !front.getText().equals(""))
+				{
+					getController().getModel("cards").doAction("new", back.getText() + Constants.SEPARATOR + front.getText() + Constants.SEPARATOR + data);
+				}
+			});
+			
 			
 			HBox v = new HBox(4);
 			v.getChildren().addAll(front, back, delete);
 			cards.add(v);
 			
-			layout.getChildren().addAll(cards);
+			editLayout.getChildren().addAll(cards);
 		}
 	}
 

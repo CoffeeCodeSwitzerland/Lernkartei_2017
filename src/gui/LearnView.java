@@ -1,5 +1,6 @@
 package gui;
 
+import application.Constants;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -16,6 +17,10 @@ public class LearnView extends FXViewModel
 	Label headLbl = new Label("");
 	AppButton card = new AppButton("Front");
 	
+	int counter = 0;
+	
+	String[] cardData = new String[3];
+	
 	public LearnView (String setName, Controller controller)
 	{
 		super(setName, controller);
@@ -25,10 +30,22 @@ public class LearnView extends FXViewModel
 		
 		headLbl.setId("bold");
 		
+		successfulBtn.setOnAction(e ->
+		{
+			counter++;
+			refreshView(); // TODO move to model
+		}); 
+		
+		wrongBtn.setOnAction(e ->
+		{
+			counter++;
+			refreshView(); // TODO move to model
+		});
+		
 		card.setMinWidth(160);
 		card.setMinHeight(90);
 		card.setId("bold");
-		card.setOnAction(e -> card.setText(card.getText() == "Test" ? "Nope" : "Test"));
+		card.setOnAction(e -> card.setText(card.getText().equals(cardData[1]) ? cardData[2] : cardData[1]));
 		
 		HBox controlLayout = new HBox(20);
 		controlLayout.setAlignment(Pos.CENTER);
@@ -54,6 +71,11 @@ public class LearnView extends FXViewModel
 		else
 		{
 			headLbl.setText(getData());
+			String d = getController().getModel("cards").getDataList(getData()).get(counter); // Ensure valid counter variable
+			cardData = d.split(Constants.SEPARATOR);
+			card.setText(cardData[1]);
 		}
+		
+		
 	}
 }

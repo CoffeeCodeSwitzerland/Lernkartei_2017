@@ -33,7 +33,6 @@ public class ImpressumView extends FXView
 	 * 
 	 */
 	
-	
 	public ImpressumView (String setName, Controller controller)
 	{
 		super(setName, controller);
@@ -45,6 +44,14 @@ public class ImpressumView extends FXView
 		Label labelTitel = new Label("Impressum");
 		Label labelText = new Label("Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. \n \n Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. \n \n Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.");
 		labelText.setWrapText(true);
+
+		labelTitel.setId("impressumtext");
+		labelText.setId("impressumtext");
+
+		Double size = getWindow().getWidth()*.95;
+		size += 10;
+		labelText.setPrefWidth(size);
+		labelTitel.setPrefWidth(size);
 		
 		//Box für die Navigation
 		HBox naviBox = new HBox(10);

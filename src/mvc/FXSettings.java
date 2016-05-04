@@ -12,8 +12,8 @@ public class FXSettings {
 
 	private Stage primaryStage;
 	
-	public double OPTIMAL_WIDTH  = 800;
-	public double OPTIMAL_HEIGHT = 450;
+	public double OPTIMAL_WIDTH  = 920;
+	public double OPTIMAL_HEIGHT = 570;
 	
 	private Color preferredBackroundColor = new Color(1.0,1.0,1.0,0.5); 
 	

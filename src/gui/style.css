@@ -57,3 +57,9 @@
     -fx-text-fill: #875100;
     -fx-focus-color: white;
 }
+
+#impressumtext
+{
+	-fx-background-color: #ee2222;
+	-fx-padding: 10px;
+}

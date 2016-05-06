@@ -51,7 +51,7 @@ public class MainController extends Controller
 		this.addUniqueView(new StatsView("statsview", this));
 		this.addUniqueView(new DoorView("doorview", this));
 		this.addUniqueView(new OptionsView("optionsview", this));
-		this.addUniqueView(new HelpView("helpview"));
+		this.addUniqueView(new HelpView("helpview", new HelpController(new Stage())));
 		this.addUniqueView(new GameView("gameview", this));
 		this.addUniqueView(new KarteiView("karteiview", this));
 		this.addUniqueView(new BoxView("boxview", this));

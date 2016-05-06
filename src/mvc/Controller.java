@@ -21,6 +21,9 @@ public abstract class Controller implements ControllerInterface
 	
 	public Controller (Stage primaryStage)
 	{
+		if (primaryStage == null) {
+			primaryStage = new Stage();
+		}
 		getFXSettings().setPrimaryStage(primaryStage);
 	
 		initMyModels(); // Zuerst Model kreieren, 

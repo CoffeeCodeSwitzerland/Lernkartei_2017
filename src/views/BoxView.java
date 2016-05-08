@@ -28,7 +28,7 @@ import mvc.View;
 public class BoxView extends FXViewModel
 {
 	public BoxView(String newName, Controller newController) {
-		// this constructor is the same for all view's on same stage
+		// this constructor is the same for all view's
 		super(newName, newController);
 		construct();
 	}

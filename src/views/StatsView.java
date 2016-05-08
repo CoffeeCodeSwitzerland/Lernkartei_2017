@@ -7,6 +7,7 @@ import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.layout.HBox;
 import models.ProfilModel;
+import mvc.Controller;
 import mvc.FXView;
 /**
  * Diese Klasse soll die gleiche Funktionalität wie StatisticsView haben und diese dann auch ersetzen
@@ -18,9 +19,9 @@ import mvc.FXView;
 
 public class StatsView extends FXView
 {	
-	public StatsView(String newName) {
-		// this constructor is the same for all view's on same stage
-		super(newName);
+	public StatsView(String newName, Controller newController) {
+		// this constructor is the same for all view's
+		super(newName, newController);
 		construct();
 	}
 

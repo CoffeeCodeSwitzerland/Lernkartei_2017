@@ -20,7 +20,7 @@ import mvc.FXView;
 public class StatisticsView extends FXView
 {		
 	public StatisticsView(String newName, Controller newController) {
-		// this constructor is the same for all view's on same stage
+		// this constructor is the same for all view's
 		super(newName, newController);
 		construct();
 	}

@@ -17,7 +17,7 @@ import mvc.FXView;
 public class OptionsView extends FXView
 {
 	public OptionsView(String newName, Controller newController) {
-		// this constructor is the same for all view's on same stage
+		// this constructor is the same for all view's
 		super(newName, newController);
 		construct();
 	}

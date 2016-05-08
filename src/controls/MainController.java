@@ -49,10 +49,10 @@ public class MainController extends Controller
 		Logger.log("Instanziere Views....");
 		this.addUniqueView(new MainView(getMainViewName(), this));
 		this.addUniqueView(new StatisticsView("statisticsview", this));
-		this.addUniqueView(new StatsView("statsview"));
+		this.addViewOnNewStage(new StatsView("statsview", new Controller()));
 		this.addUniqueView(new DoorView("doorview", this));
 		this.addUniqueView(new OptionsView("optionsview", this));
-		this.addUniqueView(new HelpView("helpview")); // on new stage
+		this.addViewOnNewStage(new HelpView("helpview", new HelpController())); // on new stage
 		this.addUniqueView(new GameView("gameview", this));
 		this.addUniqueView(new KarteiView("karteiview", this));
 		this.addUniqueView(new BoxView("boxview", this));

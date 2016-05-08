@@ -12,13 +12,18 @@ import javafx.stage.Stage;
  * 
  * @author hugo-lucca
  */
-public abstract class Controller implements ControllerInterface
+public class Controller implements ControllerInterface
 {
 	private final ArrayList<View> views	= new ArrayList<View>();
 	private final ArrayList<Model> models = new ArrayList<Model>();
 	private String mainViewName;
 	private FXSettings theFXSettings;
 	
+	public Controller ()
+	{
+		this(new Stage(), new FXSettings());
+	}
+
 	public Controller (Stage primaryStage, FXSettings newFXSettings)
 	{
 		setMainViewName("mainview");
@@ -119,6 +124,15 @@ public abstract class Controller implements ControllerInterface
 		return false;
 	}
 
+	public boolean addViewOnNewStage (View newView) {		
+		this.addUniqueView(newView);
+		
+		newView.getController().addUniqueView(newView);
+		newView.getController().setMainViewName(newView.getName());
+		
+		return true;
+	}
+
 	public ArrayList<View> getViews() {
 		return views;
 	}
@@ -141,5 +155,17 @@ public abstract class Controller implements ControllerInterface
 
 	public void setTheFXSettings(FXSettings theFXSettings) {
 		this.theFXSettings = theFXSettings;
+	}
+
+	@Override
+	public void initMyModels() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void initMyViews() {
+		// TODO Auto-generated method stub
+		
 	}
 }

@@ -14,7 +14,7 @@ public class HelpSerachView extends FXView
 {
 
 	public HelpSerachView(String newName, Controller newController) {
-		// this constructor is the same for all view's on same stage
+		// this constructor is the same for all view's
 		super(newName, newController);
 		construct();
 	}

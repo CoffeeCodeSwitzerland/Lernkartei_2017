@@ -5,6 +5,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.layout.VBox;
+import mvc.Controller;
 import mvc.FXView;
 
 /**
@@ -15,9 +16,9 @@ import mvc.FXView;
  */
 public class HelpView extends FXView
 {
-	public HelpView(String newName) {
-		// this constructor is the same for all view's for a new stage
-		super(newName);
+	public HelpView(String newName, Controller newController) {
+		// this constructor is the same for all view's
+		super(newName, newController);
 		construct();
 	}
 

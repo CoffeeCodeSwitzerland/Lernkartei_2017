@@ -38,6 +38,7 @@ public class Controller implements ControllerInterface
 	
 		initMyModels(); // Zuerst Model kreieren, 
 		initMyViews();	// dann die View's
+		startApp();
 	}
 
 	public Model getModel (String name)
@@ -165,6 +166,12 @@ public class Controller implements ControllerInterface
 
 	@Override
 	public void initMyViews() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void startApp() {
 		// TODO Auto-generated method stub
 		
 	}

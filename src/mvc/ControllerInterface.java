@@ -10,6 +10,7 @@ public interface ControllerInterface
 {
 	public abstract void initMyModels();
 	public abstract void initMyViews();
+	public abstract void startApp();
 	
 	public abstract Model getModel (String name);
 	public abstract void showMainView ();

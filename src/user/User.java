@@ -3,7 +3,7 @@ package user;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import controls.Constants;
+import controls.Globals;
 import database.UserLogin;
 
 public class User
@@ -67,7 +67,7 @@ public class User
 	
 	private static String[] genArray(String toGenerate)
 	{
-		genData = toGenerate.split(Constants.SEPARATOR);
+		genData = toGenerate.split(Globals.SEPARATOR);
 		
 		return genData;
 	}

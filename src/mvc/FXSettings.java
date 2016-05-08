@@ -12,6 +12,10 @@ import debug.*;
  */
 public class FXSettings {
 
+	public static double width  = 920;
+	public static double height = 570;
+	public static Color backroundColor = new Color(1.0,1.0,1.0,0.5); 
+
 	private Stage primaryStage = null;
 	private double OPTIMAL_WIDTH  = 920;
 	private double OPTIMAL_HEIGHT = 570;
@@ -41,23 +45,30 @@ public class FXSettings {
 		return OPTIMAL_WIDTH;
 	}
 
-	public void setOPTIMAL_WIDTH(double oPTIMAL_WIDTH) {
-		OPTIMAL_WIDTH = oPTIMAL_WIDTH;
+	public void setOPTIMAL_WIDTH(double ow) {
+		OPTIMAL_WIDTH = ow;
+		FXSettings.width = ow;
 	}
 
 	public double getOPTIMAL_HEIGHT() {
 		return OPTIMAL_HEIGHT;
 	}
 
-	public void setOPTIMAL_HEIGHT(double oPTIMAL_HEIGHT) {
-		OPTIMAL_HEIGHT = oPTIMAL_HEIGHT;
+	public void setOPTIMAL_HEIGHT(double oh) {
+		OPTIMAL_HEIGHT = oh;
+		FXSettings.height = oh;
 	}
 
 	public Color getPreferredBackroundColor() {
 		return preferredBackroundColor;
 	}
 
-	public void setPreferredBackroundColor(Color preferredBackroundColor) {
-		this.preferredBackroundColor = preferredBackroundColor;
+	public void setPreferredBackroundColor(Color bcol) {
+		this.preferredBackroundColor = bcol;
+		FXSettings.backroundColor = bcol;
+	}
+
+	public static void setBackroundColor(Color bcol) {
+		FXSettings.backroundColor = bcol;
 	}
 }

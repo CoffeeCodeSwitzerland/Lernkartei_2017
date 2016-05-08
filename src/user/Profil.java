@@ -2,7 +2,7 @@ package user;
 
 import java.util.ArrayList;
 
-import controls.Constants;
+import controls.Globals;
 import database.*;
 
 public class Profil
@@ -29,12 +29,12 @@ public class Profil
 		for (int i = 0; i < OriginalData.size(); i++)
 		{
 			String[] temp;
-			temp = OriginalData.get(i).split(Constants.SEPARATOR);
+			temp = OriginalData.get(i).split(Globals.SEPARATOR);
 			Kartei[i] = temp[0];
 			System.out.println(temp);
 			System.out.println();
 			String oldString = temporary;
-			temporary = oldString + Kartei[i] + Constants.SEPARATOR;
+			temporary = oldString + Kartei[i] + Globals.SEPARATOR;
 		}
 		return tempList;
 	}
@@ -49,10 +49,10 @@ public class Profil
 		for (int i = 0; i < OriginalData.size(); i++)
 		{
 			String[] temp;
-			temp = OriginalData.get(i).split(Constants.SEPARATOR);
+			temp = OriginalData.get(i).split(Globals.SEPARATOR);
 			Points[i] = temp[1];
 			String oldString = temporary;
-			temporary = oldString + Points[i] + Constants.SEPARATOR;
+			temporary = oldString + Points[i] + Globals.SEPARATOR;
 		}
 		return tempList;
 	}

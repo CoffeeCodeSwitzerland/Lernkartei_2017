@@ -1,6 +1,6 @@
 package views;
 
-import controls.Constants;
+import controls.Globals;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
@@ -24,7 +24,7 @@ public class HelpView extends FXView
 
 	public Parent constructContainer () {
 		
-		this.getWindow().setTitle(Constants.appTitle+"Hilfe"+Constants.appVersion);
+		this.getWindow().setTitle(Globals.appTitle+"Hilfe"+Globals.appVersion);
 		this.getWindow().setResizable(false);
 
 		AppButton impressumBtn = new AppButton("Impressum");

@@ -2,7 +2,7 @@ package models;
 //z
 import java.util.ArrayList;
 
-import controls.Constants;
+import controls.Globals;
 import database.Score;
 import database.UserCards;
 import mvc.Model;
@@ -42,7 +42,7 @@ public class ProfilModel extends Model
 
 	private void getArray(String paramS)
 	{
-		Data = paramS.split(Constants.SEPARATOR);
+		Data = paramS.split(Globals.SEPARATOR);
 	}
 
 	//Als Query muss man die unten gebrauchten ausdrücke eingeben, damit die gewünschte Funktion aufgerufen wird

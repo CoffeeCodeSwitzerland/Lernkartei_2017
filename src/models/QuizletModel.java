@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 
-import controls.Constants;
+import controls.Globals;
 import quizlet.Quizlet;
 import mvc.Model;
 
@@ -18,11 +18,11 @@ public class QuizletModel extends Model {
 	@Override
 	public ArrayList<String> getDataList (String query) {
 		
-		if (query.split(Constants.SEPARATOR)[0].equals("search")) {
+		if (query.split(Globals.SEPARATOR)[0].equals("search")) {
 			
 			Quizlet q = new Quizlet("3RhaPk5H9C");
 			try {
-				return q.searchSet(query.split(Constants.SEPARATOR)[1]);
+				return q.searchSet(query.split(Globals.SEPARATOR)[1]);
 			}
 			catch (MalformedURLException e) {
 				debug.Debugger.out(e.getMessage());
@@ -31,11 +31,11 @@ public class QuizletModel extends Model {
 				debug.Debugger.out(e.getMessage());
 			}
 			
-		} else if (query.split(Constants.SEPARATOR)[0].equals("set")) {
+		} else if (query.split(Globals.SEPARATOR)[0].equals("set")) {
 			
 			Quizlet q = new Quizlet("3RhaPk5H9C");
 			try {
-				return q.getSet(query.split(Constants.SEPARATOR)[1]);
+				return q.getSet(query.split(Globals.SEPARATOR)[1]);
 			}
 			catch (MalformedURLException e) {
 				debug.Debugger.out(e.getMessage());

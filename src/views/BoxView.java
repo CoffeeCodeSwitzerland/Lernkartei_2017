@@ -79,7 +79,7 @@ public class BoxView extends FXViewModel
 			if (this.getName() != null || !boxName.equals(""))
 			{
 				getController().getModel("box").doAction("new",
-						getData() + controls.Constants.SEPARATOR + boxName);
+						getData() + controls.Globals.SEPARATOR + boxName);
 				// TODO Feedback für den User (Fehlermeldungen)
 			}
 		});

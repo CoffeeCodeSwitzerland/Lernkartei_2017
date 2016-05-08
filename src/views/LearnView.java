@@ -1,6 +1,6 @@
 package views;
 
-import controls.Constants;
+import controls.Globals;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
@@ -77,7 +77,7 @@ public class LearnView extends FXViewModel
 		{
 			headLbl.setText(getData());
 			String d = getController().getModel("cards").getDataList(getData()).get(counter); // Ensure valid counter variable
-			cardData = d.split(Constants.SEPARATOR);
+			cardData = d.split(Globals.SEPARATOR);
 			card.setText(cardData[1]);
 		}
 		

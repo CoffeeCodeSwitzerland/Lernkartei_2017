@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-import controls.Constants;
+import controls.Globals;
 
 
 public class Score {
@@ -208,7 +208,7 @@ public class Score {
 
 	private static String genString(String Kartei, String Score)
 	{
-		return Kartei + Constants.SEPARATOR + Score;
+		return Kartei + Globals.SEPARATOR + Score;
 	}
 
 }

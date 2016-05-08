@@ -1,6 +1,6 @@
 package views;
 
-import controls.Constants;
+import controls.Globals;
 import debug.Debugger;
 import debug.Logger;
 import javafx.geometry.Insets;
@@ -41,7 +41,7 @@ public class MainView extends FXView
 
 	@Override
 	public Parent constructContainer() {
-		String title = Constants.appTitle + " " + Constants.appVersion;
+		String title = Globals.appTitle + " " + Globals.appVersion;
 		getController().getTheFXSettings().getPrimaryStage().setTitle(title);
 
 		// Buttons

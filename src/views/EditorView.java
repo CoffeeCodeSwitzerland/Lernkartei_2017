@@ -2,7 +2,7 @@ package views;
 
 import java.util.ArrayList;
 
-import controls.Constants;
+import controls.Globals;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
@@ -73,7 +73,7 @@ public class EditorView extends FXViewModel
 			debug.Debugger.out("" + cardStrings.size());
 			for (String s : cardStrings)
 			{
-				String[] cardSides = s.split(Constants.SEPARATOR);
+				String[] cardSides = s.split(Globals.SEPARATOR);
 				TextField front = new TextField(cardSides[1]);
 				TextField back = new TextField(cardSides[2]);
 				
@@ -84,7 +84,7 @@ public class EditorView extends FXViewModel
 						if (back.getText() != null && !back.getText().equals("") && front.getText() != null
 								&& !front.getText().equals(""))
 						{
-							getController().getModel("cards").doAction("edit", cardSides[0] + Constants.SEPARATOR + front.getText() + Constants.SEPARATOR + back.getText());
+							getController().getModel("cards").doAction("edit", cardSides[0] + Globals.SEPARATOR + front.getText() + Globals.SEPARATOR + back.getText());
 						}
 					}
 				});
@@ -96,7 +96,7 @@ public class EditorView extends FXViewModel
 						if (back.getText() != null && !back.getText().equals("") && front.getText() != null
 								&& !front.getText().equals(""))
 						{
-							getController().getModel("cards").doAction("edit", cardSides[0] + Constants.SEPARATOR + front.getText() + Constants.SEPARATOR + back.getText());
+							getController().getModel("cards").doAction("edit", cardSides[0] + Globals.SEPARATOR + front.getText() + Globals.SEPARATOR + back.getText());
 						}
 					}
 				});
@@ -124,7 +124,7 @@ public class EditorView extends FXViewModel
 						&& !front.getText().equals(""))
 				{
 					getController().getModel("cards").doAction("new",
-							front.getText() + Constants.SEPARATOR + back.getText() + Constants.SEPARATOR + data);
+							front.getText() + Globals.SEPARATOR + back.getText() + Globals.SEPARATOR + data);
 				}
 			});
 

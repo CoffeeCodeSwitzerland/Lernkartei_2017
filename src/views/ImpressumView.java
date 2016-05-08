@@ -47,7 +47,7 @@ public class ImpressumView extends FXView
 		labelTitel.setId("impressumtext");
 		labelText.setId("impressumtext");
 
-		Double size = getWindow().getWidth()*.95;
+		Double size = getController().getTheFXSettings().getOPTIMAL_WIDTH()*.95;
 		size += 10;
 		labelText.setPrefWidth(size);
 		labelTitel.setPrefWidth(size);
@@ -82,6 +82,5 @@ public class ImpressumView extends FXView
 	@Override
 	public void refreshView ()
 	{
-		return;
 	}
 }

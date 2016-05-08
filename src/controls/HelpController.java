@@ -25,8 +25,8 @@ public class HelpController extends Controller
 	@Override
 	public void initMyViews() {
 		// add only new view's, the helpview is added automaticly as mainView
-		this.addUniqueView(new HelpSerachView("index", this));
-		this.addUniqueView(new HelpInfoView("manual", this));
-		this.addUniqueView(new ImpressumView("impressum", this));
+		this.addUniqueView(new HelpSerachView("indexview", this));
+		this.addUniqueView(new HelpInfoView("manualview", this));
+		this.addUniqueView(new ImpressumView("impressumview", this));
 	}
 }

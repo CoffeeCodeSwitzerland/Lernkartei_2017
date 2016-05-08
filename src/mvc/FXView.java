@@ -18,7 +18,6 @@ import javafx.stage.Stage;
 public abstract class FXView extends View
 {
 	private Scene scene;
-	private static String stylePath	= "style.css";
 	
 	public FXView (String newName, Controller newController) {
 		super(newName, newController);
@@ -55,6 +54,7 @@ public abstract class FXView extends View
 		this.scene = new Scene(p, width, height);
 		// TODO: add Color settings to scene
 		
+		String stylePath = getController().getTheFXSettings().getStylePath();		
 		URL url = this.getClass().getResource(stylePath);
 		if (url != null) {
 			String urlstr = url.toExternalForm();

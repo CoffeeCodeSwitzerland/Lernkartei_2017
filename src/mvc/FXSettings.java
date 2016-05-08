@@ -16,7 +16,16 @@ public class FXSettings {
 	private double OPTIMAL_WIDTH  = 920;
 	private double OPTIMAL_HEIGHT = 570;
 	private Color preferredBackroundColor = new Color(1.0,1.0,1.0,0.5); 
+	private String stylePath = "style.css";
 	
+	public void setStylePath(String stylePath) {
+		this.stylePath = stylePath;
+	}
+
+	public String getStylePath() {
+		return stylePath;
+	}
+
 	public Stage getPrimaryStage() {
 		if (this.primaryStage == null) {
 			Debugger.out("FXSettings: no primary stage defined!");

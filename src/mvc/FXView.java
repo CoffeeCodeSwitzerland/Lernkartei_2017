@@ -2,7 +2,6 @@ package mvc;
 
 import java.net.URL;
 
-import controls.HelpController;
 import debug.Debugger;
 import debug.Logger;
 import javafx.scene.Parent;
@@ -22,15 +21,6 @@ public abstract class FXView extends View
 	private Scene scene;
 	private final BorderPane mainLayout = new BorderPane();
 	
-	public FXView (String setName) {
-		// special constructor for a new Stage
-		super (setName, new HelpController());
-		// add myself as mainView to the new stage:
-		this.getController().addUniqueView(this);
-		this.getController().setMainViewName(this.getName());
-		//
-	}
-
 	public void construct () {
 		// call this to construct the view
 		Parent p = constructContainer();

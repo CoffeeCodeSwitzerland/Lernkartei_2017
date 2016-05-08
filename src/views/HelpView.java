@@ -4,11 +4,9 @@ import controls.Constants;
 import controls.HelpController;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Scene;
+import javafx.scene.Parent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
-import mvc.Controller;
 import mvc.FXView;
 
 /**
@@ -25,19 +23,19 @@ public class HelpView extends FXView
 	AppButton indexBtn     = new AppButton("Index");
 	String subTitle = "Hilfe";
 	
-	public HelpView (String setName, Controller controller)
-	{
-		super (setName, controller);
-		init();
-	}
-
 	public HelpView (String setName)
 	{
-		super (setName, new HelpController(new Stage()));
-		init();
+		// special constructor for a new Stage
+		super (setName, new HelpController());
+		
+		// add myself as mainView to the new stage:
+		this.getController().addUniqueView(this);
+		this.getController().setMainViewName(this.getName());
+		//
+		setupScene(constructContainer());
 	}
 
-	private void init () {
+	private Parent constructContainer () {
 		this.getWindow().setTitle(Constants.appTitle+subTitle+Constants.appVersion);
 		this.getWindow().setResizable(false);
 
@@ -52,7 +50,7 @@ public class HelpView extends FXView
 		tempVBox.getChildren().addAll(impressumBtn, anleitungBtn, indexBtn);
 
 		tempVBox.setId("help");
-		this.setupScene(new Scene(tempVBox, getController().getFXSettings().OPTIMAL_WIDTH, 150+getController().getFXSettings().OPTIMAL_HEIGHT));
+		return tempVBox;
 	}
 
 	@Override

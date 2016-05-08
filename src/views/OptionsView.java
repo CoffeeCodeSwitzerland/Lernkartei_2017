@@ -2,7 +2,6 @@ package views;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.layout.VBox;
@@ -59,9 +58,9 @@ public class OptionsView extends FXView
 		});
 
 		// Behavior
-		back.setOnAction(e -> getController().showMain());
+		back.setOnAction(e -> getController().showMainView());
 
-		this.setupScene(new Scene(tempVBox, getController().getFXSettings().OPTIMAL_WIDTH, getController().getFXSettings().OPTIMAL_HEIGHT));
+		setupScene(tempVBox);
 	}
 
 	@Override

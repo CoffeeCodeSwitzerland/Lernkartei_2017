@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -115,8 +114,7 @@ public class BoxView extends FXViewModel
 			event.setDropCompleted(success);
 			event.consume();
 		});
-
-		this.setupScene(new Scene(borderPane, getController().getFXSettings().OPTIMAL_WIDTH, getController().getFXSettings().OPTIMAL_HEIGHT));
+		setupScene(borderPane);
 		getController().getModel("box").registerView(this);
 	}
 

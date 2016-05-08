@@ -1,17 +1,13 @@
 package views;
 
-import java.util.ArrayList;
-
 import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
-import javafx.scene.chart.XYChart;
-import javafx.scene.chart.XYChart.Series;
 import javafx.scene.layout.HBox;
-import mvc.*;
-import models.*;
+import models.ProfilModel;
+import mvc.Controller;
+import mvc.FXView;
 /**
  * Diese Klasse soll die gleiche Funktionalität wie StatisticsView haben und diese dann auch ersetzen
  * Sie soll beliebig viele Säulen generieren
@@ -67,13 +63,11 @@ public class StatsView extends FXView
 //			serie.getData().add(new XYChart.Data(Karteien.get(i), Punkte.get(i)));
 //		}
 		
-		//Neue Szene
-		Scene scene = new Scene(bc);
 //		bc.getData().addAll(serie);
 		
 		//Szene setzen und Buttons Event
-		this.setupScene(scene);
-		back.setOnAction(e -> getController().getMainView());
+		setupScene(bc);
+		back.setOnAction(e -> getController().getMainViewName());
 	}
 
 	@Override

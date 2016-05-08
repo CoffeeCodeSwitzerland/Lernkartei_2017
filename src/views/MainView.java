@@ -5,7 +5,6 @@ import debug.Debugger;
 import debug.Logger;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
@@ -37,7 +36,7 @@ public class MainView extends FXView
 	{
 		super(setName, controller);
 		String title = Constants.appTitle + " " + Constants.appVersion;
-		getController().getFXSettings().getPrimaryStage().setTitle(title);
+		getController().getTheFXSettings().getPrimaryStage().setTitle(title);
 
 		// Buttons
 	
@@ -86,7 +85,7 @@ public class MainView extends FXView
 
 		Logger.log("Set scene....");
 
-		setupScene(new Scene(mainLayout, getController().getFXSettings().OPTIMAL_WIDTH, getController().getFXSettings().OPTIMAL_HEIGHT));
+		setupScene(mainLayout);
 
 		Logger.log("Show....");
 		show();

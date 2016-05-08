@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import controls.Constants;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -49,7 +48,7 @@ public class EditorView extends FXViewModel
 		mainLayout.setCenter(editLayout);
 		mainLayout.setBottom(controlLayout);
 
-		setupScene(new Scene(mainLayout, getController().getFXSettings().OPTIMAL_WIDTH, getController().getFXSettings().OPTIMAL_HEIGHT));
+		setupScene(mainLayout);
 		getController().getModel("cards").registerView(this);
 	}
 

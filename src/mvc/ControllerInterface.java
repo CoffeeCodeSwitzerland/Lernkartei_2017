@@ -12,6 +12,6 @@ public interface ControllerInterface
 	public abstract void initMyViews();
 	
 	public abstract Model getModel (String name);
-	public abstract void showMain ();
+	public abstract void showMainView ();
 	public abstract View getView (String name);
 }

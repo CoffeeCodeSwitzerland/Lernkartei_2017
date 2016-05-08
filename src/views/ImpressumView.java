@@ -2,7 +2,6 @@ package views;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -68,7 +67,7 @@ public class ImpressumView extends FXView
 		BoxMitText.setAlignment(Pos.CENTER);
 		
 		// Behaviour
-		backBtn.setOnAction(e -> getController().getView("help").show());
+		backBtn.setOnAction(e -> getController().showMainView());
 		
 		// Layout
 		BorderPane borderPane = new BorderPane();
@@ -77,7 +76,7 @@ public class ImpressumView extends FXView
 		borderPane.setCenter(BoxMitText);
 		borderPane.setTop(TitelBox);
 		
-		setupScene(new Scene(borderPane, getController().getFXSettings().OPTIMAL_WIDTH, getController().getFXSettings().OPTIMAL_HEIGHT));
+		setupScene(borderPane);
 	}
 
 	@Override

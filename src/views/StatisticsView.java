@@ -2,7 +2,6 @@ package views;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
@@ -120,8 +119,8 @@ public class StatisticsView extends FXView
         //Chart ins KartenLayout (center) einfügen
         ChartLayout.getChildren().addAll(bc);
         
-		this.setupScene(new Scene(borderPane, getController().getFXSettings().OPTIMAL_WIDTH, getController().getFXSettings().OPTIMAL_HEIGHT));
-		zurueck.setOnAction(e -> controller.showMain());
+		setupScene(borderPane);
+		zurueck.setOnAction(e -> controller.showMainView());
 		
 
 	}

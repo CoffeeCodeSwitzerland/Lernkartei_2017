@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.ClipboardContent;
@@ -59,7 +58,7 @@ public class DoorView extends FXView
 
 		
 		// Behaviour
-		backBtn.setOnAction(e -> getController().showMain());
+		backBtn.setOnAction(e -> getController().showMainView());
 
 		newDoorBtn.setOnAction(e ->
 		{
@@ -98,7 +97,7 @@ public class DoorView extends FXView
 			event.consume();
 		});
 
-		this.setupScene(new Scene(mainLayout, getController().getFXSettings().OPTIMAL_WIDTH, getController().getFXSettings().OPTIMAL_HEIGHT));
+		setupScene(mainLayout);
 		getController().getModel("door").registerView(this);
 	}
 

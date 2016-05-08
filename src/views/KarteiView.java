@@ -2,7 +2,6 @@ package views;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import mvc.Controller;
@@ -78,7 +77,7 @@ public class KarteiView extends FXView
 		zurueckButton.setOnAction(e -> getController().getView("kastenview").show());
 		weitereKasten.setDisable(true);
 
-		this.setupScene(new Scene(borderPane, getController().getFXSettings().OPTIMAL_WIDTH, getController().getFXSettings().OPTIMAL_HEIGHT));
+		setupScene(borderPane);
 	}
 
 	@Override

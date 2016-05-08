@@ -16,6 +16,7 @@ import views.ImpressumView;
 import views.KarteiView;
 import views.LearnView;
 import views.MainView;
+import views.MainViewSettings;
 import views.OptionsView;
 import views.StatisticsView;
 import views.StatsView;
@@ -30,7 +31,7 @@ import views.StatsView;
 public class MainController extends Controller
 {
 	public MainController(Stage primaryStage) {
-		super(primaryStage);
+		super(primaryStage, new MainViewSettings());
 	}
 
 	@Override
@@ -46,12 +47,12 @@ public class MainController extends Controller
 	@Override
 	public void initMyViews() {
 		Logger.log("Instanziere Views....");
-		this.addUniqueView(new MainView(getMainView(), this));
+		this.addUniqueView(new MainView(getMainViewName(), this));
 		this.addUniqueView(new StatisticsView("statisticsview", this));
 		this.addUniqueView(new StatsView("statsview", this));
 		this.addUniqueView(new DoorView("doorview", this));
 		this.addUniqueView(new OptionsView("optionsview", this));
-		this.addUniqueView(new HelpView("helpview", new HelpController(new Stage())));
+		this.addUniqueView(new HelpView("helpview")); // on new stage
 		this.addUniqueView(new GameView("gameview", this));
 		this.addUniqueView(new KarteiView("karteiview", this));
 		this.addUniqueView(new BoxView("boxview", this));

@@ -2,7 +2,6 @@ package views;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -29,7 +28,7 @@ public class GameView extends FXView
 
 		// Button für Zurück zum Hauptmenue:
 		AppButton btn = new AppButton("Zurück...");
-		btn.setOnAction(e -> getController().showMain());
+		btn.setOnAction(e -> getController().showMainView());
 
 		// Erstellt VBox Layout für beide obige Elemente:
 		VBox tempVBox = new VBox();
@@ -45,7 +44,7 @@ public class GameView extends FXView
 		bp.setId("gamebg");
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////
 		// BP in Scene einfügen:
-		this.setupScene(new Scene(bp, getController().getFXSettings().OPTIMAL_WIDTH, getController().getFXSettings().OPTIMAL_HEIGHT));
+		setupScene(bp);
 
 	}
 

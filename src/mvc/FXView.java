@@ -4,6 +4,7 @@ import java.net.URL;
 
 import debug.Debugger;
 import debug.Logger;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
@@ -16,25 +17,22 @@ import javafx.stage.Stage;
  */
 public abstract class FXView extends View
 {
-	private Stage window;
 	private Scene scene;
 	private static String stylePath	= "style.css";
 	
 	public FXView (String newName, Controller newController) {
 		super(newName, newController);
-		window = null;
 		scene  = null;
-		if (newController != null) {
-			if (newController.getClass().toString().endsWith("MainController")) {
-				window = newController.getFXSettings().getPrimaryStage();
-			}
-		}
+	}
+	
+	public Stage getWindow () {
+		return getController().getTheFXSettings().getPrimaryStage();
 	}
 	
 	public void show()
 	{
 		Logger.log("Get Window....");
-		Stage st = this.getWindow();
+		Stage st = getWindow();
 		if (st != null) {
 			if (scene != null) {
 				Logger.log("Set scene....");
@@ -50,8 +48,12 @@ public abstract class FXView extends View
 		this.refreshView();
 	}
 	
-	public void setupScene(Scene newScene) {
-		this.scene = newScene;
+	public void setupScene(Parent p) {
+		
+		Double width = getController().getTheFXSettings().getOPTIMAL_WIDTH();
+		Double height = getController().getTheFXSettings().getOPTIMAL_HEIGHT();
+		this.scene = new Scene(p, width, height);
+		// TODO: add Color settings to scene
 		
 		URL url = this.getClass().getResource(stylePath);
 		if (url != null) {
@@ -64,10 +66,5 @@ public abstract class FXView extends View
 		} else {
 		   Debugger.out("view("+getName()+").setScene: no css ressource found for "+stylePath);
 		}
-	}
-
-	public Stage getWindow() {
-		if (window == null) window = new Stage();
-		return window;
 	}
 }

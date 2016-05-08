@@ -14,17 +14,22 @@ import javafx.stage.Stage;
  */
 public abstract class Controller implements ControllerInterface
 {
-	private final String mainView = "mainview";
 	private final ArrayList<View> views	= new ArrayList<View>();
 	private final ArrayList<Model> models = new ArrayList<Model>();
-	private final FXSettings myFXSettings = new FXSettings();
+	private String mainViewName;
+	private FXSettings theFXSettings;
 	
-	public Controller (Stage primaryStage)
+	public Controller (Stage primaryStage, FXSettings newFXSettings)
 	{
+		setMainViewName("main");
+		this.theFXSettings = newFXSettings;
+		if (this.theFXSettings == null) {
+			theFXSettings = new FXSettings();
+		}
 		if (primaryStage == null) {
 			primaryStage = new Stage();
 		}
-		getFXSettings().setPrimaryStage(primaryStage);
+		getTheFXSettings().setPrimaryStage(primaryStage);
 	
 		initMyModels(); // Zuerst Model kreieren, 
 		initMyViews();	// dann die View's
@@ -45,9 +50,9 @@ public abstract class Controller implements ControllerInterface
 		return null; // not found
 	}
 
-	public void showMain ()
+	public void showMainView ()
 	{
-		getView(getMainView()).show();
+		getView(getMainViewName()).show();
 	}
 
 	public View getView (String name)
@@ -66,18 +71,6 @@ public abstract class Controller implements ControllerInterface
 		return null; // not found
 	}
 
-	public String getMainView() {
-		return mainView;
-	}
-
-	public ArrayList<View> getViews() {
-		return views;
-	}
-
-	protected ArrayList<Model> getModels() {
-		return models;
-	}
-	
 	public boolean addUniqueModel (Model newModel) {
 		Iterator<Model> it = getModels().iterator();
 		int found = 0;
@@ -114,8 +107,27 @@ public abstract class Controller implements ControllerInterface
 		return false;
 	}
 
-	public FXSettings getFXSettings() {
-		return myFXSettings;
+	public ArrayList<View> getViews() {
+		return views;
 	}
 
+	protected ArrayList<Model> getModels() {
+		return models;
+	}
+
+	public void setMainViewName(String mainView) {
+		this.mainViewName = mainView;
+	}
+
+	public String getMainViewName() {
+		return mainViewName;
+	}
+
+	public FXSettings getTheFXSettings() {
+		return theFXSettings;
+	}
+
+	public void setTheFXSettings(FXSettings theFXSettings) {
+		this.theFXSettings = theFXSettings;
+	}
 }

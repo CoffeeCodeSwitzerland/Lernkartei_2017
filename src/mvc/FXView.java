@@ -12,8 +12,8 @@ import javafx.stage.Stage;
 
 /**
  * Diese Klasse ist des Basis Codegerüst für die Umsetzung der GUI-View's in diesem MVC Konzept.
- * View's müssen sich beim Modell registrieren, wenn sie bei Änderungen im Modell automatisch ge-refresht werden wollen.
- * Der Constructor dieser Klasse muss immer zuerst aufgerufen werden 
+ * View's müssen sich beim Modell registrieren, wenn sie bei Änderungen im Modell automatisch 
+ * ge-refresht werden wollen.
  * 
  * @author hugo-lucca
  */
@@ -31,9 +31,20 @@ public abstract class FXView extends View
 		//
 	}
 
-	public FXView (String newName, Controller newController) {
+	public void construct () {
+		// call this to construct the view
+		Parent p = constructContainer();
+		if (p==null) {
+			p = getMainLayout();
+		}
+		p.setId(this.getName());
+		setupScene(p);
+	}
+
+	public FXView(String newName, Controller newController) {
+		// this constructor is the same for all view's on same stage
 		super(newName, newController);
-		scene  = null;
+		scene = null;
 	}
 	
 	public Stage getWindow () {
@@ -71,12 +82,12 @@ public abstract class FXView extends View
 		if (url != null) {
 			String urlstr = url.toExternalForm();
 			if (scene != null && urlstr != null) {
-			   scene.getStylesheets().add(getClass().getResource(stylePath).toExternalForm());
+				scene.getStylesheets().add(getClass().getResource(stylePath).toExternalForm());
 			} else {
-			   Debugger.out("view("+getName()+").setScene no css-url found for "+stylePath);
+			   Debugger.out("FXView("+getName()+").setUpScene() no css-url found for "+stylePath);
 			}
 		} else {
-		   Debugger.out("view("+getName()+").setScene: no css ressource found for "+stylePath);
+		   Debugger.out("FXView("+getName()+").setUpScene(): no css ressource found for "+stylePath);
 		}
 	}
 

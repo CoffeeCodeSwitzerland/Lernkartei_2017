@@ -16,12 +16,7 @@ public class HelpInfoView extends FXView
 	public HelpInfoView(String newName, Controller newController) {
 		// this constructor is the same for all view's on same stage
 		super(newName, newController);
-		Parent p = constructContainer();
-		if (p==null) {
-			p = getMainLayout();
-		}
-		p.setId(this.getName());
-		setupScene(p);
+		construct();
 	}
 
 	@Override

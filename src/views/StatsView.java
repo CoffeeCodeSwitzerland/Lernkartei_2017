@@ -21,12 +21,7 @@ public class StatsView extends FXView
 	public StatsView(String newName) {
 		// this constructor is the same for all view's on same stage
 		super(newName);
-		Parent p = constructContainer();
-		if (p==null) {
-			p = getMainLayout();
-		}
-		p.setId(this.getName());
-		setupScene(p);
+		construct();
 	}
 
 	//Zugehöriges Model deklarieren und instanzieren

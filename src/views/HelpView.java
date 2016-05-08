@@ -18,12 +18,7 @@ public class HelpView extends FXView
 	public HelpView(String newName) {
 		// this constructor is the same for all view's for a new stage
 		super(newName);
-		Parent p = constructContainer();
-		if (p==null) {
-			p = getMainLayout();
-		}
-		p.setId(this.getName());
-		setupScene(p);
+		construct();
 	}
 
 	public Parent constructContainer () {

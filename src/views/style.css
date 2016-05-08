@@ -1,5 +1,4 @@
-.root
-{
+.root {
 	-fx-color: #eeeeee;
 	-fx-background: whitesmoke;
     -fx-background-position: center center;
@@ -7,22 +6,20 @@
     -fx-effect: dropshadow(three-pass-box, black, 30, 0.5, 0, 0);
 }
 
-#main
-{
+#mainview {
 	
 	-fx-background-color: linear-gradient(to bottom, #d6fffd 50%, #5ca55c 100%);
 	-fx-background-image: url("pictures/SchulhausEinzelnBig.png");
 	-fx-background-repeat: no-repeat;
 }
 
-#help
-{
+#helpview {
 	-fx-background-color: linear-gradient(to bottom, #d6fffd 50%, #5ca55c 100%);
 	-fx-background-image: url("pictures/helpdesk.jpg");
 	-fx-background-repeat: no-repeat;
 }
 
-#bold{
+#bold {
 	-fx-font-weight: bold;
 	-fx-font-size: 1.2em;
 }
@@ -34,8 +31,7 @@
 	-fx-background-image: null;
 }
 
-.check-box
-{
+.check-box {
 	-fx-color: black;
 }
 
@@ -50,16 +46,14 @@
  * http://www.2createawebsite.com/build/hex-colors.html
  */
 
-.button
-{
+.button {
 	-fx-font-family: "Segoe UI Semibold";
 	-fx-color: #ffebb2;
     -fx-text-fill: #875100;
     -fx-focus-color: white;
 }
 
-#impressumtext
-{
+#impressumtext {
 	-fx-background-color: #ee2222;
 	-fx-padding: 10px;
 }

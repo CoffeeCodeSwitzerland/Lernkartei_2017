@@ -1,11 +1,9 @@
 package views;
 
 import controls.Constants;
-import controls.HelpController;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import mvc.FXView;
 
@@ -17,31 +15,28 @@ import mvc.FXView;
  */
 public class HelpView extends FXView
 {
-	BorderPane mainLayout  = new BorderPane();
-	AppButton impressumBtn = new AppButton("Impressum");
-	AppButton anleitungBtn = new AppButton("Anleitung");
-	AppButton indexBtn     = new AppButton("Index");
-	String subTitle = "Hilfe";
-	
-	public HelpView (String setName)
-	{
-		// special constructor for a new Stage
-		super (setName, new HelpController());
-		
-		// add myself as mainView to the new stage:
-		this.getController().addUniqueView(this);
-		this.getController().setMainViewName(this.getName());
-		//
-		setupScene(constructContainer());
+	public HelpView(String newName) {
+		// this constructor is the same for all view's for a new stage
+		super(newName);
+		Parent p = constructContainer();
+		if (p==null) {
+			p = getMainLayout();
+		}
+		p.setId(this.getName());
+		setupScene(p);
 	}
 
-	private Parent constructContainer () {
-		this.getWindow().setTitle(Constants.appTitle+subTitle+Constants.appVersion);
+	public Parent constructContainer () {
+		
+		this.getWindow().setTitle(Constants.appTitle+"Hilfe"+Constants.appVersion);
 		this.getWindow().setResizable(false);
 
-		impressumBtn.setOnAction(e -> getController().getView("impressumview").show());
-		anleitungBtn.setOnAction(e -> getController().getView("manualview").show());
-		indexBtn.setOnAction(e -> getController().getView("indexview").show());
+		AppButton impressumBtn = new AppButton("Impressum");
+		AppButton anleitungBtn = new AppButton("Anleitung");
+		AppButton indexBtn     = new AppButton("Index");
+		impressumBtn.setOnAction(e -> getController().showView("impressumview"));
+		anleitungBtn.setOnAction(e -> getController().showView("manualview"));
+		indexBtn.setOnAction(e -> getController().showView("indexview"));
 
 		VBox tempVBox = new VBox();
 		tempVBox.setPadding(new Insets(10));

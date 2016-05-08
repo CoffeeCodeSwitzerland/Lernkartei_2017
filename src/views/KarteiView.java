@@ -2,6 +2,7 @@ package views;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Parent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import mvc.Controller;
@@ -14,13 +15,23 @@ import mvc.FXView;
  */
 public class KarteiView extends FXView
 {
+	public KarteiView(String newName, Controller newController) {
+		// this constructor is the same for all view's on same stage
+		super(newName, newController);
+		Parent p = constructContainer();
+		if (p==null) {
+			p = getMainLayout();
+		}
+		p.setId(this.getName());
+		setupScene(p);
+	}
+
 	HBox karteiLayout;
 	boolean delMode = false;
 	
-	public KarteiView (String setName, Controller controller)
-	{
-		super(setName, controller);
 
+	@Override
+	public Parent constructContainer() {
 		// Buttons
 		AppButton zurueckButton = new AppButton("zurück");
 		AppButton ueben = new AppButton("Üben");
@@ -77,7 +88,7 @@ public class KarteiView extends FXView
 		zurueckButton.setOnAction(e -> getController().getView("kastenview").show());
 		weitereKasten.setDisable(true);
 
-		setupScene(borderPane);
+		return borderPane;
 	}
 
 	@Override

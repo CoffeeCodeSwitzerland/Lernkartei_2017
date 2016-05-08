@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -26,13 +27,22 @@ import mvc.View;
  */
 public class BoxView extends FXViewModel
 {
+	public BoxView(String newName, Controller newController) {
+		// this constructor is the same for all view's on same stage
+		super(newName, newController);
+		Parent p = constructContainer();
+		if (p==null) {
+			p = getMainLayout();
+		}
+		p.setId(this.getName());
+		setupScene(p);
+	}
+
 	VBox	boxLayout;
 	VBox	options;
 
-	public BoxView (String setName, Controller controller)
-	{
-		super(setName, controller);
-
+	@Override
+	public Parent constructContainer() {
 		// Layouts für dynamische Inhalte
 		boxLayout = new VBox(20);
 		boxLayout.setAlignment(Pos.CENTER);
@@ -56,8 +66,6 @@ public class BoxView extends FXViewModel
 		hBox.setAlignment(Pos.CENTER);
 		hBox.getChildren().addAll(backBtn, newBoxBtn, trashImgView);
 
-		
-
 		// Layout für die Scene
 		BorderPane borderPane = new BorderPane();
 		borderPane.setPadding(new Insets(15));
@@ -73,7 +81,7 @@ public class BoxView extends FXViewModel
 		newBoxBtn.setOnAction(e ->
 		{
 			final String boxName = Alert.simpleString("Neue Box", "Wie soll die neue Box heissen?");
-			if (setName != null || !boxName.equals(""))
+			if (this.getName() != null || !boxName.equals(""))
 			{
 				getController().getModel("box").doAction("new",
 						getData() + controls.Constants.SEPARATOR + boxName);
@@ -114,8 +122,8 @@ public class BoxView extends FXViewModel
 			event.setDropCompleted(success);
 			event.consume();
 		});
-		setupScene(borderPane);
 		getController().getModel("box").registerView(this);
+		return borderPane;
 	}
 
 	@Override

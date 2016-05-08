@@ -5,6 +5,7 @@ import debug.Debugger;
 import debug.Logger;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Parent;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
@@ -21,6 +22,17 @@ import mvc.FXView;
  */
 public class MainView extends FXView
 {
+	public MainView(String newName, Controller newController) {
+		// this constructor is the same for all view's on same stage
+		super(newName, newController);
+		Parent p = constructContainer();
+		if (p==null) {
+			p = getMainLayout();
+		}
+		p.setId(this.getName());
+		setupScene(p);
+	}
+
 	BorderPane mainLayout = new BorderPane();
 	Image impressumImg = new Image("views/pictures/ImpressumIcon.png");
 	AppButton startBtn = new AppButton("Lernen");
@@ -32,9 +44,8 @@ public class MainView extends FXView
 	AppButton quitBtn = new AppButton("Beenden");
 	VBox menuLayout = new VBox();
 
-	public MainView (String setName, Controller controller)
-	{
-		super(setName, controller);
+	@Override
+	public Parent constructContainer() {
 		String title = Constants.appTitle + " " + Constants.appVersion;
 		getController().getTheFXSettings().getPrimaryStage().setTitle(title);
 
@@ -81,14 +92,7 @@ public class MainView extends FXView
 		mainLayout.setBottom(impImgView);
 		impImgView.setOnMouseClicked(e -> getController().getView("impressumview").show());
 
-		mainLayout.setId("main");
-
-		Logger.log("Set scene....");
-
-		setupScene(mainLayout);
-
-		Logger.log("Show....");
-		show();
+		return mainLayout;
 	}
 
 	@Override

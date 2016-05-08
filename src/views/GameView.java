@@ -2,6 +2,7 @@ package views;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Parent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -18,11 +19,21 @@ import mvc.FXView;
  */
 public class GameView extends FXView
 {
+	public GameView(String newName, Controller newController) {
+		// this constructor is the same for all view's on same stage
+		super(newName, newController);
+		Parent p = constructContainer();
+		if (p==null) {
+			p = getMainLayout();
+		}
+		p.setId(this.getName());
+		setupScene(p);
+	}
+
 	Text text;
-	public GameView (String setName, Controller controller)
-	{
-		super (setName, controller);
-		/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+	@Override
+	public Parent constructContainer() {
 		text = new Text("Starting game...");
 		text.setId("fancytext"); // CSS formatierte Meldung auf BS bringen (mit div. Schrifteffekten)
 
@@ -42,10 +53,7 @@ public class GameView extends FXView
 		BorderPane bp = new BorderPane();
 		bp.setCenter(tempVBox);
 		bp.setId("gamebg");
-		/////////////////////////////////////////////////////////////////////////////////////////////////////////
-		// BP in Scene einfügen:
-		setupScene(bp);
-
+		return bp;
 	}
 
 	@Override

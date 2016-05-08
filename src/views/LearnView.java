@@ -3,6 +3,7 @@ package views;
 import controls.Constants;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -11,6 +12,17 @@ import mvc.FXViewModel;
 
 public class LearnView extends FXViewModel
 {
+	public LearnView(String newName, Controller newController) {
+		// this constructor is the same for all view's on same stage
+		super(newName, newController);
+		Parent p = constructContainer();
+		if (p==null) {
+			p = getMainLayout();
+		}
+		p.setId(this.getName());
+		setupScene(p);
+	}
+
 	AppButton successfulBtn = new AppButton("Richtig");
 	AppButton wrongBtn = new AppButton("Falsch");
 	Label headLbl = new Label("");
@@ -20,10 +32,9 @@ public class LearnView extends FXViewModel
 	
 	String[] cardData = new String[3];
 	
-	public LearnView (String setName, Controller controller)
-	{
-		super(setName, controller);
 
+	@Override
+	public Parent constructContainer() {
 		AppButton backBtn = new AppButton("Zurück");
 		backBtn.setOnAction(e -> getController().getView("boxview").show());
 		
@@ -56,7 +67,7 @@ public class LearnView extends FXViewModel
 		mainLayout.setCenter(card);
 		mainLayout.setBottom(controlLayout);
 		
-		setupScene(mainLayout);
+		return mainLayout;
 	}
 
 	@Override

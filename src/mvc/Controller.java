@@ -21,7 +21,7 @@ public abstract class Controller implements ControllerInterface
 	
 	public Controller (Stage primaryStage, FXSettings newFXSettings)
 	{
-		setMainViewName("main");
+		setMainViewName("mainview");
 		this.theFXSettings = newFXSettings;
 		if (this.theFXSettings == null) {
 			theFXSettings = new FXSettings();
@@ -52,7 +52,19 @@ public abstract class Controller implements ControllerInterface
 
 	public void showMainView ()
 	{
-		getView(getMainViewName()).show();
+		showView(getMainViewName());
+	}
+
+	public void showView (String name)
+	{
+		if (name != null) {
+			View v = getView(name);
+			if (v!=null) {
+				v.show();
+			} else {
+				Debugger.out("Controller.showView(): no view("+name+")!");
+			}
+		}
 	}
 
 	public View getView (String name)

@@ -8,7 +8,7 @@ package mvc;
 public abstract class FXViewModel extends FXView
 {
 	private Model myModel = null;
-	
+
 	public FXViewModel(String setName, Controller controller) {
 		super(setName, controller);
 		myModel = new Model(setName);

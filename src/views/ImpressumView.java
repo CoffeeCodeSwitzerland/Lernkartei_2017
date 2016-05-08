@@ -2,6 +2,7 @@ package views;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -32,10 +33,20 @@ public class ImpressumView extends FXView
 	 * 
 	 */
 	
-	public ImpressumView (String setName, Controller controller)
-	{
-		super(setName, controller);
-		
+
+	public ImpressumView(String newName, Controller newController) {
+		// this constructor is the same for all view's on same stage
+		super(newName, newController);
+		Parent p = constructContainer();
+		if (p==null) {
+			p = getMainLayout();
+		}
+		p.setId(this.getName());
+		setupScene(p);
+	}
+
+	@Override
+	public Parent constructContainer() {
 		// Buttons
 		AppButton backBtn = new AppButton("Zurück");
 		
@@ -76,7 +87,8 @@ public class ImpressumView extends FXView
 		borderPane.setCenter(BoxMitText);
 		borderPane.setTop(TitelBox);
 		
-		setupScene(borderPane);
+		// TODO Auto-generated method stub
+		return borderPane;
 	}
 
 	@Override

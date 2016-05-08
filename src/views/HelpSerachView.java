@@ -1,5 +1,6 @@
 package views;
 
+import javafx.scene.Parent;
 import mvc.Controller;
 import mvc.FXView;
 
@@ -9,27 +10,29 @@ import mvc.FXView;
  * @author hugo-lucca
  *
  */
-
 public class HelpSerachView extends FXView
 {
 
-	public HelpSerachView(String setName, Controller controller)
-	{
-		super(setName, controller);
+	public HelpSerachView(String newName, Controller newController) {
+		// this constructor is the same for all view's on same stage
+		super(newName, newController);
+		Parent p = constructContainer();
+		if (p==null) {
+			p = getMainLayout();
+		}
+		p.setId(this.getName());
+		setupScene(p);
 	}
 
 	@Override
-	public void show()
-	{
+	public Parent constructContainer() {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
 
 	@Override
-	public void refreshView()
-	{
+	public void refreshView() {
 		// TODO Auto-generated method stub
 		
 	}
-	
 }

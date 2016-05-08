@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Parent;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.ClipboardContent;
@@ -16,7 +17,6 @@ import mvc.Controller;
 import mvc.FXView;
 import mvc.View;
 
-
 /**
  * Zeigt alle Türen an. Erlaubt die Erstellung und das Löschen von Türen.
  * 
@@ -25,13 +25,22 @@ import mvc.View;
  */
 public class DoorView extends FXView
 {
+	public DoorView(String newName, Controller newController) {
+		// this constructor is the same for all view's on same stage
+		super(newName, newController);
+		Parent p = constructContainer();
+		if (p==null) {
+			p = getMainLayout();
+		}
+		p.setId(this.getName());
+		setupScene(p);
+	}
+
 	// Zeigt Türen dynamisch an
 	VBox doorLayout;
 
-	public DoorView (String setName, Controller controller)
-	{
-		super(setName, controller);
-
+	@Override
+	public Parent constructContainer() {
 		// Initialisiere Layout für Türen
 		doorLayout = new VBox(20);
 		doorLayout.setAlignment(Pos.CENTER);
@@ -97,8 +106,8 @@ public class DoorView extends FXView
 			event.consume();
 		});
 
-		setupScene(mainLayout);
 		getController().getModel("door").registerView(this);
+		return mainLayout;
 	}
 
 	@Override

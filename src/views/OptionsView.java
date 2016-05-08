@@ -2,6 +2,7 @@ package views;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Parent;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.layout.VBox;
@@ -15,6 +16,17 @@ import mvc.FXView;
  */
 public class OptionsView extends FXView
 {
+	public OptionsView(String newName, Controller newController) {
+		// this constructor is the same for all view's on same stage
+		super(newName, newController);
+		Parent p = constructContainer();
+		if (p==null) {
+			p = getMainLayout();
+		}
+		p.setId(this.getName());
+		setupScene(p);
+	}
+
 	// Contorls (Sample)
 	AppButton resetStats = new AppButton("Statistiken zurücksetzen");
 	CheckBox enableSound = new CheckBox("Audio");
@@ -25,10 +37,9 @@ public class OptionsView extends FXView
 	AppButton applyColor = new AppButton("Farbe speichern");
 	AppButton back = new AppButton("Zurück");
 
-	public OptionsView (String setName, Controller controller)
-	{
-		super (setName, controller);
 
+	@Override
+	public Parent constructContainer() {
 		// Setzt maximale Breite der nicht-Button Elemente:
 		enableSound.setMaxWidth(AppButton.DEFAULT_BUTTON_WIDTH);
 		enableAnimation.setMaxWidth(AppButton.DEFAULT_BUTTON_WIDTH);
@@ -59,13 +70,10 @@ public class OptionsView extends FXView
 
 		// Behavior
 		back.setOnAction(e -> getController().showMainView());
-
-		setupScene(tempVBox);
+		return tempVBox;
 	}
 
 	@Override
 	public void refreshView() {
-		// TODO Auto-generated method stub
-		
 	}
 }

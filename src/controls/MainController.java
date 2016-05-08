@@ -49,7 +49,7 @@ public class MainController extends Controller
 		Logger.log("Instanziere Views....");
 		this.addUniqueView(new MainView(getMainViewName(), this));
 		this.addUniqueView(new StatisticsView("statisticsview", this));
-		this.addUniqueView(new StatsView("statsview", this));
+		this.addUniqueView(new StatsView("statsview"));
 		this.addUniqueView(new DoorView("doorview", this));
 		this.addUniqueView(new OptionsView("optionsview", this));
 		this.addUniqueView(new HelpView("helpview")); // on new stage
@@ -60,5 +60,6 @@ public class MainController extends Controller
 		this.addUniqueView(new LearnView("learnview", this));
 		this.addUniqueView(new ImpressumView("impressumview", this));
 		Logger.log("Instanzierung beendet....");
+		this.showMainView();
 	}
 }

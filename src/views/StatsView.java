@@ -1,12 +1,12 @@
 package views;
 
 import javafx.geometry.Pos;
+import javafx.scene.Parent;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.layout.HBox;
 import models.ProfilModel;
-import mvc.Controller;
 import mvc.FXView;
 /**
  * Diese Klasse soll die gleiche Funktionalität wie StatisticsView haben und diese dann auch ersetzen
@@ -18,6 +18,17 @@ import mvc.FXView;
 
 public class StatsView extends FXView
 {	
+	public StatsView(String newName) {
+		// this constructor is the same for all view's on same stage
+		super(newName);
+		Parent p = constructContainer();
+		if (p==null) {
+			p = getMainLayout();
+		}
+		p.setId(this.getName());
+		setupScene(p);
+	}
+
 	//Zugehöriges Model deklarieren und instanzieren
 	ProfilModel Pm = new ProfilModel("heee?");
 	
@@ -28,9 +39,9 @@ public class StatsView extends FXView
 	
 	
 //	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public StatsView(String setName, Controller controller)
-	{
-		super(setName, controller);
+
+	@Override
+	public Parent constructContainer() {
 //		Karteien = Pm.getDataList("karteien");
 //		Punkte = Pm.getDataList("punkte");
 		
@@ -66,14 +77,12 @@ public class StatsView extends FXView
 //		bc.getData().addAll(serie);
 		
 		//Szene setzen und Buttons Event
-		setupScene(bc);
 		back.setOnAction(e -> getController().getMainViewName());
+		return bc;
 	}
 
 	@Override
 	public void refreshView()
 	{
-		
 	}
-	
 }

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import controls.Constants;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -19,13 +20,22 @@ public class EditorView extends FXViewModel
 {
 	// ArrayList<VBox> cards;
 
+	public EditorView(String newName, Controller newController) {
+		// this constructor is the same for all view's on same stage
+		super(newName, newController);
+		Parent p = constructContainer();
+		if (p==null) {
+			p = getMainLayout();
+		}
+		p.setId(this.getName());
+		setupScene(p);
+	}
+
 	VBox editLayout = new VBox(10);
 	Label headLbl;
 
-	public EditorView (String setName, Controller controller)
-	{
-		super(setName, controller);
-
+	@Override
+	public Parent constructContainer() {
 		headLbl = new Label("");
 		headLbl.setId("bold");
 		
@@ -48,8 +58,8 @@ public class EditorView extends FXViewModel
 		mainLayout.setCenter(editLayout);
 		mainLayout.setBottom(controlLayout);
 
-		setupScene(mainLayout);
 		getController().getModel("cards").registerView(this);
+		return mainLayout;
 	}
 
 	@Override
@@ -132,5 +142,4 @@ public class EditorView extends FXViewModel
 			editLayout.getChildren().addAll(cards);
 		}
 	}
-
 }

@@ -2,6 +2,7 @@ package views;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Parent;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
@@ -16,10 +17,19 @@ import mvc.FXView;
  * @author nina-egger
  *
  */
-
-
 public class StatisticsView extends FXView
 {		
+	public StatisticsView(String newName, Controller newController) {
+		// this constructor is the same for all view's on same stage
+		super(newName, newController);
+		Parent p = constructContainer();
+		if (p==null) {
+			p = getMainLayout();
+		}
+		p.setId(this.getName());
+		setupScene(p);
+	}
+
 	HBox ChartLayout;
 	
 	//Setze die namen der balken
@@ -30,10 +40,9 @@ public class StatisticsView extends FXView
 	final static String usa = "USA";
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public StatisticsView(String setName, Controller controller)
-	{
-		super (setName, controller);
-		
+
+	@Override
+	public Parent constructContainer() {
 		// Buttons
 		AppButton zurueck = new AppButton("zurück");
 		AppButton meineKlasse = new AppButton("Meine Klasse");
@@ -119,15 +128,12 @@ public class StatisticsView extends FXView
         //Chart ins KartenLayout (center) einfügen
         ChartLayout.getChildren().addAll(bc);
         
-		setupScene(borderPane);
-		zurueck.setOnAction(e -> controller.showMainView());
-		
-
+		zurueck.setOnAction(e -> getController().showMainView());
+		// TODO Auto-generated method stub
+		return borderPane;
 	}
 
 	@Override
 	public void refreshView() {
-		// TODO Auto-generated method stub
-		
 	}
 }

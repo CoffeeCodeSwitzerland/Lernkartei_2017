@@ -91,7 +91,7 @@
 #DoorButtons{
 	-fx-background-image: url("pictures/DoorIcon.png");
 	-fx-background-repeat: no-repeat;
-	-fx-padding: 25 20 25 20;
+	-fx-padding: 22 20 22 20;
 	}
 	
 #BoxButtons{

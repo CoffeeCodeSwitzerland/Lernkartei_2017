@@ -2,8 +2,6 @@ package views;
 
 import java.util.ArrayList;
 
-import com.mysql.jdbc.Constants;
-
 import controls.Globals;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;

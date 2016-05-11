@@ -65,11 +65,11 @@
 	-fx-background-repeat: no-repeat;
 }
 #statbtn{
-	-fx-background-image: url("pictures/KarteIcon.png");
+	-fx-background-image: url("pictures/DiagrammIcon.png");
 	-fx-background-repeat: no-repeat;}
 	
 #stat2btn{
-	-fx-background-image: url("pictures/KarteIcon.png");
+	-fx-background-image: url("pictures/DiagrammIcon.png");
 	-fx-background-repeat: no-repeat;}
 	
 #optionsbtn{

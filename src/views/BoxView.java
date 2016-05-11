@@ -188,7 +188,7 @@ public class BoxView extends FXViewModel
 			v.show();
 		});
 		edit.setOnAction(e -> {
-			View v = getController().getView("editorview");
+			View v = getController().getView("simpleeditorview");
 			v.setData(set);
 			v.show();
 		});

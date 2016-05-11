@@ -16,11 +16,11 @@ import mvc.Controller;
 import mvc.FXViewModel;
 
 
-public class EditorView extends FXViewModel
+public class SimpleEditorView extends FXViewModel
 {
 	// ArrayList<VBox> cards;
 
-	public EditorView(String newName, Controller newController) {
+	public SimpleEditorView(String newName, Controller newController) {
 		// this constructor is the same for all view's
 		super(newName, newController);
 		construct();

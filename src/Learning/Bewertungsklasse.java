@@ -29,12 +29,11 @@ public class Bewertungsklasse extends JFrame implements ActionListener {
 				String data = s[0] + controls.Globals.SEPARATOR 
 							+ s[1] + controls.Globals.SEPARATOR 
 							+ s[2];
-				
 				result.add(data);
 				
 			}
 			
-		Collections.shuffle(result);
+		Collections.rotate(result, result.size());
 		// Gemischte liste wird zurück gegeben
 
 		return result;

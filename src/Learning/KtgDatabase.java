@@ -1,4 +1,4 @@
-package categories;
+package Learning;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

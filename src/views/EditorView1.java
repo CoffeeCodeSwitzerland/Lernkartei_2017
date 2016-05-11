@@ -16,32 +16,30 @@ import mvc.Controller;
 import mvc.FXViewModel;
 
 
-public class SimpleEditorView extends FXViewModel
+public class EditorView1 extends FXViewModel
 {
 	// ArrayList<VBox> cards;
 
-	public SimpleEditorView (String newName, Controller newController)
-	{
+	public EditorView1(String newName, Controller newController) {
 		// this constructor is the same for all view's
 		super(newName, newController);
 		construct();
 	}
 
-	VBox	editLayout	= new VBox(10);
-	Label	headLbl;
+	VBox editLayout = new VBox(10);
+	Label headLbl;
 
 	@Override
-	public Parent constructContainer ()
-	{
+	public Parent constructContainer() {
 		headLbl = new Label("");
 		headLbl.setId("bold");
-
+		
 		AppButton backBtn = new AppButton("Zurück");
 		backBtn.setOnAction(e -> getController().getView("boxview").show());
 
 		BorderPane headLayout = new BorderPane(headLbl);
 		headLayout.setPadding(new Insets(25));
-
+		
 		editLayout.setPadding(new Insets(10));
 		editLayout.setAlignment(Pos.TOP_CENTER);
 
@@ -69,7 +67,7 @@ public class SimpleEditorView extends FXViewModel
 		if (data != null)
 		{
 			headLbl.setText(data + " - " + getController().getView("boxview").getData());
-
+			
 			ArrayList<String> cardStrings = getController().getModel("cards").getDataList(data);
 			ArrayList<HBox> cards = new ArrayList<>();
 			debug.Debugger.out("" + cardStrings.size());
@@ -78,7 +76,7 @@ public class SimpleEditorView extends FXViewModel
 				String[] cardSides = s.split(Globals.SEPARATOR);
 				TextField front = new TextField(cardSides[1]);
 				TextField back = new TextField(cardSides[2]);
-
+				
 				front.focusedProperty().addListener(e ->
 				{
 					if (!front.isFocused())
@@ -86,12 +84,11 @@ public class SimpleEditorView extends FXViewModel
 						if (back.getText() != null && !back.getText().equals("") && front.getText() != null
 								&& !front.getText().equals(""))
 						{
-							getController().getModel("cards").doAction("edit", cardSides[0] + Globals.SEPARATOR
-									+ front.getText() + Globals.SEPARATOR + back.getText());
+							getController().getModel("cards").doAction("edit", cardSides[0] + Globals.SEPARATOR + front.getText() + Globals.SEPARATOR + back.getText());
 						}
 					}
 				});
-
+				
 				back.focusedProperty().addListener(e ->
 				{
 					if (!back.isFocused())
@@ -99,27 +96,20 @@ public class SimpleEditorView extends FXViewModel
 						if (back.getText() != null && !back.getText().equals("") && front.getText() != null
 								&& !front.getText().equals(""))
 						{
-							getController().getModel("cards").doAction("edit", cardSides[0] + Globals.SEPARATOR
-									+ front.getText() + Globals.SEPARATOR + back.getText());
+							getController().getModel("cards").doAction("edit", cardSides[0] + Globals.SEPARATOR + front.getText() + Globals.SEPARATOR + back.getText());
 						}
 					}
 				});
+				
 
 				Button delete = new Button("X");
-				Button editBtn = new Button("\u2055");
 				delete.setMaxWidth(35);
 				delete.setMinWidth(35);
 				delete.setOnAction(e -> getController().getModel("cards").doAction("delete", cardSides[0]));
-				editBtn.setMaxWidth(35);
-				editBtn.setMinWidth(35);
-				editBtn.setOnAction(e ->
-				{
-					getController().getView("editorview").setData(front.getText() + Globals.SEPARATOR + back.getText());
-					getController().getView("editorview").show();
-				});
+
 				HBox v = new HBox(8);
 				v.setAlignment(Pos.CENTER);
-				v.getChildren().addAll(front, back, delete, editBtn);
+				v.getChildren().addAll(front, back, delete);
 				cards.add(v);
 			}
 

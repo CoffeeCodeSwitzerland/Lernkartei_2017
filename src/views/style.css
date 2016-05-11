@@ -55,7 +55,35 @@
 
 #impressumtext {
 	-fx-font-family: "Segoe UI Semibold";
-	-fx-background-color: #ffebb2;
+	-fx-background-color: #fff0c6;
 	-fx-text-fill: #875100;
 	-fx-padding: 10px;
 }
+
+#startbtn{
+	-fx-background-image: url("pictures/KarteIcon.png");
+	-fx-background-repeat: no-repeat;
+}
+#statbtn{
+	-fx-background-image: url("pictures/KarteIcon.png");
+	-fx-background-repeat: no-repeat;}
+	
+#stat2btn{
+	-fx-background-image: url("pictures/KarteIcon.png");
+	-fx-background-repeat: no-repeat;}
+	
+#optionsbtn{
+	-fx-background-image: url("pictures/KarteIcon.png");
+	-fx-background-repeat: no-repeat;}
+	
+#gamebtn{
+	-fx-background-image: url("pictures/KarteIcon.png");
+	-fx-background-repeat: no-repeat;}
+	
+#helpbtn{
+	-fx-background-image: url("pictures/KarteIcon.png");
+	-fx-background-repeat: no-repeat;}
+	
+#quitbtn{
+	-fx-background-image: url("pictures/KarteIcon.png");
+	-fx-background-repeat: no-repeat;}

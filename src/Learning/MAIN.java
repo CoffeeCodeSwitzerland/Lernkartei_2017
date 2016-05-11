@@ -1,4 +1,4 @@
-package categories;
+package Learning;
 
 public class MAIN {
 

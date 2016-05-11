@@ -1,4 +1,4 @@
-package categories;
+package Learning;
 
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;

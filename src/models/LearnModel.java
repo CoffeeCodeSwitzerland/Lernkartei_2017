@@ -2,6 +2,7 @@ package models;
 
 import java.util.ArrayList;
 
+import Learning.Bewertungsklasse;
 import mvc.Model;
 
 public class LearnModel extends Model
@@ -15,6 +16,9 @@ public class LearnModel extends Model
 	
 	@Override
 	public int doAction(String functionName, String freeStringParam, double freeDoubleParam) {
+		
+		//Aufruf der Bewertungs Klasse
+		
 
 		// funcName = correct OR false
 		// stringParam = card ID
@@ -24,7 +28,6 @@ public class LearnModel extends Model
 
 	@Override
 	public ArrayList<String> getDataList(String query) {
-
 		
 		if (this.getDataList("") == null)
 		{
@@ -34,13 +37,15 @@ public class LearnModel extends Model
 		{
 			
 		}
+		//1.Karte Anzeigen
 		
-		// query = set + SEPARATOR + nr
+		 return Bewertungsklasse.ListenFüller(query);
 		
+		// query = set + SEPARATOR + nr		
 		// query to int
 		// return card nr query
 		
-		return null;
+		 
 	}
 	
 	// TODO implement doAction & getDataList

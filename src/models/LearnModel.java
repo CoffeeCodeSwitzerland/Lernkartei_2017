@@ -29,22 +29,7 @@ public class LearnModel extends Model
 	@Override
 	public ArrayList<String> getDataList(String query) {
 		
-		if (this.getDataList("") == null)
-		{
-			// TODO fill dataList
-		}
-		else
-		{
-			
-		}
-		//1.Karte Anzeigen
-		
-		 return Bewertungsklasse.ListenFüller(query);
-		
-		// query = set + SEPARATOR + nr		
-		// query to int
-		// return card nr query
-		
+		return Bewertungsklasse.getShuffledCards(query);
 		 
 	}
 	

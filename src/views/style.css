@@ -65,25 +65,41 @@
 	-fx-background-repeat: no-repeat;
 }
 #statbtn{
-	-fx-background-image: url("pictures/KarteIcon.png");
+	-fx-background-image: url("pictures/DiagrammIcon.png");
 	-fx-background-repeat: no-repeat;}
 	
 #stat2btn{
-	-fx-background-image: url("pictures/KarteIcon.png");
+	-fx-background-image: url("pictures/DiagrammIcon.png");
 	-fx-background-repeat: no-repeat;}
 	
 #optionsbtn{
-	-fx-background-image: url("pictures/KarteIcon.png");
+	-fx-background-image: url("pictures/OptionIcon.png");
+	
 	-fx-background-repeat: no-repeat;}
 	
 #gamebtn{
 	-fx-background-image: url("pictures/KarteIcon.png");
 	-fx-background-repeat: no-repeat;}
 	
+	
 #helpbtn{
-	-fx-background-image: url("pictures/KarteIcon.png");
+	-fx-background-image: url("pictures/HelpIcon.png");
 	-fx-background-repeat: no-repeat;}
 	
+	
 #quitbtn{
-	-fx-background-image: url("pictures/KarteIcon.png");
+	-fx-background-image: url("pictures/ExitIcon.png");
 	-fx-background-repeat: no-repeat;}
+	
+	
+#DoorButtons{
+	-fx-background-image: url("pictures/DoorIcon.png");
+	-fx-background-repeat: no-repeat;
+	-fx-padding: 22 21 22 21;
+	}
+	
+#BoxButtons{
+	-fx-background-image: url("pictures/BoxIcon2.png");
+	-fx-background-repeat: no-repeat;
+	-fx-padding: 15 20 15 20;
+	}

@@ -1,12 +1,16 @@
 package views;
 
+import java.util.ArrayList;
+
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
+import javafx.scene.chart.XYChart.Series;
 import javafx.scene.layout.HBox;
-import models.ProfilModel;
+import models.*;
 import mvc.Controller;
 import mvc.FXView;
 /**
@@ -27,15 +31,8 @@ public class StatsView extends FXView
 
 	//Zugehöriges Model deklarieren und instanzieren
 	ProfilModel Pm = new ProfilModel("heee?");
-	
-	//Arrays für Daten welche ich von ProfilModel erhalte
-//	private ArrayList<String> Karteien;
-//	private ArrayList<String> Punkte;
-	
-	
-	
-//	@SuppressWarnings({ "unchecked", "rawtypes" })
 
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
 	public Parent constructContainer() {
 //		Karteien = Pm.getDataList("karteien");
@@ -63,14 +60,25 @@ public class StatsView extends FXView
 		//BarChart erstellen
 		BarChart<String, Number> bc = new BarChart<String, Number>(xAchse, yAchse);
 		
-		//Eine Serie erstellen
-//		Series serie = new Series();
-//		for (int i = 0; i < Karteien.size(); i++)
-//		{
-//			serie.getData().add(new XYChart.Data(Karteien.get(i), Punkte.get(i)));
-//		}
+		ArrayList<String> Karteien = new ArrayList<String>();
+		ArrayList<String> Punkte = new ArrayList<String>();
 		
-//		bc.getData().addAll(serie);
+		Karteien = Pm.getDataList("karteien");
+		System.out.println("Letzter Eintrag Karteien : " + Karteien.get(Karteien.size() - 1));
+		Punkte = Pm.getDataList("punkte");
+		System.out.println("Letzter Eintrag Punkte: " + Punkte.get(Punkte.size() - 1));
+		
+		//Eine Serie erstellen
+		Series serie = new Series();
+		for (int i = 0; i < Karteien.size(); i++)
+		{
+			Double tempPunkte = Double.parseDouble(Punkte.get(i));
+			serie.getData().add(new XYChart.Data(Karteien.get(i), tempPunkte));
+		}
+	
+		bc.getData().addAll(serie);
+		
+		//*********************************Diagramm Ende**********************************//
 		
 		//Szene setzen und Buttons Event
 		back.setOnAction(e -> getController().getMainViewName());

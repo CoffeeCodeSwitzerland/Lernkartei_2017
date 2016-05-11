@@ -49,6 +49,12 @@ public class MainView extends FXView
 
 		// Buttons
 		startBtn.setId("startbtn");
+		statBtn.setId("statbtn");
+		stat2Btn.setId("stat2btn");
+		optionsBtn.setId("optionsbtn");
+		gameBtn.setId("gamebtn");
+		helpBtn.setId("helpbtn");
+		quitBtn.setId("quitbtn");
 		
 		Logger.log("Instanziere Div....");
 		// Layout für Menu Items

@@ -39,13 +39,17 @@ public class MainView extends FXView
 	AppButton quitBtn = new AppButton("Beenden");
 	VBox menuLayout = new VBox();
 
+	
+	
+	
 	@Override
 	public Parent constructContainer() {
 		String title = Globals.appTitle + " " + Globals.appVersion;
 		getController().getTheFXSettings().getPrimaryStage().setTitle(title);
 
 		// Buttons
-	
+		startBtn.setId("startbtn");
+		
 		Logger.log("Instanziere Div....");
 		// Layout für Menu Items
 		menuLayout.setPadding(new Insets(10));

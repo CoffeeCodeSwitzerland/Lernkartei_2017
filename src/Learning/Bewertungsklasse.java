@@ -15,16 +15,32 @@ public class Bewertungsklasse extends JFrame implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
 
-	public static ArrayList<String> ListenFüller(String query) {
-		ArrayList<String> liste = new ArrayList<String>();
-		for (String[] m : Database.pullFromStock(query)) {
-			liste.add((m[0] + Globals.SEPARATOR + m[1] + Globals.SEPARATOR + m[2]));
-		}
-		// List shuffler
-		Collections.shuffle(liste);
+	public static ArrayList<String> getShuffledCards(String query) {
+		ArrayList<String> result = new ArrayList<String>();
+		ArrayList<String[]> cards = Database.pullFromStock(query);
+		if (cards == null) { 
+			debug.Debugger.out("getData cards = null");
+			return result;
+		
+		} else {
+			
+			for (String[] s : cards) {
+				debug.Debugger.out(s[0]);
+				String data = s[0] + controls.Globals.SEPARATOR 
+							+ s[1] + controls.Globals.SEPARATOR 
+							+ s[2];
+				
+				result.add(data);
+				
+			}
+			
+		Collections.shuffle(result);
 		// Gemischte liste wird zurück gegeben
 
-		return liste;
+		return result;
+			
+		}
+		
 	}
 
 	@Override

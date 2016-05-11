@@ -1,5 +1,7 @@
 package views;
 
+import java.util.ArrayList;
+
 import controls.Globals;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -76,9 +78,25 @@ public class LearnView extends FXViewModel
 		else
 		{
 			headLbl.setText(getData());
-			String d = getController().getModel("cards").getDataList(getData()).get(counter); // Ensure valid counter variable
-			cardData = d.split(Globals.SEPARATOR);
-			card.setText(cardData[1]);
+			ArrayList<String> cards = getController().getModel("learn").getDataList(getData());
+			if (counter < cards.size())
+			{
+				String d = cards.get(counter); // Ensure valid counter variable
+				cardData = d.split(Globals.SEPARATOR);
+				card.setText(cardData[1]);
+			}
+			else
+			{
+				card.setDisable(true);
+				boolean goBackToBoxView = Alert.ok("Fertig", "Du hast alle Karten gelernt! Willst du zur Übersicht zurück?");
+				if (goBackToBoxView)
+				{
+					counter = 0;
+					card.setDisable(false);
+					getController().getView("boxview").show();
+				}
+			}
+			
 		}
 		
 		

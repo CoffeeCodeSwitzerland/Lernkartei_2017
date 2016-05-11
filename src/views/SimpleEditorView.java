@@ -109,7 +109,7 @@ public class SimpleEditorView extends FXViewModel
 
 				Button delete = new Button("X");
 				Button editBtn = new Button("\u270E"); // \u270d \u2055 \u2699 \u270E
-				delete.getFont().font("Arial", FontWeight.BOLD,12.0);
+				//delete.getFont().font("Arial", FontWeight.BOLD,12.0);
 				//delete.setMaxWidth(35);
 				//delete.setMinWidth(35);
 				delete.setOnAction(e -> getController().getModel("cards").doAction("delete", cardSides[0]));

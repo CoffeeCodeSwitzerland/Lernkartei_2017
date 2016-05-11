@@ -77,7 +77,7 @@
 	-fx-background-repeat: no-repeat;}
 	
 #gamebtn{
-	-fx-background-image: url("pictures/GameIcon.png");
+	-fx-background-image: url("pictures/KarteIcon.png");
 	-fx-background-repeat: no-repeat;}
 	
 #helpbtn{
@@ -89,4 +89,9 @@
 	-fx-background-repeat: no-repeat;}
 	
 #DoorButtons{
+	-fx-background-image: url("pictures/DoorIcon.png");
+	-fx-background-repeat: no-repeat;
+	-fx-padding: 12 20 12 20;
+	
+	
 	}

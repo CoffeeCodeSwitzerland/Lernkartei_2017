@@ -42,7 +42,7 @@ public class ScrollyV8 extends JFrame implements KeyListener, WindowListener
 //Settings for frame	
         setSize(width, height);
         setResizable(false);
-        setTitle("Funky Application Monkey's Jump 'n' Run!");
+        setTitle("Scrolly");
         //Schliessung vom Fenster
 		this.addWindowListener(new WindowAdapter() {
 		public void windowClosing(WindowEvent e) {

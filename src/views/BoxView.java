@@ -143,6 +143,7 @@ public class BoxView extends FXViewModel
 
 			for (AppButton a : sets)
 			{
+				a.setId("BoxButtons");
 				a.setOnAction(e ->
 				{
 					setOptions(a.getText());

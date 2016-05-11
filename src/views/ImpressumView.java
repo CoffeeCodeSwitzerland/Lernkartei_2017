@@ -44,7 +44,7 @@ public class ImpressumView extends FXView
 	public Parent constructContainer() {
 		// Buttons
 		AppButton backBtn = new AppButton("Zurück");
-		AppButton IconTestButton = new AppButton("IconTest");
+		
 		
 		
 		//Labels (für die Infotexte)
@@ -54,7 +54,6 @@ public class ImpressumView extends FXView
 
 		labelTitel.setId("impressumtext");
 		labelText.setId("impressumtext");
-		IconTestButton.setId("icontest");
 
 		Double size = getController().getTheFXSettings().getOPTIMAL_WIDTH()*.95;
 		size += 10;
@@ -63,7 +62,7 @@ public class ImpressumView extends FXView
 		
 		//Box für die Navigation
 		HBox naviBox = new HBox(10);
-		naviBox.getChildren().addAll(backBtn,IconTestButton);
+		naviBox.getChildren().addAll(backBtn);
 			
 		//Box für Titel
 		VBox TitelBox = new VBox(10);

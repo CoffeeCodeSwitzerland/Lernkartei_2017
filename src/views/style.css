@@ -59,13 +59,6 @@
 	-fx-text-fill: #875100;
 	-fx-padding: 10px;
 }
-#icontest{
-	-fx-color: #ffebb2;
-    -fx-text-fill: #875100;
-	-fx-background-image: url("pictures/TestIcon.png");
-	-fx-background-repeat: no-repeat;
-	
-}
 
 #startbtn{
 	-fx-background-image: url("pictures/KarteIcon.png");

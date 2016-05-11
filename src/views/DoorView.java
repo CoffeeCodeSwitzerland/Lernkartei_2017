@@ -123,6 +123,7 @@ public class DoorView extends FXView
 
 		for (AppButton a : doors)
 		{
+			a.setId("DoorButtons");
 			a.setOnAction(e ->
 			{
 				View v = getController().getView("boxview");

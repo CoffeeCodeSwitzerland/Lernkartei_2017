@@ -5,6 +5,7 @@ import javafx.stage.Stage;
 import models.BoxModel;
 import models.CardModel;
 import models.DoorModel;
+import models.EditorModel;
 import models.GameModel;
 import mvc.Controller;
 import views.BoxView;
@@ -41,6 +42,7 @@ public class MainController extends Controller
 		Logger.log("Instanziere Models....");
 		this.addUniqueModel(new GameModel("game"));
 		this.addUniqueModel(new DoorModel("door"));
+		this.addUniqueModel(new EditorModel("editor"));
 		this.addUniqueModel(new BoxModel("box"));
 		this.addUniqueModel(new CardModel("cards"));
 	}

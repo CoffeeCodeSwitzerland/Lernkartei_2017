@@ -36,6 +36,7 @@ public class LearnView extends FXViewModel
 
 	@Override
 	public Parent constructContainer() {
+		
 		AppButton backBtn = new AppButton("Zurück");
 		backBtn.setOnAction(e -> {counter = 0; getController().getView("boxview").show();});
 		
@@ -113,9 +114,12 @@ public class LearnView extends FXViewModel
 				cardData = null;
 				counter = cards.size();
 			}
-			
 		}
-		
-		
+	}
+	
+	public void clearShuffle ()
+	{
+		getController().getModel("learn").getDataList(null).clear();
+		getController().getModel("learn").setString(null);
 	}
 }

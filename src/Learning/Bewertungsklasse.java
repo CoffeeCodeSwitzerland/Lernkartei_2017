@@ -7,7 +7,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import javax.swing.JFrame;
+import javax.xml.bind.annotation.XmlElementDecl.GLOBAL;
 
+import controls.Globals;
 import database.Database;
 
 public class Bewertungsklasse extends JFrame implements ActionListener {
@@ -15,31 +17,35 @@ public class Bewertungsklasse extends JFrame implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
 
-	public static ArrayList<String> getShuffledCards(String query) {
-		ArrayList<String> result = new ArrayList<String>();
+	public static ArrayList<String> getShuffledCards(String query)
+	{
+		ArrayList<String> result = new ArrayList<>();
+		ArrayList<Integer> zufallsZahlen = new ArrayList<>();
+		
 		ArrayList<String[]> cards = Database.pullFromStock(query);
-		ArrayList<Double> ZufallsZahl = new ArrayList<Double>();
-
-		if (cards == null) {
+		
+		if (cards == null)
+		{
 			debug.Debugger.out("getData cards = null");
 			return result;
-
-		} else {
-
-			for (String[] s : cards) {
-				double rnd = (double) ((Math.random() * 50000) + 1);
-				if (rnd == Double.parseDouble(s[0])) {
-					debug.Debugger.out(s[0]);
-					String data = s[0] + controls.Globals.SEPARATOR + s[1] + controls.Globals.SEPARATOR + s[2];
-					result.add(data);
+		}
+		else
+		{
+			while (result.size() < cards.size())
+			{
+				Integer i = (int) (Math.random() * 50000) % cards.size();
+			
+				while (zufallsZahlen.contains(i))
+				{
+					i = ++i % cards.size();
 				}
-
+				
+				zufallsZahlen.add(i);
+				String tempResult = cards.get(i)[0] + Globals.SEPARATOR + cards.get(i)[1] + Globals.SEPARATOR + cards.get(i)[2];
+				result.add(tempResult);
 			}
-
-			// Gemischte liste wird zurück gegeben
-
+			
 			return result;
-
 		}
 
 	}

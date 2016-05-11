@@ -827,7 +827,8 @@ g.drawImage(introScreen, 0, 0, drawW, drawH, null);
                 if(e.getKeyCode() == KeyEvent.VK_M){
                 	if (MidiPlayer.player.isRunning())
                 		MidiPlayer.player.stop();
-                	else MidiPlayer.player.start();
+                	else
+                		MidiPlayer.player.start();
                 }
 //                Pausenmenü
                 if(e.getKeyCode() == KeyEvent.VK_P){

@@ -12,6 +12,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import mvc.Controller;
 import mvc.FXViewModel;
 
@@ -106,12 +108,13 @@ public class SimpleEditorView extends FXViewModel
 				});
 
 				Button delete = new Button("X");
-				Button editBtn = new Button("\u2055");
-				delete.setMaxWidth(35);
-				delete.setMinWidth(35);
+				Button editBtn = new Button("\u270E"); // \u270d \u2055 \u2699 \u270E
+				delete.getFont().font("Arial", FontWeight.BOLD,12.0);
+				//delete.setMaxWidth(35);
+				//delete.setMinWidth(35);
 				delete.setOnAction(e -> getController().getModel("cards").doAction("delete", cardSides[0]));
-				editBtn.setMaxWidth(35);
-				editBtn.setMinWidth(35);
+				//editBtn.setMaxWidth(35);
+				//editBtn.setMinWidth(35);
 				editBtn.setOnAction(e ->
 				{
 					getController().getView("editorview").setData(front.getText() + Globals.SEPARATOR + back.getText());

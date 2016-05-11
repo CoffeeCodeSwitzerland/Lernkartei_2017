@@ -9,7 +9,7 @@ import models.GameModel;
 import mvc.Controller;
 import views.BoxView;
 import views.DoorView;
-import views.EditorView;
+import views.SimpleEditorView;
 import views.GameView;
 import views.HelpView;
 import views.ImpressumView;
@@ -56,7 +56,7 @@ public class MainController extends Controller
 		this.addUniqueView(new GameView("gameview", this));
 		this.addUniqueView(new KarteiView("karteiview", this));
 		this.addUniqueView(new BoxView("boxview", this));
-		this.addUniqueView(new EditorView("editorview", this));
+		this.addUniqueView(new SimpleEditorView("simpleeditorview", this));
 		this.addUniqueView(new LearnView("learnview", this));
 		this.addUniqueView(new ImpressumView("impressumview", this));
 		Logger.log("Instanzierung beendet....");

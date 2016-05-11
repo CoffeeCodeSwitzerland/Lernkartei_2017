@@ -45,10 +45,10 @@ public class ScrollyV8 extends JFrame implements KeyListener, WindowListener
         setTitle("Scrolly");
         //Schliessung vom Fenster
 		this.addWindowListener(new WindowAdapter() {
+		@SuppressWarnings("static-access")
 		public void windowClosing(WindowEvent e) {
 			System.err.println("Exiting Game");
-			gamePanel.mPlayer.setTrack(gamePanel.soundPath + "end.mid",false);
-			gamePanel.mPlayer.play();
+			gamePanel.mPlayer.stop();
 			gamePanel.sound = false;
 			//setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		}

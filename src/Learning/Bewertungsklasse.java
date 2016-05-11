@@ -2,12 +2,12 @@ package Learning;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Collections;
 
 import javax.swing.JFrame;
 
-import controls.Globals;
 import database.Database;
 
 public class Bewertungsklasse extends JFrame implements ActionListener {
@@ -18,28 +18,30 @@ public class Bewertungsklasse extends JFrame implements ActionListener {
 	public static ArrayList<String> getShuffledCards(String query) {
 		ArrayList<String> result = new ArrayList<String>();
 		ArrayList<String[]> cards = Database.pullFromStock(query);
-		if (cards == null) { 
+		ArrayList<Double> ZufallsZahl = new ArrayList<Double>();
+
+		if (cards == null) {
 			debug.Debugger.out("getData cards = null");
 			return result;
-		
-		} else {
-			
-			for (String[] s : cards) {
-				debug.Debugger.out(s[0]);
-				String data = s[0] + controls.Globals.SEPARATOR 
-							+ s[1] + controls.Globals.SEPARATOR 
-							+ s[2];
-				result.add(data);
-				
-			}
-			
-		Collections.rotate(result, result.size());
-		// Gemischte liste wird zurück gegeben
 
-		return result;
-			
+		} else {
+
+			for (String[] s : cards) {
+				double rnd = (double) ((Math.random() * 50000) + 1);
+				if (rnd == Double.parseDouble(s[0])) {
+					debug.Debugger.out(s[0]);
+					String data = s[0] + controls.Globals.SEPARATOR + s[1] + controls.Globals.SEPARATOR + s[2];
+					result.add(data);
+				}
+
+			}
+
+			// Gemischte liste wird zurück gegeben
+
+			return result;
+
 		}
-		
+
 	}
 
 	@Override

@@ -16,8 +16,11 @@ public class QuizletImportView extends FXView
 
 	public QuizletImportView (String newName, Controller newController)
 	{
+		// this constructor is the same for all view's
 		super(newName, newController);
+		construct();
 	}
+
 
 	@Override
 	public Parent constructContainer ()

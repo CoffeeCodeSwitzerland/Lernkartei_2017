@@ -83,9 +83,6 @@ public class StatsView extends FXView
 		Diagram.getChildren().addAll(bc);
 		
 		//*********************************Diagramm Ende**********************************//
-		
-		//Szene und return 
-		setupScene(Pane);
 		return Pane;
 	}
 

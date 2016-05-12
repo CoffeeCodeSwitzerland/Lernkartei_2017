@@ -64,7 +64,7 @@ public class MainController extends Controller
 		this.addUniqueView(new GameView("gameview", this));
 		this.addUniqueView(new KarteiView("karteiview", this));
 		this.addUniqueView(new BoxView("boxview", this));
-		this.addViewOnNewStage(new QuizletImportView("quizlet", new Controller()));
+		this.addViewOnNewStage(new QuizletImportView("quizlet", new DummyController()));
 		this.addUniqueView(new SimpleEditorView("simpleeditorview", this));
 		this.addUniqueView(new EditorView1("editorview", this));
 		this.addUniqueView(new LearnView("learnview", this));

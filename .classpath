@@ -8,7 +8,6 @@
 	<classpathentry kind="lib" path="src/opencsv-3.7.jar"/>
 	<classpathentry kind="lib" path="src/org.json.jar"/>
 	<classpathentry kind="lib" path="src/sqlite-jdbc-3.8.11.2.jar"/>
-	<classpathentry kind="con" path="org.eclipse.fx.ide.jdt.core.JAVAFX_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

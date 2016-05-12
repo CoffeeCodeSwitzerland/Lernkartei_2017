@@ -12,7 +12,7 @@ public class Categories {
 	// Connectioninformationen URL & Driver
 
 	private static String	windowsUser	= debug.Environment.getUserName();
-	private static String	url			= "jdbc:sqlite:" + windowsUser + ".db";
+	private static String	url			= "jdbc:sqlite:" + debug.Environment.getUserPath() + "\\" + windowsUser + ".db";
 	private static String	driver		= "org.sqlite.JDBC";
 
 	/**

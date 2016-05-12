@@ -75,13 +75,27 @@ public class BoxView extends FXViewModel
 
 		newBoxBtn.setOnAction(e ->
 		{
-			final String boxName = Alert.simpleString("Neue Box", "Wie soll die neue Box heissen?");
-			if (this.getName() != null || !boxName.equals(""))
+			final int choice = Alert.complexChoiceBox("Neue Box", "Was für eine Box willst du erstellen?", new String[]{"Leere Box", "Quizlet"});
+			
+			switch (choice)
 			{
-				getController().getModel("box").doAction("new",
-						getData() + controls.Globals.SEPARATOR + boxName);
-				// TODO Feedback für den User (Fehlermeldungen)
+				case 0:
+					final String boxName = Alert.simpleString("Neue Box", "Wie soll die neue Box heissen?");
+					if (this.getName() != null && !boxName.equals(""))
+					{
+						getController().getModel("box").doAction("new",
+								getData() + controls.Globals.SEPARATOR + boxName);
+						// TODO Feedback für den User (Fehlermeldungen)
+					}
+					break;
+				case 1:
+					Alert.simpleInfoBox("Quizlet", "Importiere...");
+					break;
+				default:
+					break;
 			}
+			
+			
 		});
 
 		trashImgView.setOnDragOver(e ->

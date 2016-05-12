@@ -1,5 +1,7 @@
 package views;
 
+import java.util.ArrayList;
+
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -18,6 +20,8 @@ import javafx.stage.StageStyle;
  */
 public final class Alert
 {
+	static Stage tempStage;
+	
 	/**
 	 * Zeigt ein kleines Infofenster an. Der User muss das Fenster schliessen,
 	 * bevor er andere Fenster der Anwendung bedienen kann. Die Breite des
@@ -33,36 +37,22 @@ public final class Alert
 	 */
 	public static void simpleInfoBox (String title, String message, String button)
 	{
-		// Neues Fenster
-		Stage window = new Stage();
-		// Minimalistischer Stil ohne Buttons um das Fenster zu minimieren oder
-		// zu maximieren
-		window.initStyle(StageStyle.UTILITY);
-		window.setResizable(false);
-		// Blockiere alle anderen Fenster
-		window.initModality(Modality.APPLICATION_MODAL);
-		window.setTitle(title);
-
-		// Neues Label und neuer Button
+		Stage window = buildWindow(title);
 		Label l = new Label(message);
 		Button b = new Button(button);
-		// Schliesst Fenster wenn der User auf OK klickt
+
 		b.setOnAction(e -> window.close());
 
-		// Neues Layout
 		VBox layout = new VBox(20);
 		layout.getChildren().addAll(l, b);
-		// Zentriert Elemente
 		layout.setAlignment(Pos.CENTER);
 
 		// Passt Breite des Fensters an den Text an
 		int width;
 		int x = 6;
 		int y = 150;
-
 		width = message.length() * x + y;
-
-		// Zeigt Fenster an
+		
 		window.setScene(new Scene(layout, width, 150));
 		window.show();
 	}
@@ -78,13 +68,14 @@ public final class Alert
 	 *            Die Narchricht, die angezeigt wird. Text wird nicht von selbst
 	 *            gewrapt.
 	 */
-	public static void simpleInfoBox (String title, String message)
-	{
-		simpleInfoBox(title, message, "OK");
-	}
+	public static void simpleInfoBox (String title, String message) { simpleInfoBox(title, message, "OK"); }
 
+	
+	// -------------------------------------------------------------------------------------------------------------
+	
+	
 	private static String output = "";
-
+	
 	/**
 	 * Kleines Fenster, dass Input (String) vom User abfragt.
 	 * 
@@ -99,31 +90,21 @@ public final class Alert
 	 */
 	public static String simpleString (String title, String message, double fieldWidth)
 	{
-		// Neues Fenster
-		Stage window = new Stage();
-		// Minimalistischer Stil ohne Buttons um das Fenster zu minimieren oder
-		// zu maximieren
-		window.initStyle(StageStyle.UTILITY);
-		window.setResizable(false);
-		// Blockiere alle anderen Fenster
-		window.initModality(Modality.APPLICATION_MODAL);
-		window.setTitle(title);
-
-		// Neues Label und neuer Button
+		Stage window = buildWindow(title);
+		
 		Label l = new Label(message);
+		
 		TextField tf = new TextField();
 		tf.setMaxWidth(fieldWidth);
+		
 		Button b = new Button("OK");
-		// Schliesst Fenster wenn der User auf OK klickt
 		b.setOnAction(e -> {
 			output = tf.getText();
 			window.close();
 		});
 
-		// Neues Layout
 		VBox layout = new VBox(20);
 		layout.getChildren().addAll(l, tf, b);
-		// Zentriert Elemente
 		layout.setAlignment(Pos.CENTER);
 		layout.setPadding(new Insets(20));
 
@@ -133,7 +114,6 @@ public final class Alert
 
 		width = message.length() * x + y;
 
-		// Zeigt Fenster an
 		window.setScene(new Scene(layout, width, 150));
 		window.showAndWait();
 
@@ -155,26 +135,20 @@ public final class Alert
 		return simpleString(title, message, 150);
 	}
 
+	
+	// -------------------------------------------------------------------------------------------------------------
+	
+	
 	static boolean okay = false;
 
 	public static boolean ok (String title, String message)
 	{
-		// Neues Fenster
-		Stage window = new Stage();
-		// Minimalistischer Stil ohne Buttons um das Fenster zu minimieren oder
-		// zu maximieren
-		window.initStyle(StageStyle.UTILITY);
-		window.setResizable(false);
-		// Blockiere alle anderen Fenster
-		window.initModality(Modality.APPLICATION_MODAL);
-		window.setTitle(title);
-
-		// Neues Label und neuer Button
+		Stage window = buildWindow(title);
 		Label l = new Label(message);
 
 		Button bo = new Button("OK");
 		Button ba = new Button("Abbrechen");
-		// Schliesst Fenster wenn der User auf OK klickt
+
 		bo.setOnAction(e -> {
 			okay = true;
 			window.close();
@@ -188,13 +162,10 @@ public final class Alert
 		HBox buttons = new HBox(20);
 		buttons.setAlignment(Pos.CENTER);
 		buttons.setPadding(new Insets(20));
-
 		buttons.getChildren().addAll(bo, ba);
 
-		// Neues Layout
 		VBox layout = new VBox(20);
 		layout.getChildren().addAll(l, buttons);
-		// Zentriert Elemente
 		layout.setAlignment(Pos.CENTER);
 		layout.setPadding(new Insets(40, 20, 20, 20));
 
@@ -204,10 +175,65 @@ public final class Alert
 
 		width = message.length() * x + y;
 
-		// Zeigt Fenster an
 		window.setScene(new Scene(layout, width, 150));
 		window.showAndWait();
 
 		return okay;
+	}
+
+	
+	// -------------------------------------------------------------------------------------------------------------
+	
+	private static int tempInt = -1;
+	public static int complexChoiceBox (String title, String message, String[] options)
+	{
+		Stage window = buildWindow(title);
+		
+		Label l = new Label(message);
+		
+		AppButton[] buttons = new AppButton[options.length];
+		
+		for (int i = 0; i < options.length; i++)
+		{
+			final int j = i;
+			buttons[j] = new AppButton(options[j]);
+			buttons[j].setOnAction(e -> {
+				tempInt = j;
+				window.close();
+			});
+		}
+		
+		VBox layout = new VBox(20);
+		layout.getChildren().add(l);
+		layout.getChildren().addAll(buttons);
+		layout.setAlignment(Pos.CENTER);
+		layout.setPadding(new Insets(20));
+
+		int width;
+		int x = 6;
+		int y = 150;
+		width = message.length() * x + y;
+		
+		int height;
+		height = options.length * 25 + 150;
+		
+		window.setScene(new Scene(layout, width, height));
+		window.showAndWait();
+		
+		return tempInt;
+	}
+
+	
+	// -------------------------------------------------------------------------------------------------------------
+	
+	
+	private static Stage buildWindow (String title)
+	{
+		tempStage = new Stage();
+		tempStage.initStyle(StageStyle.UTILITY);			// Einfaches Fenster ohne 'minimiere' und 'maximiere' Buttons
+		tempStage.setResizable(false);						// Verbiete Änderung der Grösse
+		tempStage.initModality(Modality.APPLICATION_MODAL);	// Blockiere alle anderen Fenster
+		tempStage.setTitle(title);							// Setze Titel
+		return tempStage;
 	}
 }

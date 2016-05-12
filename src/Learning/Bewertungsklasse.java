@@ -2,13 +2,8 @@ package Learning;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.math.BigInteger;
 import java.util.ArrayList;
-import java.util.Collections;
-
 import javax.swing.JFrame;
-import javax.xml.bind.annotation.XmlElementDecl.GLOBAL;
-
 import controls.Globals;
 import database.Database;
 

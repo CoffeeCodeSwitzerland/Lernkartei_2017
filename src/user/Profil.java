@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import controls.Globals;
 import database.*;
+import debug.Debugger;
 
 public class Profil
 {
@@ -15,7 +16,6 @@ public class Profil
 	
 	public Profil() {
 		getOriginalData();
-		
 	}
 	
 	private void getOriginalData()
@@ -36,7 +36,7 @@ public class Profil
 		{
 			String[] temp;
 			temp = OriginalData.get(i).split(Globals.SEPARATOR);
-			System.out.println("Kartei: " + temp[0] + " " + temp[1]);
+			Debugger.out(i + " Kartei: " + temp[0] + " " + temp[1]);
 			temporary = temp[0];
 			tempList.add(temporary);
 			temporary = "";
@@ -55,7 +55,7 @@ public class Profil
 		{
 			String[] temp;
 			temp = OriginalData.get(i).split(Globals.SEPARATOR);
-			System.out.println("Punkte: " + temp[0] + " " + temp[1]); 
+			Debugger.out(i + " Punkte: " + temp[0] + " " + temp[1]); 
 			temporary = temp[1];
 			tempList.add(temporary);
 			temporary = "";

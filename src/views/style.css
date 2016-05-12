@@ -55,8 +55,8 @@
 
 #impressumtext {
 	-fx-font-family: "Segoe UI Semibold";
-	-fx-background-color: #fff0c6;
-	-fx-text-fill: #875100;
+	-fx-background-color: white;
+	-fx-text-fill: black;
 	-fx-padding: 10px;
 }
 
@@ -78,7 +78,7 @@
 	-fx-background-repeat: no-repeat;}
 	
 #gamebtn{
-	-fx-background-image: url("pictures/KarteIcon.png");
+	-fx-background-image: url("pictures/GameIcon.png");
 	-fx-background-repeat: no-repeat;}
 	
 	

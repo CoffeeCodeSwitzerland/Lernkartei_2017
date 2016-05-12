@@ -28,9 +28,11 @@ public class HelpView extends FXView
 		this.getWindow().setResizable(false);
 
 		AppButton impressumBtn = new AppButton("Impressum");
+		AppButton quizletBtn = new AppButton("Quizlet");
 		AppButton anleitungBtn = new AppButton("Anleitung");
 		AppButton indexBtn     = new AppButton("Index");
 		impressumBtn.setOnAction(e -> getController().showView("impressumview"));
+		quizletBtn.setOnAction(e -> getController().showView("quizletview"));
 		anleitungBtn.setOnAction(e -> getController().showView("manualview"));
 		indexBtn.setOnAction(e -> getController().showView("indexview"));
 
@@ -38,7 +40,7 @@ public class HelpView extends FXView
 		tempVBox.setPadding(new Insets(10));
 		tempVBox.setSpacing(10);
 		tempVBox.setAlignment(Pos.CENTER);
-		tempVBox.getChildren().addAll(impressumBtn, anleitungBtn, indexBtn);
+		tempVBox.getChildren().addAll(impressumBtn, quizletBtn, anleitungBtn, indexBtn);
 
 		tempVBox.setId("help");
 		return tempVBox;

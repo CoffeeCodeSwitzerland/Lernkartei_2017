@@ -49,12 +49,18 @@ public class ImpressumView extends FXView
 		
 		//Labels (für die Infotexte)
 		Label labelTitel = new Label("Impressum");
-		Label labelText = new Label("Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. \n \n Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. \n \n Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet., no sea takimata sanctus est Lorem ipsum dolor sit amet., no sea takimata sanctus est Lorem ipsum dolor sit amet., no sea takimata sanctus est Lorem ipsum dolor sit amet., no sea takimata sanctus est Lorem ipsum dolor sit amet., no sea takimata sanctus est Lorem ipsum dolor sit amet., no sea takimata sanctus est Lorem ipsum dolor sit amet., no sea takimata sanctus est Lorem ipsum dolor sit amet., no sea takimata sanctus est Lorem ipsum dolor sit amet., no sea takimata sanctus est Lorem ipsum dolor sit amet , no sea takimata sanctus est Lorem ipsum dolor sit amet. no sea takimata sanctus est Lorem ipsum dolor sit amet. no sea takimata sanctus est Lorem ipsum dolor sit amet. no sea takimata sanctus est Lorem ipsum dolor sit amet. no sea takimata sanctus est Lorem ipsum dolor sit amet.");
+		
+		//Hier kommt der angezeigte Text hin:
+		Label labelText = new Label("Name des Produkts:\nErsteller:\nRechte:\netc...");
+		
+		//Zeilenumbruch am Fensterrand
 		labelText.setWrapText(true);
 
+		//IDs für CSS
 		labelTitel.setId("impressumtext");
 		labelText.setId("impressumtext");
 
+		//Damit der Text nicht bis zum Fensterrand geht sondern noch etwas abstand hat
 		Double size = getController().getTheFXSettings().getOPTIMAL_WIDTH()*.95;
 		size += 10;
 		labelText.setPrefWidth(size);

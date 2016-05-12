@@ -10,9 +10,6 @@ import java.awt.event.*;
 
 public class ScrollyV8 extends JFrame implements KeyListener, WindowListener
 {    
-    /**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	static int width = 900 -30;
 	static int height = 600-15;

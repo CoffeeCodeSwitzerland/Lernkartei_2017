@@ -1,8 +1,13 @@
 package views;
 
+import java.util.ArrayList;
+
+import controls.Globals;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import mvc.Controller;
 import mvc.FXView;
 
@@ -27,7 +32,23 @@ public class QuizletImportView extends FXView
 	{
 		Label l = new Label("Test");
 		
-		BorderPane mainLayout = new BorderPane(l);
+		ArrayList<HBox> quizletSets = new ArrayList<>();
+		
+		for (String s : getController().getModel("quizlet").getDataList("search:jsbms"))
+		{
+			String[] setInfo = s.split(Globals.SEPARATOR);
+			AppButton b = new AppButton(setInfo[1]);
+			HBox setLayout = new HBox(5);
+			setLayout.getChildren().add(b);
+			quizletSets.add(setLayout);
+		}
+		
+		VBox listLayout = new VBox(20);
+		listLayout.getChildren().addAll(quizletSets);
+		
+		BorderPane mainLayout = new BorderPane();
+		mainLayout.setCenter(listLayout);
+		mainLayout.setTop(l);
 
 		return mainLayout;
 	}

@@ -35,7 +35,9 @@ public class QuizletImportView extends FXView
 	@Override
 	public Parent constructContainer ()
 	{
-		Label l = new Label("Test");
+		Label searchTitle = new Label("Suche");
+		searchTitle.setId("bold");
+		Label searchInfoLbl = new Label("Info");
 		
 		ArrayList<HBox> quizletSets = new ArrayList<>();
 		ArrayList<String> searchResult = getController().getModel("quizlet").getDataList("search"+Globals.SEPARATOR+"jsbms");
@@ -45,26 +47,34 @@ public class QuizletImportView extends FXView
 			for (String s : searchResult)
 			{
 				String[] setInfo = s.split(Globals.SEPARATOR);
-				Label b = new Label(setInfo[1] + " ("+setInfo[3]+")");
-				b.setId("bold");
-				Label byLbl = new Label("by " +setInfo[2]);
-				HBox setLayout = new HBox(15);
-				VBox qSetInformation = new VBox(5);
-				qSetInformation.getChildren().addAll(b, byLbl);
-				Button button = new Button("i");
-				button.setId("icon");
-				setLayout.getChildren().addAll(button, qSetInformation);
-				setLayout.setAlignment(Pos.CENTER_LEFT);
-				quizletSets.add(setLayout);
+				if (searchResult.indexOf(s) != 0)
+				{
+					Label stackName = new Label(setInfo[1] + " ("+setInfo[3]+")");
+					stackName.setId("bold");
+					
+					Label stackCreator = new Label("by " + setInfo[2]);
+					HBox stackInfoLayout = new HBox(25);
+					VBox stackLayout = new VBox(5);
+					stackLayout.getChildren().addAll(stackName, stackCreator);
+					Button showStackInfo = new Button("i");
+					showStackInfo.setId("icon");
+					
+					stackInfoLayout.getChildren().addAll(showStackInfo, stackLayout);
+					stackInfoLayout.setAlignment(Pos.CENTER_LEFT);
+					quizletSets.add(stackInfoLayout);
+				}
+				else
+				{
+					searchInfoLbl.setText(setInfo[0] + " Sets gefunden. Seite " + setInfo[3] + " von " + setInfo[1]);
+				}
 			}
 		}
-		
 		
 		
 		VBox listLayout = new VBox(20);
 		listLayout.getChildren().addAll(quizletSets);
 		listLayout.setAlignment(Pos.CENTER);
-		listLayout.setPadding(new Insets(25));
+		listLayout.setPadding(new Insets(35));
 		 
 		ScrollPane scroller = new ScrollPane(listLayout);
 		scroller.setHbarPolicy(ScrollBarPolicy.NEVER);
@@ -72,7 +82,7 @@ public class QuizletImportView extends FXView
 		
 		BorderPane mainLayout = new BorderPane();
 		mainLayout.setCenter(scroller);
-		mainLayout.setTop(l);
+		mainLayout.setTop(searchInfoLbl);
 
 		return mainLayout;
 	}

@@ -39,7 +39,7 @@ public class ScrollyV8 extends JFrame implements KeyListener, WindowListener
 
     public ScrollyV8()
     {
-//Settings for frame	
+    	//Settings for frame	
         setSize(width, height);
         setResizable(false);
         setTitle("Scrolly");

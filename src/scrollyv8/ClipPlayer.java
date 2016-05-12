@@ -9,13 +9,13 @@ import javax.sound.sampled.*;
 public enum ClipPlayer {
 
     //SQUISH("C:\\Users\\Andrew\\Documents\\Prog\\Java\\ScrollyV7\\Sounds\\squash.wav"),  
-    SQUISH("Sounds/squash.wav"), // Apparently netbeans defince the codebase as the project's main folder    
-    DIE("Sounds/death.wav"),          // ... when porting to a jar file, this should be referenced to the jar.
-    DEATH_ROBOB("Sounds/death_robob.wav"),
-    DEATH_GREAPER("Sounds/death_greaper.wav"),
-    DEATH_GATOR("Sounds/death_gator.wav"),
-    DEATH_BOSS("Sounds/death_boss.wav"),
-    BOSS_HIT("Sounds/boss_hit.wav");
+    SQUISH("GameFiles/Sounds/squash.wav"), // Apparently netbeans defince the codebase as the project's main folder    
+    DIE("GameFiles/Sounds/death.wav"),          // ... when porting to a jar file, this should be referenced to the jar.
+    DEATH_ROBOB("GameFiles/Sounds/death_robob.wav"),
+    DEATH_GREAPER("GameFiles/Sounds/death_greaper.wav"),
+    DEATH_GATOR("GameFiles/Sounds/death_gator.wav"),
+    DEATH_BOSS("GameFiles/Sounds/death_boss.wav"),
+    BOSS_HIT("GameFiles/Sounds/boss_hit.wav");
 
     // Nested class for specifying volume
     public static enum Volume {

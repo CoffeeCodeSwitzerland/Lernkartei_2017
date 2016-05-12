@@ -12,7 +12,6 @@ import mvc.Controller;
 import views.BoxView;
 import views.DoorView;
 import views.EditorView1;
-import views.SimpleEditorView;
 import views.GameView;
 import views.HelpView;
 import views.ImpressumView;
@@ -21,7 +20,7 @@ import views.LearnView;
 import views.MainView;
 import views.MainViewSettings;
 import views.OptionsView;
-import views.QuizletView;
+import views.SimpleEditorView;
 import views.StatisticsView;
 import views.StatsView;
 /**

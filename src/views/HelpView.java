@@ -40,7 +40,7 @@ public class HelpView extends FXView
 		tempVBox.setPadding(new Insets(10));
 		tempVBox.setSpacing(10);
 		tempVBox.setAlignment(Pos.CENTER);
-		tempVBox.getChildren().addAll(impressumBtn, anleitungBtn, indexBtn);
+		tempVBox.getChildren().addAll(impressumBtn, quizletBtn, anleitungBtn, indexBtn);
 
 		tempVBox.setId("help");
 		return tempVBox;

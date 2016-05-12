@@ -21,6 +21,7 @@ import views.LearnView;
 import views.MainView;
 import views.MainViewSettings;
 import views.OptionsView;
+import views.QuizletView;
 import views.StatisticsView;
 import views.StatsView;
 /**

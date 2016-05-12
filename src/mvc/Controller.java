@@ -35,9 +35,11 @@ public class Controller implements ControllerInterface
 			primaryStage = new Stage();
 		}
 		getTheFXSettings().setPrimaryStage(primaryStage);
+	}
 	
-		initMyModels(); // Zuerst Model kreieren, 
-		initMyViews();	// dann die View's
+	public void start() {
+		initMyModels(); 
+		initMyViews();
 		startApp();
 	}
 

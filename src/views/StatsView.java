@@ -3,6 +3,7 @@ package views;
 import java.util.ArrayList;
 
 import debug.Debugger;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.chart.BarChart;
@@ -31,8 +32,8 @@ public class StatsView extends FXView
 		construct();
 	}
 	
-	HBox Diagram = new HBox();
-	HBox Controls = new HBox();
+	HBox Diagram = new HBox(50);
+	HBox Controls = new HBox(50);
 	AppButton back = new AppButton("Zurück");
 	BorderPane Pane = new BorderPane();
 	//Achsen erstellen
@@ -54,6 +55,7 @@ public class StatsView extends FXView
 		
 		//HBox für die Buttons / Controls
 		Controls.setAlignment(Pos.BOTTOM_CENTER);
+		Controls.setPadding(new Insets(15));
 		
 		//Buttons / Controls
 		back.setOnAction(e -> {getController().showMainView();delOldStats();});

@@ -7,6 +7,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import controls.Globals;
+import debug.Debugger;
 
 
 public class Score {
@@ -40,13 +41,10 @@ public class Score {
 					+ "Kartei TEXT NOT NULL,"
 					+ "Score REAL NOT NULL);";
 
-			debug.Debugger.out(sql);
 			stmt.executeUpdate(sql);
 			
-			System.out.println("Tabelle Score erstellen");
-			
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
+			Debugger.out(e.getMessage());
 		}
 	}
 

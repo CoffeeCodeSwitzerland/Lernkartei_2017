@@ -3,10 +3,7 @@ package Learning;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.Collections;
-
 import javax.swing.JFrame;
-
 import controls.Globals;
 import database.Database;
 
@@ -15,16 +12,37 @@ public class Bewertungsklasse extends JFrame implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
 
-	public static ArrayList<String> ListenFüller(String query) {
-		ArrayList<String> liste = new ArrayList<String>();
-		for (String[] m : Database.pullFromStock(query)) {
-			liste.add((m[0] + Globals.SEPARATOR + m[1] + Globals.SEPARATOR + m[2]));
+	public static ArrayList<String> getShuffledCards(String query)
+	{
+		ArrayList<String> result = new ArrayList<>();
+		ArrayList<Integer> zufallsZahlen = new ArrayList<>();
+		
+		ArrayList<String[]> cards = Database.pullFromStock(query);
+		
+		if (cards == null)
+		{
+			debug.Debugger.out("getData cards = null");
+			return result;
 		}
-		// List shuffler
-		Collections.shuffle(liste);
-		// Gemischte liste wird zurück gegeben
+		else
+		{
+			while (result.size() < cards.size())
+			{
+				Integer i = (int) (Math.random() * 50000) % cards.size();
+			
+				while (zufallsZahlen.contains(i))
+				{
+					i = ++i % cards.size();
+				}
+				
+				zufallsZahlen.add(i);
+				String tempResult = cards.get(i)[0] + Globals.SEPARATOR + cards.get(i)[1] + Globals.SEPARATOR + cards.get(i)[2];
+				result.add(tempResult);
+			}
+			
+			return result;
+		}
 
-		return liste;
 	}
 
 	@Override

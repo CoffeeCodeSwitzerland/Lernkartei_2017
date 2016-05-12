@@ -72,7 +72,7 @@ public class Model extends DataModel
 	public ArrayList<String> getDataList(String query) {
 		if (query != null && !query.equals("")) {
 			ArrayList<String> reducedList = new ArrayList<>();
-			Iterator<String> it = this.getDataList(null).iterator();
+			Iterator<String> it = super.getDataList(null).iterator();
 			while (it.hasNext()) {
 				String s = it.next();
 				if (s.equals(query) || s.equalsIgnoreCase(query)|| 
@@ -82,6 +82,6 @@ public class Model extends DataModel
 			}
 			return reducedList;
 		}
-		return this.getDataList(null);
+		return super.getDataList(null);
 	}
 }

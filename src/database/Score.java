@@ -42,6 +42,9 @@ public class Score {
 
 			debug.Debugger.out(sql);
 			stmt.executeUpdate(sql);
+			
+			System.out.println("Tabelle Score erstellen");
+			
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
@@ -173,7 +176,7 @@ public class Score {
 	
 	private static ArrayList<String> allScores = new ArrayList<String>();
 
-	public static ArrayList<String> getScores () {
+	public ArrayList<String> getScores () {
 
 		allScores.clear();
 

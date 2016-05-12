@@ -5,9 +5,9 @@ import javafx.stage.Stage;
 
 /**
  * Startet die Lernkartei
- * 
- * @author miro albrecht
  *
+ * @author Rook Studios!
+ * 
  */
 
 public class WISSLearnCards extends Application

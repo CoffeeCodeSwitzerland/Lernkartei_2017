@@ -7,6 +7,7 @@ import models.CardModel;
 import models.DoorModel;
 import models.EditorModel;
 import models.GameModel;
+import models.LearnModel;
 import mvc.Controller;
 import views.BoxView;
 import views.DoorView;
@@ -45,6 +46,7 @@ public class MainController extends Controller
 		this.addUniqueModel(new EditorModel("editor"));
 		this.addUniqueModel(new BoxModel("box"));
 		this.addUniqueModel(new CardModel("cards"));
+		this.addUniqueModel(new LearnModel("learn"));
 	}
 
 	@Override

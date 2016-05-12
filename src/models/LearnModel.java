@@ -29,22 +29,25 @@ public class LearnModel extends Model
 	@Override
 	public ArrayList<String> getDataList(String query) {
 		
-		if (this.getDataList("") == null)
+		if (query == null)
 		{
-			// TODO fill dataList
+			return super.getDataList(null);
 		}
-		else
+		
+		ArrayList<String> memoList = super.getDataList(null);
+		
+		if (!getString(null).equals(query))
 		{
-			
+			memoList = Bewertungsklasse.getShuffledCards(query);
+			super.getDataList(null).clear();
+			for (String s : memoList)
+			{
+				add(s);
+			}
+			setString(query);
 		}
-		//1.Karte Anzeigen
 		
-		 return Bewertungsklasse.ListenFüller(query);
-		
-		// query = set + SEPARATOR + nr		
-		// query to int
-		// return card nr query
-		
+		return memoList;
 		 
 	}
 	

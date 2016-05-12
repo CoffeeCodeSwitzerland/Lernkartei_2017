@@ -30,7 +30,7 @@ public class MainView extends FXView
 
 	BorderPane mainLayout = new BorderPane();
 	Image impressumImg = new Image("views/pictures/ImpressumIcon.png");
-	AppButton startBtn = new AppButton("Lernen");
+	AppButton startBtn = new AppButton("Lernkarteien");
 	AppButton statBtn = new AppButton("Statistiken");
 	AppButton stat2Btn = new AppButton("Statistiken-2");
 	AppButton optionsBtn = new AppButton("Optionen");

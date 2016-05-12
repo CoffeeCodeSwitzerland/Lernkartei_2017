@@ -2,7 +2,6 @@ package mvc;
 
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import mvc.FXSettings;
 import debug.*;
 
 /**

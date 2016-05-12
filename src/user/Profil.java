@@ -11,6 +11,7 @@ public class Profil
 	ArrayList<String> cards = new ArrayList<String>();
 	
 	//Alle Daten Holen
+	@SuppressWarnings ("unused")
 	private ArrayList<String> OriginalData = new ArrayList<String>();
 	
 	//Alle Daten in zwei Arrays einteilen: Kartei[] und Points[]

@@ -5,7 +5,7 @@ import javafx.stage.Stage;
 import models.BoxModel;
 import models.CardModel;
 import models.DoorModel;
-import models.EditorModel;
+// import models.EditorModel;
 import models.GameModel;
 import models.LearnModel;
 import mvc.Controller;

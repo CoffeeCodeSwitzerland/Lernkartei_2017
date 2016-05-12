@@ -43,7 +43,7 @@ public class MainController extends Controller
 		Logger.log("Instanziere Models....");
 		this.addUniqueModel(new GameModel("game"));
 		this.addUniqueModel(new DoorModel("door"));
-		this.addUniqueModel(new EditorModel("editor"));
+		// this.addUniqueModel(new EditorModel("editor"));
 		this.addUniqueModel(new BoxModel("box"));
 		this.addUniqueModel(new CardModel("cards"));
 		this.addUniqueModel(new LearnModel("learn"));

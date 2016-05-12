@@ -78,7 +78,7 @@ public class EditorView1 extends FXViewModel
 				HTMLEditor front = new HTMLEditor();
 				HTMLEditor back = new HTMLEditor();
 				
-				//TODO:FALSCHER TEXT WIRD EINGEFÜGTS
+				//TODO:FALSCHER TEXT WIRD EINGEFÜGTS 
 				front.setHtmlText(data);
 				back.setHtmlText(data);				
 				

@@ -734,14 +734,16 @@ public class gamePanel extends JPanel implements Runnable {
 				}
 				// Mute
 				if (e.getKeyCode() == KeyEvent.VK_M) {
-					if (MidiPlayer.player.isRunning())
+					if (MidiPlayer.player.isRunning()){
 						MidiPlayer.player.stop();
+						sound = false;}
 					else
 						MidiPlayer.player.start();
-				}
+						sound = true;				}
 				// Pausenmenü
+				
+				if(gameState == PLAYING){
 				if (e.getKeyCode() == KeyEvent.VK_P) {
-					
 					if (!running) {
 						fred.resume();
 						running = true;
@@ -749,6 +751,7 @@ public class gamePanel extends JPanel implements Runnable {
 						fred.suspend();
 						running = false;
 					}
+				}
 					
 					
 				}
@@ -772,7 +775,8 @@ public class gamePanel extends JPanel implements Runnable {
 				break;
 			case ('t'): // Typed
 				if (e.getKeyChar() == 'd') {
-					System.out.println("Player Coords (" + sp.x + "," + sp.y + ")");
+					System.out.println(sound);
+					//System.out.println("Player Coords (" + sp.x + "," + sp.y + ")");
 				}
 				break;
 		}

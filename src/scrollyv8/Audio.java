@@ -26,7 +26,7 @@ public class Audio {
 	public void playAudio () {
 
 		String fullPath = debug.Environment.getUserPath()
-				+ "\\git\\Lernkartei\\Sounds\\Audiofiles\\"
+				+ "\\git\\Lernkartei\\GameFiles\\Sounds\\Audiofiles\\"
 				+ fileName;
 
 		try {

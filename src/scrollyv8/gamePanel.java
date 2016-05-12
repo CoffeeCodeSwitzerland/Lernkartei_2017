@@ -775,9 +775,8 @@ public class gamePanel extends JPanel implements Runnable {
 				}
 				break;
 			case ('t'): // Typed
-				if (e.getKeyChar() == 'd') {
-					System.out.println(sound);
-					//System.out.println("Player Coords (" + sp.x + "," + sp.y + ")");
+				if (e.getKeyChar() == 'c') {
+					System.out.println("Player Coords (" + sp.x + "," + sp.y + ")");
 				}
 				break;
 		}

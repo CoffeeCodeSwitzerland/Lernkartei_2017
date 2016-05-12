@@ -42,7 +42,9 @@
  *   Anwendung : Diese Funktionen werden über das Model UserModel verwaltet und sind auch dadurch aufrufbar.
  *  
  *  Public Funktionen von Profil.java
- *  	TODO Noch in Arbeit... Wird sobald wie möglich weitergeführt.
+ *   - getKarteien : Diese Funktion gibt alle Karteien zurück in form einer ArrayList. Sie wird gebraucht für die StatsView.
+ *
+ * 	 - getPunkte : Diese Funktio gibt die Anzahl Punkte für die Karteien zurück. Auch diese Funktion wird für die StatsView gebraucht.
  *  
  * 
  */

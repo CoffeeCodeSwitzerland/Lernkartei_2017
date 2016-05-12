@@ -69,9 +69,9 @@ public class StatsView extends FXView
 		ArrayList<String> Punkte = new ArrayList<String>();
 		
 		Karteien = Pm.getDataList("karteien");
-		System.out.println("Letzter Eintrag Karteien : " + Karteien.get(Karteien.size() - 1));
+//		System.out.println("Letzter Eintrag Karteien : " + Karteien.get(Karteien.size() - 1));
 		Punkte = Pm.getDataList("punkte");
-		System.out.println("Letzter Eintrag Punkte: " + Punkte.get(Punkte.size() - 1));
+//		System.out.println("Letzter Eintrag Punkte: " + Punkte.get(Punkte.size() - 1));
 		
 		//Eine Serie erstellen
 		Series serie = new Series();

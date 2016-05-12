@@ -11,36 +11,18 @@ public class Profil
 	ArrayList<String> cards = new ArrayList<String>();
 	
 	//Alle Daten Holen
-	@SuppressWarnings ("unused")
 	private ArrayList<String> OriginalData = new ArrayList<String>();
 	
-	//Alle Daten in zwei Arrays einteilen: Kartei[] und Points[]
-	private String[] Kartei;
-	private String[] Points;
-	
 	public Profil() {
-		generateTestdata();
+		getOriginalData();
 		
-		Kartei = new String[cards.size()];
-		Points = new String[cards.size()];
-	}
-	
-	//Daten zu Testzwecken
-	private void generateTestdata() {
-	
-	String eins = "eins:::10";
-	String zwei = "zwei:::20";
-	String drei = "drei:::30";
-		
-	cards.add(eins);
-	cards.add(zwei);
-	cards.add(drei);
-	
 	}
 	
 	private void getOriginalData()
 	{
 		Score s = new Score();
+		//s.generateTestdata("Insert into Score (Kartei, Score) values ('eins' , 10),('zwei' , 20),('drei' , 30)");
+		//s.dropTestData("DROP TABLE Score");
 		OriginalData = s.getScores();
 	}
 	
@@ -50,15 +32,12 @@ public class Profil
 		getOriginalData();
 		
 		String temporary = "";
-		for (int i = 0; i < /*OriginalData*/cards.size(); i++)
+		for (int i = 0; i < OriginalData.size(); i++)
 		{
 			String[] temp;
-			temp = cards.get(i).split(Globals.SEPARATOR);
-//			temp = OriginalData.get(i).split(Globals.SEPARATOR);
+			temp = OriginalData.get(i).split(Globals.SEPARATOR);
 			System.out.println("Kartei: " + temp[0] + " " + temp[1]);
-			Kartei[i] = temp[0];
-			System.out.println(temp);
-			temporary = Kartei[i];
+			temporary = temp[0];
 			tempList.add(temporary);
 			temporary = "";
 		}
@@ -72,14 +51,12 @@ public class Profil
 		
 		String temporary = "";
 		
-		for (int i = 0; i < /*OriginalData*/cards.size(); i++)
+		for (int i = 0; i < OriginalData.size(); i++)
 		{
 			String[] temp;
-			temp = cards.get(i).split(Globals.SEPARATOR);
-//			temp = OriginalData.get(i).split(Globals.SEPARATOR);
-			System.out.println("Punkte: " + temp[0] + " " + temp[1]);
-			Points[i] = temp[1];
-			temporary = Points[i];
+			temp = OriginalData.get(i).split(Globals.SEPARATOR);
+			System.out.println("Punkte: " + temp[0] + " " + temp[1]); 
+			temporary = temp[1];
 			tempList.add(temporary);
 			temporary = "";
 		}

@@ -187,7 +187,7 @@ public class Score {
 			Class.forName(driver);
 			c = DriverManager.getConnection(url);
 			stmt = c.createStatement();
-
+			
 			String all = "SELECT Kartei, Score FROM Score";
 			ResultSet rs = stmt.executeQuery(all);
 
@@ -207,6 +207,39 @@ public class Score {
 		}
 
 		return allScores;
+	}
+	
+	public void generateTestdata(String Insert) {
+		
+		Connection c = null;
+		Statement stmt = null;
+
+		try {
+			Class.forName(driver);
+			c = DriverManager.getConnection(url);
+			stmt = c.createStatement();
+			//TestData in die Score Tabelle einschreiben
+			stmt.executeUpdate(Insert);
+			System.out.println(Insert);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+	}
+	
+	public void dropTestData(String Drop) {
+		Connection c = null;
+		Statement stmt = null;
+
+		try {
+			Class.forName(driver);
+			c = DriverManager.getConnection(url);
+			stmt = c.createStatement();
+			//Tabelle löschen
+			stmt.executeUpdate(Drop);
+			System.out.println(Drop);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
 	}
 
 	private static String genString(String Kartei, String Score)

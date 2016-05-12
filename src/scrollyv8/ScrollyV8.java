@@ -1,9 +1,5 @@
 package scrollyv8;
 
-/**
- @author Adolf MacHitler <hitler@adolfskz.gas>
- */
-
 import javax.swing.*;
 
 import debug.Debugger;

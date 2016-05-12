@@ -34,6 +34,7 @@ public class QuizletImportView extends FXView
 		
 		ArrayList<HBox> quizletSets = new ArrayList<>();
 		
+		/*
 		for (String s : getController().getModel("quizlet").getDataList("search:jsbms"))
 		{
 			String[] setInfo = s.split(Globals.SEPARATOR);
@@ -41,7 +42,7 @@ public class QuizletImportView extends FXView
 			HBox setLayout = new HBox(5);
 			setLayout.getChildren().add(b);
 			quizletSets.add(setLayout);
-		}
+		}*/
 		
 		VBox listLayout = new VBox(20);
 		listLayout.getChildren().addAll(quizletSets);

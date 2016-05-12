@@ -739,7 +739,8 @@ public class gamePanel extends JPanel implements Runnable {
 						sound = false;}
 					else
 						MidiPlayer.player.start();
-						sound = true;				}
+						sound = true;
+				}
 				// Pausenmenü
 				
 				if(gameState == PLAYING){

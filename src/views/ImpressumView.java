@@ -12,28 +12,7 @@ import mvc.FXView;
 
 public class ImpressumView extends FXView
 {
-	/*
-	 * Ich nehme mal an wir werden die Texte mit Labels anzeigen.
-	 * Ich hab versucht den Hintergrund etwas heller zu machen nur einen kleinen Akzent.
-	 * Ich habs nicht und versuche es bald mit css. Es ist aber noch nicht geklärt ob das 
-	 * wirklich Labels sein sollten oder ob es was besseres gibt.
-	 * 
-	 *    -------
-	 *   ¦ To Do ¦
-	 * 	  -------
-	 * - Der Text sollte besser formatiert sein. (Andere Schrift)
-	 * 
-	 * - Der Hintergrund sollte ganz schwach heller sein,
-	 *	 das Problem ist dass man bei Optionen vielleicht eine andere Farbe
-	 *	 auswählen kann als Hintergrund und wenn ich jetzt eine feste Farbe setzte
-	 *   sieht es dann schräg aus. Ich kann es ja nicht auf halb durchsichtig stellen.
-	 *   
-	 * - Das Formatieren könnte auch noch ein Problem sein. 
-	 * 	 Mit \n kann man eine neue Zeile machen aber ich kenn die anderen nicht.
-	 * 
-	 */
 	
-
 	public ImpressumView(String newName, Controller newController) {
 		// this constructor is the same for all view's
 		super(newName, newController);
@@ -44,9 +23,7 @@ public class ImpressumView extends FXView
 	public Parent constructContainer() {
 		// Buttons
 		AppButton backBtn = new AppButton("Zurück");
-		
-		
-		
+			
 		//Labels (für die Infotexte)
 		Label labelTitel = new Label("Impressum");
 		

@@ -10,9 +10,9 @@ import javafx.scene.layout.VBox;
 import mvc.Controller;
 import mvc.FXView;
 
-public class QuizletView extends FXView
+public class QuizletInfoView extends FXView
 {
-	public QuizletView(String newName, Controller newController) {
+	public QuizletInfoView(String newName, Controller newController) {
 		// this constructor is the same for all view's
 		super(newName, newController);
 		construct();

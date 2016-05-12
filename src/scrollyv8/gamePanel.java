@@ -24,88 +24,87 @@ import javax.xml.stream.events.Attribute;
 import javax.xml.stream.events.StartElement;
 import javax.xml.stream.events.XMLEvent;
 
-
 /*
  * Still to do: - Spike/Foreground Layer - mountains - New Level - Enemies
  * Sprites - Boss too small - parallax - ... - quicksort? - Level 2 - Splash
  * screens - ... - New behaviour?
  */
 public class gamePanel extends JPanel implements Runnable {
-	private static final long	serialVersionUID	= 1L;
-	final int					HOME				= 0;
-	final int					OFFICE				= 1;
-	final int					LAPTOP				= 2;
-	final int					JAR					= 3;
-	int							workLoc				= JAR;
-	static boolean				sound				= true;
-	public static final int		INTRO				= 0, PLAYING = 1, CUTSCENE = 2, GAMEOVER = 3, JUSTDIED = 4,
-			LOADINTRO = 5, LOADLEVEL = 6, BOSS = 7, PASSEDBOSS = 8, WON = 9;										    // temporary
-																													    // variables
-	Thread						fred;
-	double						t					= 0;
-	private int					W					= 900;															 // screen
-																													 // width
-	private int					drawW				= 865;															 //
-	private int					H					= 600;															 // screen
-																													 // height
-	private int					drawH				= 570;															 // screen
-																													 // width
-	private boolean				left, right, up, jump, ground;														 // down
-	private double				x, y, playerStartX, playerStartY, pw, ph;
-	private double				vx, vy;
-	private double				bossXL, bossXR, bossYU, bossYD;
-	private double				bossScreenX, bossScreenY;
-	private double				grav;
-	private double				CX, CY;
-	@SuppressWarnings ("unused")
-	private double				screenX, screenY, tmpScreenX;
-	private int					skyeY				= 0;
-	private double				dVx					= 0.3;
-	private double				friction			= 0.2;
-	private int					bounce				= 9;
-	private int					spriteRate;
-	private int					lives;
-	private int					tickCounter;
-	static int					gameState;
-	private int					bossIndex;
-	private int					level;
-	private int					levelMax;
-	boolean						network;																			 // Load
-																													 // files
-																													 // locally(F)
-																													 // or
-																													 // from
-																													 // server(T)?
-	private int					brickWidth;
-	private Graphics2D			g2D;
-	private GradientPaint		skye;
-	private Color				gnd;
-	static MidiPlayer			mPlayer;
-	static ClipPlayer			clips;
-	private Image				introScreen, gameOverScreen, loadScreen, level1Screen, level2Screen, youWinScreen;
-	private String				status				= "";
-	private TileLayer			tiles, fg1, bg1, bg2, bg3, spikes;
-	private TileManager			tm;
-	private Player				sp;
-	private Enemy[]				enemies;
-	private int					numEnemies;
-	public static String		spritePath, soundPath, screenPath;
-	private String				levelBase, pathFile;
-	@SuppressWarnings ("unused")
-	private double				levelMinX, levelMinY, levelMaxX, levelMaxY;
-	private int					sleepTime;
-	private int					mapW, mapH;
-	private int					mapTileW, mapTileH;
-	private int					spriteGID;
-	@SuppressWarnings ("unused")
-	private Thread				t1					= new Thread(new RunAudio(new Audio("alligator.mp3")));;
+	private static final long serialVersionUID = 1L;
+	final int HOME = 0;
+	final int OFFICE = 1;
+	final int LAPTOP = 2;
+	final int JAR = 3;
+	int workLoc = JAR;
+	static boolean sound = true;
+	public static final int INTRO = 0, PLAYING = 1, CUTSCENE = 2, GAMEOVER = 3, JUSTDIED = 4, LOADINTRO = 5,
+			LOADLEVEL = 6, BOSS = 7, PASSEDBOSS = 8, WON = 9; // temporary
+																// variables
+	Thread fred;
+	double t = 0;
+	private int W = 900; // screen
+							// width
+	private int drawW = 865; //
+	private int H = 600; // screen
+							// height
+	private int drawH = 570; // screen
+								// width
+	private boolean left, right, up, jump, ground; // down
+	private double x, y, playerStartX, playerStartY, pw, ph;
+	private double vx, vy;
+	private double bossXL, bossXR, bossYU, bossYD;
+	private double bossScreenX, bossScreenY;
+	private double grav;
+	private double CX, CY;
+	@SuppressWarnings("unused")
+	private double screenX, screenY, tmpScreenX;
+	private int skyeY = 0;
+	private double dVx = 0.3;
+	private double friction = 0.2;
+	private int bounce = 9;
+	private int spriteRate;
+	private int lives;
+	private int tickCounter;
+	static int gameState;
+	private int bossIndex;
+	private int level;
+	private int levelMax;
+	boolean network; // Load
+						// files
+						// locally(F)
+						// or
+						// from
+						// server(T)?
+	private int brickWidth;
+	private Graphics2D g2D;
+	private GradientPaint skye;
+	private Color gnd;
+	static MidiPlayer mPlayer;
+	static ClipPlayer clips;
+	private Image introScreen, gameOverScreen, loadScreen, level1Screen, level2Screen, youWinScreen;
+	private String status = "";
+	private TileLayer tiles, fg1, bg1, bg2, bg3, spikes;
+	private TileManager tm;
+	private Player sp;
+	private Enemy[] enemies;
+	private int numEnemies;
+	public static String spritePath, soundPath, screenPath;
+	private String levelBase, pathFile;
+	@SuppressWarnings("unused")
+	private double levelMinX, levelMinY, levelMaxX, levelMaxY;
+	private int sleepTime;
+	private int mapW, mapH;
+	private int mapTileW, mapTileH;
+	private int spriteGID;
+	@SuppressWarnings("unused")
+	private Thread t1 = new Thread(new RunAudio(new Audio("alligator.mp3")));;
 	private boolean running = true;
 
 	// private AudioClip levelClip;
 	// private AudioClip clipL1, clipL2, clipDie, clipGameOver, clipPassed,
 	// clipBoss;
 
-	public gamePanel () {
+	public gamePanel() {
 		// INITIALIZE VARIABLES
 		// constants
 		grav = 0.4;
@@ -145,22 +144,22 @@ public class gamePanel extends JPanel implements Runnable {
 		tmpScreenX = 25;
 
 		switch (workLoc) {
-			case HOME:
-				levelBase = "D:/Documents/Prog/Java/ScrollyV8/Levels/Dev/";
-				pathFile = "D:/Documents/Prog/Java/ScrollyV8/";
-				break;
-			case OFFICE:
-				levelBase = "C:/Users/Andrew/Documents/Prog/Java/ScrollyV8/Levels/Dev/";
-				pathFile = "C:/Users/Andrew/Documents/Prog/Java/ScrollyV8/";
-				break;
-			case LAPTOP:
-				levelBase = "/Users/amacrae/Documents/Prog/Java/ScrollyV8/Levels/Dev/";
-				pathFile = "/Users/amacrae/Documents/Prog/Java/ScrollyV8/";
-				break;
-			case JAR:
-				levelBase = "Levels/Dev/";
-				pathFile = "";
-				break;
+		case HOME:
+			levelBase = "D:/Documents/Prog/Java/ScrollyV8/Levels/Dev/";
+			pathFile = "D:/Documents/Prog/Java/ScrollyV8/";
+			break;
+		case OFFICE:
+			levelBase = "C:/Users/Andrew/Documents/Prog/Java/ScrollyV8/Levels/Dev/";
+			pathFile = "C:/Users/Andrew/Documents/Prog/Java/ScrollyV8/";
+			break;
+		case LAPTOP:
+			levelBase = "/Users/amacrae/Documents/Prog/Java/ScrollyV8/Levels/Dev/";
+			pathFile = "/Users/amacrae/Documents/Prog/Java/ScrollyV8/";
+			break;
+		case JAR:
+			levelBase = "GameFiles/Levels/Dev/";
+			pathFile = "GameFiles/";
+			break;
 		}
 
 		screenPath = pathFile + "Images/Screens/";
@@ -179,8 +178,7 @@ public class gamePanel extends JPanel implements Runnable {
 			level2Screen = ImageIO.read(new File(screenPath + "level2.png"));
 			gameOverScreen = ImageIO.read(new File(screenPath + "GameOverMark1.png"));
 			youWinScreen = ImageIO.read(new File(screenPath + "YouWin.png"));
-		}
-		catch (IOException e) {
+		} catch (IOException e) {
 			System.out.println("Error loading screen images");
 			e.printStackTrace();
 		}
@@ -191,31 +189,28 @@ public class gamePanel extends JPanel implements Runnable {
 	}
 
 	@Override
-	public void paintComponent (Graphics g) {
+	public void paintComponent(Graphics g) {
 		// super.paintComponents(g);
 		if (gameState == LOADINTRO) {
 			g.drawImage(loadScreen, 0, 0, drawW, drawH, null);
 			g.setColor(Color.white);
 			g.drawString(status, 10, H - 10);
 
-		}
-		else if (gameState == INTRO) {
+		} else if (gameState == INTRO) {
 			// menu.render(g);
 			g.drawImage(introScreen, 0, 0, drawW, drawH, null);
-		}
-		else if (gameState == LOADLEVEL) {
+		} else if (gameState == LOADLEVEL) {
 			Image toDraw = null;
 			switch (level) {
-				case 1:
-					toDraw = level1Screen;
-					break;
-				case 2:
-					toDraw = level2Screen;
-					break;
+			case 1:
+				toDraw = level1Screen;
+				break;
+			case 2:
+				toDraw = level2Screen;
+				break;
 			}
 			g.drawImage(toDraw, 0, 0, drawW, drawH, null);
-		}
-		else if (gameState == PLAYING) {
+		} else if (gameState == PLAYING) {
 			g2D = (Graphics2D) g;
 			g2D.setPaint(skye);
 			g2D.fill(new Rectangle(0, 0, W, Math.max(skyeY - (int) screenY, 0)));
@@ -234,8 +229,7 @@ public class gamePanel extends JPanel implements Runnable {
 			for (int i = 0; i < lives; i++) {
 				sp.drawStatic(g, (int) (2 * CX - 150 + i * (sp.w + 5)), 5);
 			}
-		}
-		else if (gameState == BOSS) {
+		} else if (gameState == BOSS) {
 			g2D = (Graphics2D) g;
 			g2D.setPaint(skye);
 			g2D.fill(new Rectangle(0, 0, W, Math.max(skyeY - (int) screenY, 0)));
@@ -269,8 +263,7 @@ public class gamePanel extends JPanel implements Runnable {
 					mPlayer.play();
 				}
 			}
-		}
-		else if (gameState == PASSEDBOSS) {
+		} else if (gameState == PASSEDBOSS) {
 			g2D = (Graphics2D) g;
 			g2D.setPaint(skye);
 			g2D.fill(new Rectangle(0, 0, W, Math.max(skyeY - (int) screenY, 0)));
@@ -294,39 +287,35 @@ public class gamePanel extends JPanel implements Runnable {
 				g.setColor(Color.red);
 				g.fillRect((int) (2 * CX - 100), 20 + i * 20, 40, 20);
 			}
-		}
-		else if (gameState == GAMEOVER) {
+		} else if (gameState == GAMEOVER) {
 			g.drawImage(gameOverScreen, 0, 0, drawW, drawH, null);
-		}
-		else if (gameState == JUSTDIED) {
+		} else if (gameState == JUSTDIED) {
 			if ((tickCounter / 8) % 2 == 0) {
 				g.setColor(Color.black);
-			}
-			else {
+			} else {
 				g.setColor(Color.red);
 			}
 			g.fillRect(0, 0, W, H);
 			for (int i = 0; i < lives; i++) {
 				sp.drawStatic(g, (int) (CX + i * (sp.w + 5)), (int) CY - 10);
 			}
-		}
-		else if (gameState == WON) {
+		} else if (gameState == WON) {
 			g.drawImage(youWinScreen, 0, 0, drawW, drawH, null);
 		}
 
 	}
 
-	public void update () {
+	public void update() {
 		repaint();
 	}
 
 	// Thread Stuff
-	public void start () {
+	public void start() {
 		fred = new Thread(this);
 		fred.start();
 	}
 
-	public void run () {
+	public void run() {
 		while (true) {
 			// move();
 			update();
@@ -336,36 +325,20 @@ public class gamePanel extends JPanel implements Runnable {
 				status = "Loading sprite Images ...";
 				repaint();
 
-				String[] fNames_r = {
-						spritePath + "smiley_r_1.PNG", spritePath + "smiley_r_2.PNG", spritePath + "smiley_r_3.PNG",
-						spritePath + "smiley_r_4.PNG", spritePath + "smiley_r_5.PNG", spritePath + "smiley_r_6.PNG",
-						spritePath + "smiley_r_7.PNG", spritePath + "smiley_r_8.PNG", spritePath + "smiley_r_9.PNG",
-						spritePath + "smiley_r_10.PNG", spritePath + "smiley_r_11.PNG"
-				};
-				String[] fNames_l = {
-						spritePath + "smiley_l_1.PNG", spritePath + "smiley_l_2.PNG", spritePath + "smiley_l_3.PNG",
-						spritePath + "smiley_l_4.PNG", spritePath + "smiley_l_5.PNG", spritePath + "smiley_l_6.PNG",
-						spritePath + "smiley_l_7.PNG", spritePath + "smiley_l_8.PNG", spritePath + "smiley_l_9.PNG",
-						spritePath + "smiley_l_10.PNG", spritePath + "smiley_l_11.PNG"
-				};
-				String[] fNames_ju = {
-						spritePath + "smiley_j_r_u.PNG"
-				};
-				String[] fNames_Ju = {
-						spritePath + "smiley_j_l_u.PNG"
-				};
-				String[] fNames_jd = {
-						spritePath + "smiley_j_r_d.PNG"
-				};
-				String[] fNames_Jd = {
-						spritePath + "smiley_j_l_d.PNG"
-				};
-				String[] fNames_s = {
-						spritePath + "smiley_stand_r_1.PNG"
-				};
-				String[] fNames_S = {
-						spritePath + "smiley_stand_l_1.PNG"
-				};
+				String[] fNames_r = { spritePath + "smiley_r_1.PNG", spritePath + "smiley_r_2.PNG",
+						spritePath + "smiley_r_3.PNG", spritePath + "smiley_r_4.PNG", spritePath + "smiley_r_5.PNG",
+						spritePath + "smiley_r_6.PNG", spritePath + "smiley_r_7.PNG", spritePath + "smiley_r_8.PNG",
+						spritePath + "smiley_r_9.PNG", spritePath + "smiley_r_10.PNG", spritePath + "smiley_r_11.PNG" };
+				String[] fNames_l = { spritePath + "smiley_l_1.PNG", spritePath + "smiley_l_2.PNG",
+						spritePath + "smiley_l_3.PNG", spritePath + "smiley_l_4.PNG", spritePath + "smiley_l_5.PNG",
+						spritePath + "smiley_l_6.PNG", spritePath + "smiley_l_7.PNG", spritePath + "smiley_l_8.PNG",
+						spritePath + "smiley_l_9.PNG", spritePath + "smiley_l_10.PNG", spritePath + "smiley_l_11.PNG" };
+				String[] fNames_ju = { spritePath + "smiley_j_r_u.PNG" };
+				String[] fNames_Ju = { spritePath + "smiley_j_l_u.PNG" };
+				String[] fNames_jd = { spritePath + "smiley_j_r_d.PNG" };
+				String[] fNames_Jd = { spritePath + "smiley_j_l_d.PNG" };
+				String[] fNames_s = { spritePath + "smiley_stand_r_1.PNG" };
+				String[] fNames_S = { spritePath + "smiley_stand_l_1.PNG" };
 
 				sp = new Player(x, y, pw, ph, fNames_r, fNames_l, fNames_ju, fNames_Ju, fNames_jd, fNames_Jd, fNames_s,
 						fNames_S, spriteRate);
@@ -394,58 +367,57 @@ public class gamePanel extends JPanel implements Runnable {
 				gameState = INTRO;
 				// System.out.print("INTRO.\n");
 				repaint();
-			}
-			else if (gameState == LOADLEVEL) {
+			} else if (gameState == LOADLEVEL) {
 				// System.out.print("LOADLEVEL.\n");
 				String lPath;
 				switch (level) {
-					case 1:
-						skye = new GradientPaint(W / 2, H, Color.BLUE, W / 2, 0, Color.WHITE);
-						gnd = Color.green;
-						skyeY = 820;
-						lPath = levelBase + "level1.tmx";
-						bossScreenX = 135 * brickWidth;
-						bossScreenY = 11 * brickWidth;
-						bossXL = 128 * brickWidth;
-						bossXR = bossXL + 30 * brickWidth;
-						bossYU = 11 * brickWidth;
-						bossYD = bossYU + 15 * brickWidth;
-						if (sound) {
-							mPlayer.setTrack(soundPath + "Level1.mid", true);
-							mPlayer.play();
-						}
-						break;
-					case 2:
-						skye = new GradientPaint(W / 2, H, Color.RED, W / 2, 0, Color.WHITE);
-						gnd = new Color(12, 134, 61);
-						skyeY = 1020;
-						lPath = levelBase + "level2.tmx";
-						bossScreenX = 164 * brickWidth;
-						bossScreenY = 21 * brickWidth;
-						bossXR = 171 * brickWidth;
-						bossXL = bossXR - 30 * brickWidth;
-						bossYU = 16 * brickWidth;
-						bossYD = bossYU + 25 * brickWidth;
-						if (sound) {
-							mPlayer.setTrack(soundPath + "Level2.mid", true);
-							mPlayer.play();
-						}
-						break;
-					default:
-						skye = new GradientPaint(W / 2, H, Color.BLUE, W / 2, 0, Color.WHITE);
-						lPath = levelBase + "level1.tmx";
-						bossScreenX = 135 * brickWidth;
-						bossScreenY = 11 * brickWidth;
-						bossXL = 128 * brickWidth;
-						bossXR = bossXL + 30 * brickWidth;
-						bossYU = 11 * brickWidth;
-						bossYD = bossYU + 15 * brickWidth;
-						lPath = levelBase + "level1.tmx";
-						if (sound) {
-							mPlayer.setTrack(soundPath + "Level1.mid", true);
-							mPlayer.play();
-						}
-						break;
+				case 1:
+					skye = new GradientPaint(W / 2, H, Color.BLUE, W / 2, 0, Color.WHITE);
+					gnd = Color.green;
+					skyeY = 820;
+					lPath = levelBase + "level1.tmx";
+					bossScreenX = 135 * brickWidth;
+					bossScreenY = 11 * brickWidth;
+					bossXL = 128 * brickWidth;
+					bossXR = bossXL + 30 * brickWidth;
+					bossYU = 11 * brickWidth;
+					bossYD = bossYU + 15 * brickWidth;
+					if (sound) {
+						mPlayer.setTrack(soundPath + "Level1.mid", true);
+						mPlayer.play();
+					}
+					break;
+				case 2:
+					skye = new GradientPaint(W / 2, H, Color.RED, W / 2, 0, Color.WHITE);
+					gnd = new Color(12, 134, 61);
+					skyeY = 1020;
+					lPath = levelBase + "level2.tmx";
+					bossScreenX = 164 * brickWidth;
+					bossScreenY = 21 * brickWidth;
+					bossXR = 171 * brickWidth;
+					bossXL = bossXR - 30 * brickWidth;
+					bossYU = 16 * brickWidth;
+					bossYD = bossYU + 25 * brickWidth;
+					if (sound) {
+						mPlayer.setTrack(soundPath + "Level2.mid", true);
+						mPlayer.play();
+					}
+					break;
+				default:
+					skye = new GradientPaint(W / 2, H, Color.BLUE, W / 2, 0, Color.WHITE);
+					lPath = levelBase + "level1.tmx";
+					bossScreenX = 135 * brickWidth;
+					bossScreenY = 11 * brickWidth;
+					bossXL = 128 * brickWidth;
+					bossXR = bossXL + 30 * brickWidth;
+					bossYU = 11 * brickWidth;
+					bossYD = bossYU + 15 * brickWidth;
+					lPath = levelBase + "level1.tmx";
+					if (sound) {
+						mPlayer.setTrack(soundPath + "Level1.mid", true);
+						mPlayer.play();
+					}
+					break;
 				}
 				loadLevel(lPath);
 				System.out.print("done.\n");
@@ -457,16 +429,14 @@ public class gamePanel extends JPanel implements Runnable {
 				System.out.print("done.\n");
 				try {
 					Thread.sleep(2000);
-				}
-				catch (InterruptedException e) {
+				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
 
 				gameState = PLAYING;
 				System.out.print("Playing.\n");
 				repaint();
-			}
-			else if (gameState == PLAYING || gameState == BOSS) {
+			} else if (gameState == PLAYING || gameState == BOSS) {
 				vx *= (1 - .1);// friction
 				if (Math.abs(vx) < friction) {
 					vx = 0;
@@ -538,27 +508,26 @@ public class gamePanel extends JPanel implements Runnable {
 								}
 							}
 							enemies[i].iterate(.5, tWCH, tWCV, tWF, 0, 0.1);
-						}
-						else {
+						} else {
 							enemies[i].iterate(.5, false, true, false, 0, 0);
 						}
 					}
 				}
 				if (gameState == BOSS) {
 					switch (level) {
-						case 1:
-							skye = new GradientPaint(W / 2, H, Color.BLUE, W / 2, 0, Color.BLACK);
-							gnd = new Color(12, 134, 61);
-							skyeY = 820;
-							break;
-						case 2:
-							skye = new GradientPaint(W / 2, H, Color.RED, W / 2, 0, Color.BLACK);
-							gnd = new Color(12, 134, 61);
-							skyeY = 1020;
-							break;
-						default:
-							skye = new GradientPaint(W / 2, H, Color.BLUE, W / 2, 0, Color.BLACK);
-							break;
+					case 1:
+						skye = new GradientPaint(W / 2, H, Color.BLUE, W / 2, 0, Color.BLACK);
+						gnd = new Color(12, 134, 61);
+						skyeY = 820;
+						break;
+					case 2:
+						skye = new GradientPaint(W / 2, H, Color.RED, W / 2, 0, Color.BLACK);
+						gnd = new Color(12, 134, 61);
+						skyeY = 1020;
+						break;
+					default:
+						skye = new GradientPaint(W / 2, H, Color.BLUE, W / 2, 0, Color.BLACK);
+						break;
 					}
 					tWCH = tWCV = tWF = false;
 					if (willCollideNPC(enemies[bossIndex].vx, -2, enemies[bossIndex])) {
@@ -586,30 +555,23 @@ public class gamePanel extends JPanel implements Runnable {
 					if ((tC == 'r') || (tC == 'j') || (tC == 'g')) {
 						if (vy < 0) {
 							sp.setState('j');
-						}
-						else {
+						} else {
 							sp.setState('g');
 						}
-					}
-					else {
+					} else {
 						if (vy < 0) {
 							sp.setState('J');
-						}
-						else {
+						} else {
 							sp.setState('G');
 						}
 					}
-				}
-				else if (vx > 0) {
+				} else if (vx > 0) {
 					sp.setState('r');
-				}
-				else if (vx < 0) {
+				} else if (vx < 0) {
 					sp.setState('l');
-				}
-				else if (tC == 'r' || tC == 's' || tC == 'j') {
+				} else if (tC == 'r' || tC == 's' || tC == 'j') {
 					sp.setState('s');
-				}
-				else {
+				} else {
 					sp.setState('S');
 				}
 				sp.x = x;
@@ -623,12 +585,10 @@ public class gamePanel extends JPanel implements Runnable {
 					}
 				}
 				repaint();
-			}
-			else if (gameState == JUSTDIED) {
+			} else if (gameState == JUSTDIED) {
 				if (tickCounter > 0) {
 					tickCounter--;
-				}
-				else {
+				} else {
 					if (sound) {
 						if (level == 1) {
 							mPlayer.setTrack(soundPath + "Level1.mid", true);
@@ -645,20 +605,17 @@ public class gamePanel extends JPanel implements Runnable {
 					jump = false;
 				}
 				repaint();
-			}
-			else if (gameState == PASSEDBOSS) {
+			} else if (gameState == PASSEDBOSS) {
 				if (tickCounter > 0) {
 					tickCounter--;
-				}
-				else {
+				} else {
 					if (level <= levelMax) {
 						gameState = LOADLEVEL;
 						x = playerStartX;
 						y = playerStartY;
 						vx = vy = 0;
 						jump = false;
-					}
-					else {
+					} else {
 						tickCounter = 300;
 						gameState = WON;
 						if (sound) {
@@ -668,12 +625,10 @@ public class gamePanel extends JPanel implements Runnable {
 					}
 				}
 				repaint();
-			}
-			else if (gameState == GAMEOVER) {
+			} else if (gameState == GAMEOVER) {
 				if (tickCounter > 0) {
 					tickCounter--;
-				}
-				else {
+				} else {
 					if (sound) {
 						mPlayer.setTrack(soundPath + "Level3.mid", true);
 						mPlayer.play();
@@ -683,12 +638,10 @@ public class gamePanel extends JPanel implements Runnable {
 					lives = 2;
 				}
 				repaint();
-			}
-			else if (gameState == WON) {
+			} else if (gameState == WON) {
 				if (tickCounter > 0) {
 					tickCounter--;
-				}
-				else {
+				} else {
 					loadLevel(levelBase + "level1.tmx");
 					gameState = INTRO;
 					lives = 2;
@@ -698,52 +651,51 @@ public class gamePanel extends JPanel implements Runnable {
 			}
 			try {
 				Thread.sleep(sleepTime);
-			}
-			catch (InterruptedException e) {
+			} catch (InterruptedException e) {
 				System.out.println(e.toString());
 			}
 		}
 	}
 	// For now, only keyboard. Could generalize to mouse, etc.
 
-	@SuppressWarnings ("deprecation")
-	public void handleInput (char code, KeyEvent e) {
+	@SuppressWarnings("deprecation")
+	public void handleInput(char code, KeyEvent e) {
 		switch (code) {
-			case 'p': // Key Pressed
-				if (gameState == INTRO) {
-					gameState = LOADLEVEL;
-					// menu.tick(e);
-				}
+		case 'p': // Key Pressed
+			if (gameState == INTRO) {
+				gameState = LOADLEVEL;
+				// menu.tick(e);
+			}
 
-				if (e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_W) {
-					up = true;
+			if (e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_W) {
+				up = true;
+			}
+			if (e.getKeyCode() == KeyEvent.VK_RIGHT || e.getKeyCode() == KeyEvent.VK_D) {
+				right = true;
+			}
+			if (e.getKeyCode() == KeyEvent.VK_LEFT || e.getKeyCode() == KeyEvent.VK_A) {
+				left = true;
+			}
+			if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+				if (ground) {
+					jump = true;
 				}
-				if (e.getKeyCode() == KeyEvent.VK_RIGHT || e.getKeyCode() == KeyEvent.VK_D) {
-					right = true;
-				}
-				if (e.getKeyCode() == KeyEvent.VK_LEFT || e.getKeyCode() == KeyEvent.VK_A) {
-					left = true;
-				}
-				if (e.getKeyCode() == KeyEvent.VK_SPACE) {
-					if (ground) {
-						jump = true;
-					}
-				}
-				if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
-					gameState = INTRO;
-				}
-				// Mute
-				if (e.getKeyCode() == KeyEvent.VK_M) {
-					if (MidiPlayer.player.isRunning()){
-						MidiPlayer.player.stop();
-						sound = false;}
-					else
-						MidiPlayer.player.start();
-						sound = true;
-				}
-				// Pausenmenü
-				
-				if(gameState == PLAYING){
+			}
+			if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+				gameState = INTRO;
+			}
+			// Mute
+			if (e.getKeyCode() == KeyEvent.VK_M) {
+				if (MidiPlayer.player.isRunning()) {
+					MidiPlayer.player.stop();
+					sound = false;
+				} else
+					MidiPlayer.player.start();
+				sound = true;
+			}
+			// Pausenmenü
+
+			if (gameState == PLAYING) {
 				if (e.getKeyCode() == KeyEvent.VK_P) {
 					if (!running) {
 						fred.resume();
@@ -753,37 +705,36 @@ public class gamePanel extends JPanel implements Runnable {
 						running = false;
 					}
 				}
-					
-					
-				}
 
-				break;
-			case 'r':  // Released
-				if (e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_W) {
-					up = false;
+			}
+
+			break;
+		case 'r': // Released
+			if (e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_W) {
+				up = false;
+			}
+			if (e.getKeyCode() == KeyEvent.VK_RIGHT || e.getKeyCode() == KeyEvent.VK_D) {
+				right = false;
+			}
+			if (e.getKeyCode() == KeyEvent.VK_LEFT || e.getKeyCode() == KeyEvent.VK_A) {
+				left = false;
+			}
+			if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+				if (ground) {
+					jump = false;
 				}
-				if (e.getKeyCode() == KeyEvent.VK_RIGHT || e.getKeyCode() == KeyEvent.VK_D) {
-					right = false;
-				}
-				if (e.getKeyCode() == KeyEvent.VK_LEFT || e.getKeyCode() == KeyEvent.VK_A) {
-					left = false;
-				}
-				if (e.getKeyCode() == KeyEvent.VK_SPACE) {
-					if (ground) {
-						jump = false;
-					}
-				}
-				break;
-			case ('t'): // Typed
-				if (e.getKeyChar() == 'c') {
-					System.out.println("Player Coords (" + sp.x + "," + sp.y + ")");
-				}
-				break;
+			}
+			break;
+		case ('t'): // Typed
+			if (e.getKeyChar() == 'c') {
+				System.out.println("Player Coords (" + sp.x + "," + sp.y + ")");
+			}
+			break;
 		}
 	}
 	// ********************** Level Loader ***************************
 
-	public void loadLevel (String fName) {
+	public void loadLevel(String fName) {
 		resetTiles();
 		int currTileSetWidth = 0;
 		int currTileSetHeight = 0;
@@ -803,31 +754,31 @@ public class gamePanel extends JPanel implements Runnable {
 				event = eventReader.nextEvent();
 				if (event.isStartElement()) {
 					StartElement startElement = event.asStartElement();
-					@SuppressWarnings ("unchecked")
+					@SuppressWarnings("unchecked")
 					Iterator<Attribute> attributes = startElement.getAttributes();
 					if (startElement.getName().getLocalPart() == "map") {
 						System.out.println("Map File Detected...");
 						while (attributes.hasNext()) {
 							Attribute attribute = attributes.next();
 							switch (attribute.getName().toString()) {
-								case ("version"):
-									break;
-								case ("orientation"):
-									break;
-								case ("width"):
-									mapW = Integer.parseInt(attribute.getValue());
-									break;
-								case ("height"):
-									mapH = Integer.parseInt(attribute.getValue());
-									break;
-								case ("tilewidth"):
-									mapTileW = Integer.parseInt(attribute.getValue());
-									break;
-								case ("tileheight"):
-									mapTileH = Integer.parseInt(attribute.getValue());
-									break;
-								default:
-									break;
+							case ("version"):
+								break;
+							case ("orientation"):
+								break;
+							case ("width"):
+								mapW = Integer.parseInt(attribute.getValue());
+								break;
+							case ("height"):
+								mapH = Integer.parseInt(attribute.getValue());
+								break;
+							case ("tilewidth"):
+								mapTileW = Integer.parseInt(attribute.getValue());
+								break;
+							case ("tileheight"):
+								mapTileH = Integer.parseInt(attribute.getValue());
+								break;
+							default:
+								break;
 							}
 						}
 						System.out.println("Found " + mapW + "x" + mapH + " tile map with " + mapTileW + "x" + mapTileH
@@ -839,21 +790,21 @@ public class gamePanel extends JPanel implements Runnable {
 						while (attributes.hasNext()) {
 							Attribute attribute = attributes.next();
 							switch (attribute.getName().toString()) {
-								case ("firstgid"):
-									currGID = Integer.parseInt(attribute.getValue());
-									break;
-								case ("name"):
-									tName = attribute.getValue();
-									System.out.println("\tTileset Name = " + tName);
-									break;
-								case ("tilewidth"):
-									currTileSetWidth = Integer.parseInt(attribute.getValue());
-									break;
-								case ("tileheight"):
-									currTileSetHeight = Integer.parseInt(attribute.getValue());
-									break;
-								default:
-									break;
+							case ("firstgid"):
+								currGID = Integer.parseInt(attribute.getValue());
+								break;
+							case ("name"):
+								tName = attribute.getValue();
+								System.out.println("\tTileset Name = " + tName);
+								break;
+							case ("tilewidth"):
+								currTileSetWidth = Integer.parseInt(attribute.getValue());
+								break;
+							case ("tileheight"):
+								currTileSetHeight = Integer.parseInt(attribute.getValue());
+								break;
+							default:
+								break;
 							}
 						}
 						if (tName.equals("Sprites")) {
@@ -864,26 +815,26 @@ public class gamePanel extends JPanel implements Runnable {
 						System.out.println("Parsing image for tileset " + tileSetCounter);
 						String tileName = "";
 						int imageWidth = 480;
-						@SuppressWarnings ("unused")
+						@SuppressWarnings("unused")
 						int imageHeight = 30;
 						while (attributes.hasNext()) {
 							Attribute attribute = attributes.next(); // Bug -
-																	 // currently
-																	 // ignores
-																	 // first
-																	 // element.
+																		// currently
+																		// ignores
+																		// first
+																		// element.
 							switch (attribute.getName().toString()) {
-								case ("source"):
-									tileName = levelBase + attribute.getValue();
-									break;
-								case ("width"):
-									imageWidth = Integer.parseInt(attribute.getValue());
-									break;
-								case ("height"):
-									imageHeight = Integer.parseInt(attribute.getValue());
-									break;
-								default:
-									break;
+							case ("source"):
+								tileName = levelBase + attribute.getValue();
+								break;
+							case ("width"):
+								imageWidth = Integer.parseInt(attribute.getValue());
+								break;
+							case ("height"):
+								imageHeight = Integer.parseInt(attribute.getValue());
+								break;
+							default:
+								break;
 							}
 						}
 						try {
@@ -892,8 +843,7 @@ public class gamePanel extends JPanel implements Runnable {
 									currTileSetHeight);
 							System.out.println("\tAdded tileset " + tileName + ".\n\t" + imageWidth / currTileSetWidth
 									+ " tiles of width " + currTileSetWidth);
-						}
-						catch (IOException e) {
+						} catch (IOException e) {
 							e.printStackTrace();
 						}
 						tileSetCounter++;
@@ -903,48 +853,48 @@ public class gamePanel extends JPanel implements Runnable {
 						String tName = "";
 						while (attributes.hasNext()) {
 							Attribute attribute = attributes.next(); // Bug -
-																	 // currently
-																	 // ignores
-																	 // first
-																	 // element.
+																		// currently
+																		// ignores
+																		// first
+																		// element.
 							switch (attribute.getName().toString()) {
-								case ("name"):
-									tName = attribute.getValue();
-									switch (tName) {
-										case "tiles":
-											currLayerIndex = 0;
-											break;
-										case "bg1":
-											currLayerIndex = 1;
-											break;
-										case "bg2":
-											currLayerIndex = 2;
-											break;
-										case "bg3":
-											currLayerIndex = 3;
-											break;
-										case "fg1":
-											currLayerIndex = 4;
-											break;
-										case "spikes":
-											currLayerIndex = 5;
-											break;
-										case "spriteLayer":
-											currLayerIndex = -1;
-											break;
-										default:
-											currLayerIndex = -2;
-									}
-									System.out.println("\tName of Layer = " + tName + " with index " + currLayerIndex);
+							case ("name"):
+								tName = attribute.getValue();
+								switch (tName) {
+								case "tiles":
+									currLayerIndex = 0;
 									break;
-								case ("width"):
-									System.out.println("\tWidth of Layer = " + attribute.getValue() + " units");
+								case "bg1":
+									currLayerIndex = 1;
 									break;
-								case ("height"):
-									System.out.println("\tHeight of Layer = " + attribute.getValue() + " units");
+								case "bg2":
+									currLayerIndex = 2;
+									break;
+								case "bg3":
+									currLayerIndex = 3;
+									break;
+								case "fg1":
+									currLayerIndex = 4;
+									break;
+								case "spikes":
+									currLayerIndex = 5;
+									break;
+								case "spriteLayer":
+									currLayerIndex = -1;
 									break;
 								default:
-									break;
+									currLayerIndex = -2;
+								}
+								System.out.println("\tName of Layer = " + tName + " with index " + currLayerIndex);
+								break;
+							case ("width"):
+								System.out.println("\tWidth of Layer = " + attribute.getValue() + " units");
+								break;
+							case ("height"):
+								System.out.println("\tHeight of Layer = " + attribute.getValue() + " units");
+								break;
+							default:
+								break;
 							}
 						}
 					}
@@ -952,34 +902,33 @@ public class gamePanel extends JPanel implements Runnable {
 						System.out.println("Parsing Data for Layer " + layerCounter);
 						while (attributes.hasNext()) {
 							Attribute attribute = attributes.next(); // Bug -
-																	 // currently
-																	 // ignores
-																	 // first
-																	 // element.
+																		// currently
+																		// ignores
+																		// first
+																		// element.
 							switch (attribute.getName().toString()) {
-								case ("encoding"):
-									System.out.println("\tEncoding = " + attribute.getValue());
-									break;
-								default:
-									break;
+							case ("encoding"):
+								System.out.println("\tEncoding = " + attribute.getValue());
+								break;
+							default:
+								break;
 							}
 						}
 						event = eventReader.nextEvent();
 						String stEvent = "";
 						while (!event.isEndElement()) {
 							stEvent = stEvent + event.toString().replace("\n", "").replace("\r", ""); // Tiled
-																										 // places
-																										 // extra
-																										 // newlines
-																										 // in
-																										 // csv
-																										 // portion
+																										// places
+																										// extra
+																										// newlines
+																										// in
+																										// csv
+																										// portion
 							event = eventReader.nextEvent();
 						}
 						if (currLayerIndex == -1) {
 							loadSprites(stEvent, mapW, mapH, mapTileW, mapTileH);
-						}
-						else {
+						} else {
 							System.out.println("Loading Layer with index " + currLayerIndex);
 							loadLayer(currLayerIndex, stEvent, mapW, mapH, mapTileW, mapTileH);
 						}
@@ -993,23 +942,20 @@ public class gamePanel extends JPanel implements Runnable {
 			bg1.sort();
 			fg1.sort();
 			spikes.sort();
-		}
-		catch (FileNotFoundException e) {
+		} catch (FileNotFoundException e) {
 			e.printStackTrace();
-		}
-		catch (XMLStreamException e) {
+		} catch (XMLStreamException e) {
 			e.printStackTrace();
 		}
 		// End of XML parsing
 	}
 
-	public boolean loadLayer (int index, String data, int nX, int nY, int tW, int tH) {
+	public boolean loadLayer(int index, String data, int nX, int nY, int tW, int tH) {
 		String[] tokens = data.split(",");
 		if (tokens.length != nX * nY) {
 			System.out.println("Error decoding file");
 			return false;
-		}
-		else {
+		} else {
 			int cnt = 0;
 			int tmp = 0;
 			for (int j = 0; j < nY; j++) {
@@ -1023,27 +969,27 @@ public class gamePanel extends JPanel implements Runnable {
 						Image tIm = createImage(ttp.getImage().getSource());
 						Tile tTile = new Tile(i * mapTileW, j * mapTileH, ttp.width, ttp.height, tmp - 1, tIm);
 						switch (index) {
-							case 0:
-								tiles.add(tTile);
-								break;
-							case 1:
-								bg1.add(tTile);
-								break;
-							case 2:
-								bg2.add(tTile);
-								break;
-							case 3:
-								bg3.add(tTile);
-								break;
-							case 4:
-								fg1.add(tTile);
-								break;
-							case 5:
-								spikes.add(tTile);
-								break;
-							default:
-								// tiles.add(tTile);
-								break;
+						case 0:
+							tiles.add(tTile);
+							break;
+						case 1:
+							bg1.add(tTile);
+							break;
+						case 2:
+							bg2.add(tTile);
+							break;
+						case 3:
+							bg3.add(tTile);
+							break;
+						case 4:
+							fg1.add(tTile);
+							break;
+						case 5:
+							spikes.add(tTile);
+							break;
+						default:
+							// tiles.add(tTile);
+							break;
 						}
 					}
 					cnt++;
@@ -1053,15 +999,14 @@ public class gamePanel extends JPanel implements Runnable {
 		}
 	}
 
-	public boolean loadSprites (String data, int nX, int nY, int tW, int tH) {
+	public boolean loadSprites(String data, int nX, int nY, int tW, int tH) {
 		// start sprite GID
 		System.out.println("Sprite GID = " + spriteGID);
 		String[] tokens = data.split(",");
 		if (tokens.length != nX * nY) {
 			System.out.println("Error decoding file");
 			return false;
-		}
-		else {
+		} else {
 			int cnt = 0;
 			int cntE = 0;
 			numEnemies = 0;
@@ -1080,30 +1025,30 @@ public class gamePanel extends JPanel implements Runnable {
 					tmp = Integer.parseInt(tokens[cnt]) - spriteGID;
 
 					switch (tmp) {
-						case 0:
-							x = playerStartX = i * mapTileW;
-							y = playerStartY = j * mapTileH;
-							break;
-						case 1:
-							enemies[cntE] = new Peon(i * mapTileW, j * mapTileH, mapTileW, mapTileH, spritePath);
-							cntE++;
-							break;
-						case 2:
-							enemies[cntE] = new Robob(i * mapTileW, j * mapTileH, 40, mapTileH, spritePath);
-							cntE++;
-							break;
-						case 3:
-							enemies[cntE] = new Gator(i * mapTileW, j * mapTileH, 30, mapTileH, spritePath);
-							cntE++;
-							break;
-						case 4:
-							bossIndex = cntE;
-							enemies[cntE] = new Boss(i * mapTileW, j * mapTileH, 4 * mapTileW, 2 * mapTileH,
-									spritePath + "Boss/");
-							cntE++;
-							break;
-						default:
-							break;
+					case 0:
+						x = playerStartX = i * mapTileW;
+						y = playerStartY = j * mapTileH;
+						break;
+					case 1:
+						enemies[cntE] = new Peon(i * mapTileW, j * mapTileH, mapTileW, mapTileH, spritePath);
+						cntE++;
+						break;
+					case 2:
+						enemies[cntE] = new Robob(i * mapTileW, j * mapTileH, 40, mapTileH, spritePath);
+						cntE++;
+						break;
+					case 3:
+						enemies[cntE] = new Gator(i * mapTileW, j * mapTileH, 30, mapTileH, spritePath);
+						cntE++;
+						break;
+					case 4:
+						bossIndex = cntE;
+						enemies[cntE] = new Boss(i * mapTileW, j * mapTileH, 4 * mapTileW, 2 * mapTileH,
+								spritePath + "Boss/");
+						cntE++;
+						break;
+					default:
+						break;
 					}
 					cnt++;
 				}
@@ -1113,7 +1058,7 @@ public class gamePanel extends JPanel implements Runnable {
 	}
 
 	// ******************* HELPER FUNCTIONS **********************
-	public boolean willCollide (double dx, double dy) {
+	public boolean willCollide(double dx, double dy) {
 		// find indices of al tiles in N-tile radius of Player. Note tiles are
 		// sorted by x, then y
 		// First find tiles coordinates of player and start at min(x-N,0)
@@ -1127,16 +1072,18 @@ public class gamePanel extends JPanel implements Runnable {
 			uL++;
 		}
 		int uR = uL; // Start with right coord at left coord and increase index
-					 // until xRight>xPlayer+N
+						// until xRight>xPlayer+N
 		while (tiles.get(uR).x / brickWidth < xPlayerRight) {
 			uR++;
 		}
 		uR = Math.min(uR, tiles.size() - 1); // if region extends beyond last
-											 // point, truncate it.
+												// point, truncate it.
 		// Could search through y coords here, but since levels are short,
 		// height-wise, probably no more efficient.s
 		for (int i = uL; i < uR; i++) {
-			if (tiles.get(i).isIn(sp, dx, dy)) { return true; }
+			if (tiles.get(i).isIn(sp, dx, dy)) {
+				return true;
+			}
 		}
 		// Now for the spikes
 		xPlayerRight = Math.min(((int) (x / brickWidth)) + N, (int) (spikes.get(spikes.size() - 1).x) / brickWidth);
@@ -1160,17 +1107,15 @@ public class gamePanel extends JPanel implements Runnable {
 		return false;
 	}
 
-	public boolean willCollideNPC (double dx, double dy, Enemy e) {
+	public boolean willCollideNPC(double dx, double dy, Enemy e) {
 		double scX = 0;
 		double eX = e.x;
 
 		if (eX < CX) {
 			scX = CX;
-		}
-		else if (eX > levelMaxX - CX) {
+		} else if (eX > levelMaxX - CX) {
 			scX = levelMaxX - CX;
-		}
-		else {
+		} else {
 			scX = eX;
 		}
 
@@ -1186,12 +1131,14 @@ public class gamePanel extends JPanel implements Runnable {
 		}
 
 		for (int i = sX; i < fX; i++) {
-			if (tiles.get(i).isIn(e, dx, dy)) { return true; }
+			if (tiles.get(i).isIn(e, dx, dy)) {
+				return true;
+			}
 		}
 		return false;
 	}
 
-	public void killPlayer () {
+	public void killPlayer() {
 		if (sound) {
 			MidiPlayer.stop();
 			ClipPlayer.DIE.play();
@@ -1209,8 +1156,7 @@ public class gamePanel extends JPanel implements Runnable {
 			// clipDie.play();
 			// }
 			tickCounter = 250;
-		}
-		else {
+		} else {
 			gameState = GAMEOVER;
 			level = 1;
 			tickCounter = 400;
@@ -1221,55 +1167,50 @@ public class gamePanel extends JPanel implements Runnable {
 		}
 	}
 
-	@SuppressWarnings ("unused")
-	private void winPlayer () {
+	@SuppressWarnings("unused")
+	private void winPlayer() {
 		x = y = 25;
 		vx = vy = 0;
 		jump = false;
 		lives++;
 	}
 
-	private boolean willFall (Enemy e) {
+	private boolean willFall(Enemy e) {
 		double d = e.w;
 		if (e.vx < 0) {
 			d *= -1;
 		}
 		if (!willCollideNPC(e.vx + d, 9, e)) {
 			return true;
-		}
-		else {
+		} else {
 			return false;
 		}
 	}
 
-	private boolean isOnScreen (Squob s) {
+	private boolean isOnScreen(Squob s) {
 		if ((s.x > x - 2 * CX) && (s.x < x + 2 * CX)) {
 			return true;
-		}
-		else {
+		} else {
 			return false;
 		}
 	}
 
-	private void drawLayer (Graphics g, TileLayer tl, int depth) {
+	private void drawLayer(Graphics g, TileLayer tl, int depth) {
 		if (tl.size() > 0) {
 			if (x < CX) {
 				screenX = CX;
-			}
-			else if (x > levelMaxX - CX) {
+			} else if (x > levelMaxX - CX) {
 				screenX = (levelMaxX - CX * (2 - depth)) / depth; // Coordinate
-																	 // Transformed
-																	 // for
-																	 // depth
-			}
-			else {
+																	// Transformed
+																	// for
+																	// depth
+			} else {
 				screenX = (x - CX * (1 - depth)) / depth;
 			}
 
 			if (y > levelMaxY - CY) {
 				screenY = Math.max(levelMaxY - CY, 0);
-			}
-			else {
+			} else {
 				screenY = y;
 			}
 			int bSX = Math.min((int) ((screenX - CX) / brickWidth), 0);
@@ -1289,7 +1230,7 @@ public class gamePanel extends JPanel implements Runnable {
 		}
 	}
 
-	private void drawLayer (Graphics g, TileLayer tl, int depth, double x0, double y0) {
+	private void drawLayer(Graphics g, TileLayer tl, int depth, double x0, double y0) {
 		if (tl.size() > 0) {
 			screenX = (x0 - CX * (1 - depth)) / depth;
 			screenY = y0;
@@ -1310,7 +1251,7 @@ public class gamePanel extends JPanel implements Runnable {
 		}
 	}
 
-	private void resetTiles () {
+	private void resetTiles() {
 		tiles = new TileLayer(10000);
 		fg1 = new TileLayer(200);
 		bg1 = new TileLayer(200);
@@ -1320,23 +1261,23 @@ public class gamePanel extends JPanel implements Runnable {
 		tm = new TileManager(250);
 	}
 
-	private void playClip (char c) {
+	private void playClip(char c) {
 		switch (c) {
-			case 'a':
-				ClipPlayer.DEATH_GATOR.play();
-				break;
-			case 'b':
-				ClipPlayer.DEATH_BOSS.play();
-				break;
-			case 'g':
-				ClipPlayer.DEATH_GREAPER.play();
-				break;
-			case 'r':
-				ClipPlayer.DEATH_ROBOB.play();
-				break;
-			case 'B':
-				ClipPlayer.BOSS_HIT.play();
-				break;
+		case 'a':
+			ClipPlayer.DEATH_GATOR.play();
+			break;
+		case 'b':
+			ClipPlayer.DEATH_BOSS.play();
+			break;
+		case 'g':
+			ClipPlayer.DEATH_GREAPER.play();
+			break;
+		case 'r':
+			ClipPlayer.DEATH_ROBOB.play();
+			break;
+		case 'B':
+			ClipPlayer.BOSS_HIT.play();
+			break;
 		}
 	}
 }

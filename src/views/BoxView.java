@@ -89,7 +89,7 @@ public class BoxView extends FXViewModel
 					}
 					break;
 				case 1:
-					Alert.simpleInfoBox("Quizlet", "Importiere...");
+					getController().getView("quizlet").show();
 					break;
 				default:
 					break;

@@ -21,6 +21,7 @@ import views.LearnView;
 import views.MainView;
 import views.MainViewSettings;
 import views.OptionsView;
+import views.QuizletImportView;
 import views.SimpleEditorView;
 import views.StatisticsView;
 import views.StatsView;
@@ -63,6 +64,7 @@ public class MainController extends Controller
 		this.addUniqueView(new GameView("gameview", this));
 		this.addUniqueView(new KarteiView("karteiview", this));
 		this.addUniqueView(new BoxView("boxview", this));
+		this.addViewOnNewStage(new QuizletImportView("quizlet", this));
 		this.addUniqueView(new SimpleEditorView("simpleeditorview", this));
 		this.addUniqueView(new EditorView1("editorview", this));
 		this.addUniqueView(new LearnView("learnview", this));

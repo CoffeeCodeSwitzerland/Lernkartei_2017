@@ -86,13 +86,13 @@ public final class Alert
 	 *            Setzt die Breite des Textfeldes
 	 * @return String mit dem Userinput
 	 */
-	public static String simpleString (String title, String message, double fieldWidth)
+	public static String simpleString (String title, String message, String field, double fieldWidth)
 	{
 		Stage window = buildWindow(title);
 		
 		Label l = new Label(message);
 		
-		TextField tf = new TextField();
+		TextField tf = new TextField(field);
 		tf.setMaxWidth(fieldWidth);
 		
 		Button b = new Button("OK");
@@ -117,6 +117,11 @@ public final class Alert
 
 		return output;
 	}
+	
+	public static String simpleString (String title, String message, String field)
+	{
+		return simpleString(title, message, field, 150);
+	}
 
 	/**
 	 * Kleines Fenster, dass Input (String) vom User abfragt.
@@ -130,7 +135,7 @@ public final class Alert
 	 */
 	public static String simpleString (String title, String message)
 	{
-		return simpleString(title, message, 150);
+		return simpleString(title, message, "", 150);
 	}
 
 	

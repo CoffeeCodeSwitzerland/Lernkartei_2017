@@ -39,19 +39,6 @@ public class EditorView1 extends FXViewModel
 		
 		BorderPane headLayout = new BorderPane(headLbl);
 		headLayout.setPadding(new Insets(25));
-
-		//TODO: muss in update gewandelt werde
-		update.setOnAction(e -> getController().getModel("cards").doAction("edit"));
-		
-		//Editor Vorderseite
-		HTMLEditor front = new HTMLEditor();
-		front.setPrefHeight(245);
-		front.setMaxWidth(600);
-		
-		//Editor Rückseite
-		HTMLEditor back = new HTMLEditor();
-		back.setPrefHeight(245);
-		back.setMaxWidth(600);
 		
 		//Zurück Button
 		AppButton backBtn = new AppButton("Zurück");
@@ -61,7 +48,6 @@ public class EditorView1 extends FXViewModel
 		//EditLayout
 		editLayout.setPadding(new Insets(10));
 		editLayout.setAlignment(Pos.TOP_CENTER);
-		editLayout.getChildren().addAll(front, back);
 
 		//Controll Layout
 		HBox controlLayout = new HBox(20);
@@ -84,32 +70,39 @@ public class EditorView1 extends FXViewModel
 		editLayout.getChildren().clear();
 		String data = getData();
 
+		if(data != ""){
+			
 			ArrayList<HBox> cards = new ArrayList<>();
-			
-			HTMLEditor front = new HTMLEditor();
-			HTMLEditor back = new HTMLEditor();
-			
-			
-			Button addBtn = new Button("\u2713");
-			addBtn.setMaxWidth(35);
+			headLbl.setText(getController().getView("boxview").getData());
 
-			//TODO:Update darausmachen
-			addBtn.setOnAction(e ->
-			{
-				if (back.getHtmlText() != null && !back.getHtmlText().equals("") && front.getHtmlText() != null
-						&& !front.getHtmlText().equals(""))
+				HTMLEditor front = new HTMLEditor();
+				HTMLEditor back = new HTMLEditor();
+				
+				//TODO:FALSCHER TEXT WIRD EINGEFÜGTS
+				front.setHtmlText(data);
+				back.setHtmlText(data);				
+				
+				Button addBtn = new Button("\u2713");
+				addBtn.setMaxWidth(35);
+	
+				//TODO:BEARBEITEN WEGEN FEHLER! ID abrufen!
+				update.setOnAction(e ->
 				{
-					getController().getModel("cards").doAction("new",
-							front.getHtmlText() + Globals.SEPARATOR + back.getHtmlText() + Globals.SEPARATOR + data);
-				}
-			});
+					if (back.getHtmlText() != null && !back.getHtmlText().equals("") && front.getHtmlText() != null
+							&& !front.getHtmlText().equals(""))
+					{
+						getController().getModel("cards").doAction("edit", 1 + Globals.SEPARATOR
+								+ front.getHtmlText() + Globals.SEPARATOR + back.getHtmlText());
+					}
+				});
 
 			HBox v = new HBox(8);
 
 			v.setAlignment(Pos.CENTER);
-			v.getChildren().addAll(front, back, addBtn);
+			v.getChildren().addAll(front, back);
 			cards.add(v);
 
 			editLayout.getChildren().addAll(cards);
+		}
 	}
 }

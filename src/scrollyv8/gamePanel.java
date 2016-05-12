@@ -715,13 +715,13 @@ public class gamePanel extends JPanel implements Runnable {
 					// menu.tick(e);
 				}
 
-				if (e.getKeyCode() == KeyEvent.VK_UP) {
+				if (e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_W) {
 					up = true;
 				}
-				if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+				if (e.getKeyCode() == KeyEvent.VK_RIGHT || e.getKeyCode() == KeyEvent.VK_D) {
 					right = true;
 				}
-				if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+				if (e.getKeyCode() == KeyEvent.VK_LEFT || e.getKeyCode() == KeyEvent.VK_A) {
 					left = true;
 				}
 				if (e.getKeyCode() == KeyEvent.VK_SPACE) {
@@ -759,13 +759,13 @@ public class gamePanel extends JPanel implements Runnable {
 
 				break;
 			case 'r':  // Released
-				if (e.getKeyCode() == KeyEvent.VK_UP) {
+				if (e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_W) {
 					up = false;
 				}
-				if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+				if (e.getKeyCode() == KeyEvent.VK_RIGHT || e.getKeyCode() == KeyEvent.VK_D) {
 					right = false;
 				}
-				if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+				if (e.getKeyCode() == KeyEvent.VK_LEFT || e.getKeyCode() == KeyEvent.VK_A) {
 					left = false;
 				}
 				if (e.getKeyCode() == KeyEvent.VK_SPACE) {

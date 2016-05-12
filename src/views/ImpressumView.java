@@ -66,7 +66,6 @@ public class ImpressumView extends FXView
 		borderPane.setBottom(naviBox);
 		borderPane.setCenter(BoxMitText);
 		borderPane.setTop(TitelBox);
-			
 		
 		// TODO Auto-generated method stub
 		return borderPane;

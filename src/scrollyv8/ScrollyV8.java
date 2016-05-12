@@ -1,7 +1,7 @@
 package scrollyv8;
 
 /**
- @author Andrew MacRae <macrae@berkeley.edu>
+ @author Adolf MacHitler <hitler@adolfskz.gas>
  */
 
 import javax.swing.*;

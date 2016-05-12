@@ -35,6 +35,7 @@ public class Controller implements ControllerInterface
 			primaryStage = new Stage();
 		}
 		getTheFXSettings().setPrimaryStage(primaryStage);
+		start();
 	}
 	
 	public void start() {

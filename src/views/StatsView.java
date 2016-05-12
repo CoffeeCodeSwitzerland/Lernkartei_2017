@@ -9,6 +9,7 @@ import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.chart.XYChart.Series;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import models.*;
 import mvc.Controller;
@@ -35,8 +36,6 @@ public class StatsView extends FXView
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
 	public Parent constructContainer() {
-//		Karteien = Pm.getDataList("karteien");
-//		Punkte = Pm.getDataList("punkte");
 		
 		//HBox für das Diagramm
 		HBox Diagram = new HBox();
@@ -48,6 +47,12 @@ public class StatsView extends FXView
 		
 		//Buttons / Controls
 		AppButton back = new AppButton("Zurück");
+		back.setOnAction(e -> getController().showMainView());
+		Controls.getChildren().addAll(back);
+		
+		BorderPane Pane = new BorderPane();
+		Pane.setCenter(Diagram);
+		Pane.setBottom(Controls);
 		
 		//*********************************Diagramm Start*********************************//
 		//Achsen erstellen
@@ -77,12 +82,12 @@ public class StatsView extends FXView
 		}
 	
 		bc.getData().addAll(serie);
+		Diagram.getChildren().addAll(bc);
 		
 		//*********************************Diagramm Ende**********************************//
 		
 		//Szene setzen und Buttons Event
-		back.setOnAction(e -> getController().getMainViewName());
-		return bc;
+		return Pane;
 	}
 
 	@Override

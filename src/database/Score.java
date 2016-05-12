@@ -61,13 +61,6 @@ public class Score {
 			c = DriverManager.getConnection(url);
 			stmt = c.createStatement();
 
-			String sql = "CREATE TABLE IF NOT EXISTS Score 	(PK_Score INTEGER PRIMARY KEY AUTOINCREMENT,"
-					+ "Kartei TEXT NOT NULL,"
-					+ "Score REAL NOT NULL);";
-
-			debug.Debugger.out(sql);
-			stmt.executeUpdate(sql);
-
 			c.setAutoCommit(false);
 			ResultSet rs = stmt.executeQuery("SELECT Score FROM Score WHERE Kartei = '" + Kartei + "';");
 			if (!rs.next()) {

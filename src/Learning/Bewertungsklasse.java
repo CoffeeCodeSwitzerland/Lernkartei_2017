@@ -36,16 +36,22 @@ public class Bewertungsklasse {
 	}
 
 	// Wenn Karte Richtig ist
-	public static void CardCorrect(String cardID) {
+	public static  int CardCorrect(String cardID, int KartenPunkt) {
 		
-		Database.upPrio(Integer.parseInt(cardID));
+		Database.upPrio(Integer.parseInt(cardID));		
+		KartenPunkt += 1;
+		
+		return KartenPunkt;
 	
 	}
 
 	// Wenn Karte Falsch ist
-	public static void CardFalse(String cardID) {
+	public static int CardFalse(String cardID, int KartenPunkt) {
 		
 		Database.resetPrio(Integer.parseInt(cardID));
+		KartenPunkt = 1;
+		
+		return KartenPunkt;
 		
 	}
 }

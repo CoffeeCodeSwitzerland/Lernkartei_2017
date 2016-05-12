@@ -19,25 +19,36 @@ public class LearnModel extends Model {
 		// Returns:
 		// 0: Falsche Eingabe --> functionName existiert nicht
 		// 1: Erfolgreich Punkt hinzugefügt
-		// -1: Fehler bei Punkt hinzufügen
+		// -1: Funktion wurde nicht ausgeeführt
 		// 2: Punkt wurde erfolgreich von Karte abgezogen
 		// -2: Punkt wurde nicht abgezogen
 		// 3:
 		// -3:
 
+		int KartenPunkt = 0;
+
 		if (functionName.equals("Richtig")) {
-			Bewertungsklasse.CardCorrect(freeStringParam);
+			Bewertungsklasse.CardCorrect(freeStringParam, KartenPunkt);
+
+			if (KartenPunkt != 1) {
+				return 1;
+			} else {
+				return -1;
+			}
 		}
+
 		if (functionName.equals("Falsch")) {
-			Bewertungsklasse.CardFalse(freeStringParam);
-		} else {
-			return 0;
+			Bewertungsklasse.CardFalse(freeStringParam, KartenPunkt);
+			if (KartenPunkt == 1) {
+				return 2;
+			} else {
+				return -2;
+			}
 		}
 
-		// funcName = correct OR false
-		// stringParam = card ID
-
-		return 0; // no error
+		else {
+			return 0; // no error
+		}
 	}
 
 	@Override

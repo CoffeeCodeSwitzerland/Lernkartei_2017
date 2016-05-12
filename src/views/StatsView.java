@@ -11,9 +11,9 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.chart.XYChart.Series;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import models.*;
 import mvc.Controller;
 import mvc.FXView;
+import mvc.Model;
 /**
  * Diese Klasse soll die gleiche Funktionalität wie StatisticsView haben und diese dann auch ersetzen
  * Sie soll beliebig viele Säulen generieren
@@ -29,9 +29,6 @@ public class StatsView extends FXView
 		super(newName, newController);
 		construct();
 	}
-
-	//Zugehöriges Model deklarieren und instanzieren
-	ProfilModel Pm = new ProfilModel("heee?");
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
@@ -68,9 +65,10 @@ public class StatsView extends FXView
 		ArrayList<String> Karteien = new ArrayList<String>();
 		ArrayList<String> Punkte = new ArrayList<String>();
 		
-		Karteien = Pm.getDataList("karteien");
+		Model pm = getController().getModel("profil");
+		Karteien = pm.getDataList("karteien");
 //		System.out.println("Letzter Eintrag Karteien : " + Karteien.get(Karteien.size() - 1));
-		Punkte = Pm.getDataList("punkte");
+		Punkte = pm.getDataList("punkte");
 //		System.out.println("Letzter Eintrag Punkte: " + Punkte.get(Punkte.size() - 1));
 		
 		//Eine Serie erstellen
@@ -86,7 +84,8 @@ public class StatsView extends FXView
 		
 		//*********************************Diagramm Ende**********************************//
 		
-		//Szene setzen und Buttons Event
+		//Szene und return 
+		setupScene(Pane);
 		return Pane;
 	}
 

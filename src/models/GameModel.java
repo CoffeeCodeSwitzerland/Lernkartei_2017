@@ -17,6 +17,7 @@ public class GameModel extends Model {
 
     public void init() {
 		mf = new ScrollyV8(); // build game
+        mf.init();
     }
 
 	private void createSwingContent(final SwingNode swingNode) {

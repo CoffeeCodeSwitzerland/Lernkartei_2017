@@ -10,11 +10,13 @@
 							zu machen. Funktion: backUp
 	- Categories.java:	--> Funktionalität um Kategorien zu erstellen, löschen, abzufragen, usw.
 	- Config.java:		--> Konfig Datenbank, welche Token und weitere Konfiginformationen enthält
-	- Database.java:
-	- Doors.java:
-	- Score.java:
-	- Usercards.java:
-	- Userlogin.java:
+	- Database.java:	--> Funktionalität, alle Karten abzuspeichern, zu löschen, bearbeiten und sie
+							in Form einer ArrayList<String[]> abzurufen
+	- Doors.java:		--> Enthält die Funktionalität um Türen zu erstellen und zu bearbeiten
+	- Score.java:		--> Speichert, den Score, welcher von Yanis genutzt wird um später Infos über
+							den Spieler zu erhalten, sowie Statistiken
+	- Usercards.java:	--> Unused by Joel
+	- Userlogin.java:	--> Unused by Joel
 	
 	Abhängigkeiten
 	--------------

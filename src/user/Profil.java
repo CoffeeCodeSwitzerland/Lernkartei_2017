@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import controls.Globals;
 import database.*;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 public class Profil
 {
@@ -13,13 +15,14 @@ public class Profil
 	//Alle Daten Holen
 	private ArrayList<String> OriginalData = new ArrayList<String>();
 	
+	Score s = new Score();
+	
 	public Profil() {
 		getOriginalData();
 	}
 	
 	private void getOriginalData()
 	{
-		Score s = new Score();
 		//s.generateTestdata("Insert into Score (Kartei, Score) values ('Franz' , 20),('Math' , 50),('Physik' , 40),('English' , 60)");
 		//s.dropTestData("DROP TABLE Score");
 		OriginalData = s.getScores();
@@ -58,5 +61,12 @@ public class Profil
 			temporary = "";
 		}
 		return tempList;
+	}
+	
+	public ObservableList<String> getRanking() {
+		ObservableList<String> Ranking = FXCollections.observableArrayList();
+		Ranking = s.getRanking();
+		
+		return Ranking;
 	}
 }

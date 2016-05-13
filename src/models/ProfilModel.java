@@ -48,6 +48,9 @@ public class ProfilModel extends Model
 	//Als Query muss man die unten gebrauchten ausdrücke eingeben, damit die gewünschte Funktion aufgerufen wird
 	public ArrayList<String> getDataList(String query)
 	{
+		
+		Profil p = new Profil();
+		
 		if (query.equals("stats"))
 		{
 			Score s = new Score();
@@ -57,13 +60,12 @@ public class ProfilModel extends Model
 			return UserCards.getCards();
 		} else if (query.equals("karteien"))
 		{
-			Profil p = new Profil();
 			return p.getKarteien();
 		} else if (query.equals("punkte"))
 		{
-			Profil p = new Profil();
 			return p.getPunkte();
-		} else
+		} else {
 			return null;
-		}
+		}	
 	}
+}

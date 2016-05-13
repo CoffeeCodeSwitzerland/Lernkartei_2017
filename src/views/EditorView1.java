@@ -1,23 +1,17 @@
 package views;
 
-import java.util.ArrayList;
-
 import controls.Globals;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.web.HTMLEditor;
-import javafx.scene.web.WebEngine;
-import javafx.scene.web.WebView;
 import mvc.Controller;
 import mvc.FXViewModel;
-
 
 public class EditorView1 extends FXViewModel
 {

@@ -1,5 +1,6 @@
 package debug;
 
+import java.io.File;
 import java.nio.file.Paths;
 
 public final class Environment {
@@ -92,5 +93,25 @@ public final class Environment {
 	public static String getActualPath() {
 		if (homePath == null) init();
 		return actualPath;
+	}
+	
+	public static String getDatabasePath() {
+		File theDir = new File("WISS Learncards DB's");
+		if (!theDir.exists()) {
+		    try{
+		        theDir.mkdir();
+		    } 
+		    catch(SecurityException se){
+		        debug.Debugger.out(se.getMessage());
+		    }  
+		}
+
+		String path = "";
+		
+		for (int i = 0; i < getUserPath().split("Users").length - 1; i++) {
+			path += getUserPath().split("Users")[i];
+		}
+		
+		return path + "Users\\WISS Learncards DB's\\";
 	}
 }

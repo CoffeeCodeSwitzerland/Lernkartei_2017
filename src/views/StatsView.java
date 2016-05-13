@@ -37,7 +37,7 @@ public class StatsView extends FXView
 	HBox Diagram = new HBox(50);
 	HBox Controls = new HBox(50);
 	HBox Rankings = new HBox(50);
-	AppButton back = new AppButton("Zurück");
+	AppButton back = new AppButton("_Zurück");
 	BorderPane Pane = new BorderPane();
 	//Achsen erstellen
 	CategoryAxis xAchse = new CategoryAxis();

@@ -2,30 +2,9 @@ package controls;
 
 import debug.Logger;
 import javafx.stage.Stage;
-import models.BoxModel;
-import models.CardModel;
-import models.DoorModel;
-// import models.EditorModel;
-import models.GameModel;
-import models.LearnModel;
-import models.ProfilModel;
-import models.QuizletModel;
+import models.*;
 import mvc.Controller;
-import views.BoxView;
-import views.DoorView;
-import views.EditorView1;
-import views.GameView;
-import views.HelpView;
-import views.ImpressumView;
-import views.KarteiView;
-import views.LearnView;
-import views.MainView;
-import views.MainViewSettings;
-import views.OptionsView;
-import views.QuizletImportView;
-import views.SimpleEditorView;
-import views.StatisticsView;
-import views.StatsView;
+import views.*;
 /**
  * Diese Klasse Kontrolliert alle Sichten und Models. Den Sichten wird die
  * Navigation zur Verfügung gestellt. Alle Sichten (ausser Modalfenster) werden
@@ -46,7 +25,6 @@ public class MainController extends Controller
 		Logger.log("Instanziere Models....");
 		this.addUniqueModel(new GameModel("game"));
 		this.addUniqueModel(new DoorModel("door"));
-		// this.addUniqueModel(new EditorModel("editor"));
 		this.addUniqueModel(new BoxModel("box"));
 		this.addUniqueModel(new CardModel("cards"));
 		this.addUniqueModel(new LearnModel("learn"));
@@ -64,7 +42,6 @@ public class MainController extends Controller
 		this.addUniqueView(new OptionsView("optionsview", this));
 		this.addViewOnNewStage(new HelpView("helpview", new HelpController())); // on new stage
 		this.addUniqueView(new GameView("gameview", this));
-		this.addUniqueView(new KarteiView("karteiview", this));
 		this.addUniqueView(new BoxView("boxview", this));
 		this.addUniqueView(new QuizletImportView("quizlet", this));
 		this.addUniqueView(new SimpleEditorView("simpleeditorview", this));

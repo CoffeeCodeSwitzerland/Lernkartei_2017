@@ -41,8 +41,8 @@ public class DoorView extends FXView
 		doorLayout.setAlignment(Pos.CENTER);
 
 		// Buttons
-		AppButton backBtn = new AppButton("Zurück");
-		AppButton newDoorBtn = new AppButton("Neue Tür");
+		AppButton backBtn = new AppButton("_Zurück");
+		AppButton newDoorBtn = new AppButton("_Neue Tür");
 
 		// Trash Image
 		Image trashImg = new Image("views/pictures/Papierkorb.png");

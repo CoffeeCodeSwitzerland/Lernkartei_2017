@@ -42,7 +42,7 @@ public class EditorView1 extends FXViewModel
 		headLayout.setPadding(new Insets(25));
 		
 		//Zurück Button
-		AppButton backBtn = new AppButton("Zurück");
+		AppButton backBtn = new AppButton("_Zurück");
 		backBtn.setOnAction(e -> 
 		getController().getView("simpleeditorview").show());	
 		

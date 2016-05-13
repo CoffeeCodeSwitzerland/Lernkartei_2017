@@ -33,7 +33,7 @@ public class GameView extends FXView
 		text.setId("fancytext"); // CSS formatierte Meldung auf BS bringen (mit div. Schrifteffekten)
 
 		// Button für Zurück zum Hauptmenue:
-		AppButton btn = new AppButton("Zurück...");
+		AppButton btn = new AppButton("_Zurück...");
 		btn.setOnAction(e -> getController().showMainView());
 
 		// Erstellt VBox Layout für beide obige Elemente:

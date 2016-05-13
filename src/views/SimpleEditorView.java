@@ -38,7 +38,7 @@ public class SimpleEditorView extends FXViewModel
 		headLbl = new Label("");
 		headLbl.setId("bold");
 
-		AppButton backBtn = new AppButton("Zurück");
+		AppButton backBtn = new AppButton("_Zurück");
 		backBtn.setOnAction(e -> getController().getView("boxview").show());
 
 		BorderPane headLayout = new BorderPane(headLbl);

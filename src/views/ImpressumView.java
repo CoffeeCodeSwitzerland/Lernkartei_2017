@@ -22,7 +22,7 @@ public class ImpressumView extends FXView
 	@Override
 	public Parent constructContainer() {
 		// Buttons
-		AppButton backBtn = new AppButton("Zurück");
+		AppButton backBtn = new AppButton("_Zurück");
 			
 		//Labels (für die Infotexte)
 		Label labelTitel = new Label("Impressum");

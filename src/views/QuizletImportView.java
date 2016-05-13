@@ -38,7 +38,7 @@ public class QuizletImportView extends FXViewModel
 	Label				searchTitle;
 	Label				searchInfoLbl;
 	TextField			searchInput	= new TextField();
-	Button				okBtn		= new Button("Go");
+	Button				okBtn		= new Button("_Go");
 	VBox				listLayout	= new VBox(20);
 	VBox				additionalInfoLayout = new VBox(20);
 	
@@ -71,7 +71,7 @@ public class QuizletImportView extends FXViewModel
 		scroller.setHbarPolicy(ScrollBarPolicy.NEVER);
 		scroller.setVbarPolicy(ScrollBarPolicy.AS_NEEDED);
 		
-		AppButton backBtn = new AppButton("Zurück");
+		AppButton backBtn = new AppButton("_Zurück");
 		backBtn.setOnAction(e -> getController().getView("boxview").show());
 		
 		BorderPane mainLayout = new BorderPane();
@@ -124,7 +124,7 @@ public class QuizletImportView extends FXViewModel
 						Label stackAuthor = new Label("Author: " + setInfo[2]);
 						Label stackLangs = new Label("Sprachen: " + setInfo[6] + " - " + setInfo[7]);
 						Label stackHasImgs = new Label("Bilder: " + setInfo[4]);
-						Button downloadStack = new Button("Herunterladen");
+						Button downloadStack = new Button("_Herunterladen");
 						downloadStack.setOnAction(e1 -> {
 							ArrayList<String> newCards = getController().getModel("quizlet").getDataList("set"+Globals.SEPARATOR+setInfo[0]);
 							String name = Alert.simpleString("Neue Box", "Name für die Quizletbox", setInfo[1]);

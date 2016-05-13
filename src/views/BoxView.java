@@ -50,8 +50,8 @@ public class BoxView extends FXViewModel
 		placeholder.setMinWidth(200);
 		
 		// Buttons
-		AppButton backBtn = new AppButton("Zurück");
-		AppButton newBoxBtn = new AppButton("Neue Box");
+		AppButton backBtn = new AppButton("_Zurück");
+		AppButton newBoxBtn = new AppButton("_Neue Box");
 
 		Image trashImg = new Image("views/pictures/Papierkorb.png");
 		ImageView trashImgView = new ImageView(trashImg);
@@ -75,7 +75,7 @@ public class BoxView extends FXViewModel
 
 		newBoxBtn.setOnAction(e ->
 		{
-			final int choice = Alert.complexChoiceBox("Neue Box", "Was für eine Box willst du erstellen?", new String[]{"Leere Box", "Quizlet"});
+			final int choice = Alert.complexChoiceBox("Neue Box", "Was für eine Box willst du erstellen?", new String[]{"Leere _Box", "_Quizlet"});
 			
 			switch (choice)
 			{
@@ -194,8 +194,8 @@ public class BoxView extends FXViewModel
 		options.getChildren().clear();
 
 		Label setTitle = new Label(set);
-		AppButton lernen = new AppButton("Lernen");
-		AppButton edit = new AppButton("Bearbeiten");
+		AppButton lernen = new AppButton("_Lernen");
+		AppButton edit = new AppButton("B_earbeiten");
 
 		setTitle.setId("bold");
 		lernen.setOnAction(e ->

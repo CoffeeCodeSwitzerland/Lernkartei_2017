@@ -21,7 +21,7 @@ public class QuizletInfoView extends FXView
 	@Override
 	public Parent constructContainer() {
 		// Buttons
-		AppButton backBtn = new AppButton("Zurück");
+		AppButton backBtn = new AppButton("_Zurück");
 		
 		
 		

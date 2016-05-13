@@ -30,7 +30,7 @@ public class OptionsView extends FXView
 
 	// Buttons:
 	AppButton applyColor = new AppButton("Farbe speichern");
-	AppButton back = new AppButton("Zurück");
+	AppButton back = new AppButton("_Zurück");
 
 
 	@Override

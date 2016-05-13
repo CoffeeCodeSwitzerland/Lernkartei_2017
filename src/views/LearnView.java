@@ -21,8 +21,8 @@ public class LearnView extends FXViewModel
 		construct();
 	}
 
-	AppButton successfulBtn = new AppButton("Richtig");
-	AppButton wrongBtn = new AppButton("Falsch");
+	AppButton successfulBtn = new AppButton("_Richtig");
+	AppButton wrongBtn = new AppButton("_Falsch");
 	Label headLbl = new Label("");
 	AppButton card = new AppButton("Front");
 	
@@ -37,7 +37,7 @@ public class LearnView extends FXViewModel
 	@Override
 	public Parent constructContainer() {
 		
-		AppButton backBtn = new AppButton("Zurück");
+		AppButton backBtn = new AppButton("_Zurück");
 		backBtn.setOnAction(e -> {counter = 0; getController().getView("boxview").show();});
 		
 		headLbl.setId("bold");

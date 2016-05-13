@@ -27,10 +27,10 @@ public class HelpView extends FXView
 		this.getWindow().setTitle(Globals.appTitle+"Hilfe"+Globals.appVersion);
 		this.getWindow().setResizable(false);
 
-		AppButton impressumBtn = new AppButton("Impressum");
-		AppButton quizletBtn = new AppButton("Quizlet");
-		AppButton anleitungBtn = new AppButton("Anleitung");
-		AppButton indexBtn     = new AppButton("Index");
+		AppButton impressumBtn = new AppButton("_Impressum");
+		AppButton quizletBtn = new AppButton("_Quizlet");
+		AppButton anleitungBtn = new AppButton("_Anleitung");
+		AppButton indexBtn     = new AppButton("Inde_x");
 		impressumBtn.setOnAction(e -> getController().showView("impressumview"));
 		quizletBtn.setOnAction(e -> getController().showView("quizletview"));
 		anleitungBtn.setOnAction(e -> getController().showView("manualview"));

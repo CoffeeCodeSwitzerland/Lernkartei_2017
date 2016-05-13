@@ -1,12 +1,8 @@
 package views;
 
-import java.awt.Label;
-
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.ColorPicker;
 import javafx.scene.layout.VBox;
 import mvc.Controller;
 import mvc.FXView;

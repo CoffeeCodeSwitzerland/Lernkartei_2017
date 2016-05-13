@@ -11,7 +11,7 @@ public class Config {
 	// Connectioninformationen URL & Driver
 
 	private static String	url			= "jdbc:sqlite:" +  debug.Environment.getDatabasePath()
-	 									 + controls.Globals.db_name + ".db";
+	 									 + "config.db";
 	private static String	driver	= "org.sqlite.JDBC";
 
 	/**

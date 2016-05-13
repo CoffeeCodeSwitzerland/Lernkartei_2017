@@ -337,5 +337,55 @@ public class Database {
 		}
 
 	}
+	
+	public static int[] getScore (String whichSet) {
+		
+		Connection c = null;
+		Statement stmt = null;
+		
+		int maxPoints = 0;
+		int reachedPoints = 0;
+		int[] score = new int[2];
+
+		try {
+			Class.forName(driver);
+			c = DriverManager.getConnection(url);
+			stmt = c.createStatement();
+			
+			// Alle Prioritäten aus Tabelle hlen, welche als Set das mitgegebene haben.
+
+			String getScore = "SELECT Priority FROM Stock WHERE Set_ID = (SELECT PK_Kategorie FROM Kategorie"
+							+ " WHERE Kategorie = '" + whichSet + "')";
+			
+			debug.Debugger.out(getScore);
+			
+			ResultSet scrs = stmt.executeQuery(getScore);
+			
+			// Durch loopen und die Maximale sowie die Erreichte Punktzahl speichern
+			
+			while (scrs.next()) {
+				maxPoints += 5;
+				reachedPoints += scrs.getInt("Priority");
+			}
+			
+			debug.Debugger.out("Max:" + maxPoints + "\nErreicht:" + reachedPoints);
+			
+			stmt.close();
+			c.close();
+
+		}
+		catch (Exception e) {
+			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+			System.exit(0);
+		}
+		
+		// Erreichte Punktzahl zurückgeben
+		
+		score[0] = maxPoints;
+		score[1] = reachedPoints;
+		
+		return score;
+		
+	}
 
 }

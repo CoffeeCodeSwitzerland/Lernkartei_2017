@@ -37,7 +37,7 @@ public class Config {
 
 			// Tabelle erstellen
 
-			String newTbl = "CREATE TABLE config ("
+			String newTbl = "CREATE TABLE IF NOT EXISTS config ("
 					+ "PK_Cfg INTEGER PRIMARY KEY AUTOINCREMENT,"
 					+ "Key TEXT NOT NULL,"
 					+ "Value TEXT NOT NULL)";

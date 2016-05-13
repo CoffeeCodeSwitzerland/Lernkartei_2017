@@ -6,8 +6,9 @@
 	
 	Inhalt
 	------	
-	- BackUp.java:
-	- Categories.java:
+	- BackUp.java:		--> Funktionalität, um ein Backup aller Karten auf einen externen MySql Server
+							zu machen. Funktion: backUp
+	- Categories.java:	--> 
 	- Config.java:
 	- Database.java:
 	- Doors.java:

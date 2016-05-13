@@ -8,6 +8,8 @@ import java.util.ArrayList;
 
 import controls.Globals;
 import debug.Debugger;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 
 public class Score {
@@ -15,7 +17,7 @@ public class Score {
 	// URL und Driver
 	
 	private static String	url			= "jdbc:sqlite:" +  debug.Environment.getDatabasePath()
-										 + debug.Environment.getUserName() + ".db";
+										 + controls.Globals.db_name + ".db";
 	private static String	driver		= "org.sqlite.JDBC";
 
 	/**
@@ -199,6 +201,36 @@ public class Score {
 		}
 
 		return allScores;
+	}
+	
+	ObservableList<String> Ranks = FXCollections.observableArrayList();
+	public ObservableList<String> getRanking() {
+		
+		Ranks.clear();
+		
+		Connection c = null;
+		Statement stmt = null;
+
+		try {
+			Class.forName(driver);
+			c = DriverManager.getConnection(url);
+			stmt = c.createStatement();
+			
+			String all = "SELECT Kartei FROM Score ORDER BY Score ASC";
+			ResultSet rs = stmt.executeQuery(all);
+
+			while (rs.next()) {
+				String Kartei = rs.getString(1);
+				Ranks.add(Kartei);
+			}
+
+		}
+		catch (Exception e) {
+			String allgemeinerFehler = "Es tut uns leid aber wir konnten ihre Karteien nicht finden";
+			Ranks.add(allgemeinerFehler);
+		}
+		
+		return Ranks;
 	}
 	
 	public void generateTestdata(String Insert) {

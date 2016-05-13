@@ -13,6 +13,8 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.web.HTMLEditor;
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
 import mvc.Controller;
 import mvc.FXViewModel;
 
@@ -75,13 +77,12 @@ public class EditorView1 extends FXViewModel
 			
 			HTMLEditor front = new HTMLEditor();
 			HTMLEditor back = new HTMLEditor();
-			Button update = new Button("\u2713");	
+			Button update = new Button("\u2713");		
 			
 			String[] cardSides = data.split(Globals.SEPARATOR);
-			
 			front.setHtmlText(cardSides[1]);
 			back.setHtmlText(cardSides[2]);
-			
+
 			update.setOnAction(e -> {
 				if(back.getHtmlText() != null && !back.getHtmlText().equals("") && front.getHtmlText() != null
 						&& !front.getHtmlText().equals(""))

@@ -78,7 +78,7 @@ public class StatsView extends FXView
 		return Pane;
 	}
 	
-	Profil p = new Profil();
+	Profil p;
 	//Eine Serie erstellen
 	@SuppressWarnings("rawtypes")
 	Series serie = new Series();
@@ -86,10 +86,11 @@ public class StatsView extends FXView
 	@Override
 	public void refreshView()
 	{
+		p = new Profil();
 		
 		try {
 		xAchse.setLabel("Kartei");
-		yAchse.setLabel("Punkte");
+		yAchse.setLabel("Ergebnis(%)");
 		
 		Karteien = pm.getDataList("karteien");
 		Punkte = pm.getDataList("punkte");

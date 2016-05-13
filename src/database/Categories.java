@@ -143,14 +143,7 @@ public class Categories {
 			// Daten werden in die Liste geschrieben
 			
 			while (rs.next()) {
-
-				String data;
-
-				String Kategorie = rs.getString("Kategorie");
-
-				data = Kategorie;
-
-				datensatz.add(data);
+				datensatz.add(rs.getString("Kategorie"));
 			}
 
 			rs.close();
@@ -230,5 +223,85 @@ public class Categories {
 		return worked;
 
 	}
+	
+	public ArrayList<String> getStacknames() {
+		
+		Connection c = null;
+		Statement stmt = null;
+		
+		ArrayList<String> Stacks = new ArrayList<String>();
+		
+		try {
+			
+			
+			Class.forName(driver);
+			c = DriverManager.getConnection(url);
+			stmt = c.createStatement();
+			
+			// Tabelle generieren, falls nicht vorhanden
+
+			String sql = "CREATE TABLE IF NOT EXISTS Kategorie "
+					+ "(PK_Kategorie INTEGER PRIMARY KEY AUTOINCREMENT,"
+					+ " Kategorie TEXT NOT NULL,"
+					+ " FK_Door INTEGER NOT NULL)";
+			
+			stmt.executeUpdate(sql);
+			c.setAutoCommit(false);
+
+			ResultSet StackSet = stmt.executeQuery("SELECT Kategorie FROM Kategorie");
+
+			int i = 1;
+			if (StackSet.next())
+			{
+				while (StackSet.next())
+				{
+					Stacks.add(StackSet.getString(StackSet.getInt(i)));
+					i += 1;
+				}
+			} else {
+				Stacks = null;
+			}
+			
+		} catch (Exception e) {
+			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+			System.exit(0);
+		}
+		return Stacks;
+	}
+	
+	public int getStackID(String KategorieName) {		
+		int ID = 0;
+		
+		Connection c = null;
+		Statement stmt = null;
+		
+		try {
+			
+			
+			Class.forName(driver);
+			c = DriverManager.getConnection(url);
+			stmt = c.createStatement();
+
+			String sql = "CREATE TABLE IF NOT EXISTS Kategorie "
+					+ "(PK_Kategorie INTEGER PRIMARY KEY AUTOINCREMENT,"
+					+ " Kategorie TEXT NOT NULL,"
+					+ " FK_Door INTEGER NOT NULL)";
+			
+			stmt.executeUpdate(sql);
+			c.setAutoCommit(false);
+
+			ResultSet StackSet = stmt.executeQuery("SELECT PK_Kategorie FROM Kategorie WHERE Kategorie = '" + KategorieName + "'");
+			
+			ID = Integer.parseInt(StackSet.getString(StackSet.getInt(1)));
+			
+		} catch (Exception e) {
+			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+			System.exit(0);
+		}
+		
+		return ID;
+	}
+	
+	
 
 }

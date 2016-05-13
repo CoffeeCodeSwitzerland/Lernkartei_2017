@@ -49,7 +49,7 @@ public class gamePanel extends JPanel implements Runnable {
 							// height
 	private int drawH = 570; // screen
 								// width
-	private boolean left, right, up, jump, doubleJump, ground; // down
+	private boolean left, right, jump, doubleJump, ground; // down, up
 	private double x, y, playerStartX, playerStartY, pw, ph;
 	private double vx, vy;
 	private double bossXL, bossXR, bossYU, bossYD;
@@ -130,7 +130,7 @@ public class gamePanel extends JPanel implements Runnable {
 		CY = 300;
 		brickWidth = 30;
 		// Keylistener booleans
-		up = false; // = down
+		// up, down = false;
 		left = right = false;
 		// Game state variables
 		bossIndex = 0;
@@ -139,7 +139,7 @@ public class gamePanel extends JPanel implements Runnable {
 		gameState = LOADINTRO;
 		new Menu();
 
-		right = left = up = false; // = down
+		right = left  = false; //  down, up
 		screenX = x;
 		screenY = y;
 		tmpScreenX = 25;
@@ -448,9 +448,6 @@ public class gamePanel extends JPanel implements Runnable {
 				if (left) {
 					vx -= dVx;
 				}
-				if (up) {
-					vy -= 0.2;
-				}
 				if (jump && ground) {
 					vy -= bounce;
 					jump = false;
@@ -668,9 +665,6 @@ public class gamePanel extends JPanel implements Runnable {
 				// menu.tick(e);
 			}
 
-			if (e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_W) {
-				up = true;
-			}
 			if (e.getKeyCode() == KeyEvent.VK_RIGHT || e.getKeyCode() == KeyEvent.VK_D) {
 				right = true;
 			}
@@ -717,9 +711,6 @@ public class gamePanel extends JPanel implements Runnable {
 
 			break;
 		case 'r': // Released
-			if (e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_W) {
-				up = false;
-			}
 			if (e.getKeyCode() == KeyEvent.VK_RIGHT || e.getKeyCode() == KeyEvent.VK_D) {
 				right = false;
 			}

@@ -37,7 +37,7 @@ public final class Alert
 	{
 		Stage window = buildWindow(title);
 		Label l = new Label(message);
-		Button b = new Button(button);
+		Button b = new Button("_" + button);
 
 		b.setOnAction(e -> window.close());
 
@@ -66,7 +66,7 @@ public final class Alert
 	 *            Die Narchricht, die angezeigt wird. Text wird nicht von selbst
 	 *            gewrapt.
 	 */
-	public static void simpleInfoBox (String title, String message) { simpleInfoBox(title, message, "OK"); }
+	public static void simpleInfoBox (String title, String message) { simpleInfoBox(title, message, "_OK"); }
 
 	
 	// -------------------------------------------------------------------------------------------------------------
@@ -95,7 +95,7 @@ public final class Alert
 		TextField tf = new TextField(field);
 		tf.setMaxWidth(fieldWidth);
 		
-		Button b = new Button("OK");
+		Button b = new Button("_OK");
 		b.setOnAction(e -> {
 			output = tf.getText();
 			window.close();
@@ -149,8 +149,8 @@ public final class Alert
 		Stage window = buildWindow(title);
 		Label l = new Label(message);
 
-		Button bo = new Button("OK");
-		Button ba = new Button("Abbrechen");
+		Button bo = new Button("_OK");
+		Button ba = new Button("_Abbrechen");
 
 		bo.setOnAction(e -> {
 			okay = true;

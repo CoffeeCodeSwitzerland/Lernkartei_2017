@@ -9,6 +9,7 @@ import models.DoorModel;
 import models.GameModel;
 import models.LearnModel;
 import models.ProfilModel;
+import models.QuizletModel;
 import mvc.Controller;
 import views.BoxView;
 import views.DoorView;
@@ -50,6 +51,7 @@ public class MainController extends Controller
 		this.addUniqueModel(new CardModel("cards"));
 		this.addUniqueModel(new LearnModel("learn"));
 		this.addUniqueModel(new ProfilModel("profil"));
+		this.addUniqueModel(new QuizletModel("quizlet"));
 	}
 
 	@Override
@@ -64,7 +66,7 @@ public class MainController extends Controller
 		this.addUniqueView(new GameView("gameview", this));
 		this.addUniqueView(new KarteiView("karteiview", this));
 		this.addUniqueView(new BoxView("boxview", this));
-		this.addViewOnNewStage(new QuizletImportView("quizlet", new QuizletController()));
+		this.addUniqueView(new QuizletImportView("quizlet", this));
 		this.addUniqueView(new SimpleEditorView("simpleeditorview", this));
 		this.addUniqueView(new EditorView1("editorview", this));
 		this.addUniqueView(new LearnView("learnview", this));

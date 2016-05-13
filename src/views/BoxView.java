@@ -89,6 +89,7 @@ public class BoxView extends FXViewModel
 					}
 					break;
 				case 1:
+					getController().getView("quizlet").setData(getData());
 					getController().getView("quizlet").show();
 					break;
 				default:

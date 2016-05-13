@@ -8,6 +8,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -29,6 +30,7 @@ public class SimpleEditorView extends FXViewModel
 
 	VBox	editLayout	= new VBox(10);
 	Label	headLbl;
+	ScrollPane scroller = new ScrollPane();
 
 	@Override
 	public Parent constructContainer ()
@@ -52,7 +54,7 @@ public class SimpleEditorView extends FXViewModel
 		BorderPane mainLayout = new BorderPane();
 		mainLayout.setPadding(new Insets(15));
 		mainLayout.setTop(headLayout);
-		mainLayout.setCenter(editLayout);
+		mainLayout.setCenter(scroller);
 		mainLayout.setBottom(controlLayout);
 
 		getController().getModel("cards").registerView(this);
@@ -150,5 +152,7 @@ public class SimpleEditorView extends FXViewModel
 
 			editLayout.getChildren().addAll(cards);
 		}
+		
+		scroller.setContent(editLayout);
 	}
 }

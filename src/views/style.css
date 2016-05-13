@@ -108,3 +108,15 @@
 	-fx-font-weight: bold;
 	-fx-font-size: 1.4em;
 }
+#doorview{
+	-fx-background-image: url("pictures/viewbackground.png");
+	-fx-background-repeat: stretch;   
+    -fx-background-size: 930 650;}
+
+
+#boxview{
+	-fx-background-image: url("pictures/viewbackground.png");
+	-fx-background-repeat: stretch;   
+    -fx-background-size: 930 650;}
+
+

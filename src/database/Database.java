@@ -355,7 +355,9 @@ public class Database {
 			// Alle Prioritäten aus Tabelle hlen, welche als Set das mitgegebene haben.
 
 			String getScore = "SELECT Priority FROM Stock WHERE Set_ID = (SELECT PK_Kategorie FROM Kategorie"
-							+ "WHERE Kategorie = '" + whichSet + "')";
+							+ " WHERE Kategorie = '" + whichSet + "')";
+			
+			debug.Debugger.out(getScore);
 			
 			ResultSet scrs = stmt.executeQuery(getScore);
 			

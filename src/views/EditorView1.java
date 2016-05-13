@@ -8,6 +8,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -68,33 +69,44 @@ public class EditorView1 extends FXViewModel
 	public void refreshView() {
 
 		editLayout.getChildren().clear();
+
 		String data = getData();
 
-		if(data != ""){
-			
-			ArrayList<HBox> cards = new ArrayList<>();
-			headLbl.setText(getController().getView("boxview").getData());
+		if (data != null)
+		{
+			headLbl.setText(data + " - " + getController().getView("boxview").getData());
 
-				HTMLEditor front = new HTMLEditor();
-				HTMLEditor back = new HTMLEditor();
+			ArrayList<String> cardStrings = getController().getModel("cards").getDataList(data);
+			ArrayList<HBox> cards = new ArrayList<>();
+			debug.Debugger.out("" + cardStrings.size());
+			for (String s : cardStrings)
+			{
+				String[] cardSides = s.split(Globals.SEPARATOR);
+				TextField front = new TextField(cardSides[1]);
+				TextField back = new TextField(cardSides[2]);
 				
-				//TODO:FALSCHER TEXT WIRD EINGEFÜGTS
-				front.setHtmlText(data);
-				back.setHtmlText(data);				
+				front.setText(data);
+				back.setText(data);
 				
-				Button addBtn = new Button("\u2713");
-				addBtn.setMaxWidth(35);
-	
-				//TODO:BEARBEITEN WEGEN FEHLER! ID abrufen!
+				//Update Button
 				update.setOnAction(e ->
 				{
-					if (back.getHtmlText() != null && !back.getHtmlText().equals("") && front.getHtmlText() != null
-							&& !front.getHtmlText().equals(""))
+					if (back.getText() != null && !back.getText().equals("") && front.getText() != null
+							&& !front.getText().equals(""))
 					{
-						getController().getModel("cards").doAction("edit", 1 + Globals.SEPARATOR
-								+ front.getHtmlText() + Globals.SEPARATOR + back.getHtmlText());
-					}
+						System.out.println(cardSides[0]);
+						getController().getModel("cards").doAction("edit", cardSides[0] + Globals.SEPARATOR
+								+ front.getText() + Globals.SEPARATOR + back.getText());}
 				});
+				
+				HBox v = new HBox(8);
+				v.setAlignment(Pos.CENTER);
+				v.getChildren().addAll(front, back);
+				cards.add(v);
+			}
+
+			TextField front = new TextField();
+			TextField back = new TextField();
 
 			HBox v = new HBox(8);
 
@@ -104,5 +116,6 @@ public class EditorView1 extends FXViewModel
 
 			editLayout.getChildren().addAll(cards);
 		}
+		
 	}
 }

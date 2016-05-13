@@ -14,7 +14,7 @@ public class EditorModel extends Model {
 	public int doAction (String functionName, String paramS, double paramD) {
 
 		if (functionName == "new") {
-			System.out.println("funktioniert!");
+			
 			
 		} else if (functionName == "delete") {
 			try {

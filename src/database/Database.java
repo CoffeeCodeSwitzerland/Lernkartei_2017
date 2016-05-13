@@ -7,10 +7,10 @@ import java.util.ArrayList;
 public class Database {
 
 	// Varibeln Connection
-	
-	private static String	url			= "jdbc:sqlite:" +  debug.Environment.getDatabasePath()
-	 									 + controls.Globals.db_name + ".db";
-	private static String	driver		= "org.sqlite.JDBC";
+
+	private static String	url		= "jdbc:sqlite:" + debug.Environment.getDatabasePath()
+			+ controls.Globals.db_name + ".db";
+	private static String	driver	= "org.sqlite.JDBC";
 
 	/**
 	 * Keine neue Instanz Database erstellen, sondern nur die Methode benutzen
@@ -331,6 +331,7 @@ public class Database {
 			c.close();
 
 		}
+		
 		catch (Exception e) {
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
 			System.exit(0);
@@ -338,37 +339,34 @@ public class Database {
 
 	}
 	
-	public static int[] getScore (String whichSet) {
+	/**
+	 * Liefert die Priorität der Karte mit mitgegebener ID mit 
+	 * 
+	 * @param ID_Card --> ID der Karte, von welcher die Priorität gebraaucht wird
+	 * @return --> Gibt die Kartenpriorität als Integer zurück
+	 */
+	
+	public static int getPriority (String ID_Card) {
 		
 		Connection c = null;
 		Statement stmt = null;
-		
-		int maxPoints = 0;
-		int reachedPoints = 0;
-		int[] score = new int[2];
+
+		int prio = 0;
 
 		try {
 			Class.forName(driver);
 			c = DriverManager.getConnection(url);
 			stmt = c.createStatement();
-			
-			// Alle Prioritäten aus Tabelle hlen, welche als Set das mitgegebene haben.
+			c.setAutoCommit(false);
 
-			String getScore = "SELECT Priority FROM Stock WHERE Set_ID = (SELECT PK_Kategorie FROM Kategorie"
-							+ " WHERE Kategorie = '" + whichSet + "')";
+			String getPrio = "SELECT Priority FROM Stock WHERE PK_Stk = " + ID_Card;
+			ResultSet rsPrio = stmt.executeQuery(getPrio);
 			
-			debug.Debugger.out(getScore);
-			
-			ResultSet scrs = stmt.executeQuery(getScore);
-			
-			// Durch loopen und die Maximale sowie die Erreichte Punktzahl speichern
-			
-			while (scrs.next()) {
-				maxPoints += 5;
-				reachedPoints += scrs.getInt("Priority");
+			if (rsPrio.next()) {
+				prio = rsPrio.getInt("Priority");
+			} else {
+				debug.Debugger.out("No such Card exists!");
 			}
-			
-			debug.Debugger.out("Max:" + maxPoints + "\nErreicht:" + reachedPoints);
 			
 			stmt.close();
 			c.close();
@@ -379,13 +377,76 @@ public class Database {
 			System.exit(0);
 		}
 		
-		// Erreichte Punktzahl zurückgeben
+		return prio;
 		
+	}
+	
+	/**
+	 * Liefert den Maximalen und den bisher erreichten Score eines Stacks zurück
+	 *  
+	 * @param whichSet --> Score von welchem Stack geliefert werden soll
+	 * @return --> Retourniert diesen gewünschten Score
+	 */
+	
+	public static int[] getScore (String whichSet) {
+
+		Connection c = null;
+		Statement stmt = null;
+
+		int maxPoints = 0;
+		int reachedPoints = 0;
+		int[] score = new int[2];
+
+		try {
+			Class.forName(driver);
+			c = DriverManager.getConnection(url);
+			stmt = c.createStatement();
+			c.setAutoCommit(false);
+
+			// Alle Prioritäten aus Tabelle hlen, welche als Set das mitgegebene
+			// haben.
+
+			String getScore = "SELECT Priority FROM Stock WHERE Set_ID = (SELECT PK_Kategorie FROM Kategorie"
+					+ " WHERE Kategorie = '" + whichSet + "')";
+
+			debug.Debugger.out(getScore);
+
+			ResultSet scrs = stmt.executeQuery(getScore);
+
+			// Durch loopen und die Maximale sowie die Erreichte Punktzahl
+			// speichern
+
+			if (scrs.next()) {
+
+				while (scrs.next()) {
+					maxPoints += 5;
+					reachedPoints += scrs.getInt("Priority");
+				}
+
+			} else {
+				
+				return null;
+				
+			}
+
+			debug.Debugger.out("Max:" + maxPoints + "\nErreicht:" + reachedPoints);
+
+			stmt.close();
+			c.close();
+
+		}
+		catch (Exception e) {
+			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+			System.exit(0);
+		}
+
+		// Erreichte Punktzahl zurückgeben
+
 		score[0] = maxPoints;
 		score[1] = reachedPoints;
-		
+
 		return score;
-		
+
 	}
 
 }

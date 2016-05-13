@@ -331,13 +331,63 @@ public class Database {
 			c.close();
 
 		}
+		
 		catch (Exception e) {
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
 			System.exit(0);
 		}
 
 	}
+	
+	/**
+	 * Liefert die Priorität der Karte mit mitgegebener ID mit 
+	 * 
+	 * @param ID_Card --> ID der Karte, von welcher die Priorität gebraaucht wird
+	 * @return --> Gibt die Kartenpriorität als Integer zurück
+	 */
+	
+	public static int getPriority (String ID_Card) {
+		
+		Connection c = null;
+		Statement stmt = null;
 
+		int prio = 0;
+
+		try {
+			Class.forName(driver);
+			c = DriverManager.getConnection(url);
+			stmt = c.createStatement();
+			c.setAutoCommit(false);
+
+			String getPrio = "SELECT Priority FROM Stock WHERE PK_Stk = " + ID_Card;
+			ResultSet rsPrio = stmt.executeQuery(getPrio);
+			
+			if (rsPrio.next()) {
+				prio = rsPrio.getInt("Priority");
+			} else {
+				debug.Debugger.out("No such Card exists!");
+			}
+			
+			stmt.close();
+			c.close();
+
+		}
+		catch (Exception e) {
+			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+			System.exit(0);
+		}
+		
+		return prio;
+		
+	}
+	
+	/**
+	 * Liefert den Maximalen und den bisher erreichten Score eines Stacks zurück
+	 *  
+	 * @param whichSet --> Score von welchem Stack geliefert werden soll
+	 * @return --> Retourniert diesen gewünschten Score
+	 */
+	
 	public static int[] getScore (String whichSet) {
 
 		Connection c = null;

@@ -245,16 +245,14 @@ public class Categories {
 			
 			stmt.executeUpdate(sql);
 			c.setAutoCommit(false);
-
+			
 			ResultSet StackSet = stmt.executeQuery("SELECT Kategorie FROM Kategorie");
-
-			int i = 1;
+			
 			if (StackSet.next())
 			{
 				while (StackSet.next())
-				{
-					Stacks.add(StackSet.getString(StackSet.getInt(i)));
-					i += 1;
+				{	
+					Stacks.add(StackSet.getString("Kategorie"));
 				}
 			} else {
 				Stacks = null;

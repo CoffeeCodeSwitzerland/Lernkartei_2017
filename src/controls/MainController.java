@@ -30,6 +30,7 @@ public class MainController extends Controller
 		this.addUniqueModel(new LearnModel("learn"));
 		this.addUniqueModel(new ProfilModel("profil"));
 		this.addUniqueModel(new QuizletModel("quizlet"));
+		this.addUniqueModel(new ConfigModel("config"));
 	}
 
 	@Override

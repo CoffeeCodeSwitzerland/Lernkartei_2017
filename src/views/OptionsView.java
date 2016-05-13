@@ -1,5 +1,6 @@
 package views;
 
+import controls.Globals;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
@@ -28,12 +29,27 @@ public class OptionsView extends FXView
 	public Parent constructContainer ()
 	{
 		Label cardLimitDescription = new Label("Anzahl Karten, die auf einmal gelernt werden, limitieren.");
-		TextField cardLearnLimit = new TextField("");
+		TextField cardLearnLimit = new TextField(getController().getModel("config").getDataList("cardLimit").get(0));
 		AppButton back = new AppButton("_Zurück");
 
+		String lastValidCardLimit = cardLearnLimit.getText();
+		
 		cardLimitDescription.setMaxWidth(200);
 		cardLimitDescription.setWrapText(true);
 		cardLearnLimit.setMaxWidth(200);
+		cardLearnLimit.textProperty().addListener(e -> {
+			try
+			{
+				Integer.parseInt(cardLearnLimit.getText());
+				getController().getModel("config").doAction("setValue", "cardLimit" + Globals.SEPARATOR + cardLearnLimit.getText());
+			}
+			finally
+			{
+				Alert.simpleInfoBox("Achtung", "Es muss eine gültige Ganzzahl eingegeben werden!");
+				cardLearnLimit.setText(lastValidCardLimit);
+			}
+			
+		});
 		
 		VBox mainLayout = new VBox();
 		mainLayout.setPadding(new Insets(10));
@@ -42,7 +58,7 @@ public class OptionsView extends FXView
 		mainLayout.getChildren().addAll(cardLimitDescription, cardLearnLimit, back);
 
 		back.setOnAction(e -> getController().showMainView());
-
+		
 		return mainLayout;
 	}
 

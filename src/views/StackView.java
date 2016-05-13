@@ -118,7 +118,7 @@ public class StackView extends FXViewModel
 			{
 				if (Alert.ok("Achtung", "Willst du die Box '" + db.getString() + "' wirklich löschen?"))
 				{
-					getController().getModel("box").doAction("delete", db.getString()); 
+					getController().getModel("stack").doAction("delete", db.getString()); 
 					// TODO Feedback für den User (Fehlermeldungen)
 					if (options.getChildren().get(0).getTypeSelector().equals("Label"))
 					{

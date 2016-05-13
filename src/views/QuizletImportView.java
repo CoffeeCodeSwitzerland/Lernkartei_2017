@@ -133,6 +133,10 @@ public class QuizletImportView extends FXViewModel
 							{
 								if (newCards.indexOf(s1) != 0)
 								{
+									if (s1.split(Globals.SEPARATOR).length != 3)
+									{
+										s1 = Alert.simpleString("Achtung", "Ein ungültiger String wurde gefunden. Bitte passen sie den String an.", s1, 300);
+									}
 									getController().getModel("cards").doAction("new", s1.split(Globals.SEPARATOR)[1] + Globals.SEPARATOR + s1.split(Globals.SEPARATOR)[2] + Globals.SEPARATOR + name);
 								}
 							}

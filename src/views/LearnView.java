@@ -25,7 +25,7 @@ public class LearnView extends FXViewModel
 	AppButton successfulBtn = new AppButton("_Richtig");
 	AppButton wrongBtn = new AppButton("_Falsch");
 	Label headLbl = new Label("");
-	AppButton card = new AppButton("Front");
+	AppButton card = new AppButton("");
 	
 	Button preCard = new Button("\u25C0");
 	Button nextCard = new Button("\u25B6");
@@ -60,8 +60,8 @@ public class LearnView extends FXViewModel
 		});
 		
 		
-		card.setMinWidth(160);
-		card.setMinHeight(90);
+		card.setMinWidth(320);
+		card.setMinHeight(180);
 		card.setId("bold");
 		card.setOnAction(e -> card.setText(card.getText().equals(cardData[1]) ? cardData[2] : cardData[1]));
 		

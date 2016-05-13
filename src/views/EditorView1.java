@@ -73,20 +73,21 @@ public class EditorView1 extends FXViewModel
 		{
 			headLbl.setText(data + " - " + getController().getView("stack").getData());
 			
-			TextField front = new TextField();
-			TextField back = new TextField();
+			HTMLEditor front = new HTMLEditor();
+			HTMLEditor back = new HTMLEditor();
 			Button update = new Button("\u2713");	
 			
 			String[] cardSides = data.split(Globals.SEPARATOR);
 			
-			front.setText(cardSides[0]);
-			back.setText(cardSides[1]);
+			front.setHtmlText(cardSides[1]);
+			back.setHtmlText(cardSides[2]);
 			
 			update.setOnAction(e -> {
-				if(back.getText() != null && !back.getText().equals("") && front.getText() != null
-						&& !front.getText().equals(""))
+				if(back.getHtmlText() != null && !back.getHtmlText().equals("") && front.getHtmlText() != null
+						&& !front.getHtmlText().equals(""))
 				{
-					//UPDATE
+					getController().getModel("cards").doAction("edit", cardSides[0] + Globals.SEPARATOR
+							+ front.getHtmlText() + Globals.SEPARATOR + back.getHtmlText());
 				}
 			});	
 			

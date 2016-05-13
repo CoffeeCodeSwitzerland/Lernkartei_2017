@@ -118,5 +118,8 @@
 	-fx-background-image: url("pictures/viewbackground.png");
 	-fx-background-repeat: stretch;   
     -fx-background-size: 930 650;}
+#simpleeditorview{
+	-fx-background-color: #cef0ffff;
+	}
 
 

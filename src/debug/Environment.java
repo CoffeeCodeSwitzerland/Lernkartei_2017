@@ -96,22 +96,19 @@ public final class Environment {
 	}
 	
 	public static String getDatabasePath() {
-		File theDir = new File("WISS Learncards DB's");
+		File theDir = new File(getUserPath() + fileSep + controls.Globals.db_Path);
 		if (!theDir.exists()) {
-		    try{
-		        theDir.mkdir();
-		    } 
-		    catch(SecurityException se){
-		        debug.Debugger.out(se.getMessage());
-		    }  
-		}
-
-		String path = "";
-		
-		for (int i = 0; i < getUserPath().split("Users").length - 1; i++) {
-			path += getUserPath().split("Users")[i];
+			theDir.mkdirs();
+		    debug.Debugger.out("Ordner " + controls.Globals.db_Path + " erstellt!");
+		} else {
+			debug.Debugger.out("Ordner " + controls.Globals.db_Path + " erstellt!");
 		}
 		
-		return path + "Users\\WISS Learncards DB's\\";
+		String path = getUserPath() + fileSep + controls.Globals.db_Path + fileSep;
+		return path;
+	}
+	
+	public static void main (String[] args) {
+		System.out.println(getDatabasePath());
 	}
 }

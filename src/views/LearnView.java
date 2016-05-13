@@ -11,6 +11,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
 import mvc.Controller;
 import mvc.FXViewModel;
 
@@ -25,7 +27,8 @@ public class LearnView extends FXViewModel
 	AppButton successfulBtn = new AppButton("_Richtig");
 	AppButton wrongBtn = new AppButton("_Falsch");
 	Label headLbl = new Label("");
-	AppButton card = new AppButton("");
+	WebView card = new WebView();
+	WebEngine engine = card.getEngine();
 	
 	Button preCard = new Button("\u25C0");
 	Button nextCard = new Button("\u25B6");
@@ -63,8 +66,8 @@ public class LearnView extends FXViewModel
 		card.setMinWidth(320);
 		card.setMinHeight(180);
 		card.setId("bold");
-		card.setOnAction(e -> card.setText(card.getText().equals(cardData[1]) ? cardData[2] : cardData[1]));
-		
+		card.setDisable(true);
+		//card.setOnAction(e -> card.setText(card.getText().equals(cardData[1]) ? cardData[2] : cardData[1]));
 		
 		preCard.setOnAction(e -> {
 			counter = counter > 0 ? counter - 1 : counter;
@@ -109,14 +112,14 @@ public class LearnView extends FXViewModel
 				nextCard.setDisable(false);
 				String d = cards.get(counter); // Ensure valid counter variable
 				cardData = d.split(Globals.SEPARATOR);
-				card.setText(cardData[1]);
+				engine.loadContent(cardData[1]);
 			}
 			else
 			{
 				successfulBtn.setDisable(true);
 				wrongBtn.setDisable(true);
 				nextCard.setDisable(true);
-				card.setText("");
+				engine.loadContent("");
 				cardData = null;
 				counter = cards.size();
 			}

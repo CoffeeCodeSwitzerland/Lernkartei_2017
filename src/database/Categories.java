@@ -232,8 +232,6 @@ public class Categories {
 		ArrayList<String> Stacks = new ArrayList<String>();
 		
 		try {
-			
-			
 			Class.forName(driver);
 			c = DriverManager.getConnection(url);
 			stmt = c.createStatement();

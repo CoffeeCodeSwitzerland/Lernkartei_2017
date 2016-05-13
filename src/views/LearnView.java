@@ -11,6 +11,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import mvc.Controller;
@@ -29,6 +30,8 @@ public class LearnView extends FXViewModel
 	Label headLbl = new Label("");
 	WebView card = new WebView();
 	WebEngine engine = card.getEngine();
+	
+	boolean frontIsShowed = true;
 	
 	Button preCard = new Button("\u25C0");
 	Button nextCard = new Button("\u25B6");
@@ -63,11 +66,10 @@ public class LearnView extends FXViewModel
 		});
 		
 		
-		card.setMinWidth(320);
-		card.setMinHeight(180);
+		card.setMaxSize(320, 180);
 		card.setId("bold");
 		card.setDisable(true);
-		//card.setOnAction(e -> card.setText(card.getText().equals(cardData[1]) ? cardData[2] : cardData[1]));
+		
 		
 		preCard.setOnAction(e -> {
 			counter = counter > 0 ? counter - 1 : counter;
@@ -79,6 +81,16 @@ public class LearnView extends FXViewModel
 			refreshView();
 		});
 		
+		Button turnCardBtn = new Button("Drehen");
+		turnCardBtn.setOnAction(e -> {
+			engine.loadContent(frontIsShowed ? cardData[2] : cardData[1]);
+			frontIsShowed = !frontIsShowed;
+		});
+		
+		VBox cardLayout = new VBox(20);
+		cardLayout.setAlignment(Pos.CENTER);
+		cardLayout.getChildren().addAll(card, turnCardBtn);
+		
 		HBox controlLayout = new HBox(20);
 		controlLayout.setAlignment(Pos.CENTER);
 		controlLayout.getChildren().addAll(backBtn, preCard, successfulBtn, wrongBtn, nextCard);
@@ -86,7 +98,7 @@ public class LearnView extends FXViewModel
 		BorderPane mainLayout = new BorderPane();
 		mainLayout.setPadding(new Insets(15));
 		mainLayout.setTop(headLbl);
-		mainLayout.setCenter(card);
+		mainLayout.setCenter(cardLayout);
 		mainLayout.setBottom(controlLayout);
 		
 		getController().getModel("learn").registerView(this);
@@ -113,6 +125,7 @@ public class LearnView extends FXViewModel
 				String d = cards.get(counter); // Ensure valid counter variable
 				cardData = d.split(Globals.SEPARATOR);
 				engine.loadContent(cardData[1]);
+				frontIsShowed = true;
 			}
 			else
 			{

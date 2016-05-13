@@ -49,7 +49,7 @@ public class gamePanel extends JPanel implements Runnable {
 							// height
 	private int drawH = 570; // screen
 								// width
-	private boolean left, right, jump, doubleJump, ground; // down, up
+	private boolean left, right, jump, ground; // down, up, doubleJump
 	private double x, y, playerStartX, playerStartY, pw, ph;
 	private double vx, vy;
 	private double bossXL, bossXR, bossYU, bossYD;
@@ -121,7 +121,7 @@ public class gamePanel extends JPanel implements Runnable {
 		vx = vy = 0;
 		lives = 2;
 		jump = false;
-		doubleJump = false;
+		//doubleJump = false;
 		ground = true;
 		pw = 30;
 		ph = 45;
@@ -188,7 +188,11 @@ public class gamePanel extends JPanel implements Runnable {
 		fred = new Thread(this);
 		fred.start();
 	}
-
+	private void jumping(){
+		vy -= bounce;
+		jump = false;
+		ground = false;
+	}
 	@Override
 	public void paintComponent(Graphics g) {
 		// super.paintComponents(g);
@@ -449,9 +453,7 @@ public class gamePanel extends JPanel implements Runnable {
 					vx -= dVx;
 				}
 				if (jump && ground) {
-					vy -= bounce;
-					jump = false;
-					ground = false;
+					jumping();
 				}
 				vy += grav;
 				if (willCollide(0, vy)) {
@@ -674,14 +676,9 @@ public class gamePanel extends JPanel implements Runnable {
 			if (e.getKeyCode() == KeyEvent.VK_SPACE) {
 				if (ground) {
 					jump = true;
-					doubleJump = true;
 				}
-				else if(doubleJump)
-				{
-						vy -= bounce;
-						doubleJump = false;		
-						}
 			}
+			
 			if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
 				gameState = INTRO;
 			}

@@ -4,30 +4,31 @@
 
 ============================================================================================================
 	
-	Inhalt:
+	Inhalt
 	------	
-	- alle benötigten Views und GUI-Teilkomponenten
-	- jeder eigener View mit Inhalte und Darstellungen
-	- das Verhalten der einzelnen Knöpfe wird hier bestimmt
-	- falls nötig werden Modellklassen aufgerufen oder Model's lokal in View's eingebaut
+	- BackUp.java:
+	- Categories.java:
+	- Config.java:
+	- Database.java:
+	- Doors.java:
+	- Score.java:
+	- Usercards.java:
+	- Userlogin.java:
 	
-	Abhängigkeiten:
+	Abhängigkeiten
 	--------------
-	- MainController
-	- Mehrere Models --> Doors, Sets und Cards
-	- Debug
-	- Alle .db Datenbank Files
+	- In diversen Models (DoorModel, CardModel, Usermodel) werden die Funktionen aus dem package 
+	database verwendet. Die Funktionen doAction werden für Updates / Erstellen von Datensätzen 
+	verwendet, und getData um die Daten einer bestimmten Tabelle zu holen.
+	- Dieses package verwendet diverse Globals, Enviromentfunktionen und Debugger Funktionen
+	grösstenteils die debug.Debugger.out() Funktion
 	
 ============================================================================================================
 
 	HowTo
-	=====
-	- Alle Funktionen stehen im Package models zur Verfügung. Um diese zu verwenden, können die Funktionen
-	via getMyModel("irgendeinmodel").doAction oder .getData
-	- doAction sind zum Beispiel: Delete, New oder Update. So können Funktionen ohne Datenrückgabe ausge-
-	führt werden
-	- getData holt Daten aus der Datenbank, zum Beispiel kann so alle Doors und/oder alle Sets abgerufen
-	werden. Ausserdem können alle Karten abgeholt werden.
+	-----
+	- Die meisten Funktionen werden nicht direkt verwendet, sondern über die Models
+	- Um die Funktionen zu verwenden --> database.KLASSE.FUNKTION(PARAMETER);
 			
 ============================================================================================================
 

@@ -19,6 +19,7 @@ public class GameOptionView extends FXView {
 		BorderPane InfoLayout = new BorderPane();
 		
 		//Objekte
+		@SuppressWarnings ("unused")
 		AppButton BacktoGameMenu = new AppButton("Zurück");
 		
 		

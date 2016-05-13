@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" width="150" height="20" tilewidth="30" tileheight="30">
- <tileset firstgid="1" name="rocksNgrass" tilewidth="30" tileheight="30">
-  <image source="../../Tiles/Dev/rocksNgrass.png" trans="ffffff" width="480" height="30"/>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="150" height="20" tilewidth="30" tileheight="30" nextobjectid="1">
+ <tileset firstgid="1" name="rocksNgrass" tilewidth="30" tileheight="30" tilecount="16" columns="16">
+  <image source="../../Images/Tiles/Dev/customTiles.png" trans="ffffff" width="480" height="30"/>
  </tileset>
- <tileset firstgid="17" name="Spikes" tilewidth="30" tileheight="30">
+ <tileset firstgid="17" name="Spikes" tilewidth="30" tileheight="30" tilecount="1" columns="1">
   <image source="../../Images/Tiles/Dev/spikes.png" trans="ffffff" width="30" height="30"/>
  </tileset>
- <tileset firstgid="18" name="Foreground" tilewidth="30" tileheight="30">
+ <tileset firstgid="18" name="Foreground" tilewidth="30" tileheight="30" tilecount="5" columns="5">
   <image source="../../Images/Tiles/Dev/foreground1.png" trans="ffffff" width="150" height="30"/>
  </tileset>
- <tileset firstgid="23" name="Clouds" tilewidth="100" tileheight="57">
+ <tileset firstgid="23" name="Clouds" tilewidth="100" tileheight="57" tilecount="1" columns="1">
   <image source="../../Images/Tiles/Dev/bg_cloud.png" width="100" height="57"/>
  </tileset>
- <tileset firstgid="24" name="Mountains" tilewidth="600" tileheight="300">
+ <tileset firstgid="24" name="Mountains" tilewidth="600" tileheight="300" tilecount="1" columns="1">
   <image source="../../Images/Tiles/Dev/bg_mountains.png" width="600" height="300"/>
  </tileset>
- <tileset firstgid="25" name="Sprites" tilewidth="30" tileheight="30">
+ <tileset firstgid="25" name="Sprites" tilewidth="30" tileheight="30" tilecount="5" columns="5">
   <image source="../../Images/Sprites/NPCs.PNG" trans="0000c8" width="150" height="30"/>
  </tileset>
  <layer name="bg3" width="150" height="20">

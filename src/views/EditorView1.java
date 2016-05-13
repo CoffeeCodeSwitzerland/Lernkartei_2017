@@ -29,9 +29,6 @@ public class EditorView1 extends FXViewModel
 
 	VBox editLayout = new VBox(10);
 	Label headLbl;
-	HTMLEditor front, back;
-	Button update = new Button("\u2713");
-	
 
 	@Override
 	public Parent constructContainer() {
@@ -53,7 +50,7 @@ public class EditorView1 extends FXViewModel
 		//Controll Layout
 		HBox controlLayout = new HBox(20);
 		controlLayout.setAlignment(Pos.CENTER);
-		controlLayout.getChildren().addAll(backBtn, update);
+		controlLayout.getChildren().addAll(backBtn);
 
 		//Main Layout
 		BorderPane mainLayout = new BorderPane();
@@ -74,17 +71,23 @@ public class EditorView1 extends FXViewModel
 
 		if (data != null)
 		{
-			headLbl.setText(data + " - " + getController().getView("boxview").getData());
-
+			headLbl.setText(data + " - " + getController().getView("stack").getData());
+			
 			TextField front = new TextField();
 			TextField back = new TextField();
-			Button update = new Button("\u2713");		
+			Button update = new Button("\u2713");	
 			
-			front.setText(data);
-			back.setText(data);
+			String[] cardSides = data.split(Globals.SEPARATOR);
+			
+			front.setText(cardSides[0]);
+			back.setText(cardSides[1]);
 			
 			update.setOnAction(e -> {
-				//UPDATE
+				if(back.getText() != null && !back.getText().equals("") && front.getText() != null
+						&& !front.getText().equals(""))
+				{
+					//UPDATE
+				}
 			});	
 			
 			HBox newL = new HBox(8);
@@ -92,8 +95,6 @@ public class EditorView1 extends FXViewModel
 			newL.getChildren().addAll(front, back, update);
 
 			editLayout.getChildren().addAll(newL);
-			
 		}
-		
 	}
 }

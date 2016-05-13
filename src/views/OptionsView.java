@@ -24,7 +24,10 @@ public class OptionsView extends FXView
 		super(newName, newController);
 		construct();
 	}
-
+	
+	boolean resetChange = false;
+	String lastValidCardLimit;
+	
 	@Override
 	public Parent constructContainer ()
 	{
@@ -32,21 +35,28 @@ public class OptionsView extends FXView
 		TextField cardLearnLimit = new TextField(getController().getModel("config").getDataList("cardLimit").get(0));
 		AppButton back = new AppButton("_Zurück");
 
-		String lastValidCardLimit = cardLearnLimit.getText();
+		
+		lastValidCardLimit = cardLearnLimit.getText();
 		
 		cardLimitDescription.setMaxWidth(200);
 		cardLimitDescription.setWrapText(true);
 		cardLearnLimit.setMaxWidth(200);
 		cardLearnLimit.textProperty().addListener(e -> {
-			try
+			if (!resetChange)
 			{
-				Integer.parseInt(cardLearnLimit.getText());
-				getController().getModel("config").doAction("setValue", "cardLimit" + Globals.SEPARATOR + cardLearnLimit.getText());
-			}
-			finally
-			{
-				Alert.simpleInfoBox("Achtung", "Es muss eine gültige Ganzzahl eingegeben werden!");
-				cardLearnLimit.setText(lastValidCardLimit);
+				try
+				{
+					Integer.parseInt(cardLearnLimit.getText());
+					getController().getModel("config").doAction("setValue", "cardLimit" + Globals.SEPARATOR + cardLearnLimit.getText());
+					lastValidCardLimit = cardLearnLimit.getText();
+				}
+				catch (Exception ex)
+				{
+					Alert.complexChoiceBox("Achtung", "Es muss eine gültige Ganzzahl eingegeben werden!", new String[]{"OK"});
+					resetChange = true;
+					cardLearnLimit.setText(lastValidCardLimit);
+					resetChange = false;
+				}
 			}
 			
 		});

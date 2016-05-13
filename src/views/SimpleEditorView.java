@@ -113,7 +113,7 @@ public class SimpleEditorView extends FXViewModel
 				delete.setOnAction(e -> getController().getModel("cards").doAction("delete", cardSides[0]));
 				editBtn.setOnAction(e ->
 				{
-					getController().getView("editorview").setData(front.getText() + Globals.SEPARATOR + back.getText());
+					getController().getView("editorview").setData(cardSides[0] + Globals.SEPARATOR + front.getText() + Globals.SEPARATOR + back.getText());
 					getController().getView("editorview").show();
 				});
 				HBox v = new HBox(8);

@@ -127,3 +127,6 @@
 	-fx-background-image: url("pictures/OptionViewScreen.png");
 	-fx-background-repeat: stretch;   
     -fx-background-size: 920 570;}
+    
+   #gameview{
+	-fx-background-color: #cef0ffff;}

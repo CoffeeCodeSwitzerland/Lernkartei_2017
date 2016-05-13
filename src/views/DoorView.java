@@ -50,6 +50,7 @@ public class DoorView extends FXView
 
 		// Layout für Controls (Hauptsteuerung)
 		HBox controlsLayout = new HBox(20);
+		controlsLayout.setAlignment(Pos.CENTER); // NICHT MEHR ENTFERNEN
 		controlsLayout.getChildren().addAll(backBtn, newDoorBtn, trashImgView);
 
 		// Main Layout

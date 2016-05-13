@@ -75,7 +75,7 @@ public class StackView extends FXViewModel
 
 		newBoxBtn.setOnAction(e ->
 		{
-			final int choice = Alert.complexChoiceBox("Neue Box", "Was für eine Box willst du erstellen?", new String[]{"Leere _Box", "_Quizlet"});
+			final int choice = Alert.complexChoiceBox("Neue Box", "Was für eine Box willst du erstellen?", "Leere _Box", "_Quizlet");
 			
 			switch (choice)
 			{

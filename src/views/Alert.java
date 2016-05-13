@@ -11,7 +11,8 @@ import javafx.stage.StageStyle;
 
 
 /**
- * Diese Klasse zeigt mit JavaFx verschiedene Alertfenster an.
+ * Diese Klasse zeigt mit JavaFx verschiedene Alertfenster an. Die Fenster
+ * können auch Daten zurückgeben.
  * 
  * @author miro albrecht
  *
@@ -19,7 +20,7 @@ import javafx.stage.StageStyle;
 public final class Alert
 {
 	static Stage tempStage;
-	
+
 	/**
 	 * Zeigt ein kleines Infofenster an. Der User muss das Fenster schliessen,
 	 * bevor er andere Fenster der Anwendung bedienen kann. Die Breite des
@@ -50,7 +51,7 @@ public final class Alert
 		int x = 6;
 		int y = 150;
 		width = message.length() * x + y;
-		
+
 		window.setScene(new Scene(layout, width, 150));
 		window.show();
 	}
@@ -66,14 +67,15 @@ public final class Alert
 	 *            Die Narchricht, die angezeigt wird. Text wird nicht von selbst
 	 *            gewrapt.
 	 */
-	public static void simpleInfoBox (String title, String message) { simpleInfoBox(title, message, "_OK"); }
+	public static void simpleInfoBox (String title, String message)
+	{
+		simpleInfoBox(title, message, "_OK");
+	}
 
-	
 	// -------------------------------------------------------------------------------------------------------------
-	
-	
+
 	private static String output = "";
-	
+
 	/**
 	 * Kleines Fenster, dass Input (String) vom User abfragt.
 	 * 
@@ -89,14 +91,15 @@ public final class Alert
 	public static String simpleString (String title, String message, String field, double fieldWidth)
 	{
 		Stage window = buildWindow(title);
-		
+
 		Label l = new Label(message);
-		
+
 		TextField tf = new TextField(field);
 		tf.setMaxWidth(fieldWidth);
-		
+
 		Button b = new Button("_OK");
-		b.setOnAction(e -> {
+		b.setOnAction(e ->
+		{
 			output = tf.getText();
 			window.close();
 		});
@@ -117,7 +120,19 @@ public final class Alert
 
 		return output;
 	}
-	
+
+	/**
+	 * Kleines Fenster, dass Input (String) vom User abfragt.
+	 * 
+	 * @param title
+	 *            Der Titel des Fensters
+	 * @param message
+	 *            Die Narchricht, die angezeigt wird. Text wird nicht von selbst
+	 *            gewrapt.
+	 * @param field
+	 *            Setzt einen Default-Text
+	 * @return String mit dem Userinput
+	 */
 	public static String simpleString (String title, String message, String field)
 	{
 		return simpleString(title, message, field, 150);
@@ -138,12 +153,20 @@ public final class Alert
 		return simpleString(title, message, "", 150);
 	}
 
-	
 	// -------------------------------------------------------------------------------------------------------------
-	
-	
+
 	static boolean okay = false;
 
+	/**
+	 * Fenster mit OK- und Abbrechen-Buttons
+	 * 
+	 * @param title
+	 *            Der Titel des Fensters
+	 * @param message
+	 *            Die Narchricht, die angezeigt wird. Text wird nicht von selbst
+	 *            gewrapt.
+	 * @return True, wenn der User akzeptiert, sonst false
+	 */
 	public static boolean ok (String title, String message)
 	{
 		Stage window = buildWindow(title);
@@ -152,12 +175,14 @@ public final class Alert
 		Button bo = new Button("_OK");
 		Button ba = new Button("_Abbrechen");
 
-		bo.setOnAction(e -> {
+		bo.setOnAction(e ->
+		{
 			okay = true;
 			window.close();
 		});
 
-		ba.setOnAction(e -> {
+		ba.setOnAction(e ->
+		{
 			okay = false;
 			window.close();
 		});
@@ -184,23 +209,24 @@ public final class Alert
 		return okay;
 	}
 
-	
 	// -------------------------------------------------------------------------------------------------------------
-	
+
 	private static int tempInt = -1;
-	public static int complexChoiceBox (String title, String message, String[] options)
+
+	public static int complexChoiceBox (String title, String message, String... options)
 	{
 		Stage window = buildWindow(title);
-		
+
 		Label l = new Label(message);
-		
+
 		AppButton[] buttons = new AppButton[options.length];
-		
+
 		for (int i = 0; i < options.length; i++)
 		{
 			final int j = i;
 			buttons[j] = new AppButton(options[j]);
-			buttons[j].setOnAction(e -> {
+			buttons[j].setOnAction(e ->
+			{
 				tempInt = j;
 				window.close();
 			});
@@ -216,26 +242,30 @@ public final class Alert
 		int x = 6;
 		int y = 150;
 		width = message.length() * x + y;
-		
+
 		int height;
 		height = options.length * 25 + 150;
-		
+
 		window.setScene(new Scene(layout, width, height));
 		window.showAndWait();
-		
+
 		return tempInt;
 	}
 
-	
 	// -------------------------------------------------------------------------------------------------------------
-	
-	
+
 	private static Stage buildWindow (String title)
 	{
 		tempStage = new Stage();
-		tempStage.initStyle(StageStyle.UTILITY);			// Einfaches Fenster ohne 'minimiere' und 'maximiere' Buttons
-		tempStage.setResizable(false);						// Verbiete Änderung der Grösse
-		tempStage.initModality(Modality.APPLICATION_MODAL);	// Blockiere alle anderen Fenster
+		tempStage.initStyle(StageStyle.UTILITY);			// Einfaches Fenster
+															// ohne 'minimiere'
+															// und 'maximiere'
+															// Buttons
+		tempStage.setResizable(false);						// Verbiete Änderung
+																// der Grösse
+		tempStage.initModality(Modality.APPLICATION_MODAL);	// Blockiere alle
+																// anderen
+																// Fenster
 		tempStage.setTitle(title);							// Setze Titel
 		return tempStage;
 	}

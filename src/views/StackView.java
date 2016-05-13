@@ -25,9 +25,9 @@ import mvc.View;
  * @author nina egger & miro albrecht
  *
  */
-public class BoxView extends FXViewModel
+public class StackView extends FXViewModel
 {
-	public BoxView(String newName, Controller newController) {
+	public StackView(String newName, Controller newController) {
 		// this constructor is the same for all view's
 		super(newName, newController);
 		construct();
@@ -83,7 +83,7 @@ public class BoxView extends FXViewModel
 					final String boxName = Alert.simpleString("Neue Box", "Wie soll die neue Box heissen?");
 					if (this.getName() != null && !boxName.equals(""))
 					{
-						getController().getModel("box").doAction("new",
+						getController().getModel("stack").doAction("new",
 								getData() + controls.Globals.SEPARATOR + boxName);
 						// TODO Feedback für den User (Fehlermeldungen)
 					}
@@ -133,7 +133,7 @@ public class BoxView extends FXViewModel
 			event.setDropCompleted(success);
 			event.consume();
 		});
-		getController().getModel("box").registerView(this);
+		getController().getModel("stack").registerView(this);
 		return borderPane;
 	}
 
@@ -147,7 +147,7 @@ public class BoxView extends FXViewModel
 
 		if (localdata != null)
 		{
-			ArrayList<String> setData = getController().getModel("box").getDataList(localdata);
+			ArrayList<String> setData = getController().getModel("stack").getDataList(localdata);
 			ArrayList<AppButton> sets = new ArrayList<AppButton>();
 
 			for (String s : setData)

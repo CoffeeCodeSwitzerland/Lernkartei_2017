@@ -72,7 +72,7 @@ public class QuizletImportView extends FXViewModel
 		scroller.setVbarPolicy(ScrollBarPolicy.AS_NEEDED);
 		
 		AppButton backBtn = new AppButton("_Zurück");
-		backBtn.setOnAction(e -> getController().getView("boxview").show());
+		backBtn.setOnAction(e -> getController().getView("stack").show());
 		
 		BorderPane mainLayout = new BorderPane();
 		mainLayout.setCenter(scroller);
@@ -128,7 +128,7 @@ public class QuizletImportView extends FXViewModel
 						downloadStack.setOnAction(e1 -> {
 							ArrayList<String> newCards = getController().getModel("quizlet").getDataList("set"+Globals.SEPARATOR+setInfo[0]);
 							String name = Alert.simpleString("Neue Box", "Name für die Quizletbox", setInfo[1]);
-							getController().getModel("box").doAction("new", getData() + controls.Globals.SEPARATOR + name);
+							getController().getModel("stack").doAction("new", getData() + controls.Globals.SEPARATOR + name);
 							for (String s1 : newCards)
 							{
 								if (newCards.indexOf(s1) != 0)
@@ -136,7 +136,7 @@ public class QuizletImportView extends FXViewModel
 									getController().getModel("cards").doAction("new", s1.split(Globals.SEPARATOR)[1] + Globals.SEPARATOR + s1.split(Globals.SEPARATOR)[2] + Globals.SEPARATOR + name);
 								}
 							}
-							getController().getView("boxview").show();
+							getController().getView("stack").show();
 						});
 						additionalInfoLayout.getChildren().clear();
 						additionalInfoLayout.getChildren().addAll(stackTitle, stackCount, stackAuthor, stackLangs, stackHasImgs, downloadStack);

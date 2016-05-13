@@ -126,7 +126,7 @@ public class DoorView extends FXView
 			a.setId("DoorButtons");
 			a.setOnAction(e ->
 			{
-				View v = getController().getView("boxview");
+				View v = getController().getView("stack");
 				v.setData(a.getText());
 				v.show();
 			});

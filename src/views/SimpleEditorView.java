@@ -39,7 +39,7 @@ public class SimpleEditorView extends FXViewModel
 		headLbl.setId("bold");
 
 		AppButton backBtn = new AppButton("_Zurück");
-		backBtn.setOnAction(e -> getController().getView("boxview").show());
+		backBtn.setOnAction(e -> getController().getView("stack").show());
 
 		BorderPane headLayout = new BorderPane(headLbl);
 		headLayout.setPadding(new Insets(25));
@@ -70,7 +70,7 @@ public class SimpleEditorView extends FXViewModel
 
 		if (data != null)
 		{
-			headLbl.setText(data + " - " + getController().getView("boxview").getData());
+			headLbl.setText(data + " - " + getController().getView("stack").getData());
 
 			ArrayList<String> cardStrings = getController().getModel("cards").getDataList(data);
 			ArrayList<HBox> cards = new ArrayList<>();

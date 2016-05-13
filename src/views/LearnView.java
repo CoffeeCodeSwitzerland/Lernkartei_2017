@@ -3,6 +3,7 @@ package views;
 import java.util.ArrayList;
 
 import controls.Globals;
+import debug.Debugger;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
@@ -38,27 +39,31 @@ public class LearnView extends FXViewModel
 	public Parent constructContainer() {
 		
 		AppButton backBtn = new AppButton("_Zurück");
-		backBtn.setOnAction(e -> {counter = 0; getController().getView("boxview").show();});
+		backBtn.setOnAction(e -> {counter = 0; getController().getView("stack").show();});
 		
 		headLbl.setId("bold");
 		
 		successfulBtn.setOnAction(e ->
 		{
 			counter++;
-			getController().getModel("learn").doAction("Richtig", cardData[0]);
+			int feedback = getController().getModel("learn").doAction("Richtig", cardData[0]);
+			if (feedback < 0)		{counter--;}
+			else if (feedback == 0)	{Debugger.out("views/LearnView/constructContainer: doAction(Richtig) Parameter ungültig");}
 		}); 
 		
 		wrongBtn.setOnAction(e ->
 		{
 			counter++;
-			getController().getModel("learn").doAction("Falsch", cardData[0]);
+			int feedback = getController().getModel("learn").doAction("Falsch", cardData[0]);
+			if (feedback < 0)		{counter--;}
+			else if (feedback == 0)	{Debugger.out("views/LearnView/constructContainer: doAction(Falsch) Parameter ungültig");}
 		});
+		
 		
 		card.setMinWidth(160);
 		card.setMinHeight(90);
 		card.setId("bold");
 		card.setOnAction(e -> card.setText(card.getText().equals(cardData[1]) ? cardData[2] : cardData[1]));
-		
 		
 		
 		preCard.setOnAction(e -> {

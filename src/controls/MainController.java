@@ -25,7 +25,7 @@ public class MainController extends Controller
 		Logger.log("Instanziere Models....");
 		this.addUniqueModel(new GameModel("game"));
 		this.addUniqueModel(new DoorModel("door"));
-		this.addUniqueModel(new BoxModel("box"));
+		this.addUniqueModel(new StackModel("stack"));
 		this.addUniqueModel(new CardModel("cards"));
 		this.addUniqueModel(new LearnModel("learn"));
 		this.addUniqueModel(new ProfilModel("profil"));
@@ -42,7 +42,7 @@ public class MainController extends Controller
 		this.addUniqueView(new OptionsView("optionsview", this));
 		this.addViewOnNewStage(new HelpView("helpview", new HelpController())); // on new stage
 		this.addUniqueView(new GameView("gameview", this));
-		this.addUniqueView(new BoxView("boxview", this));
+		this.addUniqueView(new StackView("stack", this));
 		this.addUniqueView(new QuizletImportView("quizlet", this));
 		this.addUniqueView(new SimpleEditorView("simpleeditorview", this));
 		this.addUniqueView(new EditorView1("editorview", this));

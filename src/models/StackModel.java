@@ -5,9 +5,9 @@ import java.util.ArrayList;
 import mvc.Model;
 
 
-public class BoxModel extends Model
+public class StackModel extends Model
 {
-	public BoxModel (String myName)
+	public StackModel (String myName)
 	{
 		super(myName);
 	}

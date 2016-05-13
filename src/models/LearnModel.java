@@ -28,24 +28,25 @@ public class LearnModel extends Model {
 		int KartenPunkt = 0;
 
 		if (functionName.equals("Richtig")) {
-			Bewertungsklasse.CardCorrect(freeStringParam, KartenPunkt);
-
+			KartenPunkt = Bewertungsklasse.CardCorrect(freeStringParam, KartenPunkt);
+			refreshViews();
 			if (KartenPunkt != 1) {
+				
 				return 1;
 			} else {
 				return -1;
 			}
 		}
-
-		if (functionName.equals("Falsch")) {
-			Bewertungsklasse.CardFalse(freeStringParam, KartenPunkt);
+		else if (functionName.equals("Falsch")) {
+			KartenPunkt =  Bewertungsklasse.CardFalse(freeStringParam, KartenPunkt);
+			refreshViews();
 			if (KartenPunkt == 1) {
+				
 				return 2;
 			} else {
 				return -2;
 			}
 		}
-
 		else {
 			return 0; // no error
 		}
@@ -71,6 +72,4 @@ public class LearnModel extends Model {
 
 		return memoList;
 	}
-
-	// TODO implement doAction & getDataList
 }

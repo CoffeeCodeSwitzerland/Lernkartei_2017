@@ -45,13 +45,13 @@ public class LearnView extends FXViewModel
 		successfulBtn.setOnAction(e ->
 		{
 			counter++;
-			refreshView(); // TODO move to model
+			getController().getModel("learn").doAction("Richtig", cardData[0]);
 		}); 
 		
 		wrongBtn.setOnAction(e ->
 		{
 			counter++;
-			refreshView(); // TODO move to model
+			getController().getModel("learn").doAction("Falsch", cardData[0]);
 		});
 		
 		card.setMinWidth(160);
@@ -81,6 +81,7 @@ public class LearnView extends FXViewModel
 		mainLayout.setCenter(card);
 		mainLayout.setBottom(controlLayout);
 		
+		getController().getModel("learn").registerView(this);
 		return mainLayout;
 	}
 

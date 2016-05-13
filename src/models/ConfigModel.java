@@ -24,7 +24,10 @@ public class ConfigModel extends Model {
 	@Override
 	public ArrayList<String> getDataList (String query) {
 		
-		return null;
+		ArrayList<String> values = new ArrayList<String>();
+		values.add(database.Config.getValue(query));
+		
+		return values;
 		
 	}
 	

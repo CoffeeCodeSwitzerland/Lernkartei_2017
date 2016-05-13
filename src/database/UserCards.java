@@ -19,7 +19,7 @@ public class UserCards {
 	// URL und Driver
 
 	private static String	url			= "jdbc:sqlite:" +  debug.Environment.getDatabasePath()
-	 									 + debug.Environment.getUserName() + ".db";
+	 									 + controls.Globals.db_name + ".db";
 	private static String	driver		= "org.sqlite.JDBC";
 	
 	public UserCards () {

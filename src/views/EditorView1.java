@@ -76,45 +76,23 @@ public class EditorView1 extends FXViewModel
 		{
 			headLbl.setText(data + " - " + getController().getView("boxview").getData());
 
-			ArrayList<String> cardStrings = getController().getModel("cards").getDataList(data);
-			ArrayList<HBox> cards = new ArrayList<>();
-			debug.Debugger.out("" + cardStrings.size());
-			for (String s : cardStrings)
-			{
-				String[] cardSides = s.split(Globals.SEPARATOR);
-				TextField front = new TextField(cardSides[1]);
-				TextField back = new TextField(cardSides[2]);
-				
-				front.setText(data);
-				back.setText(data);
-				
-				//Update Button
-				update.setOnAction(e ->
-				{
-					if (back.getText() != null && !back.getText().equals("") && front.getText() != null
-							&& !front.getText().equals(""))
-					{
-						System.out.println(cardSides[0]);
-						getController().getModel("cards").doAction("edit", cardSides[0] + Globals.SEPARATOR
-								+ front.getText() + Globals.SEPARATOR + back.getText());}
-				});
-				
-				HBox v = new HBox(8);
-				v.setAlignment(Pos.CENTER);
-				v.getChildren().addAll(front, back);
-				cards.add(v);
-			}
-
 			TextField front = new TextField();
 			TextField back = new TextField();
+			Button update = new Button("\u2713");		
+			
+			front.setText(data);
+			back.setText(data);
+			
+			update.setOnAction(e -> {
+				//UPDATE
+			});	
+			
+			HBox newL = new HBox(8);
+			newL.setAlignment(Pos.CENTER);
+			newL.getChildren().addAll(front, back, update);
 
-			HBox v = new HBox(8);
-
-			v.setAlignment(Pos.CENTER);
-			v.getChildren().addAll(front, back);
-			cards.add(v);
-
-			editLayout.getChildren().addAll(cards);
+			editLayout.getChildren().addAll(newL);
+			
 		}
 		
 	}

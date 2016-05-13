@@ -22,7 +22,7 @@ public class Config {
 	 *            --> Der absolute Wert welcher gesetzt wird
 	 */
 
-	public static void newEntry (String key, String value) {
+	public static void setValue (String key, String value) {
 
 		// Verbindung und Aktionen mit der Datenbank
 

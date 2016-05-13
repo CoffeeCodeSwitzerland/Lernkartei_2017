@@ -293,6 +293,7 @@ public class Categories {
 			ID = Integer.parseInt(StackSet.getString(StackSet.getInt(1)));
 			
 		} catch (Exception e) {
+			ID = 0;
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
 			System.exit(0);
 		}

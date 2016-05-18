@@ -32,9 +32,6 @@ public class PreLearnView extends FXViewModel
 	@Override
 	public Parent constructContainer ()
 	{
-		// Reset the data of the learn model which forces the model to shuffle again
-		getController().getModel("learn").getDataList(null).clear();
-		getController().getModel("learn").setString(null);
 		mainLayout.setPadding(new Insets(50));
 		return mainLayout;
 	}
@@ -42,6 +39,10 @@ public class PreLearnView extends FXViewModel
 	@Override
 	public void refreshView ()
 	{
+		// Reset the data of the learn model which forces the model to shuffle again
+		getController().getModel("learn").getDataList(null).clear();
+		getController().getModel("learn").setString(null);
+		
 		if (getData() == null || getData().equals(""))
 		{
 			Debugger.out("PreLearnView has no Stack Data");

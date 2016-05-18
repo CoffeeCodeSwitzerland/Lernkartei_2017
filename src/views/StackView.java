@@ -27,190 +27,193 @@ import mvc.fx.FXViewModel;
  */
 public class StackView extends FXViewModel
 {
- public StackView(String newName, FXController newController) {
-  // this constructor is the same for all view's
-  super(newName, newController);
-  construct();
- }
+	public StackView (String newName, FXController newController)
+	{
+		// this constructor is the same for all view's
+		super(newName, newController);
+		construct();
+	}
 
- VBox boxLayout;
- VBox options;
+	VBox	boxLayout;
+	VBox	options;
 
- @Override
- public Parent constructContainer() {
-  // Layouts für dynamische Inhalte
-  boxLayout = new VBox(20);
-  boxLayout.setAlignment(Pos.CENTER);
-  
-  options = new VBox(20);
-  options.setAlignment(Pos.CENTER);
-  options.setMinWidth(200);
-  
-  VBox placeholder = new VBox();
-  placeholder.setMinWidth(200);
-  
-  // Buttons
-  AppButton backBtn = new AppButton("_Zurück");
-  AppButton newBoxBtn = new AppButton("_Neue Box");
+	@Override
+	public Parent constructContainer ()
+	{
+		// Layouts für dynamische Inhalte
+		boxLayout = new VBox(20);
+		boxLayout.setAlignment(Pos.CENTER);
 
-  Image trashImg = new Image("views/pictures/Papierkorb.png");
-  ImageView trashImgView = new ImageView(trashImg);
+		options = new VBox(20);
+		options.setAlignment(Pos.CENTER);
+		options.setMinWidth(200);
 
-  // Layout für Controls
-  HBox hBox = new HBox(20);
-  hBox.setAlignment(Pos.CENTER);
-  hBox.getChildren().addAll(backBtn, newBoxBtn, trashImgView);
+		VBox placeholder = new VBox();
+		placeholder.setMinWidth(200);
 
-  // Layout für die Scene
-  BorderPane borderPane = new BorderPane();
-  borderPane.setPadding(new Insets(15));
+		// Buttons
+		AppButton backBtn = new AppButton("_Zurück");
+		AppButton newBoxBtn = new AppButton("_Neue Box");
 
-  borderPane.setCenter(boxLayout);
-  borderPane.setLeft(options);
-  borderPane.setRight(placeholder);
-  borderPane.setBottom(hBox);
+		Image trashImg = new Image("views/pictures/Papierkorb.png");
+		ImageView trashImgView = new ImageView(trashImg);
 
-  // Behaviour
-  backBtn.setOnAction(e -> getController().getView("doorview").show());
+		// Layout für Controls
+		HBox hBox = new HBox(20);
+		hBox.setAlignment(Pos.CENTER);
+		hBox.getChildren().addAll(backBtn, newBoxBtn, trashImgView);
 
-  newBoxBtn.setOnAction(e ->
-  {
-   final int choice = Alert.complexChoiceBox("Neue Box", "Was für eine Box willst du erstellen?", "Leere _Box", "_Quizlet");
-   
-   switch (choice)
-   {
-    case 0:
-     final String boxName = Alert.simpleString("Neue Box", "Wie soll die neue Box heissen?");
-     if (this.getName() != null && !boxName.equals(""))
-     {
-      getController().getModel("stack").doAction("new",
-        getData() + controls.Globals.SEPARATOR + boxName);
-      // TODO Feedback für den User (Fehlermeldungen)
-     }
-     break;
-    case 1:
-     getController().getView("quizlet").setData(getData());
-     getController().getView("quizlet").show();
-     break;
-    default:
-     
-     break;
-   }
-   
-   
-  });
+		// Layout für die Scene
+		BorderPane borderPane = new BorderPane();
+		borderPane.setPadding(new Insets(15));
 
-  trashImgView.setOnDragOver(e ->
-  {
-   if (e.getGestureSource() != trashImgView && e.getDragboard().hasString())
-   {
-    e.acceptTransferModes(TransferMode.COPY_OR_MOVE);
-   }
+		borderPane.setCenter(boxLayout);
+		borderPane.setLeft(options);
+		borderPane.setRight(placeholder);
+		borderPane.setBottom(hBox);
 
-   e.consume();
-  });
+		// Behaviour
+		backBtn.setOnAction(e -> getController().getView("doorview").show());
 
-  trashImgView.setOnDragDropped(event ->
-  {
-   Dragboard db = event.getDragboard();
-   boolean success = false;
-   if (db.hasString())
-   {
-    if (Alert.ok("Achtung", "Willst du die Box '" + db.getString() + "' wirklich löschen?"))
-    {
-     getController().getModel("stack").doAction("delete", db.getString()); 
-     // TODO Feedback für den User (Fehlermeldungen)
-     if (options.getChildren().get(0).getTypeSelector().equals("Label"))
-     {
-      Label temp = (Label) options.getChildren().get(0);
-      if (temp.getText().equals(db.getString()))
-       options.getChildren().clear();
-     }
-    }
-    success = true;
-   }
+		newBoxBtn.setOnAction(e ->
+		{
+			final int choice = Alert.complexChoiceBox("Neue Box", "Was für eine Box willst du erstellen?", "Leere _Box",
+					"_Quizlet");
 
-   event.setDropCompleted(success);
-   event.consume();
-  });
-  getController().getModel("stack").registerView(this);
-  return borderPane;
- }
+			switch (choice)
+			{
+				case 0:
+					final String boxName = Alert.simpleString("Neue Box", "Wie soll die neue Box heissen?");
+					if (this.getName() != null && !boxName.equals(""))
+					{
+						getController().getModel("stack").doAction("new",
+								getData() + controls.Globals.SEPARATOR + boxName);
+						// TODO Feedback für den User (Fehlermeldungen)
+					}
+					break;
+				case 1:
+					getController().getView("quizlet").setData(getData());
+					getController().getView("quizlet").show();
+					break;
+				default:
 
- @Override
- public void refreshView ()
- {
-  boxLayout.getChildren().clear();
-  options.getChildren().clear();
+					break;
+			}
 
-  String localdata = getData();
+		});
 
-  if (localdata != null)
-  {
-   ArrayList<String> setData = getController().getModel("stack").getDataList(localdata);
-   ArrayList<AppButton> sets = new ArrayList<AppButton>();
+		trashImgView.setOnDragOver(e ->
+		{
+			if (e.getGestureSource() != trashImgView && e.getDragboard().hasString())
+			{
+				e.acceptTransferModes(TransferMode.COPY_OR_MOVE);
+			}
 
-   for (String s : setData)
-   {
-    AppButton a = new AppButton(s);
+			e.consume();
+		});
 
-    sets.add(a);
-   }
+		trashImgView.setOnDragDropped(event ->
+		{
+			Dragboard db = event.getDragboard();
+			boolean success = false;
+			if (db.hasString())
+			{
+				if (Alert.ok("Achtung", "Willst du die Box '" + db.getString() + "' wirklich löschen?"))
+				{
+					getController().getModel("stack").doAction("delete", db.getString());
+					// TODO Feedback für den User (Fehlermeldungen)
+					if (options.getChildren().get(0).getTypeSelector().equals("Label"))
+					{
+						Label temp = (Label) options.getChildren().get(0);
+						if (temp.getText().equals(db.getString()))
+							options.getChildren().clear();
+					}
+				}
+				success = true;
+			}
 
-   for (AppButton a : sets)
-   {
-    a.setId("BoxButtons");
-    a.setOnAction(e ->
+			event.setDropCompleted(success);
+			event.consume();
+		});
+		getController().getModel("stack").registerView(this);
+		return borderPane;
+	}
 
-{
-     setOptions(a.getText());
-    });
-    a.setOnDragDetected(e ->
-    {
+	@Override
+	public void refreshView ()
+	{
+		boxLayout.getChildren().clear();
+		options.getChildren().clear();
 
-     Dragboard db = a.startDragAndDrop(TransferMode.MOVE);
+		String localdata = getData();
 
-     ClipboardContent content = new ClipboardContent();
-     content.putString(a.getText());
-     db.setContent(content);
+		if (localdata != null)
+		{
+			ArrayList<String> setData = getController().getModel("stack").getDataList(localdata);
+			ArrayList<AppButton> sets = new ArrayList<AppButton>();
 
-     e.consume();
-    });
-    a.setOnDragDone(event ->
-    {
-     if (event.getTransferMode() == TransferMode.MOVE)
-     {
-      sets.remove(a);
-     }
-     event.consume();
-    });
-   }
+			for (String s : setData)
+			{
+				AppButton a = new AppButton(s);
+				a.setMinWidth(a.getText().length() * 6 + 150);
+				sets.add(a);
+			}
 
-   boxLayout.getChildren().addAll(sets);
-  }
- }
+			for (AppButton a : sets)
+			{
+				a.setId("BoxButtons");
+				a.setOnAction(e ->
 
- private void setOptions (String set)
- {
-  options.getChildren().clear();
+				{
+					setOptions(a.getText());
+				});
+				a.setOnDragDetected(e ->
+				{
 
-  Label setTitle = new Label(set);
-  AppButton lernen = new AppButton("_Lernen");
-  AppButton edit = new AppButton("B_earbeiten");
+					Dragboard db = a.startDragAndDrop(TransferMode.MOVE);
 
-  setTitle.setId("bold");
-  lernen.setOnAction(e ->
-  {
-   PreLearnView v = (PreLearnView) getController().getView("prelearn");
-   v.setData(set);
-   v.show();
-  });
-  edit.setOnAction(e -> {
-   View v = getController().getView("simpleeditorview");
-   v.setData(set);
-   v.show();
-  });
+					ClipboardContent content = new ClipboardContent();
+					content.putString(a.getText());
+					db.setContent(content);
 
-  options.getChildren().addAll(setTitle, lernen, edit);
- }
+					e.consume();
+				});
+				a.setOnDragDone(event ->
+				{
+					if (event.getTransferMode() == TransferMode.MOVE)
+					{
+						sets.remove(a);
+					}
+					event.consume();
+				});
+			}
+
+			boxLayout.getChildren().addAll(sets);
+		}
+	}
+
+	private void setOptions (String set)
+	{
+		options.getChildren().clear();
+
+		Label setTitle = new Label(set);
+		AppButton lernen = new AppButton("_Lernen");
+		AppButton edit = new AppButton("B_earbeiten");
+
+		setTitle.setId("bold");
+		lernen.setOnAction(e ->
+		{
+			PreLearnView v = (PreLearnView) getController().getView("prelearn");
+			v.setData(set);
+			v.show();
+		});
+		edit.setOnAction(e ->
+		{
+			View v = getController().getView("simpleeditorview");
+			v.setData(set);
+			v.show();
+		});
+
+		options.getChildren().addAll(setTitle, lernen, edit);
+	}
 }

@@ -19,7 +19,7 @@ public class FXStage extends Stage {
 	private double OPTIMAL_WIDTH  = 920;
 	private double OPTIMAL_HEIGHT = 570;
 	private Color preferredBackroundColor = new Color(1.0,1.0,1.0,0.5); 
-	private static String stylePath = "style.css";
+	private static String stylePath = "styles\\style.css";
 
 	public FXStage (Stage refToPrimaryStage) {
 		primaryStage = refToPrimaryStage;

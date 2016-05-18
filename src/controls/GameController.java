@@ -1,15 +1,10 @@
 package controls;
 
-import javafx.stage.Stage;
-import mvc.Controller;
+import mvc.fx.FXController;
 import views.GameView;
-import views.HelpViewSettings;
 
-public class GameController extends Controller {
-	public GameController() {
-		super(new Stage(), new HelpViewSettings());
-	}
-
+public class GameController extends FXController {
+	
 	@Override
 	public void initMyModels() {
 		// no Models for Help
@@ -20,5 +15,11 @@ public class GameController extends Controller {
 		// add only new view's, the helpview is added automaticly as mainView
 		this.addUniqueView(new GameView("gameoptionview", this));
 
+	}
+
+	@Override
+	public void startApp() {
+		// TODO Auto-generated method stub
+		
 	}
 }

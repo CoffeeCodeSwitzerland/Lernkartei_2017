@@ -1,6 +1,6 @@
 package mvc.fx;
 
-import mvc.Controller;
+import mvc.DataModel;
 import mvc.Model;
 
 /**
@@ -12,13 +12,13 @@ public abstract class FXViewModel extends FXView
 {
 	private Model myModel = null;
 
-	public FXViewModel(String setName, Controller controller) {
-		super(setName, controller);
+	public FXViewModel(String setName, FXController newController) {
+		super(setName,newController);
 		myModel = new Model(setName);
 		myModel.registerView(this);
 	}
 
-	public Model getMyModel() {
+	public DataModel getMyModel() {
 		if (myModel == null) myModel = new Model(getName());
 		return myModel;
 	}

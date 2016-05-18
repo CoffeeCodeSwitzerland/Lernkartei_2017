@@ -4,24 +4,31 @@ import java.net.URL;
 
 import debug.Debugger;
 import debug.Logger;
+import debug.Supervisor;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import mvc.Controller;
 import mvc.View;
-
+/**
+ * Abstract GUI-Toolkit independent FX-View
+ * ========================================
+ * - extends the controller features
+ * 
+ * @author  hugo-lucca
+ * @version 2016
+ * License: LGPL
+ */
 /**
  * Diese Klasse ist des Basis Codegerüst für die Umsetzung der GUI-View's in diesem MVC Konzept.
  * View's müssen sich beim Modell registrieren, wenn sie bei Änderungen im Modell automatisch 
  * ge-refresht werden wollen.
- * 
- * @author hugo-lucca
  */
 public abstract class FXView extends View
 {
 	private Scene scene;
 	private final BorderPane mainLayout = new BorderPane();
+	private FXController myFXController;
 	
 	public void construct () {
 		// call this to construct the view
@@ -33,14 +40,26 @@ public abstract class FXView extends View
 		setupScene(p);
 	}
 
-	public FXView(String newName, Controller newController) {
+	public FXView(String newName, FXController newController) {
 		// this constructor is the same for all view's on same stage
-		super(newName, newController);
+		super(newName);
+		myFXController = newController;
 		scene = null;
+	}
+
+	public FXController getFXController() {
+		if (myFXController != null) return myFXController;
+		Supervisor.warnAndDebug(this, "FXView.getFXController(): no FXController defined for this stage!");
+		return null;
+	}
+	
+	public FXController getController() {
+		
+		return getFXController();
 	}
 	
 	public Stage getWindow () {
-		return getController().getTheFXSettings().getPrimaryStage();
+		return this.getFXController().getMyFXStage().getStage();
 	}
 	
 	public void show()
@@ -64,12 +83,12 @@ public abstract class FXView extends View
 	
 	public void setupScene(Parent p) {
 		
-		Double width = getController().getTheFXSettings().getOPTIMAL_WIDTH();
-		Double height = getController().getTheFXSettings().getOPTIMAL_HEIGHT();
+		Double width = getFXController().getMyFXStage().getOPTIMAL_WIDTH();
+		Double height = getFXController().getMyFXStage().getOPTIMAL_HEIGHT();
 		this.scene = new Scene(p, width, height);
 		// TODO: add Color settings to scene
 		
-		String stylePath = getController().getTheFXSettings().getStylePath();		
+		String stylePath = getFXController().getMyFXStage().getStylePath();		
 		URL url = this.getClass().getResource(stylePath);
 		if (url != null) {
 			String urlstr = url.toExternalForm();

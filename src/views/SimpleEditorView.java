@@ -13,7 +13,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import mvc.Controller;
+import mvc.fx.FXController;
 import mvc.fx.FXViewModel;
 
 
@@ -21,7 +21,7 @@ public class SimpleEditorView extends FXViewModel
 {
 	// ArrayList<VBox> cards;
 
-	public SimpleEditorView (String newName, Controller newController)
+	public SimpleEditorView (String newName, FXController newController)
 	{
 		// this constructor is the same for all view's
 		super(newName, newController);

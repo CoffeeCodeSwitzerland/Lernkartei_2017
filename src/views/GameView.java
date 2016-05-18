@@ -9,7 +9,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import mvc.Controller;
+import mvc.fx.FXController;
 import mvc.fx.FXView;
 
 /**
@@ -21,7 +21,8 @@ import mvc.fx.FXView;
  *
  */
 public class GameView extends FXView {
-	public GameView(String newName, Controller newController) {
+	
+	public GameView(String newName, FXController newController) {
 		// this constructor is the same for all view's
 		super(newName, newController);
 		construct();

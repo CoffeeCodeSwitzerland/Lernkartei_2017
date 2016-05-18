@@ -14,7 +14,7 @@ import javafx.scene.chart.XYChart.Series;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import mvc.Controller;
+import mvc.fx.FXController;
 import mvc.fx.FXView;
 /**
  * Diese Klasse soll die gleiche Funktionalität wie StatisticsView haben und diese dann auch ersetzen
@@ -26,7 +26,7 @@ import mvc.fx.FXView;
 
 public class StatsView extends FXView
 {	
-	public StatsView(String newName, Controller newController) {
+	public StatsView(String newName, FXController newController) {
 		// this constructor is the same for all view's
 		super(newName, newController);
 		construct();
@@ -86,8 +86,14 @@ public class StatsView extends FXView
 		xAchse.setLabel("Kartei");
 		yAchse.setLabel("Ergebnis(%)");
 		
+		System.out.println("StatsView 1");
 		Karteien = getController().getModel("profil").getDataList("karteien");
+		System.out.println("StatsView 2");
 		Punkte = getController().getModel("profil").getDataList("punkte");
+		System.out.println("StatsView 3");
+		
+		System.out.println("StatsView Kartei 1: " + Karteien.get(0));
+		System.out.println("StatsView Punkte 1: " + Punkte.get(0));
 		
 		for (int i = 0; i < Karteien.size(); i++)
 		{
@@ -95,13 +101,20 @@ public class StatsView extends FXView
 			serie.getData().add(new XYChart.Data(Karteien.get(i), tempPunkte));
 		}
 		
-		Ranks.setItems( getController().getFXModel("profil").getObservableDataList("ranking"));
+		/*System.out.println("StatsView 4");
+		
+		Ranks.setItems(getController().getFXModel("profil").getObservableDataList("ranking"));
+		
+		System.out.println("StatsView 5");
+		
 		Rankings.getChildren().addAll(Ranks);
+		
+		System.out.println("StatsView 6");*/
 		
 		bc.getData().addAll(serie);
 		Diagram.getChildren().addAll(bc);
 		} catch (Exception e) {
-			Debugger.out(e.getMessage());
+			Debugger.out("StatsView Exception: " + e.getMessage());
 		}
 	}
 	

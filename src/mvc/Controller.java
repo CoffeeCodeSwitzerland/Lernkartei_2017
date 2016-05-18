@@ -5,103 +5,141 @@ import java.util.Iterator;
 
 import debug.Debugger;
 import debug.Supervisor;
-import javafx.stage.Stage;
-import mvc.fx.FXModel;
-import mvc.fx.FXSettings;
 /**
- * Diese Klasse ist des Basis Codegerüst für die Kontrolle View's und Model's.
- * Sie bietet die Naviagtion zum nächsten View an und die Suche nach einem bestimmten Modell.
+ * Abstract GUI-Toolkit independent Controller of my MVC concept
+ * =============================================================
+ * - allows navigation by name to a model of the stage of this controller 
+ * - allows navigation by name to a view of the stage of this controller
+ * - allows name-less navigation to the main-view of the stage of this controller
+ * - allows name-less navigation to the last shown view of the stage of this controller
  * 
- * @author hugo-lucca
+ * @author  hugo-lucca
+ * @version 2016
+ * License: LGPL
  */
-public class Controller implements ControllerInterface
+public abstract class Controller implements ControllerInterface
 {
 	private final ArrayList<View> views	= new ArrayList<View>();
 	private final ArrayList<Model> models = new ArrayList<Model>();
 	private String mainViewName;
-	private FXSettings theFXSettings;
+	// Navigate to last view:
+	private View lastView = null;
+	private View thisView = null;
 	
 	public Controller ()
 	{
-		this(new Stage(), new FXSettings());
-	}
-
-	public Controller (Stage primaryStage, FXSettings newFXSettings)
-	{
-		setMainViewName("mainview");
-		this.theFXSettings = newFXSettings;
-		if (this.theFXSettings == null) {
-			theFXSettings = new FXSettings();
-		}
-		if (primaryStage == null) {
-			primaryStage = new Stage();
-		}
-		getTheFXSettings().setPrimaryStage(primaryStage);
-		start();
+		this.mainViewName = "mainview"; // default name, to avoid knowing that name
 	}
 	
-	public void start() {
-		initMyModels(); 
+	/**
+	 * start application using a predefined chronological order
+	 * 
+	 * !!! Must be invoked by the extending class at the end of his constructor!!!
+	 */
+	protected void start() {
+		initMyModels(); // do first
 		initMyViews();
-		startApp();
+		startApp(); // do last
 	}
 
-	public FXModel getFXModel (String name)
+	/**
+	 * To communicate with any application model
+	 * seek the model by that name
+	 * used in application view classes to address a specific model of
+	 * a specific controller 
+	 */
+	public Model getModel (String withName)
 	{
-		// TODO assert the model is a FXModel
-		return (FXModel) getModel(name);
-	}
-
-	public Model getModel (String name)
-	{
-		for (Model m : getModels())
+		for (Model m : models)
 		{
-			if (m.getName().equals(name)) { return m; }
+			if (m.getName().equals(withName)) { return m; }
 		}
 
-		if (name != null)
-			Supervisor.warnAndDebug(this, "model(" + name + ") not found!");
+		if (withName != null)
+			Supervisor.warnAndDebug(this, "model(" + withName + ") not found!");
 		else
 			Supervisor.warnAndDebug(this, "model(null) not allowed!");
 
 		return null; // not found
 	}
 
+	/**
+	 * To navigate to first shown view on this stage (without need of name)
+	 * switch to the main view (scene) to the front of the window (stage)
+	 */
 	public void showMainView ()
 	{
-		showView(getMainViewName());
+		showView(mainViewName);
 	}
 
-	public void showView (String name)
+	/**
+	 * To navigate back to last shown view (without need of name)
+	 * switch to the last view (scene) in history
+	 */
+	public void showLastView ()
 	{
-		if (name != null) {
-			View v = getView(name);
+		if (lastView == null) {
+			showMainView(); // switch to main view if no such view
+		} else {
+			lastView.show();
+		}
+	}
+
+	/**
+	 * To navigate to next view:
+	 * seek and show (switch to) the view with that name
+	 */
+	public void showView (String withName)
+	{
+		if (withName != null) {
+			View v = seekView(withName);
 			if (v!=null) {
+				lastView=thisView; // build show history (depth 2)
+				thisView=v;
 				v.show();
 			} else {
-				Debugger.out("Controller.showView(): no view("+name+")!");
+				Debugger.out("Controller.showView(): no view("+withName+")!");
 			}
 		}
 	}
 
-	public View getView (String name)
+	/**
+	 * Class internal only: To seek a view with his name.
+	 * Do not make it public, if you want to be sure
+	 * that last-view remains valid! 
+	 * In the most cases a view, does no need to know details about another view.
+	 * If necessary, solve this through the models.
+	 * If you want to use modal-Views, you do not need to know the view, but
+	 * just invoke the public showView(name) method.
+	 */
+	private View seekView (String withName)
 	{
-		for (View v : getViews())
+		for (View v : views)
 		{
-			if (v.getName().equals(name))
+			if (v.getName().equals(withName))
 			{
 				return v;
 			}
 		}
-		if (name != null)
-			Supervisor.warnAndDebug(this, "show("+name+") not found!");
+		if (withName != null)
+			Supervisor.warnAndDebug(this, "show("+withName+") not found!");
 		else
 			Supervisor.warnAndDebug(this, "show(null) not allowed!");
 		return null; // not found
 	}
 
+	// TODO diese Funktion muss weg = tempräre Lösung 
+	public View getView (String withName)
+	{
+		return seekView(withName); // not found
+	}
+
+	/**
+	 * To insert a Model with a unique name in the controllers models list
+	 * add a new model to the model list and assert his name is unique
+	 */
 	public boolean addUniqueModel (Model newModel) {
-		Iterator<Model> it = getModels().iterator();
+		Iterator<Model> it = models.iterator();
 		int found = 0;
 		while (it.hasNext()) {
 			Model m = it.next();
@@ -110,7 +148,7 @@ public class Controller implements ControllerInterface
 			}
 		}
 		if (found == 0) {
-			getModels().add(newModel);
+			models.add(newModel);
 			return true;
 		} else {
 			Debugger.out("AddUniqueModel: the model '"+newModel.getName()+"' alread exists!");
@@ -118,8 +156,12 @@ public class Controller implements ControllerInterface
 		return false;
 	}
 
+	/**
+	 * To insert a View with a unique name in the controllers views list
+	 * add a new view to the view list and assert his name is unique
+	 */
 	public boolean addUniqueView (View newView) {
-		Iterator<View> it = getViews().iterator();
+		Iterator<View> it = views.iterator();
 		int found = 0;
 		while (it.hasNext()) {
 			View v = it.next();
@@ -128,7 +170,7 @@ public class Controller implements ControllerInterface
 			}
 		}
 		if (found == 0) {
-			getViews().add(newView);
+			views.add(newView);
 			return true;
 		} else {
 			Debugger.out("AddUniqueView: the view '"+newView.getName()+"' alread exists!");
@@ -136,54 +178,21 @@ public class Controller implements ControllerInterface
 		return false;
 	}
 
-	public boolean addViewOnNewStage (View newView) {		
-		this.addUniqueView(newView);
-		
-		newView.getController().addUniqueView(newView);
-		newView.getController().setMainViewName(newView.getName());
-		
-		return true;
+	/**
+	 * To insert a main-View with a unique name in the new controllers views list
+	 * adds additionally a new main-View name
+	 */
+	public void addUniqueMainView(View mainView) {
+		this.addUniqueView(mainView);
+		this.mainViewName = mainView.getName();
 	}
 
-	public ArrayList<View> getViews() {
-		return views;
-	}
-
-	protected ArrayList<Model> getModels() {
-		return models;
-	}
-
-	public void setMainViewName(String mainView) {
-		this.mainViewName = mainView;
-	}
-
-	public String getMainViewName() {
+	/**
+	 * To allow access from extended classes that needs the mainViewName.
+	 * May be used in extending classes.
+	 * Getters and Setters
+	 */
+	protected String getMainViewName() {
 		return mainViewName;
-	}
-
-	public FXSettings getTheFXSettings() {
-		return theFXSettings;
-	}
-
-	public void setTheFXSettings(FXSettings theFXSettings) {
-		this.theFXSettings = theFXSettings;
-	}
-
-	@Override
-	public void initMyModels() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void initMyViews() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void startApp() {
-		// TODO Auto-generated method stub
-		
 	}
 }

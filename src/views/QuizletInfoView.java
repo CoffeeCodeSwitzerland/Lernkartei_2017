@@ -7,12 +7,12 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import mvc.Controller;
+import mvc.fx.FXController;
 import mvc.fx.FXView;
 
 public class QuizletInfoView extends FXView
 {
-	public QuizletInfoView(String newName, Controller newController) {
+	public QuizletInfoView(String newName, FXController newController) {
 		// this constructor is the same for all view's
 		super(newName, newController);
 		construct();
@@ -26,14 +26,14 @@ public class QuizletInfoView extends FXView
 		
 		
 		//Labels (für die Infotexte)
-		Label labelTitel = new Label("Impressum");
-		Label labelText = new Label("Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. \n \n Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. \n \n Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet., no sea takimata sanctus est Lorem ipsum dolor sit amet., no sea takimata sanctus est Lorem ipsum dolor sit amet., no sea takimata sanctus est Lorem ipsum dolor sit amet., no sea takimata sanctus est Lorem ipsum dolor sit amet., no sea takimata sanctus est Lorem ipsum dolor sit amet., no sea takimata sanctus est Lorem ipsum dolor sit amet., no sea takimata sanctus est Lorem ipsum dolor sit amet., no sea takimata sanctus est Lorem ipsum dolor sit amet., no sea takimata sanctus est Lorem ipsum dolor sit amet , no sea takimata sanctus est Lorem ipsum dolor sit amet. no sea takimata sanctus est Lorem ipsum dolor sit amet. no sea takimata sanctus est Lorem ipsum dolor sit amet. no sea takimata sanctus est Lorem ipsum dolor sit amet. no sea takimata sanctus est Lorem ipsum dolor sit amet.");
+		Label labelTitel = new Label("Quizlet Info");
+		Label labelText = new Label("Bla bla bla...");
 		labelText.setWrapText(true);
 
 		labelTitel.setId("impressumtext");
 		labelText.setId("impressumtext");
 
-		Double size = getController().getTheFXSettings().getOPTIMAL_WIDTH()*.95;
+		Double size = getController().getMyFXStage().getOPTIMAL_WIDTH()*.95;
 		size += 10;
 		labelText.setPrefWidth(size);
 		labelTitel.setPrefWidth(size);

@@ -5,7 +5,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
-import mvc.Controller;
+import mvc.fx.FXController;
 import mvc.fx.FXViewModel;
 
 /**
@@ -16,7 +16,7 @@ import mvc.fx.FXViewModel;
 public class PreLearnView extends FXViewModel
 {
 
-	public PreLearnView (String setName, Controller controller)
+	public PreLearnView (String setName, FXController controller)
 	{
 		super(setName, controller);
 		construct();

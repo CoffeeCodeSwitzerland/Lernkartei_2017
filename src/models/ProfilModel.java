@@ -3,7 +3,6 @@ package models;
 import java.util.ArrayList;
 
 import controls.Globals;
-import database.Score;
 import database.UserCards;
 import javafx.collections.ObservableList;
 import mvc.fx.FXModel;
@@ -65,8 +64,10 @@ public class ProfilModel extends FXModel
 	
 	public ObservableList<String> getObservableDataList(String query) {
 		if (query.equals("ranking")) {
+			System.out.println("ProfilModel Ranking 1");
 			return p.getRanking();
 		} else {
+			System.out.println("ProfilModel Ranking 2");
 			return super.getObservableDataList(query);
 		}
 	}

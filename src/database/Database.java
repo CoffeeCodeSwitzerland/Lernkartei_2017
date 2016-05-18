@@ -428,8 +428,6 @@ public class Database {
 				
 			}
 
-			debug.Debugger.out("Max:" + maxPoints + "\nErreicht:" + reachedPoints);
-
 			stmt.close();
 			c.close();
 
@@ -443,6 +441,9 @@ public class Database {
 
 		score[0] = maxPoints;
 		score[1] = reachedPoints;
+		
+		System.out.println(score[0]);
+		System.out.println(score[1]);
 
 		return score;
 

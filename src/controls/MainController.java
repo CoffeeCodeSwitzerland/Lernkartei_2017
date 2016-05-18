@@ -10,6 +10,7 @@ import models.LearnModel;
 import models.ProfilModel;
 import models.QuizletModel;
 import models.StackModel;
+import models.StatisticsModel;
 import mvc.fx.FXController;
 import views.DoorView;
 import views.EditorView1;
@@ -53,6 +54,7 @@ public class MainController extends FXController
 		this.addUniqueModel(new ProfilModel("profil"));
 		this.addUniqueModel(new QuizletModel("quizlet"));
 		this.addUniqueModel(new ConfigModel("config"));
+		this.addUniqueModel(new StatisticsModel("statistics"));
 	}
 
 	@Override

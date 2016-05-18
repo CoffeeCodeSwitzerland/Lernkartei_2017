@@ -3,6 +3,7 @@ package views;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
@@ -39,7 +40,9 @@ public class GameView extends FXView {
 
 		AppButton btn = new AppButton("Spiel starten");
 		AppButton btnInfo = new AppButton("Info");
-		AppButton btnBacktoKartei = new AppButton("Zurück zur Lernkartei");
+		AppButton btnBacktoKartei = new AppButton("Zurück");
+		Label lifes = new Label("Lifes: " + database.Score.getLifecount());
+		Label grund = new Label("Sie müssen zuerst Lernen!");
 
 		BorderPane mainLayout = new BorderPane();
 		VBox menuLayout = new VBox();
@@ -49,20 +52,34 @@ public class GameView extends FXView {
 		btnInfo.setOnAction(e -> getController().getView("gameoptionview").show());
 
 		btnBacktoKartei.setOnAction(e -> getController().showMainView());
+		
+		lifes.setAlignment(Pos.TOP_RIGHT);
 
 		// Erstellt VBox Layout für beide obige Elemente:
 
 		menuLayout.setPadding(new Insets(10));
 		menuLayout.setSpacing(10);
 		menuLayout.setAlignment(Pos.CENTER);
-		menuLayout.getChildren().addAll(btn, btnInfo, btnBacktoKartei);
 
 		mainLayout.setPadding(new Insets(5));
 		mainLayout.setCenter(menuLayout);
 
 		ImageView impImgView = new ImageView(impressumImg);
 		mainLayout.setBottom(impImgView);
+		mainLayout.setTop(lifes);
 		impImgView.setOnMouseClicked(e -> getController().getView("impressumview").show());
+		
+		if(database.Score.getLifecount() == 0)
+		{
+			btn.setDisable(true);
+			menuLayout.getChildren().addAll(grund, btn,btnInfo, btnBacktoKartei);
+			
+		}
+		else
+		{
+
+			menuLayout.getChildren().addAll(btn, btnInfo, btnBacktoKartei);
+		}
 
 		return mainLayout;
 

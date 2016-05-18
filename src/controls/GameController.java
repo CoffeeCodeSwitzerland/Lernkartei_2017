@@ -19,6 +19,6 @@ public class GameController extends Controller {
 	public void initMyViews() {
 		// add only new view's, the helpview is added automaticly as mainView
 		this.addUniqueView(new GameView("gameoptionview", this));
-		
+
 	}
 }

@@ -46,7 +46,7 @@ public class GameView extends FXView {
 
 		btn.setOnAction(e -> getController().getModel("game").doAction("start"));
 
-		btnInfo.setOnAction(e -> getController().getView("gameoptionview"));
+		btnInfo.setOnAction(e -> getController().getView("gameoptionview").show());
 
 		btnBacktoKartei.setOnAction(e -> getController().showMainView());
 

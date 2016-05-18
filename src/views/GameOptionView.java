@@ -3,6 +3,8 @@ package views;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import mvc.Controller;
@@ -18,8 +20,10 @@ public class GameOptionView extends FXView {
 
 	@Override
 	public Parent constructContainer() {
+		
 
 		// Objekte
+		
 		AppButton BacktoGameMenu = new AppButton("Zurück");
 		Label Anleitung = new Label();
 		BorderPane mainLayout = new BorderPane();
@@ -35,6 +39,7 @@ public class GameOptionView extends FXView {
 		
 		Anleitung.setAlignment(Pos.TOP_CENTER);
 		mainLayout.setCenter(itemsLayout);
+	
 		return mainLayout;
 	}
 

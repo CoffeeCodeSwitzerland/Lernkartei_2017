@@ -1,9 +1,10 @@
-package mvc;
+package mvc.fx;
 
 import java.util.Iterator;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import mvc.Model;
 
 /**
  * Diese Klasse ist instanzierbar und für das ViewModel nutzbar.

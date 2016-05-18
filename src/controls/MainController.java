@@ -42,12 +42,13 @@ public class MainController extends Controller
 		this.addUniqueView(new DoorView("doorview", this));
 		this.addUniqueView(new OptionsView("optionsview", this));
 		this.addViewOnNewStage(new HelpView("helpview", new HelpController())); // on new stage
-		this.addUniqueView(new GameView("gameview", this));
 		this.addUniqueView(new GameOptionView("gameoptionview", this));
+		this.addUniqueView(new GameView("gameview", this));
 		this.addUniqueView(new StackView("stack", this));
 		this.addUniqueView(new QuizletImportView("quizlet", this));
 		this.addUniqueView(new SimpleEditorView("simpleeditorview", this));
 		this.addUniqueView(new EditorView1("editorview", this));
+		this.addUniqueView(new PreLearnView("prelearn", this));
 		this.addUniqueView(new LearnView("learnview", this));
 		this.addUniqueView(new ImpressumView("impressumview", this));
 		Logger.log("Instanzierung beendet....");

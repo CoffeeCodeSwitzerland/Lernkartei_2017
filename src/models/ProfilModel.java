@@ -6,7 +6,7 @@ import controls.Globals;
 import database.Score;
 import database.UserCards;
 import javafx.collections.ObservableList;
-import mvc.FXModel;
+import mvc.fx.FXModel;
 import user.Profil;
 import user.User;
 

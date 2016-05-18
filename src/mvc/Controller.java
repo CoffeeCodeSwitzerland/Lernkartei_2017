@@ -6,6 +6,8 @@ import java.util.Iterator;
 import debug.Debugger;
 import debug.Supervisor;
 import javafx.stage.Stage;
+import mvc.fx.FXModel;
+import mvc.fx.FXSettings;
 /**
  * Diese Klasse ist des Basis Codegerüst für die Kontrolle View's und Model's.
  * Sie bietet die Naviagtion zum nächsten View an und die Suche nach einem bestimmten Modell.

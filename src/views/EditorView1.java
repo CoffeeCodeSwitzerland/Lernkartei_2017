@@ -11,7 +11,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.web.HTMLEditor;
 import mvc.Controller;
-import mvc.FXViewModel;
+import mvc.fx.FXViewModel;
 
 public class EditorView1 extends FXViewModel
 {

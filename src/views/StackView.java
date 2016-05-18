@@ -2,7 +2,6 @@ package views;
 
 import java.util.ArrayList;
 
-import debug.Debugger;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
@@ -16,8 +15,8 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import mvc.Controller;
-import mvc.fx.FXViewModel;
 import mvc.View;
+import mvc.fx.FXViewModel;
 
 
 /**
@@ -202,9 +201,8 @@ public class StackView extends FXViewModel
   setTitle.setId("bold");
   lernen.setOnAction(e ->
   {
-   LearnView v = (LearnView) getController().getView("learnview");
+   PreLearnView v = (PreLearnView) getController().getView("prelearn");
    v.setData(set);
-   v.clearShuffle();
    v.show();
   });
   edit.setOnAction(e -> {

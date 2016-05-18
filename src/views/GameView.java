@@ -21,7 +21,7 @@ import mvc.fx.FXView;
  *
  */
 public class GameView extends FXView {
-	
+
 	public GameView(String newName, FXController newController) {
 		// this constructor is the same for all view's
 		super(newName, newController);
@@ -30,6 +30,11 @@ public class GameView extends FXView {
 
 	Text text;
 	BorderPane mainLayout = new BorderPane();
+	AppButton btn = new AppButton("Spiel starten");
+	VBox menuLayout = new VBox();
+	AppButton btnInfo = new AppButton("Info");
+	AppButton btnBacktoKartei = new AppButton("Zurück");
+	Label grund = new Label("Sie müssen zuerst Lernen!");
 
 	@Override
 	public Parent constructContainer() {
@@ -40,13 +45,7 @@ public class GameView extends FXView {
 		// Button für Zurück zum Hauptmenue:
 		Image impressumImg = new Image("views/pictures/ImpressumIcon.png");
 
-		AppButton btn = new AppButton("Spiel starten");
-		AppButton btnInfo = new AppButton("Info");
-		AppButton btnBacktoKartei = new AppButton("Zurück");
-		Label grund = new Label("Sie müssen zuerst Lernen!");
-
 		
-		VBox menuLayout = new VBox();
 
 		btn.setOnAction(e -> getController().getModel("game").doAction("start"));
 
@@ -65,20 +64,8 @@ public class GameView extends FXView {
 
 		ImageView impImgView = new ImageView(impressumImg);
 		mainLayout.setBottom(impImgView);
-		
-		impImgView.setOnMouseClicked(e -> getController().getView("impressumview").show());
-		
-		if(database.Score.getLifecount() == 0)
-		{
-			btn.setDisable(true);
-			menuLayout.getChildren().addAll(grund, btn,btnInfo, btnBacktoKartei);
-			
-		}
-	else
-		{
 
-			menuLayout.getChildren().addAll(btn, btnInfo, btnBacktoKartei);
-		}
+		impImgView.setOnMouseClicked(e -> getController().getView("impressumview").show());
 
 		return mainLayout;
 
@@ -90,10 +77,19 @@ public class GameView extends FXView {
 
 	@Override
 	public void refreshView() {
-		
+
 		Label lifes = new Label("Lifes: " + database.Score.getLifecount());
 		lifes.setAlignment(Pos.TOP_RIGHT);
 		mainLayout.setTop(lifes);
-		
+
+		if (database.Score.getLifecount() == 0) {
+			btn.setDisable(true);
+			menuLayout.getChildren().addAll(grund, btn, btnInfo, btnBacktoKartei);
+
+		} else {
+
+			menuLayout.getChildren().addAll(btn, btnInfo, btnBacktoKartei);
+		}
+
 	}
 }

@@ -22,6 +22,7 @@ public class Score {
 	private static String	driver	= "org.sqlite.JDBC";
 
 	private static Integer	anzahlLeben;
+	private static Integer currentLifes;
 
 	/**
 	 * 
@@ -409,9 +410,14 @@ public class Score {
 				currentLifes = rs.getInt("Lifecount");
 			}
 			c.setAutoCommit(true);
-
-			String updt = "UPDATE Lifes SET Lifecount = " + (currentLifes - 30);
-			stmt.executeUpdate(updt);
+			
+			if (currentLifes >= 30) {
+				String updt = "UPDATE Lifes SET Lifecount = " + (currentLifes - 30);
+				stmt.executeUpdate(updt);
+			} else {
+				stmt.close();
+				c.close();
+			}			
 
 			stmt.close();
 			c.close();
@@ -421,6 +427,48 @@ public class Score {
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
 			System.exit(0);
 		}
+
+	}
+	
+	public static int getCorrectCards () {
+
+		Connection c = null;
+		Statement stmt = null;
+
+		try {
+			Class.forName(driver);
+			c = DriverManager.getConnection(url);
+			stmt = c.createStatement();
+
+			String sql = "CREATE TABLE IF NOT EXISTS Lifes " +
+					"(PK_Lvs INTEGER PRIMARY KEY AUTOINCREMENT," +
+					" Lifecount INTEGER DEFAULT 0);";
+
+			debug.Debugger.out(sql);
+			stmt.executeUpdate(sql);
+
+			currentLifes = 0;
+
+			c.setAutoCommit(false);
+
+			String getCurrent = "SELECT Lifecount FROM Lifes";
+
+			ResultSet rs = stmt.executeQuery(getCurrent);
+			
+			if(rs.next()){
+				currentLifes = rs.getInt("Lifecount");
+			}
+
+			stmt.close();
+			c.close();
+
+		}
+		catch (Exception e) {
+			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+			System.exit(0);
+		}
+
+		return currentLifes;
 
 	}
 

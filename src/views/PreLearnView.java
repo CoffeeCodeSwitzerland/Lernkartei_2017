@@ -23,12 +23,14 @@ public class PreLearnView extends FXViewModel
 	}
 
 	
-	Label stackName;
+	
 	BorderPane mainLayout = new BorderPane();
 	
 	@Override
 	public Parent constructContainer ()
 	{
+		getController().getModel("learn").getDataList(null).clear();
+		getController().getModel("learn").setString(null);
 		return mainLayout;
 	}
 
@@ -41,11 +43,13 @@ public class PreLearnView extends FXViewModel
 			return;
 		}
 		
-		stackName = new Label(getData());
+		Label stackName = new Label(getData());
 		stackName.setId("bold");
 		
+		Label stackInfo = new Label("Anzahl Karten: " + getController().getModel("learn").getDataList(getData()).size());
+		
 		VBox layout = new VBox(30);
-		layout.getChildren().addAll(stackName);
+		layout.getChildren().addAll(stackName, stackInfo);
 		
 		mainLayout.setCenter(layout);
 	}

@@ -153,7 +153,8 @@ public class LearnView extends FXViewModel
 				if(cardData[2].contains("[b]") || cardData[1].contains("[b]") || 
 						cardData[2].contains("[i]") || cardData[1].contains("[i]") || 
 						cardData[2].contains("[u]") || cardData[1].contains("[u]") ||
-						cardData[2].contains("[s]") || cardData[1].contains("[s]")){
+						cardData[2].contains("[s]") || cardData[1].contains("[s]") ||
+						cardData[2].contains("[sup]") || cardData[1].contains("[sup]")){
 					cardData[2] = cardData[2].replace("[b]", "<b>");
 					cardData[1] = cardData[1].replace("[b]", "<b>");
 					cardData[2] = cardData[2].replace("[i]", "<i>");
@@ -162,11 +163,14 @@ public class LearnView extends FXViewModel
 					cardData[1] = cardData[1].replace("[u]", "<u>");
 					cardData[2] = cardData[2].replace("[s]", "<s>");
 					cardData[1] = cardData[1].replace("[s]", "<s>");
+					cardData[2] = cardData[2].replace("[sup]", "<sup>");
+					cardData[1] = cardData[1].replace("[sup]", "<sup>");
 				}
 				if(cardData[2].contains("[/b]") || cardData[1].contains("[/b]") || 
 						cardData[2].contains("[/i]") || cardData[1].contains("[/i]") || 
 						cardData[2].contains("[/u]") || cardData[1].contains("[/u]") ||
-						cardData[2].contains("[/s]") || cardData[1].contains("[/s]")){
+						cardData[2].contains("[/s]") || cardData[1].contains("[/s]") ||
+						cardData[2].contains("[/sup]") || cardData[1].contains("[/sup]")){
 					cardData[2] = cardData[2].replace("[/b]", "</b>");
 					cardData[1] = cardData[1].replace("[/b]", "</b>");
 					cardData[2] = cardData[2].replace("[/i]", "</i>");
@@ -175,6 +179,8 @@ public class LearnView extends FXViewModel
 					cardData[1] = cardData[1].replace("[/u]", "</u>");
 					cardData[2] = cardData[2].replace("[/s]", "</s>");
 					cardData[1] = cardData[1].replace("[/s]", "</s>");
+					cardData[2] = cardData[2].replace("[/sup]", "</sup>");
+					cardData[1] = cardData[1].replace("[/sup]", "</sup>");
 				}
 				engine.loadContent(cardData[1]);
 				frontIsShowed = true;

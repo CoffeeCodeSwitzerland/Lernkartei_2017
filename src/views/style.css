@@ -14,9 +14,7 @@
 }
 
 #helpview {
-	-fx-background-color: linear-gradient(to bottom, #d6fffd 50.0%, #5ca55c 100.0%);
-	-fx-background-image: url("pictures/helpdesk.jpg");
-	-fx-background-repeat: no-repeat;
+	-fx-background-color: #cef0ffff;
 }
 
 #bold {
@@ -124,5 +122,17 @@
 	}
     
 #gameview{
+	-fx-background-color: #cef0ffff;
+	}
+	
+#optionsview{
+	-fx-background-color: #cef0ffff;
+	}
+	
+#statisticsview{
+	-fx-background-color: #cef0ffff;
+	}
+	
+#statsview{
 	-fx-background-color: #cef0ffff;
 	}

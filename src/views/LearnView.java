@@ -144,6 +144,12 @@ public class LearnView extends FXViewModel
 				nextCard.setDisable(false);
 				String d = cards.get(counter); // Ensure valid counter variable
 				cardData = d.split(Globals.SEPARATOR);
+				if(cardData[2].contains("<") && cardData[2].contains(">") || cardData[1].contains("<") && cardData[1].contains(">")){
+					cardData[2] = cardData[2].replace("<", "");
+					cardData[2] = cardData[2].replace(">", "");
+					cardData[1] = cardData[1].replace("<", "");
+					cardData[1] = cardData[1].replace(">", "");
+				}
 				if(cardData[2].contains("[b]") || cardData[1].contains("[b]") || 
 						cardData[2].contains("[i]") || cardData[1].contains("[i]") || 
 						cardData[2].contains("[u]") || cardData[1].contains("[u]") ||
@@ -169,12 +175,6 @@ public class LearnView extends FXViewModel
 					cardData[1] = cardData[1].replace("[/u]", "</u>");
 					cardData[2] = cardData[2].replace("[/s]", "</s>");
 					cardData[1] = cardData[1].replace("[/s]", "</s>");
-				}
-				if(cardData[2].contains("<") && cardData[2].contains(">") || cardData[1].contains("<") && cardData[1].contains(">")){
-					cardData[2] = cardData[2].replace("<", "");
-					cardData[2] = cardData[2].replace(">", "");
-					cardData[1] = cardData[1].replace("<", "");
-					cardData[1] = cardData[1].replace(">", "");
 				}
 				engine.loadContent(cardData[1]);
 				frontIsShowed = true;

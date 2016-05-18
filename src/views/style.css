@@ -3,18 +3,18 @@
 	-fx-background: whitesmoke;
     -fx-background-position: center center;
 	-fx-background-repeat: stretch;   
-    -fx-effect: dropshadow(three-pass-box, black, 30, 0.5, 0, 0);
+    -fx-effect: dropshadow(three-pass-box, black, 30.0, 0.5, 0.0, 0.0);
 }
 
 #mainview {
 	
-	-fx-background-color: linear-gradient(to bottom, #d6fffd 50%, #5ca55c 100%);
+	-fx-background-color: linear-gradient(to bottom, #d6fffd 50.0%, #5ca55c 100.0%);
 	-fx-background-image: url("pictures/SchulhausEinzelnBig.png");
 	-fx-background-repeat: no-repeat;
 }
 
 #helpview {
-	-fx-background-color: linear-gradient(to bottom, #d6fffd 50%, #5ca55c 100%);
+	-fx-background-color: linear-gradient(to bottom, #d6fffd 50.0%, #5ca55c 100.0%);
 	-fx-background-image: url("pictures/helpdesk.jpg");
 	-fx-background-repeat: no-repeat;
 }
@@ -36,10 +36,10 @@
 }
 
 #fancytext {
-    -fx-font: 40px Tahoma;
-    -fx-fill: linear-gradient(from 0% 0% to 100% 200%, repeat, aqua 0%, red 50%);
+    -fx-font: 40.0px Tahoma;
+    -fx-fill: linear-gradient(from 0.0% 0.0% to 100.0% 200.0%, repeat, aqua 0.0%, red 50.0%);
     -fx-stroke: black;
-    -fx-stroke-width: 1;
+    -fx-stroke-width: 1.0;
 }
 
 /*Code Generator für die Farben
@@ -57,7 +57,7 @@
 	-fx-font-family: "Segoe UI Semibold";
 	-fx-background-color: white;
 	-fx-text-fill: black;
-	-fx-padding: 10px;
+	-fx-padding: 10.0px;
 }
 
 #startbtn{
@@ -95,13 +95,13 @@
 #DoorButtons{
 	-fx-background-image: url("pictures/DoorIcon.png");
 	-fx-background-repeat: no-repeat;
-	-fx-padding: 22 21 22 21;
+	-fx-padding: 22.0 21.0 22.0 21.0;
 	}
 	
 #BoxButtons{
 	-fx-background-image: url("pictures/BoxIcon2.png");
 	-fx-background-repeat: no-repeat;
-	-fx-padding: 15 20 15 20;
+	-fx-padding: 15.0 20.0 15.0 20.0;
 	}
 #icon{
 	-fx-font-family: "Consolas";
@@ -111,17 +111,22 @@
 #doorview{
 	-fx-background-image: url("pictures/viewbackground.png");
 	-fx-background-repeat: stretch;   
-    -fx-background-size: 920 570;}
+    -fx-background-size: 920.0 570.0;}
 
 
 #stack{
 	-fx-background-image: url("pictures/viewbackground.png");
 	-fx-background-repeat: stretch;   
-    -fx-background-size: 920 570;}
+    -fx-background-size: 920.0 570.0;}
     
 #simpleeditorview{
 	-fx-background-color: #cef0ffff;
 	}
     
-   #gameview{
-	-fx-background-color: #cef0ffff;}
+#gameview{
+	-fx-background-color: #cef0ffff;
+	}
+	
+#webview{
+	-fx-text-alignment: center;
+}

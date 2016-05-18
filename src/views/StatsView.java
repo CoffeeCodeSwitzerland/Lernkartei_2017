@@ -14,6 +14,7 @@ import javafx.scene.chart.XYChart.Series;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import models.StatisticsModel;
 import mvc.fx.FXController;
 import mvc.fx.FXView;
 /**
@@ -32,7 +33,7 @@ public class StatsView extends FXView
 		construct();
 	}
 	
-	HBox Diagram = new HBox(50);
+	HBox Diagram;
 	HBox Controls = new HBox(50);
 	HBox Rankings = new HBox(50);
 	AppButton back = new AppButton("_Zurück");
@@ -48,12 +49,11 @@ public class StatsView extends FXView
 			
 	ArrayList<String> Karteien = new ArrayList<String>();
 	ArrayList<String> Punkte = new ArrayList<String>();
+	
+	StatisticsModel SM = new StatisticsModel("statistics");
 			
 	@Override
 	public Parent constructContainer() {
-		
-		//HBox für das Diagramm
-		Diagram.setAlignment(Pos.CENTER);
 		
 		//HBox für die Buttons / Controls
 		Controls.setAlignment(Pos.BOTTOM_CENTER);
@@ -64,7 +64,7 @@ public class StatsView extends FXView
 		Rankings.setPadding(new Insets(15));
 		
 		//Buttons / Controls
-		back.setOnAction(e -> {getController().showMainView();delOldStats();});
+		back.setOnAction(e -> {getController().showMainView();SM.doAction("back");});
 		Controls.getChildren().addAll(back);
 		
 		Pane.setCenter(Diagram);
@@ -73,33 +73,15 @@ public class StatsView extends FXView
 		
 		return Pane;
 	}
-	
-	//Eine Serie erstellen
-	@SuppressWarnings("rawtypes")
-	Series serie = new Series();
-	@SuppressWarnings({ "unchecked", "rawtypes" })
+
 	@Override
 	public void refreshView()
 	{
 		
 		try {
-		xAchse.setLabel("Kartei");
-		yAchse.setLabel("Ergebnis(%)");
-		
-		System.out.println("StatsView 1");
-		Karteien = getController().getModel("profil").getDataList("karteien");
-		System.out.println("StatsView 2");
-		Punkte = getController().getModel("profil").getDataList("punkte");
-		System.out.println("StatsView 3");
-		
-		System.out.println("StatsView Kartei 1: " + Karteien.get(0));
-		System.out.println("StatsView Punkte 1: " + Punkte.get(0));
-		
-		for (int i = 0; i < Karteien.size(); i++)
-		{
-			Double tempPunkte = Double.parseDouble(Punkte.get(i));
-			serie.getData().add(new XYChart.Data(Karteien.get(i), tempPunkte));
-		}
+		//HBox für das Diagramm
+		Diagram = SM.getDiagram("saule");
+		Diagram.setAlignment(Pos.CENTER);
 		
 		/*System.out.println("StatsView 4");
 		
@@ -111,17 +93,8 @@ public class StatsView extends FXView
 		
 		System.out.println("StatsView 6");*/
 		
-		bc.getData().addAll(serie);
-		Diagram.getChildren().addAll(bc);
 		} catch (Exception e) {
 			Debugger.out("StatsView Exception: " + e.getMessage());
 		}
-	}
-	
-	private void delOldStats()
-	{
-		Karteien = null;
-		Punkte = null;
-		serie = null;
 	}
 }

@@ -74,7 +74,5 @@ public class GameView extends FXView {
 
 	@Override
 	public void refreshView() {
-		text.setText("Starting game (please wait)...");
-		getController().getModel("game").doAction("start");
 	}
 }

@@ -51,7 +51,7 @@ public abstract class DataModel implements ModelInterface
 		registredViews.add(theView);
 	}
 
-	protected void refreshViews ()
+	public void refreshViews ()
 	{
 		Iterator<View> it = registredViews.iterator();
 		while (it.hasNext())

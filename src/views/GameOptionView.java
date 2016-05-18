@@ -1,13 +1,14 @@
 package views;
 
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
+import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import mvc.Controller;
 import mvc.fx.FXView;
 
 public class GameOptionView extends FXView {
-	
 
 	public GameOptionView(String newName, Controller newController) {
 		// this constructor is the same for all view's
@@ -17,23 +18,24 @@ public class GameOptionView extends FXView {
 
 	@Override
 	public Parent constructContainer() {
-		BorderPane InfoLayout = new BorderPane();
-		
-		//Objekte
-		AppButton BacktoGameMenu = new AppButton("Zurück");
-		BorderPane mainLayout = new BorderPane();
-		
-		VBox itemsLayout = new VBox();
-		
-		itemsLayout.getChildren().addAll(BacktoGameMenu);
-		
-		
-		
-	
 
+		// Objekte
+		AppButton BacktoGameMenu = new AppButton("Zurück");
+		Label Anleitung = new Label();
+		BorderPane mainLayout = new BorderPane();
+
+		VBox itemsLayout = new VBox();
+		itemsLayout.setAlignment(Pos.CENTER);
+
+		Anleitung.setText("Hie cha dr schisstim si text ihsetze\n");
 		
+		BacktoGameMenu.setOnAction(e -> getController().getView("gameview").show());
+
+		itemsLayout.getChildren().addAll(Anleitung, BacktoGameMenu);
+		
+		Anleitung.setAlignment(Pos.TOP_CENTER);
 		mainLayout.setCenter(itemsLayout);
-		return InfoLayout;
+		return mainLayout;
 	}
 
 	@Override

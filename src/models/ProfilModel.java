@@ -45,12 +45,10 @@ public class ProfilModel extends Model
 		Data = paramS.split(Globals.SEPARATOR);
 	}
 
+	Profil p = new Profil();
 	//Als Query muss man die unten gebrauchten ausdrücke eingeben, damit die gewünschte Funktion aufgerufen wird
 	public ArrayList<String> getDataList(String query)
 	{
-		
-		Profil p = new Profil();
-		
 		if (query.equals("stats"))
 		{
 			Score s = new Score();

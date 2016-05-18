@@ -3,7 +3,6 @@ package database;
 import java.sql.*;
 import java.util.ArrayList;
 
-
 public class Database {
 
 	// Varibeln Connection

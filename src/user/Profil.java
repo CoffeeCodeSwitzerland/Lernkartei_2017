@@ -27,20 +27,18 @@ public class Profil
 		return Stacks;
 	}
 	
-	@SuppressWarnings("static-access")
 	public ArrayList<String> getPunkte() 
 	{
 		for (int i = 1; i < Stacks.size(); i++)
 		{
-			int temp[] = d.getScore(Stacks.get(i));
-			double result = temp[1] / temp[0] * 100; 
+			int[] temp = Database.getScore(Stacks.get(i));
+			double result = temp[0] / temp[1] * 100; 
 			String tempStr = new Double(result).toString();
 			Punkte.add(tempStr);
 		}
 		return Punkte;
 	}
 	
-	//TODO Ranking erstellen
 	public ObservableList<String> getRanking() {
 		ObservableList<String> Ranking = FXCollections.observableArrayList();
 		Double[] RankStackpoints = new Double[Stacks.size()];

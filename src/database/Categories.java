@@ -244,19 +244,19 @@ public class Categories {
 					+ " FK_Door INTEGER NOT NULL)";
 			
 			stmt.executeUpdate(sql);
-			c.setAutoCommit(false);
 			
 			ResultSet StackSet = stmt.executeQuery("SELECT Kategorie FROM Kategorie");
-			
-			if (StackSet.next())
+			if (StackSet.isAfterLast())
 			{
-				while (StackSet.next())
-				{	
-					Stacks.add(StackSet.getString("Kategorie"));
-				}
-			} else {
 				Stacks = null;
-			}
+			} else {
+				//TODO : Erster Datensatz einlesen und danach in while schleife schreiben
+				while (StackSet.next())
+				{
+						StackSet.getRow();
+						Stacks.add(StackSet.getString("Kategorie"));
+					}
+				}
 			
 		} catch (Exception e) {
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());

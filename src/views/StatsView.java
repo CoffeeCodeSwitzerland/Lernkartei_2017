@@ -92,8 +92,8 @@ public class StatsView extends FXView
 		xAchse.setLabel("Kartei");
 		yAchse.setLabel("Ergebnis(%)");
 		
-		Karteien = pm.getDataList("karteien");
-		Punkte = pm.getDataList("punkte");
+		Karteien = p.getKarteien();
+		Punkte = p.getPunkte();
 		
 		for (int i = 0; i < Karteien.size(); i++)
 		{

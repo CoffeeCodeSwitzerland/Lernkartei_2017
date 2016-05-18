@@ -1,7 +1,7 @@
 package views;
 
 import javafx.scene.Parent;
-import mvc.Controller;
+import mvc.fx.FXController;
 import mvc.fx.FXView;
 
 /**
@@ -13,7 +13,7 @@ import mvc.fx.FXView;
 public class HelpInfoView extends FXView
 {
 
-	public HelpInfoView(String newName, Controller newController) {
+	public HelpInfoView(String newName, FXController newController) {
 		// this constructor is the same for all view's
 		super(newName, newController);
 		construct();

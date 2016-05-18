@@ -4,13 +4,16 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 /**
- * Diese Klasse ist des Basis Codegerüst für die Umsetzung des DatenModells in diesem MVC Konzept.
+ * This class is the model base class and not the model class itself.
+ * The reason is, the default model should not be forced to implement all the
+ * base model methods, but only the mostly used.
+ * The model class will then extend this.
  * 
  * @author hugo-lucca
  */
 public abstract class DataModel implements ModelInterface
 {
-	private final ArrayList<View> myViews = new ArrayList<View>();
+	private final ArrayList<View> registredViews = new ArrayList<View>();
 	private String name;
 	
 	private String smallData;
@@ -21,14 +24,13 @@ public abstract class DataModel implements ModelInterface
 		name = myName;
 	}
 
+	/**
+	 * To seek models by name.
+	 * @return name of this model
+	 */
 	public String getName ()
 	{
-		return name;
-	}
-
-	public void setName (String name)
-	{
-		this.name = name;
+		return this.name;
 	}
 
 	@Override
@@ -46,12 +48,12 @@ public abstract class DataModel implements ModelInterface
 	@Override
 	public void registerView (View theView)
 	{
-		myViews.add(theView);
+		registredViews.add(theView);
 	}
 
-	public void refreshViews ()
+	protected void refreshViews ()
 	{
-		Iterator<View> it = myViews.iterator();
+		Iterator<View> it = registredViews.iterator();
 		while (it.hasNext())
 		{
 			View v = it.next();
@@ -71,11 +73,17 @@ public abstract class DataModel implements ModelInterface
 		return dataList;
 	}
 
+	/**
+	 * To set the single data element.
+	 */
 	@Override
 	public void setString(String data) {
 		smallData = data;
 	}
 
+	/**
+	 * to add data to ma list.
+	 */
 	@Override
 	public void add(String data) {
 		dataList.add(data);

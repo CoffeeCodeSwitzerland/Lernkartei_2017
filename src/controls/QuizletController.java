@@ -1,23 +1,16 @@
 package controls;
 
-import javafx.stage.Stage;
 import models.CardModel;
 import models.QuizletModel;
-import mvc.Controller;
-import mvc.fx.FXSettings;
+import mvc.fx.FXController;
 
 /**
  * 
  * @author miro
  *
  */
-public class QuizletController extends Controller
+public class QuizletController extends FXController
 {
-	public QuizletController ()
-	{
-		super(new Stage(), new FXSettings());
-	}
-
 	@Override
 	public void initMyModels() {
 		this.addUniqueModel(new QuizletModel("quizlet"));
@@ -27,6 +20,10 @@ public class QuizletController extends Controller
 	@Override
 	public void initMyViews() {
 		
+	}
+
+	@Override
+	public void startApp() {
 	}
 
 

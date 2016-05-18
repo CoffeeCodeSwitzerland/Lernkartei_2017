@@ -1,18 +1,16 @@
 package mvc;
 
 /**
- * Dieses Interface definiert die zwingenden Methoden für eine Klasse vom Typ Controller
- * für dieses MVC Konzept.
+ * Defines which methods must be implemented by a controller extending class
  * 
+ * These are not the methods needed to make MVC work.
+ * Moreover the controller has no obligations in front of models and views.
+ *  
  * @author hugo-lucca
  */
 public interface ControllerInterface
 {
-	public abstract void initMyModels();
-	public abstract void initMyViews();
-	public abstract void startApp();
-	
-	public abstract Model getModel (String name);
-	public abstract void showMainView ();
-	public abstract View getView (String name);
+	public abstract void initMyModels(); // to instantiate model
+	public abstract void initMyViews();  // to instantiate views
+	public abstract void startApp();	 // to start application
 }

@@ -1,7 +1,6 @@
 package mvc;
 
 import debug.Debugger;
-import debug.Supervisor;
 
 /**
  * Diese Klasse ist des Basis Codegerüst für die Umsetzung der GUI-View's in diesem MVC Konzept.
@@ -13,10 +12,8 @@ import debug.Supervisor;
 public abstract class View implements ViewInterface
 {
 	private String name;
-	private Controller myController;
 	
-	public View (String newName, Controller controller) {
-		myController = controller;
+	public View (String newName) {
 		name   = newName;
 	}
 	
@@ -25,12 +22,6 @@ public abstract class View implements ViewInterface
 		return name;
 	}
 	
-	public Controller getController() {
-		if (myController != null) return myController;
-		Supervisor.warnAndDebug(this, "view.getController(): no controller defined for this stage!");
-		return null;
-	}
-
 	public void setData (String data)
 	{
 		Debugger.out("view.setData(): view '"+name+"' does not have a Model (try 'extends FXViewModel')");

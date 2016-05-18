@@ -2,9 +2,31 @@ package controls;
 
 import debug.Logger;
 import javafx.stage.Stage;
-import models.*;
-import mvc.Controller;
-import views.*;
+import models.CardModel;
+import models.ConfigModel;
+import models.DoorModel;
+import models.GameModel;
+import models.LearnModel;
+import models.ProfilModel;
+import models.QuizletModel;
+import models.StackModel;
+import mvc.fx.FXController;
+import views.DoorView;
+import views.EditorView1;
+import views.GameOptionView;
+import views.GameView;
+import views.HelpView;
+import views.ImpressumView;
+import views.LearnView;
+import views.MainView;
+import views.MainViewSettings;
+import views.OptionsView;
+import views.PreLearnView;
+import views.QuizletImportView;
+import views.SimpleEditorView;
+import views.StackView;
+import views.StatisticsView;
+import views.StatsView;
 /**
  * Diese Klasse Kontrolliert alle Sichten und Models. Den Sichten wird die
  * Navigation zur Verfügung gestellt. Alle Sichten (ausser Modalfenster) werden
@@ -13,10 +35,10 @@ import views.*;
  * @author miro albrecht & hugo-lucca
  *
  */
-public class MainController extends Controller
+public class MainController extends FXController
 {
 	public MainController(Stage primaryStage) {
-		super(primaryStage, new MainViewSettings());
+		super(new MainViewSettings(primaryStage));
 	}
 
 	@Override
@@ -52,6 +74,10 @@ public class MainController extends Controller
 		this.addUniqueView(new LearnView("learnview", this));
 		this.addUniqueView(new ImpressumView("impressumview", this));
 		Logger.log("Instanzierung beendet....");
+	}
+
+	@Override
+	public void startApp() {
 		this.showMainView();
 	}
 }

@@ -3,16 +3,14 @@ package views;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
-import mvc.Controller;
+import mvc.fx.FXController;
 import mvc.fx.FXView;
 
 public class GameOptionView extends FXView {
 
-	public GameOptionView(String newName, Controller newController) {
+	public GameOptionView(String newName, FXController newController) {
 		// this constructor is the same for all view's
 		super(newName, newController);
 		construct();

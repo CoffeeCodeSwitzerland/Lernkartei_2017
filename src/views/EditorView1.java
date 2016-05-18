@@ -10,14 +10,14 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.web.HTMLEditor;
-import mvc.Controller;
+import mvc.fx.FXController;
 import mvc.fx.FXViewModel;
 
 public class EditorView1 extends FXViewModel
 {
 	// ArrayList<VBox> cards;
 
-	public EditorView1(String newName, Controller newController) {
+	public EditorView1(String newName, FXController newController) {
 		// this constructor is the same for all view's
 		super(newName, newController);
 		construct();

@@ -10,7 +10,7 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import mvc.Controller;
+import mvc.fx.FXController;
 import mvc.fx.FXView;
 
 /**
@@ -19,7 +19,7 @@ import mvc.fx.FXView;
  */
 public class StatisticsView extends FXView
 {		
-	public StatisticsView(String newName, Controller newController) {
+	public StatisticsView(String newName, FXController newController) {
 		// this constructor is the same for all view's
 		super(newName, newController);
 		construct();

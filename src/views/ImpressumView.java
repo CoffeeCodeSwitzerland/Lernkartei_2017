@@ -7,13 +7,13 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import mvc.Controller;
+import mvc.fx.FXController;
 import mvc.fx.FXView;
 
 public class ImpressumView extends FXView
 {
 	
-	public ImpressumView(String newName, Controller newController) {
+	public ImpressumView(String newName, FXController newController) {
 		// this constructor is the same for all view's
 		super(newName, newController);
 		construct();
@@ -38,7 +38,7 @@ public class ImpressumView extends FXView
 		labelText.setId("impressumtext");
 
 		//Damit der Text nicht bis zum Fensterrand geht sondern noch etwas abstand hat
-		Double size = getController().getTheFXSettings().getOPTIMAL_WIDTH()*.95;
+		Double size = getController().getMyFXStage().getOPTIMAL_WIDTH()*.95;
 		size += 10;
 		labelText.setPrefWidth(size);
 		labelTitel.setPrefWidth(size);

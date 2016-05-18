@@ -7,7 +7,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
-import mvc.Controller;
+import mvc.fx.FXController;
 import mvc.fx.FXView;
 
 
@@ -19,7 +19,7 @@ import mvc.fx.FXView;
  */
 public class OptionsView extends FXView
 {
-	public OptionsView (String newName, Controller newController)
+	public OptionsView (String newName, FXController newController)
 	{
 		super(newName, newController);
 		construct();

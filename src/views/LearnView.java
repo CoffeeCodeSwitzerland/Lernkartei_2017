@@ -14,13 +14,13 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
-import mvc.Controller;
+import mvc.fx.FXController;
 import mvc.fx.FXViewModel;
 
 
 public class LearnView extends FXViewModel
 {
-	public LearnView (String newName, Controller newController)
+	public LearnView (String newName, FXController newController)
 	{
 		// this constructor is the same for all view's
 		super(newName, newController);

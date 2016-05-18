@@ -11,7 +11,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import models.GameModel;
-import mvc.Controller;
+import mvc.fx.FXController;
 import mvc.fx.FXView;
 
 /**
@@ -22,7 +22,7 @@ import mvc.fx.FXView;
  */
 public class MainView extends FXView
 {
-	public MainView(String newName, Controller newController) {
+	public MainView(String newName, FXController newController) {
 		// this constructor is the same for all view's
 		super(newName, newController);
 		construct();
@@ -45,7 +45,7 @@ public class MainView extends FXView
 	@Override
 	public Parent constructContainer() {
 		String title = Globals.appTitle + " " + Globals.appVersion;
-		getController().getTheFXSettings().getPrimaryStage().setTitle(title);
+		getController().getMyFXStage().setTitle(title);
 
 		// Buttons
 		startBtn.setId("startbtn");

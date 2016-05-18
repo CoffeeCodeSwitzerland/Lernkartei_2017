@@ -1,8 +1,6 @@
 package controls;
 
-import javafx.stage.Stage;
-import mvc.Controller;
-import views.*;
+import mvc.fx.FXController;
 /**
  * Diese Klasse Kontrolliert alle Sichten und Models. Den Sichten wird die
  * Navigation zur Verfügung gestellt. Alle Sichten (ausser Modalfenster) werden
@@ -11,14 +9,22 @@ import views.*;
  * @author miro albrecht & hugo-lucca
  *
  */
-public class DummyController extends Controller
+public class DummyController extends FXController
 {
-	public DummyController() {
-		super(new Stage(), new HelpViewSettings());
-	}
-
 	@Override
 	public void initMyViews() {
 		// no views for dummy
+	}
+
+	@Override
+	public void initMyModels() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void startApp() {
+		// TODO Auto-generated method stub
+		
 	}
 }

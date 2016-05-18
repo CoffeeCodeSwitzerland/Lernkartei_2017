@@ -3,7 +3,6 @@ package models;
 import java.util.ArrayList;
 
 import controls.Globals;
-import database.Score;
 import database.UserCards;
 import javafx.collections.ObservableList;
 import mvc.fx.FXModel;

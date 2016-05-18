@@ -1137,6 +1137,7 @@ public class gamePanel extends JPanel implements Runnable {
 		if (sound) {
 			MidiPlayer.stop();
 			ClipPlayer.DIE.play();
+			database.Score.death();
 			System.out.println("DIE!");
 		}
 		lives--;

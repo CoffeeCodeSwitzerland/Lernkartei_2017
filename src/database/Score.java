@@ -361,8 +361,10 @@ public class Score {
 			String getCurrent = "SELECT Lifecount FROM Lifes";
 
 			ResultSet rs = stmt.executeQuery(getCurrent);
-			currentLifes = rs.getInt("Lifecount");
-
+			
+			if(rs.next()){
+				currentLifes = rs.getInt("Lifecount");
+			}
 			anzahlLeben = 0;
 			anzahlLeben = currentLifes % 30;
 
@@ -403,8 +405,9 @@ public class Score {
 			String getCurrent = "SELECT Lifecount FROM Lifes";
 
 			ResultSet rs = stmt.executeQuery(getCurrent);
-			currentLifes = rs.getInt("Lifecount");
-
+			if(rs.next()){
+				currentLifes = rs.getInt("Lifecount");
+			}
 			c.setAutoCommit(true);
 
 			String updt = "UPDATE Lifes SET Lifecount = " + (currentLifes - 30);

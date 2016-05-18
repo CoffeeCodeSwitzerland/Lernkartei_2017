@@ -44,7 +44,7 @@ public class ScrollyV8 extends JFrame implements KeyListener, WindowListener
 			gamePanel.mPlayer.stop();
 			gamePanel.sound = false;
 			//setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		}
+		} 
 		});
 		
 		Container content = getContentPane();

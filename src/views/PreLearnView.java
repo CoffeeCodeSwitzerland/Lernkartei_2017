@@ -11,13 +11,14 @@ import mvc.fx.FXController;
 import mvc.fx.FXViewModel;
 
 /**
+ * Diese View zeigt dem User vor dem Lernen Informationen an.
+ * Zum Beispiel der Fortschritt des akutellen Stacks.
  * 
  * @author miro albrecht
  *
  */
 public class PreLearnView extends FXViewModel
 {
-
 	public PreLearnView (String setName, FXController controller)
 	{
 		super(setName, controller);
@@ -25,12 +26,12 @@ public class PreLearnView extends FXViewModel
 	}
 
 	
-	
 	BorderPane mainLayout = new BorderPane();
 	
 	@Override
 	public Parent constructContainer ()
 	{
+		// Reset the data of the learn model which forces the model to shuffle again
 		getController().getModel("learn").getDataList(null).clear();
 		getController().getModel("learn").setString(null);
 		mainLayout.setPadding(new Insets(50));

@@ -5,11 +5,12 @@ import java.util.ArrayList;
 import controls.Globals;
 import database.Score;
 import database.UserCards;
-import mvc.Model;
-import user.User;
+import javafx.collections.ObservableList;
+import mvc.FXModel;
 import user.Profil;
+import user.User;
 
-public class ProfilModel extends Model
+public class ProfilModel extends FXModel
 {
 
 	public ProfilModel(String myName)
@@ -65,5 +66,13 @@ public class ProfilModel extends Model
 		} else {
 			return null;
 		}	
+	}
+	
+	public ObservableList<String> getObservableDataList(String query) {
+		if (query.equals("ranking")) {
+			return p.getRanking();
+		} else {
+			return super.getObservableDataList(query);
+		}
 	}
 }

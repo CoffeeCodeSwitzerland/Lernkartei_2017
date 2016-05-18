@@ -44,6 +44,12 @@ public class Controller implements ControllerInterface
 		startApp();
 	}
 
+	public FXModel getFXModel (String name)
+	{
+		// TODO assert the model is a FXModel
+		return (FXModel) getModel(name);
+	}
+
 	public Model getModel (String name)
 	{
 		for (Model m : getModels())

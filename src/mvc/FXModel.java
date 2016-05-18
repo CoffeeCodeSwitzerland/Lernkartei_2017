@@ -1,0 +1,42 @@
+package mvc;
+
+import java.util.Iterator;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
+/**
+ * Diese Klasse ist instanzierbar und für das ViewModel nutzbar.
+ * Zudem wurde hier die Funktionalität etas erweitert (zum Bsp. mit like()).
+ * 
+ * @author hugo-lucca
+ */
+public class FXModel extends Model
+{
+	private final ObservableList<String> observableDataList = FXCollections.observableArrayList();
+	
+	public FXModel (String myName)
+	{
+		super(myName);
+	}
+	
+	public ObservableList<String> getObservableDataList() {
+		return observableDataList;
+	}
+
+	public ObservableList<String> getObservableDataList(String query) {
+		if (query != null && !query.equals("")) {
+			ObservableList<String> reducedList = FXCollections.observableArrayList();
+			Iterator<String> it = getObservableDataList().iterator();
+			while (it.hasNext()) {
+				String s = it.next();
+				if (s.equals(query) || s.equalsIgnoreCase(query)|| 
+					s.contains(query) || s.matches(query) || like(s,query)) {
+					reducedList.add(s);
+				}
+			}
+			return reducedList;
+		}
+		return getObservableDataList();
+	}
+}

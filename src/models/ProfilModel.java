@@ -49,12 +49,7 @@ public class ProfilModel extends FXModel
 	Profil p = new Profil();
 	//Als Query muss man die unten gebrauchten ausdrücke eingeben, damit die gewünschte Funktion aufgerufen wird
 	public ArrayList<String> getDataList(String query)
-	{
-		if (query.equals("stats"))
-		{
-			Score s = new Score();
-			return s.getScores();
-		} else if (query.equals("kartei"))
+	{ if (query.equals("kartei"))
 		{
 			return UserCards.getCards();
 		} else if (query.equals("karteien"))
@@ -70,8 +65,10 @@ public class ProfilModel extends FXModel
 	
 	public ObservableList<String> getObservableDataList(String query) {
 		if (query.equals("ranking")) {
+			System.out.println("ProfilModel Ranking 1");
 			return p.getRanking();
 		} else {
+			System.out.println("ProfilModel Ranking 2");
 			return super.getObservableDataList(query);
 		}
 	}

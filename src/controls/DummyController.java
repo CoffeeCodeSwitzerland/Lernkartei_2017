@@ -18,11 +18,6 @@ public class DummyController extends Controller
 	}
 
 	@Override
-	public void initMyModels() {
-		// no Models for dummy
-	}
-
-	@Override
 	public void initMyViews() {
 		// no views for dummy
 	}

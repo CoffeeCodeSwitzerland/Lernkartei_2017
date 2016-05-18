@@ -4,6 +4,12 @@ public class lerndatenzuweisung {
 	
 	public lerndatenzuweisung(){
 		
+		//
+		
+		//
+		
+		//
+		
 		
 	}
 

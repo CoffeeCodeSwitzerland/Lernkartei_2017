@@ -1,5 +1,6 @@
 package views;
 
+import controls.Globals;
 import debug.Debugger;
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
@@ -57,7 +58,7 @@ public class PreLearnView extends FXViewModel
 		{
 			if (getFXController().getModel("statistics").getDataList(getData()) != null)
 			{
-				score = getFXController().getModel("statistics").getDataList(getData()).get(0);
+				score = getFXController().getModel("statistics").getDataList(getData() + Globals.SEPARATOR + "start").get(0);
 			}
 		}
 		

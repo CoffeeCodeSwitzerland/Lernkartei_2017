@@ -2,6 +2,8 @@ package mvc.fx;
 
 import java.net.URL;
 
+import controls.Environment;
+import controls.Globals;
 import debug.Debugger;
 import debug.Logger;
 import debug.Supervisor;
@@ -81,14 +83,7 @@ public abstract class FXView extends View
 		this.refreshView();
 	}
 	
-	public void setupScene(Parent p) {
-		
-		Double width = getFXController().getMyFXStage().getOPTIMAL_WIDTH();
-		Double height = getFXController().getMyFXStage().getOPTIMAL_HEIGHT();
-		this.scene = new Scene(p, width, height);
-		// TODO: add Color settings to scene
-		
-		String stylePath = getFXController().getMyFXStage().getStylePath();		
+	private void loadCSS (String stylePath) {
 		URL url = this.getClass().getResource(stylePath);
 		if (url != null) {
 			String urlstr = url.toExternalForm();
@@ -98,8 +93,23 @@ public abstract class FXView extends View
 			   Debugger.out("FXView("+getName()+").setUpScene() no css-url found for "+stylePath);
 			}
 		} else {
-		   Debugger.out("FXView("+getName()+").setUpScene(): no css ressource found for "+stylePath);
+		 //  Debugger.out("FXView("+getName()+").setUpScene(): no css ressource found for "+stylePath);
 		}
+	}
+
+	public void setupScene(Parent p) {
+		Double width = getFXController().getMyFXStage().getOPTIMAL_WIDTH();
+		Double height = getFXController().getMyFXStage().getOPTIMAL_HEIGHT();
+		this.scene = new Scene(p, width, height);
+		// TODO: add Color settings to scene
+		
+		String sep = Environment.getFileSep();
+		
+		String mainCSS = Globals.stylesSupPath+sep+Globals.mainStyleFileName+Globals.CSSExtention;		
+		loadCSS(mainCSS);
+		
+		String viewCSS = Globals.stylesSupPath+sep+this.getName()+Globals.CSSExtention;		
+		loadCSS(viewCSS);
 	}
 
 	public BorderPane getMainLayout() {

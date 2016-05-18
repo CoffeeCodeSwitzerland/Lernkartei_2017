@@ -29,6 +29,7 @@ public class GameView extends FXView {
 	}
 
 	Text text;
+	BorderPane mainLayout = new BorderPane();
 
 	@Override
 	public Parent constructContainer() {
@@ -42,10 +43,9 @@ public class GameView extends FXView {
 		AppButton btn = new AppButton("Spiel starten");
 		AppButton btnInfo = new AppButton("Info");
 		AppButton btnBacktoKartei = new AppButton("Zurück");
-		Label lifes = new Label("Lifes: " + database.Score.getLifecount());
 		Label grund = new Label("Sie müssen zuerst Lernen!");
 
-		BorderPane mainLayout = new BorderPane();
+		
 		VBox menuLayout = new VBox();
 
 		btn.setOnAction(e -> getController().getModel("game").doAction("start"));
@@ -53,8 +53,6 @@ public class GameView extends FXView {
 		btnInfo.setOnAction(e -> getController().getView("gameoptionview").show());
 
 		btnBacktoKartei.setOnAction(e -> getController().showMainView());
-		
-		lifes.setAlignment(Pos.TOP_RIGHT);
 
 		// Erstellt VBox Layout für beide obige Elemente:
 
@@ -67,7 +65,7 @@ public class GameView extends FXView {
 
 		ImageView impImgView = new ImageView(impressumImg);
 		mainLayout.setBottom(impImgView);
-		mainLayout.setTop(lifes);
+		
 		impImgView.setOnMouseClicked(e -> getController().getView("impressumview").show());
 		
 		if(database.Score.getLifecount() == 0)
@@ -92,5 +90,10 @@ public class GameView extends FXView {
 
 	@Override
 	public void refreshView() {
+		
+		Label lifes = new Label("Lifes: " + database.Score.getLifecount());
+		lifes.setAlignment(Pos.TOP_RIGHT);
+		mainLayout.setTop(lifes);
+		
 	}
 }

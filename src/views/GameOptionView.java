@@ -35,7 +35,7 @@ public class GameOptionView extends FXView {
 
 		itemsLayout.getChildren().addAll(Anleitung, BacktoGameMenu);
 		
-		Anleitung.setAlignment(Pos.TOP_CENTER);
+		Anleitung.setAlignment(Pos.TOP_CENTER); 
 		mainLayout.setCenter(itemsLayout);
 	
 		return mainLayout;

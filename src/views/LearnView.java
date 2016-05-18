@@ -160,6 +160,12 @@ public class LearnView extends FXViewModel
 					cardData[2] = cardData[2].replace("[/u]", "</u>");
 					cardData[1] = cardData[1].replace("[/u]", "</u>");
 				}
+				if(cardData[2].contains("<") && cardData[2].contains(">") || cardData[1].contains("<") && cardData[1].contains(">")){
+					cardData[2] = cardData[2].replace("<", "");
+					cardData[2] = cardData[2].replace(">", "");
+					cardData[1] = cardData[1].replace("<", "");
+					cardData[1] = cardData[1].replace(">", "");
+				}
 				engine.loadContent(cardData[1]);
 				frontIsShowed = true;
 			}

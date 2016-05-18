@@ -117,7 +117,6 @@ public class LearnView extends FXViewModel
 		mainLayout.setCenter(cardLayout);
 		mainLayout.setBottom(controlLayout);
 
-		mainLayout = new BorderPane();
 		mainLayout.setPadding(new Insets(15));
 		mainLayout.setTop(headLbl);
 

@@ -1,4 +1,4 @@
-package mvc;
+package mvc.fx;
 
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;

@@ -9,7 +9,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import mvc.Controller;
-import mvc.FXView;
+import mvc.fx.FXView;
 
 /**
  * Gamestartfenster ================ Zweck dieses BS ist eine Art Warte- und

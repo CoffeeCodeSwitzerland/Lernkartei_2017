@@ -14,8 +14,8 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import mvc.Controller;
-import mvc.FXView;
 import mvc.View;
+import mvc.fx.FXView;
 
 /**
  * Zeigt alle Türen an. Erlaubt die Erstellung und das Löschen von Türen.

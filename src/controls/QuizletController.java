@@ -4,7 +4,7 @@ import javafx.stage.Stage;
 import models.CardModel;
 import models.QuizletModel;
 import mvc.Controller;
-import mvc.FXSettings;
+import mvc.fx.FXSettings;
 
 /**
  * 

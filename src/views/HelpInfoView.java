@@ -2,7 +2,7 @@ package views;
 
 import javafx.scene.Parent;
 import mvc.Controller;
-import mvc.FXView;
+import mvc.fx.FXView;
 
 /**
  *	Hilfesystem Info Anzeige

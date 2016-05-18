@@ -6,7 +6,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.layout.VBox;
 import mvc.Controller;
-import mvc.FXView;
+import mvc.fx.FXView;
 
 /**
  * Hilfefenster

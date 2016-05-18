@@ -1,4 +1,4 @@
-package mvc;
+package mvc.fx;
 
 import java.net.URL;
 
@@ -8,6 +8,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import mvc.Controller;
+import mvc.View;
 
 /**
  * Diese Klasse ist des Basis Codegerüst für die Umsetzung der GUI-View's in diesem MVC Konzept.

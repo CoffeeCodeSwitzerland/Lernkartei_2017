@@ -1,7 +1,7 @@
 package views;
 
 import javafx.scene.paint.Color;
-import mvc.FXSettings;
+import mvc.fx.FXSettings;
 
 /**
  * Contains centralized GUI Settings (globals) that are used for this GUI  

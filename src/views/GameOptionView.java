@@ -4,7 +4,7 @@ import javafx.scene.Parent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import mvc.Controller;
-import mvc.FXView;
+import mvc.fx.FXView;
 
 public class GameOptionView extends FXView {
 	

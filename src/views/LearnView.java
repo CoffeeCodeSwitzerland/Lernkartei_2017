@@ -15,7 +15,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import mvc.Controller;
-import mvc.FXViewModel;
+import mvc.fx.FXViewModel;
 
 public class LearnView extends FXViewModel
 {

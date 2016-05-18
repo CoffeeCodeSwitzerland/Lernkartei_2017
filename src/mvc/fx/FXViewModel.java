@@ -1,4 +1,7 @@
-package mvc;
+package mvc.fx;
+
+import mvc.Controller;
+import mvc.Model;
 
 /**
  * Diese FX View Klasse beinhaltet zusätzlich ein eigenes lokales Modell. 

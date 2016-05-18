@@ -56,6 +56,10 @@ public class Score {
 			if (getCurt.next()) {
 				currentLifes = getCurt.getInt("Lifecount");
 				getCurt.close();
+			} else {
+				c.setAutoCommit(true);
+				String newEntry = "INSERT INTO Lifes (Lifecount) VALUES (0)";
+				stmt.executeUpdate(newEntry);
 			}
 			
 			getCurt.close();
@@ -103,9 +107,10 @@ public class Score {
 			if(rs.next()){
 				currentLifes = rs.getInt("Lifecount");
 			}
-			anzahlLeben = 0;
-			anzahlLeben = currentLifes % 30;
-
+			
+			float notRounded = currentLifes / 30;
+			anzahlLeben = Math.round(notRounded);
+			
 			stmt.close();
 			c.close();
 
@@ -205,5 +210,5 @@ public class Score {
 		return currentLifes;
 
 	}
-
+	
 }

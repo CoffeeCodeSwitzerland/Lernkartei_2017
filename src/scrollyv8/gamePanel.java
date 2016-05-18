@@ -119,7 +119,7 @@ public class gamePanel extends JPanel implements Runnable {
 
 		x = y = 25;
 		vx = vy = 0;
-		lives = 2;
+		lives = database.Score.getLifecount();
 		jump = false;
 		//doubleJump = false;
 		ground = true;

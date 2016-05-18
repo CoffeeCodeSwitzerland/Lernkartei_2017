@@ -151,10 +151,7 @@ public class Score {
 			if (currentLifes >= 30) {
 				String updt = "UPDATE Lifes SET Lifecount = " + (currentLifes - 30);
 				stmt.executeUpdate(updt);
-			} else {
-				stmt.close();
-				c.close();
-			}			
+			}	
 
 			stmt.close();
 			c.close();

@@ -48,6 +48,7 @@ public class MainController extends Controller
 		this.addUniqueView(new QuizletImportView("quizlet", this));
 		this.addUniqueView(new SimpleEditorView("simpleeditorview", this));
 		this.addUniqueView(new EditorView1("editorview", this));
+		this.addUniqueView(new PreLearnView("prelearn", this));
 		this.addUniqueView(new LearnView("learnview", this));
 		this.addUniqueView(new ImpressumView("impressumview", this));
 		Logger.log("Instanzierung beendet....");

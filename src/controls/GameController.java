@@ -2,6 +2,7 @@ package controls;
 
 import javafx.stage.Stage;
 import mvc.Controller;
+import views.GameView;
 import views.HelpViewSettings;
 
 public class GameController extends Controller {
@@ -17,7 +18,7 @@ public class GameController extends Controller {
 	@Override
 	public void initMyViews() {
 		// add only new view's, the helpview is added automaticly as mainView
-//TODO		this.addUniqueView(new GameView("gameoptionview", this));
+		this.addUniqueView(new GameView("gameoptionview", this));
 		
 	}
 }

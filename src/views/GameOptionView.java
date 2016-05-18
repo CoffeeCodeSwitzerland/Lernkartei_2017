@@ -2,6 +2,7 @@ package views;
 
 import javafx.scene.Parent;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 import mvc.Controller;
 import mvc.FXView;
 
@@ -21,12 +22,16 @@ public class GameOptionView extends FXView {
 		//Objekte
 		@SuppressWarnings ("unused")
 		AppButton BacktoGameMenu = new AppButton("Zurück");
+		BorderPane mainLayout = new BorderPane();
+		
+		VBox itemsLayout = new VBox();
+		
 		
 		
 	
 
 		
-		
+		mainLayout.setCenter(itemsLayout);
 		return InfoLayout;
 	}
 

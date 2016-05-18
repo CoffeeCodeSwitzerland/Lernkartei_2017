@@ -151,16 +151,31 @@ public class StackView extends FXViewModel
 		{
 			ArrayList<String> setData = getController().getModel("stack").getDataList(localdata);
 			ArrayList<AppButton> sets = new ArrayList<AppButton>();
-
+			
+			boolean allButtonsSameSize = getFXController().getModel("config").getDataList("widthState") != null ? (getFXController().getModel("config").getDataList("widthState").get(0).equals("true") ? true : false) : false;
+			int bigButton = 0;
 			for (String s : setData)
 			{
 				AppButton a = new AppButton(s);
-				a.setMinWidth(a.getText().length() * 6 + 150);
+				if (allButtonsSameSize)
+				{
+					bigButton = bigButton >= a.getText().length() * 6 + 150 ? bigButton : a.getText().length() * 6 + 150;
+				}
+				else
+				{
+					a.setMinWidth(a.getText().length() * 6 + 150);
+				}
+				
 				sets.add(a);
 			}
 
 			for (AppButton a : sets)
 			{
+				if (allButtonsSameSize)
+				{
+					a.setMinWidth(bigButton);
+				}
+				
 				a.setId("BoxButtons");
 				a.setOnAction(e ->
 

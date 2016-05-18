@@ -19,6 +19,8 @@ public class Score {
 	private static String	url			= "jdbc:sqlite:" +  debug.Environment.getDatabasePath()
 										 + controls.Globals.db_name + ".db";
 	private static String	driver		= "org.sqlite.JDBC";
+	
+	private static Integer anzahlLeben;
 
 	/**
 	 * 
@@ -269,6 +271,138 @@ public class Score {
 	private static String genString(String Kartei, String Score)
 	{
 		return Kartei + Globals.SEPARATOR + Score;
+	}
+	
+	/**
+	 * 
+	 * Wenn eine Karte richtig war, wird mit dieser Funktion die Anzahl richtiger Karten um 1 erhöht
+	 * 
+	 */
+	
+	public static void correctCard() {
+		
+		Connection c = null;
+		Statement stmt = null;
+
+		try {
+			Class.forName(driver);
+			c = DriverManager.getConnection(url);
+			stmt = c.createStatement();
+
+			String sql = "CREATE TABLE IF NOT EXISTS Lifes " +
+					"(PK_Lvs INTEGER PRIMARY KEY AUTOINCREMENT," +
+					" Lifecount INTEGER DEFAULT 0);";
+
+			debug.Debugger.out(sql);
+			stmt.executeUpdate(sql);
+			
+			Integer currentLifes = 0;
+			
+			c.setAutoCommit(false);
+			
+			String getCurrent = "SELECT Lifecount FROM Lifes";
+			
+			ResultSet rs = stmt.executeQuery(getCurrent);
+			currentLifes = rs.getInt("Lifecount");
+			
+			c.setAutoCommit(true);
+
+			String updt = "UPDATE Lifes SET Lifecount = " + (currentLifes + 1);
+			stmt.executeUpdate(updt);
+			
+			stmt.close();
+			c.close();
+
+		}
+		catch (Exception e) {
+			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+			System.exit(0);
+		}	
+		
+	}
+	
+	public static int getLifecount() {
+		
+		Connection c = null;
+		Statement stmt = null;
+
+		try {
+			Class.forName(driver);
+			c = DriverManager.getConnection(url);
+			stmt = c.createStatement();
+
+			String sql = "CREATE TABLE IF NOT EXISTS Lifes " +
+					"(PK_Lvs INTEGER PRIMARY KEY AUTOINCREMENT," +
+					" Lifecount INTEGER DEFAULT 0);";
+
+			debug.Debugger.out(sql);
+			stmt.executeUpdate(sql);
+			
+			Integer currentLifes = 0;
+			
+			c.setAutoCommit(false);
+			
+			String getCurrent = "SELECT Lifecount FROM Lifes";
+			
+			ResultSet rs = stmt.executeQuery(getCurrent);
+			currentLifes = rs.getInt("Lifecount");
+			
+			anzahlLeben = 0;
+			anzahlLeben = currentLifes % 30;
+			
+			stmt.close();
+			c.close();
+
+		}
+		catch (Exception e) {
+			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+			System.exit(0);
+		}	
+		
+		return anzahlLeben;
+		
+	}
+	
+	public static void death () {
+		
+		Connection c = null;
+		Statement stmt = null;
+
+		try {
+			Class.forName(driver);
+			c = DriverManager.getConnection(url);
+			stmt = c.createStatement();
+
+			String sql = "CREATE TABLE IF NOT EXISTS Lifes " +
+					"(PK_Lvs INTEGER PRIMARY KEY AUTOINCREMENT," +
+					" Lifecount INTEGER DEFAULT 0);";
+
+			debug.Debugger.out(sql);
+			stmt.executeUpdate(sql);
+			
+			Integer currentLifes = 0;
+			
+			c.setAutoCommit(false);
+			
+			String getCurrent = "SELECT Lifecount FROM Lifes";
+			
+			ResultSet rs = stmt.executeQuery(getCurrent);
+			currentLifes = rs.getInt("Lifecount");
+			
+			c.setAutoCommit(true);
+
+			String updt = "UPDATE Lifes SET Lifecount = " + (currentLifes - 30);
+			stmt.executeUpdate(updt);
+			
+			stmt.close();
+			c.close();
+
+		}
+		catch (Exception e) {
+			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+			System.exit(0);
+		}
+		
 	}
 
 }

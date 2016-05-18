@@ -30,6 +30,8 @@ public class LearnModel extends Model {
 		if (functionName.equals("Richtig")) {
 			KartenPunkt = Bewertungsklasse.CardCorrect(freeStringParam, KartenPunkt);
 			refreshViews();
+			database.Score.correctCard();
+			
 			if (KartenPunkt != 1) {
 				
 				return 1;

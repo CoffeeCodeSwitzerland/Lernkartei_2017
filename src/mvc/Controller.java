@@ -134,6 +134,16 @@ public abstract class Controller implements ControllerInterface
 		return seekView(withName); // not found
 	}
 
+	public String getViewData (String withName)
+	{
+		return seekView(withName).getData(); // not found
+	}
+
+	public void setViewData (String withName, String data)
+	{
+		seekView(withName).setData(data);; // not found
+	}
+
 	/**
 	 * To insert a Model with a unique name in the controllers models list
 	 * add a new model to the model list and assert his name is unique

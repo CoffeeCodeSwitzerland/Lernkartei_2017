@@ -144,6 +144,15 @@ public class LearnView extends FXViewModel
 				nextCard.setDisable(false);
 				String d = cards.get(counter); // Ensure valid counter variable
 				cardData = d.split(Globals.SEPARATOR);
+				if(cardData[2].contains("[b]") || cardData[1].contains("[b]")){
+					cardData[2] = cardData[2].replace("[b]", "<b>");
+					cardData[1] = cardData[1].replace("[b]", "<b>");
+				}
+				if(cardData[2].contains("[/b]") || cardData[1].contains("[/b]")){
+					cardData[2] = cardData[2].replace("[/b]", "</b>");
+					cardData[1] = cardData[1].replace("[/b]", "</b>");
+				}
+				//cardData = d.split(Globals.SEPARATOR);
 				engine.loadContent(cardData[1]);
 				frontIsShowed = true;
 			}

@@ -75,7 +75,7 @@ public class GameView extends FXView {
 			menuLayout.getChildren().addAll(grund, btn,btnInfo, btnBacktoKartei);
 			
 		}
-		else
+	else
 		{
 
 			menuLayout.getChildren().addAll(btn, btnInfo, btnBacktoKartei);

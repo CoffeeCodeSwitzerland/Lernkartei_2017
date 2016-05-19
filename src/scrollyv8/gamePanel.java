@@ -99,6 +99,7 @@ public class gamePanel extends JPanel implements Runnable {
 	@SuppressWarnings("unused")
 	private Thread t1 = new Thread(new RunAudio(new Audio("alligator.mp3")));;
 	private boolean running = true;
+	public static boolean first = true;
 
 	// private AudioClip levelClip;
 	// private AudioClip clipL1, clipL2, clipDie, clipGameOver, clipPassed,
@@ -119,7 +120,7 @@ public class gamePanel extends JPanel implements Runnable {
 
 		x = y = 25;
 		vx = vy = 0;
-		lives = database.Score.getLifecount();
+		lives = database.Score.getLifecount() -1;
 		jump = false;
 		//doubleJump = false;
 		ground = true;
@@ -635,7 +636,14 @@ public class gamePanel extends JPanel implements Runnable {
 					}
 					loadLevel(levelBase + "level1.tmx");
 					gameState = INTRO;
-					lives = 2;
+					lives = database.Score.getLifecount();			
+					first = false;
+					//Hier neutrino
+					
+					//ScrollyV8.mf.dispose();
+					
+					//ScrollyV8.gPanel.setVisible(false);
+					
 				}
 				repaint();
 			} else if (gameState == WON) {
@@ -644,8 +652,9 @@ public class gamePanel extends JPanel implements Runnable {
 				} else {
 					loadLevel(levelBase + "level1.tmx");
 					gameState = INTRO;
-					lives = 2;
+					lives = database.Score.getLifecount();
 					level = 1;
+					//ScrollyV8.gPanel.setVisible(false);
 				}
 				repaint();
 			}
@@ -663,7 +672,10 @@ public class gamePanel extends JPanel implements Runnable {
 		switch (code) {
 		case 'p': // Key Pressed
 			if (gameState == INTRO) {
+				System.out.println(first);
+				if(first)
 				gameState = LOADLEVEL;
+				
 				// menu.tick(e);
 			}
 

@@ -8,6 +8,7 @@ import mvc.Controller;
 import mvc.Model;
 import mvc.View;
 import scrollyv8.ScrollyV8;
+import scrollyv8.gamePanel;
 
 public class GameModel extends Model {
 
@@ -30,6 +31,7 @@ public class GameModel extends Model {
 				if (mf == null)
 					init();
 				mf.setVisible(true);
+				gamePanel.first = true;
 			}
 		});
 	}

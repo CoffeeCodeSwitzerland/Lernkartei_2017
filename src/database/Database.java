@@ -418,11 +418,13 @@ public class Database {
 			// speichern
 
 			if (scrs.next()) {
-
+				maxPoints += 4.0;
+				reachedPoints += scrs.getInt("Priority") - 1.0;
+				Debugger.out("Priority : " + scrs.getInt("Priority") + " Max: " + maxPoints + " Reach: " + reachedPoints);
 				while (scrs.next()) {
 					maxPoints += 4.0;
 					reachedPoints += scrs.getInt("Priority") - 1.0;
-					Debugger.out("Priority : " + scrs.getInt("Priority"));
+					Debugger.out("Priority : " + scrs.getInt("Priority") + " Max: " + maxPoints + " Reach: " + reachedPoints);
 				}
 
 			} else {

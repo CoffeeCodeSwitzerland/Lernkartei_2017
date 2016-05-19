@@ -2,6 +2,7 @@ package models;
 
 import java.util.ArrayList;
 
+import database.Database;
 import globals.Globals;
 import javafx.collections.ObservableList;
 import mvc.fx.FXModel;
@@ -37,18 +38,38 @@ public class StatisticsModel extends FXModel
 	
 	Standings S = new Standings();
 	ArrayList<Double> temp = new ArrayList<>();
+	Double tempStart = 0.0;
 	//CombinedString --> STACKNAME + Globals.SEPARATOR + ANWEISUNG(end, difference oder start)
 	public ArrayList<Double> getDoubleList(String CombinedString) {
 		String[] Decision = CombinedString.split(Globals.SEPARATOR);
-		if (CombinedString.equals("punkte")) {
+		if (CombinedString.equals("punkte"))
+		{
 			return SD.getPunkte();
-		} else if (Decision[1].equals("end")){
-			return S.getEnd(Decision[0]);
-		} else if (Decision[1].equals("difference")) {
-			return S.getDifference(Decision[0]);
-		} else if (Decision[1].equals("start")){
-			return S.getStart(Decision[0]);
-		} else {
+		}
+		else if (Decision[1].equals("end"))
+		{
+			Double[] doubleArray = Database.getScore(Decision[0]);
+			temp.clear();
+			temp.add(100 / doubleArray[0] * doubleArray[1]);
+			return temp;
+		}
+		else if (Decision[1].equals("difference"))
+		{
+			Double[] doubleArray = Database.getScore(Decision[0]);
+			temp.clear();
+			temp.add((100 / doubleArray[0] * doubleArray[1]) - tempStart);
+			return temp;
+		}
+		else if (Decision[1].equals("start"))
+		{
+			Double[] doubleArray = Database.getScore(Decision[0]);
+			tempStart = 100 / doubleArray[0] * doubleArray[1];
+			temp.clear();
+			temp.add(tempStart);
+			return temp;
+		}
+		else
+		{
 			return null;
 		}
 	}

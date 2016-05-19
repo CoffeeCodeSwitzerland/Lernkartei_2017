@@ -188,7 +188,9 @@ public class LearnView extends FXViewModel
 				nextCard.setDisable(true);
 				engine.loadContent("");
 				cardData = null;
-				counter = cards.size();
+				counter = 0;
+				getFXController().setViewData("postlearn", getData());
+				getFXController().showView("postlearn");
 			}
 		}
 	}

@@ -13,6 +13,13 @@ public class Standings
 	private Boolean startSet = false;
 	private Boolean endSet = false;
 	
+	public ArrayList<Double> getMax(String Stackname) {
+		ArrayList<Double> start = new ArrayList<Double>();
+		Double[] dbl = Database.getScore(Stackname);
+		start.add(dbl[0]);
+		return start;
+	}
+	
 	public ArrayList<Double> getStart(String Stackname) {
 		ArrayList<Double> start = new ArrayList<Double>();
 		Double[] dbl = Database.getScore(Stackname);

@@ -7,6 +7,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import models.StatisticsModel;
 import mvc.fx.FXController;
 import mvc.fx.FXViewModel;
 
@@ -56,9 +57,11 @@ public class PreLearnView extends FXViewModel
 		String score = "";
 		if (getFXController().getModel("statistics") != null)
 		{
-			if (getFXController().getModel("statistics").getDataList(getData()) != null)
+			StatisticsModel sm = (StatisticsModel) getFXController().getModel("statistics");
+			if (sm.getDoubleList(getData() + Globals.SEPARATOR + "start") != null)
 			{
-				score = getFXController().getModel("statistics").getDataList(getData() + Globals.SEPARATOR + "start").get(0);
+				Double roundDouble = ((double) ((int)(sm.getDoubleList(getData() + Globals.SEPARATOR + "start").get(0) * 100)) / 100);
+				score = roundDouble.toString();
 			}
 		}
 		

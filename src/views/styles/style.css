@@ -28,7 +28,7 @@
 
 .button:focused
 {
-	-fx-text-fill: #c13838;
+	-fx-text-fill: #db3232;
 }
 
 #icon{

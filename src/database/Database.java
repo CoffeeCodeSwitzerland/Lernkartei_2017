@@ -433,6 +433,7 @@ public class Database {
 
 		}
 		catch (Exception e) {
+			System.out.println("Exception getScore");
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
 			System.exit(0);
 		}

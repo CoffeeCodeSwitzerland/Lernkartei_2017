@@ -109,7 +109,8 @@ public final class Alert
 		Button b = new Button("_OK");
 		b.setOnAction(e ->
 		{
-			
+			output = tf.getText();
+			window.close();
 		});
 
 		VBox layout = new VBox(20);

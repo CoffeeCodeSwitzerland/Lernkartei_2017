@@ -1,9 +1,5 @@
 package statistics;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
 import java.util.ArrayList;
 
 import database.Categories;
@@ -50,16 +46,25 @@ public class Rangliste
 		ArrayList<Double> tempPunkte = new ArrayList<Double>();
 		ArrayList<String> tempSortedStacks = new ArrayList<String>();
 
-		Boolean isFirstSet = false;
-		/*for (int i = 0; i < array.length; i++)
+		for (int i = 0; i < Punkte.size(); i++)
 		{
-			if (isFirstSet) {
-				
+			if (i != 0) {
+				if (Punkte.get(i) > Punkte.get(i - 1)) {
+					tempPunkte.add(Punkte.get(i));
+					tempSortedStacks.add(Stacks.get(i));
+				} else {
+					Double oldP = Punkte.get(i - 1);
+					String oldS = Stacks.get(i - 1);
+					tempPunkte.add(i - 1, Punkte.get(i));
+					tempSortedStacks.add(i - 1, Stacks.get(i));
+					tempPunkte.add(oldP);
+					tempSortedStacks.add(oldS);
+				}
 			} else {
-				tempPunkte
-				isFirstSet = true;
+				tempPunkte.add(Punkte.get(i));
+				tempSortedStacks.add(Stacks.get(i));
 			}
-		}*/
+		}
 	}
 
 	/*private static String url = "jdbc:sqlite:" + controls.Environment.getDatabasePath() + controls.Globals.db_name + ".db";

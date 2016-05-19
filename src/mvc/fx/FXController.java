@@ -2,48 +2,49 @@ package mvc.fx;
 
 import debug.Debugger;
 import mvc.Controller;
-
 /**
  * Abstract GUI-Toolkit independent FX-Controller
  * ==============================================
  * - extends the controller features
- * - handles a FX Settings object
+ * - handles a single FX Stage owned by a controller
  * 
  * @author  hugo-lucca
  * @version 2016
- * License: LGPL
  */
 public abstract class FXController extends Controller
 {
 	private FXStage myFXStage;
 
+	/**
+	 * To construct a new stage for this new controller:
+	 */
 	public FXController ()
 	{
 		myFXStage = new FXStage(null);
 		this.start();
 	}
 
+	/**
+	 * To construct a new controller to an existig stage (the primary FX stage):
+	 */
 	public FXController (FXStage primaryStage)
 	{
 		myFXStage = new FXStage(primaryStage);
 		this.start();
 	}
-
-	public FXStage getMyFXStage () {
-		if (myFXStage == null) {
-			Debugger.out("getMyFXStage(): no FXStage for this controller");
+	
+	/**
+	 * To add a first view with a new stage to this controller:
+	 * 
+	 * @param newView
+	 * @return true if ok, false if not unique or called twice
+	 */
+	public boolean addViewOnNewStage (FXView newView) {
+		boolean result = this.addUniqueView(newView);
+		if (result) {
+			newView.getFXController().addUniqueMainView(newView);
 		}
-		return myFXStage;
-	}
-
-	public void setMyFXStage (FXStage theFXStage) {
-		this.myFXStage = theFXStage;
-	}
-
-	public boolean addViewOnNewStage (FXView newView) {		
-		this.addUniqueView(newView);
-		newView.getFXController().addUniqueMainView(newView);
-		return true;
+		return result;
 	}
 
 	/**
@@ -90,5 +91,21 @@ public abstract class FXController extends Controller
 		} else {
 			Debugger.out("FXController.setViewData("+withName+") ist not a FXViewModel!");
 		}
+	}
+
+	/**
+	 * GETTER/SETTER
+	 * =============
+	 * @return my stage
+	 */
+	public FXStage getMyFXStage () {
+		if (myFXStage == null) {
+			Debugger.out("getMyFXStage(): no FXStage for this controller");
+		}
+		return myFXStage;
+	}
+
+	public void setMyFXStage (FXStage theFXStage) {
+		this.myFXStage = theFXStage;
 	}
 }

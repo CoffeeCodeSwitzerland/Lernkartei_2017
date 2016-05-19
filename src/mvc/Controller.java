@@ -154,6 +154,8 @@ public abstract class Controller implements ControllerInterface
 
 	/**
 	 * To insert a view with a unique name to the controllers list called views
+	 * 
+	 * @return true if ok, false if not unique or called twice
 	 */
 	public boolean addUniqueView (View newView) {
 		Iterator<View> it = views.iterator();
@@ -176,10 +178,15 @@ public abstract class Controller implements ControllerInterface
 	/**
 	 * To insert a main-view with a unique name to the controllers list
 	 * - the main-view name is hidden for external navigation calls
+	 * 
+	 * @return true if ok, false if not unique or called twice
 	 */
-	public void addUniqueMainView(View mainView) {
-		this.addUniqueView(mainView);
-		this.mainViewName = mainView.getName();
+	public boolean addUniqueMainView(View mainView) {
+		boolean result = this.addUniqueView(mainView);
+		if (result) {
+			this.mainViewName = mainView.getName();
+		}
+		return result;
 	}
 
 	/**

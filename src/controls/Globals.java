@@ -15,4 +15,7 @@ public abstract class Globals {
 	public static final String CSSExtention = ".css";
 	public static final String stylesSupPath = "styles";
 	public static final String mainStyleFileName = "style";
+	
+	public static final String[] evenTags = new String[]{"u", "s", "sup", "sub"};
+	public static final String[] pairedTags = new String[]{"b", "strong", "i", "em"};
 }

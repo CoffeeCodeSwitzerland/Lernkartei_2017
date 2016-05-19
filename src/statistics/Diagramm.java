@@ -31,6 +31,7 @@ public class Diagramm
 			Double result = (100 / temp[0]) * temp[1];
 			Debugger.out("Resultat : " + result);
 			Punkte.add(result);
+			Debugger.out("Ende For-Durchlauf : " + i);
 		}		
 		return Punkte;
 	}

@@ -79,18 +79,6 @@ public class StatisticsModel extends FXModel
 		}
 	}
 	
-	public int doAction(String functionName, String paramS, double paramD)
-	{
-		if (functionName.equals("back"))
-		{
-			boolean success = false;
-			SD.delOldStats();
-			return success ? 1 : -1;
-		} else {
-			return -2;
-		}
-	}
-	
 	
 
 }

@@ -68,7 +68,7 @@ public class StatsView extends FXView
 		Rankings.setPadding(new Insets(15));
 		
 		//Buttons / Controls
-		back.setOnAction(e -> {getController().showMainView();SM.doAction("back");});
+		back.setOnAction(e -> {getController().showMainView();delOldStats();});
 		Controls.getChildren().addAll(back);
 		
 		Pane.setCenter(Diagram);
@@ -107,9 +107,18 @@ public class StatsView extends FXView
 		Rankings.getChildren().addAll(Ranks);
 		
 		System.out.println("StatsView 6");*/
+			
 		
 		} catch (Exception e) {
 			Debugger.out("StatsView Exception: " + e.fillInStackTrace());
 		}
 	}
+	
+	private void delOldStats()
+	{
+		Karteien.clear();
+		Punkte.clear();
+		//bc = null;
+	}
+
 }

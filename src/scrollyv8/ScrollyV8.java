@@ -7,14 +7,15 @@ import models.GameModel;
 
 import java.awt.*;
 import java.awt.event.*;
-//import java.io.File;
+
 
 public class ScrollyV8 extends JFrame implements KeyListener, WindowListener, ActionListener {
 	private static final long serialVersionUID = 1L;
 	static int width = 900 - 30;
 	static int height = 600 - 15;
 	static String title = "Sidegame";
-	gamePanel gPanel = new gamePanel();
+	public static gamePanel gPanel = new gamePanel();
+	public static ScrollyV8 mf;
 
 	public void dispose() {
 		Debugger.out("Killing Player...");
@@ -38,6 +39,7 @@ public class ScrollyV8 extends JFrame implements KeyListener, WindowListener, Ac
 			// @SuppressWarnings("static-access")
 			public void windowClosing(WindowEvent e) {
 				System.err.println("Exiting Game");
+				gamePanel.gameState = gamePanel.INTRO;
 				MidiPlayer.stop();
 				gamePanel.sound = false;
 				if(GameModel.gameController != null)
@@ -46,16 +48,6 @@ public class ScrollyV8 extends JFrame implements KeyListener, WindowListener, Ac
 					{
 				GameModel.gameController.getModel("game").refreshViews();
 					}
-					else
-					{
-						System.out.println("fehler, kein GameModel!");
-						
-					}
-					
-				}
-				else
-				{
-					System.out.println("kein Controller");// setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 				}
 			}
 		});
@@ -82,7 +74,7 @@ public class ScrollyV8 extends JFrame implements KeyListener, WindowListener, Ac
 
 	public static void main(String[] args) {
 		Debugger.out("START Game via main...");
-		ScrollyV8 mf = new ScrollyV8();
+		mf = new ScrollyV8();
 		mf.setVisible(true);
 		mf.init();
 
@@ -90,6 +82,9 @@ public class ScrollyV8 extends JFrame implements KeyListener, WindowListener, Ac
 		// t.start();
 		// t.stop();
 
+	}
+	public static void hideWindow(){
+		
 	}
 
 	@Override

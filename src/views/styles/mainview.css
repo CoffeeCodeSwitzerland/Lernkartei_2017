@@ -1,6 +1,6 @@
 #mainview {
 	
-	-fx-background-color: linear-gradient(to bottom, #d6fffd 50.0%, #5ca55c 100.0%);
+	-fx-background-color: linear-gradient(to bottom, #d6fffd 70.0%, #7cbc7c 30.0%);
 	-fx-background-image: url("pictures/SchulhausEinzelnBig.png");
 	-fx-background-repeat: no-repeat;
 }

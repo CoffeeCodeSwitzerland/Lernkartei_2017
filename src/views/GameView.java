@@ -3,12 +3,12 @@ package views;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
-import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import models.GameModel;
 import mvc.fx.FXController;
 import mvc.fx.FXView;
 
@@ -21,7 +21,7 @@ import mvc.fx.FXView;
  *
  */
 public class GameView extends FXView {
-	
+
 	public GameView(String newName, FXController newController) {
 		// this constructor is the same for all view's
 		super(newName, newController);
@@ -29,6 +29,14 @@ public class GameView extends FXView {
 	}
 
 	Text text;
+
+	Text lifes = new Text("");
+	BorderPane mainLayout = new BorderPane();
+	AppButton btn = new AppButton("Spiel starten");
+	VBox menuLayout = new VBox();
+	AppButton btnInfo = new AppButton("Info");
+	AppButton btnBacktoKartei = new AppButton("Zurück");
+	Text grund = new Text("");
 
 	@Override
 	public Parent constructContainer() {
@@ -39,49 +47,28 @@ public class GameView extends FXView {
 		// Button für Zurück zum Hauptmenue:
 		Image impressumImg = new Image("views/pictures/ImpressumIcon.png");
 
-		AppButton btn = new AppButton("Spiel starten");
-		AppButton btnInfo = new AppButton("Info");
-		AppButton btnBacktoKartei = new AppButton("Zurück");
-		Label lifes = new Label("Lifes: " + database.Score.getLifecount());
-		Label grund = new Label("Sie müssen zuerst Lernen!");
-
-		BorderPane mainLayout = new BorderPane();
-		VBox menuLayout = new VBox();
-
 		btn.setOnAction(e -> getController().getModel("game").doAction("start"));
 
 		btnInfo.setOnAction(e -> getController().getView("gameoptionview").show());
 
 		btnBacktoKartei.setOnAction(e -> getController().showMainView());
-		
-		lifes.setAlignment(Pos.TOP_RIGHT);
 
 		// Erstellt VBox Layout für beide obige Elemente:
-
-		menuLayout.setPadding(new Insets(10));
-		menuLayout.setSpacing(10);
-		menuLayout.setAlignment(Pos.CENTER);
-
-		mainLayout.setPadding(new Insets(5));
-		mainLayout.setCenter(menuLayout);
+		menuLayout.getChildren().addAll(grund, btn, btnInfo, btnBacktoKartei);
 
 		ImageView impImgView = new ImageView(impressumImg);
 		mainLayout.setBottom(impImgView);
-		mainLayout.setTop(lifes);
+
 		impImgView.setOnMouseClicked(e -> getController().getView("impressumview").show());
+		menuLayout.setPadding(new Insets(10));
+		menuLayout.setSpacing(10);
+		menuLayout.setAlignment(Pos.CENTER);
+		mainLayout.setTop(lifes);
 		
-		if(database.Score.getLifecount() == 0)
-		{
-			btn.setDisable(true);
-			menuLayout.getChildren().addAll(grund, btn,btnInfo, btnBacktoKartei);
-			
-		}
-	else
-		{
 
-			menuLayout.getChildren().addAll(btn, btnInfo, btnBacktoKartei);
-		}
-
+		mainLayout.setPadding(new Insets(5));
+		mainLayout.setCenter(menuLayout);
+		((GameModel) getController().getModel("game")).registerView(this, getController());
 		return mainLayout;
 
 		// VBox in neuem Borderpane einfügen, zwingend wenn Hintergrund neu sein
@@ -92,5 +79,17 @@ public class GameView extends FXView {
 
 	@Override
 	public void refreshView() {
+
+		if (database.Score.getLifecount() == 0) {
+			btn.setDisable(true);
+			grund.setText("Sie müssen zuerst Lernen!");
+			lifes.setText("Lifes: " + database.Score.getLifecount());
+		}
+		else
+		{
+			lifes.setText("Lifes: " + database.Score.getLifecount());
+		}
+		
+
 	}
 }

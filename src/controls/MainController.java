@@ -22,6 +22,7 @@ import views.LearnView;
 import views.MainView;
 import views.MainViewSettings;
 import views.OptionsView;
+import views.PostLearnView;
 import views.PreLearnView;
 import views.QuizletImportView;
 import views.SimpleEditorView;
@@ -72,8 +73,11 @@ public class MainController extends FXController
 		this.addUniqueView(new QuizletImportView("quizlet", this));
 		this.addUniqueView(new SimpleEditorView("simpleeditorview", this));
 		this.addUniqueView(new EditorView1("editorview", this));
+		
 		this.addUniqueView(new PreLearnView("prelearn", this));
 		this.addUniqueView(new LearnView("learnview", this));
+		this.addUniqueView(new PostLearnView("postlearn", this));
+		
 		this.addUniqueView(new ImpressumView("impressumview", this));
 		Logger.log("Instanzierung beendet....");
 	}

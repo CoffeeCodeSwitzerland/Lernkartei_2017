@@ -1,9 +1,11 @@
 package views;
 
 import controls.Globals;
+import debug.Debugger;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
@@ -33,8 +35,6 @@ public class OptionsView extends FXView
 	{
 		Label cardLimitDescription = new Label("Anzahl Karten, die auf einmal gelernt werden, limitieren.");
 		TextField cardLearnLimit = new TextField(getController().getModel("config").getDataList("cardLimit").get(0));
-		AppButton back = new AppButton("_Zurück");
-
 		
 		lastValidCardLimit = cardLearnLimit.getText();
 		
@@ -61,11 +61,27 @@ public class OptionsView extends FXView
 			
 		});
 		
+		
+		Label autoWidthDescription = new Label("Wenn aktiviert, werden alle Stapel dem grössten angepasst. Sonst orientiert sich die Grösse jeweils am Namen des Stapels");
+		autoWidthDescription.setMaxWidth(200);
+		autoWidthDescription.setWrapText(true);
+		boolean oldValue = getFXController().getModel("config").getDataList("") != null ? (getController().getModel("config").getDataList("widthState").get(0).equals("true") ? true : false) : false;
+		CheckBox autoWidth = new CheckBox("Biggy is the ruler");
+		autoWidth.setSelected(oldValue);
+		autoWidth.selectedProperty().addListener(e -> {
+			Debugger.out("Width property has changed");
+			String value = autoWidth.selectedProperty().getValue() ? "true" : "000";
+			getFXController().getModel("config").doAction("setValue", "widthState" + Globals.SEPARATOR + value);
+		});		
+		
+		AppButton back = new AppButton("_Zurück");
+
+		
 		VBox mainLayout = new VBox();
 		mainLayout.setPadding(new Insets(10));
 		mainLayout.setSpacing(10);
 		mainLayout.setAlignment(Pos.CENTER);
-		mainLayout.getChildren().addAll(cardLimitDescription, cardLearnLimit, back);
+		mainLayout.getChildren().addAll(cardLimitDescription, cardLearnLimit, autoWidthDescription, autoWidth, back);
 
 		back.setOnAction(e -> getController().showMainView());
 		

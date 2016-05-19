@@ -29,13 +29,13 @@ public class GameOptionView extends FXView {
 		VBox itemsLayout = new VBox();
 		itemsLayout.setAlignment(Pos.CENTER);
 
-		Anleitung.setText("Hie cha dr schisstim si text ihsetze\n");
+		Anleitung.setText("Anleitung");
 		
 		BacktoGameMenu.setOnAction(e -> getController().getView("gameview").show());
 
 		itemsLayout.getChildren().addAll(Anleitung, BacktoGameMenu);
 		
-		Anleitung.setAlignment(Pos.TOP_CENTER);
+		Anleitung.setAlignment(Pos.TOP_CENTER); 
 		mainLayout.setCenter(itemsLayout);
 	
 		return mainLayout;

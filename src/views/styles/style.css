@@ -1,0 +1,144 @@
+.root {
+	-fx-color: #eeeeee;
+	-fx-background: whitesmoke;
+    -fx-background-position: center center;
+	-fx-background-repeat: stretch;   
+    -fx-effect: dropshadow(three-pass-box, black, 30.0, 0.5, 0.0, 0.0);
+}
+
+#mainview {
+	
+	-fx-background-color: linear-gradient(to bottom, #d6fffd 50.0%, #5ca55c 100.0%);
+	-fx-background-image: url("pictures/SchulhausEinzelnBig.png");
+	-fx-background-repeat: no-repeat;
+}
+
+#helpview {
+	-fx-background-color: #cef0ffff;
+}
+
+#bold {
+	-fx-font-weight: bold;
+	-fx-font-size: 1.2em;
+}
+
+
+#gamebg {
+	-fx-color: silver;
+	-fx-background: silver;
+	-fx-background-image: null;
+}
+
+.check-box {
+	-fx-color: white;
+}
+
+#fancytext {
+    -fx-font: 40.0px Tahoma;
+    -fx-fill: linear-gradient(from 0.0% 0.0% to 100.0% 200.0%, repeat, aqua 0.0%, red 50.0%);
+    -fx-stroke: black;
+    -fx-stroke-width: 1.0;
+}
+
+/*Code Generator für die Farben
+ * http://www.2createawebsite.com/build/hex-colors.html
+ */
+
+.button {
+	-fx-font-family: "Segoe UI Semibold";
+	-fx-color: #ffebb2;
+    -fx-text-fill: #875100;
+    -fx-focus-color: white;
+}
+
+#impressumtext {
+	-fx-font-family: "Segoe UI Semibold";
+	-fx-background-color: white;
+	-fx-text-fill: black;
+	-fx-padding: 10.0px;
+}
+
+#startbtn{
+	-fx-background-image: url("pictures/KarteIcon.png");
+	-fx-background-repeat: no-repeat;
+}
+#statbtn{
+	-fx-background-image: url("pictures/DiagrammIcon.png");
+	-fx-background-repeat: no-repeat;}
+	
+#stat2btn{
+	-fx-background-image: url("pictures/DiagrammIcon.png");
+	-fx-background-repeat: no-repeat;}
+	
+#optionsbtn{
+	-fx-background-image: url("pictures/OptionIcon.png");
+	
+	-fx-background-repeat: no-repeat;}
+	
+#gamebtn{
+	-fx-background-image: url("pictures/GameIcon.png");
+	-fx-background-repeat: no-repeat;}
+	
+	
+#helpbtn{
+	-fx-background-image: url("pictures/HelpIcon.png");
+	-fx-background-repeat: no-repeat;}
+	
+	
+#quitbtn{
+	-fx-background-image: url("pictures/ExitIcon.png");
+	-fx-background-repeat: no-repeat;}
+	
+	
+#DoorButtons{
+	-fx-background-image: url("pictures/DoorIcon.png");
+	-fx-background-repeat: no-repeat;
+	-fx-padding: 22.0 21.0 22.0 21.0;
+	}
+	
+#BoxButtons{
+	-fx-background-image: url("pictures/BoxIcon2.png");
+	-fx-background-repeat: no-repeat;
+	-fx-padding: 15.0 20.0 15.0 20.0;
+	}
+#icon{
+	-fx-font-family: "Consolas";
+	-fx-font-weight: bold;
+	-fx-font-size: 1.4em;
+}
+#doorview{
+	-fx-background-image: url("pictures/viewbackground.png");
+	-fx-background-repeat: stretch;   
+    -fx-background-size: 920.0 570.0;}
+
+
+#stack{
+	-fx-background-image: url("pictures/viewbackground.png");
+	-fx-background-repeat: stretch;   
+    -fx-background-size: 920.0 570.0;}
+    
+#simpleeditorview{
+	-fx-background-color: #cef0ffff;
+	}
+    
+#gameview{
+	-fx-background-color: #cef0ffff;
+	}
+#gameoptionview{
+	-fx-background-color: #cef0ffff;
+	-fx-background-image:url("pictures/tasten.png");
+	-fx-background-position: center top;	
+    -fx-background-size:320 200;
+	}
+	
+#optionsview{
+	-fx-background-color: #cef0ffff;
+	}
+	
+#statisticsview{
+	-fx-background-color: #cef0ffff;
+	}
+	
+#statsview{
+	-fx-background-color: #cef0ffff;
+	}

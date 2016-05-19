@@ -1,5 +1,6 @@
 package views;
 
+import controls.Globals;
 import debug.Debugger;
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
@@ -11,13 +12,14 @@ import mvc.fx.FXController;
 import mvc.fx.FXViewModel;
 
 /**
+ * Diese View zeigt dem User vor dem Lernen Informationen an.
+ * Zum Beispiel der Fortschritt des akutellen Stacks.
  * 
  * @author miro albrecht
  *
  */
 public class PreLearnView extends FXViewModel
 {
-
 	public PreLearnView (String setName, FXController controller)
 	{
 		super(setName, controller);
@@ -25,14 +27,11 @@ public class PreLearnView extends FXViewModel
 	}
 
 	
-	
 	BorderPane mainLayout = new BorderPane();
 	
 	@Override
 	public Parent constructContainer ()
 	{
-		getController().getModel("learn").getDataList(null).clear();
-		getController().getModel("learn").setString(null);
 		mainLayout.setPadding(new Insets(50));
 		return mainLayout;
 	}
@@ -40,6 +39,10 @@ public class PreLearnView extends FXViewModel
 	@Override
 	public void refreshView ()
 	{
+		// Reset the data of the learn model which forces the model to shuffle again
+		getController().getModel("learn").getDataList(null).clear();
+		getController().getModel("learn").setString(null);
+		
 		if (getData() == null || getData().equals(""))
 		{
 			Debugger.out("PreLearnView has no Stack Data");
@@ -56,7 +59,7 @@ public class PreLearnView extends FXViewModel
 		{
 			if (getFXController().getModel("statistics").getDataList(getData()) != null)
 			{
-				score = getFXController().getModel("statistics").getDataList(getData()).get(0);
+				score = getFXController().getModel("statistics").getDataList(getData() + Globals.SEPARATOR + "start").get(0);
 			}
 		}
 		

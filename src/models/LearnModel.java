@@ -32,12 +32,9 @@ public class LearnModel extends Model {
 			database.Score.correctCard();
 			
 			refreshViews();
-			if (KartenPunkt != 1) {
-				
-				return 1;
-			} else {
-				return -1;
-			}
+			
+
+			return 1;
 		}
 		else if (functionName.equals("Falsch")) {
 			KartenPunkt =  Bewertungsklasse.CardFalse(freeStringParam, KartenPunkt);

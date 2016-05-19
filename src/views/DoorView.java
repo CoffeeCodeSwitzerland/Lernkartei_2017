@@ -13,7 +13,6 @@ import javafx.scene.input.TransferMode;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import mvc.View;
 import mvc.fx.FXController;
 import mvc.fx.FXView;
 
@@ -126,9 +125,8 @@ public class DoorView extends FXView
 			a.setId("DoorButtons");
 			a.setOnAction(e ->
 			{
-				View v = getController().getView("stack");
-				v.setData(a.getText());
-				v.show();
+				getController().setViewData("stack", a.getText());
+				getController().showView("stack");
 			});
 			
 			a.setOnDragDetected(e ->

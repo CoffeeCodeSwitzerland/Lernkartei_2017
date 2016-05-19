@@ -37,7 +37,7 @@ public class EditorView1 extends FXViewModel
 		//Zurück Button
 		AppButton backBtn = new AppButton("_Zurück");
 		backBtn.setOnAction(e -> 
-		getController().getView("simpleeditorview").show());	
+		getController().showView("simpleeditorview"));	
 		
 		//EditLayout
 		editLayout.setPadding(new Insets(10));
@@ -67,7 +67,7 @@ public class EditorView1 extends FXViewModel
 
 		if (data != null)
 		{
-			headLbl.setText(data + " - " + getController().getView("stack").getData());
+			headLbl.setText(data + " - " + getController().getViewData("stack"));
 			
 			HTMLEditor front = new HTMLEditor();
 			HTMLEditor back = new HTMLEditor();

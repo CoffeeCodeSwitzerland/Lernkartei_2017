@@ -49,7 +49,7 @@ public class LearnView extends FXViewModel
 		backBtn.setOnAction(e ->
 		{
 			counter = 0;
-			getController().getView("stack").show();
+			getController().showView("stack");
 		});
 
 		headLbl.setId("bold");

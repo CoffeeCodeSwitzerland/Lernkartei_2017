@@ -68,11 +68,11 @@ public class MainView extends FXView
 		mainLayout.setCenter(menuLayout);
 
 		// Behaviour
-		startBtn.setOnAction(e -> getController().getView("doorview").show());
-		statBtn.setOnAction(e -> getController().getView("statisticsview").show());
-		stat2Btn.setOnAction(e -> getController().getView("statsview").show());
-		optionsBtn.setOnAction(e -> getController().getView("optionsview").show());
-		gameBtn.setOnAction(e -> getController().getView("gameview").show());
+		startBtn.setOnAction(e -> getController().showView("doorview"));
+		statBtn.setOnAction(e -> getController().showView("statisticsview"));
+		stat2Btn.setOnAction(e -> getController().showView("statsview"));
+		optionsBtn.setOnAction(e -> getController().showView("optionsview"));
+		gameBtn.setOnAction(e -> getController().showView("gameview"));
 		//helpBtn.setOnAction(e -> getController().getView("helpview").show());
 
 		quitBtn.setOnAction(e ->
@@ -95,7 +95,7 @@ public class MainView extends FXView
 		// Impressum
 		ImageView impImgView = new ImageView(impressumImg);
 		mainLayout.setBottom(impImgView);
-		impImgView.setOnMouseClicked(e -> getController().getView("helpview").show());
+		impImgView.setOnMouseClicked(e -> getController().showView("helpview"));
 
 		return mainLayout;
 	}

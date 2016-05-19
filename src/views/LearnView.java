@@ -1,7 +1,6 @@
 package views;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import controls.Globals;
 import debug.Debugger;
@@ -10,6 +9,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -57,8 +57,7 @@ public class LearnView extends FXViewModel
 
 		successfulBtn.setOnAction(e ->
 		{
-			counter++;
-			int feedback = getController().getModel("learn").doAction("Richtig", cardData[0]);
+			int feedback = changeCardPriority("Richtig");
 			if (feedback < 0)
 			{
 				counter--;
@@ -71,8 +70,7 @@ public class LearnView extends FXViewModel
 
 		wrongBtn.setOnAction(e ->
 		{
-			counter++;
-			int feedback = getController().getModel("learn").doAction("Falsch", cardData[0]);
+			int feedback = changeCardPriority("Falsch");
 			if (feedback < 0)
 			{
 				counter--;
@@ -86,7 +84,7 @@ public class LearnView extends FXViewModel
 		card.setMaxSize(320, 180);
 		card.setId("bold");
 		card.setDisable(true);
-
+		
 		preCard.setOnAction(e ->
 		{
 			counter = counter > 0 ? counter - 1 : counter;
@@ -98,18 +96,15 @@ public class LearnView extends FXViewModel
 			counter++;
 			refreshView();
 		});
-
-		Button turnCardBtn = new Button("Drehen");
-		turnCardBtn.setOnAction(e ->
-		{
-			engine.loadContent(frontIsShowed ? cardData[2] : cardData[1]);
-			frontIsShowed = !frontIsShowed;
-		});
-
+		
 		VBox cardLayout = new VBox(20);
 		cardLayout.setAlignment(Pos.CENTER);
-		cardLayout.getChildren().addAll(card, turnCardBtn);
-
+		cardLayout.getChildren().addAll(card);
+		
+		cardLayout.setOnMouseClicked(e -> {
+			turnCard();
+		});
+		
 		HBox controlLayout = new HBox(20);
 		controlLayout.setAlignment(Pos.CENTER);
 		controlLayout.getChildren().addAll(backBtn, preCard, successfulBtn, wrongBtn, nextCard);
@@ -121,6 +116,37 @@ public class LearnView extends FXViewModel
 		mainLayout.setPadding(new Insets(15));
 		mainLayout.setTop(headLbl);
 
+		mainLayout.setOnKeyReleased(e -> {
+			if (e.getCode() == KeyCode.T)
+			{
+				turnCard();
+			}
+			else if (e.getCode() == KeyCode.R)
+			{
+				int feedback = changeCardPriority("Richtig");
+				if (feedback < 0)
+				{
+					counter--;
+				}
+				else if (feedback == 0)
+				{
+					Debugger.out("views/LearnView/constructContainer: doAction(Richtig) Parameter ungültig");
+				}
+			}
+			else if (e.getCode() == KeyCode.F)
+			{
+				int feedback = changeCardPriority("Falsch");
+				if (feedback < 0)
+				{
+					counter--;
+				}
+				else if (feedback == 0)
+				{
+					Debugger.out("views/LearnView/constructContainer: doAction(Falsch) Parameter ungültig");
+				}
+			}
+		});
+		
 		getController().getModel("learn").registerView(this);
 		return mainLayout;
 	}
@@ -135,7 +161,6 @@ public class LearnView extends FXViewModel
 		}
 		else
 		{
-
 			headLbl.setText(getData());
 			ArrayList<String> cards = getController().getModel("learn").getDataList(getData());
 			if (counter < cards.size())
@@ -196,5 +221,17 @@ public class LearnView extends FXViewModel
 	{
 		getController().getModel("learn").getDataList(null).clear();
 		getController().getModel("learn").setString(null);
+	}
+	
+	private void turnCard()
+	{
+		engine.loadContent(frontIsShowed ? cardData[2] : cardData[1]);
+		frontIsShowed = !frontIsShowed;
+	}
+	
+	private int changeCardPriority(String command)
+	{
+		counter++;
+		return getController().getModel("learn").doAction(command, cardData[0]);
 	}
 }

@@ -5,8 +5,10 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
+import javafx.scene.control.IndexRange;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -70,7 +72,6 @@ public class EditorView extends FXViewModel
 	public void refreshView() {
 
 		editLayout.getChildren().clear();
-
 		String data = getData();
 
 		if (data != null)
@@ -79,9 +80,16 @@ public class EditorView extends FXViewModel
 			
 			Button bold = new Button("B");
 			Button italic = new Button("I");
-			Button crossed = new Button("U");
+			Button crossed = new Button("S");
+			Button under = new Button("U");
 			Button sup = new Button("SP");
 			Button sub = new Button("SB");
+			Button bold1 = new Button("B");
+			Button italic1 = new Button("I");
+			Button crossed1 = new Button("S");
+			Button under1 = new Button("U");
+			Button sup1 = new Button("SP");
+			Button sub1 = new Button("SB");
 			TextField front = new TextField();
 			TextField back = new TextField();
 			Button update = new Button("\u2713");	
@@ -100,6 +108,57 @@ public class EditorView extends FXViewModel
 			enginefront.loadContent(front.getText());
 			engineback.loadContent(back.getText());
 			
+			back.setOnMouseReleased(e ->{
+				int start = back.getSelection().getStart();
+				int end = back.getSelection().getEnd();
+				String codeBefore = back.getText().substring(0, start);
+				String codeAfter = back.getText().substring(end);
+				String isolatedWord = back.getText().substring(start, end);
+				bold.setOnMouseClicked(a ->{
+				back.setText(codeBefore+"[b]"+isolatedWord+"[/b]"+codeAfter);
+				});
+				italic.setOnMouseClicked(a ->{
+				back.setText(codeBefore+"[i]"+isolatedWord+"[/i]"+codeAfter);
+				});
+				crossed.setOnMouseClicked(a ->{
+				back.setText(codeBefore+"[s]"+isolatedWord+"[/s]"+codeAfter);
+				});
+				under.setOnMouseClicked(a ->{
+				back.setText(codeBefore+"[u]"+isolatedWord+"[/u]"+codeAfter);
+				});
+				sup.setOnMouseClicked(a ->{
+				back.setText(codeBefore+"[sup]"+isolatedWord+"[/sup]"+codeAfter);
+				});
+				sub.setOnMouseClicked(a ->{
+				back.setText(codeBefore+"[sub]"+isolatedWord+"[/sub]"+codeAfter);
+				});
+			});
+			front.setOnMouseReleased(e ->{
+				int start = front.getSelection().getStart();
+				int end = front.getSelection().getEnd();
+				String codeBefore = front.getText().substring(0, start);
+				String codeAfter = front.getText().substring(end);
+				String isolatedWord = front.getText().substring(start, end);
+				bold1.setOnMouseClicked(a ->{
+				front.setText(codeBefore+"[b]"+isolatedWord+"[/b]"+codeAfter);
+				});
+				italic1.setOnMouseClicked(a ->{
+				front.setText(codeBefore+"[i]"+isolatedWord+"[/i]"+codeAfter);
+				});
+				crossed1.setOnMouseClicked(a ->{
+				front.setText(codeBefore+"[s]"+isolatedWord+"[/s]"+codeAfter);
+				});
+				under1.setOnMouseClicked(a ->{
+				front.setText(codeBefore+"[u]"+isolatedWord+"[/u]"+codeAfter);
+				});
+				sup1.setOnMouseClicked(a ->{
+				front.setText(codeBefore+"[sup]"+isolatedWord+"[/sup]"+codeAfter);
+				});
+				sub1.setOnMouseClicked(a ->{
+				front.setText(codeBefore+"[sub]"+isolatedWord+"[/sub]"+codeAfter);
+				});
+			});
+			
 			back.setOnKeyReleased(e ->
 			engineback.loadContent(back.getText()));
 			
@@ -115,6 +174,14 @@ public class EditorView extends FXViewModel
 				}
 			});	
 			
+			HBox buttonLL = new HBox(8);
+			buttonLL.setAlignment(Pos.TOP_LEFT);
+			buttonLL.getChildren().addAll(bold1, italic1, crossed1, under1, sup1, sub1);
+			
+			HBox buttonLR = new HBox(8);
+			buttonLR.setAlignment(Pos.TOP_LEFT);
+			buttonLR.getChildren().addAll(bold, italic, crossed, under, sup, sub);
+			
 			HBox eingabeL = new HBox(8);
 			eingabeL.setAlignment(Pos.CENTER);
 			eingabeL.getChildren().addAll(front, back);
@@ -125,11 +192,11 @@ public class EditorView extends FXViewModel
 			
 			VBox leftL = new VBox(8);
 			leftL.setAlignment(Pos.CENTER_LEFT);
-			leftL.getChildren().addAll(front, previewfront);
+			leftL.getChildren().addAll(buttonLL, front, previewfront);
 			
 			VBox rightL = new VBox(8);
 			rightL.setAlignment(Pos.CENTER_RIGHT);
-			rightL.getChildren().addAll(back, previewback);
+			rightL.getChildren().addAll(buttonLR, back, previewback);
 			
 			HBox mainL = new HBox(8);
 			mainL.setAlignment(Pos.BOTTOM_CENTER);

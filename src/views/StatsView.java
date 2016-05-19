@@ -18,6 +18,7 @@ import javafx.scene.layout.HBox;
 import models.StatisticsModel;
 import mvc.fx.FXController;
 import mvc.fx.FXView;
+import statistics.Rangliste;
 /**
  * Diese Klasse soll die gleiche Funktionalität wie StatisticsView haben und diese dann auch ersetzen
  * Sie soll beliebig viele Säulen generieren
@@ -98,7 +99,11 @@ public class StatsView extends FXView
 			
 			Diagram.getChildren().addAll(bc);
 			
+			Rangliste testZweck = new Rangliste();
 			
+//			ObversableList
+//			Ranks.setItems(testZweck.getRangliste());
+			Rankings.getChildren().addAll(Ranks);
 		
 		/*Ranks.setItems(getController().getFXModel("profil").getObservableDataList("ranking"));
 		

@@ -6,10 +6,9 @@ import debug.Logger;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import models.GameModel;
 import mvc.fx.FXController;
 import mvc.fx.FXView;
@@ -29,7 +28,6 @@ public class MainView extends FXView
 	}
 
 	BorderPane mainLayout = new BorderPane();
-	Image impressumImg = new Image("views/pictures/ImpressumIcon.png");
 	AppButton startBtn = new AppButton("_Lernkarteien");
 	AppButton statBtn = new AppButton("Statistiken");
 	AppButton stat2Btn = new AppButton("Statistiken-2");
@@ -92,10 +90,15 @@ public class MainView extends FXView
 		});
 		
 		Logger.log("Set impressum....");
-		// Impressum
-		ImageView impImgView = new ImageView(impressumImg);
-		mainLayout.setBottom(impImgView);
-		impImgView.setOnMouseClicked(e -> getController().showView("helpview"));
+
+		// Impressum Leerbox (IMG in CSS eingefügt)
+		BorderPane imgPane = new BorderPane();
+		Text emptyText = new Text("          \n\n");
+		imgPane.setId("helpbtn");
+		imgPane.setOnMouseClicked(e -> getController().showView("helpview"));
+		imgPane.setLeft(emptyText);
+		imgPane.autosize();
+		mainLayout.setBottom(imgPane);
 
 		return mainLayout;
 	}

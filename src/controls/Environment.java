@@ -96,7 +96,8 @@ public final class Environment {
 	}
 	
 	public static String getDatabasePath() {
-		File theDir = new File(getUserPath() + fileSep + controls.Globals.db_Path);
+		if (fileSep == null) init();
+		File theDir = new File(System.getenv("APPDATA") + fileSep + controls.Globals.db_Path);
 		if (!theDir.exists()) {
 			theDir.mkdirs();
 		    debug.Debugger.out("Ordner " + controls.Globals.db_Path + " erstellt!");
@@ -104,7 +105,7 @@ public final class Environment {
 			debug.Debugger.out("Ordner " + controls.Globals.db_Path + " erstellt!");
 		}
 		
-		String path = getUserPath() + fileSep + controls.Globals.db_Path + fileSep;
+		String path = System.getenv("APPDATA") + fileSep + controls.Globals.db_Path;
 		return path;
 	}
 	

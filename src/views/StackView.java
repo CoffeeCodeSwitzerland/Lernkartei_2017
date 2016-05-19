@@ -51,8 +51,8 @@ public class StackView extends FXViewModel
 		placeholder.setMinWidth(200);
 
 		// Buttons
-		AppButton backBtn = new AppButton("_Zurück");
-		AppButton newBoxBtn = new AppButton("_Neuer Stapel");
+		AppButton backBtn = new AppButton("Zurück");
+		AppButton newBoxBtn = new AppButton("Neuer Stapel");
 
 		Image trashImg = new Image("views/pictures/Papierkorb.png");
 		ImageView trashImgView = new ImageView(trashImg);
@@ -91,11 +91,10 @@ public class StackView extends FXViewModel
 					}
 					break;
 				case 1:
-					getController().setViewData("quizlet",getData());
+					getController().setViewData("quizlet", getData());
 					getController().showView("quizlet");
 					break;
 				default:
-
 					break;
 			}
 
@@ -117,7 +116,7 @@ public class StackView extends FXViewModel
 			boolean success = false;
 			if (db.hasString())
 			{
-				if (Alert.ok("Achtung", "Willst du den Stapel '" + db.getString() + "' wirklich löschen?"))
+				if (Alert.ok("Achtung", "Willst du den Stapel '" + db.getString() + "' wirklich endgültig löschen?"))
 				{
 					getController().getModel("stack").doAction("delete", db.getString());
 					// TODO Feedback für den User (Fehlermeldungen)
@@ -190,7 +189,6 @@ public class StackView extends FXViewModel
 				});
 				a.setOnDragDetected(e ->
 				{
-
 					Dragboard db = a.startDragAndDrop(TransferMode.MOVE);
 
 					ClipboardContent content = new ClipboardContent();
@@ -213,26 +211,27 @@ public class StackView extends FXViewModel
 		}
 	}
 
-	private void setOptions (String set)
+	// Füllt Pane mit den Stapeloptionen
+	private void setOptions (String stack)
 	{
 		options.getChildren().clear();
 
-		Label setTitle = new Label(set);
-		AppButton lernen = new AppButton("_Lernen");
-		AppButton edit = new AppButton("B_earbeiten");
+		Label stackTitle = new Label(stack);
+		AppButton lernen = new AppButton("Lernen");
+		AppButton edit = new AppButton("Bearbeiten");
 
-		setTitle.setId("bold");
+		stackTitle.setId("bold");
 		lernen.setOnAction(e ->
 		{
-			getController().setViewData("prelearn",set);
+			getController().setViewData("prelearn",stack);
 			getController().showView("prelearn");
 		});
 		edit.setOnAction(e ->
 		{
-			getController().setViewData("simpleeditorview",set);
+			getController().setViewData("simpleeditorview",stack);
 			getController().showView("simpleeditorview");
 		});
 
-		options.getChildren().addAll(setTitle, lernen, edit);
+		options.getChildren().addAll(stackTitle, lernen, edit);
 	}
 }

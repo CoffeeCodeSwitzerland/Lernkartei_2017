@@ -23,13 +23,14 @@
 	-fx-color: #ffebb2;
     -fx-text-fill: #875100;
     -fx-focus-color: #875100;
-    -fx-background-insets: -0.4, 0, 1, 2;
+    -fx-background-insets: 0, 0, 1, 2;
 }
 
 .button:focused
 {
 	-fx-focus-color: #875100;
-	-fx-background-insets: -0.5, 0, 200, 200;
+	-fx-background-color: linear-gradient(to bottom, #fff0c9 30.0%, #c6af75 100.0%);
+	-fx-background-insets: -0.8, 0, 300, 100;
 }
 
 #icon{

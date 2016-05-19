@@ -4,6 +4,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -97,11 +98,18 @@ public final class Alert
 		TextField tf = new TextField(field);
 		tf.setMaxWidth(fieldWidth);
 
+		tf.setOnKeyReleased(e -> {
+			if (e.getCode().equals(KeyCode.ENTER))
+			{
+				output = tf.getText();
+				window.close();
+			}
+		});
+		
 		Button b = new Button("_OK");
 		b.setOnAction(e ->
 		{
-			output = tf.getText();
-			window.close();
+			
 		});
 
 		VBox layout = new VBox(20);

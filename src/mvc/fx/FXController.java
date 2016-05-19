@@ -56,12 +56,12 @@ public abstract class FXController extends Controller
 	public FXModel getFXModel (String withName)
 	{
 		// assert the model is a FXModel before casting
-		if (super.getModel(withName).getClass().getName().equals("FXModel")) {
-			return (FXModel)super.getModel(withName);
-		} else {
-			Debugger.out("FXController.getFXModel("+withName+") ist not a FXModel!");
+//		if (super.getModel(withName).getClass().getName().equals("FXModel")) {
+//			return (FXModel)super.getModel(withName);
+//		} else {
+			Debugger.out("FXController.getFXModel("+withName+") ist not a FXModel"+super.getModel(withName).getClass().getName()+"!");
 			return null;
-		}
+//		}
 	}
 
 	/**
@@ -71,12 +71,12 @@ public abstract class FXController extends Controller
 	public String getViewData (String withName)
 	{
 		// assert the model is a FXViewModel before casting
-		if (seekView(withName).getClass().getName().equals("FXViewModel")) {
-			return ((FXViewModel)seekView(withName)).getData(); // not found
-		} else {
-			Debugger.out("FXController.getViewData("+withName+") ist not a FXViewModel!");
+//		if (seekView(withName).getClass().getName().equals("FXViewModel")) {
+//			return ((FXViewModel)seekView(withName)).getData(); // not found
+//		} else {
+			Debugger.out("FXController.getViewData("+withName+") ist not a FXViewModel("+seekView(withName).getClass().getName()+")!");
 			return "";
-		}
+//		}
 	}
 
 	/**
@@ -86,11 +86,11 @@ public abstract class FXController extends Controller
 	public void setViewData (String withName, String data)
 	{
 		// assert the model is a FXViewModel before casting
-		if (seekView(withName).getClass().getName().equals("FXViewModel")) {
-			((FXViewModel)seekView(withName)).setData(data); // not found
-		} else {
-			Debugger.out("FXController.setViewData("+withName+") ist not a FXViewModel!");
-		}
+//		if (seekView(withName).getClass().getName().equals("FXViewModel")) {
+//			((FXViewModel)seekView(withName)).setData(data); // not found
+//		} else {
+			Debugger.out("FXController.setViewData("+withName+") ist not a FXViewModel ("+seekView(withName).getClass().getName()+")!");
+//		}
 	}
 
 	/**

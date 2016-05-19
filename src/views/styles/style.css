@@ -6,13 +6,6 @@
     -fx-effect: dropshadow(three-pass-box, black, 30.0, 0.5, 0.0, 0.0);
 }
 
-#mainview {
-	
-	-fx-background-color: linear-gradient(to bottom, #d6fffd 50.0%, #5ca55c 100.0%);
-	-fx-background-image: url("pictures/SchulhausEinzelnBig.png");
-	-fx-background-repeat: no-repeat;
-}
-
 #helpview {
 	-fx-background-color: #cef0ffff;
 }
@@ -58,38 +51,6 @@
 	-fx-padding: 10.0px;
 }
 
-#startbtn{
-	-fx-background-image: url("pictures/KarteIcon.png");
-	-fx-background-repeat: no-repeat;
-}
-#statbtn{
-	-fx-background-image: url("pictures/DiagrammIcon.png");
-	-fx-background-repeat: no-repeat;}
-	
-#stat2btn{
-	-fx-background-image: url("pictures/DiagrammIcon.png");
-	-fx-background-repeat: no-repeat;}
-	
-#optionsbtn{
-	-fx-background-image: url("pictures/OptionIcon.png");
-	
-	-fx-background-repeat: no-repeat;}
-	
-#gamebtn{
-	-fx-background-image: url("pictures/GameIcon.png");
-	-fx-background-repeat: no-repeat;}
-	
-	
-#helpbtn{
-	-fx-background-image: url("pictures/HelpIcon.png");
-	-fx-background-repeat: no-repeat;}
-	
-	
-#quitbtn{
-	-fx-background-image: url("pictures/ExitIcon.png");
-	-fx-background-repeat: no-repeat;}
-	
-	
 #DoorButtons{
 	-fx-background-image: url("pictures/DoorIcon.png");
 	-fx-background-repeat: no-repeat;

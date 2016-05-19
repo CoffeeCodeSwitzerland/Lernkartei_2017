@@ -57,4 +57,35 @@ public abstract class Functions
 	{
 		return startHTML("/" + input);
 	}
+
+	/**
+	 * Trial version of the "like" to compare two strings
+	 * @param toBeCompare
+	 * @param by-String
+	 * @return true, if toBeCompare is like by-String
+	 */
+	public static boolean like(String toBeCompare, String by){
+	    if(by != null){
+	        if(toBeCompare != null){
+	            if(by.startsWith("%") && by.endsWith("%")){
+	                int index = toBeCompare.toLowerCase().indexOf(by.replace("%", "").toLowerCase());
+	                if(index < 0){
+	                    return false;
+	                } else {
+	                    return true;
+	                }
+	            } else if(by.startsWith("%")){
+	                return toBeCompare.endsWith(by.replace("%", ""));
+	            } else if(by.endsWith("%")){
+	                return toBeCompare.startsWith(by.replace("%", ""));
+	            } else {
+	                return toBeCompare.equals(by.replace("%", ""));
+	            }
+	        } else {
+	            return false;
+	        }
+	    } else {
+	        return false;
+	    }
+	}
 }

@@ -2,6 +2,8 @@ package mvc;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+
+import controls.Functions;
 /**
  * Abstract GUI-Toolkit independent Model of my MVC concept
  * ========================================================
@@ -17,37 +19,6 @@ public class Model extends DataModel
 	public Model (String myName)
 	{
 		super(myName);
-	}
-
-	/**
-	 * Trial version of the "like" to compare two strings
-	 * @param toBeCompare
-	 * @param by
-	 * @return
-	 */
-	public static boolean like(String toBeCompare, String by){
-	    if(by != null){
-	        if(toBeCompare != null){
-	            if(by.startsWith("%") && by.endsWith("%")){
-	                int index = toBeCompare.toLowerCase().indexOf(by.replace("%", "").toLowerCase());
-	                if(index < 0){
-	                    return false;
-	                } else {
-	                    return true;
-	                }
-	            } else if(by.startsWith("%")){
-	                return toBeCompare.endsWith(by.replace("%", ""));
-	            } else if(by.endsWith("%")){
-	                return toBeCompare.startsWith(by.replace("%", ""));
-	            } else {
-	                return toBeCompare.equals(by.replace("%", ""));
-	            }
-	        } else {
-	            return false;
-	        }
-	    } else {
-	        return false;
-	    }
 	}
 
 	@Override
@@ -85,7 +56,7 @@ public class Model extends DataModel
 			while (it.hasNext()) {
 				String s = it.next();
 				if (s.equals(query) || s.equalsIgnoreCase(query)|| 
-					s.contains(query) || s.matches(query) || like(s,query)) {
+					s.contains(query) || s.matches(query) || Functions.like(s,query)) {
 					reducedList.add(s);
 				}
 			}

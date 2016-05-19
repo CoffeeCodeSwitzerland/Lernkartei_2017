@@ -66,7 +66,13 @@ public class OptionsView extends FXView
 		autoWidthDescription.setMaxWidth(200);
 		autoWidthDescription.setWrapText(true);
 		// Achtung
-		boolean oldValue = getFXController().getModel("config").getDataList("widthState") != null ? (getController().getModel("config").getDataList("widthState").get(0).equals("true") ? true : false) : false;
+		boolean oldValue = false;
+		if (getFXController().getModel("config").getDataList("widthState") != null)
+		{
+			String configString = getFXController().getModel("config").getDataList("widthState").get(0);
+			if (configString != null)
+				oldValue = configString.equals("true") ? true : false;
+		}
 		CheckBox autoWidth = new CheckBox("Biggy is the ruler");
 		autoWidth.setSelected(oldValue);
 		autoWidth.selectedProperty().addListener(e -> {

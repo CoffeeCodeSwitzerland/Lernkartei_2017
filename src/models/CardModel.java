@@ -2,8 +2,8 @@ package models;
 
 import java.util.ArrayList;
 
-import controls.Globals;
 import database.Database;
+import globals.Globals;
 import mvc.Model;
 
 public class CardModel extends Model {
@@ -34,9 +34,9 @@ public class CardModel extends Model {
 			}
 			
 			String[] values = new String[5];
-			values[0] = paramS.split(controls.Globals.SEPARATOR)[0];
-			values[1] = paramS.split(controls.Globals.SEPARATOR)[1];
-			values[2] = paramS.split(controls.Globals.SEPARATOR)[2];
+			values[0] = paramS.split(globals.Globals.SEPARATOR)[0];
+			values[1] = paramS.split(globals.Globals.SEPARATOR)[1];
+			values[2] = paramS.split(globals.Globals.SEPARATOR)[2];
 			values[3] = "1";
 			values[4] = "-16777216"; // Standart Farbcode für Schwarz
 			
@@ -86,8 +86,8 @@ public class CardModel extends Model {
 			
 			for (String[] s : cards) {
 				debug.Debugger.out(s[0]);
-				String data = s[0] + controls.Globals.SEPARATOR 
-							+ s[1] + controls.Globals.SEPARATOR 
+				String data = s[0] + globals.Globals.SEPARATOR 
+							+ s[1] + globals.Globals.SEPARATOR 
 							+ s[2];
 				
 				result.add(data);

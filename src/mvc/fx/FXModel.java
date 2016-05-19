@@ -2,7 +2,7 @@ package mvc.fx;
 
 import java.util.Iterator;
 
-import controls.Functions;
+import globals.Functions;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import mvc.Model;

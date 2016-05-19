@@ -3,8 +3,8 @@ package user;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import controls.Globals;
 import database.UserLogin;
+import globals.Globals;
 
 public class User
 {

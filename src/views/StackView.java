@@ -88,7 +88,7 @@ public class StackView extends FXViewModel
 					if (this.getName() != null && stackName != null)
 					{
 						getController().getModel("stack").doAction("new",
-								getData() + controls.Globals.SEPARATOR + stackName);
+								getData() + globals.Globals.SEPARATOR + stackName);
 						// TODO Feedback für den User (Fehlermeldungen)
 					}
 					break;

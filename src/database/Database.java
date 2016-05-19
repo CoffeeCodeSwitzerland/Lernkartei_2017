@@ -9,8 +9,8 @@ public class Database {
 
 	// Varibeln Connection
 
-	private static String	url		= "jdbc:sqlite:" + controls.Environment.getDatabasePath()
-			+ controls.Globals.db_name + ".db";
+	private static String	url		= "jdbc:sqlite:" + globals.Environment.getDatabasePath()
+			+ globals.Globals.db_name + ".db";
 	private static String	driver	= "org.sqlite.JDBC";
 
 	/**

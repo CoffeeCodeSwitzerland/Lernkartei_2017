@@ -3,7 +3,7 @@ package mvc;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import controls.Functions;
+import globals.Functions;
 /**
  * Abstract GUI-Toolkit independent Model of my MVC concept
  * ========================================================

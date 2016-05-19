@@ -2,8 +2,8 @@ package Learning;
 
 import java.util.ArrayList;
 
-import controls.Globals;
 import database.Database;
+import globals.Globals;
 
 public class Bewertungsklasse {
 

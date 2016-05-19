@@ -24,7 +24,7 @@ public class StackModel extends Model
 
 		if (functionName.equals("new"))
 		{
-			String eingabe[] = paramS.split(controls.Globals.SEPARATOR);
+			String eingabe[] = paramS.split(globals.Globals.SEPARATOR);
 			int i = database.Categories.newKategorie(eingabe[1], eingabe[0]);
 			refreshViews();
 			return i;

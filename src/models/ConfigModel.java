@@ -14,8 +14,8 @@ public class ConfigModel extends Model {
 	public int doAction (String functionName, String paramS, double paramD) {
 		
 		if (functionName.equals("setValue")) {
-			database.Config.setValue(paramS.split(controls.Globals.SEPARATOR)[0],
-									 paramS.split(controls.Globals.SEPARATOR)[1]);
+			database.Config.setValue(paramS.split(globals.Globals.SEPARATOR)[0],
+									 paramS.split(globals.Globals.SEPARATOR)[1]);
 			return 1;
 		} 
 		return 0;

@@ -2,8 +2,8 @@ package models;
 //z
 import java.util.ArrayList;
 
-import controls.Globals;
 import database.UserCards;
+import globals.Globals;
 import javafx.collections.ObservableList;
 import mvc.fx.FXModel;
 import user.Profil;

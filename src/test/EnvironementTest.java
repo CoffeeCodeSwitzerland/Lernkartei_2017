@@ -4,8 +4,8 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import controls.Environment;
 import debug.Debugger;
+import globals.Environment;
 
 public class EnvironementTest {
 

@@ -2,10 +2,10 @@ package mvc.fx;
 
 import java.net.URL;
 
-import controls.Environment;
-import controls.Globals;
 import debug.Debugger;
 import debug.Supervisor;
+import globals.Environment;
+import globals.Globals;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;

@@ -2,7 +2,7 @@ package views;
 
 import java.util.ArrayList;
 
-import controls.Globals;
+import globals.Globals;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
@@ -128,7 +128,7 @@ public class QuizletImportView extends FXViewModel
 						downloadStack.setOnAction(e1 -> {
 							ArrayList<String> newCards = getController().getModel("quizlet").getDataList("set"+Globals.SEPARATOR+setInfo[0]);
 							String name = Alert.simpleString("Neue Box", "Name für die Quizletbox", setInfo[1]);
-							getController().getModel("stack").doAction("new", getData() + controls.Globals.SEPARATOR + name);
+							getController().getModel("stack").doAction("new", getData() + globals.Globals.SEPARATOR + name);
 							for (String s1 : newCards)
 							{
 								if (newCards.indexOf(s1) != 0)

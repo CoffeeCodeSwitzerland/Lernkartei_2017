@@ -1,4 +1,4 @@
-package controls;
+package globals;
 
 import debug.Debugger;
 

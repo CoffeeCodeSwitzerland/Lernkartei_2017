@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 
-import controls.Globals;
+import globals.Globals;
 import quizlet.Quizlet;
 import mvc.Model;
 

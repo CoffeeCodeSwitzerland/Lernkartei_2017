@@ -2,7 +2,7 @@ package models;
 
 import java.util.ArrayList;
 
-import controls.Globals;
+import globals.Globals;
 import javafx.collections.ObservableList;
 import mvc.fx.FXModel;
 import statistics.Rangliste;

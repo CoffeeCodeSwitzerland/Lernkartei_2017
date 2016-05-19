@@ -10,7 +10,7 @@ public class Config {
 
 	// Connectioninformationen URL & Driver
 
-	private static String	url			= "jdbc:sqlite:" +  controls.Environment.getDatabasePath()
+	private static String	url			= "jdbc:sqlite:" +  globals.Environment.getDatabasePath()
 	 									 + "config.db";
 	private static String	driver	= "org.sqlite.JDBC";
 

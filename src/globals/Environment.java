@@ -1,4 +1,4 @@
-package controls;
+package globals;
 
 import java.io.File;
 import java.nio.file.Paths;
@@ -97,15 +97,15 @@ public final class Environment {
 	
 	public static String getDatabasePath() {
 		if (fileSep == null) init();
-		File theDir = new File(System.getenv("APPDATA") + fileSep + controls.Globals.db_Path);
+		File theDir = new File(System.getenv("APPDATA") + fileSep + globals.Globals.db_Path);
 		if (!theDir.exists()) {
 			theDir.mkdirs();
-		    debug.Debugger.out("Ordner " + controls.Globals.db_Path + " erstellt!");
+		    debug.Debugger.out("Ordner " + globals.Globals.db_Path + " erstellt!");
 		} else {
-			debug.Debugger.out("Ordner " + controls.Globals.db_Path + " erstellt!");
+			debug.Debugger.out("Ordner " + globals.Globals.db_Path + " erstellt!");
 		}
 		
-		String path = System.getenv("APPDATA") + fileSep + controls.Globals.db_Path + fileSep;
+		String path = System.getenv("APPDATA") + fileSep + globals.Globals.db_Path + fileSep;
 		return path;
 	}
 }

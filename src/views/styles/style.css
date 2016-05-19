@@ -29,6 +29,7 @@
 .button:focused
 {
 	-fx-text-fill: #db3232;
+	-fx-background-insets: -0.4, 0, 10, 2;
 }
 
 #icon{

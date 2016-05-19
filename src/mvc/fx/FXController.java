@@ -57,10 +57,10 @@ public abstract class FXController extends Controller
 	{
 		// assert the model is a FXModel before casting
 //		if (super.getModel(withName).getClass().getName().equals("FXModel")) {
-//			return (FXModel)super.getModel(withName);
+			return (FXModel)super.getModel(withName);
 //		} else {
-			Debugger.out("FXController.getFXModel("+withName+") ist not a FXModel"+super.getModel(withName).getClass().getName()+"!");
-			return null;
+//			Debugger.out("FXController.getFXModel("+withName+") ist not a FXModel"+super.getModel(withName).getClass().getName()+"!");
+//			return null;
 //		}
 	}
 
@@ -72,10 +72,10 @@ public abstract class FXController extends Controller
 	{
 		// assert the model is a FXViewModel before casting
 //		if (seekView(withName).getClass().getName().equals("FXViewModel")) {
-//			return ((FXViewModel)seekView(withName)).getData(); // not found
+			return ((FXViewModel)seekView(withName)).getData(); // not found
 //		} else {
-			Debugger.out("FXController.getViewData("+withName+") ist not a FXViewModel("+seekView(withName).getClass().getName()+")!");
-			return "";
+//			Debugger.out("FXController.getViewData("+withName+") ist not a FXViewModel("+seekView(withName).getClass().getName()+")!");
+//			return "";
 //		}
 	}
 
@@ -87,9 +87,9 @@ public abstract class FXController extends Controller
 	{
 		// assert the model is a FXViewModel before casting
 //		if (seekView(withName).getClass().getName().equals("FXViewModel")) {
-//			((FXViewModel)seekView(withName)).setData(data); // not found
+			((FXViewModel)seekView(withName)).setData(data); // not found
 //		} else {
-			Debugger.out("FXController.setViewData("+withName+") ist not a FXViewModel ("+seekView(withName).getClass().getName()+")!");
+//			Debugger.out("FXController.setViewData("+withName+") ist not a FXViewModel ("+seekView(withName).getClass().getName()+")!");
 //		}
 	}
 

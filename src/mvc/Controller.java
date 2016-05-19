@@ -128,17 +128,19 @@ public abstract class Controller implements ControllerInterface
 		return null; // not found
 	}
 
-	// TODO diese Funktion muss weg = tempräre Lösung
-//	public View getView (String withName)
-//	{
-//		return seekView(withName); // not found
-//	}
-
+	/**
+	 * To allow direct data interchange between views:
+	 * gets a data element from other view-model 
+	 */
 	public String getViewData (String withName)
 	{
 		return seekView(withName).getData(); // not found
 	}
 
+	/**
+	 * To allow direct data interchange between views 
+	 * sets a data element into another view-model 
+	 */
 	public void setViewData (String withName, String data)
 	{
 		seekView(withName).setData(data);; // not found

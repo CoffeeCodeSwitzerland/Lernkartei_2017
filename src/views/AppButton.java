@@ -1,6 +1,7 @@
 package views;
 
 import javafx.scene.control.Button;
+import javafx.scene.input.KeyCode;
 
 /**
  * Gamestartfenster
@@ -28,7 +29,12 @@ public class AppButton extends Button {
 		setMinWidth(DEFAULT_BUTTON_MIN_WIDTH);
 		setMaxWidth(DEFAULT_BUTTON_WIDTH);
 		// alle Buttons sollen gleich gross sein
-											// bestimme ihr aussehen in des CSS Datei
+		// bestimme ihr aussehen in des CSS Datei
+		
+		this.setOnKeyReleased(e -> {
+			if (e.getCode() == KeyCode.ENTER)
+				this.fire();
+		});
 		
 		// TODO: der Wert von defaultButtonWidth sollte sich dem Geräte-BS anpassen können
 	}

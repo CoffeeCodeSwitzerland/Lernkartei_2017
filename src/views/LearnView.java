@@ -2,6 +2,7 @@ package views;
 
 import java.util.ArrayList;
 
+import controls.Functions;
 import controls.Globals;
 import debug.Debugger;
 import javafx.geometry.Insets;
@@ -171,36 +172,11 @@ public class LearnView extends FXViewModel
 				String d = cards.get(counter); // Ensure valid counter variable
 				cardData = d.split(Globals.SEPARATOR);
 				
-				String[] po = {"[b]", "[i]", "[u]", "[s]", "[sup]", "[sub]"};
-				String[] ne = {"[/b]", "[/i]", "[/u]", "[/s]", "[/sup]", "[/sub]"};
-				String[] pon = {"<b>", "<i>", "<u>", "<s>", "<sup>", "<sub>"};
-				String[] nen = {"</b>", "</i>", "</u>", "</s>", "</sup>", "</sub>"};
-				String[] dang = {"<", ">"};
-				
-				for(int i =0; i < dang.length; i++)
-			    {
-			        if(cardData[1].contains(dang[i]) || cardData[2].contains(dang[i]))
-			        {
-			        	cardData[1] = cardData[1].replace(dang[i], "");
-			        	cardData[2] = cardData[2].replace(dang[i], "");
-			        }
-			    }
-				for(int i =0; i < po.length; i++)
-			    {
-			        if(cardData[1].contains(po[i]) || cardData[2].contains(po[i]))
-			        {
-			        	cardData[1] = cardData[1].replace(po[i], pon[i]);
-			        	cardData[2] = cardData[2].replace(po[i], pon[i]);
-			        }
-			    }
-				for(int i =0; i < ne.length; i++)
-			    {
-			        if(cardData[1].contains(ne[i]) || cardData[2].contains(ne[i]))
-			        {
-			        	cardData[1] = cardData[1].replace(ne[i], nen[i]);
-			        	cardData[2] = cardData[2].replace(ne[i], nen[i]);
-			        }
-			    }
+				for (int i = 1; i < 3; i++)
+				{
+					cardData[i] = Functions.simpleBbCode2HTML(cardData[i], "u", "s", "sup", "sub");
+					cardData[i] = Functions.realBbCode2HTML(cardData[i], "b", "strong", "i", "em");
+				}
 				
 				engine.loadContent(cardData[1]);
 				frontIsShowed = true;

@@ -14,7 +14,6 @@ import javafx.scene.input.TransferMode;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import mvc.View;
 import mvc.fx.FXController;
 import mvc.fx.FXViewModel;
 
@@ -73,7 +72,7 @@ public class StackView extends FXViewModel
 		borderPane.setBottom(hBox);
 
 		// Behaviour
-		backBtn.setOnAction(e -> getController().getView("doorview").show());
+		backBtn.setOnAction(e -> getController().showView("doorview"));
 
 		newBoxBtn.setOnAction(e ->
 		{
@@ -92,8 +91,8 @@ public class StackView extends FXViewModel
 					}
 					break;
 				case 1:
-					getController().getView("quizlet").setData(getData());
-					getController().getView("quizlet").show();
+					getController().setViewData("quizlet",getData());
+					getController().showView("quizlet");
 					break;
 				default:
 
@@ -225,15 +224,13 @@ public class StackView extends FXViewModel
 		setTitle.setId("bold");
 		lernen.setOnAction(e ->
 		{
-			PreLearnView v = (PreLearnView) getController().getView("prelearn");
-			v.setData(set);
-			v.show();
+			getController().setViewData("prelearn",set);
+			getController().showView("prelearn");
 		});
 		edit.setOnAction(e ->
 		{
-			View v = getController().getView("simpleeditorview");
-			v.setData(set);
-			v.show();
+			getController().setViewData("simpleeditorview",set);
+			getController().showView("simpleeditorview");
 		});
 
 		options.getChildren().addAll(setTitle, lernen, edit);

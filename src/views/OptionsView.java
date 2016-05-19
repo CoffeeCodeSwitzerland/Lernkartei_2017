@@ -65,14 +65,15 @@ public class OptionsView extends FXView
 		Label autoWidthDescription = new Label("Wenn aktiviert, werden alle Stapel dem grössten angepasst. Sonst orientiert sich die Grösse jeweils am Namen des Stapels");
 		autoWidthDescription.setMaxWidth(200);
 		autoWidthDescription.setWrapText(true);
-		// Achtung
+
 		boolean oldValue = false;
-		if (getFXController().getModel("config").getDataList("widthState") != null)
+		if (getFXController().getModel("config").getDataList("widthState") != null
+				&& getFXController().getModel("config").getDataList("widthState").get(0) != null
+				&& getFXController().getModel("config").getDataList("widthState").get(0).equals("true"))
 		{
-			String configString = getFXController().getModel("config").getDataList("widthState").get(0);
-			if (configString != null)
-				oldValue = configString.equals("true") ? true : false;
+			oldValue = true;
 		}
+		
 		CheckBox autoWidth = new CheckBox("Biggy is the ruler");
 		autoWidth.setSelected(oldValue);
 		autoWidth.selectedProperty().addListener(e -> {

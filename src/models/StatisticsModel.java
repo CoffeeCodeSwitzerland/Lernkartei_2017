@@ -3,6 +3,7 @@ package models;
 import java.util.ArrayList;
 
 import controls.Globals;
+import database.Database;
 import javafx.collections.ObservableList;
 import mvc.fx.FXModel;
 import statistics.Rangliste;
@@ -37,8 +38,27 @@ public class StatisticsModel extends FXModel
 	}
 	
 	Standings S = new Standings();
+	ArrayList<Double> temp = new ArrayList<>();
 	public ArrayList<Double> getDoubleList(String CombinedString) {
+		
 		String[] Decision = CombinedString.split(Globals.SEPARATOR);
+		
+		// Alle Karten des Stacks
+		ArrayList<String[]> stackData = Database.pullFromStock(Decision[0]);
+		Double sum = 0.0d;
+		
+		if (stackData != null)
+		{
+			// Berechne Punktzahl
+			for (String[] s : stackData)
+			{
+				sum += Double.parseDouble(s[5]);
+			}
+			temp.clear();
+			temp.add(100 / (4 * stackData.size()) * sum); // Berechne Prozent
+			return temp;
+		}
+		
 		if (Decision[1].equals("start")){
 			return S.getStart(Decision[0]);
 		} else if (Decision[1].equals("end")){

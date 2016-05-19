@@ -36,7 +36,7 @@ public class HelpSerachView extends FXView
 				Label labelTitel = new Label("Index");
 				
 				//Hier kommt der angezeigte Text hin:
-				Label labelText = new Label("-Türen- Das sind die Themen.\n-Boxen- Das sind die Unterthemen\n-Jump 'n' Run\n");
+				Label labelText = new Label("-Türen- 			Das sind die Themen.\n-Boxen- 			Das sind die Unterthemen\n-Jump 'n' Run- 	Mit lernen kannst du dir Leben verdienen für das Spiel. Du findest es im Hauptmenü.\n-Optionen- 		Hier kannst du einstellen wie viele Kärtchen du auf einmal lernen möchtest.\n-Statistiken- 		Hier kannst du deinen Fortschritt sehen. Unter anderem wie viele Punkte du gesammelt hast beim lernen.\n");
 				
 				//Zeilenumbruch am Fensterrand
 				labelText.setWrapText(true);

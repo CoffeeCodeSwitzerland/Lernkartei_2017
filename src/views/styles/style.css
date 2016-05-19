@@ -29,7 +29,7 @@
 .button:focused
 {
 	-fx-focus-color: #875100;
-	-fx-background-color: linear-gradient(to bottom, #fff0c9 30.0%, #c6af75 100.0%);
+	-fx-background-color: linear-gradient(to bottom, #fff0c9 30.0%, #ceb373 100.0%);
 	-fx-background-insets: -0.8, 0, 300, 100;
 }
 

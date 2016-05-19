@@ -28,8 +28,8 @@
 
 .button:focused
 {
-	-fx-text-fill: #db3232;
-	-fx-background-insets: -0.4, 0, 10, 2;
+	-fx-focus-color: #875100;
+	-fx-background-insets: -0.5, 0, 200, 200;
 }
 
 #icon{

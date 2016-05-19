@@ -249,8 +249,8 @@ public class Categories {
 			if (StackSet.isAfterLast())
 			{
 				Stacks = null;
-			} else {
-				//TODO : Erster Datensatz einlesen und danach in while schleife schreiben
+			} else { 
+				
 				while (StackSet.next())
 				{
 						StackSet.getRow();

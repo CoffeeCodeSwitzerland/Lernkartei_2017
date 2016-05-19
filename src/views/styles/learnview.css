@@ -1,0 +1,4 @@
+#learnview{
+	-fx-background-image: url("pictures/viewbackground.png");
+	-fx-background-repeat: stretch;   
+    -fx-background-size: 920.0 570.0;}

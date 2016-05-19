@@ -128,11 +128,11 @@ public abstract class Controller implements ControllerInterface
 		return null; // not found
 	}
 
-	// TODO diese Funktion muss weg = tempräre Lösung 
-	public View getView (String withName)
-	{
-		return seekView(withName); // not found
-	}
+	// TODO diese Funktion muss weg = tempräre Lösung
+//	public View getView (String withName)
+//	{
+//		return seekView(withName); // not found
+//	}
 
 	public String getViewData (String withName)
 	{

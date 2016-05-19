@@ -1,0 +1,6 @@
+#gameoptionview{
+	-fx-background-color: #cef0ffff;
+	-fx-background-image:url("pictures/tasten.png");
+	-fx-background-position: center top;	
+    -fx-background-size:320 200;
+	}

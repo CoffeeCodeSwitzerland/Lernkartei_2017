@@ -34,7 +34,7 @@ public class OptionsView extends FXView
 	public Parent constructContainer ()
 	{
 		Label cardLimitDescription = new Label("Anzahl Karten, die auf einmal gelernt werden, limitieren.");
-		TextField cardLearnLimit = new TextField(getController().getModel("config").getDataList("cardLimit").get(0));
+		TextField cardLearnLimit = new TextField(getController().getModel("config").getDataList("cardLimit").get(0)); // Achtung
 		
 		lastValidCardLimit = cardLearnLimit.getText();
 		
@@ -65,7 +65,15 @@ public class OptionsView extends FXView
 		Label autoWidthDescription = new Label("Wenn aktiviert, werden alle Stapel dem grössten angepasst. Sonst orientiert sich die Grösse jeweils am Namen des Stapels");
 		autoWidthDescription.setMaxWidth(200);
 		autoWidthDescription.setWrapText(true);
-		boolean oldValue = getFXController().getModel("config").getDataList("") != null ? (getController().getModel("config").getDataList("widthState").get(0).equals("true") ? true : false) : false;
+
+		boolean oldValue = false;
+		if (getFXController().getModel("config").getDataList("widthState") != null
+				&& getFXController().getModel("config").getDataList("widthState").get(0) != null
+				&& getFXController().getModel("config").getDataList("widthState").get(0).equals("true"))
+		{
+			oldValue = true;
+		}
+		
 		CheckBox autoWidth = new CheckBox("Biggy is the ruler");
 		autoWidth.setSelected(oldValue);
 		autoWidth.selectedProperty().addListener(e -> {

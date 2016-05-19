@@ -1,0 +1,11 @@
+#doorview{
+	-fx-background-image: url("pictures/viewbackground.png");
+	-fx-background-repeat: stretch;   
+    -fx-background-size: 920.0 570.0;}
+    
+#DoorButtons{
+	-fx-background-image: url("pictures/DoorIcon.png");
+	-fx-background-repeat: no-repeat;
+	-fx-padding: 22.0 21.0 22.0 21.0;
+	}
+    

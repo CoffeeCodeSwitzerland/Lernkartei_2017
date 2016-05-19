@@ -49,7 +49,7 @@ public class GameView extends FXView {
 
 		btn.setOnAction(e -> getController().getModel("game").doAction("start"));
 
-		btnInfo.setOnAction(e -> getController().getView("gameoptionview").show());
+		btnInfo.setOnAction(e -> getController().showView("gameoptionview"));
 
 		btnBacktoKartei.setOnAction(e -> getController().showMainView());
 
@@ -59,7 +59,7 @@ public class GameView extends FXView {
 		ImageView impImgView = new ImageView(impressumImg);
 		mainLayout.setBottom(impImgView);
 
-		impImgView.setOnMouseClicked(e -> getController().getView("impressumview").show());
+		impImgView.setOnMouseClicked(e -> getController().showView("impressumview"));
 		menuLayout.setPadding(new Insets(10));
 		menuLayout.setSpacing(10);
 		menuLayout.setAlignment(Pos.CENTER);
@@ -87,6 +87,7 @@ public class GameView extends FXView {
 		}
 		else
 		{
+			btn.setDisable(false);
 			lifes.setText("Lifes: " + database.Score.getLifecount());
 		}
 		

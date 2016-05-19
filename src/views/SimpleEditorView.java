@@ -39,7 +39,7 @@ public class SimpleEditorView extends FXViewModel
 		headLbl.setId("bold");
 
 		AppButton backBtn = new AppButton("_Zurück");
-		backBtn.setOnAction(e -> getController().getView("stack").show());
+		backBtn.setOnAction(e -> getController().showView("stack"));
 
 		BorderPane headLayout = new BorderPane(headLbl);
 		headLayout.setPadding(new Insets(25));
@@ -70,7 +70,7 @@ public class SimpleEditorView extends FXViewModel
 
 		if (data != null)
 		{
-			headLbl.setText(data + " - " + getController().getView("stack").getData());
+			headLbl.setText(data + " - " + getController().getViewData("stack"));
 
 			ArrayList<String> cardStrings = getController().getModel("cards").getDataList(data);
 			ArrayList<HBox> cards = new ArrayList<>();
@@ -113,8 +113,8 @@ public class SimpleEditorView extends FXViewModel
 				delete.setOnAction(e -> getController().getModel("cards").doAction("delete", cardSides[0]));
 				editBtn.setOnAction(e ->
 				{
-					getController().getView("editorview").setData(cardSides[0] + Globals.SEPARATOR + front.getText() + Globals.SEPARATOR + back.getText());
-					getController().getView("editorview").show();
+					getController().setViewData("editorview",cardSides[0] + Globals.SEPARATOR + front.getText() + Globals.SEPARATOR + back.getText());
+					getController().showView("editorview");
 				});
 				HBox v = new HBox(8);
 				v.setAlignment(Pos.CENTER);
@@ -128,8 +128,8 @@ public class SimpleEditorView extends FXViewModel
 			
 			editBtn.setOnAction(e ->
 			{
-				getController().getView("editorview").setData(front.getText() + Globals.SEPARATOR + back.getText());
-				getController().getView("editorview").show();
+				getController().setViewData("editorview",front.getText() + Globals.SEPARATOR + back.getText());
+				getController().showView("editorview");
 			});
 			Button addBtn = new Button("\u2713");
 			addBtn.setMaxWidth(35);

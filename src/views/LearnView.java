@@ -49,7 +49,7 @@ public class LearnView extends FXViewModel
 		backBtn.setOnAction(e ->
 		{
 			counter = 0;
-			getController().getView("stack").show();
+			getController().showView("stack");
 		});
 
 		headLbl.setId("bold");
@@ -154,7 +154,8 @@ public class LearnView extends FXViewModel
 						cardData[2].contains("[i]") || cardData[1].contains("[i]") || 
 						cardData[2].contains("[u]") || cardData[1].contains("[u]") ||
 						cardData[2].contains("[s]") || cardData[1].contains("[s]") ||
-						cardData[2].contains("[sup]") || cardData[1].contains("[sup]")){
+						cardData[2].contains("[sup]") || cardData[1].contains("[sup]") ||
+						cardData[2].contains("[sub]") || cardData[1].contains("[sub]")){
 					cardData[2] = cardData[2].replace("[b]", "<b>");
 					cardData[1] = cardData[1].replace("[b]", "<b>");
 					cardData[2] = cardData[2].replace("[i]", "<i>");
@@ -165,12 +166,19 @@ public class LearnView extends FXViewModel
 					cardData[1] = cardData[1].replace("[s]", "<s>");
 					cardData[2] = cardData[2].replace("[sup]", "<sup>");
 					cardData[1] = cardData[1].replace("[sup]", "<sup>");
+					cardData[2] = cardData[2].replace("[sub]", "<sub>");
+					cardData[1] = cardData[1].replace("[sub]", "<sub>");
 				}
+				
+				//String[][] replacer = new String[7][2];
+				//replacer = {{"[b]", "<b>"}, {"[i]", "<i>"}};
+				
 				if(cardData[2].contains("[/b]") || cardData[1].contains("[/b]") || 
 						cardData[2].contains("[/i]") || cardData[1].contains("[/i]") || 
 						cardData[2].contains("[/u]") || cardData[1].contains("[/u]") ||
 						cardData[2].contains("[/s]") || cardData[1].contains("[/s]") ||
-						cardData[2].contains("[/sup]") || cardData[1].contains("[/sup]")){
+						cardData[2].contains("[/sup]") || cardData[1].contains("[/sup]") ||
+						cardData[2].contains("[/sub]") || cardData[1].contains("[/sub]")){
 					cardData[2] = cardData[2].replace("[/b]", "</b>");
 					cardData[1] = cardData[1].replace("[/b]", "</b>");
 					cardData[2] = cardData[2].replace("[/i]", "</i>");
@@ -181,6 +189,8 @@ public class LearnView extends FXViewModel
 					cardData[1] = cardData[1].replace("[/s]", "</s>");
 					cardData[2] = cardData[2].replace("[/sup]", "</sup>");
 					cardData[1] = cardData[1].replace("[/sup]", "</sup>");
+					cardData[2] = cardData[2].replace("[/sub]", "</sub>");
+					cardData[1] = cardData[1].replace("[/sub]", "</sub>");
 				}
 				engine.loadContent(cardData[1]);
 				frontIsShowed = true;

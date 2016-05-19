@@ -1,0 +1,11 @@
+#stack{
+	-fx-background-image: url("pictures/viewbackground.png");
+	-fx-background-repeat: stretch;   
+    -fx-background-size: 920.0 570.0;}
+    
+#BoxButtons{
+	-fx-background-image: url("pictures/BoxIcon.png");
+	-fx-background-repeat: no-repeat;
+	-fx-padding: 17.0 10.0 17.0 10.0;
+	}
+    

@@ -31,7 +31,7 @@ public class GameOptionView extends FXView {
 
 		Anleitung.setText("Anleitung");
 		
-		BacktoGameMenu.setOnAction(e -> getController().getView("gameview").show());
+		BacktoGameMenu.setOnAction(e -> getController().showView("gameview"));
 
 		itemsLayout.getChildren().addAll(Anleitung, BacktoGameMenu);
 		

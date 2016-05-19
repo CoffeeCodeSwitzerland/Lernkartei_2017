@@ -7,7 +7,6 @@ import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
-import mvc.View;
 import mvc.fx.FXController;
 import mvc.fx.FXViewModel;
 
@@ -67,13 +66,12 @@ public class PreLearnView extends FXViewModel
 		
 		AppButton goBtn = new AppButton("Go");
 		goBtn.setOnAction(e -> {
-			View v = getFXController().getView("learnview");
-			v.setData(getData());
-			v.show();
+			getFXController().setViewData("learnview", getData());
+			getFXController().showView("learnview");
 		});
 		
 		AppButton backBtn = new AppButton("Zurück");
-		backBtn.setOnAction(e -> getFXController().getView("stack").show());
+		backBtn.setOnAction(e -> getFXController().showView("stack"));
 		
 		VBox layout = new VBox(30);
 		layout.getChildren().addAll(stackName, stackInfo, stackScore, goBtn, backBtn);

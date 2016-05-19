@@ -72,7 +72,7 @@ public class QuizletImportView extends FXViewModel
 		scroller.setVbarPolicy(ScrollBarPolicy.AS_NEEDED);
 		
 		AppButton backBtn = new AppButton("_Zurück");
-		backBtn.setOnAction(e -> getController().getView("stack").show());
+		backBtn.setOnAction(e -> getController().showView("stack"));
 		
 		BorderPane mainLayout = new BorderPane();
 		mainLayout.setCenter(scroller);
@@ -140,7 +140,7 @@ public class QuizletImportView extends FXViewModel
 									getController().getModel("cards").doAction("new", s1.split(Globals.SEPARATOR)[1] + Globals.SEPARATOR + s1.split(Globals.SEPARATOR)[2] + Globals.SEPARATOR + name);
 								}
 							}
-							getController().getView("stack").show();
+							getController().showView("stack");
 						});
 						additionalInfoLayout.getChildren().clear();
 						additionalInfoLayout.getChildren().addAll(stackTitle, stackCount, stackAuthor, stackLangs, stackHasImgs, downloadStack);

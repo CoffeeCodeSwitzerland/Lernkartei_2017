@@ -13,7 +13,7 @@ import models.StackModel;
 import models.StatisticsModel;
 import mvc.fx.FXController;
 import views.DoorView;
-import views.EditorView1;
+import views.EditorView;
 import views.GameOptionView;
 import views.GameView;
 import views.HelpView;
@@ -72,7 +72,7 @@ public class MainController extends FXController
 		this.addUniqueView(new StackView("stack", this));
 		this.addUniqueView(new QuizletImportView("quizlet", this));
 		this.addUniqueView(new SimpleEditorView("simpleeditorview", this));
-		this.addUniqueView(new EditorView1("editorview", this));
+		this.addUniqueView(new EditorView("editorview", this));
 		
 		this.addUniqueView(new PreLearnView("prelearn", this));
 		this.addUniqueView(new LearnView("learnview", this));

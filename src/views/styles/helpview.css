@@ -1,0 +1,10 @@
+#impressumtext {
+	-fx-font-family: "Segoe UI Semibold";
+	-fx-background-color: white;
+	-fx-text-fill: black;
+	-fx-padding: 10.0px;
+}
+
+#helpview {
+	-fx-background-color: #cef0ffff;
+}

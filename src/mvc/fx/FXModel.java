@@ -2,6 +2,7 @@ package mvc.fx;
 
 import java.util.Iterator;
 
+import controls.Functions;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import mvc.Model;
@@ -32,7 +33,7 @@ public class FXModel extends Model
 			while (it.hasNext()) {
 				String s = it.next();
 				if (s.equals(query) || s.equalsIgnoreCase(query)|| 
-					s.contains(query) || s.matches(query) || like(s,query)) {
+					s.contains(query) || s.matches(query) || Functions.like(s,query)) {
 					reducedList.add(s);
 				}
 			}

@@ -6,7 +6,7 @@ import java.util.ArrayList;
  * To define what a model must be able to do.
  * 
  * There is here a concept of two in one model:
- * - the data-model handles with complex data and functionality
+ * - the data-model handles with more complex data and functionality
  * - the action-model has simple data handling and functionality
  * 
  * These are not the only methods needed to make MVC working.
@@ -31,5 +31,6 @@ public interface ModelInterface
 
 	// To handle a List of Data (DataModel only):
 	public abstract void add (String data);
+	public abstract void set(int index, String dataValue);
 	public abstract ArrayList<String> getDataList (String query);
 }

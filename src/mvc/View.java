@@ -1,35 +1,39 @@
 package mvc;
 
 import debug.Debugger;
-
 /**
- * Diese Klasse ist des Basis Codegerüst für die Umsetzung der GUI-View's in diesem MVC Konzept.
- * View's müssen sich beim Modell registrieren, wenn sie bei Änderungen im Modell automatisch ge-refresht werden wollen.
- * Der Constructor dieser Klasse muss immer zuerst aufgerufen werden 
+ * Abstract GUI-Toolkit independent View of my MVC concept
+ * =======================================================
+ * - allows navigation by name to a view
+ * - further functionality will be implemented by his extensions
  * 
- * @author hugo-lucca
+ * @author  hugo-lucca
+ * @version Mai 2016
  */
 public abstract class View implements ViewInterface
 {
-	private String name;
+	private String name; // name of the view
 	
 	public View (String newName) {
 		name   = newName;
 	}
-	
+
+	/**
+	 * To compare when searching a view:
+	 * - no setter (only set by the constructor)
+	 * 
+	 * @return name of the view
+	 */
 	public String getName()
 	{
 		return name;
 	}
-	
-	public void setData (String data)
+
+	/**
+	 * May not be invoked!
+	 */
+	protected void show()
 	{
-		Debugger.out("view.setData(): view '"+name+"' does not have a Model (try 'extends FXViewModel')");
-	}
-	
-	public String getData()
-	{
-		Debugger.out("view.setData(): view '"+name+"' does not have a Model  (try 'extends FXViewModel')");
-		return "";
+		Debugger.out("view.show("+getName()+") has no toolkit implementation!");
 	}
 }

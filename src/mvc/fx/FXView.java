@@ -5,7 +5,6 @@ import java.net.URL;
 import controls.Environment;
 import controls.Globals;
 import debug.Debugger;
-import debug.Logger;
 import debug.Supervisor;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -64,19 +63,19 @@ public abstract class FXView extends View
 		return this.getFXController().getMyFXStage().getStage();
 	}
 	
-	public void show()
+	protected void show()
 	{
-		Logger.log("Get Window....");
-		Stage st = getWindow();
-		if (st != null) {
+		//Logger.log("Get Window....");
+		Stage stage = getWindow();
+		if (stage != null) {
 			if (scene != null) {
-				Logger.log("Set scene....");
-				st.setScene(scene);
+				//Logger.log("Set scene....");
+				stage.setScene(scene);
 			} else {
 				Debugger.out("show("+getName()+") has no scene!");
 			}
-			Logger.log("stage show....");
-			st.show();
+			//Logger.log("stage show....");
+			stage.show();
 		} else {
 			Debugger.out("show("+getName()+") has no window!");
 		}

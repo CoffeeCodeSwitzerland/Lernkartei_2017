@@ -2,12 +2,15 @@ package mvc;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-
 /**
- * Diese Klasse ist instanzierbar und für das ViewModel nutzbar.
- * Zudem wurde hier die Funktionalität etas erweitert (zum Bsp. mit like()).
+ * Abstract GUI-Toolkit independent Model of my MVC concept
+ * ========================================================
+ * - allows navigation by name
+ * - handles list of String's with like() and filtered by query. 
+ * - clear data is implemented as doAction("clear")
  * 
- * @author hugo-lucca
+ * @author  hugo-lucca
+ * @version Mai 2016
  */
 public class Model extends DataModel
 {
@@ -16,6 +19,12 @@ public class Model extends DataModel
 		super(myName);
 	}
 
+	/**
+	 * Trial version of the "like" to compare two strings
+	 * @param toBeCompare
+	 * @param by
+	 * @return
+	 */
 	public static boolean like(String toBeCompare, String by){
 	    if(by != null){
 	        if(toBeCompare != null){

@@ -68,7 +68,11 @@ public class DoorView extends FXView
 			String doorName = Alert.simpleString("Neue Tür", "Wie soll die neue Tür heissen?");
 			if (doorName != null && !doorName.equals(""))
 			{
-				getController().getModel("door").doAction("new", doorName);
+				int succesful = getController().getModel("door").doAction("new", doorName);
+				if (succesful == -1)
+				{
+					Alert.simpleInfoBox("Tür wurde nicht erstellt", "Dieser Name ist schon vergeben.");
+				}
 			}
 		});
 

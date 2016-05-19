@@ -39,7 +39,7 @@ public final class Alert
 	{
 		Stage window = buildWindow(title);
 		Label l = new Label(message);
-		Button b = new Button("_" + button);
+		Button b = new Button(button);
 
 		b.setOnAction(e -> window.close());
 

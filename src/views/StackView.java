@@ -52,7 +52,7 @@ public class StackView extends FXViewModel
 
 		// Buttons
 		AppButton backBtn = new AppButton("_Zurück");
-		AppButton newBoxBtn = new AppButton("_Neue Box");
+		AppButton newBoxBtn = new AppButton("_Neuer Stapel");
 
 		Image trashImg = new Image("views/pictures/Papierkorb.png");
 		ImageView trashImgView = new ImageView(trashImg);
@@ -76,17 +76,17 @@ public class StackView extends FXViewModel
 
 		newBoxBtn.setOnAction(e ->
 		{
-			final int choice = Alert.complexChoiceBox("Neue Box", "Was für eine Box willst du erstellen?", "Leere _Box",
-					"_Quizlet");
+			final int choice = Alert.complexChoiceBox("Neuer Stapel", "Was für einen Stapel willst du erstellen?", "Leerer Stapel",
+					"Quizlet");
 
 			switch (choice)
 			{
 				case 0:
-					final String boxName = Alert.simpleString("Neue Box", "Wie soll die neue Box heissen?");
-					if (this.getName() != null && boxName != null)
+					final String stackName = Alert.simpleString("Neuer Stapel", "Wie soll der neue Stapel heissen?");
+					if (this.getName() != null && stackName != null)
 					{
 						getController().getModel("stack").doAction("new",
-								getData() + controls.Globals.SEPARATOR + boxName);
+								getData() + controls.Globals.SEPARATOR + stackName);
 						// TODO Feedback für den User (Fehlermeldungen)
 					}
 					break;
@@ -117,7 +117,7 @@ public class StackView extends FXViewModel
 			boolean success = false;
 			if (db.hasString())
 			{
-				if (Alert.ok("Achtung", "Willst du die Box '" + db.getString() + "' wirklich löschen?"))
+				if (Alert.ok("Achtung", "Willst du den Stapel '" + db.getString() + "' wirklich löschen?"))
 				{
 					getController().getModel("stack").doAction("delete", db.getString());
 					// TODO Feedback für den User (Fehlermeldungen)

@@ -43,7 +43,7 @@ public class EditorView extends FXViewModel
 		getController().showView("simpleeditorview"));	
 		
 		//Info Button
-		AppButton infobtn = new AppButton("");
+		AppButton infobtn = new AppButton("!");
 		infobtn.setOnAction(e ->
 		getController().showView("simpleeditorview"));
 		
@@ -54,7 +54,7 @@ public class EditorView extends FXViewModel
 		//Controll Layout
 		HBox controlLayout = new HBox(20);
 		controlLayout.setAlignment(Pos.CENTER);
-		controlLayout.getChildren().addAll(backBtn);
+		controlLayout.getChildren().addAll(backBtn, infobtn);
 
 		//Main Layout
 		BorderPane mainLayout = new BorderPane();
@@ -90,17 +90,18 @@ public class EditorView extends FXViewModel
 			WebEngine enginefront = previewfront.getEngine();
 			WebEngine engineback = previewback.getEngine();
 			
-			front.setMinHeight(90);
-			back.setMinHeight(90);
-			previewfront.setMaxHeight(90);
-			previewback.setMaxHeight(90);
-			previewfront.setMaxWidth(200);
-			previewback.setMaxWidth(200);
-			engineback.loadContent(back.getText());
+			front.setMinHeight(150);
+			back.setMinHeight(150);
 			
 			String[] cardSides = data.split(Globals.SEPARATOR);
 			front.setText(cardSides[1]);
 			back.setText(cardSides[2]);
+			
+			enginefront.loadContent(front.getText());
+			engineback.loadContent(back.getText());
+			
+			back.setOnKeyReleased(e ->
+			engineback.loadContent(back.getText()));
 			
 			front.setOnKeyReleased(e ->
 			enginefront.loadContent(front.getText()));
@@ -114,19 +115,27 @@ public class EditorView extends FXViewModel
 				}
 			});	
 			
-			HBox buttonL = new HBox(8);
-			buttonL.setAlignment(Pos.TOP_CENTER);
-			buttonL.getChildren().addAll(bold, italic, crossed, sup, sub);
-			
 			HBox eingabeL = new HBox(8);
 			eingabeL.setAlignment(Pos.CENTER);
-			eingabeL.getChildren().addAll(front, back, update);
+			eingabeL.getChildren().addAll(front, back);
 			
 			HBox vorschauL = new HBox(8);
 			vorschauL.setAlignment(Pos.BOTTOM_CENTER);
 			vorschauL.getChildren().addAll(previewfront, previewback);
+			
+			VBox leftL = new VBox(8);
+			leftL.setAlignment(Pos.CENTER_LEFT);
+			leftL.getChildren().addAll(front, previewfront);
+			
+			VBox rightL = new VBox(8);
+			rightL.setAlignment(Pos.CENTER_RIGHT);
+			rightL.getChildren().addAll(back, previewback);
+			
+			HBox mainL = new HBox(8);
+			mainL.setAlignment(Pos.BOTTOM_CENTER);
+			mainL.getChildren().addAll(leftL, rightL, update);
 
-			editLayout.getChildren().addAll(buttonL, eingabeL, vorschauL);
+			editLayout.getChildren().addAll(mainL);
 		}
 	}
 }

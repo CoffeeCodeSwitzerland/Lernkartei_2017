@@ -41,6 +41,11 @@ public class SimpleEditorView extends FXViewModel
 		AppButton backBtn = new AppButton("_Zurück");
 		backBtn.setOnAction(e -> getController().showView("stack"));
 
+		//Info Button
+		AppButton infobtn = new AppButton("!");
+		infobtn.setOnAction(e ->
+		getController().showView("simpleeditorview"));
+		
 		BorderPane headLayout = new BorderPane(headLbl);
 		headLayout.setPadding(new Insets(25));
 
@@ -49,7 +54,7 @@ public class SimpleEditorView extends FXViewModel
 
 		HBox controlLayout = new HBox(20);
 		controlLayout.setAlignment(Pos.CENTER);
-		controlLayout.getChildren().addAll(backBtn);
+		controlLayout.getChildren().addAll(backBtn, infobtn);
 
 		BorderPane mainLayout = new BorderPane();
 		mainLayout.setPadding(new Insets(15));

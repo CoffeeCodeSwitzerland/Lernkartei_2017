@@ -170,8 +170,7 @@ public class LearnView extends FXViewModel
 					cardData[1] = cardData[1].replace("[sub]", "<sub>");
 				}
 				
-				//String[][] replacer = new String[7][2];
-				//replacer = {{"[b]", "<b>"}, {"[i]", "<i>"}};
+				//String[][] Preplacer = {{"[b]", "<b>"}, {"[i]", "<i>"}, {"[u]", "<u>"}, {"[s]", "<s>"}, {"[sup]", "<sup>"}, {"[sub]", "<sub>"}};
 				
 				if(cardData[2].contains("[/b]") || cardData[1].contains("[/b]") || 
 						cardData[2].contains("[/i]") || cardData[1].contains("[/i]") || 

@@ -23,15 +23,15 @@ public class Diagramm
 	
 	public ArrayList<Double> getPunkte()
 	{		
+		Debugger.out("Eingang getPunkte");
 		for (int i = 0; i < Stacks.size(); i++)
 		{
-			Debugger.out("getPunkte 1");
+			Debugger.out("Stack : " + Stacks.get(i));
 			int[] temp = Database.getScore(Stacks.get(i).toString());
-			Debugger.out("getPunkte 2");
-			double result = temp[0] / temp[1] * 100;
-			Debugger.out("getPunkte 3");
+			Debugger.out("temp[0] : " + temp[0] + " / " + "temp[1] : " + temp[1]);
+			double result = (100 / temp[0]) * temp[1];
+			Debugger.out("Resultat : " + result);
 			Punkte.add(result);
-			Debugger.out("Durchlauf in getPunkte" + i);
 		}		
 		return Punkte;
 	}

@@ -98,13 +98,9 @@ public class StatsView extends FXView
 			
 			Diagram.getChildren().addAll(bc);
 			
-	        //XYChart.Series series1 = new XYChart.Series();
-	        //series1.setName("2003");       
-	        //series1.getData().add(new XYChart.Data<String, Double>(austria, 25601.34));
 			
-		/*System.out.println("StatsView 4");
 		
-		Ranks.setItems(getController().getFXModel("profil").getObservableDataList("ranking"));
+		/*Ranks.setItems(getController().getFXModel("profil").getObservableDataList("ranking"));
 		
 		System.out.println("StatsView 5");
 		

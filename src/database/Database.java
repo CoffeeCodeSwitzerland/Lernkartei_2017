@@ -3,6 +3,8 @@ package database;
 import java.sql.*;
 import java.util.ArrayList;
 
+import debug.Debugger;
+
 public class Database {
 
 	// Varibeln Connection
@@ -252,7 +254,7 @@ public class Database {
 
 		Connection c = null;
 		Statement stmt = null;
-		String oldPrio = "";
+		Integer oldPrio = null;
 		String newPrio = "";
 
 		try {
@@ -268,7 +270,7 @@ public class Database {
 			// Überprüft ob vorhanden oder nicht
 
 			if (actualPrio.next()) {
-				oldPrio = Integer.toString(actualPrio.getInt("Priority"));
+				oldPrio = actualPrio.getInt("Priority");
 				actualPrio.close();
 			}
 			else {
@@ -279,11 +281,11 @@ public class Database {
 			// Wenn Aktuelle Priorität = 5, bleibt die neue bei 5, sonst wird
 			// sie um 1 erhöht
 
-			if (oldPrio.equals("5")) {
+			if (oldPrio == 5) {
 				newPrio = "5";
 			}
 			else {
-				newPrio = oldPrio + 1;
+				newPrio = Integer.toString(oldPrio + 1);
 			}
 
 			// Schreibt die Neue Priorität in die Datenbank
@@ -418,8 +420,9 @@ public class Database {
 			if (scrs.next()) {
 
 				while (scrs.next()) {
-					maxPoints += 5;
-					reachedPoints += scrs.getInt("Priority");
+					maxPoints += 4;
+					reachedPoints += scrs.getInt("Priority") - 1;
+					Debugger.out("Priority : " + scrs.getInt("Priority"));
 				}
 
 			} else {
@@ -442,9 +445,6 @@ public class Database {
 
 		score[0] = maxPoints;
 		score[1] = reachedPoints;
-		
-		System.out.println(score[0]);
-		System.out.println(score[1]);
 
 		return score;
 

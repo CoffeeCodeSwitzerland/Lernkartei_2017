@@ -63,7 +63,7 @@ public class MainController extends FXController
 	public void initMyViews() {
 		Logger.log("Instanziere Views....");
 		this.addUniqueView(new MainView(getMainViewName(), this));
-		this.addUniqueView(new StatisticsView("statisticsview", this));
+		//this.addUniqueView(new StatisticsView("statisticsview", this));
 		this.addUniqueView(new StatsView("statsview", this));
 		this.addUniqueView(new DoorView("doorview", this));
 		this.addUniqueView(new OptionsView("optionsview", this));

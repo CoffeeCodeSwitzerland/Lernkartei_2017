@@ -28,8 +28,8 @@ public class MainView extends FXView
 
 	BorderPane mainLayout = new BorderPane();
 	AppButton startBtn = new AppButton("_Lernkarteien");
-	AppButton statBtn = new AppButton("Statistiken");
-	AppButton stat2Btn = new AppButton("Statistiken-2");
+//	AppButton statBtn = new AppButton("Statistiken");
+	AppButton stat2Btn = new AppButton("Statistiken");
 	AppButton optionsBtn = new AppButton("_Optionen");
 	AppButton gameBtn = new AppButton("_Jump 'n' Run");
 	//AppButton helpBtn = new AppButton("_Hilfe");
@@ -46,7 +46,7 @@ public class MainView extends FXView
 
 		// Buttons
 		startBtn.setId("startbtn");
-		statBtn.setId("statbtn");
+//		statBtn.setId("statbtn");
 		stat2Btn.setId("stat2btn");
 		optionsBtn.setId("optionsbtn");
 		gameBtn.setId("gamebtn");
@@ -58,7 +58,7 @@ public class MainView extends FXView
 		menuLayout.setPadding(new Insets(10));
 		menuLayout.setSpacing(15);
 		menuLayout.setAlignment(Pos.CENTER);
-		menuLayout.getChildren().addAll(startBtn, statBtn, stat2Btn, optionsBtn, gameBtn, /*helpBtn,*/ quitBtn);
+		menuLayout.getChildren().addAll(startBtn,/* statBtn,*/ stat2Btn, optionsBtn, gameBtn, /*helpBtn,*/ quitBtn);
 
 		// Main Layout
 		mainLayout.setPadding(new Insets(5));
@@ -66,7 +66,7 @@ public class MainView extends FXView
 
 		// Behaviour
 		startBtn.setOnAction(e -> getController().showView("doorview"));
-		statBtn.setOnAction(e -> getController().showView("statisticsview"));
+		//statBtn.setOnAction(e -> getController().showView("statisticsview"));
 		stat2Btn.setOnAction(e -> getController().showView("statsview"));
 		optionsBtn.setOnAction(e -> getController().showView("optionsview"));
 		gameBtn.setOnAction(e -> getController().showView("gameview"));

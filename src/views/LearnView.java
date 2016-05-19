@@ -1,6 +1,7 @@
 package views;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import controls.Globals;
 import debug.Debugger;
@@ -144,53 +145,38 @@ public class LearnView extends FXViewModel
 				nextCard.setDisable(false);
 				String d = cards.get(counter); // Ensure valid counter variable
 				cardData = d.split(Globals.SEPARATOR);
-				if(cardData[2].contains("<") && cardData[2].contains(">") || cardData[1].contains("<") && cardData[1].contains(">")){
-					cardData[2] = cardData[2].replace("<", "");
-					cardData[2] = cardData[2].replace(">", "");
-					cardData[1] = cardData[1].replace("<", "");
-					cardData[1] = cardData[1].replace(">", "");
-				}
-				if(cardData[2].contains("[b]") || cardData[1].contains("[b]") || 
-						cardData[2].contains("[i]") || cardData[1].contains("[i]") || 
-						cardData[2].contains("[u]") || cardData[1].contains("[u]") ||
-						cardData[2].contains("[s]") || cardData[1].contains("[s]") ||
-						cardData[2].contains("[sup]") || cardData[1].contains("[sup]") ||
-						cardData[2].contains("[sub]") || cardData[1].contains("[sub]")){
-					cardData[2] = cardData[2].replace("[b]", "<b>");
-					cardData[1] = cardData[1].replace("[b]", "<b>");
-					cardData[2] = cardData[2].replace("[i]", "<i>");
-					cardData[1] = cardData[1].replace("[i]", "<i>");
-					cardData[2] = cardData[2].replace("[u]", "<u>");
-					cardData[1] = cardData[1].replace("[u]", "<u>");
-					cardData[2] = cardData[2].replace("[s]", "<s>");
-					cardData[1] = cardData[1].replace("[s]", "<s>");
-					cardData[2] = cardData[2].replace("[sup]", "<sup>");
-					cardData[1] = cardData[1].replace("[sup]", "<sup>");
-					cardData[2] = cardData[2].replace("[sub]", "<sub>");
-					cardData[1] = cardData[1].replace("[sub]", "<sub>");
-				}
 				
-				//String[][] Preplacer = {{"[b]", "<b>"}, {"[i]", "<i>"}, {"[u]", "<u>"}, {"[s]", "<s>"}, {"[sup]", "<sup>"}, {"[sub]", "<sub>"}};
+				String[] po = {"[b]", "[i]", "[u]", "[s]", "[sup]", "[sub]"};
+				String[] ne = {"[/b]", "[/i]", "[/u]", "[/s]", "[/sup]", "[/sub]"};
+				String[] pon = {"<b>", "<i>", "<u>", "<s>", "<sup>", "<sub>"};
+				String[] nen = {"</b>", "</i>", "</u>", "</s>", "</sup>", "</sub>"};
+				String[] dang = {"<", ">"};
 				
-				if(cardData[2].contains("[/b]") || cardData[1].contains("[/b]") || 
-						cardData[2].contains("[/i]") || cardData[1].contains("[/i]") || 
-						cardData[2].contains("[/u]") || cardData[1].contains("[/u]") ||
-						cardData[2].contains("[/s]") || cardData[1].contains("[/s]") ||
-						cardData[2].contains("[/sup]") || cardData[1].contains("[/sup]") ||
-						cardData[2].contains("[/sub]") || cardData[1].contains("[/sub]")){
-					cardData[2] = cardData[2].replace("[/b]", "</b>");
-					cardData[1] = cardData[1].replace("[/b]", "</b>");
-					cardData[2] = cardData[2].replace("[/i]", "</i>");
-					cardData[1] = cardData[1].replace("[/i]", "</i>");
-					cardData[2] = cardData[2].replace("[/u]", "</u>");
-					cardData[1] = cardData[1].replace("[/u]", "</u>");
-					cardData[2] = cardData[2].replace("[/s]", "</s>");
-					cardData[1] = cardData[1].replace("[/s]", "</s>");
-					cardData[2] = cardData[2].replace("[/sup]", "</sup>");
-					cardData[1] = cardData[1].replace("[/sup]", "</sup>");
-					cardData[2] = cardData[2].replace("[/sub]", "</sub>");
-					cardData[1] = cardData[1].replace("[/sub]", "</sub>");
-				}
+				for(int i =0; i < dang.length; i++)
+			    {
+			        if(cardData[1].contains(dang[i]) || cardData[2].contains(dang[i]))
+			        {
+			        	cardData[1] = cardData[1].replace(dang[i], "");
+			        	cardData[2] = cardData[2].replace(dang[i], "");
+			        }
+			    }
+				for(int i =0; i < po.length; i++)
+			    {
+			        if(cardData[1].contains(po[i]) || cardData[2].contains(po[i]))
+			        {
+			        	cardData[1] = cardData[1].replace(po[i], pon[i]);
+			        	cardData[2] = cardData[2].replace(po[i], pon[i]);
+			        }
+			    }
+				for(int i =0; i < ne.length; i++)
+			    {
+			        if(cardData[1].contains(ne[i]) || cardData[2].contains(ne[i]))
+			        {
+			        	cardData[1] = cardData[1].replace(ne[i], nen[i]);
+			        	cardData[2] = cardData[2].replace(ne[i], nen[i]);
+			        }
+			    }
+				
 				engine.loadContent(cardData[1]);
 				frontIsShowed = true;
 			}

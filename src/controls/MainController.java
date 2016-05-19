@@ -12,6 +12,7 @@ import models.QuizletModel;
 import models.StackModel;
 import models.StatisticsModel;
 import mvc.fx.FXController;
+import views.BBCodeInfo;
 import views.DoorView;
 import views.EditorView;
 import views.GameOptionView;
@@ -73,6 +74,7 @@ public class MainController extends FXController
 		this.addUniqueView(new QuizletImportView("quizlet", this));
 		this.addUniqueView(new SimpleEditorView("simpleeditorview", this));
 		this.addUniqueView(new EditorView("editorview", this));
+		this.addUniqueView(new BBCodeInfo("bbcodeinfo", this));
 		
 		this.addUniqueView(new PreLearnView("prelearn", this));
 		this.addUniqueView(new LearnView("learnview", this));

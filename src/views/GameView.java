@@ -87,6 +87,7 @@ public class GameView extends FXView {
 		}
 		else
 		{
+			btn.setDisable(false);
 			lifes.setText("Lifes: " + database.Score.getLifecount());
 		}
 		

@@ -1,6 +1,7 @@
 #optionsview{
 	-fx-background-image: url("pictures/viewbackground.png");
-	-fx-background-size: 920.0 570.0;
+	-fx-background-repeat: stretch;   
+    -fx-background-size: stretch, cover;
 	}
 	
 .check-box {

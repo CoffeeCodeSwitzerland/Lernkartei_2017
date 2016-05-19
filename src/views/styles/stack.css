@@ -1,7 +1,7 @@
 #stack{
 	-fx-background-image: url("pictures/viewbackground.png");
 	-fx-background-repeat: stretch;   
-    -fx-background-size: 920.0 570.0;}
+    -fx-background-size: stretch, cover;}
     
 #BoxButtons{
 	-fx-background-image: url("pictures/BoxIcon.png");

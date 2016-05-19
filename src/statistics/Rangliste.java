@@ -9,12 +9,6 @@ import javafx.collections.ObservableList;
 
 public class Rangliste
 {
-	
-	public Rangliste() {
-		getKarteien();
-		getPunkte();
-		sortKarteien();
-	}
 
 	Categories C = new Categories();
 	

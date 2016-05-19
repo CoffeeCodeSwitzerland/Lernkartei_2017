@@ -35,7 +35,7 @@ public class MainView extends FXView
 	AppButton stat2Btn = new AppButton("Statistiken-2");
 	AppButton optionsBtn = new AppButton("_Optionen");
 	AppButton gameBtn = new AppButton("_Jump 'n' Run");
-	AppButton helpBtn = new AppButton("_Hilfe");
+	//AppButton helpBtn = new AppButton("_Hilfe");
 	AppButton quitBtn = new AppButton("B_eenden");
 	VBox menuLayout = new VBox();
 
@@ -53,15 +53,15 @@ public class MainView extends FXView
 		stat2Btn.setId("stat2btn");
 		optionsBtn.setId("optionsbtn");
 		gameBtn.setId("gamebtn");
-		helpBtn.setId("helpbtn");
+		//helpBtn.setId("helpbtn");
 		quitBtn.setId("quitbtn");
 		
 		Logger.log("Instanziere Div....");
 		// Layout für Menu Items
 		menuLayout.setPadding(new Insets(10));
-		menuLayout.setSpacing(10);
+		menuLayout.setSpacing(15);
 		menuLayout.setAlignment(Pos.CENTER);
-		menuLayout.getChildren().addAll(startBtn, statBtn, stat2Btn, optionsBtn, gameBtn, helpBtn, quitBtn);
+		menuLayout.getChildren().addAll(startBtn, statBtn, stat2Btn, optionsBtn, gameBtn, /*helpBtn,*/ quitBtn);
 
 		// Main Layout
 		mainLayout.setPadding(new Insets(5));
@@ -73,7 +73,7 @@ public class MainView extends FXView
 		stat2Btn.setOnAction(e -> getController().getView("statsview").show());
 		optionsBtn.setOnAction(e -> getController().getView("optionsview").show());
 		gameBtn.setOnAction(e -> getController().getView("gameview").show());
-		helpBtn.setOnAction(e -> getController().getView("helpview").show());
+		//helpBtn.setOnAction(e -> getController().getView("helpview").show());
 
 		quitBtn.setOnAction(e ->
 		{
@@ -95,7 +95,7 @@ public class MainView extends FXView
 		// Impressum
 		ImageView impImgView = new ImageView(impressumImg);
 		mainLayout.setBottom(impImgView);
-		impImgView.setOnMouseClicked(e -> getController().getView("impressumview").show());
+		impImgView.setOnMouseClicked(e -> getController().getView("helpview").show());
 
 		return mainLayout;
 	}

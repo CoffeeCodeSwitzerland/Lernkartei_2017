@@ -1,7 +1,6 @@
 package statistics;
 
 import java.util.ArrayList;
-
 import database.Categories;
 import database.Database;
 import debug.Debugger;
@@ -22,14 +21,14 @@ public class Diagramm
 	}
 	
 	public ArrayList<Double> getPunkte()
-	{		
+	{				
 		Debugger.out("Eingang getPunkte");
 		for (int i = 0; i < Stacks.size(); i++)
 		{
 			Debugger.out("Stack : " + Stacks.get(i));
-			int[] temp = Database.getScore(Stacks.get(i).toString());
+			Double[] temp = Database.getScore(Stacks.get(i).toString());
 			Debugger.out("temp[0] : " + temp[0] + " / " + "temp[1] : " + temp[1]);
-			double result = (100 / temp[0]) * temp[1];
+			Double result = (100 / temp[0]) * temp[1];
 			Debugger.out("Resultat : " + result);
 			Punkte.add(result);
 		}		

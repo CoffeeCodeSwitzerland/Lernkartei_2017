@@ -35,10 +35,10 @@ public class Profil
 		for (int i = 1; i < Stacks.size(); i++)
 		{
 			System.out.println("Profil 2");
-			int[] temp = Database.getScore(Stacks.get(i).toString());
+			Double[] temp = Database.getScore(Stacks.get(i).toString());
 			System.out.println("Profil 3 " + "Reached points: " + temp[0]);
 			System.out.println("Profil 3 " + "Max points: " + temp[1]);
-			double result = temp[0] / temp[1] * 100;
+			Double result = temp[0] / temp[1] * 100;
 			System.out.println("Profil 4 " + "Resultat: " + temp[0] / temp[1] * 100);
 			String tempStr = new Double(result).toString();
 			System.out.println("Profil 5 " + "String Resultat: " + tempStr);

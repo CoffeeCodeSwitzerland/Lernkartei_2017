@@ -389,14 +389,14 @@ public class Database {
 	 * @return --> Retourniert diesen gewünschten Score
 	 */
 	
-	public static int[] getScore (String whichSet) {
+	public static Double[] getScore (String whichSet) {
 
 		Connection c = null;
 		Statement stmt = null;
 
-		int maxPoints = 0;
-		int reachedPoints = 0;
-		int[] score = new int[2];
+		Double maxPoints = 0.0;
+		Double reachedPoints = 0.0;
+		Double[] score = new Double[2];
 
 		try {
 			Class.forName(driver);
@@ -420,8 +420,8 @@ public class Database {
 			if (scrs.next()) {
 
 				while (scrs.next()) {
-					maxPoints += 4;
-					reachedPoints += scrs.getInt("Priority") - 1;
+					maxPoints += 4.0;
+					reachedPoints += scrs.getInt("Priority") - 1.0;
 					Debugger.out("Priority : " + scrs.getInt("Priority"));
 				}
 
@@ -442,7 +442,7 @@ public class Database {
 		}
 
 		// Erreichte Punktzahl zurückgeben
-
+		
 		score[0] = maxPoints;
 		score[1] = reachedPoints;
 

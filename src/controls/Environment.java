@@ -108,8 +108,4 @@ public final class Environment {
 		String path = System.getenv("APPDATA") + fileSep + controls.Globals.db_Path;
 		return path;
 	}
-	
-	public static void main (String[] args) {
-		System.out.println(getDatabasePath());
-	}
 }

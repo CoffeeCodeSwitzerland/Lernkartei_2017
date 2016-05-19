@@ -8,7 +8,6 @@ import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 import models.GameModel;
 import mvc.fx.FXController;
 import mvc.fx.FXView;
@@ -93,11 +92,9 @@ public class MainView extends FXView
 
 		// Impressum Leerbox (IMG in CSS eingefügt)
 		BorderPane imgPane = new BorderPane();
-		Text emptyText = new Text("          \n\n");
 		imgPane.setId("helpbtn");
 		imgPane.setOnMouseClicked(e -> getController().showView("helpview"));
-		imgPane.setLeft(emptyText);
-		imgPane.autosize();
+		imgPane.setMinSize(20.0, 50.0);
 		mainLayout.setBottom(imgPane);
 
 		return mainLayout;

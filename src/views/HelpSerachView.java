@@ -36,7 +36,7 @@ public class HelpSerachView extends FXView
 				Label labelTitel = new Label("Index");
 				
 				//Hier kommt der angezeigte Text hin:
-				Label labelText = new Label("-Türen- Das sind die Themen.\n-Boxen- Das sind die Unterthemen\n...");
+				Label labelText = new Label("-Türen- Das sind die Themen.\n-Boxen- Das sind die Unterthemen\n-Jump 'n' Run\n");
 				
 				//Zeilenumbruch am Fensterrand
 				labelText.setWrapText(true);

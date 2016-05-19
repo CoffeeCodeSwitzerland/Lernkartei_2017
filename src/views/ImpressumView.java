@@ -28,7 +28,7 @@ public class ImpressumView extends FXView
 		Label labelTitel = new Label("Impressum");
 		
 		//Hier kommt der angezeigte Text hin:
-		Label labelText = new Label("Name des Produkts:\nErsteller:\nRechte:\netc...");
+		Label labelText = new Label("WISSLearnCards:\nErsteller:\nRechte:\netc...");
 		
 		//Zeilenumbruch am Fensterrand
 		labelText.setWrapText(true);

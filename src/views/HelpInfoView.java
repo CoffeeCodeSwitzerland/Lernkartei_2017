@@ -36,7 +36,7 @@ public class HelpInfoView extends FXView
 				Label labelTitel = new Label("Anleitung");
 				
 				//Hier kommt der angezeigte Text hin:
-				Label labelText = new Label("Erste Schritte\nWichtiges:\nKontakte:\netc...");
+				Label labelText = new Label("Erste Schritte:\n\nWenn du das Programm gestartet hast siehst du das Menü. Drücke den obersten Button Lernen. Dannach bist du bei den Türen. Das sind die Oberthemen. Unten siest du einen Button Erstelle neue Tür. Klicke auf ihn und dann kannst du der Tür einen Namen geben. Zum Biespiel Mathe.\n Klicke nun auf die neue Tür die du erstellt hast und du landest nun bei den Boxen. Das sind die Unterthemen wie zum Beispiel Algebra und Geometrie in unserem Fall. Klcike auf Erstelle neue Box und ein kleines Fenster mit einer Auswahl erscheint. Du kannst selber Kärtchen erstellen oder sie von Quizlet importieren. Du entschiedest.\n\nWenn du fertig bist klicke auf die Box die du erstellt hast und nun kannst du Kärtchen hinzufügen wenn du auf Bearbeiten klickst. Hast du dies getan klicke auf Lernen und das erste Kärtchen erscheint. Drücke auf den drehen Button um die Rückseite anzeigen zu lassen. Anschliessen klicke auf Richtig oder Falsch um dem Programm zu sagen ob du das Kärtchen wusstest oder nicht.\n\nWichtiges:\nKontakte:\netc...");
 				
 				//Zeilenumbruch am Fensterrand
 				labelText.setWrapText(true);

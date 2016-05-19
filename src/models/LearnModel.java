@@ -30,23 +30,16 @@ public class LearnModel extends Model {
 		if (functionName.equals("Richtig")) {
 			KartenPunkt = Bewertungsklasse.CardCorrect(freeStringParam, KartenPunkt);
 			database.Score.correctCard();
-			
+
 			refreshViews();
-			
 
 			return 1;
-		}
-		else if (functionName.equals("Falsch")) {
-			KartenPunkt =  Bewertungsklasse.CardFalse(freeStringParam, KartenPunkt);
+		} else if (functionName.equals("Falsch")) {
+			KartenPunkt = Bewertungsklasse.CardFalse(freeStringParam, KartenPunkt);
 			refreshViews();
-			if (KartenPunkt == 1) {
-				
-				return 2;
-			} else {
-				return -2;
-			}
-		}
-		else {
+			return 2;
+
+		} else {
 			return 0; // no error
 		}
 	}

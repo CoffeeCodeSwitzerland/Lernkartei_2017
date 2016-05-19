@@ -4,10 +4,9 @@ import java.util.ArrayList;
 
 import controls.Globals;
 import javafx.collections.ObservableList;
-import javafx.scene.layout.HBox;
 import mvc.fx.FXModel;
 import statistics.Rangliste;
-import statistics.Saulendiagramm;
+import statistics.Diagramm;
 import statistics.Standings;
 
 public class StatisticsModel extends FXModel
@@ -17,9 +16,14 @@ public class StatisticsModel extends FXModel
 	{
 		super(myName);
 	}
-	
+
+	Diagramm SD = new Diagramm();
 	public ArrayList<String> getDataList(String query) {
-		return null;
+		if (query.equals("karteien")) {
+			return SD.getKarteien();
+		} else {
+			return null;
+		}
 	}
 	
 	Rangliste R = new Rangliste();
@@ -36,21 +40,16 @@ public class StatisticsModel extends FXModel
 	public ArrayList<Double> getDoubleList(String CombinedString) {
 		String[] Decision = CombinedString.split(Globals.SEPARATOR);
 		if (Decision[1].equals("start")){
-			return S.getStart(CombinedString);
+			return S.getStart(Decision[0]);
 		} else if (Decision[1].equals("end")){
-			return S.getEnd(CombinedString);
+			return S.getEnd(Decision[0]);
 		} else if (Decision[1].equals("difference")) {
-			return S.getDifference(CombinedString);
+			return S.getDifference(Decision[0]);
+		} else if (CombinedString.equals("punkte")) {
+			return SD.getPunkte();
 		} else {
 			return null;
 		}
-	}
-	
-	Saulendiagramm SD = new Saulendiagramm();
-	public HBox getDiagram(String Diagramtyp) {
-		if (Diagramtyp.equals("saule")); {
-			return SD.getDiagramm();
-		} 
 	}
 	
 	public int doAction(String functionName, String paramS, double paramD)
@@ -60,9 +59,6 @@ public class StatisticsModel extends FXModel
 			boolean success = false;
 			SD.delOldStats();
 			return success ? 1 : -1;
-		} else if (functionName.equals("getData")){
-			SD.genSaulendiagramm();
-			return 1;
 		} else {
 			return -2;
 		}

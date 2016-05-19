@@ -11,6 +11,7 @@ import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.chart.XYChart.Series;
+
 import javafx.scene.control.ListView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -33,7 +34,7 @@ public class StatsView extends FXView
 		construct();
 	}
 	
-	HBox Diagram;
+	HBox Diagram = new HBox(50);
 	HBox Controls = new HBox(50);
 	HBox Rankings = new HBox(50);
 	AppButton back = new AppButton("_Zurück");
@@ -41,6 +42,8 @@ public class StatsView extends FXView
 	//Achsen erstellen
 	CategoryAxis xAchse = new CategoryAxis();
 	NumberAxis yAchse = new NumberAxis();
+	//Serie erstellen
+	Series Ergebnisse = new Series();
 	//BarChart erstellen
 	BarChart<String, Number> bc = new BarChart<String, Number>(xAchse, yAchse);
 	//ListView
@@ -48,12 +51,15 @@ public class StatsView extends FXView
 	ListView Ranks = new ListView();
 			
 	ArrayList<String> Karteien = new ArrayList<String>();
-	ArrayList<String> Punkte = new ArrayList<String>();
+	ArrayList<Double> Punkte = new ArrayList<Double>();
 	
 	StatisticsModel SM = new StatisticsModel("statistics");
 			
 	@Override
 	public Parent constructContainer() {
+		
+		//HBox für Diagramm
+		Diagram.setAlignment(Pos.CENTER);
 		
 		//HBox für die Buttons / Controls
 		Controls.setAlignment(Pos.BOTTOM_CENTER);
@@ -79,10 +85,16 @@ public class StatsView extends FXView
 	{
 		
 		try {
-		//HBox für das Diagramm
-		Diagram = SM.getDiagram("saule");
-		Diagram.setAlignment(Pos.CENTER);
-		
+			Karteien = SM.getDataList("karteien");
+			Punkte = SM.getDoubleList("punkte");
+			Debugger.out("Kartei und Punkte in StatsView geladen");
+			
+			xAchse.setLabel("Karteien");
+			yAchse.setLabel("Ergebnis (%)");
+			
+			//Ergebnisse.getData().add();
+			
+			
 		/*System.out.println("StatsView 4");
 		
 		Ranks.setItems(getController().getFXModel("profil").getObservableDataList("ranking"));

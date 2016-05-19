@@ -12,18 +12,12 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import mvc.View;
 /**
- * Abstract GUI-Toolkit independent FX-View
- * ========================================
- * - extends the controller features
+ * Abstract FX Toolkit dependent FX-View
+ * =====================================
+ * - extends the View features
  * 
  * @author  hugo-lucca
  * @version 2016
- * License: LGPL
- */
-/**
- * Diese Klasse ist des Basis Codegerüst für die Umsetzung der GUI-View's in diesem MVC Konzept.
- * View's müssen sich beim Modell registrieren, wenn sie bei Änderungen im Modell automatisch 
- * ge-refresht werden wollen.
  */
 public abstract class FXView extends View
 {

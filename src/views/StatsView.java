@@ -107,7 +107,14 @@ public class StatsView extends FXView
 		Rankings.getChildren().addAll(Ranks);
 		
 		System.out.println("StatsView 6");*/
-			
+		
+			/*ArrayList<Double> test = new ArrayList<Double>();
+			test = SM.getDoubleList("Unité 1" + Globals.SEPARATOR + "start");
+			Debugger.out("Start : " + test.get(0));
+			test = SM.getDoubleList("Unité 1" + Globals.SEPARATOR + "end");
+			Debugger.out("End : " + test.get(0));
+			test = SM.getDoubleList("Unité 1" + Globals.SEPARATOR + "difference");
+			Debugger.out("Difference : " + test.get(0));*/
 		
 		} catch (Exception e) {
 			Debugger.out("StatsView Exception: " + e.fillInStackTrace());
@@ -118,7 +125,7 @@ public class StatsView extends FXView
 	{
 		Karteien.clear();
 		Punkte.clear();
-		//bc = null;
+		bc = null;
 	}
 
 }

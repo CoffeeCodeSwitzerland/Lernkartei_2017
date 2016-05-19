@@ -1,5 +1,6 @@
 package statistics;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class Rangliste
@@ -7,7 +8,8 @@ public class Rangliste
 
 	public ObservableList<String> getRangliste()
 	{
-		// TODO Auto-generated method stub
+		ObservableList<String> Ranking = FXCollections.observableArrayList();
+		
 		return null;
 	}
 

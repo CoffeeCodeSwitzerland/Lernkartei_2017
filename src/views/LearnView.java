@@ -169,6 +169,10 @@ public class LearnView extends FXViewModel
 					cardData[2] = cardData[2].replace("[sub]", "<sub>");
 					cardData[1] = cardData[1].replace("[sub]", "<sub>");
 				}
+				
+				//String[][] replacer = new String[7][2];
+				//replacer = {{"[b]", "<b>"}, {"[i]", "<i>"}};
+				
 				if(cardData[2].contains("[/b]") || cardData[1].contains("[/b]") || 
 						cardData[2].contains("[/i]") || cardData[1].contains("[/i]") || 
 						cardData[2].contains("[/u]") || cardData[1].contains("[/u]") ||

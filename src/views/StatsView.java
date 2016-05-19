@@ -42,8 +42,6 @@ public class StatsView extends FXView
 	//Achsen erstellen
 	CategoryAxis xAchse = new CategoryAxis();
 	NumberAxis yAchse = new NumberAxis();
-	//Serie erstellen
-	Series Ergebnisse = new Series();
 	//BarChart erstellen
 	BarChart<String, Number> bc = new BarChart<String, Number>(xAchse, yAchse);
 	//ListView
@@ -83,17 +81,26 @@ public class StatsView extends FXView
 	@Override
 	public void refreshView()
 	{
+		Karteien = SM.getDataList("karteien");
+		Punkte = SM.getDoubleList("punkte");
+		
+		xAchse.setLabel("Karteien");
+		yAchse.setLabel("Ergebnis (%)");
 		
 		try {
-			Karteien = SM.getDataList("karteien");
-			Punkte = SM.getDoubleList("punkte");
-			Debugger.out("Kartei und Punkte in StatsView geladen");
+			for (int i = 0; i < Karteien.size(); i++)
+			{
+				Series<String, Number> thisSerie = new Series<String, Number>();
+				thisSerie.setName(Karteien.get(i));
+				thisSerie.getData().add(new XYChart.Data<String, Number>(Karteien.get(i), Punkte.get(i)));
+				bc.getData().add(thisSerie);
+			}
 			
-			xAchse.setLabel("Karteien");
-			yAchse.setLabel("Ergebnis (%)");
+			Diagram.getChildren().addAll(bc);
 			
-			//Ergebnisse.getData().add();
-			
+	        //XYChart.Series series1 = new XYChart.Series();
+	        //series1.setName("2003");       
+	        //series1.getData().add(new XYChart.Data<String, Double>(austria, 25601.34));
 			
 		/*System.out.println("StatsView 4");
 		
@@ -106,7 +113,7 @@ public class StatsView extends FXView
 		System.out.println("StatsView 6");*/
 		
 		} catch (Exception e) {
-			Debugger.out("StatsView Exception: " + e.getMessage());
+			Debugger.out("StatsView Exception: " + e.fillInStackTrace());
 		}
 	}
 }

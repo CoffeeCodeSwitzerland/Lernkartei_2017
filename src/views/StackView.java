@@ -19,7 +19,9 @@ import mvc.fx.FXViewModel;
 
 
 /**
- * Gamestartfenster
+ * Zeigt alle Stapel an.
+ * Navigation zu Lernen und SimpleEditor
+ * Zurück zu DoorView
  * 
  * @author nina egger & miro albrecht
  *

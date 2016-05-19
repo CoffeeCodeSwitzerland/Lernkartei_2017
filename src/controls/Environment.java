@@ -105,7 +105,7 @@ public final class Environment {
 			debug.Debugger.out("Ordner " + controls.Globals.db_Path + " erstellt!");
 		}
 		
-		String path = System.getenv("APPDATA") + fileSep + controls.Globals.db_Path;
+		String path = System.getenv("APPDATA") + fileSep + controls.Globals.db_Path + fileSep;
 		return path;
 	}
 }

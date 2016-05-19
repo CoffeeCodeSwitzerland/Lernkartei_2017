@@ -75,7 +75,8 @@ public final class Alert
 
 	// -------------------------------------------------------------------------------------------------------------
 
-	private static String output = "";
+	private static String output = null;
+	private static String tempOutput = null;
 
 	/**
 	 * Kleines Fenster, dass Input (String) vom User abfragt.
@@ -101,7 +102,7 @@ public final class Alert
 		tf.setOnKeyReleased(e -> {
 			if (e.getCode().equals(KeyCode.ENTER))
 			{
-				output = tf.getText();
+				tempOutput = tf.getText();
 				window.close();
 			}
 		});
@@ -109,7 +110,7 @@ public final class Alert
 		Button b = new Button("_OK");
 		b.setOnAction(e ->
 		{
-			output = tf.getText();
+			tempOutput = tf.getText();
 			window.close();
 		});
 
@@ -126,7 +127,8 @@ public final class Alert
 
 		window.setScene(new Scene(layout, width, 150));
 		window.showAndWait();
-
+		output = tempOutput;
+		tempOutput = null;
 		return output;
 	}
 
@@ -165,6 +167,7 @@ public final class Alert
 	// -------------------------------------------------------------------------------------------------------------
 
 	static boolean okay = false;
+	static boolean tempOkay = false;
 
 	/**
 	 * Fenster mit OK- und Abbrechen-Buttons
@@ -186,13 +189,13 @@ public final class Alert
 
 		bo.setOnAction(e ->
 		{
-			okay = true;
+			tempOkay = true;
 			window.close();
 		});
 
 		ba.setOnAction(e ->
 		{
-			okay = false;
+			tempOkay = false;
 			window.close();
 		});
 
@@ -215,12 +218,16 @@ public final class Alert
 		window.setScene(new Scene(layout, width, 150));
 		window.showAndWait();
 
+		okay = tempOkay;
+		tempOkay = false;
+		
 		return okay;
 	}
 
 	// -------------------------------------------------------------------------------------------------------------
 
-	private static int tempInt = -1;
+	private static int tempChoise = -1;
+	private static int choise = -1;
 
 	public static int complexChoiceBox (String title, String message, String... options)
 	{
@@ -236,7 +243,7 @@ public final class Alert
 			buttons[j] = new AppButton(options[j]);
 			buttons[j].setOnAction(e ->
 			{
-				tempInt = j;
+				tempChoise = j;
 				window.close();
 			});
 		}
@@ -258,7 +265,9 @@ public final class Alert
 		window.setScene(new Scene(layout, width, height));
 		window.showAndWait();
 
-		return tempInt;
+		choise = tempChoise;
+		tempChoise = -1;
+		return choise;
 	}
 
 	// -------------------------------------------------------------------------------------------------------------

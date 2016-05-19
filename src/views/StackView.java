@@ -83,7 +83,7 @@ public class StackView extends FXViewModel
 			{
 				case 0:
 					final String boxName = Alert.simpleString("Neue Box", "Wie soll die neue Box heissen?");
-					if (this.getName() != null && !boxName.equals(""))
+					if (this.getName() != null && boxName != null)
 					{
 						getController().getModel("stack").doAction("new",
 								getData() + controls.Globals.SEPARATOR + boxName);

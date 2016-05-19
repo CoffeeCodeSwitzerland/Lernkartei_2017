@@ -18,14 +18,6 @@
 	-fx-background-image: null;
 }
 
-#fancytext {
-    -fx-font: 40.0px Tahoma;
-    -fx-fill: linear-gradient(from 0.0% 0.0% to 100.0% 200.0%, repeat, aqua 0.0%, red 50.0%);
-    -fx-stroke: black;
-    -fx-stroke-width: 1.0;
-}
-
-
 .button {
 	-fx-font-family: "Segoe UI Semibold";
 	-fx-color: #ffebb2;

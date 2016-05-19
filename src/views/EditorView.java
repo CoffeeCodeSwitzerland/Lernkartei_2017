@@ -45,7 +45,7 @@ public class EditorView extends FXViewModel
 		//Info Button
 		AppButton infobtn = new AppButton("!");
 		infobtn.setOnAction(e ->
-		getController().showView("simpleeditorview"));
+		getController().showView("bbcodeinfo"));
 		
 		//EditLayout
 		editLayout.setPadding(new Insets(10));

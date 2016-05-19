@@ -44,7 +44,7 @@ public class SimpleEditorView extends FXViewModel
 		//Info Button
 		AppButton infobtn = new AppButton("!");
 		infobtn.setOnAction(e ->
-		getController().showView("simpleeditorview"));
+		getController().showView("bbcodeinfo"));
 		
 		BorderPane headLayout = new BorderPane(headLbl);
 		headLayout.setPadding(new Insets(25));

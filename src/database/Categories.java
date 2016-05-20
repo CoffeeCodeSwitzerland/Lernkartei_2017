@@ -58,8 +58,6 @@ public class Categories {
 			
 			if (id.next()) {
 				FK_ID = id.getInt("PK_Doors");
-			}
-			else {
 				errorMsg = -1;
 			}
 
@@ -202,22 +200,17 @@ public class Categories {
 			if (contin) {
 				String delDoor = "DELETE FROM Kategorie WHERE Kategorie = '" + category + "'";
 				String delCards = "DELETE FROM Stock WHERE Set_ID = " + setID;
-				System.out.println("a5");
 				stmt.executeUpdate(delCards);
-				System.out.println("a5a");
 				stmt.executeUpdate(delDoor);
-				System.out.println("a6");
 				stmt.close();
 				c.close();
 				worked = true;
 			}
 			else {
-				System.out.println("a7");
 				stmt.close();
 				c.close();
 				worked = false;
 			}
-			System.out.println("a8");
 		}
 		catch (Exception e) {
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());

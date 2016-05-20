@@ -28,7 +28,6 @@ import views.PreLearnView;
 import views.QuizletImportView;
 import views.SimpleEditorView;
 import views.StackView;
-import views.StatisticsView;
 import views.StatsView;
 /**
  * Diese Klasse Kontrolliert alle Sichten und Models. Den Sichten wird die

@@ -28,7 +28,7 @@ public class ImpressumView extends FXView
 		labelText.setWrapText(true);
 		labelText.setMaxWidth(870);
 
-		labelTitel.setId("impressumtext");
+		labelTitel.setId("impressumtitel");
 		labelText.setId("impressumtext");
 			
 		AppButton backBtn = new AppButton("_Zurück");

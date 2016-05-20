@@ -4,6 +4,8 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -29,53 +31,39 @@ public class HelpSerachView extends FXView
 	public Parent constructContainer() {
 		// TODO Auto-generated method stub
 				
-				// Buttons
-				AppButton backBtn = new AppButton("_Zurück");
-					
-				//Labels (für die Infotexte)
-				Label labelTitel = new Label("Index");
-				
-				//Hier kommt der angezeigte Text hin:
-				Label labelText = new Label("-Türen- 			Das sind die Themen.\n-Boxen- 			Das sind die Unterthemen\n-Jump 'n' Run- 	Mit lernen kannst du dir Leben verdienen für das Spiel. Du findest es im Hauptmenü.\n-Optionen- 		Hier kannst du einstellen wie viele Kärtchen du auf einmal lernen möchtest.\n-Statistiken- 		Hier kannst du deinen Fortschritt sehen. Unter anderem wie viele Punkte du gesammelt hast beim lernen.\n");
-				
-				//Zeilenumbruch am Fensterrand
-				labelText.setWrapText(true);
+		Label labelTitel = new Label("Index");
+		Label labelText = new Label("-Türen- 			Das sind die Themen.\n-Boxen- 			Das sind die Unterthemen\n-Jump 'n' Run- 	Mit lernen kannst du dir Leben verdienen für das Spiel. Du findest es im Hauptmenü.\n-Optionen- 		Hier kannst du einstellen wie viele Kärtchen du auf einmal lernen möchtest.\n-Statistiken- 		Hier kannst du deinen Fortschritt sehen. Unter anderem wie viele Punkte du gesammelt hast beim lernen.\n-Quizlet-			Von dort kannst du Kärtchen importieren wenn du sie nicht selber schreiben möchtest.\n-Lernkarteien-		Hier drücken um die Kartei auszuwählen und sie zu lernen.\n-(?) Icon-			Hier findest du Anleitungen, Infos, Index und anderes.\n-Index-			Hier werden Begriffe erklärt\n-Impressum-		Wer an diesem Programm gearbeitet hat, die Lizenzen und Rechte etc.\n-Anleitung-		Kurze Info wie man WISSLearnCards benutzt.\n\nWichtiges:			...\n-etc-			\n-etc-			\n-etc-			\n-etc-			\n-etc-			\n-etc-			\n-etc-			\n-etc-			\n-etc-			\n-etc-			\n-etc-			");
+		labelText.setWrapText(true);
+		labelText.setMaxWidth(870);
 
-				//IDs für CSS
-				labelTitel.setId("impressumtext");
-				labelText.setId("impressumtext");
+		labelTitel.setId("impressumtext");
+		labelText.setId("impressumtext");
+			
+		AppButton backBtn = new AppButton("_Zurück");
+		backBtn.setOnAction(e -> getController().showMainView());
 
-				//Damit der Text nicht bis zum Fensterrand geht sondern noch etwas abstand hat
-				Double size = getController().getMyFXStage().getOPTIMAL_WIDTH()*.95;
-				size += 10;
-				labelText.setPrefWidth(size);
-				labelTitel.setPrefWidth(size);
+		BorderPane headLayout = new BorderPane(labelTitel);
+		headLayout.setPadding(new Insets(20));
+		ScrollPane scroller = new ScrollPane();
 				
-				//Box für die Navigation
-				HBox naviBox = new HBox(10);
-				naviBox.getChildren().addAll(backBtn);
-					
-				//Box für Titel
-				VBox TitelBox = new VBox(10);
-				TitelBox.getChildren().addAll(labelTitel);
-				TitelBox.setAlignment(Pos.CENTER);
-						
-				//Box für Mitte Text
-				VBox BoxMitText = new VBox(20);
-				BoxMitText.getChildren().addAll(labelText);
-				BoxMitText.setAlignment(Pos.CENTER);
+		scroller.setContent(labelText);
+		scroller.setHbarPolicy(ScrollBarPolicy.NEVER);
+		scroller.setVbarPolicy(ScrollBarPolicy.ALWAYS);  
+			
+		HBox controlLayout = new HBox(20);
+		controlLayout.setAlignment(Pos.BOTTOM_LEFT);
+		controlLayout.getChildren().addAll(backBtn);
+
+		BorderPane mainLayout = new BorderPane();
+		mainLayout.setPadding(new Insets(15));
+		mainLayout.setTop(headLayout);
+		mainLayout.setCenter(scroller);
+		mainLayout.setBottom(controlLayout);
+
+		return mainLayout;	
 				
-				// Behaviour
-				backBtn.setOnAction(e -> getController().showMainView());
 				
-				// Layout
-				BorderPane borderPane = new BorderPane();
-				borderPane.setPadding(new Insets(15));
-				borderPane.setBottom(naviBox);
-				borderPane.setCenter(BoxMitText);
-				borderPane.setTop(TitelBox);
-				
-		return borderPane;
+	
 	}
 
 	@Override

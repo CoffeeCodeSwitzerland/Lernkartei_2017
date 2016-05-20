@@ -66,7 +66,7 @@ public class BBCodeInfo extends FXView
 				BoxMitText.setAlignment(Pos.CENTER);
 				
 				// Behaviour
-				backBtn.setOnAction(e -> getController().showMainView());
+				backBtn.setOnAction(e -> getController().showLastView());
 				
 				// Layout
 				BorderPane borderPane = new BorderPane();

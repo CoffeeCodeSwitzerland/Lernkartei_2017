@@ -42,7 +42,7 @@ public class SimpleEditorView extends FXViewModel
 		backBtn.setOnAction(e -> getController().showView("stack"));
 
 		//Info Button
-		AppButton infobtn = new AppButton("!");
+		AppButton infobtn = new AppButton("\u2139");
 		infobtn.setOnAction(e ->
 		getController().showView("bbcodeinfo"));
 		

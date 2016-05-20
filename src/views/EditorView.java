@@ -1,5 +1,6 @@
 package views;
 
+import globals.Functions;
 import globals.Globals;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -45,7 +46,7 @@ public class EditorView extends FXViewModel
 		getController().showView("simpleeditorview"));	
 		
 		//Info Button
-		AppButton infobtn = new AppButton("!");
+		AppButton infobtn = new AppButton("\u2139");
 		infobtn.setOnAction(e ->
 		getController().showView("bbcodeinfo"));
 		
@@ -104,10 +105,7 @@ public class EditorView extends FXViewModel
 			String[] cardSides = data.split(Globals.SEPARATOR);
 			front.setText(cardSides[1]);
 			back.setText(cardSides[2]);
-			
-			enginefront.loadContent(front.getText());
-			engineback.loadContent(back.getText());
-			
+
 			back.setOnMouseReleased(e ->{
 				int start = back.getSelection().getStart();
 				int end = back.getSelection().getEnd();
@@ -159,20 +157,45 @@ public class EditorView extends FXViewModel
 				});
 			});
 			
-			back.setOnKeyReleased(e ->
-			engineback.loadContent(back.getText()));
+			back.setOnKeyReleased(e ->{
+				String text = back.getText();
+				text = Functions.simpleBbCode2HTML(text, Globals.evenTags);
+				text = Functions.realBbCode2HTML(text, Globals.pairedTags);
+				engineback.loadContent(text);
+			});
 			
-			front.setOnKeyReleased(e ->
-			enginefront.loadContent(front.getText()));
-
-			update.setOnAction(e -> {
-				if(back.getText() != null && !back.getText().equals("") && front.getText() != null
-						&& !front.getText().equals(""))
+			front.setOnKeyReleased(e ->{
+				String text = front.getText();
+				text = Functions.simpleBbCode2HTML(text, Globals.evenTags);
+				text = Functions.realBbCode2HTML(text, Globals.pairedTags);
+				enginefront.loadContent(text);
+			});
+			
+			front.focusedProperty().addListener(e ->
+			{
+				if (!front.isFocused())
 				{
-					getController().getModel("cards").doAction("edit", cardSides[0] + Globals.SEPARATOR
-							+ front.getText() + Globals.SEPARATOR + back.getText());
+					if (back.getText() != null && !back.getText().equals("") && front.getText() != null
+							&& !front.getText().equals(""))
+					{
+						getController().getModel("cards").doAction("edit", cardSides[0] + Globals.SEPARATOR
+								+ front.getText() + Globals.SEPARATOR + back.getText());
+					}
 				}
-			});	
+			});
+
+			back.focusedProperty().addListener(e ->
+			{
+				if (!back.isFocused())
+				{
+					if (back.getText() != null && !back.getText().equals("") && front.getText() != null
+							&& !front.getText().equals(""))
+					{
+						getController().getModel("cards").doAction("edit", cardSides[0] + Globals.SEPARATOR
+								+ front.getText() + Globals.SEPARATOR + back.getText());
+					}
+				}
+			});
 			
 			HBox buttonLL = new HBox(8);
 			buttonLL.setAlignment(Pos.TOP_LEFT);
@@ -200,7 +223,7 @@ public class EditorView extends FXViewModel
 			
 			HBox mainL = new HBox(8);
 			mainL.setAlignment(Pos.BOTTOM_CENTER);
-			mainL.getChildren().addAll(leftL, rightL, update);
+			mainL.getChildren().addAll(leftL, rightL);
 
 			editLayout.getChildren().addAll(mainL);
 		}

@@ -69,15 +69,13 @@ public class StatsView extends FXView
 	public void refreshView()
 	{	
 		System.out.println(countLoadsOfRefreshView);
-	
-// 		TODO:
-		
-//		if (countLoadsOfRefreshView >= 1) { 
-//			System.out.println("Löschen einleitung");
-//			if (Diagram == && Rankings)
-//			delOld();
-//			countLoadsOfRefreshView += 1;
-//		}
+		if (countLoadsOfRefreshView >= 1) { 
+			System.out.println("Löschen einleitung");
+			if (Diagram != null && Rankings != null) {
+				delOld();
+				countLoadsOfRefreshView += 1;
+			} 
+		}
 		
 		Diagram = new HBox(50);
 		Rankings = new HBox(50);
@@ -135,12 +133,10 @@ public class StatsView extends FXView
 		Pane.setLeft(Rankings);
 	}
 	
-//	TODO:
-	
-//	private void delOld() {
-//		System.out.println("Löschen");
-//		Diagram.getChildren().clear();
-//		Rankings.getChildren().clear();
-//		Pane.getChildren().clear();
-//	}
+	private void delOld() {
+		System.out.println("Löschen");
+		Diagram.getChildren().clear();
+		Rankings.getChildren().clear();
+		Pane.getChildren().clear();
+	}
 }

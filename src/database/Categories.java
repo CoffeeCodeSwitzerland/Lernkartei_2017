@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Stack;
 
 
 public class Categories {
@@ -258,6 +259,10 @@ public class Categories {
 					}
 				}
 			
+			StackSet.close();
+			stmt.close();
+			c.close();
+			
 		} catch (Exception e) {
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
 			System.exit(0);
@@ -290,6 +295,10 @@ public class Categories {
 			
 			ID = Integer.parseInt(StackSet.getString(StackSet.getInt(1)));
 			
+			StackSet.close();
+			stmt.close();
+			c.close();
+			
 		} catch (Exception e) {
 			ID = 0;
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
@@ -315,10 +324,18 @@ public static boolean possible (String boxName) {
 			ResultSet checkPossible = stmt.executeQuery(sql);
 			
 			if (checkPossible.next()) {
+				checkPossible.close();
+				stmt.close();
+				c.close();
 				return false;
 			} else {
+				checkPossible.close();
+				stmt.close();
+				c.close();
 				return true;
 			}
+			
+			
 
 		} catch (Exception e) {
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());

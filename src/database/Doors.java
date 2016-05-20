@@ -177,12 +177,8 @@ public class Doors {
 				
 				getStacks.close();
 				for (String s : setsToDel) {
-					System.out.println("7");
 					database.Categories.delStack(s);
-					System.out.println("8");
 				}
-				
-				System.out.println("9");
 				c.setAutoCommit(true);
 				
 				String delDoor = "DELETE FROM Doors WHERE Doorname = '" + delName + "'";
@@ -190,8 +186,6 @@ public class Doors {
 				
 				stmt.executeUpdate(delDoor);
 				stmt.executeUpdate(delSets);
-				
-				System.out.println("10");
 				stmt.close();
 				c.close();
 				worked = true;

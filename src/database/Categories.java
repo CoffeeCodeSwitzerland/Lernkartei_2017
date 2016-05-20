@@ -30,7 +30,7 @@ public class Categories {
 		Connection c = null;
 		Statement stmt = null;
 		Integer FK_ID = 0;
-		Integer errorMsg = -9;
+		Integer errorMsg = 0;
 
 		try {
 			
@@ -58,32 +58,29 @@ public class Categories {
 			
 			if (id.next()) {
 				FK_ID = id.getInt("PK_Doors");
-				errorMsg = -1;
+				id.close();
+			} else {
+				return -1;
+			}
+			
+			ResultSet check = stmt.executeQuery("SELECT * FROM Kategorie WHERE Kategorie = '" + eingabe + "'");
+			
+			if (check.next()) {
+				check.close();
+				return -2;
+			}
+			else {
+				check.close();
 			}
 
-			id.close();
+			c.setAutoCommit(true);
 			
-			// Überprüft, ob die Kategorie bereits existiert
-			if (errorMsg != -1)
-			{
-				ResultSet check = stmt.executeQuery("SELECT * FROM Kategorie WHERE Kategorie = '" + eingabe + "'");
-				if (check.next()) {
-					check.close();
-					errorMsg = -2;
-				}
-				else {
-					check.close();
-				}
-	
-				c.setAutoCommit(true);
-				
-				// Erstellt die neue Kategorie als Eintrag in der Datenbank mit einem Fremdkey für die Tür
-	
-				String insert = "INSERT INTO Kategorie (Kategorie, FK_Door)" +
-						"VALUES ('" + eingabe + "', " + FK_ID + ")";
-	
-				stmt.executeUpdate(insert);
-			}
+			// Erstellt die neue Kategorie als Eintrag in der Datenbank mit einem Fremdkey für die Tür
+
+			String insert = "INSERT INTO Kategorie (Kategorie, FK_Door)" +
+					"VALUES ('" + eingabe + "', " + FK_ID + ")";
+
+			stmt.executeUpdate(insert);
 			
 			stmt.close();
 			c.close();

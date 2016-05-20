@@ -8,7 +8,6 @@
 =============================================================================================================
 
 ##	Inhalte:
-##	========
 >	- die Interfaces definieren die zwingend zu implementierenden Methoden (die Schnittstelle)
 >	- die abstrakten Klassen sind "Halbfabrikate", d.h. vorbereitete Implementationen für eine einfache Beerbung, so
 >	- dass nur noch der für die Applikation notwendige Code bei M, V und C implementiert werden muss 
@@ -29,13 +28,11 @@
 							Ein neutrales ViewModel lohn sich nicht, denn die Implementation ist trivial, s.u.
 
 ##	Abhängigkeiten:
-##	===============
 >	- debug-Package
 >	- mvc.test-Package beinhaltet die Komponententests
 >	- die hiervon abgeleiteten C, M und V werden zu besseren Übersicht in separate packages gehalten 
 
 ##	How to use:
-##	===========
 >	Da es hier praktisch nur um Halfabrikate geht (abstarkte Klassen),sollten grundsätzlich zuerst 3 weitere Klassen für  
 	View, ViewModel und Controller GUI-Toolkit spezifisch abgeleitet werden.
 	Erst in diesem separaten package wird erklärt, wie das Ganze dann anzuwenden ist.

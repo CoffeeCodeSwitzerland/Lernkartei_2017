@@ -9,7 +9,7 @@
 	-fx-background-color: #cef0ffff;
 }
 #helpview{
-	-fx-background-image: url("pictures/WISSWerbung.png");
-	-fx-background-repeat: stretch;   
-    -fx-background-size: stretch, cover;
+	-fx-background-image: url("pictures/viewbackground.png"),url("pictures/WISSWerbung.png");
+	-fx-background-repeat: stretch , stretch;   
+    -fx-background-size: stretch, stretch;
 }

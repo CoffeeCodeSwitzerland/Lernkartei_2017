@@ -21,7 +21,7 @@ public class Profil
 
 	public Profil()
 	{
-		Stacks = c.getStacknames();
+		Stacks = Categories.getStacknames();
 	}
 
 	public ArrayList<String> getKarteien()

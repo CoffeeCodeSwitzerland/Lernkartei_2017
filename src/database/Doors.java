@@ -206,5 +206,42 @@ public class Doors {
 		return worked;
 
 	}
+	
+	public static boolean update(String oldName, String newName) {
+		
+		Connection c = null;
+		Statement stmt = null;
+		boolean worked = true;
+		
+		try {
+			Class.forName(driver);
+			c = DriverManager.getConnection(url);
+			stmt = c.createStatement();
+			
+			c.setAutoCommit(false);
+			
+			ResultSet checkDoor = stmt.executeQuery("SELECT * FROM Doors WHERE Doorname = '" + oldName + "';");
+			
+			if (checkDoor.next()) {
+				String updateDoor = "UPDATE Doors SET Doorname = '" + newName + "' WHERE Doorname = '" + oldName + "';";
+				stmt.executeUpdate(updateDoor);
+				worked = true;
+				checkDoor.close();
+			} else {
+				worked = false;
+				checkDoor.close();
+			}
+			
+			stmt.close();
+			c.close();
+		}
+		catch (Exception e) {
+			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+			System.exit(0);
+		}
+		
+		return worked;
+		
+	}
 
 }

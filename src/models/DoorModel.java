@@ -32,7 +32,13 @@ public class DoorModel extends Model {
 			catch (Exception e) {
 				return -2;
 			}			
-		} 
+		}  else if (functionName.equals("update")) {
+			if (database.Doors.update(paramS.split(globals.Globals.SEPARATOR)[0], paramS.split(globals.Globals.SEPARATOR)[0])) {
+				return 1;
+			} else {
+				return -1;
+			}
+		}
 		
 		return 0;
 	}

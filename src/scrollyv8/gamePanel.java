@@ -655,7 +655,6 @@ public class gamePanel extends JPanel implements Runnable {
 					gameState = INTRO;
 					lives = database.Score.getLifecount();
 					level = 1;
-					//ScrollyV8.gPanel.setVisible(false);
 				}
 				repaint();
 			}
@@ -680,7 +679,9 @@ public class gamePanel extends JPanel implements Runnable {
 			
 			else if(!first){
 				JOptionPane.showMessageDialog(null, "Sie müssen zuerst wieder lernen!");
-			}
+//				ScrollyV8.gPanel.setVisible(false);
+//				ScrollyV8.mf.setVisible(false);
+				}
 			}
 
 			if (e.getKeyCode() == KeyEvent.VK_RIGHT || e.getKeyCode() == KeyEvent.VK_D) {

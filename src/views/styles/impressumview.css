@@ -11,3 +11,8 @@
 	-fx-text-fill: black;
 	-fx-padding: 10.0px;
 }
+#impressumtitel{
+	-fx-text-fill: black;
+	-fx-font-family: "Segoe UI Semibold";
+	-fx-font-size:25.0;
+}

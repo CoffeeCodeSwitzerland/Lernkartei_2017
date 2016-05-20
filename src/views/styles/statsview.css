@@ -1,5 +1,3 @@
 #statsview{
-	-fx-background-image: url("pictures/viewbackground.png");
-	-fx-background-repeat: stretch;   
-    -fx-background-size: stretch, cover;
+	-fx-background-color: #cef0ffff;
 	}

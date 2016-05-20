@@ -2,6 +2,7 @@ package views;
 
 import java.util.ArrayList;
 
+import globals.Globals;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
@@ -54,7 +55,8 @@ public class StackView extends FXViewModel
 
 		// Buttons
 		AppButton backBtn = new AppButton("Zurück");
-		AppButton newBoxBtn = new AppButton("Neuer Stapel");
+		AppButton newStackBtn = new AppButton("Neuer Stapel");
+		AppButton renameBtn = new AppButton("Umbennen");
 
 		Image trashImg = new Image("views/pictures/Papierkorb.png");
 		ImageView trashImgView = new ImageView(trashImg);
@@ -62,7 +64,7 @@ public class StackView extends FXViewModel
 		// Layout für Controls
 		HBox hBox = new HBox(20);
 		hBox.setAlignment(Pos.CENTER);
-		hBox.getChildren().addAll(backBtn, newBoxBtn, trashImgView);
+		hBox.getChildren().addAll(backBtn, newStackBtn, /*renameBtn, */trashImgView);
 
 		// Layout für die Scene
 		BorderPane borderPane = new BorderPane();
@@ -76,7 +78,7 @@ public class StackView extends FXViewModel
 		// Behaviour
 		backBtn.setOnAction(e -> getController().showView("doorview"));
 
-		newBoxBtn.setOnAction(e ->
+		newStackBtn.setOnAction(e ->
 		{
 			final int choice = Alert.complexChoiceBox("Neuer Stapel", "Was für einen Stapel willst du erstellen?", "Leerer Stapel",
 					"Quizlet");
@@ -100,6 +102,12 @@ public class StackView extends FXViewModel
 					break;
 			}
 
+		});
+		
+		renameBtn.setOnAction(e ->
+		{
+			getFXController().setViewData("rename", "stack" + Globals.SEPARATOR + getData());
+			getFXController().showView("rename");
 		});
 
 		trashImgView.setOnDragOver(e ->

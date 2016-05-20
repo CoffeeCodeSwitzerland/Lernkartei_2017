@@ -26,6 +26,7 @@ import views.OptionsView;
 import views.PostLearnView;
 import views.PreLearnView;
 import views.QuizletImportView;
+import views.RenameView;
 import views.SimpleEditorView;
 import views.StackView;
 import views.StatsView;
@@ -64,16 +65,19 @@ public class MainController extends FXController
 		this.addUniqueView(new MainView(getMainViewName(), this));
 		//this.addUniqueView(new StatisticsView("statisticsview", this));
 		this.addUniqueView(new StatsView("statsview", this));
-		this.addUniqueView(new DoorView("doorview", this));
+		
 		this.addUniqueView(new OptionsView("optionsview", this));
 		this.addViewOnNewStage(new HelpView("helpview", new HelpController())); // on new stage
 		this.addUniqueView(new GameOptionView("gameoptionview", this));
 		this.addUniqueView(new GameView("gameview", this));
-		this.addUniqueView(new StackView("stack", this));
 		this.addUniqueView(new QuizletImportView("quizlet", this));
 		this.addUniqueView(new SimpleEditorView("simpleeditorview", this));
 		this.addUniqueView(new EditorView("editorview", this));
 		this.addUniqueView(new BBCodeInfo("bbcodeinfo", this));
+		
+		this.addUniqueView(new DoorView("doorview", this));
+		this.addUniqueView(new StackView("stack", this));
+		this.addUniqueView(new RenameView("rename", this));
 		
 		this.addUniqueView(new PreLearnView("prelearn", this));
 		this.addUniqueView(new LearnView("learnview", this));

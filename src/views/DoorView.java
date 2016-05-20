@@ -2,6 +2,7 @@ package views;
 
 import java.util.ArrayList;
 
+import globals.Globals;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
@@ -32,7 +33,7 @@ public class DoorView extends FXView
 
 	// Zeigt Türen dynamisch an
 	VBox doorLayout;
-
+	
 	@Override
 	public Parent constructContainer() {
 		// Initialisiere Layout für Türen
@@ -42,6 +43,7 @@ public class DoorView extends FXView
 		// Buttons
 		AppButton backBtn = new AppButton("_Zurück");
 		AppButton newDoorBtn = new AppButton("_Neue Tür");
+		AppButton renameBtn = new AppButton("Umbennen");
 
 		// Trash Image
 		Image trashImg = new Image("views/pictures/Papierkorb.png");
@@ -50,7 +52,7 @@ public class DoorView extends FXView
 		// Layout für Controls (Hauptsteuerung)
 		HBox controlsLayout = new HBox(20);
 		controlsLayout.setAlignment(Pos.CENTER); // NICHT MEHR ENTFERNEN
-		controlsLayout.getChildren().addAll(backBtn, newDoorBtn, trashImgView);
+		controlsLayout.getChildren().addAll(backBtn, newDoorBtn, /*renameBtn, */trashImgView);
 
 		// Main Layout
 		BorderPane mainLayout = new BorderPane();
@@ -74,6 +76,12 @@ public class DoorView extends FXView
 					Alert.simpleInfoBox("Tür wurde nicht erstellt", "Dieser Name ist schon vergeben.");
 				}
 			}
+		});
+		
+		renameBtn.setOnAction(e ->
+		{
+			getFXController().setViewData("rename", "door" + Globals.SEPARATOR + "doors");
+			getFXController().showView("rename");
 		});
 
 		trashImgView.setOnDragOver(e ->

@@ -359,6 +359,7 @@ public class Categories {
 
 			ResultSet checkStack = stmt.executeQuery("SELECT * FROM Kategorie WHERE Kategorie = '" + oldName + "';");
 
+			c.setAutoCommit(true);
 			if (checkStack.next()) {
 				String updateStack = "UPDATE Kategorie SET Kategorie = '" + newName + "' WHERE Kategorie = '" + oldName + "';";
 				stmt.executeUpdate(updateStack);

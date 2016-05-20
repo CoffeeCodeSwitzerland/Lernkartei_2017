@@ -221,7 +221,7 @@ public class Doors {
 			c.setAutoCommit(false);
 			
 			ResultSet checkDoor = stmt.executeQuery("SELECT * FROM Doors WHERE Doorname = '" + oldName + "';");
-			
+			c.setAutoCommit(true);
 			if (checkDoor.next()) {
 				String updateDoor = "UPDATE Doors SET Doorname = '" + newName + "' WHERE Doorname = '" + oldName + "';";
 				stmt.executeUpdate(updateDoor);

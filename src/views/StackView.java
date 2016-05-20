@@ -64,7 +64,7 @@ public class StackView extends FXViewModel
 		// Layout für Controls
 		HBox hBox = new HBox(20);
 		hBox.setAlignment(Pos.CENTER);
-		hBox.getChildren().addAll(backBtn, newStackBtn, /*renameBtn, */trashImgView);
+		hBox.getChildren().addAll(backBtn, newStackBtn, renameBtn, trashImgView);
 
 		// Layout für die Scene
 		BorderPane borderPane = new BorderPane();

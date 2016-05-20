@@ -49,7 +49,7 @@ public class StackModel extends Model
 				return -1;
 			}
 		} else if (functionName.equals("update")) {
-			if (database.Categories.update(paramS.split(globals.Globals.SEPARATOR)[0], paramS.split(globals.Globals.SEPARATOR)[0])) {
+			if (database.Categories.update(paramS.split(globals.Globals.SEPARATOR)[0], paramS.split(globals.Globals.SEPARATOR)[1])) {
 				return 1;
 			} else {
 				return -1;

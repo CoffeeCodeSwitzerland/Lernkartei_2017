@@ -64,7 +64,6 @@ public class GameView extends FXView {
 		menuLayout.setSpacing(10);
 		menuLayout.setAlignment(Pos.CENTER);
 		mainLayout.setTop(lifes);
-		
 
 		mainLayout.setPadding(new Insets(5));
 		mainLayout.setCenter(menuLayout);
@@ -81,16 +80,13 @@ public class GameView extends FXView {
 	public void refreshView() {
 
 		if (database.Score.getLifecount() == 0) {
-			//btn.setDisable(true);
+			// btn.setDisable(true);
 			grund.setText("Sie müssen zuerst Lernen!");
 			lifes.setText("Lifes: " + database.Score.getLifecount());
-		}
-		else
-		{
-		//	btn.setDisable(false);
+		} else {
+			// btn.setDisable(false);
 			lifes.setText("Lifes: " + database.Score.getLifecount());
 		}
-		
 
 	}
 }

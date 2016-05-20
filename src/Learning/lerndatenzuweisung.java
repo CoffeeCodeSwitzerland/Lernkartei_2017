@@ -1,5 +1,7 @@
 package Learning;
 
+import java.sql.Time;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class lerndatenzuweisung {
@@ -41,6 +43,8 @@ public class lerndatenzuweisung {
 		{
 			learnFifthday.add(card.get(0)[2]);
 		}
+		
+//TODO		LocalDate.now().(viele möglichkeiten
 		
 	}
 

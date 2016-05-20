@@ -1,5 +1,7 @@
 #indexview{
-	-fx-background-color: #cef0ffff;
+	-fx-background-image: url("pictures/viewbackground.png");
+	-fx-background-repeat: stretch;   
+    -fx-background-size: stretch;
 }
 
 
@@ -14,3 +16,4 @@
 	-fx-font-family: "Segoe UI Semibold";
 	-fx-font-size:25.0;
 }
+

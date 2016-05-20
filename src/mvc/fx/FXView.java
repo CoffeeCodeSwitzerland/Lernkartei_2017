@@ -24,6 +24,7 @@ public abstract class FXView extends View
 	private Scene scene;
 	private final BorderPane mainLayout = new BorderPane();
 	private FXController myFXController;
+	private boolean constructed = false;
 	
 	public void construct () {
 		// call this to construct the view
@@ -33,6 +34,7 @@ public abstract class FXView extends View
 		}
 		p.setId(this.getName());
 		setupScene(p);
+		this.constructed = true;
 	}
 
 	public FXView(String newName, FXController newController) {
@@ -107,5 +109,12 @@ public abstract class FXView extends View
 
 	public BorderPane getMainLayout() {
 		return mainLayout;
+	}
+
+	public boolean isConstructed() {
+		if (constructed == false) {
+			Debugger.out("FXView("+getName()+").isContructed(): the View constructor must call the construct() method!");
+		}
+		return constructed;
 	}
 }

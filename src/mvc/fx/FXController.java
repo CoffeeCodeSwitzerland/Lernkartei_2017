@@ -2,6 +2,7 @@ package mvc.fx;
 
 import debug.Debugger;
 import mvc.Controller;
+import mvc.View;
 /**
  * Abstract GUI-Toolkit independent FX-Controller
  * ==============================================
@@ -43,10 +44,28 @@ public abstract class FXController extends Controller
 		boolean result = this.addUniqueView(newView);
 		if (result) {
 			newView.getFXController().addUniqueMainView(newView);
+			newView.isConstructed();
 		}
 		return result;
 	}
 
+	/**
+	 * To insert a view with a unique name to the controllers list called views
+	 * 
+	 * @return true if ok, false if not unique or called twice
+	 */
+	@Override
+	public boolean addUniqueView (View newView) {
+		boolean result = super.addUniqueView(newView);
+		// check if the new view is not an View (must be Toolkit-class):
+		if (newView.getClass().getGenericSuperclass().toString().endsWith(".View")) {
+			Debugger.out("FXController.addUniqueView(View("+newView.getName()+")) is not a FXView!");
+		} else {
+			((FXView) newView).isConstructed();
+		}
+		return result; 
+	}
+	
 	/**
 	 * To communicate with any application model: 
 	 * - seeks the model by name
@@ -55,13 +74,18 @@ public abstract class FXController extends Controller
 	 */
 	public FXModel getFXModel (String withName)
 	{
-		// assert the model is a FXModel before casting
-//		if (super.getModel(withName).getClass().getName().equals("FXModel")) {
-			return (FXModel)super.getModel(withName);
-//		} else {
-//			Debugger.out("FXController.getFXModel("+withName+") ist not a FXModel"+super.getModel(withName).getClass().getName()+"!");
-//			return null;
-//		}
+		if (getModel(withName) == null) {
+			Debugger.out("FXController.getFXModel("+withName+") no FXModel found!");
+			return null;
+		} else {
+			// assert the model is not a Model (without Toolkit) before casting:
+			if (getModel(withName).getClass().getGenericSuperclass().toString().endsWith(".Model")) {
+				Debugger.out("FXController.getFXModel("+withName+") did not found a FXModel of this name!");
+				return null;
+			} else {
+				return (FXModel)super.getModel(withName);
+			}
+		}
 	}
 
 	/**
@@ -70,13 +94,19 @@ public abstract class FXController extends Controller
 	 */
 	public String getViewData (String withName)
 	{
-		// assert the model is a FXViewModel before casting
-//		if (seekView(withName).getClass().getName().equals("FXViewModel")) {
-			return ((FXViewModel)seekView(withName)).getData(); // not found
-//		} else {
-//			Debugger.out("FXController.getViewData("+withName+") ist not a FXViewModel("+seekView(withName).getClass().getName()+")!");
-//			return "";
-//		}
+		if (seekView(withName) == null) {
+			Debugger.out("FXController.getViewData("+withName+") no FXView or FXViewModel found!");
+			return "";
+		} else {
+			// assert the model is not a View or FXView (must be FXViewModel) before casting:
+			if (   seekView(withName).getClass().getGenericSuperclass().toString().endsWith(".View")
+				|| seekView(withName).getClass().getGenericSuperclass().toString().endsWith(".FXView") ) {
+				Debugger.out("FXController.getViewData("+withName+") is not a FXViewModel ("+seekView(withName).getClass().getGenericSuperclass()+")!");
+				return "";
+			} else {
+				return ((FXViewModel)seekView(withName)).getData(); // not found
+			}
+		}
 	}
 
 	/**
@@ -85,12 +115,17 @@ public abstract class FXController extends Controller
 	 */
 	public void setViewData (String withName, String data)
 	{
-		// assert the model is a FXViewModel before casting
-//		if (seekView(withName).getClass().getName().equals("FXViewModel")) {
-			((FXViewModel)seekView(withName)).setData(data); // not found
-//		} else {
-//			Debugger.out("FXController.setViewData("+withName+") ist not a FXViewModel ("+seekView(withName).getClass().getName()+")!");
-//		}
+		if (seekView(withName) == null) {
+			Debugger.out("FXController.setViewData("+withName+") no FXView or FXViewModel found!");
+		} else {
+			// assert the model is not a View or FXView (must be FXViewModel) before casting:
+			if (   seekView(withName).getClass().getGenericSuperclass().toString().endsWith(".View")
+				|| seekView(withName).getClass().getGenericSuperclass().toString().endsWith(".FXView") ) {
+				Debugger.out("FXController.setViewData("+withName+") is not a FXViewModel ("+seekView(withName).getClass().getGenericSuperclass()+")!");
+			} else {
+				((FXViewModel)seekView(withName)).setData(data); // not found
+			}
+		}
 	}
 
 	/**

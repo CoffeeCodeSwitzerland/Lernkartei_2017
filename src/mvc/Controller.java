@@ -125,9 +125,9 @@ public abstract class Controller implements ControllerInterface
 			}
 		}
 		if (withName != null)
-			Supervisor.warnAndDebug(this, "show("+withName+") not found!");
+			Supervisor.warnAndDebug(this, "Controller.seekView("+withName+") not found!");
 		else
-			Supervisor.warnAndDebug(this, "show(null) not allowed!");
+			Supervisor.warnAndDebug(this, "Controller.seekView(null) not allowed!");
 		return null; // not found
 	}
 

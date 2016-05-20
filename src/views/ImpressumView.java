@@ -24,7 +24,7 @@ public class ImpressumView extends FXView
 	@Override
 	public Parent constructContainer() {
 		Label labelTitel = new Label("Impressum");
-		Label labelText = new Label("Das Programm WISSLearnCards wurde programmiert im Rahmen eines Projekts durch die Informatiklernenden im Auftrag der\n\nStiftung Wirtschaftsinformatikschule Schweiz WISS\nOstermundigenstrasse 81\nCH-3006 Bern\n\nTeilnehmer:\n\nInformatiklernende vom\n\nBundesamt für Informatik und Telekommunikation BIT\nMonbijoustrasse 74\nCH-3003 Bern\n\n•	Yanis Weibel\n•	Joel Häberli\n•	David Schor\n•	Nina Egger\n•	Roger Schneiter\n•	Miro Albrecht\n•	Tim Leibacher\n");
+		Label labelText = new Label("Das Programm WISSLearnCards wurde programmiert im Rahmen eines Projekts durch die Informatiklernenden im Auftrag der\n\nStiftung Wirtschaftsinformatikschule Schweiz WISS\nOstermundigenstrasse 81\nCH-3006 Bern\nhttp://www.wiss.ch/\n\nTeilnehmer:\n\nInformatiklernende vom\n\nBundesamt für Informatik und Telekommunikation BIT\nMonbijoustrasse 74\nCH-3003 Bern\nhttps://www.bit.admin.ch/\n\n•	Yanis Weibel\n•	Joel Häberli\n•	David Schor\n•	Nina Egger\n•	Roger Schneiter\n•	Miro Albrecht\n•	Tim Leibacher\nhttp://bund2015.wiss-bern.ch/\n");
 		labelText.setWrapText(true);
 		labelText.setMaxWidth(870);
 

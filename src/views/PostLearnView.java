@@ -33,6 +33,9 @@ public class PostLearnView extends FXViewModel
 	@Override
 	public void refreshView ()
 	{
+		String[] dataArray = getData().split(Globals.SEPARATOR);
+		setData(dataArray[1]);
+		
 		String score = "";
 		String dif = "";
 		if (getFXController().getModel("statistics") != null)
@@ -53,11 +56,20 @@ public class PostLearnView extends FXViewModel
 		Label now = new Label("Jetzt: " + score);
 		Label diff = new Label("Fortschritt: " + dif);
 		
-		AppButton backBtn = new AppButton("Zurück");
+		AppButton continueBtn = new AppButton("Weiter");
+		continueBtn.setOnAction(e -> getFXController().showLastView());
+		continueBtn.setDisable(true);
+		
+		if (dataArray[0].equals("y"))
+		{
+			continueBtn.setDisable(false);
+		}
+		
+		AppButton backBtn = new AppButton("Zur Stapelübersicht");
 		backBtn.setOnAction(e -> getFXController().showView("stack"));
 		
 		VBox layout = new VBox(20);
-		layout.getChildren().addAll(now, diff, backBtn);
+		layout.getChildren().addAll(now, diff, continueBtn, backBtn);
 		
 		mainLayout.setCenter(layout);
 	}

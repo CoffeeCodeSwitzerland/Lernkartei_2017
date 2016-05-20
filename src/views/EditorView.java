@@ -97,7 +97,6 @@ public class EditorView extends FXViewModel
 			Button cp1 = new Button("C");
 			TextField front = new TextField();
 			TextField back = new TextField();
-			Button update = new Button("\u2713");	
 			WebView previewfront = new WebView();
 			WebView previewback = new WebView();
 			WebEngine enginefront = previewfront.getEngine();

@@ -39,7 +39,7 @@ public class QuizletInfoView extends FXView
 		
 		scroller.setContent(labelText);
 		scroller.setHbarPolicy(ScrollBarPolicy.NEVER);
-		scroller.setVbarPolicy(ScrollBarPolicy.ALWAYS); 
+		scroller.setVbarPolicy(ScrollBarPolicy.ALWAYS);  
 		
 		HBox controlLayout = new HBox(20);
 		controlLayout.setAlignment(Pos.BOTTOM_LEFT);

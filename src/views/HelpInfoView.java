@@ -45,6 +45,7 @@ public class HelpInfoView extends FXView
 		BorderPane headLayout = new BorderPane(labelTitel);
 		headLayout.setPadding(new Insets(20));
 		ScrollPane scroller = new ScrollPane();
+		scroller.setMaxWidth(800);
 		
 				
 		scroller.setContent(labelText);
@@ -52,7 +53,7 @@ public class HelpInfoView extends FXView
 		scroller.setVbarPolicy(ScrollBarPolicy.ALWAYS);  
 			
 		HBox controlLayout = new HBox(20);
-		controlLayout.setAlignment(Pos.BOTTOM_LEFT);
+		controlLayout.setAlignment(Pos.BOTTOM_CENTER);
 		controlLayout.getChildren().addAll(backBtn);
 		controlLayout.setPadding(new Insets (10));
 

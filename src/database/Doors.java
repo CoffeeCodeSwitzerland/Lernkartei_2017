@@ -156,35 +156,51 @@ public class Doors {
 		Connection c = null;
 		Statement stmt = null;
 		boolean worked = false;
-
+		ArrayList<String> setsToDel = new ArrayList<String>();
+		
 		try {
 			Class.forName(driver);
 			c = DriverManager.getConnection(url);
 			stmt = c.createStatement();
 			c.setAutoCommit(false);
-
-			ResultSet del = stmt.executeQuery("SELECT Doorname FROM Doors WHERE Doorname = '" + delName + "'");
+			
+			ResultSet del = stmt.executeQuery("SELECT * FROM Doors WHERE Doorname = '" + delName + "'");
 
 			if (del.next()) {
-
+				Integer doorID = del.getInt("PK_Doors");
 				del.close();
+
+				ResultSet getStacks = stmt.executeQuery("SELECT * FROM Kategorie WHERE FK_Door = " + doorID);
+				while (getStacks.next()) {
+					setsToDel.add(getStacks.getString("Kategorie"));
+				}
+				
+				getStacks.close();
+				for (String s : setsToDel) {
+					System.out.println("7");
+					database.Categories.delKategorie(s);
+					System.out.println("8");
+				}
+				
+				System.out.println("9");
 				c.setAutoCommit(true);
+				
 				String delDoor = "DELETE FROM Doors WHERE Doorname = '" + delName + "'";
+				String delSets = "DELETE FROM Kategorie WHERE FK_Door = " + doorID;
+				
 				stmt.executeUpdate(delDoor);
-
-				debug.Debugger.out("Successfully deleted Door: " + delName);
-
+				stmt.executeUpdate(delSets);
+				
+				System.out.println("10");
 				stmt.close();
 				c.close();
 				worked = true;
-
 			}
 			else {
-
-				worked = false;
+				del.close();
 				stmt.close();
 				c.close();
-
+				worked = false;
 			}
 
 		}

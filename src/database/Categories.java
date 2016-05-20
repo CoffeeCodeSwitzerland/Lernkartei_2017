@@ -187,33 +187,34 @@ public class Categories {
 					+ " Kategorie TEXT NOT NULL,"
 					+ " FK_Door INTEGER NOT NULL)";
 			stmt.executeUpdate(sql);
-
 			c.setAutoCommit(false);
 			
 			// Abfragen, ob zu löschende Kategorie vorhanden ist oder nicht. Wenn ja, wird gelöscht
 			
 			ResultSet del = stmt.executeQuery("SELECT Kategorie FROM Kategorie WHERE Kategorie = '" + category + "'");
-
-			if (del.next()) {
-
-				del.close();
-				c.setAutoCommit(true);
+			Integer setID = del.getInt("Kategorie");
+			boolean contin = del.next();
+			del.close();
+			
+			if (contin) {
 				String delDoor = "DELETE FROM Kategorie WHERE Kategorie = '" + category + "'";
+				String delCards = "DELETE FROM Stock WHERE Set_ID = " + setID;
+				System.out.println("a5");
+				stmt.executeUpdate(delCards);
+				System.out.println("a5a");
 				stmt.executeUpdate(delDoor);
+				System.out.println("a6");
 				stmt.close();
 				c.close();
 				worked = true;
-
 			}
 			else {
-
-				worked = false;
-				del.close();
+				System.out.println("a7");
 				stmt.close();
 				c.close();
-
+				worked = false;
 			}
-
+			System.out.println("a8");
 		}
 		catch (Exception e) {
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());

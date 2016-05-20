@@ -3,7 +3,6 @@ package statistics;
 import java.util.ArrayList;
 import database.Categories;
 import database.Database;
-import debug.Debugger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.chart.XYChart;

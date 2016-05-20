@@ -30,45 +30,19 @@ public class StatsView extends FXView
 		construct();
 	}
 	
-	final HBox Diagram = new HBox(50);
-	final HBox Controls = new HBox(50);
-	final HBox Rankings = new HBox(50);
+	private HBox Diagram;
+	private HBox Controls;
+	private HBox Rankings;
 	final AppButton back = new AppButton("_Zurück");
 	final BorderPane Pane = new BorderPane();
 	//Achsen erstellen
 	final CategoryAxis xAchse = new CategoryAxis();
 	final NumberAxis yAchse = new NumberAxis();
-	//BarChart erstellen
-	final BarChart<String, Number> BC = new BarChart<String, Number>(xAchse, yAchse);
-	//ListView
-	final ListView<String> Ranks = new ListView<String>();
 
 	private StatisticsModel sm;
 			
 	@Override
 	public Parent constructContainer() {
-		
-		BC.setAnimated(true);
-		
-		//HBox für Diagramm
-		Diagram.setAlignment(Pos.CENTER);
-		
-		//HBox für die Buttons / Controls
-		Controls.setAlignment(Pos.BOTTOM_CENTER);
-		Controls.setPadding(new Insets(15));
-		
-		//HBox für die Rankings
-		Rankings.setAlignment(Pos.CENTER_LEFT);
-		Rankings.setPadding(new Insets(15));
-		
-		//Buttons / Controls
-		back.setOnAction(e -> {getController().showMainView();delOldStats();});
-		Controls.getChildren().addAll(back);
-		
-		Pane.setCenter(Diagram);
-		Pane.setBottom(Controls);
-		Pane.setLeft(Rankings);
-		
 		return Pane;
 	}
 
@@ -77,6 +51,32 @@ public class StatsView extends FXView
 	@Override
 	public void refreshView()
 	{	
+		Controls = new HBox(50);
+		Diagram = new HBox(50);
+		Rankings = new HBox(50);
+		
+		//HBox für die Rankings
+		Rankings.setAlignment(Pos.CENTER_LEFT);
+		Rankings.setPadding(new Insets(15));
+		
+		//HBox für Diagramm
+		Diagram.setAlignment(Pos.CENTER);
+		
+		//HBox für die Buttons / Controls
+		Controls.setAlignment(Pos.BOTTOM_CENTER);
+		Controls.setPadding(new Insets(15));
+		
+		//Buttons / Controls
+		back.setOnAction(e -> getController().showMainView());
+		Controls.getChildren().addAll(back);
+
+		//BarChart erstellen
+		BarChart<String, Number> bc = new BarChart<String, Number>(xAchse, yAchse);				
+		bc.setAnimated(true);
+		//ListView
+		ListView<String> Ranks = new ListView<String>();
+		//Daten für Rangliste abholen über StatisticsModel und dann Rangliste.java
+		
 		sm = ((StatisticsModel) getController().getFXModel("statistics"));
 		
 		xAchse.setLabel("Karteien");
@@ -89,43 +89,31 @@ public class StatsView extends FXView
 				m.setText("Es tut uns leid aber wir konnten keine Daten zur Auswertung Ihrer Statistik finden");
 				Diagram.getChildren().add(m);
 			} else {
-				delOldStats();
-				//Daten für Rangliste abholen über StatisticsModel und dann Rangliste.java
 				if (sm!= null) {
 				Ranks.setItems(sm.getObservableDataList("Rangliste"));
 				} else {
 					System.out.println("Kein sm model!!!");
 				}
-					
-				System.out.println("StatsView 2");
 				Rankings.getChildren().addAll(Ranks);
 				
-				System.out.println("StatsView 3");
 				//Daten für das Diagramm. Die verarbeitugn und bereitstellung findet alles in Diagramm.java (getChartData()) statt.
-				BC.getData().addAll(sm.getObservableDiagrammList("saulendiagramm"));
+				bc.getData().addAll(sm.getObservableDiagrammList("saulendiagramm"));
 				
-				System.out.println("StatsView 4");
 				//Der HBox "Diagramm" das BarChart adden welches das das Säulendiagramm beinhaltet. 
 				//Wird hier gemacht, weil bei Fehler andere Komponente geaddet wird (siehe weiter oben das TextField)
-				Diagram.getChildren().addAll(BC);
+				Diagram.getChildren().addAll(bc);
 				
-				System.out.println("StatsView 5");
 				//Hier werden sämtliche Daten auch in den anderen Klassen über das Model gelöscht, damit sicher ist, dass nirgends Datenleichen herumgeistern
 				sm.doAction("DeleteOldData");
-				
-				System.out.println("StatsView 6");
 			}
 		} catch (Exception e) {
 			//Debugger.out(e.getMessage());
 			Debugger.out("StatsView Exception: ");
 			e.printStackTrace();
 		}
+		
+		Pane.setCenter(Diagram);
+		Pane.setLeft(Rankings);
+		Pane.setBottom(Controls);
 	}
-	
-	private void delOldStats()
-	{
-		//BC = null;
-		//Ranks.;
-	}
-
 }

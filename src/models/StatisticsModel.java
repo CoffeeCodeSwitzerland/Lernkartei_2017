@@ -1,7 +1,6 @@
 package models;
 
 import java.util.ArrayList;
-import java.util.Observer;
 
 import database.Database;
 import globals.Globals;

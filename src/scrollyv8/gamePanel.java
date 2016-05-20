@@ -16,6 +16,7 @@ import java.io.InputStream;
 import java.util.Iterator;
 
 import javax.imageio.ImageIO;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.xml.stream.XMLEventReader;
 import javax.xml.stream.XMLInputFactory;
@@ -672,11 +673,14 @@ public class gamePanel extends JPanel implements Runnable {
 		switch (code) {
 		case 'p': // Key Pressed
 			if (gameState == INTRO) {
-				System.out.println(first);
 				if(first)
 				gameState = LOADLEVEL;
 				
 				// menu.tick(e);
+			
+			else if(!first){
+				JOptionPane.showMessageDialog(null, "Sie müssen zuerst wieder lernen!");
+			}
 			}
 
 			if (e.getKeyCode() == KeyEvent.VK_RIGHT || e.getKeyCode() == KeyEvent.VK_D) {

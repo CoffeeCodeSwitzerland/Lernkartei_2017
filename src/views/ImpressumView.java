@@ -28,7 +28,7 @@ public class ImpressumView extends FXView
 		Label labelTitel = new Label("Impressum");
 		
 		//Hier kommt der angezeigte Text hin:
-		Label labelText = new Label("WISSLearnCards:\nErsteller:\nRechte:\netc...");
+		Label labelText = new Label("Das Programm WISSLearnCards wurde programmiert im Rahmen eines Projekts durch die Informatiklernenden im Auftrag der\n\nStiftung Wirtschaftsinformatikschule Schweiz WISS\nOstermundigenstrasse 81\nCH-3006 Bern\n\nTeilnehmer:\n\nInformatiklernende vom\n\nBundesamt für Informatik und Telekommunikation BIT\nMonbijoustrasse 74\nCH-3003 Bern\n\n•	Yanis Weibel\n•	Joel Häberli\n•	David Schor\n•	Nina Egger\n•	Roger Schneiter\n•	Miro Albrecht\n•	Tim Leibacher\n");
 		
 		//Zeilenumbruch am Fensterrand
 		labelText.setWrapText(true);

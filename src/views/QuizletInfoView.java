@@ -37,6 +37,7 @@ public class QuizletInfoView extends FXView
 		BorderPane headLayout = new BorderPane(labelTitel);
 		headLayout.setPadding(new Insets(20));
 		ScrollPane scroller = new ScrollPane();
+		
 			
 		scroller.setContent(labelText);
 		scroller.setHbarPolicy(ScrollBarPolicy.NEVER);
@@ -45,6 +46,7 @@ public class QuizletInfoView extends FXView
 		HBox controlLayout = new HBox(20);
 		controlLayout.setAlignment(Pos.BOTTOM_LEFT);
 		controlLayout.getChildren().addAll(backBtn);
+		controlLayout.setPadding(new Insets (10));
 
 		BorderPane mainLayout = new BorderPane();
 		mainLayout.setPadding(new Insets(15));

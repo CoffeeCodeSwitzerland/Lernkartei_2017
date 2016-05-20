@@ -10,6 +10,7 @@ import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import models.StatisticsModel;
@@ -74,6 +75,7 @@ public class StatsView extends FXView
 		return Pane;
 	}
 
+	//Hier werden die Daten für das Diagramm geholt. Ich habe dafür im StatisticsModel eigene Funktionen erstellt, da ich nicht mit ArrayLists arbeiten kann. 
 	@Override
 	public void refreshView()
 	{	
@@ -81,19 +83,24 @@ public class StatsView extends FXView
 		xAchse.setLabel("Karteien");
 		yAchse.setLabel("Ergebnis (%)");
 		try {
-
-			StatisticsModel SM = new StatisticsModel("statistics");
 			
-			Diagram.getChildren().addAll(BC);
-			Ranks.setItems(SM.getObservableDataList("Rangliste"));
-			Rankings.getChildren().addAll(Ranks);
+			if (((StatisticsModel) getController().getFXModel("statistics")).getObservableDiagrammList("saulendiagramm") == null && ((StatisticsModel) getController().getFXModel("statistics")).getObservableDataList("Rangliste") == null) {
+				TextField m = new TextField();
+				m.setText("Es tut uns leid aber wir konnten keine Daten zur Auswertung Ihrer Statistik finden");
+				Diagram.getChildren().add(m);
+			} else {
+				Ranks.setItems(((StatisticsModel) getController().getFXModel("statistics")).getObservableDataList("Rangliste"));
+				Rankings.getChildren().addAll(Ranks);
+				
+				BC.getData().addAll(((StatisticsModel) getController().getFXModel("statistics")).getObservableDiagrammList("saulendiagramm"));
+				
+				Diagram.getChildren().addAll(BC);
+				
+				((StatisticsModel) getController().getFXModel("statistics")).doAction("DeleteOldData");
 			
-			BC.getData().addAll(SM.getObservableDiagrammList("saulendiagramm"));
-			
-			
-		
+				System.out.println("Deleted old Data");
+			}
 		} catch (Exception e) {
-			System.out.println("11");
 			Debugger.out("StatsView Exception: " + e.fillInStackTrace());
 		}
 	}

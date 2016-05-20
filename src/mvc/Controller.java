@@ -84,8 +84,10 @@ public abstract class Controller implements ControllerInterface
 	{
 		if (lastView == null) {
 			showMainView(); // switch to main view if no such view
+			thisView=this.seekView(getMainViewName());
 		} else {
 			lastView.show();
+			thisView=lastView;
 		}
 	}
 

@@ -4,6 +4,7 @@ import mvc.fx.FXController;
 import views.HelpInfoView;
 import views.HelpSerachView;
 import views.ImpressumView;
+import views.MainView;
 import views.QuizletInfoView;
 /**
  * Diese Klasse Kontrolliert alle Sichten und Models. Den Sichten wird die
@@ -27,6 +28,7 @@ public class HelpController extends FXController
 		this.addUniqueView(new HelpSerachView("indexview", this));
 		this.addUniqueView(new HelpInfoView("manualview", this));
 		this.addUniqueView(new ImpressumView("impressumview", this));
+		this.addUniqueView(new MainView(getMainViewName(), this));
 	}
 
 	@Override

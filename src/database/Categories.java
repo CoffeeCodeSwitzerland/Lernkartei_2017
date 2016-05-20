@@ -224,7 +224,7 @@ public class Categories {
 
 	}
 	
-	public ArrayList<String> getStacknames() {
+	public static ArrayList<String> getStacknames() {
 		
 		Connection c = null;
 		Statement stmt = null;

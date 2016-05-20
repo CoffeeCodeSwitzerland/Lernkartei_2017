@@ -2,7 +2,7 @@ package user;
 
 import java.util.ArrayList;
 
-import database.Categories;
+import database.Stack;
 import database.Database;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -16,12 +16,12 @@ public class Profil
 	private ArrayList<String> Stacks = new ArrayList<String>();
 	private ArrayList<String> Punkte = new ArrayList<String>();
 
-	Categories c = new Categories();
+	Stack c = new Stack();
 	Database d = new Database();
 
 	public Profil()
 	{
-		Stacks = Categories.getStacknames();
+		Stacks = Stack.getStacknames();
 	}
 
 	public ArrayList<String> getKarteien()

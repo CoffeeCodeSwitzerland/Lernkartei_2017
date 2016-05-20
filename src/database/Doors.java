@@ -177,7 +177,7 @@ public class Doors {
 				
 				getStacks.close();
 				for (String s : setsToDel) {
-					database.Categories.delStack(s);
+					database.Stack.delStack(s);
 				}
 				c.setAutoCommit(true);
 				

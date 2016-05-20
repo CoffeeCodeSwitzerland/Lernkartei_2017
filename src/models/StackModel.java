@@ -27,13 +27,13 @@ public class StackModel extends Model
 		if (functionName.equals("new"))
 		{
 			String eingabe[] = paramS.split(globals.Globals.SEPARATOR);
-			int i = database.Categories.newStack(eingabe[1], eingabe[0]);
+			int i = database.Stack.newStack(eingabe[1], eingabe[0]);
 			refreshViews();
 			return i;
 		}
 		else if (functionName.equals("delete"))
 		{
-			if (database.Categories.delStack(paramS))
+			if (database.Stack.delStack(paramS))
 			{
 				refreshViews();
 				return 2;
@@ -43,13 +43,13 @@ public class StackModel extends Model
 				return -3;
 			}
 		} else if (functionName.equals("possible")) {
-			if (database.Categories.possible(paramS)) {
+			if (database.Stack.possible(paramS)) {
 				return 1;
 			} else {
 				return -1;
 			}
 		} else if (functionName.equals("update")) {
-			if (database.Categories.update(paramS.split(globals.Globals.SEPARATOR)[0], paramS.split(globals.Globals.SEPARATOR)[1])) {
+			if (database.Stack.update(paramS.split(globals.Globals.SEPARATOR)[0], paramS.split(globals.Globals.SEPARATOR)[1])) {
 				return 1;
 			} else {
 				return -1;
@@ -65,6 +65,6 @@ public class StackModel extends Model
 		// query = Name der Tür
 		// Return: ArrayList<String> mit allen Kategorien
 
-		return database.Categories.getKategorien(query);
+		return database.Stack.getKategorien(query);
 	}
 }

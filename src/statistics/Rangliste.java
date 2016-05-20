@@ -2,7 +2,7 @@ package statistics;
 
 import java.util.ArrayList;
 
-import database.Categories;
+import database.Stack;
 import database.Database;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -10,7 +10,7 @@ import javafx.collections.ObservableList;
 public class Rangliste
 {
 
-	Categories C = new Categories();
+	Stack C = new Stack();
 	
 	static ArrayList<String> NamesAndPoints = new ArrayList<String>();
 	static ArrayList<Double> Punkte = new ArrayList<Double>();
@@ -28,7 +28,7 @@ public class Rangliste
 	}
 	
 	public static void getKarteien() {
-		Stacks = Categories.getStacknames();
+		Stacks = Stack.getStacknames();
 	}
 	
 	private static void getPunkte() {
@@ -86,7 +86,7 @@ public class Rangliste
 		{
 			String p = (Points.get(i)).toString();
 			String s = (Stack.get(i));
-			String together = s + " " + p;
+			String together = s + "     " + p;
 			NamesAndPoints.add(together);
 		}
 	}

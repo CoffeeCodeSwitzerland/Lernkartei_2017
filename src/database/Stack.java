@@ -7,7 +7,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 
-public class Categories {
+public class Stack {
 
 	// Connectioninformationen URL & Driver
 

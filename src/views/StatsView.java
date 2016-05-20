@@ -40,9 +40,26 @@ public class StatsView extends FXView
 	final NumberAxis yAchse = new NumberAxis();
 
 	private StatisticsModel sm;
+	
+	private int countLoadsOfRefreshView = 0;
 			
 	@Override
 	public Parent constructContainer() {
+		
+		Controls = new HBox(50);
+		
+		//HBox für die Buttons / Controls
+		Controls.setAlignment(Pos.BOTTOM_CENTER);
+		Controls.setPadding(new Insets(15));
+		
+		//Buttons / Controls
+		back.setOnAction(e -> getController().showMainView());
+		Controls.getChildren().addAll(back);
+		
+		Pane.setBottom(Controls);
+		
+		countLoadsOfRefreshView += 1;
+		
 		return Pane;
 	}
 
@@ -51,7 +68,17 @@ public class StatsView extends FXView
 	@Override
 	public void refreshView()
 	{	
-		Controls = new HBox(50);
+		System.out.println(countLoadsOfRefreshView);
+	
+// 		TODO:
+		
+//		if (countLoadsOfRefreshView >= 1) { 
+//			System.out.println("Löschen einleitung");
+//			if (Diagram == && Rankings)
+//			delOld();
+//			countLoadsOfRefreshView += 1;
+//		}
+		
 		Diagram = new HBox(50);
 		Rankings = new HBox(50);
 		
@@ -61,22 +88,15 @@ public class StatsView extends FXView
 		
 		//HBox für Diagramm
 		Diagram.setAlignment(Pos.CENTER);
-		
-		//HBox für die Buttons / Controls
-		Controls.setAlignment(Pos.BOTTOM_CENTER);
-		Controls.setPadding(new Insets(15));
-		
-		//Buttons / Controls
-		back.setOnAction(e -> getController().showMainView());
-		Controls.getChildren().addAll(back);
 
 		//BarChart erstellen
 		BarChart<String, Number> bc = new BarChart<String, Number>(xAchse, yAchse);				
 		bc.setAnimated(true);
+		
 		//ListView
 		ListView<String> Ranks = new ListView<String>();
-		//Daten für Rangliste abholen über StatisticsModel und dann Rangliste.java
 		
+		//Daten für Rangliste abholen über StatisticsModel und dann Rangliste.java
 		sm = ((StatisticsModel) getController().getFXModel("statistics"));
 		
 		xAchse.setLabel("Karteien");
@@ -107,13 +127,20 @@ public class StatsView extends FXView
 				sm.doAction("DeleteOldData");
 			}
 		} catch (Exception e) {
-			//Debugger.out(e.getMessage());
 			Debugger.out("StatsView Exception: ");
 			e.printStackTrace();
 		}
 		
 		Pane.setCenter(Diagram);
 		Pane.setLeft(Rankings);
-		Pane.setBottom(Controls);
 	}
+	
+//	TODO:
+	
+//	private void delOld() {
+//		System.out.println("Löschen");
+//		Diagram.getChildren().clear();
+//		Rankings.getChildren().clear();
+//		Pane.getChildren().clear();
+//	}
 }

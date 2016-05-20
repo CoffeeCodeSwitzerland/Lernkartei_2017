@@ -3,7 +3,6 @@ package database;
 import java.sql.*;
 import java.util.ArrayList;
 
-import debug.Debugger;
 
 public class Database {
 
@@ -410,8 +409,6 @@ public class Database {
 			String getScore = "SELECT Priority FROM Stock WHERE Set_ID = (SELECT PK_Kategorie FROM Kategorie"
 					+ " WHERE Kategorie = '" + whichSet + "')";
 
-			debug.Debugger.out(getScore);
-
 			ResultSet scrs = stmt.executeQuery(getScore);
 
 			// Durch loopen und die Maximale sowie die Erreichte Punktzahl
@@ -420,11 +417,9 @@ public class Database {
 			if (scrs.next()) {
 				maxPoints += 4.0;
 				reachedPoints += scrs.getInt("Priority") - 1.0;
-				Debugger.out("Priority : " + scrs.getInt("Priority") + " Max: " + maxPoints + " Reach: " + reachedPoints);
 				while (scrs.next()) {
 					maxPoints += 4.0;
 					reachedPoints += scrs.getInt("Priority") - 1.0;
-					Debugger.out("Priority : " + scrs.getInt("Priority") + " Max: " + maxPoints + " Reach: " + reachedPoints);
 				}
 
 			} else {

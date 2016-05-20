@@ -13,11 +13,11 @@ public class Rangliste
 
 	Categories C = new Categories();
 	
-	ArrayList<String> NamesAndPoints = new ArrayList<String>();
-	ArrayList<Double> Punkte = new ArrayList<Double>();
-	ArrayList<String> Stacks = new ArrayList<String>();
+	static ArrayList<String> NamesAndPoints = new ArrayList<String>();
+	static ArrayList<Double> Punkte = new ArrayList<Double>();
+	static ArrayList<String> Stacks = new ArrayList<String>();
 
-	public ObservableList<String> getRangliste()
+	public static ObservableList<String> getRangliste()
 	{
 		getKarteien();
 		getPunkte();
@@ -27,11 +27,11 @@ public class Rangliste
 		return Ranking;
 	}
 	
-	public void getKarteien() {
-		Stacks = C.getStacknames();
+	public static void getKarteien() {
+		Stacks = Categories.getStacknames();
 	}
 	
-	private void getPunkte() {
+	private static void getPunkte() {
 		for (int i = 0; i < Stacks.size(); i++)
 		{
 			Double[] temp = Database.getScore(Stacks.get(i).toString());
@@ -44,7 +44,7 @@ public class Rangliste
 		}
 	}
 	
-	private void sortKarteien() {
+	private static void sortKarteien() {
 		
 		ArrayList<Double> tempPunkte = new ArrayList<Double>();
 		ArrayList<String> tempSortedStacks = new ArrayList<String>();
@@ -74,33 +74,16 @@ public class Rangliste
 			{
 				String Punkte = (new Double(tempPunkte.get(j)).toString());
 				String Stack = tempSortedStacks.get(j);
+				System.out.println(Stack + " " + Punkte);
 				NamesAndPoints.add(Stack + " " + Punkte);
 			}
 		}
 	}
-
-	/*private static String url = "jdbc:sqlite:" + controls.Environment.getDatabasePath() + controls.Globals.db_name + ".db";
-	private static String driver = "org.sqlite.JDBC";
-
-	private void getStacks()
-	{
-
-		Connection c = null;
-		Statement stmt = null;
-
-		try
-		{
-			Class.forName(driver);
-			c = DriverManager.getConnection(url);
-			stmt = c.createStatement();
-			
-			String searchStacks = "SELECT ";
-			ResultSet rs = stmt.executeQuery(searchStacks);
-			
-		} catch (Exception e)
-		{
-
-		}
-
-	}*/
+	
+	public static Boolean resetData() {
+		Punkte.clear();
+		Stacks.clear();
+		NamesAndPoints.clear();
+		return true;
+	}
 }

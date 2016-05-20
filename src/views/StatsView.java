@@ -9,16 +9,12 @@ import javafx.scene.Parent;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
-import javafx.scene.chart.XYChart;
-import javafx.scene.chart.XYChart.Series;
-
 import javafx.scene.control.ListView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import models.StatisticsModel;
 import mvc.fx.FXController;
 import mvc.fx.FXView;
-import statistics.Rangliste;
 /**
  * Diese Klasse soll die gleiche Funktionalität wie StatisticsView haben und diese dann auch ersetzen
  * Sie soll beliebig viele Säulen generieren
@@ -44,18 +40,17 @@ public class StatsView extends FXView
 	CategoryAxis xAchse = new CategoryAxis();
 	NumberAxis yAchse = new NumberAxis();
 	//BarChart erstellen
-	BarChart<String, Number> bc = new BarChart<String, Number>(xAchse, yAchse);
+	BarChart<String, Number> BC = new BarChart<String, Number>(xAchse, yAchse);
 	//ListView
-	@SuppressWarnings("rawtypes")
-	ListView Ranks = new ListView();
+	ListView<String> Ranks = new ListView<String>();
 			
 	ArrayList<String> Karteien = new ArrayList<String>();
 	ArrayList<Double> Punkte = new ArrayList<Double>();
-	
-	StatisticsModel SM = new StatisticsModel("statistics");
 			
 	@Override
 	public Parent constructContainer() {
+		
+		BC.setAnimated(true);
 		
 		//HBox für Diagramm
 		Diagram.setAlignment(Pos.CENTER);
@@ -81,47 +76,24 @@ public class StatsView extends FXView
 
 	@Override
 	public void refreshView()
-	{
-		Karteien = SM.getDataList("karteien");
-		Punkte = SM.getDoubleList("punkte");
+	{	
 		
 		xAchse.setLabel("Karteien");
 		yAchse.setLabel("Ergebnis (%)");
-		
 		try {
-			for (int i = 0; i < Karteien.size(); i++)
-			{
-				Series<String, Number> thisSerie = new Series<String, Number>();
-				thisSerie.setName(Karteien.get(i));
-				thisSerie.getData().add(new XYChart.Data<String, Number>(Karteien.get(i), Punkte.get(i)));
-				bc.getData().add(thisSerie);
-			}
+
+			StatisticsModel SM = new StatisticsModel("statistics");
 			
-			Diagram.getChildren().addAll(bc);
-			
-			Rangliste testZweck = new Rangliste();
-			
-//			ObversableList
-//			Ranks.setItems(testZweck.getRangliste());
+			Diagram.getChildren().addAll(BC);
+			Ranks.setItems(SM.getObservableDataList("Rangliste"));
 			Rankings.getChildren().addAll(Ranks);
-		
-		/*Ranks.setItems(getController().getFXModel("profil").getObservableDataList("ranking"));
-		
-		System.out.println("StatsView 5");
-		
-		Rankings.getChildren().addAll(Ranks);
-		
-		System.out.println("StatsView 6");*/
-		
-			/*ArrayList<Double> test = new ArrayList<Double>();
-			test = SM.getDoubleList("Unité 1" + Globals.SEPARATOR + "start");
-			Debugger.out("Start : " + test.get(0));
-			test = SM.getDoubleList("Unité 1" + Globals.SEPARATOR + "end");
-			Debugger.out("End : " + test.get(0));
-			test = SM.getDoubleList("Unité 1" + Globals.SEPARATOR + "difference");
-			Debugger.out("Difference : " + test.get(0));*/
+			
+			BC.getData().addAll(SM.getObservableDiagrammList("saulendiagramm"));
+			
+			
 		
 		} catch (Exception e) {
+			System.out.println("11");
 			Debugger.out("StatsView Exception: " + e.fillInStackTrace());
 		}
 	}
@@ -130,7 +102,8 @@ public class StatsView extends FXView
 	{
 		Karteien.clear();
 		Punkte.clear();
-		bc = null;
+		BC = null;
+		Ranks = null;
 	}
 
 }

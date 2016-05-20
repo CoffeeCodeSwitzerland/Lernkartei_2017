@@ -5,10 +5,10 @@ import java.util.ArrayList;
 import database.Database;
 import globals.Globals;
 import javafx.collections.ObservableList;
+import javafx.scene.chart.XYChart;
 import mvc.fx.FXModel;
 import statistics.Rangliste;
 import statistics.Diagramm;
-import statistics.Standings;
 
 public class StatisticsModel extends FXModel
 {
@@ -17,36 +17,33 @@ public class StatisticsModel extends FXModel
 	{
 		super(myName);
 	}
-
-	Diagramm SD = new Diagramm();
-	public ArrayList<String> getDataList(String query) {
-		if (query.equals("karteien")) {
-			return SD.getKarteien();
-		} else {
-			return null;
-		}
-	}
 	
-	Rangliste R = new Rangliste();
 	public ObservableList<String> getObservableDataList(String query) {
 		if (query.equals("Rangliste")) {
-			return R.getRangliste();
+			refreshViews();
+			return Rangliste.getRangliste();
 		} else {
 			return super.getObservableDataList(query);
 		}
 	}
 	
-	Standings S = new Standings();
+	public ObservableList<XYChart.Series<String, Number>> getObservableDiagrammList(String query) {
+		if (query.equals("saulendiagramm")){
+			refreshViews();
+			return Diagramm.getChartData();
+		} else {
+			return null;
+		}
+	}
+	
+	
 	ArrayList<Double> temp = new ArrayList<>();
 	Double tempStart = 0.0;
+	//Diese Methode ist dafür da um den Fortschritt 
 	//CombinedString --> STACKNAME + Globals.SEPARATOR + ANWEISUNG(end, difference oder start)
 	public ArrayList<Double> getDoubleList(String CombinedString) {
 		String[] Decision = CombinedString.split(Globals.SEPARATOR);
-		if (CombinedString.equals("punkte"))
-		{
-			return SD.getPunkte();
-		}
-		else if (Decision[1].equals("end"))
+		if (Decision[1].equals("end"))
 		{
 			Double[] doubleArray = Database.getScore(Decision[0]);
 			temp.clear();
@@ -74,6 +71,20 @@ public class StatisticsModel extends FXModel
 		}
 	}
 	
+	public int doAction (String functionName, String paramS, double paramD) {
+		if (functionName.equals("DeleteOldData")) {
+			Boolean success = false;
+			success = Diagramm.resetData();
+			if (success){
+				success = Rangliste.resetData();
+				return success ? 1 : -1; 
+			} else {
+				return success ? 1 : -1; 
+			}
+		} else {
+			return -2;
+		}
+	}
 	
 
 }

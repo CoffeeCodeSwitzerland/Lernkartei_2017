@@ -21,6 +21,8 @@ public class StackModel extends Model
 		// -1: Keine Tür mit dem Namen
 		// -2: Kategorie bereits vorhanden
 		// -3: Konnte nicht gelöscht werden
+		
+		// possible --> 1 = Nicht vorhanden, -1 = vorhanden
 
 		if (functionName.equals("new"))
 		{
@@ -39,6 +41,12 @@ public class StackModel extends Model
 			else
 			{
 				return -3;
+			}
+		} else if (functionName.equals("possible")) {
+			if (database.Categories.possible(paramS)) {
+				return 1;
+			} else {
+				return -1;
 			}
 		}
 

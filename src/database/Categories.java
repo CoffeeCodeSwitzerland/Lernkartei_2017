@@ -298,5 +298,35 @@ public class Categories {
 		
 		return ID;
 	}
+	
+public static boolean possible (String boxName) {
+		
+		Connection c = null;
+		Statement stmt = null;
+		
+		try {
+			Class.forName(driver);
+			c = DriverManager.getConnection(url);
+			stmt = c.createStatement();
 
+			String sql = "SELECT * FROM Kategorie WHERE Kategorie = '" + boxName + "';";
+
+			c.setAutoCommit(false);
+			ResultSet checkPossible = stmt.executeQuery(sql);
+			
+			if (checkPossible.next()) {
+				return false;
+			} else {
+				return true;
+			}
+
+		} catch (Exception e) {
+			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+			System.exit(0);
+		}
+		
+		return true;
+		
+	}
+	
 }

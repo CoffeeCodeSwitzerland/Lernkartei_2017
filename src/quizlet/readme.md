@@ -7,15 +7,15 @@
 
 ## Anwendung
 
-Quizletobjekt erstellen.
-Anstelle von **token** muss ein Quizlet Developer Key stehen -> siehe QuizletTest-Klasse.
+Quizletobjekt erstellen
+Anstelle von *token* muss ein Quizlet Developer Key stehen. *siehe QuizletTest-Klasse*
 
-	Quizlet q = new Quizlet(**token**);
+	Quizlet q = new Quizlet(<token>);
 
 
-Suchfunktion erfordert Suchstring und gibt eine ArrayList<String> zurük:
+Suchfunktion erfordert Suchstring und gibt eine *ArrayList<String>* zurük.
 
-	ArrayList<String> result = q.searchSet(**search**);
+	ArrayList<String> result = q.searchSet(<search>);
 
 
 Infos zur Suche (Element 0)
@@ -26,7 +26,7 @@ Infos zur Suche (Element 0)
 - page
 
 
-Gefundene Sets (Element 1 - n):
+Gefundene Sets (Element 1 - n)
 
 - id
 - title
@@ -41,7 +41,7 @@ Gefundene Sets (Element 1 - n):
 Einzelne Informationen wie Id und Title werden durch den Separator (default ':::') getrennt.
 
 
-GetSet verlangt eine gültige (!) Quizlet-Set-Id als Parameter und gibt eine ArrayList<String> zurück:
+GetSet verlangt eine gültige (!) Quizlet-Set-Id als Parameter und gibt eine ArrayList<String> zurück.
 
 	ArrayList<String> terms = q.getSet(<setId>);
 
@@ -67,5 +67,6 @@ Karten im Set (Element 1 - n)
 
 Gleiche Form wie bei searchSet(), gleicher Separator
 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
-Bei Fragen wendet euch an miro
+*Bei Fragen wendet euch an miro.*

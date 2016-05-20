@@ -1,7 +1,5 @@
 package views;
 
-import java.util.ArrayList;
-
 import debug.Debugger;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -32,21 +30,20 @@ public class StatsView extends FXView
 		construct();
 	}
 	
-	HBox Diagram = new HBox(50);
-	HBox Controls = new HBox(50);
-	HBox Rankings = new HBox(50);
-	AppButton back = new AppButton("_Zurück");
-	BorderPane Pane = new BorderPane();
+	final HBox Diagram = new HBox(50);
+	final HBox Controls = new HBox(50);
+	final HBox Rankings = new HBox(50);
+	final AppButton back = new AppButton("_Zurück");
+	final BorderPane Pane = new BorderPane();
 	//Achsen erstellen
-	CategoryAxis xAchse = new CategoryAxis();
-	NumberAxis yAchse = new NumberAxis();
+	final CategoryAxis xAchse = new CategoryAxis();
+	final NumberAxis yAchse = new NumberAxis();
 	//BarChart erstellen
-	BarChart<String, Number> BC = new BarChart<String, Number>(xAchse, yAchse);
+	final BarChart<String, Number> BC = new BarChart<String, Number>(xAchse, yAchse);
 	//ListView
-	ListView<String> Ranks = new ListView<String>();
-			
-	ArrayList<String> Karteien = new ArrayList<String>();
-	ArrayList<Double> Punkte = new ArrayList<Double>();
+	final ListView<String> Ranks = new ListView<String>();
+
+	private StatisticsModel sm;
 			
 	@Override
 	public Parent constructContainer() {
@@ -76,41 +73,59 @@ public class StatsView extends FXView
 	}
 
 	//Hier werden die Daten für das Diagramm geholt. Ich habe dafür im StatisticsModel eigene Funktionen erstellt, da ich nicht mit ArrayLists arbeiten kann. 
+	//Ich Caste darum auch auf das StatisticsModel und greife nicht herkömmlich nur mit getController() darauf zu.
 	@Override
 	public void refreshView()
 	{	
+		sm = ((StatisticsModel) getController().getFXModel("statistics"));
 		
 		xAchse.setLabel("Karteien");
 		yAchse.setLabel("Ergebnis (%)");
 		try {
-			
-			if (((StatisticsModel) getController().getFXModel("statistics")).getObservableDiagrammList("saulendiagramm") == null && ((StatisticsModel) getController().getFXModel("statistics")).getObservableDataList("Rangliste") == null) {
+			if (sm.getObservableDiagrammList("saulendiagramm") == null && 
+					sm.getObservableDataList("Rangliste") == null) {
+				//Dieses TextField wird geaddet, wenn keine Daten für die Rangliste oder die Rangliste gefunden werden können.
 				TextField m = new TextField();
 				m.setText("Es tut uns leid aber wir konnten keine Daten zur Auswertung Ihrer Statistik finden");
 				Diagram.getChildren().add(m);
 			} else {
-				Ranks.setItems(((StatisticsModel) getController().getFXModel("statistics")).getObservableDataList("Rangliste"));
+				delOldStats();
+				//Daten für Rangliste abholen über StatisticsModel und dann Rangliste.java
+				if (sm!= null) {
+				Ranks.setItems(sm.getObservableDataList("Rangliste"));
+				} else {
+					System.out.println("Kein sm model!!!");
+				}
+					
+				System.out.println("StatsView 2");
 				Rankings.getChildren().addAll(Ranks);
 				
-				BC.getData().addAll(((StatisticsModel) getController().getFXModel("statistics")).getObservableDiagrammList("saulendiagramm"));
+				System.out.println("StatsView 3");
+				//Daten für das Diagramm. Die verarbeitugn und bereitstellung findet alles in Diagramm.java (getChartData()) statt.
+				BC.getData().addAll(sm.getObservableDiagrammList("saulendiagramm"));
 				
+				System.out.println("StatsView 4");
+				//Der HBox "Diagramm" das BarChart adden welches das das Säulendiagramm beinhaltet. 
+				//Wird hier gemacht, weil bei Fehler andere Komponente geaddet wird (siehe weiter oben das TextField)
 				Diagram.getChildren().addAll(BC);
 				
-				((StatisticsModel) getController().getFXModel("statistics")).doAction("DeleteOldData");
-			
-				System.out.println("Deleted old Data");
+				System.out.println("StatsView 5");
+				//Hier werden sämtliche Daten auch in den anderen Klassen über das Model gelöscht, damit sicher ist, dass nirgends Datenleichen herumgeistern
+				sm.doAction("DeleteOldData");
+				
+				System.out.println("StatsView 6");
 			}
 		} catch (Exception e) {
-			Debugger.out("StatsView Exception: " + e.fillInStackTrace());
+			//Debugger.out(e.getMessage());
+			Debugger.out("StatsView Exception: ");
+			e.printStackTrace();
 		}
 	}
 	
 	private void delOldStats()
 	{
-		Karteien.clear();
-		Punkte.clear();
-		BC = null;
-		Ranks = null;
+		//BC = null;
+		//Ranks.;
 	}
 
 }

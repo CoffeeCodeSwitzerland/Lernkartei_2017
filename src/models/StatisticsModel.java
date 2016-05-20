@@ -1,9 +1,11 @@
 package models;
 
 import java.util.ArrayList;
+import java.util.Observer;
 
 import database.Database;
 import globals.Globals;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.chart.XYChart;
 import mvc.fx.FXModel;
@@ -18,10 +20,14 @@ public class StatisticsModel extends FXModel
 		super(myName);
 	}
 	
+	//ROL --> RanglisteObversableList
+	ObservableList<String> ROL = FXCollections.observableArrayList();
 	public ObservableList<String> getObservableDataList(String query) {
 		if (query.equals("Rangliste")) {
-			refreshViews();
-			return Rangliste.getRangliste();
+			System.out.println("StatisticsModel 1 Rangliste");
+			ROL = Rangliste.getRangliste();
+			System.out.println(ROL.get(0));
+			return ROL;
 		} else {
 			return super.getObservableDataList(query);
 		}
@@ -29,7 +35,6 @@ public class StatisticsModel extends FXModel
 	
 	public ObservableList<XYChart.Series<String, Number>> getObservableDiagrammList(String query) {
 		if (query.equals("saulendiagramm")){
-			refreshViews();
 			return Diagramm.getChartData();
 		} else {
 			return null;

@@ -334,8 +334,6 @@ public static boolean possible (String boxName) {
 				c.close();
 				return true;
 			}
-			
-			
 
 		} catch (Exception e) {
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());

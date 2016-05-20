@@ -3,6 +3,7 @@ package models;
 import java.util.ArrayList;
 
 import Learning.Bewertungsklasse;
+import Learning.lerndatenzuweisung;
 import mvc.Model;
 
 public class LearnModel extends Model {
@@ -61,6 +62,7 @@ public class LearnModel extends Model {
 			}
 			setString(query);
 		}
+
 
 		return memoList;
 	}

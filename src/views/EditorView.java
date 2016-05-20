@@ -5,17 +5,24 @@ import globals.Globals;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ColorPicker;
 import javafx.scene.control.IndexRange;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import javafx.scene.web.HTMLEditor;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import mvc.fx.FXController;
 import mvc.fx.FXViewModel;
 
@@ -85,12 +92,14 @@ public class EditorView extends FXViewModel
 			Button under = new Button("U");
 			Button sup = new Button("SP");
 			Button sub = new Button("SB");
+			Button cp = new Button("C");
 			Button bold1 = new Button("B");
 			Button italic1 = new Button("I");
 			Button crossed1 = new Button("S");
 			Button under1 = new Button("U");
 			Button sup1 = new Button("SP");
 			Button sub1 = new Button("SB");
+			Button cp1 = new Button("C");
 			TextField front = new TextField();
 			TextField back = new TextField();
 			Button update = new Button("\u2713");	
@@ -112,24 +121,41 @@ public class EditorView extends FXViewModel
 				String codeBefore = back.getText().substring(0, start);
 				String codeAfter = back.getText().substring(end);
 				String isolatedWord = back.getText().substring(start, end);
-				bold.setOnMouseClicked(a ->{
-				back.setText(codeBefore+"[b]"+isolatedWord+"[/b]"+codeAfter);
-				});
-				italic.setOnMouseClicked(a ->{
-				back.setText(codeBefore+"[i]"+isolatedWord+"[/i]"+codeAfter);
-				});
-				crossed.setOnMouseClicked(a ->{
-				back.setText(codeBefore+"[s]"+isolatedWord+"[/s]"+codeAfter);
-				});
-				under.setOnMouseClicked(a ->{
-				back.setText(codeBefore+"[u]"+isolatedWord+"[/u]"+codeAfter);
-				});
-				sup.setOnMouseClicked(a ->{
-				back.setText(codeBefore+"[sup]"+isolatedWord+"[/sup]"+codeAfter);
-				});
-				sub.setOnMouseClicked(a ->{
-				back.setText(codeBefore+"[sub]"+isolatedWord+"[/sub]"+codeAfter);
-				});
+					bold.setOnMouseClicked(a ->{
+						back.setText(codeBefore+"[b]"+isolatedWord+"[/b]"+codeAfter);
+					});
+					italic.setOnMouseClicked(a ->{
+						back.setText(codeBefore+"[i]"+isolatedWord+"[/i]"+codeAfter);
+					});
+					crossed.setOnMouseClicked(a ->{
+						back.setText(codeBefore+"[s]"+isolatedWord+"[/s]"+codeAfter);
+					});
+					under.setOnMouseClicked(a ->{
+						back.setText(codeBefore+"[u]"+isolatedWord+"[/u]"+codeAfter);
+					});
+					sup.setOnMouseClicked(a ->{
+						back.setText(codeBefore+"[sup]"+isolatedWord+"[/sup]"+codeAfter);
+					});
+					sub.setOnMouseClicked(a ->{
+						back.setText(codeBefore+"[sub]"+isolatedWord+"[/sub]"+codeAfter);
+					});
+					cp.setOnMouseClicked(a ->{
+						ColorPicker colorPicker = new ColorPicker();
+						Button save = new Button("Save");
+						final Stage dialog = new Stage();
+			            dialog.initModality(Modality.APPLICATION_MODAL);
+			            VBox dialogVbox = new VBox(20);
+			            dialogVbox.getChildren().addAll(colorPicker, save);
+			            Scene dialogScene = new Scene(dialogVbox);
+			            dialog.setScene(dialogScene);
+			            dialog.show();
+			                
+			                save.setOnAction(b ->{
+			                	Color value = colorPicker.getValue();
+			                	String cstrg = value.toString();
+			                	back.setText(codeBefore+"[color=" + cstrg + "]"+isolatedWord+"[/color]"+codeAfter);
+			                });
+					});
 			});
 			front.setOnMouseReleased(e ->{
 				int start = front.getSelection().getStart();
@@ -137,24 +163,41 @@ public class EditorView extends FXViewModel
 				String codeBefore = front.getText().substring(0, start);
 				String codeAfter = front.getText().substring(end);
 				String isolatedWord = front.getText().substring(start, end);
-				bold1.setOnMouseClicked(a ->{
-				front.setText(codeBefore+"[b]"+isolatedWord+"[/b]"+codeAfter);
-				});
-				italic1.setOnMouseClicked(a ->{
-				front.setText(codeBefore+"[i]"+isolatedWord+"[/i]"+codeAfter);
-				});
-				crossed1.setOnMouseClicked(a ->{
-				front.setText(codeBefore+"[s]"+isolatedWord+"[/s]"+codeAfter);
-				});
-				under1.setOnMouseClicked(a ->{
-				front.setText(codeBefore+"[u]"+isolatedWord+"[/u]"+codeAfter);
-				});
-				sup1.setOnMouseClicked(a ->{
-				front.setText(codeBefore+"[sup]"+isolatedWord+"[/sup]"+codeAfter);
-				});
-				sub1.setOnMouseClicked(a ->{
-				front.setText(codeBefore+"[sub]"+isolatedWord+"[/sub]"+codeAfter);
-				});
+					bold1.setOnMouseClicked(a ->{
+						front.setText(codeBefore+"[b]"+isolatedWord+"[/b]"+codeAfter);
+					});
+					italic1.setOnMouseClicked(a ->{
+						front.setText(codeBefore+"[i]"+isolatedWord+"[/i]"+codeAfter);
+					});
+					crossed1.setOnMouseClicked(a ->{
+						front.setText(codeBefore+"[s]"+isolatedWord+"[/s]"+codeAfter);
+					});
+					under1.setOnMouseClicked(a ->{
+						front.setText(codeBefore+"[u]"+isolatedWord+"[/u]"+codeAfter);
+					});
+					sup1.setOnMouseClicked(a ->{
+						front.setText(codeBefore+"[sup]"+isolatedWord+"[/sup]"+codeAfter);
+					});
+					sub1.setOnMouseClicked(a ->{
+						front.setText(codeBefore+"[sub]"+isolatedWord+"[/sub]"+codeAfter);
+					});
+					cp1.setOnMouseClicked(a ->{
+						ColorPicker colorPicker = new ColorPicker();
+						Button save = new Button("Save");
+						final Stage dialog = new Stage();
+			            dialog.initModality(Modality.APPLICATION_MODAL);
+			            VBox dialogVbox = new VBox(20);
+			            dialogVbox.getChildren().addAll(colorPicker, save);
+			            Scene dialogScene = new Scene(dialogVbox);
+			            dialog.setScene(dialogScene);
+			            dialog.show();
+			                
+			                save.setOnAction(b ->{
+			                	Color value = colorPicker.getValue();
+			                	String cstrg = value.toString();
+			                	front.setText(codeBefore+"[color=" + cstrg + "]"+isolatedWord+"[/color]"+codeAfter);
+			                });
+					});
 			});
 			
 			back.setOnKeyReleased(e ->{
@@ -199,11 +242,11 @@ public class EditorView extends FXViewModel
 			
 			HBox buttonLL = new HBox(8);
 			buttonLL.setAlignment(Pos.TOP_LEFT);
-			buttonLL.getChildren().addAll(bold1, italic1, crossed1, under1, sup1, sub1);
+			buttonLL.getChildren().addAll(bold1, italic1, crossed1, under1, sup1, sub1, cp1);
 			
 			HBox buttonLR = new HBox(8);
 			buttonLR.setAlignment(Pos.TOP_LEFT);
-			buttonLR.getChildren().addAll(bold, italic, crossed, under, sup, sub);
+			buttonLR.getChildren().addAll(bold, italic, crossed, under, sup, sub, cp);
 			
 			HBox eingabeL = new HBox(8);
 			eingabeL.setAlignment(Pos.CENTER);

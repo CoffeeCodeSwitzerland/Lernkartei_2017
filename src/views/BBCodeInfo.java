@@ -36,7 +36,7 @@ public class BBCodeInfo extends FXView
 				Label labelTitel = new Label("BBCode");
 				
 				//Hier kommt der angezeigte Text hin:
-				Label labelText = new Label("Was ist BBCode:\nBBCode ist ähnlich wie HTML-Tags nur das sie aus eckigen Klammern([]) bestehen. Dies ermöglicht uns, dass weniger Speicherplatz verschwendet wird und wir haben die voll Kontrolle!\n\nBBCode-Liste:\nFett = [b]\nItalic = [i]\nUnterstrichen = [u]\nDurchgestrichen = [s]\nHochgestellt = [sup]\nHinuntergestellt = [sub]");
+				Label labelText = new Label("Was ist BBCode:\nBBCode ist ähnlich wie HTML-Tags nur das sie aus eckigen Klammern([]) bestehen. Dies ermöglicht uns, dass weniger Speicherplatz verschwendet wird und wir haben die voll Kontrolle!\n\nBBCode-Liste:\nFett = [b]\nItalic = [i]\nUnterstrichen = [u]\nDurchgestrichen = [s]\nHochgestellt = [sup]\nHinuntergestellt = [sub]\nTextfarbe = [color=]");
 				
 				//Zeilenumbruch am Fensterrand
 				labelText.setWrapText(true);

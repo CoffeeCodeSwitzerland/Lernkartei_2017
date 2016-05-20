@@ -45,7 +45,6 @@ public class GameView extends FXView {
 									// div. Schrifteffekten)
 
 		// Button für Zurück zum Hauptmenue:
-		Image impressumImg = new Image("views/pictures/ImpressumIcon.png");
 
 		btn.setOnAction(e -> getController().getModel("game").doAction("start"));
 
@@ -56,10 +55,6 @@ public class GameView extends FXView {
 		// Erstellt VBox Layout für beide obige Elemente:
 		menuLayout.getChildren().addAll(grund, btn, btnInfo, btnBacktoKartei);
 
-		ImageView impImgView = new ImageView(impressumImg);
-		mainLayout.setBottom(impImgView);
-
-		impImgView.setOnMouseClicked(e -> getController().showView("impressumview"));
 		menuLayout.setPadding(new Insets(10));
 		menuLayout.setSpacing(10);
 		menuLayout.setAlignment(Pos.CENTER);

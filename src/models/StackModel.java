@@ -27,13 +27,13 @@ public class StackModel extends Model
 		if (functionName.equals("new"))
 		{
 			String eingabe[] = paramS.split(globals.Globals.SEPARATOR);
-			int i = database.Categories.newKategorie(eingabe[1], eingabe[0]);
+			int i = database.Categories.newStack(eingabe[1], eingabe[0]);
 			refreshViews();
 			return i;
 		}
 		else if (functionName.equals("delete"))
 		{
-			if (database.Categories.delKategorie(paramS))
+			if (database.Categories.delStack(paramS))
 			{
 				refreshViews();
 				return 2;

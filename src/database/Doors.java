@@ -178,7 +178,7 @@ public class Doors {
 				getStacks.close();
 				for (String s : setsToDel) {
 					System.out.println("7");
-					database.Categories.delKategorie(s);
+					database.Categories.delStack(s);
 					System.out.println("8");
 				}
 				

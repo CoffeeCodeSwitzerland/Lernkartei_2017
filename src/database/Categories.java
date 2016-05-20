@@ -25,7 +25,7 @@ public class Categories {
 	 *            --> String Doorname, zu welcher die Kategorie gehört
 	 */
 
-	public static int newKategorie (String eingabe, String fk_door) {
+	public static int newStack (String eingabe, String fk_door) {
 
 		Connection c = null;
 		Statement stmt = null;
@@ -66,24 +66,27 @@ public class Categories {
 			id.close();
 			
 			// Überprüft, ob die Kategorie bereits existiert
-
-			ResultSet check = stmt.executeQuery("SELECT * FROM Kategorie WHERE Kategorie = '" + eingabe + "'");
-			if (check.next()) {
-				check.close();
-				errorMsg = -2;
+			if (errorMsg != -1)
+			{
+				ResultSet check = stmt.executeQuery("SELECT * FROM Kategorie WHERE Kategorie = '" + eingabe + "'");
+				if (check.next()) {
+					check.close();
+					errorMsg = -2;
+				}
+				else {
+					check.close();
+				}
+	
+				c.setAutoCommit(true);
+				
+				// Erstellt die neue Kategorie als Eintrag in der Datenbank mit einem Fremdkey für die Tür
+	
+				String insert = "INSERT INTO Kategorie (Kategorie, FK_Door)" +
+						"VALUES ('" + eingabe + "', " + FK_ID + ")";
+	
+				stmt.executeUpdate(insert);
 			}
-			else {
-				check.close();
-			}
-
-			c.setAutoCommit(true);
 			
-			// Erstellt die neue Kategorie als Eintrag in der Datenbank mit einem Fremdkey für die Tür
-
-			String insert = "INSERT INTO Kategorie (Kategorie, FK_Door)" +
-					"VALUES ('" + eingabe + "', " + FK_ID + ")";
-
-			stmt.executeUpdate(insert);
 			stmt.close();
 			c.close();
 		}
@@ -166,7 +169,7 @@ public class Categories {
 	 *            --> Name der zu löschenden Kategorie
 	 */
 
-	public static boolean delKategorie (String category) {
+	public static boolean delStack (String category) {
 
 		Connection c = null;
 		Statement stmt = null;

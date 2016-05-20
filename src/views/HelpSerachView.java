@@ -36,7 +36,7 @@ public class HelpSerachView extends FXView
 		labelText.setWrapText(true);
 		labelText.setMaxWidth(870);
 
-		labelTitel.setId("impressumtext");
+		labelTitel.setId("impressumtitel");
 		labelText.setId("impressumtext");
 			
 		AppButton backBtn = new AppButton("_Zurück");
@@ -45,6 +45,7 @@ public class HelpSerachView extends FXView
 		BorderPane headLayout = new BorderPane(labelTitel);
 		headLayout.setPadding(new Insets(20));
 		ScrollPane scroller = new ScrollPane();
+		scroller.setMaxWidth(800);
 		
 				
 		scroller.setContent(labelText);
@@ -52,7 +53,7 @@ public class HelpSerachView extends FXView
 		scroller.setVbarPolicy(ScrollBarPolicy.ALWAYS);  
 			
 		HBox controlLayout = new HBox(20);
-		controlLayout.setAlignment(Pos.BOTTOM_LEFT);
+		controlLayout.setAlignment(Pos.BOTTOM_CENTER);
 		controlLayout.getChildren().addAll(backBtn);
 		controlLayout.setPadding(new Insets (10));
 

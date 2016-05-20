@@ -28,7 +28,7 @@ public class QuizletInfoView extends FXView
 		Label labelText = new Label("Hier kommt die Info und der Link zur Quizlet Seite hin.");
 		labelText.setWrapText(true);
 		labelText.setMaxWidth(870);
-		labelTitel.setId("impressumtext");
+		labelTitel.setId("impressumtitel");
 		labelText.setId("impressumtext");
 		
 		AppButton backBtn = new AppButton("_Zurück");
@@ -37,6 +37,7 @@ public class QuizletInfoView extends FXView
 		BorderPane headLayout = new BorderPane(labelTitel);
 		headLayout.setPadding(new Insets(20));
 		ScrollPane scroller = new ScrollPane();
+		scroller.setMaxWidth(800);
 		
 			
 		scroller.setContent(labelText);
@@ -44,7 +45,7 @@ public class QuizletInfoView extends FXView
 		scroller.setVbarPolicy(ScrollBarPolicy.ALWAYS);  
 		
 		HBox controlLayout = new HBox(20);
-		controlLayout.setAlignment(Pos.BOTTOM_LEFT);
+		controlLayout.setAlignment(Pos.BOTTOM_CENTER);
 		controlLayout.getChildren().addAll(backBtn);
 		controlLayout.setPadding(new Insets (10));
 

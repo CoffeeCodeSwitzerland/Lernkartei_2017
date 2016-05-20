@@ -27,7 +27,7 @@ public class QuizletInfoView extends FXView
 		Label labelTitel = new Label("Quizlet Info");
 		Label labelText = new Label("Hier kommt die Info und der Link zur Quizlet Seite hin.");
 		labelText.setWrapText(true);
-		labelText.setMaxWidth(870);
+		labelText.setMaxWidth(800);
 		labelTitel.setId("impressumtitel");
 		labelText.setId("impressumtext");
 		

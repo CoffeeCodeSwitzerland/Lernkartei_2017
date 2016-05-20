@@ -34,7 +34,7 @@ public class HelpSerachView extends FXView
 		Label labelTitel = new Label("Index");
 		Label labelText = new Label("-Türen- 			Das sind die Themen.\n-Boxen- 			Das sind die Unterthemen\n-Jump 'n' Run- 	Mit lernen kannst du dir Leben verdienen für das Spiel. Du findest es im Hauptmenü.\n-Optionen- 		Hier kannst du einstellen wie viele Kärtchen du auf einmal lernen möchtest.\n-Statistiken- 		Hier kannst du deinen Fortschritt sehen. Unter anderem wie viele Punkte du gesammelt hast beim lernen.\n-Quizlet-			Von dort kannst du Kärtchen importieren wenn du sie nicht selber schreiben möchtest.\n-Lernkarteien-		Hier drücken um die Kartei auszuwählen und sie zu lernen.\n-(?) Icon-			Hier findest du Anleitungen, Infos, Index und anderes.\n-Index-			Hier werden Begriffe erklärt\n-Impressum-		Wer an diesem Programm gearbeitet hat, die Lizenzen und Rechte etc.\n-Anleitung-		Kurze Info wie man WISSLearnCards benutzt.\n\nWichtiges:			...\n-etc-			\n-etc-			\n-etc-			\n-etc-			\n-etc-			\n-etc-			\n-etc-			\n-etc-			\n-etc-			\n-etc-			\n-etc-			");
 		labelText.setWrapText(true);
-		labelText.setMaxWidth(870);
+		labelText.setMaxWidth(800);
 
 		labelTitel.setId("impressumtitel");
 		labelText.setId("impressumtext");

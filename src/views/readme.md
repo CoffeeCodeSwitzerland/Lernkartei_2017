@@ -1,29 +1,26 @@
-=============================================================================================================
+================================================================
 
-	All Application's View's: the GUI (with JavaFX)
+#	All Application's View's: the GUI (with JavaFX)   #
 
-=============================================================================================================
+================================================================
 
-	Inhalt:
-	------	
-	- alle benötigten Views und GUI-Teilkomponenten
+##	Inhalt
+<	- alle benötigten Views und GUI-Teilkomponenten
 	- jeder eigener View mit Inhalte und Darstellungen
 	- das Verhalten der einzelnen Knöpfe wird hier bestimmt
 	- falls nötig werden Modellklassen aufgerufen oder Model's lokal in View's eingebaut
 	
-	Abhängigkeiten:
-	--------------
-	- MainController (zum Navigieren)
+##	Abhängigkeiten
+>	- MainController (zum Navigieren)
 	- Weitere Controller- und Model-Klassen um die Funktionalität zu gewährleisten
 	- debug
 	- die style.css Datei (bestimmt die Darstellung)
 	- div. Darstellungsinhalte (Bilder etc., können auch ausgelagert werden)
 
-=============================================================================================================
+=======================================================================================
 
-	HowTo
-	=====
-	- jede Klasse erbt von FXView oder FXVeiwModel (=mit eigenem, lokalem Daten-Modell)
+##	HowTo
+>	- jede Klasse erbt von FXView oder FXVeiwModel (=mit eigenem, lokalem Daten-Modell)
 	- der Konstruktor dieser Klassen wird programmiert, dabei sind folgende Punkte zu beachten:
 		- die erste Zeile und der Konstruktor (super(...)) ist für alle gleich zu implementieren
 		- am Ende sollte die Scene erstellt werden
@@ -46,9 +43,3 @@
 			
 =============================================================================================================
  
- Bei Fragen wendet euch an miro oder hugo
- 
- ToDo (H.Lucca, 2.5.16):
- ----------------------
- - Keine Kasten erstellen, die schon existieren
- - Enter-Taste satt OK-Button muss möglich sein

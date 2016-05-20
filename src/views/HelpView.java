@@ -36,7 +36,6 @@ public class HelpView extends FXView
 		quizletBtn.setOnAction(e -> getController().showView("quizletview"));
 		anleitungBtn.setOnAction(e -> getController().showView("manualview"));
 		indexBtn.setOnAction(e -> getController().showView("indexview"));
-		backbtn.setOnAction(e -> getController().showView("mainview"));
 
 		VBox tempVBox = new VBox();
 		tempVBox.setPadding(new Insets(10));

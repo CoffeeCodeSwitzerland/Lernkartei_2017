@@ -1,7 +1,5 @@
 package Learning;
 
-import java.sql.Time;
-import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class lerndatenzuweisung {

@@ -1,23 +1,16 @@
-=============================================================================================================
+# Quizlet Package
 
-	Quizlet Package
+## Funktionen
 
-=============================================================================================================
+- Öffentliche Sets auf Quizlet durchsuchen
+- Öffentliche Sets von Quizlet herunterladen
 
-	Funktionen:
-	
-	- Öffentliche Sets auf Quizlet durchsuchen
-	- Öffentliche Sets von Quizlet herunterladen
+## Anwendung
 
-=============================================================================================================
+Quizletobjekt erstellen.
+Anstelle von <token> muss ein Quizlet Developer Key stehen -> siehe QuizletTest-Klasse.
 
-	
-	Anwendung:
-	
-	Quizletobjekt erstellen.
-	Anstelle von <token> muss ein Quizlet Developer Key stehen -> siehe QuizletTest-Klasse.
-	
-			Quizlet q = new Quizlet(<token>);
+		Quizlet q = new Quizlet(<token>);
 
 
 -------------------------------------------------------------------------------------------------------------

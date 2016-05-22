@@ -20,6 +20,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import mvc.fx.FXController;
 import mvc.fx.FXViewModel;
+import views.components.AppButton;
 
 public class EditorView extends FXViewModel
 {

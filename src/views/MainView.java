@@ -11,6 +11,7 @@ import javafx.scene.layout.VBox;
 import models.GameModel;
 import mvc.fx.FXController;
 import mvc.fx.FXView;
+import views.components.AppButton;
 
 /**
  * Hauptfenster

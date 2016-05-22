@@ -17,6 +17,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import mvc.fx.FXController;
 import mvc.fx.FXViewModel;
+import views.components.Alert;
+import views.components.AppButton;
 
 
 /**

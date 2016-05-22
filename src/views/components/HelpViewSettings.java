@@ -1,4 +1,4 @@
-package views;
+package views.components;
 
 import javafx.scene.paint.Color;
 import mvc.fx.FXSettings;

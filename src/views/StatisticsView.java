@@ -11,6 +11,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import mvc.*;
+import views.components.AppButton;
 
 /**
  * @author nina-egger

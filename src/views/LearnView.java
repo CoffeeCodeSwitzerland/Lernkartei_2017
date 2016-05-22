@@ -18,6 +18,7 @@ import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import mvc.fx.FXController;
 import mvc.fx.FXViewModel;
+import views.components.AppButton;
 
 
 public class LearnView extends FXViewModel

@@ -1,4 +1,4 @@
-package views;
+package views.components;
 
 import javafx.stage.Stage;
 import mvc.fx.FXStage;

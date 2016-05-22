@@ -1,4 +1,4 @@
-package views;
+package views.components;
 
 import javafx.scene.control.Button;
 import javafx.scene.input.KeyCode;

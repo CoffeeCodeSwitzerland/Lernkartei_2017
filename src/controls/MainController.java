@@ -21,7 +21,6 @@ import views.HelpView;
 import views.ImpressumView;
 import views.LearnView;
 import views.MainView;
-import views.MainViewSettings;
 import views.OptionsView;
 import views.PostLearnView;
 import views.PreLearnView;
@@ -30,6 +29,7 @@ import views.RenameView;
 import views.SimpleEditorView;
 import views.StackView;
 import views.StatsView;
+import views.components.MainViewSettings;
 /**
  * Diese Klasse Kontrolliert alle Sichten und Models. Den Sichten wird die
  * Navigation zur Verfügung gestellt. Alle Sichten (ausser Modalfenster) werden

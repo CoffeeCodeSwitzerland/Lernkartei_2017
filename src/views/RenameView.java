@@ -9,6 +9,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import mvc.fx.FXController;
 import mvc.fx.FXViewModel;
+import views.components.AppButton;
 
 public class RenameView extends FXViewModel
 {

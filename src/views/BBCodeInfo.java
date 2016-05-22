@@ -9,6 +9,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import mvc.fx.FXController;
 import mvc.fx.FXView;
+import views.components.AppButton;
 
 /**
  *	Hilfesystem Info Anzeige

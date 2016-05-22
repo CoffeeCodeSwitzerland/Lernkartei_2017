@@ -1,4 +1,4 @@
-package test;
+package controls.test;
 
 import org.junit.Test;
 

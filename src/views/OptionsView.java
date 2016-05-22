@@ -11,6 +11,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import mvc.fx.FXController;
 import mvc.fx.FXView;
+import views.components.Alert;
+import views.components.AppButton;
 
 
 /**

@@ -10,6 +10,7 @@ import javafx.scene.layout.VBox;
 import models.StatisticsModel;
 import mvc.fx.FXController;
 import mvc.fx.FXViewModel;
+import views.components.AppButton;
 
 /**
  * Diese View zeigt dem User vor dem Lernen Informationen an.

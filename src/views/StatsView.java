@@ -14,6 +14,7 @@ import javafx.scene.layout.HBox;
 import models.StatisticsModel;
 import mvc.fx.FXController;
 import mvc.fx.FXView;
+import views.components.AppButton;
 /**
  * Diese Klasse soll die gleiche Funktionalität wie StatisticsView haben und diese dann auch ersetzen
  * Sie soll beliebig viele Säulen generieren

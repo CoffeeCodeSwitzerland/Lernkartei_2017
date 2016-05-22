@@ -9,6 +9,7 @@ import javafx.scene.layout.VBox;
 import models.StatisticsModel;
 import mvc.fx.FXController;
 import mvc.fx.FXViewModel;
+import views.components.AppButton;
 
 /**
  * View um Lernergebnis und Gesamtforschritt nach einer 'Lernrunde' anzuzeigen.

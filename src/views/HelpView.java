@@ -7,6 +7,7 @@ import javafx.scene.Parent;
 import javafx.scene.layout.VBox;
 import mvc.fx.FXController;
 import mvc.fx.FXView;
+import views.components.AppButton;
 
 /**
  * Hilfefenster

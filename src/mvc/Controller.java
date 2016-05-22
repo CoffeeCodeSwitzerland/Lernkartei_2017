@@ -86,7 +86,7 @@ public abstract class Controller implements ControllerInterface
 			showMainView(); // switch to main view if no such view
 			thisView=this.seekView(getMainViewName());
 		} else {
-			lastView.show();
+			lastView.setVisible();
 			thisView=lastView;
 		}
 	}
@@ -97,12 +97,13 @@ public abstract class Controller implements ControllerInterface
 	 */
 	public void showView (String withName)
 	{
+		debug.Debugger.out("Controller.showView("+withName+")");
 		if (withName != null) {
 			View v = seekView(withName);
 			if (v!=null) {
 				lastView=thisView; // build show history (depth 2)
 				thisView=v;
-				v.show();
+				v.setVisible();
 			} else {
 				Debugger.out("Controller.showView(): no view("+withName+")!");
 			}

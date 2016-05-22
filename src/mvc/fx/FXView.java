@@ -2,7 +2,6 @@ package mvc.fx;
 
 import java.net.URL;
 
-import debug.Debugger;
 import debug.Supervisor;
 import globals.Environment;
 import globals.Globals;
@@ -59,37 +58,40 @@ public abstract class FXView extends View
 		return this.getFXController().getMyFXStage().getStage();
 	}
 	
-	protected void show()
+	protected void setVisible()
 	{
-		//Logger.log("Get Window....");
+		debug.Debugger.out("Get window...");
 		Stage stage = getWindow();
 		if (stage != null) {
 			if (scene != null) {
-				//Logger.log("Set scene....");
+				debug.Debugger.out("Set scene("+getName()+")");
 				stage.setScene(scene);
 			} else {
-				Debugger.out("show("+getName()+") has no scene!");
+				debug.Logger.log("show("+getName()+") has no scene!");
 			}
 			//Logger.log("stage show....");
+			debug.Debugger.out("Set stage("+getName()+")");
 			stage.show();
 		} else {
-			Debugger.out("show("+getName()+") has no window!");
+			debug.Logger.log("show("+getName()+") has no window!");
 		}
 		this.refreshView();
 	}
 	
-	private void loadCSS (String stylePath) {
+	private boolean loadCSS (String stylePath) {
 		URL url = this.getClass().getResource(stylePath);
 		if (url != null) {
 			String urlstr = url.toExternalForm();
 			if (scene != null && urlstr != null) {
 				scene.getStylesheets().add(getClass().getResource(stylePath).toExternalForm());
+				return  true;
 			} else {
-			   Debugger.out("FXView("+getName()+").setUpScene() no css-url found for "+stylePath);
+				debug.Logger.log("FXView("+getName()+").setUpScene() no css-url found for "+stylePath);
 			}
 		} else {
 		 //  Debugger.out("FXView("+getName()+").setUpScene(): no css ressource found for "+stylePath);
 		}
+		return false;
 	}
 
 	public void setupScene(Parent p) {
@@ -100,11 +102,16 @@ public abstract class FXView extends View
 		
 		String sep = Environment.getFileSep();
 		
-		String mainCSS = Globals.stylesSupPath+sep+Globals.mainStyleFileName+Globals.CSSExtention;		
-		loadCSS(mainCSS);
-		
-		String viewCSS = Globals.stylesSupPath+sep+this.getName()+Globals.CSSExtention;		
-		loadCSS(viewCSS);
+		String mainCSS = Globals.mainStyleFileName+Globals.CSSExtention;		
+		if (!loadCSS(mainCSS)) {
+			mainCSS = Globals.stylesSupPath+sep+Globals.mainStyleFileName+Globals.CSSExtention;		
+			loadCSS(mainCSS);
+		}
+		String viewCSS = this.getName()+Globals.CSSExtention;		
+		if (!loadCSS(viewCSS)){
+			viewCSS = Globals.stylesSupPath+sep+this.getName()+Globals.CSSExtention;		
+			loadCSS(viewCSS);
+		}
 	}
 
 	public BorderPane getMainLayout() {
@@ -113,7 +120,7 @@ public abstract class FXView extends View
 
 	public boolean isConstructed() {
 		if (constructed == false) {
-			Debugger.out("FXView("+getName()+").isContructed(): the View constructor must call the construct() method!");
+			debug.Logger.log("FXView("+getName()+").isContructed(): the View constructor must call the construct() method!");
 		}
 		return constructed;
 	}

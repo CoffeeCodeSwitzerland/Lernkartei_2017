@@ -12,8 +12,12 @@ public class MainViewSettings extends FXStage {
 	
 	public MainViewSettings (Stage primaryStage) {
 		super (primaryStage);
-		this.setWidth(920);
-		this.setHeight(620);
-		//FXStage.setBackroundColor(new Color(0.0,1.0,1.0,0.5)); TODO does not work
+		
+		// TODO: the following does not work
+//		this.setWidth(920);
+//		this.setHeight(620);
+		
+		// TODO: the follwing does not work
+//		FXStage.setBackroundColor(new Color(0.0,1.0,1.0,0.5));
 	}
 }

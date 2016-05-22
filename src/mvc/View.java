@@ -32,7 +32,7 @@ public abstract class View implements ViewInterface
 	/**
 	 * May not be invoked!
 	 */
-	protected void show()
+	protected void setVisible()
 	{
 		Debugger.out("view.show("+getName()+") has no toolkit implementation!");
 	}

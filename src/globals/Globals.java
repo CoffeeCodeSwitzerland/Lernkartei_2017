@@ -1,5 +1,10 @@
 package globals;
 
+/**
+ * Contains centralized Globals that are used for this application 
+ * 
+ * @author hugo-lucca
+ */
 public abstract class Globals {
 
 	public static String userLang = "CH-D"; // will be used in future translator
@@ -20,4 +25,7 @@ public abstract class Globals {
 	public static final String[] pairedTags = new String[]{"b", "strong", "i", "em"};
 	
 	public static final int defaultStackPartSize = 20;
+	
+	public static final boolean DebuggerIsOn = true;
+	public static final boolean TestingIsOn  = true;
 }

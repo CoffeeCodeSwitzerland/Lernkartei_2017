@@ -1,5 +1,7 @@
 package debug;
 
+import globals.Globals;
+
 public final class Debugger {
 
 	/*-
@@ -14,7 +16,7 @@ public final class Debugger {
 	private static boolean debugActive = true;
 
 	public static void out(String debugText) {
-		if (debugActive) {
+		if (debugActive && Globals.DebuggerIsOn) {
 			if (debugText == null) {
 				out();
 			} else {
@@ -24,19 +26,19 @@ public final class Debugger {
 	}
 
 	public static void out() {
-		if (debugActive) {
+		if (debugActive && Globals.DebuggerIsOn) {
 			System.out.print("*");
 		}
 	}
 
 	public static void eol() {
-		if (debugActive) {
+		if (debugActive && Globals.DebuggerIsOn) {
 			System.out.println("");
 		}
 	}
 
 	public static void out(char c, int len) {
-		if (debugActive) {
+		if (debugActive && Globals.DebuggerIsOn) {
 			for (int i = 0; i < len; i++) {
 				System.out.print(c);
 			}
@@ -45,7 +47,7 @@ public final class Debugger {
 	}
 
 	public static void title(String debugText) {
-		if (debugActive) {
+		if (debugActive && Globals.DebuggerIsOn) {
 			out(debugText);
 			out('=', debugText.length());
 		}

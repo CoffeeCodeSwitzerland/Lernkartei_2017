@@ -1,7 +1,5 @@
 package views;
 
-import debug.Debugger;
-import debug.Logger;
 import globals.Globals;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -12,6 +10,7 @@ import models.GameModel;
 import mvc.fx.FXController;
 import mvc.fx.FXView;
 import views.components.AppButton;
+import views.components.CloseButton;
 
 /**
  * Hauptfenster
@@ -29,36 +28,30 @@ public class MainView extends FXView
 
 	BorderPane mainLayout = new BorderPane();
 	AppButton startBtn = new AppButton("_Lernkarteien");
-//	AppButton statBtn = new AppButton("Statistiken");
 	AppButton stat2Btn = new AppButton("Statistiken");
 	AppButton optionsBtn = new AppButton("_Optionen");
 	AppButton gameBtn = new AppButton("_Jump 'n' Run");
-	//AppButton helpBtn = new AppButton("_Hilfe");
-	AppButton quitBtn = new AppButton("B_eenden");
 	VBox menuLayout = new VBox();
-
-	
-	
 	
 	@Override
 	public Parent constructContainer() {
 		String title = Globals.appTitle + " " + Globals.appVersion;
+		debug.Debugger.out("constructing MainView Container with title '"+title+"'...");
 		getController().getMyFXStage().setTitle(title);
 
 		// Buttons
 		startBtn.setId("startbtn");
-//		statBtn.setId("statbtn");
 		stat2Btn.setId("stat2btn");
 		optionsBtn.setId("optionsbtn");
 		gameBtn.setId("gamebtn");
-		//helpBtn.setId("helpbtn");
-		quitBtn.setId("quitbtn");
 		
-		Logger.log("Instanziere Div....");
+		debug.Debugger.out("Instanziere Div....");
 		// Layout für Menu Items
 		menuLayout.setPadding(new Insets(10));
 		menuLayout.setSpacing(15);
 		menuLayout.setAlignment(Pos.CENTER);
+
+		CloseButton quitBtn = new CloseButton(getController());
 		menuLayout.getChildren().addAll(startBtn,/* statBtn,*/ stat2Btn, optionsBtn, gameBtn, /*helpBtn,*/ quitBtn);
 
 		// Main Layout
@@ -67,29 +60,19 @@ public class MainView extends FXView
 
 		// Behaviour
 		startBtn.setOnAction(e -> getController().showView("doorview"));
-		//statBtn.setOnAction(e -> getController().showView("statisticsview"));
 		stat2Btn.setOnAction(e -> getController().showView("statsview"));
 		optionsBtn.setOnAction(e -> getController().showView("optionsview"));
 		gameBtn.setOnAction(e -> getController().showView("gameview"));
-		//helpBtn.setOnAction(e -> getController().getView("helpview").show());
-
-		quitBtn.setOnAction(e ->
-		{
-			Debugger.out("closing 1 (Beenden Button)");
-			GameModel gm = (GameModel) getController().getModel("game");
-			if (gm != null) gm.dispose();
-			getWindow().close();
-		});
 
 		getWindow().setOnCloseRequest(e ->
 		{
-			Debugger.out("closing 2");
+			debug.Debugger.out("closing window");
 			GameModel gm = (GameModel) getController().getModel("game");
 			if (gm != null) gm.dispose();
 			getWindow().close();
 		});
 		
-		Logger.log("Set impressum....");
+		debug.Debugger.out("Set impressum...");
 
 		// Impressum Leerbox (IMG in CSS eingefügt)
 		BorderPane imgPane = new BorderPane();

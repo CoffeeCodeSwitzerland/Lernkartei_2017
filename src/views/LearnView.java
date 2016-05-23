@@ -51,8 +51,8 @@ public class LearnView extends FXViewModel
 		AppButton backBtn = new AppButton("_Zurück");
 		backBtn.setOnAction(e ->
 		{
-			counter = 0;
-			getController().showView("stack");
+			counter = 0; // TODO ist das Nullen hier an dieser Stelle korrekt?
+			getController().showLastView();
 		});
 
 		headLbl.setId("bold");

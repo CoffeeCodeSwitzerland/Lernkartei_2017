@@ -18,6 +18,7 @@ import mvc.fx.FXController;
 import mvc.fx.FXView;
 import views.components.Alert;
 import views.components.AppButton;
+import views.components.HomeButton;
 
 /**
  * Zeigt alle Türen an. Erlaubt die Erstellung und das Löschen von Türen.
@@ -43,7 +44,7 @@ public class DoorView extends FXView
 		doorLayout.setAlignment(Pos.CENTER);
 
 		// Buttons
-		AppButton backBtn = new AppButton("_Zurück");
+		HomeButton homeBtn = new HomeButton(getController());
 		AppButton newDoorBtn = new AppButton("_Neue Tür");
 		AppButton renameBtn = new AppButton("Umbennen");
 
@@ -54,7 +55,7 @@ public class DoorView extends FXView
 		// Layout für Controls (Hauptsteuerung)
 		HBox controlsLayout = new HBox(20);
 		controlsLayout.setAlignment(Pos.CENTER); // NICHT MEHR ENTFERNEN
-		controlsLayout.getChildren().addAll(backBtn, newDoorBtn, renameBtn, trashImgView);
+		controlsLayout.getChildren().addAll(homeBtn, newDoorBtn, renameBtn, trashImgView);
 
 		// Main Layout
 		BorderPane mainLayout = new BorderPane();
@@ -62,10 +63,6 @@ public class DoorView extends FXView
 
 		mainLayout.setCenter(doorLayout);
 		mainLayout.setBottom(controlsLayout);
-
-		
-		// Behaviour
-		backBtn.setOnAction(e -> getController().showMainView());
 
 		newDoorBtn.setOnAction(e ->
 		{

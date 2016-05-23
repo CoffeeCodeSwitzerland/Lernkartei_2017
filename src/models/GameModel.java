@@ -2,7 +2,6 @@ package models;
 
 import javax.swing.SwingUtilities;
 
-import debug.Debugger;
 import javafx.embed.swing.SwingNode;
 import mvc.Controller;
 import mvc.Model;
@@ -20,6 +19,7 @@ public class GameModel extends Model {
 	}
 
 	public void init() {
+		debug.Debugger.out("Game model: starting game...");
 		mf = new ScrollyV8(); // build game
 		mf.init();
 	}
@@ -28,6 +28,7 @@ public class GameModel extends Model {
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {
+				debug.Debugger.out("Game model: starting swing thread...");
 				if (mf == null)
 					init();
 				mf.setVisible(true);
@@ -37,17 +38,15 @@ public class GameModel extends Model {
 	}
 
 	public void dispose() {
-		Debugger.out("Dispose Game");
+		debug.Debugger.out("Game model: disposing game...");
 		if (mf != null) {
 			mf.setVisible(false);
 			mf.dispose();
 			mf = null;
-
 			System.exit(0);
 		}
 
 	}
-
 	
 	public void registerView (View theView, Controller c)
 	{

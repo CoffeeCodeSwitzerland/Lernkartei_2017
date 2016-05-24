@@ -7,10 +7,10 @@ import mvc.Model;
 
 public class StackModel extends Model
 {
-	public StackModel (String myName)
-	{
-		super(myName);
-	}
+//	public StackModel (String myName)
+//	{
+//		super(myName);
+//	}
 
 	@Override
 	public int doAction (String functionName, String paramS, double paramD)

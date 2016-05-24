@@ -2,7 +2,6 @@ package mvc.fx;
 
 import debug.Debugger;
 import mvc.Controller;
-import mvc.View;
 /**
  * Abstract GUI-Toolkit independent FX-Controller
  * ==============================================
@@ -41,9 +40,10 @@ public abstract class FXController extends Controller
 	 * @return true if ok, false if not unique or called twice
 	 */
 	public boolean addViewOnNewStage (FXView newView) {
-		boolean result = this.addUniqueView(newView);
+		String name = newView.myParentLayout.getId();
+		boolean result = this.addUniqueView(newView, name);
 		if (result) {
-			newView.getFXController().addUniqueMainView(newView);
+			newView.getFXController().addUniqueMainView(newView, name);
 			newView.isConstructed();
 		}
 		return result;
@@ -54,12 +54,12 @@ public abstract class FXController extends Controller
 	 * 
 	 * @return true if ok, false if not unique or called twice
 	 */
-	@Override
-	public boolean addUniqueView (View newView) {
-		boolean result = super.addUniqueView(newView);
+	public boolean addUniqueView (FXView newView) {
+		String name = newView.myParentLayout.getId();
+		boolean result = super.addUniqueView(newView, name);
 		// check if the new view is not an View (must be Toolkit-class):
 		if (newView.getClass().getGenericSuperclass().toString().endsWith(".View")) {
-			Debugger.out("FXController.addUniqueView(View("+newView.getName()+")) is not a FXView!");
+			Debugger.out("FXController.addUniqueView(View("+name+")) is not a FXView!");
 		} else {
 			((FXView) newView).isConstructed();
 		}

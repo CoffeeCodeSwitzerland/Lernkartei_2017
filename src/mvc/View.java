@@ -1,6 +1,6 @@
 package mvc;
 
-import debug.Debugger;
+import debug.Logger;
 /**
  * Abstract GUI-Toolkit independent View of my MVC concept
  * =======================================================
@@ -12,28 +12,28 @@ import debug.Debugger;
  */
 public abstract class View implements ViewInterface
 {
-	private String name; // name of the view
-	
-	public View (String newName) {
-		name   = newName;
-	}
-
+	//	private String name; // name of the view
+//	
+//	public View (String newName) {
+//		name   = newName;
+//	}
+//
 	/**
 	 * To compare when searching a view:
 	 * - no setter (only set by the constructor)
 	 * 
 	 * @return name of the view
 	 */
-	public String getName()
-	{
-		return name;
-	}
+//	public String getName()
+//	{
+//		return name;
+//	}
 
 	/**
 	 * May not be invoked!
 	 */
 	protected void setVisible()
 	{
-		Debugger.out("view.show("+getName()+") has no toolkit implementation!");
+		Logger.log("view.setVisible() has no toolkit implementation!");
 	}
 }

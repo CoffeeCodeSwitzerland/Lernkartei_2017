@@ -20,7 +20,10 @@ import views.components.AppButton;
 public class PostLearnView extends FXViewModel
 {
 
-	public PostLearnView (String setName, FXController newController) { super(setName, newController); construct(); }
+	public PostLearnView (String setName, FXController newController) { 
+		super(newController); 
+		construct(setName); 
+	}
 
 	BorderPane mainLayout = new BorderPane();
 	

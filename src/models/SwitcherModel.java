@@ -4,9 +4,9 @@ import mvc.Model;
 
 public class SwitcherModel extends Model {
 
-	public SwitcherModel (String myName) {
-		super(myName);
-	}
+//	public SwitcherModel (String myName) {
+//		super(myName);
+//	}
 
 	@Override
 	public int doAction (String functionName, String paramS, double paramD) {

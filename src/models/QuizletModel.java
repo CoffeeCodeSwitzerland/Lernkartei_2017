@@ -10,10 +10,10 @@ import mvc.Model;
 
 public class QuizletModel extends Model {
 
-	public QuizletModel (String myName) {
-		super(myName);
-		
-	}
+//	public QuizletModel (String myName) {
+//		super(myName);
+//		
+//	}
 
 	@Override
 	public ArrayList<String> getDataList (String query) {

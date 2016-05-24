@@ -33,8 +33,8 @@ public class QuizletImportView extends FXViewModel
 
 	public QuizletImportView (String newName, FXController newController)
 	{
-		super(newName, newController);
-		construct();
+		super(newController);
+		construct(newName);
 	}
 
 	ArrayList<HBox>		quizletSets;

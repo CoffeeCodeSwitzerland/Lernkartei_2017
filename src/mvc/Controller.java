@@ -1,10 +1,9 @@
 package mvc;
 
-import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.HashMap;
 
-import debug.Debugger;
-import debug.Supervisor;
+import debug.Logger;
+
 /**
  * Abstract GUI-Toolkit independent Controller of my MVC concept
  * =============================================================
@@ -18,8 +17,9 @@ import debug.Supervisor;
  */
 public abstract class Controller implements ControllerInterface
 {
-	private final ArrayList<View> views	= new ArrayList<View>();	// list of the controllers views's
-	private final ArrayList<Model> models = new ArrayList<Model>();	// list of the controllers model's
+	private final HashMap<String,View> views = new HashMap<String,View>();	// list of the controllers views's
+//	private final ArrayList<View> views = new ArrayList<View>();	// list of the controllers views's
+	private final HashMap<String,Model> models = new HashMap<String,Model>();	// list of the controllers model's
 
 	private String mainViewName;	// to simplify navigation to main view
 
@@ -52,17 +52,18 @@ public abstract class Controller implements ControllerInterface
 	 */
 	public Model getModel (String withName)
 	{
-		for (Model m : models)
-		{
-			if (m.getName().equals(withName)) { return m; }
-		}
-
-		if (withName != null)
-			Supervisor.warnAndDebug(this, "model(" + withName + ") not found!");
-		else
-			Supervisor.warnAndDebug(this, "model(null) not allowed!");
-
-		return null; // not found
+		return models.get(withName);
+//		for (Model m : models)
+//		{
+//			if (m.getName().equals(withName)) { return m; }
+//		}
+//
+//		if (withName != null)
+//			Supervisor.warnAndDebug(this, "model(" + withName + ") not found!");
+//		else
+//			Supervisor.warnAndDebug(this, "model(null) not allowed!");
+//
+//		return null; // not found
 	}
 
 	/**
@@ -105,7 +106,7 @@ public abstract class Controller implements ControllerInterface
 				thisView=v;
 				v.setVisible();
 			} else {
-				Debugger.out("Controller.showView(): no view("+withName+")!");
+				Logger.log("Controller.showView(): no view("+withName+")!");
 			}
 		}
 	}
@@ -120,38 +121,49 @@ public abstract class Controller implements ControllerInterface
 	 */
 	protected View seekView (String withName)
 	{
-		for (View v : views)
-		{
-			if (v.getName().equals(withName))
-			{
-				return v;
-			}
-		}
-		if (withName != null)
-			Supervisor.warnAndDebug(this, "Controller.seekView("+withName+") not found!");
-		else
-			Supervisor.warnAndDebug(this, "Controller.seekView(null) not allowed!");
-		return null; // not found
+		return views.get(withName);
+//		for (View v : views)
+//		{
+//			if (v.getName().equals(withName))
+//			{
+//				return v;
+//			}
+//		}
+//		if (withName != null)
+//			Supervisor.warnAndDebug(this, "Controller.seekView("+withName+") not found!");
+//		else
+//			Supervisor.warnAndDebug(this, "Controller.seekView(null) not allowed!");
+//		return null; // not found
 	}
 
 	/**
 	 * To add a model with a unique name to the controllers list called models
 	 */
-	public boolean addUniqueModel (Model newModel) {
-		Iterator<Model> it = models.iterator();
-		int found = 0;
-		while (it.hasNext()) {
-			Model m = it.next();
-			if (m.getName().equals(newModel.getName())) {
-				found++;
+	public boolean addUniqueModel (Model newModel, String name) {
+		if (newModel != null) {
+			if (models.get(name) == null) {
+				models.put(name, newModel);
+				return true;
+			} else {
+				Logger.log("Controller.addUniqueModel: the model '"+name+"' already exists!");
 			}
-		}
-		if (found == 0) {
-			models.add(newModel);
-			return true;
 		} else {
-			Debugger.out("AddUniqueModel: the model '"+newModel.getName()+"' alread exists!");
+			Logger.log("Controller.addUniqueModel: the model 'null' may not be added!");
 		}
+//		Iterator<Model> it = models.iterator();
+//		int found = 0;
+//		while (it.hasNext()) {
+//			Model m = it.next();
+//			if (m.getName().equals(newModel.getName())) {
+//				found++;
+//			}
+//		}
+//		if (found == 0) {
+//			models.add(newModel);
+//			return true;
+//		} else {
+//			Debugger.out("AddUniqueModel: the model '"+newModel.getName()+"' alread exists!");
+//		}
 		return false;
 	}
 
@@ -160,21 +172,31 @@ public abstract class Controller implements ControllerInterface
 	 * 
 	 * @return true if ok, false if not unique or called twice
 	 */
-	public boolean addUniqueView (View newView) {
-		Iterator<View> it = views.iterator();
-		int found = 0;
-		while (it.hasNext()) {
-			View v = it.next();
-			if (v.getName().equals(newView.getName())) {
-				found++;
+	public boolean addUniqueView (View newView, String name) {
+		if (newView != null) {
+			if (views.get(name) == null) {
+				views.put(name, newView);
+				return true;
+			} else {
+				Logger.log("Controller.addUniqueView: the view '"+name+"' already exists!");
 			}
-		}
-		if (found == 0) {
-			views.add(newView);
-			return true;
 		} else {
-			Debugger.out("AddUniqueView: the view '"+newView.getName()+"' alread exists!");
+			Logger.log("AddUniqueView: the view 'null' may not be added!");
 		}
+//		Iterator<View> it = views.iterator();
+//		int found = 0;
+//		while (it.hasNext()) {
+//			View v = it.next();
+//			if (v.getName().equals(newView.getName())) {
+//				found++;
+//			}
+//		}
+//		if (found == 0) {
+//			views.add(newView);
+//			return true;
+//		} else {
+//			Debugger.out("AddUniqueView: the view '"+newView.getName()+"' already exists!");
+//		}
 		return false;
 	}
 
@@ -184,10 +206,10 @@ public abstract class Controller implements ControllerInterface
 	 * 
 	 * @return true if ok, false if not unique or called twice
 	 */
-	public boolean addUniqueMainView(View mainView) {
-		boolean result = this.addUniqueView(mainView);
+	public boolean addUniqueMainView(View mainView, String name) {
+		boolean result = this.addUniqueView(mainView, name);
 		if (result) {
-			this.mainViewName = mainView.getName();
+			this.mainViewName = name;
 		}
 		return result;
 	}

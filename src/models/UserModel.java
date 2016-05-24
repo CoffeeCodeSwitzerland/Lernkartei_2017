@@ -9,10 +9,10 @@ import user.User;
 
 public class UserModel extends Model
 {
-	public UserModel (String myName)
-	{
-		super(myName);
-	}
+//	public UserModel (String myName)
+//	{
+//		super(myName);
+//	}
 
 	@Override
 	public int doAction (String functionName, String paramS, double paramD)

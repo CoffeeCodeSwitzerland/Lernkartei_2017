@@ -2,6 +2,7 @@ package mvc.fx;
 
 import java.net.URL;
 
+import debug.Logger;
 import debug.Supervisor;
 import globals.Environment;
 import globals.Globals;
@@ -24,28 +25,29 @@ public abstract class FXView extends View
 	private final BorderPane mainLayout = new BorderPane();
 	private FXController myFXController;
 	private boolean constructed = false;
-	
-	public void construct () {
+	protected Parent myParentLayout;
+
+	public void construct (String newName) {
 		// call this to construct the view
-		Parent p = constructContainer();
-		if (p==null) {
-			p = getMainLayout();
+		myParentLayout = constructContainer();
+		if (myParentLayout==null) {
+			myParentLayout = getMainLayout();
 		}
-		p.setId(this.getName());
-		setupScene(p);
+		myParentLayout.setId(newName);
+		setupScene(myParentLayout);
 		this.constructed = true;
 	}
 
-	public FXView(String newName, FXController newController) {
+	public FXView(FXController newController) {
 		// this constructor is the same for all view's on same stage
-		super(newName);
+		//super(newName);
 		myFXController = newController;
 		scene = null;
 	}
 
 	public FXController getFXController() {
 		if (myFXController != null) return myFXController;
-		Supervisor.warnAndDebug(this, "FXView.getFXController(): no FXController defined for this stage!");
+		Supervisor.warnAndDebug(this, "FXView("+myParentLayout.getId()+").getFXController(): no FXController defined for this stage!");
 		return null;
 	}
 	
@@ -60,20 +62,20 @@ public abstract class FXView extends View
 	
 	protected void setVisible()
 	{
-		debug.Debugger.out("Get window...");
+		debug.Debugger.out("Get window("+myParentLayout.getId()+")...");
 		Stage stage = getWindow();
 		if (stage != null) {
 			if (scene != null) {
-				debug.Debugger.out("Set scene("+getName()+")");
+				debug.Debugger.out("Set scene("+myParentLayout.getId()+")...");
 				stage.setScene(scene);
 			} else {
-				debug.Logger.log("show("+getName()+") has no scene!");
+				Logger.log("FXView("+myParentLayout.getId()+").setVisible() has no scene!");
 			}
 			//Logger.log("stage show....");
-			debug.Debugger.out("Set stage("+getName()+")");
+			debug.Debugger.out("Set stage("+myParentLayout.getId()+")...");
 			stage.show();
 		} else {
-			debug.Logger.log("show("+getName()+") has no window!");
+			Logger.log("FXView("+myParentLayout.getId()+").setVisible() has no window!");
 		}
 		this.refreshView();
 	}
@@ -86,7 +88,7 @@ public abstract class FXView extends View
 				scene.getStylesheets().add(getClass().getResource(stylePath).toExternalForm());
 				return  true;
 			} else {
-				debug.Logger.log("FXView("+getName()+").setUpScene() no css-url found for "+stylePath);
+				Logger.log("FXView("+myParentLayout.getId()+").setUpScene() no css-url found for "+stylePath);
 			}
 		} else {
 		 //  Debugger.out("FXView("+getName()+").setUpScene(): no css ressource found for "+stylePath);
@@ -107,9 +109,9 @@ public abstract class FXView extends View
 			mainCSS = Globals.stylesSupPath+sep+Globals.mainStyleFileName+Globals.CSSExtention;		
 			loadCSS(mainCSS);
 		}
-		String viewCSS = this.getName()+Globals.CSSExtention;		
+		String viewCSS = p.getId()+Globals.CSSExtention;		
 		if (!loadCSS(viewCSS)){
-			viewCSS = Globals.stylesSupPath+sep+this.getName()+Globals.CSSExtention;		
+			viewCSS = Globals.stylesSupPath+sep+p.getId()+Globals.CSSExtention;		
 			loadCSS(viewCSS);
 		}
 	}
@@ -120,7 +122,7 @@ public abstract class FXView extends View
 
 	public boolean isConstructed() {
 		if (constructed == false) {
-			debug.Logger.log("FXView("+getName()+").isContructed(): the View constructor must call the construct() method!");
+			Logger.log("FXView("+myParentLayout.getId()+").isContructed(): the View constructor must call the construct() method!");
 		}
 		return constructed;
 	}

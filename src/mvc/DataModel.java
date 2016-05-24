@@ -17,7 +17,7 @@ public abstract class DataModel implements ModelInterface
 	private final ArrayList<View> registredViews = new ArrayList<View>();
 
 	// the models name (to find it within a list):
-	private String name;
+//	private String name;
 	
 	// yet implemented, because frequently used:
 	private String smallData;  // a single data element as String and/or
@@ -27,19 +27,19 @@ public abstract class DataModel implements ModelInterface
 	 * To save the model name: 
 	 * @param myNewName
 	 */
-	public DataModel (String myNewName)
-	{
-		name = myNewName;
-	}
+//	public DataModel (String myNewName)
+//	{
+//		name = myNewName;
+//	}
 
 	/**
 	 * To compare models by her name:
 	 * @return name of this model
 	 */
-	public String getName ()
-	{
-		return this.name;
-	}
+//	public String getName ()
+//	{
+//		return this.name;
+//	}
 
 	/**
 	 * Allows different parameter settings for the same method:

@@ -30,8 +30,8 @@ public class DoorView extends FXView
 {
 	public DoorView(String newName, FXController newController) {
 		// this constructor is the same for all view's
-		super(newName, newController);
-		construct();
+		super(newController);
+		construct(newName);
 	}
 
 	// Zeigt Türen dynamisch an

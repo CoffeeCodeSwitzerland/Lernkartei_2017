@@ -18,8 +18,8 @@ import mvc.fx.FXView;
 public class TestView extends FXView
 {
 	public TestView(String newName, FXController newController) {
-		super(newName, newController);
-		construct();
+		super(newController);
+		construct(newName);
 	}
 
 	private final VBox myLayout = new VBox();

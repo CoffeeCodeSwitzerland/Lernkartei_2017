@@ -25,8 +25,8 @@ public class SimpleEditorView extends FXViewModel
 	public SimpleEditorView (String newName, FXController newController)
 	{
 		// this constructor is the same for all view's
-		super(newName, newController);
-		construct();
+		super(newController);
+		construct(newName);
 	}
 
 	VBox	editLayout	= new VBox(10);

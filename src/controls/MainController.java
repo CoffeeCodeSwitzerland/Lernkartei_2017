@@ -46,17 +46,16 @@ public class MainController extends FXController
 
 	@Override
 	public void initMyModels() {
-		Logger.stop();
 		Logger.log("Instanziere Models....");
-		this.addUniqueModel(new GameModel("game"));
-		this.addUniqueModel(new DoorModel("door"));
-		this.addUniqueModel(new StackModel("stack"));
-		this.addUniqueModel(new CardModel("cards"));
-		this.addUniqueModel(new LearnModel("learn"));
-		this.addUniqueModel(new ProfilModel("profil"));
-		this.addUniqueModel(new QuizletModel("quizlet"));
-		this.addUniqueModel(new ConfigModel("config"));
-		this.addUniqueModel(new StatisticsModel("statistics"));
+		this.addUniqueModel(new GameModel(),"game");
+		this.addUniqueModel(new DoorModel(),"door");
+		this.addUniqueModel(new StackModel(),"stack");
+		this.addUniqueModel(new CardModel(),"cards");
+		this.addUniqueModel(new LearnModel(),"learn");
+		this.addUniqueModel(new ProfilModel(),"profil");
+		this.addUniqueModel(new QuizletModel(),"quizlet");
+		this.addUniqueModel(new ConfigModel(),"config");
+		this.addUniqueModel(new StatisticsModel(),"statistics");
 	}
 
 	@Override

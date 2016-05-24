@@ -17,8 +17,8 @@ public class TestController extends FXController
 
 	@Override
 	public void initMyModels() {
-		this.addUniqueModel(new Model("auto"));
-		this.addUniqueModel(new Model("lkw"));
+		this.addUniqueModel(new Model(),"auto");
+		this.addUniqueModel(new Model(),"lkw");
 	}
 
 	@Override

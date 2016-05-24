@@ -14,18 +14,18 @@ import statistics.Diagramm;
 public class StatisticsModel extends FXModel
 {
 
-	public StatisticsModel(String myName)
-	{
-		super(myName);
-	}
+//	public StatisticsModel(String myName)
+//	{
+//		super(myName);
+//	}
 	
 	//ROL --> RanglisteObversableList
 	ObservableList<String> ROL = FXCollections.observableArrayList();
 	public ObservableList<String> getObservableDataList(String query) {
 		if (query.equals("Rangliste")) {
-			System.out.println("StatisticsModel 1 Rangliste");
+			debug.Debugger.out("StatisticsModel 1 Rangliste");
 			ROL = Rangliste.getRangliste();
-			System.out.println(ROL.get(0));
+			debug.Debugger.out(ROL.get(0));
 			return ROL;
 		} else {
 			return super.getObservableDataList(query);

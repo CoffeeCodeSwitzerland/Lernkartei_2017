@@ -18,8 +18,8 @@ import mvc.fx.FXViewModel;
 public class SampleFXView extends FXViewModel
 {
 	public SampleFXView(String setName, FXController controller) {
-		super(setName, controller);
-		construct();
+		super(controller);
+		construct(setName);
 	}
 
 	private final String 			subTitle = "(Java FX Demo)";

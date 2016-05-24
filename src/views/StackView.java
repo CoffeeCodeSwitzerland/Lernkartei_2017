@@ -34,8 +34,8 @@ public class StackView extends FXViewModel
 	public StackView (String newName, FXController newController)
 	{
 		// this constructor is the same for all view's
-		super(newName, newController);
-		construct();
+		super(newController);
+		construct(newName);
 	}
 
 	VBox	boxLayout;
@@ -89,7 +89,7 @@ public class StackView extends FXViewModel
 			{
 				case 0:
 					final String stackName = Alert.simpleString("Neuer Stapel", "Wie soll der neue Stapel heissen?");
-					if (this.getName() != null && stackName != null)
+					if (/*this.getName() != null &&*/ stackName != null)
 					{
 						getController().getModel("stack").doAction("new",
 								getData() + globals.Globals.SEPARATOR + stackName);

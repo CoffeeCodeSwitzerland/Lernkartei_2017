@@ -19,9 +19,9 @@ public final class ViewModel extends View
 	 * @param setName
 	 * @param newController
 	 */
-	public ViewModel(String setName) {
-		super(setName);
-		myModel = new Model(setName);
+	public ViewModel() {
+//		super(setName);
+		myModel = new Model();
 		myModel.registerView(this);
 	}
 
@@ -31,7 +31,7 @@ public final class ViewModel extends View
 	 * @return myModel
 	 */
 	public DataModel getMyModel() {
-		if (myModel == null) myModel = new Model(getName());
+		if (myModel == null) myModel = new Model();
 		return myModel;
 	}
 	

@@ -6,10 +6,10 @@ import mvc.Model;
 
 public class LearnModel extends Model {
 
-	public LearnModel(String myName) {
-		super(myName);
-
-	}
+//	public LearnModel(String myName) {
+//		super(myName);
+//
+//	}
 
 	@Override
 	public int doAction(String functionName, String freeStringParam, double freeDoubleParam) {

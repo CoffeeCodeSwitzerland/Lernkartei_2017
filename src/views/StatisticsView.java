@@ -10,19 +10,20 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import mvc.*;
+import mvc.fx.FXController;
+import mvc.fx.FXView;
 import views.components.AppButton;
 
 /**
  * @author nina-egger
  *
  */
-public class StatisticsView extends View
+public class StatisticsView extends FXView
 {		
-	public StatisticsView(String newName, Controller newController) {
+	public StatisticsView(String newName, FXController newController) {
 		// this constructor is the same for all view's
-		super(newName);
-//		constructContainer();
+		super(newController);
+		construct(newName);
 	}
 
 	HBox ChartLayout;

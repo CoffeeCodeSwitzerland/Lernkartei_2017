@@ -13,8 +13,8 @@ public class QuizletController extends FXController
 {
 	@Override
 	public void initMyModels() {
-		this.addUniqueModel(new QuizletModel("quizlet"));
-		this.addUniqueModel(new CardModel("cards"));
+		this.addUniqueModel(new QuizletModel(),"quizlet");
+		this.addUniqueModel(new CardModel(),"cards");
 	}
 
 	@Override

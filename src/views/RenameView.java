@@ -16,8 +16,8 @@ public class RenameView extends FXViewModel
 
 	public RenameView (String setName, FXController newController)
 	{
-		super(setName, newController);
-		construct();
+		super(newController);
+		construct(setName);
 	}
 
 	VBox elements = new VBox(20);

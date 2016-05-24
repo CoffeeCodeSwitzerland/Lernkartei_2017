@@ -17,10 +17,10 @@ public class FXModel extends Model
 {
 	private final ObservableList<String> observableDataList = FXCollections.observableArrayList();
 	
-	public FXModel (String myName)
-	{
-		super(myName);
-	}
+//	public FXModel (String myName)
+//	{
+//		super(myName);
+//	}
 	
 	public ObservableList<String> getObservableDataList() {
 		return observableDataList;

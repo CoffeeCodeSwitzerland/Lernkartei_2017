@@ -23,8 +23,8 @@ public class PreLearnView extends FXViewModel
 {
 	public PreLearnView (String setName, FXController controller)
 	{
-		super(setName, controller);
-		construct();
+		super(controller);
+		construct(setName);
 	}
 
 	

@@ -14,9 +14,9 @@ public class GameModel extends Model {
 	private ScrollyV8 mf;
 
 	public static Controller gameController;
-	public GameModel(String myName) {
-		super(myName);
-	}
+//	public GameModel(String myName) {
+//		super(myName);
+//	}
 
 	public void init() {
 		debug.Debugger.out("Game model: starting game...");

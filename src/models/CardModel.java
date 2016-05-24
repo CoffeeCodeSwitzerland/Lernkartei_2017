@@ -8,10 +8,10 @@ import mvc.Model;
 
 public class CardModel extends Model {
 
-	public CardModel (String myName) {
-		super(myName);
-	}
-
+//	public CardModel (String myName) {
+//		super(myName);
+//	}
+//
 	@Override
 	public int doAction (String functionName, String paramS, double paramD) {
 		

@@ -6,9 +6,9 @@ import mvc.Model;
 
 public class EditorModel extends Model {
 
-	public EditorModel (String myName) {
-		super(myName);	
-	}
+//	public EditorModel (String myName) {
+//		super(myName);	
+//	}
 		
 	@Override	
 	public int doAction (String functionName, String paramS, double paramD) {

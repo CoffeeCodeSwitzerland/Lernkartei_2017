@@ -12,10 +12,10 @@ import user.User;
 public class ProfilModel extends FXModel
 {
 
-	public ProfilModel(String myName)
-	{
-		super(myName);
-	}
+//	public ProfilModel(String myName)
+//	{
+//		super(myName);
+//	}
 
 	//Wenn man Username ändern will bitte als paramS ein String in der Form newName:::oldName übergeben
 	private static String[] Data = new String[2];
@@ -64,10 +64,10 @@ public class ProfilModel extends FXModel
 	
 	public ObservableList<String> getObservableDataList(String query) {
 		if (query.equals("ranking")) {
-			System.out.println("ProfilModel Ranking 1");
+			debug.Debugger.out("ProfilModel Ranking 1");
 			return p.getRanking();
 		} else {
-			System.out.println("ProfilModel Ranking 2");
+			debug.Debugger.out("ProfilModel Ranking 2");
 			return super.getObservableDataList(query);
 		}
 	}

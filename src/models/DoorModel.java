@@ -6,9 +6,9 @@ import mvc.Model;
 
 public class DoorModel extends Model {
 
-	public DoorModel (String myName) {
-		super(myName);	
-	}
+//	public DoorModel (String myName) {
+//		super(myName);	
+//	}
 		
 	@Override	
 	public int doAction (String functionName, String paramS, double paramD) {

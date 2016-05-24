@@ -25,8 +25,8 @@ public class OptionsView extends FXView
 {
 	public OptionsView (String newName, FXController newController)
 	{
-		super(newName, newController);
-		construct();
+		super(newController);
+		construct(newName);
 	}
 	
 	boolean resetChange = false;

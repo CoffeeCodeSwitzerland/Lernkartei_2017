@@ -17,9 +17,9 @@ public abstract class FXViewModel extends FXView
 	 * @param setName
 	 * @param newController
 	 */
-	public FXViewModel(String setName, FXController newController) {
-		super(setName, newController);
-		myModel = new Model(setName);
+	public FXViewModel(FXController newController) {
+		super(newController);
+		myModel = new Model();
 		myModel.registerView(this);
 	}
 
@@ -29,7 +29,7 @@ public abstract class FXViewModel extends FXView
 	 * @return myModel
 	 */
 	public DataModel getMyModel() {
-		if (myModel == null) myModel = new Model(getName());
+		if (myModel == null) myModel = new Model();
 		return myModel;
 	}
 	

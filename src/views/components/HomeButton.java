@@ -16,7 +16,7 @@ public class HomeButton extends AppButton {
 	 */
 	public HomeButton (FXController c, String btnText) {
 		super(btnText);
-		setId("backbtn");
+		setId("homebtn");
 		myController = c;
 		setOnAction(e ->
 		{

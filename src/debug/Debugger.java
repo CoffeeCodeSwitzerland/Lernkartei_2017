@@ -20,7 +20,7 @@ public final class Debugger {
 			if (debugText == null) {
 				out();
 			} else {
-				System.out.println(debugText);
+				System.out.println(">>"+debugText);
 			}
 		}
 	}

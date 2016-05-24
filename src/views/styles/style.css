@@ -41,6 +41,10 @@
 	-fx-background-image: url("pictures/BackIcon.png");
 	-fx-background-repeat: no-repeat;}
 	
+#homebtn{
+	-fx-background-image: url("pictures/HomeIcon.png");
+	-fx-background-repeat: no-repeat;}
+	
 #helpbtn{
 	-fx-background-image: url("pictures/HelpIcon.png");
 	-fx-background-repeat: no-repeat;}

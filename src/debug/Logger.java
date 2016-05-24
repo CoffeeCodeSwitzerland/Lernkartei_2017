@@ -1,23 +1,23 @@
 package debug;
 
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 
 import globals.Environment;
 
+/*-
+ * Purpose:	
+ * - to simplify logging (handles a log-file and an ArrayList)
+ * - you may log in RAM (fast method) and/or
+ * - you may log on a log-file (slower but appending log's)
+ * - if too big, delete the log-file manually
+ * - time stamps are added automatically
+ * 
+ * @AUTHOR Hugo Lucca
+ */
 public final class Logger {
-
-	/*-
-	 * Purpose:	
-	 * - to simplify logging (handles a log-file and an ArrayList)
-	 * - you may log in RAM (fast method) and/or
-	 * - you may log on a log-file (slower but appending log's)
-	 * - if too big, delete the log-file manually
-	 * - time stamps are added automatically
-	 * 
-	 * @AUTHOR Hugo Lucca
-	 */
 
 	private final static ArrayList<String> logData = new ArrayList<String>(); // faster than logfile
 	private static MyFile  myLogfile = null;
@@ -28,10 +28,13 @@ public final class Logger {
 	private static boolean holdRamLoggingActive = false;
 	private static boolean holdFileLoggingActive = true;
 
+	private static long lastTime = 0L;
+	
 	public static void init () {
 		if (myLogfile == null) {
-			Debugger.out("Creating Logfile:"+Environment.getUserName());
+			Debugger.out("Creating Logfile:'"+Environment.getActualPath()+Environment.getFileSep()+"LogfileOf"+Environment.getUserName()+".txt'");
 			myLogfile = new MyFile("LogfileOf"+Environment.getUserName()+".txt");
+			log("Start");
 		}
 	}
 	
@@ -39,7 +42,12 @@ public final class Logger {
 	public static void log(String logLine) {
 		if (logLine == null)
 			logLine = "{Logger:null?}";
-		String log = LocalDate.now() + "-" + LocalTime.now().toNanoOfDay() + ": " + logLine;
+		long time = LocalTime.now().toNanoOfDay();
+		double diff = (time - lastTime)/100000000.0;
+		lastTime = time;
+		String stime = Long.toString(time).substring(1, 9);
+		final DecimalFormat oneDigit = new DecimalFormat( "0.0" );
+		String log = LocalDate.now() + "-" + stime +"<"+oneDigit.format( diff )+">"+ ": " + logLine;
 		if (myLogfile == null) init();
 		if (myLogfile != null && fileLoggingActive == true) {
 			myLogfile.save(log);

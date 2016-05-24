@@ -47,7 +47,7 @@ public class MyFile extends File {
 
 			myFile.close();
 		} catch (IOException ex1) {
-			System.out.println("Supervisor: Cannot handle the log-file '" + this.getName() + "'!");
+			System.err.println("Supervisor: Cannot handle the log-file '" + this.getName() + "'!");
 			if (myFile != null) {
 				try {
 					myFile.close();

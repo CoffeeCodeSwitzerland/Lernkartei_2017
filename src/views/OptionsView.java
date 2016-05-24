@@ -1,6 +1,5 @@
 package views;
 
-import debug.Debugger;
 import globals.Globals;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -12,7 +11,7 @@ import javafx.scene.layout.VBox;
 import mvc.fx.FXController;
 import mvc.fx.FXView;
 import views.components.Alert;
-import views.components.AppButton;
+import views.components.BackButton;
 
 
 /**
@@ -79,12 +78,12 @@ public class OptionsView extends FXView
 		CheckBox autoWidth = new CheckBox("Biggy is the ruler");
 		autoWidth.setSelected(oldValue);
 		autoWidth.selectedProperty().addListener(e -> {
-			Debugger.out("Width property has changed");
+			debug.Debugger.out("Width property has changed");
 			String value = autoWidth.selectedProperty().getValue() ? "true" : "000";
 			getFXController().getModel("config").doAction("setValue", "widthState" + Globals.SEPARATOR + value);
 		});		
 		
-		AppButton back = new AppButton("_Zurück");
+		BackButton back = new BackButton(getController());
 
 		
 		VBox mainLayout = new VBox();
@@ -93,8 +92,6 @@ public class OptionsView extends FXView
 		mainLayout.setAlignment(Pos.CENTER);
 		mainLayout.getChildren().addAll(cardLimitDescription, cardLearnLimit, autoWidthDescription, autoWidth, back);
 
-		back.setOnAction(e -> getController().showMainView());
-		
 		return mainLayout;
 	}
 

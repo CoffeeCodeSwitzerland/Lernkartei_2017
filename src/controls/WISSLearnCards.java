@@ -1,5 +1,6 @@
 package controls;
 
+import debug.Logger;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -9,19 +10,19 @@ import javafx.stage.Stage;
  * @author Rook Studios!
  * 
  */
-
 public class WISSLearnCards extends Application
 {
 	public static void main (String[] args)
 	{
-		// Initialisiert javafx
-		launch(args);
+		launch(args); // Initialize java fx
 	}
 
 	@Override
 	public void start (Stage primaryStage) throws Exception
 	{
-		new MainController(primaryStage);
+//		Logger.stop();
+		Logger.log("Instanziere Models....");
+		new MainController(primaryStage); // start application
 	}
 
 }

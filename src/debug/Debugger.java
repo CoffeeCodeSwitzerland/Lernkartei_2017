@@ -60,4 +60,12 @@ public final class Debugger {
 	public static void setDebugActive(boolean debugActive) {
 		Debugger.debugActive = debugActive;
 	}
+
+	public static void stop() {
+		setDebugActive(false);
+	}
+
+	public static void start() {
+		setDebugActive(true);
+	}
 }

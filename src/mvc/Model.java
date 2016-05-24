@@ -16,11 +16,6 @@ import globals.Functions;
  */
 public class Model extends DataModel
 {
-//	public Model (String myName)
-//	{
-//		super(myName);
-//	}
-
 	@Override
 	public String getString (String query)
 	{

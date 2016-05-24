@@ -20,6 +20,7 @@ public class WISSLearnCards extends Application
 	@Override
 	public void start (Stage primaryStage) throws Exception
 	{
+//		debug.Debugger.stop();
 //		Logger.stop();
 		Logger.log("Instanziere Models....");
 		new MainController(primaryStage); // start application

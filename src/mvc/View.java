@@ -12,23 +12,6 @@ import debug.Logger;
  */
 public abstract class View implements ViewInterface
 {
-	//	private String name; // name of the view
-//	
-//	public View (String newName) {
-//		name   = newName;
-//	}
-//
-	/**
-	 * To compare when searching a view:
-	 * - no setter (only set by the constructor)
-	 * 
-	 * @return name of the view
-	 */
-//	public String getName()
-//	{
-//		return name;
-//	}
-
 	/**
 	 * May not be invoked!
 	 */

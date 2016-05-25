@@ -1,6 +1,5 @@
 package database;
 
-// z
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -73,8 +72,7 @@ public class Score {
 
 		}
 		catch (Exception e) {
-			System.err.println(e.getClass().getName() + ": " + e.getMessage());
-			System.exit(0);
+			debug.Logger.log(e.getMessage());
 		}
 
 	}
@@ -116,8 +114,7 @@ public class Score {
 
 		}
 		catch (Exception e) {
-			System.err.println(e.getClass().getName() + ": " + e.getMessage());
-			System.exit(0);
+			debug.Logger.log(e.getMessage());
 		}
 
 		return anzahlLeben;
@@ -163,8 +160,7 @@ public class Score {
 
 		}
 		catch (Exception e) {
-			System.err.println(e.getClass().getName() + ": " + e.getMessage());
-			System.exit(0);
+			debug.Logger.log(e.getMessage());
 		}
 
 	}
@@ -203,8 +199,7 @@ public class Score {
 
 		}
 		catch (Exception e) {
-			System.err.println(e.getClass().getName() + ": " + e.getMessage());
-			System.exit(0);
+			debug.Logger.log(e.getMessage());
 		}
 
 		return currentLifes;

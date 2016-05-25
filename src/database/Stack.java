@@ -89,7 +89,7 @@ public class Stack {
 			c.close();
 		}
 		catch (Exception e) {
-			debug.Debugger.out(e.getMessage());
+			debug.Logger.log(e.getMessage());
 		}
 
 		return errorMsg;
@@ -151,7 +151,7 @@ public class Stack {
 			c.close();
 		}
 		catch (Exception e) {
-			debug.Debugger.out(e.getMessage());
+			debug.Logger.log(e.getMessage());
 		}
 
 		return datensatz;
@@ -212,7 +212,7 @@ public class Stack {
 			}
 		}
 		catch (Exception e) {
-			debug.Debugger.out(e.getMessage());
+			debug.Logger.log(e.getMessage());
 		}
 
 		return worked;
@@ -258,7 +258,7 @@ public class Stack {
 
 		}
 		catch (Exception e) {
-			debug.Debugger.out(e.getMessage());
+			debug.Logger.log(e.getMessage());
 		}
 		return Stacks;
 	}
@@ -295,7 +295,7 @@ public class Stack {
 		}
 		catch (Exception e) {
 			ID = 0;
-			debug.Debugger.out(e.getMessage());
+			debug.Logger.log(e.getMessage());
 		}
 
 		return ID;
@@ -331,7 +331,7 @@ public class Stack {
 
 		}
 		catch (Exception e) {
-			debug.Debugger.out(e.getMessage());
+			debug.Logger.log(e.getMessage());
 		}
 
 		return true;
@@ -369,7 +369,7 @@ public class Stack {
 			c.close();
 		}
 		catch (Exception e) {
-			debug.Debugger.out(e.getMessage());
+			debug.Logger.log(e.getMessage());
 		}
 
 		return worked;

@@ -72,8 +72,7 @@ public class Database {
 
 		}
 		catch (Exception e) {
-			System.err.println(e.getClass().getName() + ": " + e.getMessage());
-			System.exit(0);
+			debug.Logger.log(e.getMessage());
 		}
 
 		return true;
@@ -149,8 +148,7 @@ public class Database {
 
 		}
 		catch (Exception e) {
-			System.err.println(e.getClass().getName() + ": " + e.getMessage());
-			System.exit(0);
+			debug.Logger.log(e.getMessage());
 		}
 
 		return results;
@@ -177,8 +175,7 @@ public class Database {
 
 		}
 		catch (Exception e) {
-			System.err.println(e.getClass().getName() + ": " + e.getMessage());
-			System.exit(0);
+			debug.Logger.log(e.getMessage());
 		}
 
 		return deleted;
@@ -234,8 +231,7 @@ public class Database {
 
 		}
 		catch (Exception e) {
-			System.err.println(e.getClass().getName() + ": " + e.getMessage());
-			System.exit(0);
+			debug.Logger.log(e.getMessage());
 		}
 
 		return true;
@@ -298,8 +294,7 @@ public class Database {
 
 		}
 		catch (Exception e) {
-			System.err.println(e.getClass().getName() + ": " + e.getMessage());
-			System.exit(0);
+			debug.Logger.log(e.getMessage());
 		}
 
 	}
@@ -333,8 +328,7 @@ public class Database {
 		}
 		
 		catch (Exception e) {
-			System.err.println(e.getClass().getName() + ": " + e.getMessage());
-			System.exit(0);
+			debug.Logger.log(e.getMessage());
 		}
 
 	}
@@ -373,8 +367,7 @@ public class Database {
 
 		}
 		catch (Exception e) {
-			System.err.println(e.getClass().getName() + ": " + e.getMessage());
-			System.exit(0);
+			debug.Logger.log(e.getMessage());
 		}
 		
 		return prio;
@@ -434,8 +427,7 @@ public class Database {
 		}
 		catch (Exception e) {
 			System.out.println("Exception getScore");
-			System.err.println(e.getClass().getName() + ": " + e.getMessage());
-			System.exit(0);
+			debug.Logger.log(e.getMessage());
 		}
 
 		// Erreichte Punktzahl zurückgeben

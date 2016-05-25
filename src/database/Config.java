@@ -5,6 +5,8 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
+import debug.Logger;
+
 
 public class Config {
 
@@ -79,8 +81,7 @@ public class Config {
 
 		}
 		catch (Exception e) {
-			System.err.println(e.getClass().getName() + ": " + e.getMessage());
-			System.exit(0);
+			Logger.log(e.getMessage());
 		}
 
 	}
@@ -134,8 +135,7 @@ public class Config {
 
 		}
 		catch (Exception e) {
-			System.err.println(e.getClass().getName() + ": " + e.getMessage());
-			System.exit(0);
+			Logger.log(e.getMessage());
 		}
 
 		return value;

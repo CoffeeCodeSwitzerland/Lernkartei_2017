@@ -79,8 +79,7 @@ public class Doors {
 
 		}
 		catch (Exception e) {
-			System.err.println(e.getClass().getName() + ": " + e.getMessage());
-			System.exit(0);
+			debug.Logger.log(e.getMessage());
 		}
 
 		return worked;
@@ -135,8 +134,7 @@ public class Doors {
 			}
 		}
 		catch (Exception e) {
-			System.err.println(e.getClass().getName() + ": " + e.getMessage());
-			System.exit(0);
+			debug.Logger.log(e.getMessage());
 		}
 
 		return data;
@@ -199,8 +197,7 @@ public class Doors {
 
 		}
 		catch (Exception e) {
-			System.err.println(e.getClass().getName() + ": " + e.getMessage());
-			System.exit(0);
+			debug.Logger.log(e.getMessage());
 		}
 
 		return worked;
@@ -236,8 +233,7 @@ public class Doors {
 			c.close();
 		}
 		catch (Exception e) {
-			System.err.println(e.getClass().getName() + ": " + e.getMessage());
-			System.exit(0);
+			debug.Logger.log(e.getMessage());
 		}
 		
 		return worked;

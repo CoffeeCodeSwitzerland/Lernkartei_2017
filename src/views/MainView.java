@@ -36,8 +36,10 @@ public class MainView extends FXView
 	@Override
 	public Parent constructContainer() {
 		String title = Globals.appTitle + " " + Globals.appVersion;
+		this.getWindow().setTitle(title);
+
 		debug.Debugger.out("constructing MainView Container with title '"+title+"'...");
-		getController().getMyFXStage().setTitle(title);
+		//getController().getMyFXStage().setTitle(title);
 
 		// Buttons
 		startBtn.setId("startbtn");

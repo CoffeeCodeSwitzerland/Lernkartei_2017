@@ -146,12 +146,12 @@ public class EditorView extends FXViewModel
 			            dialog.show();
 			                
 			                save.setOnAction(b ->{
-			                	Color value = colorPicker.getValue();
-			                	String cstrg = value.toString();
-			                	back.setText(codeBefore+"[color=" + cstrg + "]"+isolatedWord+"[/color]"+codeAfter);
-			                });
+			                	String cstrg = Integer.toHexString(colorPicker.getValue().hashCode()).substring(0, 6).toUpperCase();
+			                	back.setText(codeBefore+"[color=" + "(" + cstrg + ")" + "]"+isolatedWord+"[/color]"+codeAfter);
+			               });
 					});
 			});
+			
 			front.setOnMouseReleased(e ->{
 				int start = front.getSelection().getStart();
 				int end = front.getSelection().getEnd();
@@ -188,9 +188,8 @@ public class EditorView extends FXViewModel
 			            dialog.show();
 			                
 			                save.setOnAction(b ->{
-			                	Color value = colorPicker.getValue();
-			                	String cstrg = value.toString();
-			                	front.setText(codeBefore+"[color=" + cstrg + "]"+isolatedWord+"[/color]"+codeAfter);
+			                	String cstrg = Integer.toHexString(colorPicker.getValue().hashCode()).substring(0, 6).toUpperCase();
+			                	front.setText(codeBefore+"[color=" + "(" + cstrg + ")" + "]"+isolatedWord+"[/color]"+codeAfter);
 			                });
 					});
 			});
@@ -198,15 +197,29 @@ public class EditorView extends FXViewModel
 			back.setOnKeyReleased(e ->{
 				String text = back.getText();
 				text = Functions.simpleBbCode2HTML(text, Globals.evenTags);
-				text = Functions.realBbCode2HTML(text, Globals.pairedTags);
+				text = Functions.realBbCode2HTML(text, Globals.pairedTags); 
+				if(text.contains("[/color]")){
+					String result = text.substring(text.indexOf("(") + 1, text.indexOf(")"));
+					text = text.replace("[color=" + "(" + result + ")]", "<span style=\"color:" + result + "\">");
+					text = text.replace("[/color]", "</span>");
+					System.out.println(text);
 				engineback.loadContent(text);
+				}else{
+				engineback.loadContent(text);}
 			});
 			
 			front.setOnKeyReleased(e ->{
 				String text = front.getText();
 				text = Functions.simpleBbCode2HTML(text, Globals.evenTags);
 				text = Functions.realBbCode2HTML(text, Globals.pairedTags);
+				if(text.contains("[color")){
+					String result = text.substring(text.indexOf("(") + 1, text.indexOf(")"));
+					text = text.replace("[color=" + "(" + result + ")]", "<span style=\"color:" + result + "\">");
+					text = text.replace("[/color]", "</span>");
+					System.out.println(text);
 				enginefront.loadContent(text);
+				}else{
+				enginefront.loadContent(text);}
 			});
 			
 			front.focusedProperty().addListener(e ->

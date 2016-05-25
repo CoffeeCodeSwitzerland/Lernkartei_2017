@@ -426,7 +426,6 @@ public class Database {
 
 		}
 		catch (Exception e) {
-			System.out.println("Exception getScore");
 			debug.Logger.log(e.getMessage());
 		}
 

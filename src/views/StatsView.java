@@ -15,129 +15,132 @@ import models.StatisticsModel;
 import mvc.fx.FXController;
 import mvc.fx.FXView;
 import views.components.AppButton;
+
 /**
- * Diese Klasse soll die gleiche Funktionalität wie StatisticsView haben und diese dann auch ersetzen
- * Sie soll beliebig viele Säulen generieren
+ * Diese Klasse soll die gleiche Funktionalität wie StatisticsView haben und
+ * diese dann auch ersetzen Sie soll beliebig viele Säulen generieren
  * 
  * @author Joel Häberli
  *
  */
 
 public class StatsView extends FXView
-{	
-	public StatsView(String newName, FXController newController) {
+{
+	public StatsView(String newName, FXController newController)
+	{
 		// this constructor is the same for all view's
 		super(newController);
 		construct(newName);
 	}
-	
-	private HBox Diagram;
-	private HBox Controls;
-	private HBox Rankings;
+
+	private StatisticsModel statisticsModel;
+
+
+	final BorderPane pane = new BorderPane();
 	final AppButton back = new AppButton("_Zurück");
-	final BorderPane Pane = new BorderPane();
-	//Achsen erstellen
+	// Achsen erstellen
 	final CategoryAxis xAchse = new CategoryAxis();
 	final NumberAxis yAchse = new NumberAxis();
 
-	private StatisticsModel sm;
+	final HBox diagram = new HBox(50);
+	final HBox controls = new HBox(50);
+	final HBox rankings = new HBox(50);
 	
-	private int countLoadsOfRefreshView = 0;
-			
+	
+	// private int countLoadsOfRefreshView = 0;
+
 	@Override
-	public Parent constructContainer() {
-		
-		Controls = new HBox(50);
-		
-		//HBox für die Buttons / Controls
-		Controls.setAlignment(Pos.BOTTOM_CENTER);
-		Controls.setPadding(new Insets(15));
-		
-		//Buttons / Controls
+	public Parent constructContainer()
+	{
+
+		// HBox für die Buttons / Controls
+		controls.setAlignment(Pos.BOTTOM_CENTER);
+		controls.setPadding(new Insets(15));
+
+		// Buttons / Controls
 		back.setOnAction(e -> getController().showMainView());
-		Controls.getChildren().addAll(back);
+		controls.getChildren().addAll(back);
+
+		pane.setBottom(controls);
 		
-		Pane.setBottom(Controls);
+		// HBox für die Rankings
+		rankings.setAlignment(Pos.CENTER_LEFT);
+		rankings.setPadding(new Insets(15));
+
+		// HBox für Diagramm
+		diagram.setAlignment(Pos.CENTER);
 		
-		countLoadsOfRefreshView += 1;
-		
-		return Pane;
+		return pane;
 	}
 
-	//Hier werden die Daten für das Diagramm geholt. Ich habe dafür im StatisticsModel eigene Funktionen erstellt, da ich nicht mit ArrayLists arbeiten kann. 
-	//Ich Caste darum auch auf das StatisticsModel und greife nicht herkömmlich nur mit getController() darauf zu.
+	// Hier werden die Daten für das Diagramm geholt. Ich habe dafür im
+	// StatisticsModel eigene Funktionen erstellt, da ich nicht mit ArrayLists
+	// arbeiten kann.
+	// Ich Caste darum auch auf das StatisticsModel und greife nicht herkömmlich
+	// nur mit getController() darauf zu.
 	@Override
 	public void refreshView()
-	{	
-		System.out.println(countLoadsOfRefreshView);
-		if (countLoadsOfRefreshView >= 1) { 
-			System.out.println("Löschen einleitung");
-			if (Diagram != null && Rankings != null) {
-				delOld();
-				countLoadsOfRefreshView += 1;
-			} 
-		}
-		
-		Diagram = new HBox(50);
-		Rankings = new HBox(50);
-		
-		//HBox für die Rankings
-		Rankings.setAlignment(Pos.CENTER_LEFT);
-		Rankings.setPadding(new Insets(15));
-		
-		//HBox für Diagramm
-		Diagram.setAlignment(Pos.CENTER);
+	{
 
-		//BarChart erstellen
-		BarChart<String, Number> bc = new BarChart<String, Number>(xAchse, yAchse);				
+		diagram.getChildren().clear();
+		rankings.getChildren().clear();
+		
+		// BarChart erstellen
+		BarChart<String, Number> bc = new BarChart<String, Number>(xAchse, yAchse);
 		bc.setAnimated(true);
-		
-		//ListView
-		ListView<String> Ranks = new ListView<String>();
-		
-		//Daten für Rangliste abholen über StatisticsModel und dann Rangliste.java
-		sm = ((StatisticsModel) getController().getFXModel("statistics"));
-		
+
+		// Daten für Rangliste abholen über StatisticsModel und dann
+		// Rangliste.java
+		statisticsModel = ((StatisticsModel) getController().getFXModel("statistics"));
+
 		xAchse.setLabel("Karteien");
 		yAchse.setLabel("Ergebnis (%)");
-		try {
-			if (sm.getObservableDiagrammList("saulendiagramm") == null && 
-					sm.getObservableDataList("Rangliste") == null) {
-				//Dieses TextField wird geaddet, wenn keine Daten für die Rangliste oder die Rangliste gefunden werden können.
+		try
+		{
+			// ListView
+			ListView<String> Ranks = new ListView<String>();
+
+			if (statisticsModel.getObservableDiagrammList("saulendiagramm") == null && statisticsModel.getObservableDataList("Rangliste") == null)
+			{
+				// Dieses TextField wird geaddet, wenn keine Daten für die
+				// Rangliste oder die Rangliste gefunden werden können.
 				TextField m = new TextField();
 				m.setText("Es tut uns leid aber wir konnten keine Daten zur Auswertung Ihrer Statistik finden");
-				Diagram.getChildren().add(m);
-			} else {
-				if (sm!= null) {
-				Ranks.setItems(sm.getObservableDataList("Rangliste"));
-				} else {
+				diagram.getChildren().add(m);
+			} else
+			{
+				statisticsModel.doAction("DeleteOldData");
+				if (statisticsModel != null)
+				{
+					Ranks.setItems(statisticsModel.getObservableDataList("Rangliste"));
+					
+					// Daten für das Diagramm. Die verarbeitugn und bereitstellung
+					// findet alles in Diagramm.java (getChartData()) statt.
+					bc.getData().addAll(statisticsModel.getObservableDiagrammList("saulendiagramm"));
+				} else
+				{
 					System.out.println("Kein sm model!!!");
 				}
-				Rankings.getChildren().addAll(Ranks);
-				
-				//Daten für das Diagramm. Die verarbeitugn und bereitstellung findet alles in Diagramm.java (getChartData()) statt.
-				bc.getData().addAll(sm.getObservableDiagrammList("saulendiagramm"));
-				
-				//Der HBox "Diagramm" das BarChart adden welches das das Säulendiagramm beinhaltet. 
-				//Wird hier gemacht, weil bei Fehler andere Komponente geaddet wird (siehe weiter oben das TextField)
-				Diagram.getChildren().addAll(bc);
-				
-				//Hier werden sämtliche Daten auch in den anderen Klassen über das Model gelöscht, damit sicher ist, dass nirgends Datenleichen herumgeistern
-				sm.doAction("DeleteOldData");
+				rankings.getChildren().addAll(Ranks);
+
+				// Der HBox "Diagramm" das BarChart adden welches das das
+				// Säulendiagramm beinhaltet.
+				// Wird hier gemacht, weil bei Fehler andere Komponente geaddet
+				// wird (siehe weiter oben das TextField)
+				diagram.getChildren().addAll(bc);
+
+				// Hier werden sämtliche Daten auch in den anderen Klassen über
+				// das Model gelöscht, damit sicher ist, dass nirgends
+				// Datenleichen herumgeistern
+				statisticsModel.doAction("DeleteOldData");				
 			}
-		} catch (Exception e) {
+		} catch (Exception e)
+		{
 			Debugger.out("StatsView Exception: ");
 			e.printStackTrace();
 		}
-		
-		Pane.setCenter(Diagram);
-		Pane.setLeft(Rankings);
-	}
-	
-	private void delOld() {
-		System.out.println("Löschen");
-		Diagram.getChildren().clear();
-		Rankings.getChildren().clear();
-		Pane.getChildren().clear();
+
+		pane.setCenter(diagram);
+		pane.setLeft(rankings);
 	}
 }

@@ -139,7 +139,6 @@ public class gamePanel extends JPanel implements Runnable {
 		level = 1;
 		levelMax = 2;
 		gameState = LOADINTRO;
-		new Menu();
 
 		right = left  = false; //  down, up
 		screenX = x;

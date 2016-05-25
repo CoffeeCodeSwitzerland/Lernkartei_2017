@@ -21,13 +21,19 @@
 .button {
 	-fx-font-family: "Segoe UI Semibold";
 	-fx-color: #ffebb2;
-    -fx-text-fill: #875100;
-    -fx-focus-color: white; 
+    -fx-text-fill: #875100; 
+    -fx-padding:8.0;
+}
+
+.button:focused
+{
+	-fx-font-size: 1.08em;
 }
 
 #closebtn{
 	-fx-background-image: url("pictures/ExitIcon.png");
 	-fx-background-repeat: no-repeat;}
+	
 	
 #helpbtn{
 	-fx-background-image: url("pictures/HelpIcon.png");

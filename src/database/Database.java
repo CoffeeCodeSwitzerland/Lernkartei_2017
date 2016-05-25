@@ -16,7 +16,7 @@ public class Database {
 	 * 
 	 * @param values
 	 *            --> Array mit 5 Werten: 1. Vorderseite, 2. Rückseite, 3.
-	 *            Set_ID, 4. Priorität (1-5), 5. Datum
+	 *            Set_ID, 4. Priorität (1-5), 5. Color
 	 */
 
 	public static boolean pushToStock (String[] values) {
@@ -36,7 +36,7 @@ public class Database {
 					" Set_ID    		INTEGER NOT NULL, " +
 					" Priority	    INTEGER DEFAULT 1," +
 					" Description    TEXT    		, " +
-					" Datum			TEXT    		 )";
+					" Color			TEXT    		 )";
 
 			debug.Debugger.out(sql);
 			stmt.executeUpdate(sql);
@@ -60,7 +60,7 @@ public class Database {
 
 			c.setAutoCommit(true);
 
-			String insert = "INSERT INTO Stock (Frontside, Backside, Set_ID, Priority, Datum)" +
+			String insert = "INSERT INTO Stock (Frontside, Backside, Set_ID, Priority, Color)" +
 					"VALUES ('" + values[0] + "','" + values[1] + "'," + setID + ", " + values[3] + ", '"
 					+ values[4] + "')";
 
@@ -103,7 +103,7 @@ public class Database {
 					" Set_ID    		INTEGER NOT NULL, " +
 					" Priority	    INTEGER DEFAULT 1," +
 					" Description    TEXT    		, " +
-					" Datum			TEXT    		 )";
+					" Color			TEXT    		 )";
 
 			debug.Debugger.out(sql);
 			stmt.executeUpdate(sql);
@@ -136,7 +136,7 @@ public class Database {
 				set[3] = rs.getString("Description");
 				set[4] = Integer.toString(rs.getInt("Set_ID"));
 				set[5] = Integer.toString(rs.getInt("Priority"));
-				set[6] = rs.getString("Datum");
+				set[6] = rs.getString("Color");
 				results.add(set);
 
 			}

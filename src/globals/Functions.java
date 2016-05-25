@@ -1,5 +1,8 @@
 package globals;
 
+import java.awt.Desktop;
+import java.net.URL;
+
 import debug.Debugger;
 
 public abstract class Functions
@@ -88,4 +91,14 @@ public abstract class Functions
 	        return false;
 	    }
 	}
+	
+	
+	public static void openWebpage(String urlString) {
+	    try {
+	        Desktop.getDesktop().browse(new URL(urlString).toURI());
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	}
+
 }

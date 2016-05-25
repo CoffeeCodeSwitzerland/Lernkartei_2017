@@ -61,8 +61,8 @@ public class MyFile extends File {
 		appendActive = doNotOverwriteOldOne;
 	}
 
-	public String getTargetInformation() {
-		return Environment.getActualPath() + Environment.getFileSep() + this.getName();
-	}
+//	public String getTargetInformation() {
+//		return Environment.getActualPath() + Environment.getFileSep() + this.getName();
+//	}
 
 }

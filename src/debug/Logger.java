@@ -33,11 +33,10 @@ public final class Logger {
 	public static void init () {
 		if (myLogfile == null) {
 			Debugger.out("Creating Logfile:'"+Environment.getDatabaseLocation()+Environment.getFileSep()+"LogfileOf"+Environment.getUserName()+".txt'");
-			myLogfile = new MyFile(Environment.getDatabaseLocation()+Environment.getFileSep()+"LogfileOf"+Environment.getUserName()+".txt'");
+			myLogfile = new MyFile(Environment.getDatabaseLocation()+Environment.getFileSep()+"LogfileOf"+Environment.getUserName()+".txt");
 			log("Start");
 		}
 	}
-	
 	
 	public static void log(String logLine) {
 		if (logLine == null)
@@ -128,7 +127,7 @@ public final class Logger {
 		return fileLoggingActive;
 	}
 
-	public static MyFile getMylogfile() {
-		return myLogfile;
-	}
+//	public static MyFile getMylogfile() {
+//		return myLogfile;
+//	}
 }

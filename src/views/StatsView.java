@@ -34,7 +34,9 @@ public class StatsView extends FXView
 	}
 
 	private StatisticsModel statisticsModel;
-
+	
+	// ListView
+	final ListView<String> Ranks = new ListView<String>();
 
 	final BorderPane pane = new BorderPane();
 	final AppButton back = new AppButton("_Zurück");
@@ -81,7 +83,8 @@ public class StatsView extends FXView
 	@Override
 	public void refreshView()
 	{
-
+		Ranks.getItems().clear();
+		
 		diagram.getChildren().clear();
 		rankings.getChildren().clear();
 		
@@ -97,8 +100,6 @@ public class StatsView extends FXView
 		yAchse.setLabel("Ergebnis (%)");
 		try
 		{
-			// ListView
-			ListView<String> Ranks = new ListView<String>();
 
 			if (statisticsModel.getObservableDiagrammList("saulendiagramm") == null && statisticsModel.getObservableDataList("Rangliste") == null)
 			{
@@ -132,7 +133,8 @@ public class StatsView extends FXView
 				// Hier werden sämtliche Daten auch in den anderen Klassen über
 				// das Model gelöscht, damit sicher ist, dass nirgends
 				// Datenleichen herumgeistern
-				statisticsModel.doAction("DeleteOldData");				
+				statisticsModel.doAction("DeleteOldData");		
+				
 			}
 		} catch (Exception e)
 		{

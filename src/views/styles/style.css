@@ -22,16 +22,9 @@
 	-fx-font-family: "Segoe UI Semibold";
 	-fx-color: #ffebb2;
     -fx-text-fill: #875100;
-    -fx-focus-color: #875100;
-    -fx-background-insets: 0, 0, 1, 2;
+    -fx-focus-color: white; 
 }
 
-.button:focused
-{
-	-fx-focus-color: #875100;
-	-fx-background-color: linear-gradient(to bottom, #fff0c9 30.0%, #ceb373 100.0%);
-	-fx-background-insets: -0.8, 0, 300, 100;
-}
 
 #closebtn{
 	-fx-background-image: url("pictures/ExitIcon.png");

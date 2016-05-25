@@ -171,7 +171,14 @@ public class LearnView extends FXViewModel
 			int stackPartSize = Globals.defaultStackPartSize;
 			if (getFXController().getModel("config").getDataList("cardLimit") != null)
 			{
-				stackPartSize = Integer.parseInt(getFXController().getModel("config").getDataList("cardLimit").get(0));
+				String cardLimitString = getFXController().getModel("config").getDataList("cardLimit").get(0);
+				if (cardLimitString != null)
+				{
+					if (cardLimitString.length() >= Globals.minStackPartSize)
+					{
+						stackPartSize = Integer.parseInt(cardLimitString);
+					}
+				}
 			}
 			
 			

@@ -25,6 +25,7 @@ public abstract class Globals {
 	public static final String[] pairedTags = new String[]{"b", "strong", "i", "em"};
 	
 	public static final int defaultStackPartSize = 20;
+	public static final int minStackPartSize = 5;
 	
 	// Do any change manually here:
 	public static final boolean LoggerIsOn 	 = true; // Logger ON/OFF (should remain ON)

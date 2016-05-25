@@ -6,7 +6,6 @@ import org.junit.Test;
 
 import debug.Debugger;
 import debug.Logger;
-import debug.MyFile;
 
 public class LoggerTest {
 
@@ -28,8 +27,8 @@ public class LoggerTest {
 		// Chekc if there are 2 RAM logs
 		assertEquals(2, Logger.printFullLog());
 		// check if file exists
-		Debugger.out("Logfile: " + Logger.getMylogfile().getTargetInformation());
-		assertEquals(true, new MyFile(Logger.getMylogfile().getTargetInformation()).isFile());
+//		Debugger.out("Logfile: " + Logger.getMylogfile().getTargetInformation());
+//		assertEquals(true, new MyFile(Logger.getMylogfile().getTargetInformation()).isFile());
 	}
 
 	@Test

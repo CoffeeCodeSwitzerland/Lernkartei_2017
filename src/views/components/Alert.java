@@ -53,6 +53,12 @@ public final class Alert
 		int y = 150;
 		width = message.length() * x + y;
 
+		layout.setOnKeyReleased(e ->
+		{
+			if (e.getCode() == KeyCode.ESCAPE)
+				window.close();
+		});
+		
 		window.setScene(new Scene(layout, width, 150));
 		window.show();
 	}
@@ -124,7 +130,13 @@ public final class Alert
 		int y = 150;
 
 		width = message.length() * x + y;
-
+		
+		layout.setOnKeyReleased(e ->
+		{
+			if (e.getCode() == KeyCode.ESCAPE)
+				window.close();
+		});
+		
 		window.setScene(new Scene(layout, width, 150));
 		window.showAndWait();
 		output = tempOutput;
@@ -215,6 +227,12 @@ public final class Alert
 
 		width = message.length() * x + y;
 
+		layout.setOnKeyReleased(e ->
+		{
+			if (e.getCode() == KeyCode.ESCAPE)
+				window.close();
+		});
+		
 		window.setScene(new Scene(layout, width, 150));
 		window.showAndWait();
 
@@ -262,6 +280,12 @@ public final class Alert
 		int height;
 		height = options.length * 25 + 150;
 
+		layout.setOnKeyReleased(e ->
+		{
+			if (e.getCode() == KeyCode.ESCAPE)
+				window.close();
+		});
+		
 		window.setScene(new Scene(layout, width, height));
 		window.showAndWait();
 

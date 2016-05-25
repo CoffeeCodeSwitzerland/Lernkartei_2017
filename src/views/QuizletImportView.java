@@ -57,8 +57,15 @@ public class QuizletImportView extends FXViewModel
 		searchTitle = new Label("Suche");
 		searchTitle.setId("bold");
 		searchInfoLbl = new Label("");
-		
-		
+
+		searchInput.setOnKeyReleased(e ->
+		{
+			if (e.getCode() == KeyCode.ENTER)
+			{
+				refreshView();
+			}
+		});
+
 		okBtn.setOnAction(e ->
 		{
 			refreshView();
@@ -70,18 +77,16 @@ public class QuizletImportView extends FXViewModel
 				refreshView();
 			}
 		});
-		
 
 		HBox searchField = new HBox(15);
 		searchField.getChildren().addAll(searchInput, okBtn);
-		
+
 		BorderPane headLayout = new BorderPane();
 		headLayout.setTop(searchTitle);
 		headLayout.setLeft(searchInfoLbl);
 		headLayout.setPadding(new Insets(20));
 		headLayout.setRight(searchField);
-		
-		
+
 		listLayout.setAlignment(Pos.CENTER);
 		listLayout.setPadding(new Insets(35));
 
@@ -117,11 +122,11 @@ public class QuizletImportView extends FXViewModel
 		if (cardNumber == -1)
 		{
 			loading.setMinWidth(getWindow().getScene().getWidth());
-			getWindow().getScene().widthProperty().addListener(e -> loading.setMinWidth(getWindow().getScene().getWidth()));
+			getWindow().getScene().widthProperty()
+					.addListener(e -> loading.setMinWidth(getWindow().getScene().getWidth()));
 
 			if (searchInput.getText() == null || searchInput.getText().equals("")) { return; }
 
-			
 			searchTitle.setText("Suche '" + searchInput.getText() + "'");
 
 			if (listLayout.getChildren() != null)
@@ -133,9 +138,10 @@ public class QuizletImportView extends FXViewModel
 				additionalInfoLayout.getChildren().clear();
 				additionalInfoLayout.setPadding(new Insets(0));
 			}
-			
+
 			quizletSets = new ArrayList<>();
-			searchResult = getController().getModel("quizlet").getDataList("search" + Globals.SEPARATOR + searchInput.getText());
+			searchResult = getController().getModel("quizlet")
+					.getDataList("search" + Globals.SEPARATOR + searchInput.getText());
 
 			if (searchResult != null)
 			{
@@ -154,6 +160,10 @@ public class QuizletImportView extends FXViewModel
 						stackLayout.getChildren().addAll(stackName, stackCreator);
 						Button showStackInfo = new Button("i");
 						showStackInfo.setId("icon");
+						showStackInfo.setOnKeyReleased(e -> {
+							if (e.getCode() == KeyCode.ENTER)
+								showStackInfo.fire();
+						});
 						showStackInfo.setOnAction(e ->
 						{
 							// Zeigt mehr Infos an
@@ -164,28 +174,43 @@ public class QuizletImportView extends FXViewModel
 							Label stackLangs = new Label("Sprachen: " + stackInfo[6] + " - " + stackInfo[7]);
 							Label stackHasImgs = new Label("Bilder: " + stackInfo[4]);
 							Button downloadStack = new Button("_Herunterladen");
+							downloadStack.setOnKeyReleased(dnldEvent -> {
+								if (dnldEvent.getCode() == KeyCode.ENTER)
+									downloadStack.fire();
+							});
 							downloadStack.setOnAction(e1 ->
 							{
 								// Lädt Stapel herunter
 								if (stackInfo[6].contains("photo") || stackInfo[7].contains("photo"))
 								{
-									Alert.simpleInfoBox("Download nicht möglich", "Es werden keine Bilder unterstützt...");
+									Alert.simpleInfoBox("Download nicht möglich",
+											"Es werden keine Bilder unterstützt...");
 									return;
 								}
 
-								searchResult = getController().getModel("quizlet").getDataList("set" + Globals.SEPARATOR + stackInfo[0]);
-								
-								String name = Alert.simpleString("Neuer Stapel", "Name für den Quizletstapel", stackInfo[1]);
+								searchResult = getController().getModel("quizlet")
+										.getDataList("set" + Globals.SEPARATOR + stackInfo[0]);
 
+								String name = Alert.simpleString("Neuer Stapel", "Name für den Quizletstapel",
+										stackInfo[1]);
+
+								if (name == null)
+								{
+									return;
+								}
+								
 								int possible = getController().getModel("stack").doAction("possible", name);
 
-								while (name == null || name.equals("") || possible < 0)
+								while (name.equals("") || possible < 0)
 								{
 									if (possible < 1)
 									{
 										int i = 1;
-										while (getController().getModel("stack").doAction("possible", name + " (" + i + ")") < 0)
-										{ i++; }
+										while (getController().getModel("stack").doAction("possible",
+												name + " (" + i + ")") < 0)
+										{
+											i++;
+										}
 										name = Alert.simpleString("Neuer Stapel",
 												"'" + name + "' ist nicht gültig. Bitte wählen sie einen Anderen.",
 												name + " (" + i + ")");

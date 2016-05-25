@@ -1,6 +1,6 @@
-## =========== ##
-## Bug Reports ##
-## =========== ##
+## ============================= ##
+## Bug report, wishes and todo's ##
+## ============================= ##
 >	Only the bug reporter itself may delete his own entry!
 >	Programmer should remember to update their bug fixes in the '*Fixed?*' column!
 >	The bug numbering sequence is arbitrary, just assert you assign a unique number to a new bug!

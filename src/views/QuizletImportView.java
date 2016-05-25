@@ -42,7 +42,7 @@ public class QuizletImportView extends FXViewModel
 	Label				searchTitle;
 	Label				searchInfoLbl;
 	TextField			searchInput				= new TextField();
-	Button				okBtn					= new Button("_Go");
+	Button				okBtn					= new Button("Go");
 	VBox				listLayout				= new VBox(20);
 	VBox				additionalInfoLayout	= new VBox(20);
 	ProgressBar			loading					= new ProgressBar(0);

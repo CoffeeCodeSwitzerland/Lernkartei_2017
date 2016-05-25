@@ -79,7 +79,7 @@ public class Doors {
 
 		}
 		catch (Exception e) {
-			debug.Logger.log(e.getMessage());
+			debug.Debugger.out(e.getMessage());
 		}
 
 		return worked;
@@ -134,7 +134,7 @@ public class Doors {
 			}
 		}
 		catch (Exception e) {
-			debug.Logger.log(e.getMessage());
+			debug.Debugger.out(e.getMessage());
 		}
 
 		return data;
@@ -197,7 +197,7 @@ public class Doors {
 
 		}
 		catch (Exception e) {
-			debug.Logger.log(e.getMessage());
+			debug.Debugger.out(e.getMessage());
 		}
 
 		return worked;
@@ -233,7 +233,7 @@ public class Doors {
 			c.close();
 		}
 		catch (Exception e) {
-			debug.Logger.log(e.getMessage());
+			debug.Debugger.out(e.getMessage());
 		}
 		
 		return worked;

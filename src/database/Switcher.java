@@ -44,7 +44,7 @@ public class Switcher {
 			c.close();
 		}
 		catch (Exception e) {
-			debug.Logger.log(e.getMessage());
+			debug.Debugger.out(e.getMessage());
 		}
 		
 		return worked;
@@ -84,7 +84,7 @@ public class Switcher {
 
 		}
 		catch (Exception e) {
-			debug.Logger.log(e.getMessage());
+			debug.Debugger.out(e.getMessage());
 		}
 		
 		return worked;
@@ -123,7 +123,7 @@ public class Switcher {
 
 		}
 		catch (Exception e) {
-			debug.Logger.log(e.getMessage());
+			debug.Debugger.out(e.getMessage());
 		}
 		
 		return checked;

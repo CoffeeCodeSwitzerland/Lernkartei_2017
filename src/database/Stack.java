@@ -89,7 +89,7 @@ public class Stack {
 			c.close();
 		}
 		catch (Exception e) {
-			debug.Logger.log(e.getMessage());
+			debug.Debugger.out(e.getMessage());
 		}
 
 		return errorMsg;
@@ -151,7 +151,7 @@ public class Stack {
 			c.close();
 		}
 		catch (Exception e) {
-			debug.Logger.log(e.getMessage());
+			debug.Debugger.out(e.getMessage());
 		}
 
 		return datensatz;
@@ -185,34 +185,22 @@ public class Stack {
 					+ "(PK_Kategorie INTEGER PRIMARY KEY AUTOINCREMENT,"
 					+ " Kategorie TEXT NOT NULL,"
 					+ " FK_Door INTEGER NOT NULL)";
+			
 			stmt.executeUpdate(sql);
-			c.setAutoCommit(false);
+			
+			String delCards = "DELETE FROM Stock WHERE Set_ID = (SELECT PK_Kategorie FROM Kategorie WHERE Kategorie = '" + category + "');";
+			stmt.executeUpdate(delCards);
+			
+			String delStack = "DELETE FROM Kategorie WHERE Kategorie = '" + category + "';";
+			stmt.executeUpdate(delStack);
 
-			// Abfragen, ob zu löschende Kategorie vorhanden ist oder nicht.
-			// Wenn ja, wird gelöscht
-
-			ResultSet del = stmt.executeQuery("SELECT Kategorie FROM Kategorie WHERE Kategorie = '" + category + "'");
-
-			if (del.next()) {
-				Integer setID = del.getInt("Kategorie");
-				String delDoor = "DELETE FROM Kategorie WHERE Kategorie = '" + category + "'";
-				String delCards = "DELETE FROM Stock WHERE Set_ID = " + setID;
-				stmt.executeUpdate(delDoor);
-				stmt.executeUpdate(delCards);
-				del.close();
-				stmt.close();
-				c.close();
-				worked = true;
-			}
-			else {
-				del.close();
-				stmt.close();
-				c.close();
-				worked = false;
-			}
+			stmt.close();
+			c.close();
+			worked = true;
 		}
 		catch (Exception e) {
-			debug.Logger.log(e.getMessage());
+			debug.Debugger.out(e.getMessage());
+			worked = false;
 		}
 
 		return worked;
@@ -258,7 +246,7 @@ public class Stack {
 
 		}
 		catch (Exception e) {
-			debug.Logger.log(e.getMessage());
+			debug.Debugger.out(e.getMessage());
 		}
 		return Stacks;
 	}
@@ -295,7 +283,7 @@ public class Stack {
 		}
 		catch (Exception e) {
 			ID = 0;
-			debug.Logger.log(e.getMessage());
+			debug.Debugger.out(e.getMessage());
 		}
 
 		return ID;
@@ -331,7 +319,7 @@ public class Stack {
 
 		}
 		catch (Exception e) {
-			debug.Logger.log(e.getMessage());
+			debug.Debugger.out(e.getMessage());
 		}
 
 		return true;
@@ -369,7 +357,7 @@ public class Stack {
 			c.close();
 		}
 		catch (Exception e) {
-			debug.Logger.log(e.getMessage());
+			debug.Debugger.out(e.getMessage());
 		}
 
 		return worked;

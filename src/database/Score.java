@@ -72,7 +72,7 @@ public class Score {
 
 		}
 		catch (Exception e) {
-			debug.Logger.log(e.getMessage());
+			debug.Debugger.out(e.getMessage());
 		}
 
 	}
@@ -114,7 +114,7 @@ public class Score {
 
 		}
 		catch (Exception e) {
-			debug.Logger.log(e.getMessage());
+			debug.Debugger.out(e.getMessage());
 		}
 
 		return anzahlLeben;
@@ -160,7 +160,7 @@ public class Score {
 
 		}
 		catch (Exception e) {
-			debug.Logger.log(e.getMessage());
+			debug.Debugger.out(e.getMessage());
 		}
 
 	}
@@ -199,7 +199,7 @@ public class Score {
 
 		}
 		catch (Exception e) {
-			debug.Logger.log(e.getMessage());
+			debug.Debugger.out(e.getMessage());
 		}
 
 		return currentLifes;

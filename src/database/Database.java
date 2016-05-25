@@ -72,7 +72,7 @@ public class Database {
 
 		}
 		catch (Exception e) {
-			debug.Logger.log(e.getMessage());
+			debug.Debugger.out(e.getMessage());
 		}
 
 		return true;
@@ -148,7 +148,7 @@ public class Database {
 
 		}
 		catch (Exception e) {
-			debug.Logger.log(e.getMessage());
+			debug.Debugger.out(e.getMessage());
 		}
 
 		return results;
@@ -175,7 +175,7 @@ public class Database {
 
 		}
 		catch (Exception e) {
-			debug.Logger.log(e.getMessage());
+			debug.Debugger.out(e.getMessage());
 		}
 
 		return deleted;
@@ -231,7 +231,7 @@ public class Database {
 
 		}
 		catch (Exception e) {
-			debug.Logger.log(e.getMessage());
+			debug.Debugger.out(e.getMessage());
 		}
 
 		return true;
@@ -294,7 +294,7 @@ public class Database {
 
 		}
 		catch (Exception e) {
-			debug.Logger.log(e.getMessage());
+			debug.Debugger.out(e.getMessage());
 		}
 
 	}
@@ -328,7 +328,7 @@ public class Database {
 		}
 		
 		catch (Exception e) {
-			debug.Logger.log(e.getMessage());
+			debug.Debugger.out(e.getMessage());
 		}
 
 	}
@@ -367,7 +367,7 @@ public class Database {
 
 		}
 		catch (Exception e) {
-			debug.Logger.log(e.getMessage());
+			debug.Debugger.out(e.getMessage());
 		}
 		
 		return prio;
@@ -426,7 +426,7 @@ public class Database {
 
 		}
 		catch (Exception e) {
-			debug.Logger.log(e.getMessage());
+			debug.Debugger.out(e.getMessage());
 		}
 
 		// Erreichte Punktzahl zurückgeben

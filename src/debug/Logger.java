@@ -1,5 +1,11 @@
 package debug;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.RandomAccessFile;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -20,7 +26,7 @@ import globals.Environment;
 public final class Logger {
 
 	private final static ArrayList<String> logData = new ArrayList<String>(); // faster than logfile
-	private static MyFile  myLogfile = null;
+	private static Path  myLogfile = null;
 
 	private static boolean ramLoggingActive = false;
 	private static boolean fileLoggingActive = true;
@@ -29,14 +35,58 @@ public final class Logger {
 	private static boolean holdFileLoggingActive = true;
 
 	private static long lastTime = 0L;
+	private static boolean appendActive = true; // =false, to overwrite older file
 	
 	public static void init () {
 		if (myLogfile == null) {
-			Debugger.out("Creating Logfile:'"+Environment.getDatabaseLocation()+Environment.getFileSep()+"LogfileOf"+Environment.getUserName()+".txt'");
-			myLogfile = new MyFile(Environment.getDatabaseLocation()+Environment.getFileSep()+"LogfileOf"+Environment.getUserName()+".txt");
+		    myLogfile = Paths.get(Environment.getDatabaseLocation()+Environment.getFileSep()+"LogfileOf"+Environment.getUserName()+".txt");
+		    try {
+				Files.createDirectories(myLogfile.getParent());			
+				Files.createFile(myLogfile);
+			} catch (Exception e) {
+				log("MyFile.init(): File creation problem!");
+			}
 			log("Start");
 		}
 	}
+
+	public static void save(String logLine) {
+		File f = myLogfile.toFile();
+		RandomAccessFile myFile = null;
+		try {
+			//f = new File(myLogfile.toFile().getName());
+			long fileLength = f.length();
+			myFile = new RandomAccessFile(f, "rw");
+
+			// TODO control log size, if too big overwrite it automatically
+
+			if (appendActive) {
+				myFile.seek(fileLength); // add this line to append data, else
+											// it overwrites lines
+			} else {
+				// wrong: appendActive = true; // activate append after first
+				// line automaticly
+			}
+			myFile.writeBytes(logLine + Environment.getEndOfLine()); // .writeChars()
+																// writes UTF16
+																// Chars!
+
+			myFile.close();
+		} catch (IOException ex1) {
+			System.err.println("Supervisor: Cannot handle the log-file '" + myLogfile.toFile().getName() + "'!");
+			if (myFile != null) {
+				try {
+					myFile.close();
+				} catch (IOException ex2) {
+				}
+			}
+		}
+	}
+
+	public void setAppendActive(boolean doNotOverwriteOldOne) {
+		appendActive = doNotOverwriteOldOne;
+	}
+
 	
 	public static void log(String logLine) {
 		if (logLine == null)
@@ -49,7 +99,7 @@ public final class Logger {
 		String log = LocalDate.now() + "-" + stime +"<"+oneDigit.format( diff )+">"+ ": " + logLine;
 		if (myLogfile == null) init();
 		if (myLogfile != null && fileLoggingActive == true) {
-			myLogfile.save(log);
+			save(log);
 		}
 		if (ramLoggingActive) {
 			logData.add(log);

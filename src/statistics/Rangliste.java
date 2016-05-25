@@ -3,6 +3,7 @@ package statistics;
 import java.util.ArrayList;
 
 import database.Stack;
+import debug.Debugger;
 import database.Database;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -20,6 +21,9 @@ public class Rangliste
 	static ObservableList<String> Ranking = FXCollections.observableArrayList();
 	public static ObservableList<String> getRangliste()
 	{
+		
+		resetData();
+		
 		getKarteien();
 		getPunkte();
 		sortKarteien();
@@ -68,8 +72,15 @@ public class Rangliste
 					tempSortedStacks.add(Stacks.get(i));
 				}
 			}
-			//TODO NamesAndPoints füllen
 			fillNamesAndPoints(tempSortedStacks, tempPunkte);
+			
+			for (int i = 0; i < NamesAndPoints.size() ; i++)
+			{
+				Debugger.out(NamesAndPoints.get(i));
+			}
+			
+			tempPunkte.clear();
+			tempSortedStacks.clear();
 			
 			
 		} catch (Exception e) {

@@ -20,13 +20,11 @@ public class StatisticsModel extends FXModel
 //	}
 	
 	//ROL --> RanglisteObversableList
-	ObservableList<String> ROL = FXCollections.observableArrayList();
+	ObservableList<String> rol = FXCollections.observableArrayList();
 	public ObservableList<String> getObservableDataList(String query) {
 		if (query.equals("Rangliste")) {
-			debug.Debugger.out("StatisticsModel 1 Rangliste");
-			ROL = Rangliste.getRangliste();
-			debug.Debugger.out(ROL.get(0));
-			return ROL;
+			rol = Rangliste.getRangliste();
+			return rol;
 		} else {
 			return super.getObservableDataList(query);
 		}
@@ -77,14 +75,9 @@ public class StatisticsModel extends FXModel
 	
 	public int doAction (String functionName, String paramS, double paramD) {
 		if (functionName.equals("DeleteOldData")) {
-			Boolean success = false;
-			success = Diagramm.resetData();
-			if (success){
-				success = Rangliste.resetData();
-				return success ? 1 : -1; 
-			} else {
-				return success ? 1 : -1; 
-			}
+			Diagramm.resetData();
+			Rangliste.resetData();
+			return 1;
 		} else {
 			return -2;
 		}

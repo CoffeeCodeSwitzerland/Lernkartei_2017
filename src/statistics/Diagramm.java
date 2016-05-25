@@ -32,6 +32,9 @@ public class Diagramm
 
 	static ObservableList<XYChart.Series<String, Number>> Data = FXCollections.observableArrayList();
 	public static ObservableList<XYChart.Series<String, Number>> getChartData() {
+		
+		resetData();
+		
 		getKarteien();
 		getPunkte();
 		
@@ -51,6 +54,7 @@ public class Diagramm
 	}
 	
 	public static Boolean resetData() {
+		Data.clear();
 		Stacks.clear();
 		Punkte.clear();
 		return true;

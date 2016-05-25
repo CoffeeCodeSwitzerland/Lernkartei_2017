@@ -196,6 +196,7 @@ public class EditorView extends FXViewModel
 			
 			back.setOnKeyReleased(e ->{
 				String text = back.getText();
+				text = Functions.colorBB(text, text);
 				text = Functions.simpleBbCode2HTML(text, Globals.evenTags);
 				text = Functions.realBbCode2HTML(text, Globals.pairedTags); 
 				text = Functions.colorBB(text, text);
@@ -204,9 +205,10 @@ public class EditorView extends FXViewModel
 			
 			front.setOnKeyReleased(e ->{
 				String text = front.getText();
+				text = Functions.colorBB(text, text);
 				text = Functions.simpleBbCode2HTML(text, Globals.evenTags);
 				text = Functions.realBbCode2HTML(text, Globals.pairedTags);
-				text = Functions.colorBB(text, text);			
+				text = Functions.AntiHTMLTags(text);			
 				enginefront.loadContent(text);
 			});
 			

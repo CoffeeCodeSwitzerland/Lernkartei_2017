@@ -52,6 +52,16 @@ public abstract class Functions
 		}
 	}
 	
+	public static String AntiHTMLTags(String input){
+		
+		if(input.contains("<") || input.contains(">")){
+			input = input.replace("<", "");
+			input = input.replace(">", "");
+		}
+		
+		return input;
+	}
+	
 	private static String startBB (String input)
 	{
 		return "[" + input + "]";

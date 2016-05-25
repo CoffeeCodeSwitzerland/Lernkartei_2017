@@ -3,7 +3,6 @@ package statistics;
 import java.util.ArrayList;
 
 import database.Stack;
-import debug.Debugger;
 import database.Database;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -76,11 +75,6 @@ public class Rangliste
 			
 			for (int i = 0; i < NamesAndPoints.size(); i++)
 			{
-				Debugger.out("First " + NamesAndPoints.get(i));
-			}
-			
-			for (int i = 0; i < NamesAndPoints.size(); i++)
-			{
 				for (int j = i+1; j < NamesAndPoints.size(); j++)
 				{
 					if (NamesAndPoints.get(i).equals(NamesAndPoints.get(j))) {
@@ -90,12 +84,6 @@ public class Rangliste
 					}
 				}
 			}
-			
-			for (int i = 0; i < NamesAndPoints.size(); i++)
-			{
-				Debugger.out("Second " + NamesAndPoints.get(i));
-			}
-			
 			tempPunkte.clear();
 			tempSortedStacks.clear();
 			

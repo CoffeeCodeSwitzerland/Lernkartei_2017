@@ -41,6 +41,17 @@ public abstract class Functions
 		return input;
 	}
 	
+	public static String colorBB(String color, String input){
+		if(input.contains("[color")){
+			String result = input.substring(input.indexOf("(") + 1, input.indexOf(")"));
+			input = input.replace("[color=" + "(" + result + ")]", "<span style=\"color:" + result + "\">");
+			input = input.replace("[/color]", "</span>");
+			return input;
+		}else{
+			return input;
+		}
+	}
+	
 	private static String startBB (String input)
 	{
 		return "[" + input + "]";

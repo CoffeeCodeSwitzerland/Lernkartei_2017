@@ -31,13 +31,6 @@ import views.components.AppButton;
  */
 public class QuizletImportView extends FXViewModel
 {
-
-	public QuizletImportView (String newName, FXController newController)
-	{
-		super(newController);
-		construct(newName);
-	}
-
 	ArrayList<HBox>		quizletSets;
 	ArrayList<String>	searchResult;
 	Label				searchTitle;
@@ -52,57 +45,15 @@ public class QuizletImportView extends FXViewModel
 	float				alreadyDownloaded		= 0;
 	float				cardListSize			= 0;
 
-	boolean isLoading = false;
-	boolean isLoadingACard = false;
-	
-	AnimationTimer loadingAnimation = new AnimationTimer()
+	boolean				isLoading				= false;
+	boolean				isLoadingACard			= false;
+
+	public QuizletImportView (String newName, FXController newController)
 	{
-		@Override
-		public void handle (long now)
-		{
-			if (isLoading)
-			{
-				if (!isLoadingACard)
-				{
-					if (cardNumber < searchResult.size())
-					{
-						isLoadingACard = true;
-						String s1 = searchResult.get(cardNumber);
-						cardNumber++;
-						if (s1.split(Globals.SEPARATOR).length != 3)
-						{
-							s1 = Alert.simpleString("Achtung",
-									"Ein ungültiger String wurde gefunden. Bitte passen sie den String an.",
-									s1, 500);
-						}
-						loading.setProgress(cardNumber/cardListSize);
-						getController().getModel("cards").doAction("new",
-								s1.split(Globals.SEPARATOR)[1] + Globals.SEPARATOR
-										+ s1.split(Globals.SEPARATOR)[2] + Globals.SEPARATOR + downloadStackName);
-						
-						isLoadingACard = false;
-					}
-					else
-					{
-						getWindow().getScene().widthProperty()
-								.removeListener(oldEvent -> loading.setMinWidth(getWindow().getScene().getWidth()));
+		super(newController);
+		construct(newName);
+	}
 
-						downloadStackName = "";
-						cardNumber = -1;
-						alreadyDownloaded = 0;
-						cardListSize = 0;
-
-						isLoading = false;
-						loadingAnimation.stop();
-						
-						loading.setProgress(0);
-						getController().showView("stack");
-					}
-				}
-			}
-		}
-	};
-	
 	@Override
 	public Parent constructContainer ()
 	{
@@ -163,12 +114,58 @@ public class QuizletImportView extends FXViewModel
 		mainLayout.setRight(additionalInfoLayout);
 		mainLayout.setBottom(bottomLayout);
 
-		
-		
 		getFXController().getModel("stack").registerView(this);
 		getFXController().getModel("cards").registerView(this);
 		return mainLayout;
 	}
+
+	AnimationTimer loadingAnimation = new AnimationTimer()
+	{
+		@Override
+		public void handle (long now)
+		{
+			if (isLoading)
+			{
+				if (!isLoadingACard)
+				{
+					if (cardNumber < searchResult.size())
+					{
+						isLoadingACard = true;
+						String s1 = searchResult.get(cardNumber);
+						cardNumber++;
+						if (s1.split(Globals.SEPARATOR).length != 3)
+						{
+							s1 = Alert.simpleString("Achtung",
+									"Ein ungültiger String wurde gefunden. Bitte passen sie den String an.",
+									s1, 500);
+						}
+						loading.setProgress(cardNumber / cardListSize);
+						getController().getModel("cards").doAction("new",
+								s1.split(Globals.SEPARATOR)[1] + Globals.SEPARATOR
+										+ s1.split(Globals.SEPARATOR)[2] + Globals.SEPARATOR + downloadStackName);
+
+						isLoadingACard = false;
+					}
+					else
+					{
+						getWindow().getScene().widthProperty()
+								.removeListener(oldEvent -> loading.setMinWidth(getWindow().getScene().getWidth()));
+
+						downloadStackName = "";
+						cardNumber = -1;
+						alreadyDownloaded = 0;
+						cardListSize = 0;
+
+						isLoading = false;
+						loadingAnimation.stop();
+
+						loading.setProgress(0);
+						getController().showView("stack");
+					}
+				}
+			}
+		}
+	};
 
 	@Override
 	public void refreshView ()
@@ -214,7 +211,8 @@ public class QuizletImportView extends FXViewModel
 						stackLayout.getChildren().addAll(stackName, stackCreator);
 						Button showStackInfo = new Button("i");
 						showStackInfo.setId("icon");
-						showStackInfo.setOnKeyReleased(e -> {
+						showStackInfo.setOnKeyReleased(e ->
+						{
 							if (e.getCode() == KeyCode.ENTER)
 								showStackInfo.fire();
 						});
@@ -228,7 +226,8 @@ public class QuizletImportView extends FXViewModel
 							Label stackLangs = new Label("Sprachen: " + stackInfo[6] + " - " + stackInfo[7]);
 							Label stackHasImgs = new Label("Bilder: " + stackInfo[4]);
 							Button downloadStack = new Button("_Herunterladen");
-							downloadStack.setOnKeyReleased(dnldEvent -> {
+							downloadStack.setOnKeyReleased(dnldEvent ->
+							{
 								if (dnldEvent.getCode() == KeyCode.ENTER)
 									downloadStack.fire();
 							});
@@ -248,11 +247,8 @@ public class QuizletImportView extends FXViewModel
 								String name = Alert.simpleString("Neuer Stapel", "Name für den Quizletstapel",
 										stackInfo[1]);
 
-								if (name == null)
-								{
-									return;
-								}
-								
+								if (name == null) { return; }
+
 								int possible = getController().getModel("stack").doAction("possible", name);
 
 								while (name.equals("") || possible < 0)
@@ -309,10 +305,9 @@ public class QuizletImportView extends FXViewModel
 			if (!isLoading)
 			{
 				isLoading = true;
-				loadingAnimation.start();;
+				loadingAnimation.start();
+				;
 			}
 		}
-
 	}
-
 }

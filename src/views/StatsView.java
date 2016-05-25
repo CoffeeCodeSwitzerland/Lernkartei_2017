@@ -8,6 +8,7 @@ import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.control.ListView;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -34,12 +35,13 @@ public class StatsView extends FXView
 	}
 
 	private StatisticsModel statisticsModel;
-	
+
 	// ListView
 	final ListView<String> Ranks = new ListView<String>();
 
 	final BorderPane pane = new BorderPane();
-	final AppButton back = new AppButton("_Zurück");
+	final AppButton back = new AppButton("Zurück");
+	final AppButton learn = new AppButton("Learn");
 	// Achsen erstellen
 	final CategoryAxis xAchse = new CategoryAxis();
 	final NumberAxis yAchse = new NumberAxis();
@@ -47,8 +49,7 @@ public class StatsView extends FXView
 	final HBox diagram = new HBox(50);
 	final HBox controls = new HBox(50);
 	final HBox rankings = new HBox(50);
-	
-	
+
 	// private int countLoadsOfRefreshView = 0;
 
 	@Override
@@ -61,18 +62,33 @@ public class StatsView extends FXView
 
 		// Buttons / Controls
 		back.setOnAction(e -> getController().showMainView());
-		controls.getChildren().addAll(back);
+		controls.getChildren().addAll(back, learn);
 
 		pane.setBottom(controls);
-		
+
 		// HBox für die Rankings
 		rankings.setAlignment(Pos.CENTER_LEFT);
 		rankings.setPadding(new Insets(15));
 
 		// HBox für Diagramm
 		diagram.setAlignment(Pos.CENTER);
-		
+
 		return pane;
+	}
+
+	// Zeigt das Prelearnfenster des Stacks an, welchen man ausgewählt hat. Wenn nichts gewählt ist geht es auf den Doorview.
+	private void learnThisStack()
+	{
+		String choice = Ranks.getSelectionModel().getSelectedItem();
+		if (choice == "" || choice == null)
+		{
+			getFXController().showView("doorview");
+		} else
+		{
+			String[] splittetChoice = choice.split("     ");
+			getFXController().setViewData("prelearn", splittetChoice[0]);
+			getFXController().showView("prelearn");
+		}
 	}
 
 	// Hier werden die Daten für das Diagramm geholt. Ich habe dafür im
@@ -83,11 +99,14 @@ public class StatsView extends FXView
 	@Override
 	public void refreshView()
 	{
+		learn.setOnAction(e -> learnThisStack());
+
 		Ranks.getItems().clear();
-		
+		Ranks.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+
 		diagram.getChildren().clear();
 		rankings.getChildren().clear();
-		
+
 		// BarChart erstellen
 		BarChart<String, Number> bc = new BarChart<String, Number>(xAchse, yAchse);
 		bc.setAnimated(true);
@@ -101,7 +120,8 @@ public class StatsView extends FXView
 		try
 		{
 
-			if (statisticsModel.getObservableDiagrammList("saulendiagramm") == null && statisticsModel.getObservableDataList("Rangliste") == null)
+			if (statisticsModel.getObservableDiagrammList("saulendiagramm") == null
+					&& statisticsModel.getObservableDataList("Rangliste") == null)
 			{
 				// Dieses TextField wird geaddet, wenn keine Daten für die
 				// Rangliste oder die Rangliste gefunden werden können.
@@ -114,8 +134,9 @@ public class StatsView extends FXView
 				if (statisticsModel != null)
 				{
 					Ranks.setItems(statisticsModel.getObservableDataList("Rangliste"));
-					
-					// Daten für das Diagramm. Die verarbeitugn und bereitstellung
+
+					// Daten für das Diagramm. Die verarbeitugn und
+					// bereitstellung
 					// findet alles in Diagramm.java (getChartData()) statt.
 					bc.getData().addAll(statisticsModel.getObservableDiagrammList("saulendiagramm"));
 				} else
@@ -133,8 +154,8 @@ public class StatsView extends FXView
 				// Hier werden sämtliche Daten auch in den anderen Klassen über
 				// das Model gelöscht, damit sicher ist, dass nirgends
 				// Datenleichen herumgeistern
-				statisticsModel.doAction("DeleteOldData");		
-				
+				statisticsModel.doAction("DeleteOldData");
+
 			}
 		} catch (Exception e)
 		{

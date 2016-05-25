@@ -20,20 +20,26 @@ public class Diagramm
 	}
 	
 	private static ArrayList<Double> getPunkte()
-	{		
-		for (int i = 0; i < Stacks.size(); i++)
-		{
-			Double[] temp = Database.getScore(Stacks.get(i).toString());
-			Double result = (100 / temp[0]) * temp[1];
-			Punkte.add(result);
-		}		
-		return Punkte;
+	{	
+		try {
+			for (int i = 0; i < Stacks.size(); i++)
+			{
+				Double[] temp = Database.getScore(Stacks.get(i).toString());
+				Double result = (100 / temp[0]) * temp[1];
+				Punkte.add(result);
+			}		
+			return Punkte; 
+		} catch(Exception e) {
+			return null;
+		}
 	}
 
 	static ObservableList<XYChart.Series<String, Number>> Data = FXCollections.observableArrayList();
 	public static ObservableList<XYChart.Series<String, Number>> getChartData() {
 		
-		resetData();
+		if (Data != null) {
+			resetData();
+		}
 		
 		getKarteien();
 		getPunkte();

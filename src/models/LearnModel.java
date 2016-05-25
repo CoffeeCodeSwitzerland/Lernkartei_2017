@@ -1,7 +1,8 @@
 package models;
 
 import java.util.ArrayList;
-import Learning.Bewertungsklasse;
+
+import learning.Bewertungsklasse;
 import mvc.Model;
 
 public class LearnModel extends Model {

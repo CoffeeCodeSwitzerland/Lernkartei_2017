@@ -3,6 +3,7 @@ package views;
 import java.util.ArrayList;
 
 import globals.Globals;
+import javafx.animation.AnimationTimer;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
@@ -51,6 +52,57 @@ public class QuizletImportView extends FXViewModel
 	float				alreadyDownloaded		= 0;
 	float				cardListSize			= 0;
 
+	boolean isLoading = false;
+	boolean isLoadingACard = false;
+	
+	AnimationTimer loadingAnimation = new AnimationTimer()
+	{
+		@Override
+		public void handle (long now)
+		{
+			if (isLoading)
+			{
+				if (!isLoadingACard)
+				{
+					if (cardNumber < searchResult.size())
+					{
+						isLoadingACard = true;
+						String s1 = searchResult.get(cardNumber);
+						cardNumber++;
+						if (s1.split(Globals.SEPARATOR).length != 3)
+						{
+							s1 = Alert.simpleString("Achtung",
+									"Ein ungültiger String wurde gefunden. Bitte passen sie den String an.",
+									s1, 500);
+						}
+						loading.setProgress(cardNumber/cardListSize);
+						getController().getModel("cards").doAction("new",
+								s1.split(Globals.SEPARATOR)[1] + Globals.SEPARATOR
+										+ s1.split(Globals.SEPARATOR)[2] + Globals.SEPARATOR + downloadStackName);
+						
+						isLoadingACard = false;
+					}
+					else
+					{
+						getWindow().getScene().widthProperty()
+								.removeListener(oldEvent -> loading.setMinWidth(getWindow().getScene().getWidth()));
+
+						downloadStackName = "";
+						cardNumber = -1;
+						alreadyDownloaded = 0;
+						cardListSize = 0;
+
+						isLoading = false;
+						loadingAnimation.stop();
+						
+						loading.setProgress(0);
+						getController().showView("stack");
+					}
+				}
+			}
+		}
+	};
+	
 	@Override
 	public Parent constructContainer ()
 	{
@@ -111,6 +163,8 @@ public class QuizletImportView extends FXViewModel
 		mainLayout.setRight(additionalInfoLayout);
 		mainLayout.setBottom(bottomLayout);
 
+		
+		
 		getFXController().getModel("stack").registerView(this);
 		getFXController().getModel("cards").registerView(this);
 		return mainLayout;
@@ -252,36 +306,11 @@ public class QuizletImportView extends FXViewModel
 		}
 		else
 		{
-			loading.setProgress(-1);
-			if (cardNumber < searchResult.size())
+			if (!isLoading)
 			{
-				String s1 = searchResult.get(cardNumber);
-				cardNumber++;
-				if (s1.split(Globals.SEPARATOR).length != 3)
-				{
-					s1 = Alert.simpleString("Achtung",
-							"Ein ungültiger String wurde gefunden. Bitte passen sie den String an.",
-							s1, 500);
-				}
-
-				getController().getModel("cards").doAction("new",
-						s1.split(Globals.SEPARATOR)[1] + Globals.SEPARATOR
-								+ s1.split(Globals.SEPARATOR)[2] + Globals.SEPARATOR + downloadStackName);
+				isLoading = true;
+				loadingAnimation.start();;
 			}
-			else
-			{
-				getWindow().getScene().widthProperty()
-						.removeListener(oldEvent -> loading.setMinWidth(getWindow().getScene().getWidth()));
-
-				downloadStackName = "";
-				cardNumber = -1;
-				alreadyDownloaded = 0;
-				cardListSize = 0;
-
-				loading.setProgress(0);
-				getController().showView("stack");
-			}
-
 		}
 
 	}

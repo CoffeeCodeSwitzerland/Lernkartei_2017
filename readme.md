@@ -3,11 +3,11 @@
 # ================================ #
  
 Erstellt im Auftrag der WISS Bern in Ostermundigen.
-Auftraggeber Kontakt: André Flury
+Kontakt: André Flury
 
 ## Produktbeschreibung ##
 -------------------------
-Diese Applikation soll in erster Linie das Lernen von WISS Studen erleichtern.
+Diese Applikation soll in erster Linie das Lernen von WISS Studenten erleichtern.
 Gleichzeitig sollen WISS Studenten auch motiviert werden können mit diesem Programm zu arbeiten.
 
 

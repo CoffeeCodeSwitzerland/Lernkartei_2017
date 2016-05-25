@@ -4,23 +4,14 @@ import java.sql.*;
 
 public class Switcher {
 
-	// Varibeln Connection
-
-	private static String	url		= "jdbc:sqlite:" + globals.Environment.getDatabasePath()
-													 + globals.Globals.db_name + ".db";
-	
-	private static String	driver	= "org.sqlite.JDBC";
-
 	public static boolean newSwitch (String setName) {
 
-		Connection c = null;
-		Statement stmt = null;
+		Connection c = Database.getConnection();
 		boolean worked = false;
 
 		try {
-			Class.forName(driver);
-			c = DriverManager.getConnection(url);
-			stmt = c.createStatement();
+			c = DriverManager.getConnection(Database.getDbURL());
+			Statement stmt = c.createStatement();
 			
 			String create = "CREATE TABLE IF NOT EXISTS Switcher ("
 							+ "PK_Swt INTEGER PRIMARY KEY AUTOINCREMENT,"
@@ -52,14 +43,12 @@ public class Switcher {
 
 	public static boolean delSwitch (String setName) {
 
-		Connection c = null;
-		Statement stmt = null;
+		Connection c = Database.getConnection();
 		boolean worked = false;
 
 		try {
-			Class.forName(driver);
-			c = DriverManager.getConnection(url);
-			stmt = c.createStatement();
+			c = DriverManager.getConnection(Database.getDbURL());
+			Statement stmt = c.createStatement();
 			
 			String create = "CREATE TABLE IF NOT EXISTS TABLE Switcher ("
 					+ "PK_Swt INTEGER PRIMARY KEY AUTOINCREMENT,"
@@ -93,14 +82,12 @@ public class Switcher {
 
 	public static boolean checkSwitched (String setName) {
 
-		Connection c = null;
-		Statement stmt = null;
+		Connection c = Database.getConnection();
 		boolean checked = false;
 
 		try {
-			Class.forName(driver);
-			c = DriverManager.getConnection(url);
-			stmt = c.createStatement();
+			c = DriverManager.getConnection(Database.getDbURL());
+			Statement stmt = c.createStatement();
 
 			String create = "CREATE TABLE IF NOT EXISTS TABLE Switcher ("
 					+ "PK_Swt INTEGER PRIMARY KEY AUTOINCREMENT,"

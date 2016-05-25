@@ -9,12 +9,6 @@ import java.util.ArrayList;
 
 public class Doors {
 
-	// URL und Driver
-
-	private static String	url			= "jdbc:sqlite:" +  globals.Environment.getDatabasePath()
-										 + globals.Globals.db_name + ".db";
-	private static String	driver		= "org.sqlite.JDBC";
-
 	/**
 	 * Methode, zum Erstellen einer neuen Türe
 	 * 
@@ -28,14 +22,12 @@ public class Doors {
 
 	public static boolean newDoor (String eingabe) {
 
-		Connection c = null;
-		Statement stmt = null;
+		Connection c = Database.getConnection();
 		boolean worked = false;
 
 		try {
-			Class.forName(driver);
-			c = DriverManager.getConnection(url);
-			stmt = c.createStatement();
+			c = DriverManager.getConnection(Database.getDbURL());
+			Statement stmt = c.createStatement();
 
 			String sql = "CREATE TABLE IF NOT EXISTS Doors " +
 					"(PK_Doors INTEGER PRIMARY KEY AUTOINCREMENT," +
@@ -95,16 +87,13 @@ public class Doors {
 
 	public static ArrayList<String> getDoors () {
 
-		Connection c = null;
-		Statement stmt = null;
-
+		Connection c = Database.getConnection();
 		ArrayList<String> data = new ArrayList<String>();
 
 		try {
-			Class.forName(driver);
-			c = DriverManager.getConnection(url);
+			c = DriverManager.getConnection(Database.getDbURL());
 			c.setAutoCommit(false);
-			stmt = c.createStatement();
+			Statement stmt = c.createStatement();
 
 			ResultSet tbl = stmt.executeQuery("SELECT name FROM sqlite_master WHERE type='table' AND name='Doors'");
 
@@ -151,15 +140,13 @@ public class Doors {
 
 	public static boolean delDoor (String delName) {
 
-		Connection c = null;
-		Statement stmt = null;
+		Connection c = Database.getConnection();
 		boolean worked = false;
 		ArrayList<String> setsToDel = new ArrayList<String>();
 		
 		try {
-			Class.forName(driver);
-			c = DriverManager.getConnection(url);
-			stmt = c.createStatement();
+			c = DriverManager.getConnection(Database.getDbURL());
+			Statement stmt = c.createStatement();
 			c.setAutoCommit(false);
 			
 			ResultSet del = stmt.executeQuery("SELECT * FROM Doors WHERE Doorname = '" + delName + "'");
@@ -206,14 +193,12 @@ public class Doors {
 	
 	public static boolean update(String oldName, String newName) {
 		
-		Connection c = null;
-		Statement stmt = null;
+		Connection c = Database.getConnection();
 		boolean worked = true;
 		
 		try {
-			Class.forName(driver);
-			c = DriverManager.getConnection(url);
-			stmt = c.createStatement();
+			c = DriverManager.getConnection(Database.getDbURL());
+			Statement stmt = c.createStatement();
 			
 			c.setAutoCommit(false);
 			

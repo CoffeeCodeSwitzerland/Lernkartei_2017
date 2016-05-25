@@ -8,12 +8,6 @@ import java.sql.Statement;
 
 public class Score {
 
-	// URL und Driver
-
-	private static String	url		= "jdbc:sqlite:" + globals.Environment.getDatabasePath()
-			+ globals.Globals.db_name + ".db";
-	private static String	driver	= "org.sqlite.JDBC";
-
 	private static Integer	anzahlLeben;
 	private static Integer currentLifes;
 
@@ -29,13 +23,11 @@ public class Score {
 
 	public static void correctCard () {
 
-		Connection c = null;
-		Statement stmt = null;
+		Connection c = Database.getConnection();
 
 		try {
-			Class.forName(driver);
-			c = DriverManager.getConnection(url);
-			stmt = c.createStatement();
+			c = DriverManager.getConnection(Database.getDbURL());
+			Statement stmt = c.createStatement();
 
 			String sql = "CREATE TABLE IF NOT EXISTS Lifes " +
 					"(PK_Lvs INTEGER PRIMARY KEY AUTOINCREMENT," +
@@ -79,13 +71,11 @@ public class Score {
 
 	public static int getLifecount () {
 
-		Connection c = null;
-		Statement stmt = null;
+		Connection c = Database.getConnection();
 
 		try {
-			Class.forName(driver);
-			c = DriverManager.getConnection(url);
-			stmt = c.createStatement();
+			c = DriverManager.getConnection(Database.getDbURL());
+			Statement stmt = c.createStatement();
 
 			String sql = "CREATE TABLE IF NOT EXISTS Lifes " +
 					"(PK_Lvs INTEGER PRIMARY KEY AUTOINCREMENT," +
@@ -123,13 +113,11 @@ public class Score {
 
 	public static void death () {
 
-		Connection c = null;
-		Statement stmt = null;
+		Connection c = Database.getConnection();
 
 		try {
-			Class.forName(driver);
-			c = DriverManager.getConnection(url);
-			stmt = c.createStatement();
+			c = DriverManager.getConnection(Database.getDbURL());
+			Statement stmt = c.createStatement();
 
 			String sql = "CREATE TABLE IF NOT EXISTS Lifes " +
 					"(PK_Lvs INTEGER PRIMARY KEY AUTOINCREMENT," +
@@ -167,13 +155,11 @@ public class Score {
 	
 	public static int getCorrectCards () {
 
-		Connection c = null;
-		Statement stmt = null;
+		Connection c = Database.getConnection();
 
 		try {
-			Class.forName(driver);
-			c = DriverManager.getConnection(url);
-			stmt = c.createStatement();
+			c = DriverManager.getConnection(Database.getDbURL());
+			Statement stmt = c.createStatement();
 
 			String sql = "CREATE TABLE IF NOT EXISTS Lifes " +
 					"(PK_Lvs INTEGER PRIMARY KEY AUTOINCREMENT," +

@@ -10,11 +10,25 @@ import debug.Logger;
 
 public class Config {
 
-	// Connectioninformationen URL & Driver
+	// Connection information: URL & Driver
 
-	private static String	url			= "jdbc:sqlite:" +  globals.Environment.getDatabasePath()
-	 									 + "config.db";
-	private static String	driver	= "org.sqlite.JDBC";
+	private final static String driver = "org.sqlite.JDBC";
+
+	private final static String urlBase	= "jdbc:sqlite:" + globals.Environment.getDatabasePath();
+
+	public static String getUrlbase() {
+		return urlBase;
+	}
+
+	private final static String configURL	= urlBase + "config.db";
+
+	public static String getConfigURL() {
+		return configURL;
+	}
+
+	public static String getDriver() {
+		return driver;
+	}
 
 	/**
 	 * Neuer Eintrag in der Datenbank config erstellen
@@ -35,7 +49,7 @@ public class Config {
 		try {
 
 			Class.forName(driver);
-			c = DriverManager.getConnection(url);
+			c = DriverManager.getConnection(Config.getConfigURL());
 			stmt = c.createStatement();
 
 			// Tabelle erstellen
@@ -103,7 +117,7 @@ public class Config {
 		try {
 
 			Class.forName(driver);
-			c = DriverManager.getConnection(url);
+			c = DriverManager.getConnection(Config.getConfigURL());
 			stmt = c.createStatement();
 			c.setAutoCommit(false);
 

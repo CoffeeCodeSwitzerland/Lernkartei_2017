@@ -2,15 +2,18 @@ package database;
 
 import java.sql.*;
 
+import debug.Logger;
+
 
 public class UserLogin {
 
 	// Variabeln Datenbank Verbindung
 
-	private static String	url			= "jdbc:mariadb://192.168.3.150:3306/userdb";
 	private static String	username	= "prototyp";
 	private static String	password	= "prototyp";
-	private static String	driver		= "com.mysql.jdbc.Driver";
+
+	private static String	mysqlURL	= "jdbc:mariadb://192.168.3.150:3306/userdb";
+	private static String	mysqlDriver	= "com.mysql.jdbc.Driver";
 
 	/**
 	 * Fügt der Datenbank einen neuen User hinzu
@@ -20,16 +23,23 @@ public class UserLogin {
 	 * @param teacher
 	 *            --> Boolean: true = Lehrer, false = Schüler
 	 */
+	public static Connection getConnection() {
+		try {
+			Class.forName(mysqlDriver);
+			return DriverManager.getConnection(mysqlURL, username, password);
+		} catch (Exception e) {
+			Logger.log("UserLogin.getConnection(): "+e.getMessage());
+		}
+		return null;
+	}
+
 
 	public static void newUser (String[] values, boolean teacher) {
 
-		Connection c = null;
-		Statement stmt = null;
+		Connection c = UserLogin.getConnection();
 
 		try {
-			Class.forName(driver);
-			c = DriverManager.getConnection(url, username, password);
-			stmt = c.createStatement();
+			Statement stmt = c.createStatement();
 
 			String studValues = "";
 
@@ -133,13 +143,10 @@ public class UserLogin {
 
 		// Überprüfen ob ein Lehrer mit dem Username oder Email vorhanden ist
 
-		Connection c = null;
-		Statement stmt = null;
+		Connection c = UserLogin.getConnection();
 
 		try {
-			Class.forName(driver);
-			c = DriverManager.getConnection(url, username, password);
-			stmt = c.createStatement();
+			Statement stmt = c.createStatement();
 
 			String sql1 = "CREATE TABLE IF NOT EXISTS Teachers " +
 					"(PK_Lehrer INT PRIMARY KEY AUTO_INCREMENT," +
@@ -185,10 +192,8 @@ public class UserLogin {
 		// Überprüfen ob ein Schüler mit dem Username oder Email vorhanden ist
 
 		try {
-			Class.forName(driver);
-			c = DriverManager.getConnection(url, username, password);
 			c.setAutoCommit(false);
-			stmt = c.createStatement();
+			Statement stmt = c.createStatement();
 
 			ResultSet rsUsern = stmt
 					.executeQuery("SELECT Username FROM Students WHERE Username = " + "'" + values[0] + "'");
@@ -237,14 +242,10 @@ public class UserLogin {
 	
 	public static boolean changeUsername(String newName, String oldName) {
 		
-		Connection c = null;
-		Statement stmt = null;
-		
-		try
-		{
-			Class.forName(driver);
-			c = DriverManager.getConnection(url, username, password);
-			stmt = c.createStatement();
+		Connection c = UserLogin.getConnection();
+
+		try {
+			Statement stmt = c.createStatement();
 			
 			String checkT = "SELECT * FROM Teachers WHERE Username = " + newName + ";";
 			String checkS = "SELECT * FROM Students WHERE Username = " + newName + ";";
@@ -284,13 +285,10 @@ public class UserLogin {
 
 	public static void delUser (String delName) {
 
-		Connection c = null;
-		Statement stmt = null;
+		Connection c = UserLogin.getConnection();
 
 		try {
-			Class.forName(driver);
-			c = DriverManager.getConnection(url, username, password);
-			stmt = c.createStatement();
+			Statement stmt = c.createStatement();
 
 			String delStudent = "DELETE FROM Students WHERE Username = " + delName;
 			String delTeacher = "DELETE FROM Teachers WHERE Username = " + delName;
@@ -323,13 +321,10 @@ public class UserLogin {
 		boolean loggedIn = false;
 		String password = null;
 
-		Connection c = null;
-		Statement stmt = null;
+		Connection c = UserLogin.getConnection();
 
 		try {
-			Class.forName(driver);
-			c = DriverManager.getConnection(url, username, password);
-			stmt = c.createStatement();
+			Statement stmt = c.createStatement();
 			c.setAutoCommit(false);
 
 			ResultSet rs = stmt.executeQuery("SELECT Password FROM Students WHERE Username = '" + userData[0] + "'");

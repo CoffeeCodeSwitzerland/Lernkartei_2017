@@ -3,14 +3,60 @@ package database;
 import java.sql.*;
 import java.util.ArrayList;
 
+import debug.Logger;
+
 public class Database {
 
-	// Varibeln Connection
+	// Connection Info.:
+	private static String dbURL = Config.getUrlbase() + globals.Globals.db_name + ".db";
 
-	private static String	url		= "jdbc:sqlite:" + globals.Environment.getDatabasePath()
-			+ globals.Globals.db_name + ".db";
-	private static String	driver	= "org.sqlite.JDBC";
+	public static String getDbURL() {
+		return dbURL;
+	}
 
+	public static Connection getConnection() {
+		try {
+			Class.forName(Config.getDriver());
+			return DriverManager.getConnection(dbURL);
+		} catch (Exception e) {
+			Logger.log("Database.getConnection(): "+e.getMessage());
+		}
+		return null;
+	}
+
+
+	private static boolean createStockIfNotExists (Statement stmt) {
+		String sqlUpdate = 
+				"CREATE TABLE IF NOT EXISTS Stock " +
+				"(PK_Stk INTEGER PRIMARY KEY AUTOINCREMENT," +
+				" Frontside       TEXT    NOT NULL, " +
+				" Backside      TEXT    NOT NULL, " +
+				" Set_ID    		INTEGER NOT NULL, " +
+				" Priority	    INTEGER DEFAULT 1," +
+				" Description    TEXT    		, " +
+				" Datum			TEXT    		 )";
+		try {
+			stmt.executeUpdate(sqlUpdate);
+			debug.Debugger.out(sqlUpdate);
+		} catch (Exception e) {
+			Logger.log("Database.createStockIfNotExists(): "+e.getMessage());
+			return false;
+		}
+		return true;
+	}
+
+	private static ResultSet seekCategories (Statement stmt, String attribute, String value) {
+		String sqlQuery = "SELECT "+attribute+" FROM Kategorie WHERE Kategorie = '"
+				+ value + "'";
+		debug.Debugger.out(sqlQuery);
+		try {
+			return stmt.executeQuery(sqlQuery);
+		} catch (Exception e) {
+			Logger.log("Database.seekCategories(...): "+e.getMessage());
+		}
+		return null;
+	}
+	
 	/**
 	 * Keine neue Instanz Database erstellen, sondern nur die Methode benutzen
 	 * 
@@ -21,34 +67,18 @@ public class Database {
 
 	public static boolean pushToStock (String[] values) {
 
-		Connection c = null;
-		Statement stmt = null;
-
+		Connection c = Database.getConnection();
 		try {
-			Class.forName(driver);
-			c = DriverManager.getConnection(url);
-			stmt = c.createStatement();
-
-			String sql = "CREATE TABLE IF NOT EXISTS Stock " +
-					"(PK_Stk INTEGER PRIMARY KEY AUTOINCREMENT," +
-					" Frontside       TEXT    NOT NULL, " +
-					" Backside      TEXT    NOT NULL, " +
-					" Set_ID    		INTEGER NOT NULL, " +
-					" Priority	    INTEGER DEFAULT 1," +
-					" Description    TEXT    		, " +
-					" Datum			TEXT    		 )";
-
-			debug.Debugger.out(sql);
-			stmt.executeUpdate(sql);
-
-			String setID;
+			Statement stmt = c.createStatement();
+			createStockIfNotExists (stmt);
+			
 			c.setAutoCommit(false);
-
-			ResultSet selectSet = stmt.executeQuery("SELECT PK_Kategorie FROM Kategorie WHERE Kategorie = '"
-					+ values[2] + "'");
-
+			String attribute = "PK_Kategorie";
+			ResultSet selectSet = seekCategories (stmt, attribute, values[2]);
+			
+			String setID;
 			if (selectSet.next()) {
-				setID = Integer.toString(selectSet.getInt("PK_Kategorie"));
+				setID = Integer.toString(selectSet.getInt(attribute));
 				selectSet.close();
 			}
 			else {
@@ -57,25 +87,23 @@ public class Database {
 				c.close();
 				return false;
 			}
-
 			c.setAutoCommit(true);
-
-			String insert = "INSERT INTO Stock (Frontside, Backside, Set_ID, Priority, Datum)" +
+			
+			String insertCMD = "INSERT INTO Stock (Frontside, Backside, Set_ID, Priority, Datum)";
+			String insert = insertCMD +
 					"VALUES ('" + values[0] + "','" + values[1] + "'," + setID + ", " + values[3] + ", '"
 					+ values[4] + "')";
 
 			debug.Debugger.out(insert);
 			stmt.executeUpdate(insert);
+			
 			stmt.close();
 			c.close();
-
+			return true;
+		} catch (Exception e) {
+			Logger.log("Database.pushToStock(...): "+e.getMessage());
 		}
-		catch (Exception e) {
-			debug.Debugger.out(e.getMessage());
-		}
-
-		return true;
-
+		return true; // TODO evtl. false? ... auch weiter unten ein Problem
 	}
 
 	/**
@@ -88,33 +116,21 @@ public class Database {
 	public static ArrayList<String[]> pullFromStock (String whichSet) {
 
 		ArrayList<String[]> results = new ArrayList<String[]>();
-		Connection c = null;
-		Statement stmt = null;
 
+		Connection c = Database.getConnection();
 		try {
-			Class.forName(driver);
-			c = DriverManager.getConnection(url);
-			stmt = c.createStatement();
-
-			String sql = "CREATE TABLE IF NOT EXISTS Stock " +
-					"(PK_Stk INTEGER PRIMARY KEY AUTOINCREMENT," +
-					" Frontside       TEXT    NOT NULL, " +
-					" Backside      TEXT    NOT NULL, " +
-					" Set_ID    		INTEGER NOT NULL, " +
-					" Priority	    INTEGER DEFAULT 1," +
-					" Description    TEXT    		, " +
-					" Datum			TEXT    		 )";
-
-			debug.Debugger.out(sql);
-			stmt.executeUpdate(sql);
+			Statement stmt = c.createStatement();
+			createStockIfNotExists (stmt);
 
 			c.setAutoCommit(false);
 
 			String IDwhichSet = "";
-			ResultSet s = stmt.executeQuery("SELECT PK_Kategorie FROM Kategorie WHERE Kategorie = '" + whichSet + "'");
+			String attribute = "PK_Kategorie";
+			ResultSet selectSet = seekCategories (stmt, attribute, whichSet);
 
-			if (s.next()) {
-				IDwhichSet = Integer.toString(s.getInt("PK_Kategorie"));
+
+			if (selectSet.next()) {
+				IDwhichSet = Integer.toString(selectSet.getInt(attribute));
 			}
 			else {
 				debug.Debugger.out("No Kategorie: " + whichSet + "in Table Kategorie");
@@ -123,7 +139,7 @@ public class Database {
 				return null;
 			}
 
-			s.close();
+			selectSet.close();
 
 			ResultSet rs = stmt.executeQuery("SELECT * FROM Stock WHERE Set_ID = '" + IDwhichSet + "'");
 
@@ -156,14 +172,12 @@ public class Database {
 
 	public static boolean delEntry (String id) {
 
-		Connection c = null;
-		Statement stmt = null;
+		Connection c = Database.getConnection();
 		boolean deleted = false;
 
 		try {
-			Class.forName(driver);
-			c = DriverManager.getConnection(url);
-			stmt = c.createStatement();
+			c = DriverManager.getConnection(dbURL);
+			Statement stmt = c.createStatement();
 
 			String del = "DELETE FROM Stock WHERE PK_Stk = " + id;
 			stmt.executeUpdate(del);
@@ -195,14 +209,12 @@ public class Database {
 
 	public static boolean editEntry (String id, String frontside, String backside) {
 
-		Connection c = null;
-		Statement stmt = null;
+		Connection c = Database.getConnection();
 
 		try {
-			Class.forName(driver);
-			c = DriverManager.getConnection(url);
+			c = DriverManager.getConnection(dbURL);
 			c.setAutoCommit(false);
-			stmt = c.createStatement();
+			Statement stmt = c.createStatement();
 
 			String sel = "SELECT * FROM Stock WHERE PK_Stk = " + id;
 			ResultSet rs = stmt.executeQuery(sel);
@@ -246,15 +258,13 @@ public class Database {
 
 	public static void upPrio (Integer PK_ID) {
 
-		Connection c = null;
-		Statement stmt = null;
+		Connection c = Database.getConnection();
 		Integer oldPrio = null;
 		String newPrio = "";
 
 		try {
-			Class.forName(driver);
-			c = DriverManager.getConnection(url);
-			stmt = c.createStatement();
+			c = DriverManager.getConnection(dbURL);
+			Statement stmt = c.createStatement();
 			c.setAutoCommit(false);
 
 			// Frage die Aktuelle Priorität ab
@@ -308,13 +318,11 @@ public class Database {
 
 	public static void resetPrio (Integer PK_ID) {
 
-		Connection c = null;
-		Statement stmt = null;
+		Connection c = Database.getConnection();
 
 		try {
-			Class.forName(driver);
-			c = DriverManager.getConnection(url);
-			stmt = c.createStatement();
+			c = DriverManager.getConnection(dbURL);
+			Statement stmt = c.createStatement();
 
 			// Setzt die Priorität zurück auf 1
 
@@ -341,15 +349,12 @@ public class Database {
 	
 	public static int getPriority (String ID_Card) {
 		
-		Connection c = null;
-		Statement stmt = null;
-
+		Connection c = Database.getConnection();
 		int prio = 0;
 
 		try {
-			Class.forName(driver);
-			c = DriverManager.getConnection(url);
-			stmt = c.createStatement();
+			c = DriverManager.getConnection(dbURL);
+			Statement stmt = c.createStatement();
 			c.setAutoCommit(false);
 
 			String getPrio = "SELECT Priority FROM Stock WHERE PK_Stk = " + ID_Card;
@@ -382,17 +387,15 @@ public class Database {
 	
 	public static Double[] getScore (String whichSet) {
 
-		Connection c = null;
-		Statement stmt = null;
+		Connection c = Database.getConnection();
 
 		Double maxPoints = 0.0;
 		Double reachedPoints = 0.0;
 		Double[] score = new Double[2];
 
 		try {
-			Class.forName(driver);
-			c = DriverManager.getConnection(url);
-			stmt = c.createStatement();
+			c = DriverManager.getConnection(dbURL);
+			Statement stmt = c.createStatement();
 			c.setAutoCommit(false);
 
 			// Alle Prioritäten aus Tabelle hlen, welche als Set das mitgegebene

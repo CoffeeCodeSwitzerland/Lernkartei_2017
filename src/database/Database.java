@@ -62,16 +62,36 @@ public class Database {
 	 * 
 	 * @param values
 	 *            --> Array mit 5 Werten: 1. Vorderseite, 2. Rückseite, 3.
-	 *            Set_ID, 4. Priorität (1-5), 5. Datum
+	 *            Set_ID, 4. Priorität (1-5), 5. Color
 	 */
 
 	public static boolean pushToStock (String[] values) {
 
 		Connection c = Database.getConnection();
 		try {
+<<<<<<< HEAD
 			Statement stmt = c.createStatement();
 			createStockIfNotExists (stmt);
 			
+=======
+			Class.forName(driver);
+			c = DriverManager.getConnection(url);
+			stmt = c.createStatement();
+
+			String sql = "CREATE TABLE IF NOT EXISTS Stock " +
+					"(PK_Stk INTEGER PRIMARY KEY AUTOINCREMENT," +
+					" Frontside       TEXT    NOT NULL, " +
+					" Backside      TEXT    NOT NULL, " +
+					" Set_ID    		INTEGER NOT NULL, " +
+					" Priority	    INTEGER DEFAULT 1," +
+					" Description    TEXT    		, " +
+					" Color			TEXT    		 )";
+
+			debug.Debugger.out(sql);
+			stmt.executeUpdate(sql);
+
+			String setID;
+>>>>>>> branch 'master' of https://github.com/RookStudios/Lernkartei.git
 			c.setAutoCommit(false);
 			String attribute = "PK_Kategorie";
 			ResultSet selectSet = seekCategories (stmt, attribute, values[2]);
@@ -88,9 +108,14 @@ public class Database {
 				return false;
 			}
 			c.setAutoCommit(true);
+<<<<<<< HEAD
 			
 			String insertCMD = "INSERT INTO Stock (Frontside, Backside, Set_ID, Priority, Datum)";
 			String insert = insertCMD +
+=======
+
+			String insert = "INSERT INTO Stock (Frontside, Backside, Set_ID, Priority, Color)" +
+>>>>>>> branch 'master' of https://github.com/RookStudios/Lernkartei.git
 					"VALUES ('" + values[0] + "','" + values[1] + "'," + setID + ", " + values[3] + ", '"
 					+ values[4] + "')";
 
@@ -119,8 +144,26 @@ public class Database {
 
 		Connection c = Database.getConnection();
 		try {
+<<<<<<< HEAD
 			Statement stmt = c.createStatement();
 			createStockIfNotExists (stmt);
+=======
+			Class.forName(driver);
+			c = DriverManager.getConnection(url);
+			stmt = c.createStatement();
+
+			String sql = "CREATE TABLE IF NOT EXISTS Stock " +
+					"(PK_Stk INTEGER PRIMARY KEY AUTOINCREMENT," +
+					" Frontside       TEXT    NOT NULL, " +
+					" Backside      TEXT    NOT NULL, " +
+					" Set_ID    		INTEGER NOT NULL, " +
+					" Priority	    INTEGER DEFAULT 1," +
+					" Description    TEXT    		, " +
+					" Color			TEXT    		 )";
+
+			debug.Debugger.out(sql);
+			stmt.executeUpdate(sql);
+>>>>>>> branch 'master' of https://github.com/RookStudios/Lernkartei.git
 
 			c.setAutoCommit(false);
 
@@ -152,7 +195,7 @@ public class Database {
 				set[3] = rs.getString("Description");
 				set[4] = Integer.toString(rs.getInt("Set_ID"));
 				set[5] = Integer.toString(rs.getInt("Priority"));
-				set[6] = rs.getString("Datum");
+				set[6] = rs.getString("Color");
 				results.add(set);
 
 			}

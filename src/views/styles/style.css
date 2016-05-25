@@ -25,17 +25,8 @@
     -fx-focus-color: white; 
 }
 
-
 #closebtn{
 	-fx-background-image: url("pictures/ExitIcon.png");
-	-fx-background-repeat: no-repeat;}
-	
-#backbtn{
-	-fx-background-image: url("pictures/BackIcon.png");
-	-fx-background-repeat: no-repeat;}
-	
-#homebtn{
-	-fx-background-image: url("pictures/HomeIcon.png");
 	-fx-background-repeat: no-repeat;}
 	
 #helpbtn{

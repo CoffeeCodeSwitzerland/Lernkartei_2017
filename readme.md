@@ -27,10 +27,10 @@ Gleichzeitig sollen WISS Studenten auch motiviert werden können mit diesem Progr
 -------------------------------------------
 Der Benutzer soll auf einfache Weise Karten eingeben und diese Stapelweise lernen können.
 Die Lernkartei soll ihre Karten und Lernphasen nach den neuesten lernpsychologischen Erkenntnissen anbieten. 
-Ein Kartensetz sollen auch direkt vom Internet heruntergeladen werden können (Quizlet).
+Ein Kartensatz soll auch direkt vom Internet heruntergeladen werden können (Quizlet).
 Das Lernen wird mit Punkten belohnt, und der Lernende kann diese Punkte dazu verwenden,
 in einem integrierten Spiel eine gewisse Zeit zu spielen.
-Das Lernen und der Lernerfolg wird dokumentiert und kann in form einer Statistik angeschaut werden.
+Das Lernen und der Lernerfolg wird dokumentiert und kann in Form einer Statistik angeschaut werden.
 
 
 ## Releases ##

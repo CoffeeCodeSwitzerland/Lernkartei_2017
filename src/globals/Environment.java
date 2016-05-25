@@ -100,12 +100,24 @@ public final class Environment {
 		File theDir = new File(System.getenv("APPDATA") + fileSep + globals.Globals.db_Path);
 		if (!theDir.exists()) {
 			theDir.mkdirs();
-		    debug.Debugger.out("Ordner " + globals.Globals.db_Path + " erstellt!");
 		} else {
-			debug.Debugger.out("Ordner " + globals.Globals.db_Path + " erstellt!");
+			debug.Debugger.out("Datenbankordner ist bereits vorhanden");
 		}
 		
 		String path = System.getenv("APPDATA") + fileSep + globals.Globals.db_Path + fileSep;
+		return path;
+	}
+	
+	public static String getDatabaseLocation() {
+		if (fileSep == null) init();
+		File theDir = new File(System.getenv("APPDATA") + fileSep + globals.Globals.db_Path);
+		if (!theDir.exists()) {
+			theDir.mkdirs();
+		} else {
+			debug.Debugger.out("Datenbankordner ist bereits vorhanden");
+		}
+		
+		String path = System.getenv("APPDATA");
 		return path;
 	}
 }

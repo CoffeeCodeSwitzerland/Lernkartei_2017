@@ -89,8 +89,7 @@ public class Stack {
 			c.close();
 		}
 		catch (Exception e) {
-			System.err.println(e.getClass().getName() + ": " + e.getMessage());
-			System.exit(0);
+			debug.Debugger.out(e.getMessage());
 		}
 
 		return errorMsg;
@@ -152,8 +151,7 @@ public class Stack {
 			c.close();
 		}
 		catch (Exception e) {
-			System.err.println(e.getClass().getName() + ": " + e.getMessage());
-			System.exit(0);
+			debug.Debugger.out(e.getMessage());
 		}
 
 		return datensatz;
@@ -194,28 +192,27 @@ public class Stack {
 			// Wenn ja, wird gelöscht
 
 			ResultSet del = stmt.executeQuery("SELECT Kategorie FROM Kategorie WHERE Kategorie = '" + category + "'");
-			Integer setID = del.getInt("Kategorie");
-			boolean contin = del.next();
-			del.close();
 
-			if (contin) {
+			if (del.next()) {
+				Integer setID = del.getInt("Kategorie");
 				String delDoor = "DELETE FROM Kategorie WHERE Kategorie = '" + category + "'";
 				String delCards = "DELETE FROM Stock WHERE Set_ID = " + setID;
-				stmt.executeUpdate(delCards);
 				stmt.executeUpdate(delDoor);
+				stmt.executeUpdate(delCards);
+				del.close();
 				stmt.close();
 				c.close();
 				worked = true;
 			}
 			else {
+				del.close();
 				stmt.close();
 				c.close();
 				worked = false;
 			}
 		}
 		catch (Exception e) {
-			System.err.println(e.getClass().getName() + ": " + e.getMessage());
-			System.exit(0);
+			debug.Debugger.out(e.getMessage());
 		}
 
 		return worked;
@@ -261,8 +258,7 @@ public class Stack {
 
 		}
 		catch (Exception e) {
-			System.err.println(e.getClass().getName() + ": " + e.getMessage());
-			System.exit(0);
+			debug.Debugger.out(e.getMessage());
 		}
 		return Stacks;
 	}
@@ -299,8 +295,7 @@ public class Stack {
 		}
 		catch (Exception e) {
 			ID = 0;
-			System.err.println(e.getClass().getName() + ": " + e.getMessage());
-			System.exit(0);
+			debug.Debugger.out(e.getMessage());
 		}
 
 		return ID;
@@ -336,8 +331,7 @@ public class Stack {
 
 		}
 		catch (Exception e) {
-			System.err.println(e.getClass().getName() + ": " + e.getMessage());
-			System.exit(0);
+			debug.Debugger.out(e.getMessage());
 		}
 
 		return true;
@@ -375,8 +369,7 @@ public class Stack {
 			c.close();
 		}
 		catch (Exception e) {
-			System.err.println(e.getClass().getName() + ": " + e.getMessage());
-			System.exit(0);
+			debug.Debugger.out(e.getMessage());
 		}
 
 		return worked;

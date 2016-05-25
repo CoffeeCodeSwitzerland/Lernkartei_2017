@@ -32,8 +32,8 @@ public final class Logger {
 	
 	public static void init () {
 		if (myLogfile == null) {
-			Debugger.out("Creating Logfile:'"+Environment.getActualPath()+Environment.getFileSep()+"LogfileOf"+Environment.getUserName()+".txt'");
-			myLogfile = new MyFile("LogfileOf"+Environment.getUserName()+".txt");
+			Debugger.out("Creating Logfile:'"+Environment.getDatabaseLocation()+Environment.getFileSep()+"LogfileOf"+Environment.getUserName()+".txt'");
+			myLogfile = new MyFile(Environment.getDatabaseLocation()+Environment.getFileSep()+"LogfileOf"+Environment.getUserName()+".txt");
 			log("Start");
 		}
 	}

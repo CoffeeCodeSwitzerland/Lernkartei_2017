@@ -18,7 +18,7 @@ public class Bewertungsklasse {
 			return result;
 		} else {
 
-			new lerndatenzuweisung(cards);
+		//TODO	new lerndatenzuweisung(cards);
 
 			while (result.size() < cards.size()) {
 				Integer i = (int) (Math.random() * 50000) % cards.size();

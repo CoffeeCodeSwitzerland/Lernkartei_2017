@@ -128,15 +128,19 @@ public class StackView extends FXViewModel
 			boolean success = false;
 			if (db.hasString())
 			{
-				if (Alert.ok("Achtung", "Willst du den Stapel '" + db.getString() + "' wirklich endgültig löschen?"))
+				boolean canDeleteStack = Alert.ok("Achtung", "Willst du den Stapel '" + db.getString() + "' wirklich endgültig löschen?");
+				if (canDeleteStack)
 				{
 					getController().getModel("stack").doAction("delete", db.getString());
 					// TODO Feedback für den User (Fehlermeldungen)
-					if (options.getChildren().get(0).getTypeSelector().equals("Label"))
+					boolean isLabel = options.getChildren().get(0).getTypeSelector().equals("Label");
+					if (isLabel)
 					{
 						Label temp = (Label) options.getChildren().get(0);
 						if (temp.getText().equals(db.getString()))
+						{
 							options.getChildren().clear();
+						}
 					}
 				}
 				success = true;

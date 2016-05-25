@@ -21,33 +21,25 @@
 .button {
 	-fx-font-family: "Segoe UI Semibold";
 	-fx-color: #ffebb2;
-    -fx-text-fill: #875100;
-    -fx-focus-color: #875100;
-    -fx-background-insets: 0, 0, 1, 2;
+    -fx-text-fill: #875100; 
+    -fx-padding:8.0;
 }
 
 .button:focused
 {
-	-fx-focus-color: #875100;
-	-fx-background-color: linear-gradient(to bottom, #fff0c9 30.0%, #ceb373 100.0%);
-	-fx-background-insets: -0.8, 0, 300, 100;
+	-fx-font-size: 1.1em;
 }
 
 #closebtn{
 	-fx-background-image: url("pictures/ExitIcon.png");
-	-fx-background-repeat: no-repeat;}
+	-fx-background-repeat: no-repeat;
+	-fx-background-size:contain}
 	
-#backbtn{
-	-fx-background-image: url("pictures/BackIcon.png");
-	-fx-background-repeat: no-repeat;}
-	
-#homebtn{
-	-fx-background-image: url("pictures/HomeIcon.png");
-	-fx-background-repeat: no-repeat;}
 	
 #helpbtn{
 	-fx-background-image: url("pictures/HelpIcon.png");
-	-fx-background-repeat: no-repeat;}
+	-fx-background-repeat: no-repeat;
+	}
 	
 
 #icon{

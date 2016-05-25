@@ -6,6 +6,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.sound.midi.*;
 
+import debug.Debugger;
+
 public class MidiPlayer
 {
 
@@ -23,7 +25,7 @@ public class MidiPlayer
             player = MidiSystem.getSequencer();
         } catch (MidiUnavailableException ex)
         {
-            System.out.println("Could not initialize sequencer");
+        	Debugger.out("Could not initialize sequencer");
             Logger.getLogger(MidiPlayer.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -40,7 +42,7 @@ public class MidiPlayer
             player = MidiSystem.getSequencer();
         } catch (MidiUnavailableException ex)
         {
-            System.out.println("Could not initialize sequencer");
+        	Debugger.out("Could not initialize sequencer");
             Logger.getLogger(MidiPlayer.class.getName()).log(Level.SEVERE, null, ex);
         }
         try

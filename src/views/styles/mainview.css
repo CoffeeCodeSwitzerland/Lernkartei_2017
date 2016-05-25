@@ -7,23 +7,23 @@
 #startbtn{
 	-fx-background-image: url("pictures/KarteIcon.png");
 	-fx-background-repeat: no-repeat;
+	-fx-background-size:contain
 }
-
-#statbtn{
-	-fx-background-image: url("pictures/DiagrammIcon.png");
-	-fx-background-repeat: no-repeat;}
 	
 #stat2btn{
 	-fx-background-image: url("pictures/DiagrammIcon.png");
-	-fx-background-repeat: no-repeat;}
+	-fx-background-repeat: no-repeat;
+	-fx-background-size:contain}
 	
 #optionsbtn{
 	-fx-background-image: url("pictures/OptionIcon.png");
 	
-	-fx-background-repeat: no-repeat;}
+	-fx-background-repeat: no-repeat;
+	-fx-background-size:contain}
 	
 #gamebtn{
 	-fx-background-image: url("pictures/GameIcon.png");
-	-fx-background-repeat: no-repeat;}
+	-fx-background-repeat: no-repeat;
+	-fx-background-size:contain}
 	
 	

@@ -25,6 +25,9 @@ import javax.xml.stream.events.Attribute;
 import javax.xml.stream.events.StartElement;
 import javax.xml.stream.events.XMLEvent;
 
+import debug.Debugger;
+import debug.Logger;
+
 /*
  * Still to do: - Spike/Foreground Layer - mountains - New Level - Enemies
  * Sprites - Boss too small - parallax - ... - quicksort? - Level 2 - Splash
@@ -139,7 +142,6 @@ public class gamePanel extends JPanel implements Runnable {
 		level = 1;
 		levelMax = 2;
 		gameState = LOADINTRO;
-		new Menu();
 
 		right = left  = false; //  down, up
 		screenX = x;
@@ -174,7 +176,7 @@ public class gamePanel extends JPanel implements Runnable {
 		resetTiles();
 
 		try {
-			System.out.println("Adding Image: " + screenPath + "Mark1.png");
+			Debugger.out("Adding Image: " + screenPath + "Mark1.png");
 			introScreen = ImageIO.read(new File(screenPath + "Mark1.png"));
 			loadScreen = ImageIO.read(new File(screenPath + "LoadMark1.png"));
 			level1Screen = ImageIO.read(new File(screenPath + "level1.png"));
@@ -182,7 +184,7 @@ public class gamePanel extends JPanel implements Runnable {
 			gameOverScreen = ImageIO.read(new File(screenPath + "GameOverMark1.png"));
 			youWinScreen = ImageIO.read(new File(screenPath + "YouWin.png"));
 		} catch (IOException e) {
-			System.out.println("Error loading screen images");
+			Logger.log("Error loading screen images");
 			e.printStackTrace();
 		}
 
@@ -328,7 +330,7 @@ public class gamePanel extends JPanel implements Runnable {
 			update();
 
 			if (gameState == LOADINTRO) {
-				System.out.print("Loading sprite Images ...");
+				Debugger.out("Loading sprite Images ...");
 				status = "Loading sprite Images ...";
 				repaint();
 
@@ -349,33 +351,33 @@ public class gamePanel extends JPanel implements Runnable {
 
 				sp = new Player(x, y, pw, ph, fNames_r, fNames_l, fNames_ju, fNames_Ju, fNames_jd, fNames_Jd, fNames_s,
 						fNames_S, spriteRate);
-				System.out.print("done.\n");
-				System.out.print("Loading tile Images ...");
+				Debugger.out("done.\n");
+				Debugger.out("Loading tile Images ...");
 				status = "Loading tile Images ...";
 				repaint();
 
 				loadLevel(levelBase + "level1.tmx");
-				System.out.print("done.\n");
+				Debugger.out("done.\n");
 
 				levelMinX = levelMinY = 0;
 				levelMaxX = tiles.get(tiles.size() - 1).x + brickWidth;
 				levelMaxY = tiles.get(tiles.size() - 1).y + 2 * brickWidth;
 
-				System.out.print("Loading background ...");
+				Debugger.out("Loading background ...");
 				status = "Loading background ...";
 				repaint();
 
-				System.out.print("done.\n");
+				Debugger.out("done.\n");
 				if (sound) {
 					mPlayer.setTrack(soundPath + "Level3.mid", true);
 					mPlayer.play();
 				}
 
 				gameState = INTRO;
-				// System.out.print("INTRO.\n");
+				Debugger.out("INTRO.\n");
 				repaint();
 			} else if (gameState == LOADLEVEL) {
-				// System.out.print("LOADLEVEL.\n");
+				Debugger.out("LOADLEVEL.\n");
 				String lPath;
 				switch (level) {
 				case 1:
@@ -427,13 +429,12 @@ public class gamePanel extends JPanel implements Runnable {
 					break;
 				}
 				loadLevel(lPath);
-				System.out.print("done.\n");
+				Debugger.out("done.\n");
 
 				levelMinX = levelMinY = 0;
 				levelMaxX = tiles.get(tiles.size() - 1).x + brickWidth;
 				levelMaxY = tiles.get(tiles.size() - 1).y + 2 * brickWidth;
 
-				System.out.print("done.\n");
 				try {
 					Thread.sleep(2000);
 				} catch (InterruptedException e) {
@@ -441,7 +442,7 @@ public class gamePanel extends JPanel implements Runnable {
 				}
 
 				gameState = PLAYING;
-				System.out.print("Playing.\n");
+				Debugger.out("Playing.\n");
 				repaint();
 			} else if (gameState == PLAYING || gameState == BOSS) {
 				vx *= (1 - .1);// friction
@@ -661,7 +662,7 @@ public class gamePanel extends JPanel implements Runnable {
 			try {
 				Thread.sleep(sleepTime);
 			} catch (InterruptedException e) {
-				System.out.println(e.toString());
+				Debugger.out(e.toString());
 			}
 		}
 	}
@@ -739,7 +740,7 @@ public class gamePanel extends JPanel implements Runnable {
 			break;
 		case ('t'): // Typed
 			if (e.getKeyChar() == 'c') {
-				System.out.println("Player Coords (" + sp.x + "," + sp.y + ")");
+				//Debugger.out("Player Coords (" + sp.x + "," + sp.y + ")");
 			}
 			break;
 		}
@@ -769,7 +770,7 @@ public class gamePanel extends JPanel implements Runnable {
 					@SuppressWarnings("unchecked")
 					Iterator<Attribute> attributes = startElement.getAttributes();
 					if (startElement.getName().getLocalPart() == "map") {
-						System.out.println("Map File Detected...");
+						Debugger.out("Map File Detected...");
 						while (attributes.hasNext()) {
 							Attribute attribute = attributes.next();
 							switch (attribute.getName().toString()) {
@@ -793,11 +794,11 @@ public class gamePanel extends JPanel implements Runnable {
 								break;
 							}
 						}
-						System.out.println("Found " + mapW + "x" + mapH + " tile map with " + mapTileW + "x" + mapTileH
+						Debugger.out("Found " + mapW + "x" + mapH + " tile map with " + mapTileW + "x" + mapTileH
 								+ " pixel tiles.");
 					}
 					if (startElement.getName().getLocalPart() == "tileset") {
-						System.out.println("Parsing Tileset " + tileSetCounter);
+						Debugger.out("Parsing Tileset " + tileSetCounter);
 						String tName = "";
 						while (attributes.hasNext()) {
 							Attribute attribute = attributes.next();
@@ -807,7 +808,7 @@ public class gamePanel extends JPanel implements Runnable {
 								break;
 							case ("name"):
 								tName = attribute.getValue();
-								System.out.println("\tTileset Name = " + tName);
+								Debugger.out("\tTileset Name = " + tName);
 								break;
 							case ("tilewidth"):
 								currTileSetWidth = Integer.parseInt(attribute.getValue());
@@ -824,7 +825,7 @@ public class gamePanel extends JPanel implements Runnable {
 						}
 					}
 					if (startElement.getName().getLocalPart() == "image") {
-						System.out.println("Parsing image for tileset " + tileSetCounter);
+						Debugger.out("Parsing image for tileset " + tileSetCounter);
 						String tileName = "";
 						int imageWidth = 480;
 						@SuppressWarnings("unused")
@@ -853,7 +854,7 @@ public class gamePanel extends JPanel implements Runnable {
 							BufferedImage tIm = ImageIO.read(new File(tileName));
 							tm.add(tIm, currGID - 1, imageWidth / currTileSetWidth, currTileSetWidth,
 									currTileSetHeight);
-							System.out.println("\tAdded tileset " + tileName + ".\n\t" + imageWidth / currTileSetWidth
+							Debugger.out("\tAdded tileset " + tileName + ".\n\t" + imageWidth / currTileSetWidth
 									+ " tiles of width " + currTileSetWidth);
 						} catch (IOException e) {
 							e.printStackTrace();
@@ -861,7 +862,7 @@ public class gamePanel extends JPanel implements Runnable {
 						tileSetCounter++;
 					}
 					if (startElement.getName().getLocalPart() == "layer") {
-						System.out.println("Parsing Layer " + layerCounter);
+						Debugger.out("Parsing Layer " + layerCounter);
 						String tName = "";
 						while (attributes.hasNext()) {
 							Attribute attribute = attributes.next(); // Bug -
@@ -897,13 +898,13 @@ public class gamePanel extends JPanel implements Runnable {
 								default:
 									currLayerIndex = -2;
 								}
-								System.out.println("\tName of Layer = " + tName + " with index " + currLayerIndex);
+								Debugger.out("\tName of Layer = " + tName + " with index " + currLayerIndex);
 								break;
 							case ("width"):
-								System.out.println("\tWidth of Layer = " + attribute.getValue() + " units");
+								Debugger.out("\tWidth of Layer = " + attribute.getValue() + " units");
 								break;
 							case ("height"):
-								System.out.println("\tHeight of Layer = " + attribute.getValue() + " units");
+								Debugger.out("\tHeight of Layer = " + attribute.getValue() + " units");
 								break;
 							default:
 								break;
@@ -911,7 +912,7 @@ public class gamePanel extends JPanel implements Runnable {
 						}
 					}
 					if (startElement.getName().getLocalPart() == "data") {
-						System.out.println("Parsing Data for Layer " + layerCounter);
+						Debugger.out("Parsing Data for Layer " + layerCounter);
 						while (attributes.hasNext()) {
 							Attribute attribute = attributes.next(); // Bug -
 																		// currently
@@ -920,7 +921,7 @@ public class gamePanel extends JPanel implements Runnable {
 																		// element.
 							switch (attribute.getName().toString()) {
 							case ("encoding"):
-								System.out.println("\tEncoding = " + attribute.getValue());
+								Debugger.out("\tEncoding = " + attribute.getValue());
 								break;
 							default:
 								break;
@@ -941,7 +942,7 @@ public class gamePanel extends JPanel implements Runnable {
 						if (currLayerIndex == -1) {
 							loadSprites(stEvent, mapW, mapH, mapTileW, mapTileH);
 						} else {
-							System.out.println("Loading Layer with index " + currLayerIndex);
+							Debugger.out("Loading Layer with index " + currLayerIndex);
 							loadLayer(currLayerIndex, stEvent, mapW, mapH, mapTileW, mapTileH);
 						}
 						layerCounter++;
@@ -965,7 +966,7 @@ public class gamePanel extends JPanel implements Runnable {
 	public boolean loadLayer(int index, String data, int nX, int nY, int tW, int tH) {
 		String[] tokens = data.split(",");
 		if (tokens.length != nX * nY) {
-			System.out.println("Error decoding file");
+			Logger.log("Error decoding file");
 			return false;
 		} else {
 			int cnt = 0;
@@ -974,7 +975,7 @@ public class gamePanel extends JPanel implements Runnable {
 				for (int i = 0; i < nX; i++) {
 					tmp = Integer.parseInt(tokens[cnt]);
 					if (tmp != 0) {
-						// System.out.println("Added Tile "+(tmp-1)+" at (x,y) =
+						// Debugger.out("Added Tile "+(tmp-1)+" at (x,y) =
 						// ("+i+","+j+")");
 						TilePoint ttp = tm.getTile(tmp - 1);
 
@@ -1013,10 +1014,10 @@ public class gamePanel extends JPanel implements Runnable {
 
 	public boolean loadSprites(String data, int nX, int nY, int tW, int tH) {
 		// start sprite GID
-		System.out.println("Sprite GID = " + spriteGID);
+		Debugger.out("Sprite GID = " + spriteGID);
 		String[] tokens = data.split(",");
 		if (tokens.length != nX * nY) {
-			System.out.println("Error decoding file");
+			Logger.log("Error decoding file");
 			return false;
 		} else {
 			int cnt = 0;
@@ -1155,7 +1156,7 @@ public class gamePanel extends JPanel implements Runnable {
 			MidiPlayer.stop();
 			ClipPlayer.DIE.play();
 			database.Score.death();
-			System.out.println("DIE!");
+			Debugger.out("DIE!");
 		}
 		lives--;
 		x = playerStartX;

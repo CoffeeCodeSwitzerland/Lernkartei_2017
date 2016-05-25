@@ -17,7 +17,7 @@ Gleichzeitig sollen WISS Studenten auch motiviert werden können mit diesem Progr
 - Nina	Egger								(desig and graphics)
 - Joel	Häberli								(stats and users)
 - Tim	Leibacher							(game)
-- Hugo	Lucca			[hlucca@gmx.net]	(fx, mvc and debug)
+- Hugo	Lucca			hlucca@gmx.net		(fx, mvc and debug)
 - Roger	Schneiter							(database and files)
 - David	Schor								(card editor)
 - Yanis	Weibel								(learning)

@@ -13,14 +13,14 @@ Gleichzeitig sollen WISS Studenten auch motiviert werden können mit diesem Progr
 
 ## Developer Team ##
 --------------------
-Miro	Abrecht								quizlet
-Nina	Egger								desig and graphics
-Joel	Häberli								stats and users
-Tim		Leibacher							game developer
-Hugo	Lucca			hlucca@gmx.net		fx, mvc and debug
-Roger	Schneiter							database and files
-David	Schor								card editor
-Yanis	Weibel								learning
+- Miro	Abrecht								quizlet
+- Nina	Egger								desig and graphics
+- Joel	Häberli								stats and users
+- Tim	Leibacher							game developer
+- Hugo	Lucca			hlucca@gmx.net		fx, mvc and debug
+- Roger	Schneiter							database and files
+- David	Schor								card editor
+- Yanis	Weibel								learning
 
 
 ## Zusammenfassung User-Stories (Teil 1) ## 

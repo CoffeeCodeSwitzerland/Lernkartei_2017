@@ -38,7 +38,7 @@ public class ScrollyV8 extends JFrame implements KeyListener, WindowListener, Ac
 		this.addWindowListener(new WindowAdapter() {
 			// @SuppressWarnings("static-access")
 			public void windowClosing(WindowEvent e) {
-				System.err.println("Exiting Game");
+				Debugger.out("Exiting Game");
 				gamePanel.gameState = gamePanel.INTRO;
 				MidiPlayer.stop();
 				gamePanel.sound = false;

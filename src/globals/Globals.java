@@ -15,7 +15,7 @@ public abstract class Globals {
 	public static final String SEPARATOR = ":::";
 	
 	public static final String db_Path = "WISS_Learncards_db";
-	public static final String db_name = "Lernkarten_db";
+	public static final String db_name = "Lernkarten";
 
 	public static final String CSSExtention = ".css";
 	public static final String stylesSupPath = "styles";
@@ -26,6 +26,8 @@ public abstract class Globals {
 	
 	public static final int defaultStackPartSize = 20;
 	
-	public static final boolean DebuggerIsOn = true;
-	public static final boolean TestingIsOn  = true;
+	// Do any change manually here:
+	public static final boolean LoggerIsOn 	 = true; // Logger ON/OFF (should remain ON)
+	public static final boolean DebuggerIsOn = true; // Debugger ON/OFF (deactivate before release)
+	public static final boolean TestingIsOn  = true; // TestConditions ON/OFF (deactivate before release)
 }

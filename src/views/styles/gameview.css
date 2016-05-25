@@ -1,5 +1,5 @@
 #gameview{
-	-fx-background-image: url("pictures/Scrollyv8.png");
+	-fx-background-image: url("pictures/viewbackground.png");
 	-fx-background-repeat: stretch;   
     -fx-background-size: stretch, cover;
 	}

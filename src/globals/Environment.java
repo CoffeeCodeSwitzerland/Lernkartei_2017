@@ -100,12 +100,21 @@ public final class Environment {
 		File theDir = new File(System.getenv("APPDATA") + fileSep + globals.Globals.db_Path);
 		if (!theDir.exists()) {
 			theDir.mkdirs();
-		    debug.Debugger.out("Ordner " + globals.Globals.db_Path + " erstellt!");
-		} else {
-			debug.Debugger.out("Ordner " + globals.Globals.db_Path + " erstellt!");
 		}
 		
 		String path = System.getenv("APPDATA") + fileSep + globals.Globals.db_Path + fileSep;
+		return path;
+	}
+	
+	public static String getDatabaseLocation() {
+		if (fileSep == null) init();
+		File theDir = new File(System.getenv("APPDATA") + fileSep + globals.Globals.db_Path);
+		if (!theDir.exists()) {
+			theDir.mkdirs();
+		}
+		
+		String path = System.getenv("APPDATA") + fileSep + globals.Globals.db_Path;
+		debug.Debugger.out(path);
 		return path;
 	}
 }

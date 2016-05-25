@@ -23,7 +23,7 @@
 	-fx-color: #ffebb2;
     -fx-text-fill: #875100; 
     -fx-padding:8.0;
-    -fx-background-insets: 0,1,2;
+    -fx-background-insets: 0,1,2; 
 }
 
 .button:focused

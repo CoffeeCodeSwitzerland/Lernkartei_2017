@@ -36,7 +36,5 @@ public abstract class Globals {
 	
 	public static final boolean DebuggerIsOn = true; // Debugger ON/OFF (deactivate before release)
 	public static final boolean TestingIsOn  = true; // TestConditions ON/OFF (deactivate before release)
-	
-	public static final int bonusLeben = 0;
 }
 

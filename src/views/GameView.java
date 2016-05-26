@@ -29,13 +29,13 @@ public class GameView extends FXView {
 
 	Text text;
 
-	Text lifes = new Text("");
+	public static Text lifes = new Text("");
 	BorderPane mainLayout = new BorderPane();
-	AppButton btn = new AppButton("Spiel starten");
+	public static AppButton btn = new AppButton("Spiel starten");
 	VBox menuLayout = new VBox();
 	AppButton btnInfo = new AppButton("Info");
 	AppButton btnBacktoKartei = new AppButton("Zurück");
-	Text grund = new Text("");
+	public static Text grund = new Text("");
 
 	@Override
 	public Parent constructContainer() {
@@ -70,7 +70,6 @@ public class GameView extends FXView {
 
 	}
 
-	@Override
 	public void refreshView() {
 
 		if (database.Score.getLifecount() == 0) {

@@ -92,7 +92,10 @@ public final class Logger {
 		if (logLine == null)
 			logLine = "{Logger:null?}";
 		long time = LocalTime.now().toNanoOfDay();
-		double diff = (time - lastTime)/100000000.0;
+		double diff = 0.0;
+		if (lastTime > 0L) {
+			diff = (time - lastTime) / 100000000.0;
+		}
 		lastTime = time;
 		String stime = Long.toString(time).substring(1, 9);
 		final DecimalFormat oneDigit = new DecimalFormat( "0.0" );

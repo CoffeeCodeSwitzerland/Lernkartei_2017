@@ -195,30 +195,20 @@ public class EditorView extends FXViewModel
 			
 			back.setOnKeyReleased(e ->{
 				String text = back.getText();
+				text = Functions.AntiHTMLTags(text);
+				text = Functions.ColorBBCode(text);
 				text = Functions.simpleBbCode2HTML(text, Globals.evenTags);
 				text = Functions.realBbCode2HTML(text, Globals.pairedTags); 
-				if(text.contains("[/color]")){
-					String result = text.substring(text.indexOf("(") + 1, text.indexOf(")"));
-					text = text.replace("[color=" + "(" + result + ")]", "<span style=\"color:" + result + "\">");
-					text = text.replace("[/color]", "</span>");
-					System.out.println(text);
 				engineback.loadContent(text);
-				}else{
-				engineback.loadContent(text);}
 			});
 			
 			front.setOnKeyReleased(e ->{
 				String text = front.getText();
+				text = Functions.AntiHTMLTags(text);
+				text = Functions.ColorBBCode(text);
 				text = Functions.simpleBbCode2HTML(text, Globals.evenTags);
-				text = Functions.realBbCode2HTML(text, Globals.pairedTags);
-				if(text.contains("[color")){
-					String result = text.substring(text.indexOf("(") + 1, text.indexOf(")"));
-					text = text.replace("[color=" + "(" + result + ")]", "<span style=\"color:" + result + "\">");
-					text = text.replace("[/color]", "</span>");
-					System.out.println(text);
+				text = Functions.realBbCode2HTML(text, Globals.pairedTags);			
 				enginefront.loadContent(text);
-				}else{
-				enginefront.loadContent(text);}
 			});
 			
 			front.focusedProperty().addListener(e ->

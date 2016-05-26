@@ -21,6 +21,24 @@ public abstract class Functions
 		return input;
 	}
 	
+public static String AntiHTMLTags(String input){
+		
+		if(input.contains("<") || input.contains(">"))
+			input = input.replace("<", "");
+			input = input.replace(">", "");
+		return input;
+	}
+	
+	public static String ColorBBCode(String input){
+
+		if(input.contains("[color=")){
+			String result = input.substring(input.indexOf("(") + 1, input.indexOf(")"));
+			input = input.replace("[color=\"(" + result + ")", "<span style=\"color:" + result + "\">");
+			input = input.replace("[/color]", "</span>");
+		}
+		return input;
+	}
+	
 	public static String realBbCode2HTML (String input, String... tags)
 	{	
 		if (tags.length % 2 != 0) 

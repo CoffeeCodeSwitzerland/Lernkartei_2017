@@ -9,6 +9,12 @@ import java.util.ArrayList;
 
 public class Stack {
 
+	// Connectioninformationen URL & Driver
+
+	private static String	url		= "jdbc:sqlite:" + globals.Environment.getDatabasePath()
+			+ globals.Globals.db_name + ".db";
+	private static String	driver	= "org.sqlite.JDBC";
+
 	/**
 	 * 
 	 * Methode, zum Einfügen einer neuen Kategorie
@@ -21,15 +27,18 @@ public class Stack {
 
 	public static int newStack (String eingabe, String fk_door) {
 
-		Connection c = Database.getConnection();
+		Connection c = null;
+		Statement stmt = null;
 		Integer FK_ID = 0;
 		Integer errorMsg = 0;
 
 		try {
 
 			// Datenbankverbindung erstellen
-			c = DriverManager.getConnection(Database.getDbURL());
-			Statement stmt = c.createStatement();
+
+			Class.forName(driver);
+			c = DriverManager.getConnection(url);
+			stmt = c.createStatement();
 
 			// Tabelle Kategorie erstellen, sofern sie nicht existiert
 
@@ -80,7 +89,8 @@ public class Stack {
 			c.close();
 		}
 		catch (Exception e) {
-			debug.Debugger.out(e.getMessage());
+			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+			System.exit(0);
 		}
 
 		return errorMsg;
@@ -89,14 +99,19 @@ public class Stack {
 
 	public static ArrayList<String> getKategorien (String doorname) {
 
-		Connection c = Database.getConnection();
+		Connection c = null;
+		Statement stmt = null;
 		Integer FK_ID = 0;
 
 		ArrayList<String> datensatz = new ArrayList<String>();
 
 		try {
-			c = DriverManager.getConnection(Database.getDbURL());
-			Statement stmt = c.createStatement();
+
+			// Verbindung erstellen
+
+			Class.forName(driver);
+			c = DriverManager.getConnection(url);
+			stmt = c.createStatement();
 
 			// Tabelle generieren, falls nicht vorhanden
 
@@ -137,7 +152,8 @@ public class Stack {
 			c.close();
 		}
 		catch (Exception e) {
-			debug.Debugger.out(e.getMessage());
+			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+			System.exit(0);
 		}
 
 		return datensatz;
@@ -153,12 +169,17 @@ public class Stack {
 
 	public static boolean delStack (String category) {
 
-		Connection c = Database.getConnection();
+		Connection c = null;
+		Statement stmt = null;
 		boolean worked = false;
 
 		try {
-			c = DriverManager.getConnection(Database.getDbURL());
-			Statement stmt = c.createStatement();
+
+			// Verbindung erstellen
+
+			Class.forName(driver);
+			c = DriverManager.getConnection(url);
+			stmt = c.createStatement();
 
 			// Tabelle generieren wenn nicht vorhanden
 
@@ -166,22 +187,35 @@ public class Stack {
 					+ "(PK_Kategorie INTEGER PRIMARY KEY AUTOINCREMENT,"
 					+ " Kategorie TEXT NOT NULL,"
 					+ " FK_Door INTEGER NOT NULL)";
-			
 			stmt.executeUpdate(sql);
-			
-			String delCards = "DELETE FROM Stock WHERE Set_ID = (SELECT PK_Kategorie FROM Kategorie WHERE Kategorie = '" + category + "');";
-			stmt.executeUpdate(delCards);
-			
-			String delStack = "DELETE FROM Kategorie WHERE Kategorie = '" + category + "';";
-			stmt.executeUpdate(delStack);
+			c.setAutoCommit(false);
 
-			stmt.close();
-			c.close();
-			worked = true;
+			// Abfragen, ob zu löschende Kategorie vorhanden ist oder nicht.
+			// Wenn ja, wird gelöscht
+
+			ResultSet del = stmt.executeQuery("SELECT Kategorie FROM Kategorie WHERE Kategorie = '" + category + "'");
+			Integer setID = del.getInt("Kategorie");
+			boolean contin = del.next();
+			del.close();
+
+			if (contin) {
+				String delDoor = "DELETE FROM Kategorie WHERE Kategorie = '" + category + "'";
+				String delCards = "DELETE FROM Stock WHERE Set_ID = " + setID;
+				stmt.executeUpdate(delCards);
+				stmt.executeUpdate(delDoor);
+				stmt.close();
+				c.close();
+				worked = true;
+			}
+			else {
+				stmt.close();
+				c.close();
+				worked = false;
+			}
 		}
 		catch (Exception e) {
-			debug.Debugger.out(e.getMessage());
-			worked = false;
+			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+			System.exit(0);
 		}
 
 		return worked;
@@ -190,12 +224,15 @@ public class Stack {
 
 	public static ArrayList<String> getStacknames () {
 
-		Connection c = Database.getConnection();
+		Connection c = null;
+		Statement stmt = null;
+
 		ArrayList<String> Stacks = new ArrayList<String>();
 
 		try {
-			c = DriverManager.getConnection(Database.getDbURL());
-			Statement stmt = c.createStatement();
+			Class.forName(driver);
+			c = DriverManager.getConnection(url);
+			stmt = c.createStatement();
 
 			// Tabelle generieren, falls nicht vorhanden
 
@@ -224,18 +261,23 @@ public class Stack {
 
 		}
 		catch (Exception e) {
-			debug.Debugger.out(e.getMessage());
+			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+			System.exit(0);
 		}
 		return Stacks;
 	}
 
 	public int getStackID (String KategorieName) {
 		int ID = 0;
-		Connection c = Database.getConnection();
+
+		Connection c = null;
+		Statement stmt = null;
 
 		try {
-			c = DriverManager.getConnection(Database.getDbURL());
-			Statement stmt = c.createStatement();
+
+			Class.forName(driver);
+			c = DriverManager.getConnection(url);
+			stmt = c.createStatement();
 
 			String sql = "CREATE TABLE IF NOT EXISTS Kategorie "
 					+ "(PK_Kategorie INTEGER PRIMARY KEY AUTOINCREMENT,"
@@ -257,7 +299,8 @@ public class Stack {
 		}
 		catch (Exception e) {
 			ID = 0;
-			debug.Debugger.out(e.getMessage());
+			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+			System.exit(0);
 		}
 
 		return ID;
@@ -265,11 +308,13 @@ public class Stack {
 
 	public static boolean possible (String boxName) {
 
-		Connection c = Database.getConnection();
+		Connection c = null;
+		Statement stmt = null;
 
 		try {
-			c = DriverManager.getConnection(Database.getDbURL());
-			Statement stmt = c.createStatement();
+			Class.forName(driver);
+			c = DriverManager.getConnection(url);
+			stmt = c.createStatement();
 
 			String sql = "SELECT * FROM Kategorie WHERE Kategorie = '" + boxName + "';";
 
@@ -291,7 +336,8 @@ public class Stack {
 
 		}
 		catch (Exception e) {
-			debug.Debugger.out(e.getMessage());
+			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+			System.exit(0);
 		}
 
 		return true;
@@ -300,12 +346,14 @@ public class Stack {
 
 	public static boolean update (String oldName, String newName) {
 
-		Connection c = Database.getConnection();
+		Connection c = null;
+		Statement stmt = null;
 		boolean worked = true;
 
 		try {
-			c = DriverManager.getConnection(Database.getDbURL());
-			Statement stmt = c.createStatement();
+			Class.forName(driver);
+			c = DriverManager.getConnection(url);
+			stmt = c.createStatement();
 
 			c.setAutoCommit(false);
 
@@ -327,7 +375,8 @@ public class Stack {
 			c.close();
 		}
 		catch (Exception e) {
-			debug.Debugger.out(e.getMessage());
+			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+			System.exit(0);
 		}
 
 		return worked;

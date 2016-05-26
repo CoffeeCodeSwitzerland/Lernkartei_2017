@@ -5,7 +5,7 @@ import java.awt.Image;
 public class Enemy extends Squob
 {
 
-    protected boolean alive;
+    protected boolean alive; 
     protected char state,type;
     public double vx, vy;
     protected boolean ground;

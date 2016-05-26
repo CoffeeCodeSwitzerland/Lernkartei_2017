@@ -6,7 +6,8 @@
 	
 	Inhalt
 	------	
-	
+	- BackUp.java:		--> Funktionalität, um ein Backup aller Karten auf einen externen MySql Server
+							zu machen. Funktion: backUp
 	- Categories.java:	--> Funktionalität um Kategorien zu erstellen, löschen, abzufragen, usw.
 	- Config.java:		--> Konfig Datenbank, welche Token und weitere Konfiginformationen enthält
 	- Database.java:	--> Funktionalität, alle Karten abzuspeichern, zu löschen, bearbeiten und sie

@@ -9,6 +9,12 @@ import java.util.ArrayList;
 
 public class Doors {
 
+	// URL und Driver
+
+	private static String	url			= "jdbc:sqlite:" +  globals.Environment.getDatabasePath()
+										 + globals.Globals.db_name + ".db";
+	private static String	driver		= "org.sqlite.JDBC";
+
 	/**
 	 * Methode, zum Erstellen einer neuen Türe
 	 * 
@@ -22,12 +28,14 @@ public class Doors {
 
 	public static boolean newDoor (String eingabe) {
 
-		Connection c = Database.getConnection();
+		Connection c = null;
+		Statement stmt = null;
 		boolean worked = false;
 
 		try {
-			c = DriverManager.getConnection(Database.getDbURL());
-			Statement stmt = c.createStatement();
+			Class.forName(driver);
+			c = DriverManager.getConnection(url);
+			stmt = c.createStatement();
 
 			String sql = "CREATE TABLE IF NOT EXISTS Doors " +
 					"(PK_Doors INTEGER PRIMARY KEY AUTOINCREMENT," +
@@ -71,7 +79,8 @@ public class Doors {
 
 		}
 		catch (Exception e) {
-			debug.Debugger.out(e.getMessage());
+			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+			System.exit(0);
 		}
 
 		return worked;
@@ -87,13 +96,16 @@ public class Doors {
 
 	public static ArrayList<String> getDoors () {
 
-		Connection c = Database.getConnection();
+		Connection c = null;
+		Statement stmt = null;
+
 		ArrayList<String> data = new ArrayList<String>();
 
 		try {
-			c = DriverManager.getConnection(Database.getDbURL());
+			Class.forName(driver);
+			c = DriverManager.getConnection(url);
 			c.setAutoCommit(false);
-			Statement stmt = c.createStatement();
+			stmt = c.createStatement();
 
 			ResultSet tbl = stmt.executeQuery("SELECT name FROM sqlite_master WHERE type='table' AND name='Doors'");
 
@@ -123,7 +135,8 @@ public class Doors {
 			}
 		}
 		catch (Exception e) {
-			debug.Debugger.out(e.getMessage());
+			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+			System.exit(0);
 		}
 
 		return data;
@@ -140,13 +153,15 @@ public class Doors {
 
 	public static boolean delDoor (String delName) {
 
-		Connection c = Database.getConnection();
+		Connection c = null;
+		Statement stmt = null;
 		boolean worked = false;
 		ArrayList<String> setsToDel = new ArrayList<String>();
 		
 		try {
-			c = DriverManager.getConnection(Database.getDbURL());
-			Statement stmt = c.createStatement();
+			Class.forName(driver);
+			c = DriverManager.getConnection(url);
+			stmt = c.createStatement();
 			c.setAutoCommit(false);
 			
 			ResultSet del = stmt.executeQuery("SELECT * FROM Doors WHERE Doorname = '" + delName + "'");
@@ -184,7 +199,8 @@ public class Doors {
 
 		}
 		catch (Exception e) {
-			debug.Debugger.out(e.getMessage());
+			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+			System.exit(0);
 		}
 
 		return worked;
@@ -193,12 +209,14 @@ public class Doors {
 	
 	public static boolean update(String oldName, String newName) {
 		
-		Connection c = Database.getConnection();
+		Connection c = null;
+		Statement stmt = null;
 		boolean worked = true;
 		
 		try {
-			c = DriverManager.getConnection(Database.getDbURL());
-			Statement stmt = c.createStatement();
+			Class.forName(driver);
+			c = DriverManager.getConnection(url);
+			stmt = c.createStatement();
 			
 			c.setAutoCommit(false);
 			
@@ -218,7 +236,8 @@ public class Doors {
 			c.close();
 		}
 		catch (Exception e) {
-			debug.Debugger.out(e.getMessage());
+			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+			System.exit(0);
 		}
 		
 		return worked;

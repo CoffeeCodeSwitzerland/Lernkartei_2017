@@ -16,16 +16,24 @@ import java.util.ArrayList;
 
 public class UserCards {
 
+	// URL und Driver
+
+	private static String	url			= "jdbc:sqlite:" +  globals.Environment.getDatabasePath()
+	 									 + globals.Globals.db_name + ".db";
+	private static String	driver		= "org.sqlite.JDBC";
+	
 	public UserCards () {
 
 		// für Später, damit sichergestellt ist, dass die Tabelle "Score"
 		// existiert
-		Connection c = Database.getConnection();
+		Connection c = null;
+		Statement stmt = null;
 
 		try {
 
-			c = DriverManager.getConnection(Database.getDbURL());
-			Statement stmt = c.createStatement();
+			Class.forName(driver);
+			c = DriverManager.getConnection(url);
+			stmt = c.createStatement();
 
 			String sql = "CREATE TABLE IF NOT EXISTS Score 	(PK_Score INTEGER PRIMARY KEY AUTOINCREMENT,"
 					+ "Kartei TEXT NOT NULL,"
@@ -36,7 +44,7 @@ public class UserCards {
 		catch (SQLException e) {
 			e.printStackTrace();
 		}
-		catch (Exception e) {
+		catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
 	}
@@ -53,12 +61,14 @@ public class UserCards {
 
 	public static ArrayList<String> getCards () {
 
-		Connection c = Database.getConnection();
+		Connection c = null;
+		Statement stmt = null;
 		listCards.clear();
 
 		try {
-			c = DriverManager.getConnection(Database.getDbURL());
-			Statement stmt = c.createStatement();
+			Class.forName(driver);
+			c = DriverManager.getConnection(url);
+			stmt = c.createStatement();
 			String Karten = "SELECT Kartei FROM Score";
 			ResultSet Cards = stmt.executeQuery(Karten);
 
@@ -87,18 +97,23 @@ public class UserCards {
 
 	public boolean addCards (String query) {
 
-		Connection c = Database.getConnection();
+		Connection c = null;
+		Statement stmt = null;
 
 		try {
-			c = DriverManager.getConnection(Database.getDbURL());
-			Statement stmt = c.createStatement();
+			Class.forName(driver);
+			c = DriverManager.getConnection(url);
+			stmt = c.createStatement();
 
 			debug.Debugger.out(query);
 
 			stmt.executeUpdate(query);
 
 		}
-		catch (Exception e) {
+		catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		catch (SQLException e) {
 			e.printStackTrace();
 		}
 

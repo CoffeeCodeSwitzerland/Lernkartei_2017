@@ -43,10 +43,10 @@ public class ImpressumView extends FXView
 		WISSlink.setOnAction(e -> Functions.openWebpage("http://www.wiss.ch/"));
 		
 		Hyperlink BITLink = new Hyperlink("BIT Webseite");
-		WISSlink.setOnAction(e -> Functions.openWebpage("https://www.bit.admin.ch/"));
+		BITLink.setOnAction(e -> Functions.openWebpage("https://www.bit.admin.ch/"));
 		
 		Hyperlink LehrlingeLink = new Hyperlink("Unsere Webseite");
-		WISSlink.setOnAction(e -> Functions.openWebpage("http://bund2015.wiss-bern.ch/"));
+		LehrlingeLink.setOnAction(e -> Functions.openWebpage("http://bund2015.wiss-bern.ch/"));
 		
 		
 		AppButton backBtn = new AppButton("_Zurück");

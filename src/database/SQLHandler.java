@@ -66,16 +66,5 @@ public abstract class SQLHandler {
 		return null;
 	}
 
-	protected static void closeDB(Connection c) {
-		try {
-			if (stmt != null)
-				stmt.close();
-			if (c != null)
-				c.close();
-		} catch (Exception e2) {
-		}
-		;
-		stmt = null;
-	}
 
 }

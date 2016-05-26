@@ -78,7 +78,7 @@ public class Config extends SQLiteConnector {
 			if (value==null) value="{null}";
 			Logger.log("Config.setConnection("+key+","+value+")"+e.getMessage());
 		}
-		closeDB(c);
+		closeDB();
 	}
 
 	/**
@@ -102,13 +102,13 @@ public class Config extends SQLiteConnector {
 			stmt = c.createStatement();
 			c.setAutoCommit(false);
 
-			String getTbl = "SELECT tbl_name FROM sqlite_master WHERE type='table'";
+			String getTbl = "SELECT tbl_name FROM sqlite_master WHERE type='table' AND tbl_name = 'config'";
 			ResultSet tbl = stmt.executeQuery(getTbl);
 
 			if (!tbl.next()) {
-				debug.Debugger.out("Table not existent, no Values are generated yet!");
+				debug.Debugger.out("Table config not existent, no Values are generated yet!");
 				stmt.close();
-				c.close();
+				c.close(); 
 				return value;
 			}
 
@@ -122,7 +122,7 @@ public class Config extends SQLiteConnector {
 				return value;
 			}
 			else {
-				debug.Debugger.out("No Values with this Key exist!");
+				debug.Debugger.out("Config.getValue(" + key + "): No Values with this Key exist!");
 				stmt.close();
 				c.close();
 				return value;

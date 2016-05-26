@@ -10,6 +10,7 @@ import debug.Logger;
  * @author WISS
  *
  */
+
 public abstract class SQLiteConnector extends SQLHandler {
 
 	protected final static String driver = "org.sqlite.JDBC";
@@ -27,8 +28,20 @@ public abstract class SQLiteConnector extends SQLHandler {
 			if (dbURL == null)
 				dbURL = "{null}";
 			Logger.log("SQLiteConnetor.setConnection(URL: " + dbURL + "): " + e.getMessage());
-			closeDB(c);
+			closeDB();
 		}
+	}
+	
+	protected static void closeDB() {
+		try {
+			if (stmt != null)
+				stmt.close();
+			if (c != null)
+				c.close();
+		} catch (Exception e2) {
+		}
+		;
+		stmt = null;
 	}
 
 	public static boolean replaceOrInsert2Token(String tabName, String kName, String key, String vName, String value) {
@@ -40,7 +53,8 @@ public abstract class SQLiteConnector extends SQLHandler {
 			ResultSet rs = stmt.executeQuery(checkTkn);
 			if (rs.next()) {
 				// SQLite Statement zum Ersetzen des letzten Tokeneintrags
-				String replace = "UPDATE " + tabName + " SET " + vName + " = '" + value + "'" + " WHERE " + kName
+				String replace = "UPDATE " + tabName + " SET " + vName + " = '" + value + "'" 
+								+ " WHERE " + kName
 						+ " = '" + key + "'";
 				c.setAutoCommit(true);
 				stmt.executeUpdate(replace);
@@ -53,7 +67,7 @@ public abstract class SQLiteConnector extends SQLHandler {
 				c.setAutoCommit(true);
 				debug.Debugger.out(create + "\n\nEintrag erstellt!");
 			}
-			closeDB(c);
+			closeDB();
 			return true;
 		} catch (Exception e) {
 			if (key == null)
@@ -62,7 +76,7 @@ public abstract class SQLiteConnector extends SQLHandler {
 				value = "{null}";
 			Logger.log("SQLiteConnector.replaceOrInsertToken(" + key + "," + value + ")" + e.getMessage());
 		}
-		closeDB(c);
+		closeDB();
 		return false;
 	}
 

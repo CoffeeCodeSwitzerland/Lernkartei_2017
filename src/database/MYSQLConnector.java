@@ -9,7 +9,7 @@ import debug.Logger;
  * @author WISS
  *
  */
-public abstract class MYSQLConnector extends SQLHandler {
+public abstract class MYSQLConnector extends SQLiteConnector {
 
 	private static String	username	= "prototyp";
 	private static String	password	= "prototyp";
@@ -29,7 +29,7 @@ public abstract class MYSQLConnector extends SQLHandler {
 			if (dbURL == null)
 				dbURL = "{null}";
 			Logger.log("MYSQLConnector.setConnection(URL: " + dbURL + "): " + e.getMessage());
-			closeDB(c);
+			closeDB();
 		}
 	}
 }

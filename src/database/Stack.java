@@ -3,8 +3,11 @@ package database;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+
+import debug.Logger;
 
 
 public class Stack {
@@ -214,10 +217,19 @@ public class Stack {
 			}
 		}
 		catch (Exception e) {
-			System.err.println(e.getClass().getName() + ": " + e.getMessage());
-			System.exit(0);
+			debug.Debugger.out("Stack.delStack(" + category +"): " + e.getMessage());
+			Logger.log("Stack.delStack(" + category +"): " + e.getMessage());
+//			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+//			System.exit(0);
 		}
+		try {
+			stmt.close();
+			c.close();
+		}
+		catch (SQLException e) {
 
+		}
+		
 		return worked;
 
 	}

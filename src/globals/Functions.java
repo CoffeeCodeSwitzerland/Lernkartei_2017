@@ -34,9 +34,26 @@ public static String AntiHTMLTags(String input){
 	public static String ColorBBCode(String input){
 
 		if(input.contains("[color=")){
+			String findStr = "[color=";
+			int lastIndex = 0;
+			int count = 0;
+
+			while(lastIndex != -1){
+
+			    lastIndex = input.indexOf(findStr,lastIndex);
+
+			    if(lastIndex != -1){
+			        count ++;
+			        lastIndex += findStr.length();
+			    }
+			}
+			int up = 0;
+			while(count > up){
 			String result = input.substring(input.indexOf("(") + 1, input.indexOf(")"));
 			input = input.replace("[color=(" + result + ")]", "<span style=\"color:" + result + "\">");
 			input = input.replace("[/color]", "</span>");
+			up++;
+			}
 		}
 		return input;
 	}

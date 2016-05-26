@@ -1,5 +1,6 @@
 package views;
 
+import globals.Globals;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
@@ -75,7 +76,7 @@ public class GameView extends FXView {
 		if (database.Score.getLifecount() == 0) {
 			btn.setDisable(true);  
 			grund.setText("Sie müssen zuerst Lernen!");
-			lifes.setText("Lifes: " + database.Score.getLifecount());
+			lifes.setText("Lifes: " + database.Score.getLifecount() + Globals.bonusLeben);
 		} else { 
 			btn.setDisable(false); 
 			lifes.setText("Lifes: " + database.Score.getLifecount()); 

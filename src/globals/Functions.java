@@ -4,6 +4,7 @@ import java.awt.Desktop;
 import java.net.URL;
 
 import debug.Debugger;
+import debug.Logger;
 
 public abstract class Functions
 {
@@ -111,13 +112,15 @@ public static String AntiHTMLTags(String input){
 	    }
 	}
 	
-	
 	public static void openWebpage(String urlString) {
 	    try {
 	        Desktop.getDesktop().browse(new URL(urlString).toURI());
 	    } catch (Exception e) {
+	    	// TODO: hier Meldung an User er sollte ein Standardbrowser haben
+	    	if (urlString == null) urlString = "{null}";
+	    	Logger.log("Functions.openWebpage("+urlString+"): please set a browser as standard!");
+	    	Debugger.out("Functions.openWebpage("+urlString+"): " + e.getMessage());
 	        e.printStackTrace();
 	    }
 	}
-
 }

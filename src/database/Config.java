@@ -5,8 +5,10 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
+import debug.Logger;
 
-public class Config {
+
+public class Config extends SQLiteConnector {
 
 	// Connectioninformationen URL & Driver
 
@@ -27,24 +29,21 @@ public class Config {
 
 		// Verbindung und Aktionen mit der Datenbank
 
-		Connection c = null;
-		Statement stmt = null;
-
+		Database.setConnection(url);
 		try {
-
-			Class.forName(driver);
-			c = DriverManager.getConnection(url);
-			stmt = c.createStatement();
-
 			// Tabelle erstellen
+//			String newTbl = "CREATE TABLE IF NOT EXISTS config ("
+//					+ "PK_Cfg INTEGER PRIMARY KEY AUTOINCREMENT,"
+//					+ "Key TEXT NOT NULL,"
+//					+ "Value TEXT NOT NULL)";
+//
+//			debug.Debugger.out(newTbl + "\n\nTable generated!");
+//			stmt.executeUpdate(newTbl);
 
-			String newTbl = "CREATE TABLE IF NOT EXISTS config ("
-					+ "PK_Cfg INTEGER PRIMARY KEY AUTOINCREMENT,"
-					+ "Key TEXT NOT NULL,"
-					+ "Value TEXT NOT NULL)";
-
-			debug.Debugger.out(newTbl + "\n\nTable generated!");
-			stmt.executeUpdate(newTbl);
+			String attr = "PK_Cfg INTEGER PRIMARY KEY AUTOINCREMENT,"
+							+ "Key TEXT NOT NULL,"
+							+ "Value TEXT NOT NULL";
+			createTableIfNotExists("config", attr);
 
 			// Überprüfen ob bereits ein Token vorhanden ist, wenn ja,
 			// überschreiben
@@ -73,16 +72,13 @@ public class Config {
 				c.setAutoCommit(true);
 				debug.Debugger.out(create + "\n\nEintrag erstellt!");
 			}
-
-			stmt.close();
-			c.close();
-
 		}
 		catch (Exception e) {
-			System.err.println(e.getClass().getName() + ": " + e.getMessage());
-			System.exit(0);
+			if (key==null) key="{null}";
+			if (value==null) value="{null}";
+			Logger.log("Config.setConnection("+key+","+value+")"+e.getMessage());
 		}
-
+		closeDB(c);
 	}
 
 	/**

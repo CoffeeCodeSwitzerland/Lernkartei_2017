@@ -22,8 +22,11 @@
 	-fx-font-family: "Segoe UI Semibold";
 	-fx-color: #ffebb2;
     -fx-text-fill: #875100; 
-    -fx-padding:8.0;
+    -fx-padding: 1em;
     -fx-background-insets: 0,1,2; 
+    /* folgendes geht (Beispiel):
+    	-fx-max-width: 250px;
+    */
 }
 
 .button:focused

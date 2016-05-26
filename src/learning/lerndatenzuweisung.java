@@ -54,14 +54,6 @@ public class lerndatenzuweisung {
 		}
 		
 		card = learnToday;
-		
-	
-	}
-	public void datenZuweiser()
-	{//TODO		LocalDate.now().(viele möglichkeiten		
-		
-		
 	}
 	
-
 }

@@ -43,6 +43,9 @@ public class Bewertungsklasse {
 		int validate = database.Database.getPriority(cardID);
 
 		Database.upPrio(Integer.parseInt(cardID));
+		
+		datumZuweisen(cardID);
+		
 
 		if (validate >= database.Database.getPriority(cardID)) {
 			return 1;
@@ -63,5 +66,10 @@ public class Bewertungsklasse {
 			return -2;
 		}
 
+	}
+	public static void datumZuweisen(String cardID)
+	{
+		//database.Database.InsertDate(cardID);
+		//TODO Roger: localDate.now muss dort in Attribut Datum eingetragen werden 
 	}
 }

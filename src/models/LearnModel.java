@@ -62,7 +62,7 @@ public class LearnModel extends Model {
 			setString(query);
 		}
 
-
 		return memoList;
 	}
+	
 }

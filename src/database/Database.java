@@ -62,7 +62,7 @@ public class Database {
 	 * 
 	 * @param values
 	 *            --> Array mit 5 Werten: 1. Vorderseite, 2. Rückseite, 3.
-	 *            Set_ID, 4. Priorität (1-5), 5. Color
+	 *            Set_ID, 4. Priorität (1-5), 5. Datum
 	 */
 
 	public static boolean pushToStock (String[] values) {
@@ -149,7 +149,7 @@ public class Database {
 				set[3] = rs.getString("Description");
 				set[4] = Integer.toString(rs.getInt("Set_ID"));
 				set[5] = Integer.toString(rs.getInt("Priority"));
-				set[6] = rs.getString("Color");
+				set[6] = rs.getString("Datum");
 				results.add(set);
 
 			}

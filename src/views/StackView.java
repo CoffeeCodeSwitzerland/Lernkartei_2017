@@ -22,9 +22,8 @@ import views.components.AppButton;
 
 
 /**
- * Zeigt alle Stapel an.
- * Navigation zu Lernen und SimpleEditor
- * Zurück zu DoorView
+ * Zeigt alle Stapel an. Navigation zu Lernen und SimpleEditor Zurück zu
+ * DoorView
  * 
  * @author nina egger & miro albrecht
  *
@@ -82,17 +81,15 @@ public class StackView extends FXViewModel
 
 		newStackBtn.setOnAction(e ->
 		{
-			final int choice = Alert.complexChoiceBox("Neuer Stapel", "Was für einen Stapel willst du erstellen?", "Leerer Stapel",
-					"Quizlet");
+			final int choice = Alert.complexChoiceBox("Neuer Stapel", "Was für einen Stapel willst du erstellen?", "Leerer Stapel", "Quizlet");
 
 			switch (choice)
 			{
 				case 0:
 					final String stackName = Alert.simpleString("Neuer Stapel", "Wie soll der neue Stapel heissen?");
-					if (/*this.getName() != null &&*/ stackName != null)
+					if (/* this.getName() != null && */ stackName != null)
 					{
-						getController().getModel("stack").doAction("new",
-								getData() + globals.Globals.SEPARATOR + stackName);
+						getController().getModel("stack").doAction("new", getData() + globals.Globals.SEPARATOR + stackName);
 						// TODO Feedback für den User (Fehlermeldungen)
 					}
 					break;
@@ -105,7 +102,7 @@ public class StackView extends FXViewModel
 			}
 
 		});
-		
+
 		renameBtn.setOnAction(e ->
 		{
 			getFXController().setViewData("rename", "stack" + Globals.SEPARATOR + getData());
@@ -165,15 +162,13 @@ public class StackView extends FXViewModel
 		{
 			ArrayList<String> setData = getController().getModel("stack").getDataList(localdata);
 			ArrayList<AppButton> sets = new ArrayList<AppButton>();
-			
+
 			boolean allButtonsSameSize = false;
-			if (getFXController().getModel("config").getDataList("widthState") != null
-					&& getFXController().getModel("config").getDataList("widthState").get(0) != null
-					&& getFXController().getModel("config").getDataList("widthState").get(0).equals("true"))
+			if (getFXController().getModel("config").getDataList("widthState") != null && getFXController().getModel("config").getDataList("widthState").get(0) != null && getFXController().getModel("config").getDataList("widthState").get(0).equals("true"))
 			{
 				allButtonsSameSize = true;
 			}
-			
+
 			int bigButton = 0;
 			for (String s : setData)
 			{
@@ -186,7 +181,7 @@ public class StackView extends FXViewModel
 				{
 					a.setMinWidth(a.getText().length() * 6 + 150);
 				}
-				
+
 				sets.add(a);
 			}
 
@@ -196,7 +191,7 @@ public class StackView extends FXViewModel
 				{
 					a.setMinWidth(bigButton);
 				}
-				
+
 				a.setId("BoxButtons");
 				a.setOnAction(e ->
 
@@ -235,19 +230,32 @@ public class StackView extends FXViewModel
 		Label stackTitle = new Label(stack);
 		AppButton lernen = new AppButton("Lernen");
 		AppButton edit = new AppButton("Bearbeiten");
+		//CheckBox switcher = new CheckBox("Seite 2 zuerst");
 
 		stackTitle.setId("bold");
 		lernen.setOnAction(e ->
 		{
-			getController().setViewData("prelearn",stack);
+			getController().setViewData("prelearn", stack);
 			getController().showView("prelearn");
 		});
 		edit.setOnAction(e ->
 		{
-			getController().setViewData("simpleeditorview",stack);
+			getController().setViewData("simpleeditorview", stack);
 			getController().showView("simpleeditorview");
 		});
+		/*switcher.setSelected(getFXController().getModel("switcher").doAction("check", stack) == 1 ? true : false);
+		switcher.selectedProperty().addListener(event ->
+		{
+			if (switcher.isSelected())
+			{
+				getFXController().getModel("switcher").doAction("new", stack);
+			}
+			else
+			{
+				getFXController().getModel("switcher").doAction("delete", stack);
+			}
+		});*/
 
-		options.getChildren().addAll(stackTitle, lernen, edit);
+		options.getChildren().addAll(stackTitle, lernen, edit/*, switcher*/);
 	}
 }

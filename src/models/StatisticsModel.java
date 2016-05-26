@@ -11,39 +11,51 @@ import mvc.fx.FXModel;
 import statistics.Rangliste;
 import statistics.Diagramm;
 
+
 public class StatisticsModel extends FXModel
 {
 
-//	public StatisticsModel(String myName)
-//	{
-//		super(myName);
-//	}
-	
-	//ROL --> RanglisteObversableList
+	// public StatisticsModel(String myName)
+	// {
+	// super(myName);
+	// }
+
+	// ROL --> RanglisteObversableList
 	ObservableList<String> rol = FXCollections.observableArrayList();
-	public ObservableList<String> getObservableDataList(String query) {
-		if (query.equals("Rangliste")) {
+
+	public ObservableList<String> getObservableDataList (String query)
+	{
+		if (query.equals("Rangliste"))
+		{
 			rol = Rangliste.getRangliste();
 			return rol;
-		} else {
+		}
+		else
+		{
 			return super.getObservableDataList(query);
 		}
 	}
-	
-	public ObservableList<XYChart.Series<String, Number>> getObservableDiagrammList(String query) {
-		if (query.equals("saulendiagramm")){
+
+	public ObservableList<XYChart.Series<String, Number>> getObservableDiagrammList (String query)
+	{
+		if (query.equals("saulendiagramm"))
+		{
 			return Diagramm.getChartData();
-		} else {
+		}
+		else
+		{
 			return null;
 		}
 	}
-	
-	
-	ArrayList<Double> temp = new ArrayList<>();
-	Double tempStart = 0.0;
-	//Diese Methode ist dafür da um den Fortschritt 
-	//CombinedString --> STACKNAME + Globals.SEPARATOR + ANWEISUNG(end, difference oder start)
-	public ArrayList<Double> getDoubleList(String CombinedString) {
+
+	ArrayList<Double>	temp		= new ArrayList<>();
+	Double				tempStart	= 0.0;
+
+	// Diese Methode ist dafür da um den Fortschritt
+	// CombinedString --> STACKNAME + Globals.SEPARATOR + ANWEISUNG(end,
+	// difference oder start)
+	public ArrayList<Double> getDoubleList (String CombinedString)
+	{
 		String[] Decision = CombinedString.split(Globals.SEPARATOR);
 		if (Decision[1].equals("end"))
 		{
@@ -62,32 +74,42 @@ public class StatisticsModel extends FXModel
 		else if (Decision[1].equals("start"))
 		{
 			Double[] doubleArray = Database.getScore(Decision[0]);
-			tempStart = 100 / doubleArray[0] * doubleArray[1];
-			temp.clear();
-			temp.add(tempStart);
-			return temp;
+			if (doubleArray != null)
+			{
+				tempStart = 100 / doubleArray[0] * doubleArray[1];
+				temp.clear();
+				temp.add(tempStart);
+				return temp;
+			}
+
+			return null;
+
 		}
 		else
 		{
 			return null;
 		}
 	}
-	
+
 	boolean success = false;
-	public int doAction (String functionName, String paramS, double paramD) {
-		if (functionName.equals("DeleteOldData")) {
+
+	public int doAction (String functionName, String paramS, double paramD)
+	{
+		if (functionName.equals("DeleteOldData"))
+		{
 			Diagramm.resetData();
 			Rangliste.resetData();
 			return 1;
-		} else
-			if (functionName.equals("checkDatabase"))
+		}
+		else if (functionName.equals("checkDatabase"))
 		{
 			success = Rangliste.checkDatabase();
-			return success ? 1 : -1 ;
-		} else {
+			return success ? 1 : -1;
+		}
+		else
+		{
 			return -2;
 		}
 	}
-	
 
 }

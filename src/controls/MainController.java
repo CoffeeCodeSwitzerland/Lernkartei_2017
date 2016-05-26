@@ -2,33 +2,9 @@ package controls;
 
 import debug.Logger;
 import javafx.stage.Stage;
-import models.CardModel;
-import models.ConfigModel;
-import models.DoorModel;
-import models.GameModel;
-import models.LearnModel;
-import models.ProfilModel;
-import models.QuizletModel;
-import models.StackModel;
-import models.StatisticsModel;
+import models.*; // Nicht ändern
 import mvc.fx.FXController;
-import views.BBCodeInfo;
-import views.DoorView;
-import views.EditorView;
-import views.GameOptionView;
-import views.GameView;
-import views.HelpView;
-import views.ImpressumView;
-import views.LearnView;
-import views.MainView;
-import views.OptionsView;
-import views.PostLearnView;
-import views.PreLearnView;
-import views.QuizletImportView;
-import views.RenameView;
-import views.SimpleEditorView;
-import views.StackView;
-import views.StatsView;
+import views.*; // Nicht ändern
 import views.components.MainViewSettings;
 /**
  * Diese Klasse Kontrolliert alle Sichten und Models. Den Sichten wird die

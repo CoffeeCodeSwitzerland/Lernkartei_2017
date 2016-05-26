@@ -1,5 +1,6 @@
 package database;
 
+// z
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -7,6 +8,12 @@ import java.sql.Statement;
 
 
 public class Score {
+
+	// URL und Driver
+
+	private static String	url		= "jdbc:sqlite:" + globals.Environment.getDatabasePath()
+			+ globals.Globals.db_name + ".db";
+	private static String	driver	= "org.sqlite.JDBC";
 
 	private static Integer	anzahlLeben;
 	private static Integer currentLifes;
@@ -23,11 +30,13 @@ public class Score {
 
 	public static void correctCard () {
 
-		Connection c = Database.getConnection();
+		Connection c = null;
+		Statement stmt = null;
 
 		try {
-			c = DriverManager.getConnection(Database.getDbURL());
-			Statement stmt = c.createStatement();
+			Class.forName(driver);
+			c = DriverManager.getConnection(url);
+			stmt = c.createStatement();
 
 			String sql = "CREATE TABLE IF NOT EXISTS Lifes " +
 					"(PK_Lvs INTEGER PRIMARY KEY AUTOINCREMENT," +
@@ -64,18 +73,21 @@ public class Score {
 
 		}
 		catch (Exception e) {
-			debug.Debugger.out(e.getMessage());
+			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+			System.exit(0);
 		}
 
 	}
 
 	public static int getLifecount () {
 
-		Connection c = Database.getConnection();
+		Connection c = null;
+		Statement stmt = null;
 
 		try {
-			c = DriverManager.getConnection(Database.getDbURL());
-			Statement stmt = c.createStatement();
+			Class.forName(driver);
+			c = DriverManager.getConnection(url);
+			stmt = c.createStatement();
 
 			String sql = "CREATE TABLE IF NOT EXISTS Lifes " +
 					"(PK_Lvs INTEGER PRIMARY KEY AUTOINCREMENT," +
@@ -104,7 +116,8 @@ public class Score {
 
 		}
 		catch (Exception e) {
-			debug.Debugger.out(e.getMessage());
+			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+			System.exit(0);
 		}
 
 		return anzahlLeben;
@@ -113,11 +126,13 @@ public class Score {
 
 	public static void death () {
 
-		Connection c = Database.getConnection();
+		Connection c = null;
+		Statement stmt = null;
 
 		try {
-			c = DriverManager.getConnection(Database.getDbURL());
-			Statement stmt = c.createStatement();
+			Class.forName(driver);
+			c = DriverManager.getConnection(url);
+			stmt = c.createStatement();
 
 			String sql = "CREATE TABLE IF NOT EXISTS Lifes " +
 					"(PK_Lvs INTEGER PRIMARY KEY AUTOINCREMENT," +
@@ -148,18 +163,21 @@ public class Score {
 
 		}
 		catch (Exception e) {
-			debug.Debugger.out(e.getMessage());
+			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+			System.exit(0);
 		}
 
 	}
 	
 	public static int getCorrectCards () {
 
-		Connection c = Database.getConnection();
+		Connection c = null;
+		Statement stmt = null;
 
 		try {
-			c = DriverManager.getConnection(Database.getDbURL());
-			Statement stmt = c.createStatement();
+			Class.forName(driver);
+			c = DriverManager.getConnection(url);
+			stmt = c.createStatement();
 
 			String sql = "CREATE TABLE IF NOT EXISTS Lifes " +
 					"(PK_Lvs INTEGER PRIMARY KEY AUTOINCREMENT," +
@@ -185,7 +203,8 @@ public class Score {
 
 		}
 		catch (Exception e) {
-			debug.Debugger.out(e.getMessage());
+			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+			System.exit(0);
 		}
 
 		return currentLifes;

@@ -5,30 +5,14 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
-import debug.Logger;
-
 
 public class Config {
 
-	// Connection information: URL & Driver
+	// Connectioninformationen URL & Driver
 
-	private final static String driver = "org.sqlite.JDBC";
-
-	private final static String urlBase	= "jdbc:sqlite:" + globals.Environment.getDatabasePath();
-
-	public static String getUrlbase() {
-		return urlBase;
-	}
-
-	private final static String configURL	= urlBase + "config.db";
-
-	public static String getConfigURL() {
-		return configURL;
-	}
-
-	public static String getDriver() {
-		return driver;
-	}
+	private static String	url			= "jdbc:sqlite:" +  globals.Environment.getDatabasePath()
+	 									 + "config.db";
+	private static String	driver	= "org.sqlite.JDBC";
 
 	/**
 	 * Neuer Eintrag in der Datenbank config erstellen
@@ -49,7 +33,7 @@ public class Config {
 		try {
 
 			Class.forName(driver);
-			c = DriverManager.getConnection(Config.getConfigURL());
+			c = DriverManager.getConnection(url);
 			stmt = c.createStatement();
 
 			// Tabelle erstellen
@@ -95,7 +79,8 @@ public class Config {
 
 		}
 		catch (Exception e) {
-			Logger.log(e.getMessage());
+			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+			System.exit(0);
 		}
 
 	}
@@ -117,7 +102,7 @@ public class Config {
 		try {
 
 			Class.forName(driver);
-			c = DriverManager.getConnection(Config.getConfigURL());
+			c = DriverManager.getConnection(url);
 			stmt = c.createStatement();
 			c.setAutoCommit(false);
 
@@ -126,7 +111,6 @@ public class Config {
 
 			if (!tbl.next()) {
 				debug.Debugger.out("Table not existent, no Values are generated yet!");
-				tbl.close();
 				stmt.close();
 				c.close();
 				return value;
@@ -137,14 +121,12 @@ public class Config {
 
 			if (rs.next()) {
 				value = rs.getString("Value");
-				rs.close();
 				stmt.close();
 				c.close();
 				return value;
 			}
 			else {
 				debug.Debugger.out("No Values with this Key exist!");
-				rs.close();
 				stmt.close();
 				c.close();
 				return value;
@@ -152,7 +134,8 @@ public class Config {
 
 		}
 		catch (Exception e) {
-			Logger.log(e.getMessage());
+			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+			System.exit(0);
 		}
 
 		return value;

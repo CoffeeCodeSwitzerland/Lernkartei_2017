@@ -33,13 +33,12 @@ public class Config2 extends SQLiteConnector {
 
 	public static String getValue (String key) {
 
-
 		String value = null;
 		Database.setConnection(url);
 
 		try {
 			c.setAutoCommit(false);
-			String getTbl = "SELECT tbl_name FROM sqlite_master WHERE type='table' "
+			String getTbl = "SELECT tbl_name FROM config.sqlite_master WHERE type='table' "
 							+ "AND tbl_name = '" + name + "'";
 			ResultSet tbl = stmt.executeQuery(getTbl);
 

@@ -7,7 +7,6 @@ import java.sql.Statement;
 
 import debug.Logger;
 
-
 public class Config extends SQLiteConnector {
 
 	// Connectioninformationen URL & Driver
@@ -20,9 +19,9 @@ public class Config extends SQLiteConnector {
 	 * Neuer Eintrag in der Datenbank config erstellen
 	 * 
 	 * @param key
-	 *            --> Welche Art von Wert mitgeliefert werden soll
+	 *            --> Art des Werts
 	 * @param value
-	 *            --> Der absolute Wert welcher gesetzt wird
+	 *            --> Der Wert Selbst
 	 */
 
 	public static void setValue (String key, String value) {
@@ -102,7 +101,7 @@ public class Config extends SQLiteConnector {
 			stmt = c.createStatement();
 			c.setAutoCommit(false);
 
-			String getTbl = "SELECT tbl_name FROM sqlite_master WHERE type='table' AND tbl_name = 'config'";
+			String getTbl = "SELECT name FROM sqlite_master WHERE type='table' AND name = 'config'";
 			ResultSet tbl = stmt.executeQuery(getTbl);
 
 			if (!tbl.next()) {

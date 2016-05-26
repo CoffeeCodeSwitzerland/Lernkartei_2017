@@ -28,9 +28,11 @@ public class Diagramm
 
 	private static ArrayList<Double> getPunkte()
 	{
-		if (Stack.getStacknames() == null || Stack.getStacknames().get(0).equals("")) {
+		if (Stack.getStacknames() == null || Stack.getStacknames().get(0).equals(""))
+		{
 			return null;
-		} else {
+		} else
+		{
 			try
 			{
 				for (int i = 0; i < Stacks.size(); i++)
@@ -51,9 +53,11 @@ public class Diagramm
 
 	public static ObservableList<XYChart.Series<String, Number>> getChartData()
 	{
-		if (Stacks.isEmpty() || Punkte.isEmpty()) {
+		if (Stacks.isEmpty() || Punkte.isEmpty())
+		{
 			Data = null;
-		} else {
+		} else
+		{
 			if (Data != null || Data.get(0).equals(null))
 			{
 				resetData();
@@ -61,10 +65,10 @@ public class Diagramm
 			{
 				Logger.log("ObservableList Data in Diagramm is empty");
 			}
-	
+
 			getKarteien();
 			getPunkte();
-	
+
 			if (Stacks == null || Stacks.get(0).equals(""))
 			{
 				return Data = null;

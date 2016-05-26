@@ -140,9 +140,10 @@ public class StatsView extends FXView
 				statisticsModel.doAction("DeleteOldData");
 				if (statisticsModel != null)
 				{
-					if (statisticsModel.getObservableDataList("Rangliste").get(0).equals("thisIsEmpty")) {
+					if (statisticsModel.getObservableDataList("Rangliste").get(0).equals("thisIsEmpty"))
+					{
 						errorText.setText("Das Programm konnte die Daten für die Rangliste nicht laden");
-					} else 
+					} else
 					{
 						Ranks.setItems(statisticsModel.getObservableDataList("Rangliste"));
 					}
@@ -150,9 +151,10 @@ public class StatsView extends FXView
 					// Daten für das Diagramm. Die verarbeitugn und
 					// bereitstellung
 					// findet alles in Diagramm.java (getChartData()) statt.
-					if (statisticsModel.getObservableDiagrammList("saulendiagramm") == null) {
+					if (statisticsModel.getObservableDiagrammList("saulendiagramm") == null)
+					{
 						errorText.setText("Das Programm konnte die Daten für das Diagramm nicht laden");
-					} else 
+					} else
 					{
 						bc.getData().addAll(statisticsModel.getObservableDiagrammList("saulendiagramm"));
 					}

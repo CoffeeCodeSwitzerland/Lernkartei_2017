@@ -73,11 +73,16 @@ public class StatisticsModel extends FXModel
 		}
 	}
 	
+	boolean success = false;
 	public int doAction (String functionName, String paramS, double paramD) {
 		if (functionName.equals("DeleteOldData")) {
 			Diagramm.resetData();
 			Rangliste.resetData();
 			return 1;
+		} else if (functionName.equals("checkDatabase"))
+		{
+			success = Rangliste.checkDatabase();
+			return success ? 1 : -1 ;
 		} else {
 			return -2;
 		}

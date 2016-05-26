@@ -3,19 +3,31 @@ package statistics;
 import java.util.ArrayList;
 
 import database.Stack;
+import debug.Debugger;
 import database.Database;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class Rangliste
 {
+	private static ArrayList<String> NamesAndPoints = new ArrayList<String>();
+	private static ArrayList<Double> Punkte = new ArrayList<Double>();
+	private static ArrayList<String> Stacks = new ArrayList<String>();
 
-	Stack C = new Stack();
+	private static boolean isFilled = false;
 	
-	static ArrayList<String> NamesAndPoints = new ArrayList<String>();
-	static ArrayList<Double> Punkte = new ArrayList<Double>();
-	static ArrayList<String> Stacks = new ArrayList<String>();
-
+	public static boolean checkDatabase() {
+		
+		ArrayList<String> testStacks = new ArrayList<String>();
+		ArrayList<Double> testPoints = new ArrayList<Double>();
+		
+		if ((testStacks.isEmpty() || testPoints.isEmpty()) || (testStacks.isEmpty() && testPoints.isEmpty())) {
+			isFilled = false;
+		} else {
+			isFilled = true;
+		}
+		return isFilled;
+	}
 
 	static ObservableList<String> Ranking = FXCollections.observableArrayList();
 	public static ObservableList<String> getRangliste()
@@ -31,17 +43,33 @@ public class Rangliste
 	}
 	
 	public static void getKarteien() {
-		Stacks = Stack.getStacknames();
+		if (Stack.getStacknames() == null || Stack.getStacknames().get(0).equals("")) 
+		{
+			Debugger.out("Rangliste: getKarteien if");
+			Stacks = null;			
+		} 
+		else 
+		{
+			Debugger.out("Rangliste: getKarteien Else");
+			Stacks = Stack.getStacknames();
+		}
 	}
 	
 	private static void getPunkte() {
-		for (int i = 0; i < Stacks.size(); i++)
+		if (Stacks == null || Stacks.get(0).equals(""))
 		{
-			Double[] temp = Database.getScore(Stacks.get(i).toString());
-			if (temp != null) {
-				Punkte.add(temp[1]);
-			} else {
-				continue;
+			Punkte.add(-1.0);
+		} 
+		else
+		{
+			for (int i = 0; i < Stacks.size(); i++)
+			{
+				Double[] temp = Database.getScore(Stacks.get(i).toString());
+				if (temp != null) {
+					Punkte.add(temp[1]);
+				} else {
+					continue;
+				}
 			}
 		}
 	}
@@ -89,8 +117,8 @@ public class Rangliste
 			
 			
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
-			System.out.println(e.fillInStackTrace());
+			Debugger.out("sortKarteien : " + e.getMessage());
+			Debugger.out("sortKarteien : " + e.fillInStackTrace());
 			
 		}
 	}

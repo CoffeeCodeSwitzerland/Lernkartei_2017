@@ -7,9 +7,9 @@ import javafx.scene.Parent;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import models.StatisticsModel;
@@ -49,6 +49,10 @@ public class StatsView extends FXView
 	final HBox diagram = new HBox(50);
 	final HBox controls = new HBox(50);
 	final HBox rankings = new HBox(50);
+	
+	final HBox error = new HBox(50);
+	
+	final Label errorText = new Label();
 
 	// private int countLoadsOfRefreshView = 0;
 
@@ -72,6 +76,12 @@ public class StatsView extends FXView
 
 		// HBox für Diagramm
 		diagram.setAlignment(Pos.CENTER);
+		
+		//HBox für Errors oder Meldungen -> Wird nicht Visible gesetzt.
+		error.setPadding(new Insets(15));
+		error.setAlignment(Pos.TOP_CENTER);
+		error.getChildren().addAll(errorText);
+		pane.setTop(error);
 
 		return pane;
 	}
@@ -119,20 +129,20 @@ public class StatsView extends FXView
 		yAchse.setLabel("Ergebnis (%)");
 		try
 		{
-
-			if (statisticsModel.getObservableDiagrammList("saulendiagramm") == null
-					&& statisticsModel.getObservableDataList("Rangliste") == null)
+			Debugger.out("StatsView try 1");
+			if (statisticsModel.doAction("checkDatabase") == -1)
 			{
+				Debugger.out("StatsView try 2");
 				// Dieses TextField wird geaddet, wenn keine Daten für die
-				// Rangliste oder die Rangliste gefunden werden können.
-				TextField m = new TextField();
-				m.setText("Es tut uns leid aber wir konnten keine Daten zur Auswertung Ihrer Statistik finden");
-				diagram.getChildren().add(m);
+				// Rangliste oder das Diagramm gefunden werden können.
+				errorText.setText("Es tut uns leid aber wir konnten keine Daten zur Auswertung Ihrer Statistik finden");
 			} else
 			{
+				Debugger.out("StatsView try 3");
 				statisticsModel.doAction("DeleteOldData");
 				if (statisticsModel != null)
 				{
+					Debugger.out("StatsView try 4");
 					Ranks.setItems(statisticsModel.getObservableDataList("Rangliste"));
 
 					// Daten für das Diagramm. Die verarbeitugn und
@@ -141,6 +151,7 @@ public class StatsView extends FXView
 					bc.getData().addAll(statisticsModel.getObservableDiagrammList("saulendiagramm"));
 				} else
 				{
+					Debugger.out("StatsView try 5");
 					System.out.println("Kein sm model!!!");
 				}
 				rankings.getChildren().addAll(Ranks);
@@ -159,8 +170,7 @@ public class StatsView extends FXView
 			}
 		} catch (Exception e)
 		{
-			Debugger.out("StatsView Exception: ");
-			e.printStackTrace();
+			Debugger.out("StatsView Exception : " + e.fillInStackTrace());
 		}
 
 		pane.setCenter(diagram);

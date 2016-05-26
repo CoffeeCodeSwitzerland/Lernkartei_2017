@@ -147,6 +147,7 @@ public class EditorView extends FXViewModel
 			                save.setOnAction(b ->{
 			                	String cstrg = Integer.toHexString(colorPicker.getValue().hashCode()).substring(0, 6).toUpperCase();
 			                	back.setText(codeBefore+"[color=" + "(" + cstrg + ")" + "]"+isolatedWord+"[/color]"+codeAfter);
+			                	dialog.close();
 			               });
 					});
 			});
@@ -189,11 +190,12 @@ public class EditorView extends FXViewModel
 			                save.setOnAction(b ->{
 			                	String cstrg = Integer.toHexString(colorPicker.getValue().hashCode()).substring(0, 6).toUpperCase();
 			                	front.setText(codeBefore+"[color=" + "(" + cstrg + ")" + "]"+isolatedWord+"[/color]"+codeAfter);
+			                	dialog.close();
 			                });
 					});
 			});
 			
-			back.setOnKeyReleased(e ->{
+			back.setOnInputMethodTextChanged(e ->{
 				String text = back.getText();
 				text = Functions.AntiHTMLTags(text);
 				text = Functions.ColorBBCode(text);
@@ -202,7 +204,7 @@ public class EditorView extends FXViewModel
 				engineback.loadContent(text);
 			});
 			
-			front.setOnKeyReleased(e ->{
+			front.setOnInputMethodTextChanged(e ->{
 				String text = front.getText();
 				text = Functions.AntiHTMLTags(text);
 				text = Functions.ColorBBCode(text);

@@ -298,7 +298,7 @@ public class Database extends SQLiteConnector {
 
 		}
 		catch (Exception e) {
-			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+			System.err.println("Database upPrio() : " + e.getClass().getName() + ": " + e.getMessage());
 			System.exit(0);
 		}
 

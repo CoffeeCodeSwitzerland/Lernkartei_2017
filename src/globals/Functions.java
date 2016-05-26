@@ -4,6 +4,7 @@ import java.awt.Desktop;
 import java.net.URL;
 
 import debug.Debugger;
+import debug.Logger;
 
 public abstract class Functions
 {
@@ -33,9 +34,26 @@ public static String AntiHTMLTags(String input){
 	public static String ColorBBCode(String input){
 
 		if(input.contains("[color=")){
+			String findStr = "[color=";
+			int lastIndex = 0;
+			int count = 0;
+
+			while(lastIndex != -1){
+
+			    lastIndex = input.indexOf(findStr,lastIndex);
+
+			    if(lastIndex != -1){
+			        count ++;
+			        lastIndex += findStr.length();
+			    }
+			}
+			int up = 0;
+			while(count > up){
 			String result = input.substring(input.indexOf("(") + 1, input.indexOf(")"));
 			input = input.replace("[color=(" + result + ")]", "<span style=\"color:" + result + "\">");
 			input = input.replace("[/color]", "</span>");
+			up++;
+			}
 		}
 		return input;
 	}
@@ -111,13 +129,15 @@ public static String AntiHTMLTags(String input){
 	    }
 	}
 	
-	
 	public static void openWebpage(String urlString) {
 	    try {
 	        Desktop.getDesktop().browse(new URL(urlString).toURI());
 	    } catch (Exception e) {
+	    	// TODO: hier Meldung an User er sollte ein Standardbrowser haben
+	    	if (urlString == null) urlString = "{null}";
+	    	Logger.log("Functions.openWebpage("+urlString+"): please set a browser as standard!");
+	    	Debugger.out("Functions.openWebpage("+urlString+"): " + e.getMessage());
 	        e.printStackTrace();
 	    }
 	}
-
 }

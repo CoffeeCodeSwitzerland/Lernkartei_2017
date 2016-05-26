@@ -9,6 +9,7 @@ public abstract class Globals {
 
 	public static String userLang = "CH-D"; // will be used in future translator
 
+
 	public static final String appTitle = "WISSLearnCards 2016";
 	public static final String appVersion = "[V0.1 alpha]";
 
@@ -27,6 +28,22 @@ public abstract class Globals {
 	public static final int defaultStackPartSize = 20;
 	public static final int minStackPartSize = 5;
 	
+	// TODO implement this in doAction
+	
+	public static enum Command
+	{
+		NEW,
+		UPDATE,
+		DELETE,
+		
+		GET,
+		SET,
+		// CHECK, (may not necessary)
+		
+		TRUE,
+		FALSE
+	}
+		
 	// Do any change manually here:
 	public static final boolean ForceNewDB    = false; // TestConditions ON/OFF (deactivate before release)
 	public static final String ForDBVersionLT = "1.0"; // TestConditions ON/OFF (deactivate before release)
@@ -36,3 +53,4 @@ public abstract class Globals {
 	public static final boolean DebuggerIsOn = true; // Debugger ON/OFF (deactivate before release)
 	public static final boolean TestingIsOn  = true; // TestConditions ON/OFF (deactivate before release)
 }
+

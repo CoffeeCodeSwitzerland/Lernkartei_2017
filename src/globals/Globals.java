@@ -28,7 +28,11 @@ public abstract class Globals {
 	public static final int minStackPartSize = 5;
 	
 	// Do any change manually here:
-	public static final boolean LoggerIsOn 	 = true; // Logger ON/OFF (should remain ON)
+	public static final boolean ForceNewDB    = false; // TestConditions ON/OFF (deactivate before release)
+	public static final String ForDBVersionLT = "1.0"; // TestConditions ON/OFF (deactivate before release)
+
+	public static final boolean LoggerIsOn 	  = true;  // Logger ON/OFF (should remain ON)
+	
 	public static final boolean DebuggerIsOn = true; // Debugger ON/OFF (deactivate before release)
 	public static final boolean TestingIsOn  = true; // TestConditions ON/OFF (deactivate before release)
 }

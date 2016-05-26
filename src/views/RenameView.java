@@ -3,7 +3,6 @@ package views;
 import java.util.ArrayList;
 
 import globals.Globals;
-import javafx.beans.Observable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
@@ -15,7 +14,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import mvc.fx.FXController;
 import mvc.fx.FXViewModel;
-import views.components.BackButton;
+import views.components.AppButton;
 
 
 /**
@@ -27,9 +26,8 @@ import views.components.BackButton;
 public class RenameView extends FXViewModel
 {
 
-	VBox	elements	= new VBox(20);
-	String	oldValue	= "";
-	Observable widthEvent;
+	VBox		elements	= new VBox(20);
+	String		oldValue	= "";
 
 	public RenameView (String setName, FXController newController)
 	{
@@ -40,16 +38,20 @@ public class RenameView extends FXViewModel
 	@Override
 	public Parent constructContainer ()
 	{
-		BackButton backBtn = new BackButton(getFXController());
-		backBtn.setOnAction(e -> getWindow().getScene().widthProperty().removeListener(event ->
+		AppButton backBtn = new AppButton("Zurück");
+		backBtn.setOnAction(e ->
 		{
-			elements.setMinWidth(getWindow().getScene().getWidth() - 80);
-		}));
+			getWindow().getScene().widthProperty().removeListener(event ->
+			{
+				elements.setMinWidth(getWindow().getScene().getWidth() - 80);
+			});
+			getFXController().showLastView();
+		});
 
-		HBox controlsLayout =  new HBox();
+		HBox controlsLayout = new HBox();
 		controlsLayout.setPadding(new Insets(20, 0, 0, 0));
 		controlsLayout.getChildren().add(backBtn);
-		
+
 		elements.setPadding(new Insets(30));
 		elements.setAlignment(Pos.TOP_CENTER);
 
@@ -61,9 +63,6 @@ public class RenameView extends FXViewModel
 		mainLayout.setBottom(controlsLayout);
 		mainLayout.setPadding(new Insets(30));
 
-		getFXController().getModel("door").registerView(this);
-		getFXController().getModel("stack").registerView(this);
-
 		return mainLayout;
 	}
 
@@ -71,7 +70,7 @@ public class RenameView extends FXViewModel
 	public void refreshView ()
 	{
 		elements.setMinWidth(getWindow().getScene().getWidth() - 80);
-		
+
 		getWindow().getScene().widthProperty().addListener(event ->
 		{
 			elements.setMinWidth(getWindow().getScene().getWidth() - 80);
@@ -99,7 +98,7 @@ public class RenameView extends FXViewModel
 					getFXController().getModel(info[0]).doAction("update", oldValue + Globals.SEPARATOR + field.getText());
 				}
 			});
-			
+
 			elements.getChildren().add(field);
 		}
 	}

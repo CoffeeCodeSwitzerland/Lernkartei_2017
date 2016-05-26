@@ -103,6 +103,7 @@ public class QuizletImportView extends FXViewModel
 
 		HBox infoLayout = new HBox(15);
 		infoLayout.setPadding(new Insets(15));
+		infoLayout.setAlignment(Pos.CENTER_LEFT);
 		infoLayout.getChildren().addAll(backBtn, new Label("Powered by Quizlet"));
 
 		VBox bottomLayout = new VBox();

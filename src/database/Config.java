@@ -126,6 +126,7 @@ public class Config {
 
 			if (!tbl.next()) {
 				debug.Debugger.out("Table not existent, no Values are generated yet!");
+				tbl.close();
 				stmt.close();
 				c.close();
 				return value;
@@ -136,12 +137,14 @@ public class Config {
 
 			if (rs.next()) {
 				value = rs.getString("Value");
+				rs.close();
 				stmt.close();
 				c.close();
 				return value;
 			}
 			else {
 				debug.Debugger.out("No Values with this Key exist!");
+				rs.close();
 				stmt.close();
 				c.close();
 				return value;

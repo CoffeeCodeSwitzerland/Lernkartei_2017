@@ -45,21 +45,21 @@ public class GameView extends FXView {
 
 		// Button für Zurück zum Hauptmenue:
 
-		btn.setOnAction(e -> getController().getModel("game").doAction("start"));
+		btn.setOnAction(e -> getController().getModel("game").doAction("start")); 
 
-		btnInfo.setOnAction(e -> getController().showView("gameoptionview"));
+		btnInfo.setOnAction(e -> getController().showView("gameoptionview")); 
 
-		btnBacktoKartei.setOnAction(e -> getController().showMainView());
+		btnBacktoKartei.setOnAction(e -> getController().showMainView()); 
 
 		// Erstellt VBox Layout für beide obige Elemente:
-		menuLayout.getChildren().addAll(grund, btn, btnInfo, btnBacktoKartei);
+		menuLayout.getChildren().addAll(grund, btn, btnInfo, btnBacktoKartei); 
 
-		menuLayout.setPadding(new Insets(10));
+		menuLayout.setPadding(new Insets(10)); 
 		menuLayout.setSpacing(10);
 		menuLayout.setAlignment(Pos.CENTER);
-		mainLayout.setTop(lifes);
+		mainLayout.setTop(lifes); 
 
-		mainLayout.setPadding(new Insets(5));
+		mainLayout.setPadding(new Insets(5)); 
 		mainLayout.setCenter(menuLayout);
 		((GameModel) getController().getModel("game")).registerView(this, getController());
 		return mainLayout;
@@ -74,12 +74,12 @@ public class GameView extends FXView {
 	public void refreshView() {
 
 		if (database.Score.getLifecount() == 0) {
-			btn.setDisable(true);
+			btn.setDisable(true);  
 			grund.setText("Sie müssen zuerst Lernen!");
 			lifes.setText("Lifes: " + database.Score.getLifecount());
-		} else {
-			btn.setDisable(false);
-			lifes.setText("Lifes: " + database.Score.getLifecount());
+		} else { 
+			btn.setDisable(false); 
+			lifes.setText("Lifes: " + database.Score.getLifecount()); 
 		}
 
 	}

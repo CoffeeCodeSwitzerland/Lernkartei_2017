@@ -79,7 +79,8 @@ public class StatisticsModel extends FXModel
 			Diagramm.resetData();
 			Rangliste.resetData();
 			return 1;
-		} else if (functionName.equals("checkDatabase"))
+		} else
+			if (functionName.equals("checkDatabase"))
 		{
 			success = Rangliste.checkDatabase();
 			return success ? 1 : -1 ;

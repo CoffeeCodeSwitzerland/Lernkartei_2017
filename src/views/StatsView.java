@@ -1,6 +1,6 @@
 package views;
 
-import debug.Debugger;
+import debug.Logger;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
@@ -49,9 +49,9 @@ public class StatsView extends FXView
 	final HBox diagram = new HBox(50);
 	final HBox controls = new HBox(50);
 	final HBox rankings = new HBox(50);
-	
+
 	final HBox error = new HBox(50);
-	
+
 	final Label errorText = new Label();
 
 	// private int countLoadsOfRefreshView = 0;
@@ -76,8 +76,8 @@ public class StatsView extends FXView
 
 		// HBox für Diagramm
 		diagram.setAlignment(Pos.CENTER);
-		
-		//HBox für Errors oder Meldungen -> Wird nicht Visible gesetzt.
+
+		// HBox für Errors oder Meldungen -> Wird nicht Visible gesetzt.
 		error.setPadding(new Insets(15));
 		error.setAlignment(Pos.TOP_CENTER);
 		error.getChildren().addAll(errorText);
@@ -86,7 +86,8 @@ public class StatsView extends FXView
 		return pane;
 	}
 
-	// Zeigt das Prelearnfenster des Stacks an, welchen man ausgewählt hat. Wenn nichts gewählt ist geht es auf den Doorview.
+	// Zeigt das Prelearnfenster des Stacks an, welchen man ausgewählt hat. Wenn
+	// nichts gewählt ist geht es auf den Doorview.
 	private void learnThisStack()
 	{
 		String choice = Ranks.getSelectionModel().getSelectedItem();
@@ -129,30 +130,35 @@ public class StatsView extends FXView
 		yAchse.setLabel("Ergebnis (%)");
 		try
 		{
-			Debugger.out("StatsView try 1");
 			if (statisticsModel.doAction("checkDatabase") == -1)
 			{
-				Debugger.out("StatsView try 2");
 				// Dieses TextField wird geaddet, wenn keine Daten für die
 				// Rangliste oder das Diagramm gefunden werden können.
 				errorText.setText("Es tut uns leid aber wir konnten keine Daten zur Auswertung Ihrer Statistik finden");
 			} else
 			{
-				Debugger.out("StatsView try 3");
 				statisticsModel.doAction("DeleteOldData");
 				if (statisticsModel != null)
 				{
-					Debugger.out("StatsView try 4");
-					Ranks.setItems(statisticsModel.getObservableDataList("Rangliste"));
+					if (statisticsModel.getObservableDataList("Rangliste").get(0).equals("thisIsEmpty")) {
+						errorText.setText("Das Programm konnte die Daten für die Rangliste nicht laden");
+					} else 
+					{
+						Ranks.setItems(statisticsModel.getObservableDataList("Rangliste"));
+					}
 
 					// Daten für das Diagramm. Die verarbeitugn und
 					// bereitstellung
 					// findet alles in Diagramm.java (getChartData()) statt.
-					bc.getData().addAll(statisticsModel.getObservableDiagrammList("saulendiagramm"));
+					if (statisticsModel.getObservableDiagrammList("saulendiagramm") == null) {
+						errorText.setText("Das Programm konnte die Daten für das Diagramm nicht laden");
+					} else 
+					{
+						bc.getData().addAll(statisticsModel.getObservableDiagrammList("saulendiagramm"));
+					}
 				} else
 				{
-					Debugger.out("StatsView try 5");
-					System.out.println("Kein sm model!!!");
+					Logger.log("Kein sm model!!!");
 				}
 				rankings.getChildren().addAll(Ranks);
 
@@ -167,10 +173,14 @@ public class StatsView extends FXView
 				// Datenleichen herumgeistern
 				statisticsModel.doAction("DeleteOldData");
 
+				// Wenn kein Error passiert kann man hier noch einen Text
+				// eingeben der dem User angezeigt wird-
+				errorText.setText("Deine Statistik. Lerne fleissig um 100% uzu erhalten.");
+
 			}
 		} catch (Exception e)
 		{
-			Debugger.out("StatsView Exception : " + e.fillInStackTrace());
+			Logger.log("StatsView Exception : " + e.fillInStackTrace());
 		}
 
 		pane.setCenter(diagram);

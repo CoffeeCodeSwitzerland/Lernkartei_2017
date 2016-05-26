@@ -3,7 +3,7 @@ package statistics;
 import java.util.ArrayList;
 
 import database.Stack;
-import debug.Debugger;
+import debug.Logger;
 import database.Database;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -15,115 +15,134 @@ public class Rangliste
 	private static ArrayList<String> Stacks = new ArrayList<String>();
 
 	private static boolean isFilled = false;
-	
-	public static boolean checkDatabase() {
-		
+
+	public static boolean checkDatabase()
+	{
+
 		ArrayList<String> testStacks = new ArrayList<String>();
 		ArrayList<Double> testPoints = new ArrayList<Double>();
-		
-		if ((testStacks.isEmpty() || testPoints.isEmpty()) || (testStacks.isEmpty() && testPoints.isEmpty())) {
+
+		if ((testStacks.isEmpty() || testPoints.isEmpty()) || (testStacks.isEmpty() && testPoints.isEmpty()))
+		{
 			isFilled = false;
-		} else {
+		} else
+		{
 			isFilled = true;
 		}
 		return isFilled;
 	}
 
 	static ObservableList<String> Ranking = FXCollections.observableArrayList();
+
 	public static ObservableList<String> getRangliste()
 	{
-		
+
 		resetData();
-		
+
 		getKarteien();
 		getPunkte();
 		sortKarteien();
 		Ranking.addAll(NamesAndPoints);
 		return Ranking;
 	}
-	
-	public static void getKarteien() {
-		if (Stack.getStacknames() == null || Stack.getStacknames().get(0).equals("")) 
+
+	public static void getKarteien()
+	{
+		if (Stack.getStacknames() == null || Stack.getStacknames().get(0).equals(""))
 		{
-			Debugger.out("Rangliste: getKarteien if");
-			Stacks = null;			
-		} 
-		else 
+			Stacks = null;
+		} else
 		{
-			Debugger.out("Rangliste: getKarteien Else");
 			Stacks = Stack.getStacknames();
 		}
 	}
-	
-	private static void getPunkte() {
+
+	private static void getPunkte()
+	{
 		if (Stacks == null || Stacks.get(0).equals(""))
 		{
 			Punkte.add(-1.0);
-		} 
-		else
+		} else
 		{
 			for (int i = 0; i < Stacks.size(); i++)
 			{
 				Double[] temp = Database.getScore(Stacks.get(i).toString());
-				if (temp != null) {
+				if (temp != null)
+				{
 					Punkte.add(temp[1]);
-				} else {
+				} else
+				{
 					continue;
 				}
 			}
 		}
 	}
-	
-	private static void sortKarteien() {
-		
+
+	private static void sortKarteien()
+	{
+
 		ArrayList<Double> tempPunkte = new ArrayList<Double>();
 		ArrayList<String> tempSortedStacks = new ArrayList<String>();
-		
-		try  {
-			for (int i = 0; i < Punkte.size(); i++)
+
+		if (Stack.getStacknames().isEmpty())
+		{
+			Ranking.add("thisIsEmpty");
+		} else
+		{
+			try
 			{
-				if (i != 0) {
-					if (Punkte.get(i) > Punkte.get(i - 1)) {
+				for (int i = 0; i < Punkte.size(); i++)
+				{
+					if (i != 0)
+					{
+						if (Punkte.get(i) > Punkte.get(i - 1))
+						{
+							tempPunkte.add(Punkte.get(i));
+							tempSortedStacks.add(Stacks.get(i));
+						} else
+						{
+							Double oldP = Punkte.get(i - 1);
+							String oldS = Stacks.get(i - 1);
+							tempPunkte.add(i - 1, Punkte.get(i));
+							tempSortedStacks.add(i - 1, Stacks.get(i));
+							tempPunkte.add(oldP);
+							tempSortedStacks.add(oldS);
+						}
+					} else
+					{
 						tempPunkte.add(Punkte.get(i));
 						tempSortedStacks.add(Stacks.get(i));
-					} else {
-						Double oldP = Punkte.get(i - 1);
-						String oldS = Stacks.get(i - 1);
-						tempPunkte.add(i - 1, Punkte.get(i));
-						tempSortedStacks.add(i - 1, Stacks.get(i));
-						tempPunkte.add(oldP);
-						tempSortedStacks.add(oldS);
 					}
-				} else {
-					tempPunkte.add(Punkte.get(i));
-					tempSortedStacks.add(Stacks.get(i));
 				}
-			}
-			fillNamesAndPoints(tempSortedStacks, tempPunkte);
-			
-			for (int i = 0; i < NamesAndPoints.size(); i++)
-			{
-				for (int j = i+1; j < NamesAndPoints.size(); j++)
+				fillNamesAndPoints(tempSortedStacks, tempPunkte);
+
+				for (int i = 0; i < NamesAndPoints.size(); i++)
 				{
-					if (NamesAndPoints.get(i).equals(NamesAndPoints.get(j))) {
-						NamesAndPoints.remove(j);
-					} else {
-						continue;
+					for (int j = i + 1; j < NamesAndPoints.size(); j++)
+					{
+						if (NamesAndPoints.get(i).equals(NamesAndPoints.get(j)))
+						{
+							NamesAndPoints.remove(j);
+						} else
+						{
+							continue;
+						}
 					}
 				}
+				tempPunkte.clear();
+				tempSortedStacks.clear();
+
+			} catch (Exception e)
+			{
+				Logger.log("sortKarteien : " + e.getMessage());
+				Logger.log("sortKarteien : " + e.fillInStackTrace());
+
 			}
-			tempPunkte.clear();
-			tempSortedStacks.clear();
-			
-			
-		} catch (Exception e) {
-			Debugger.out("sortKarteien : " + e.getMessage());
-			Debugger.out("sortKarteien : " + e.fillInStackTrace());
-			
 		}
 	}
-	
-	//Diese Funktion füllt die sortierten Listen in eine Liste ein, in Welcher Punktzahl und Name in einem String stehen.
+
+	// Diese Funktion füllt die sortierten Listen in eine Liste ein, in Welcher
+	// Punktzahl und Name in einem String stehen.
 	private static void fillNamesAndPoints(ArrayList<String> Stack, ArrayList<Double> Points)
 	{
 		for (int i = 0; i < Stack.size(); i++)
@@ -135,7 +154,8 @@ public class Rangliste
 		}
 	}
 
-	public static Boolean resetData() {
+	public static Boolean resetData()
+	{
 		Punkte.clear();
 		Stacks.clear();
 		NamesAndPoints.clear();

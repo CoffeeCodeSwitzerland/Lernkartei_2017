@@ -73,13 +73,13 @@ public class GameView extends FXView {
 
 	public void refreshView() {
 
-		if (database.Score.getLifecount() == 0) {
+		if (database.Score.getLifecount() + Globals.bonusLeben == 0) {
 			btn.setDisable(true);  
 			grund.setText("Sie müssen zuerst Lernen!");
 			lifes.setText("Lifes: " + database.Score.getLifecount() + Globals.bonusLeben);
 		} else { 
 			btn.setDisable(false); 
-			lifes.setText("Lifes: " + database.Score.getLifecount()); 
+			lifes.setText("Lifes: " + database.Score.getLifecount() + Globals.bonusLeben); 
 		}
 
 	}

@@ -2,6 +2,8 @@ package database;
 
 import java.sql.*;
 
+import debug.Logger;
+
 
 public class UserLogin {
 
@@ -111,8 +113,7 @@ public class UserLogin {
 			c.close();
 		}
 		catch (Exception e) {
-			System.err.println(e.getClass().getName() + ": " + e.getMessage());
-			System.exit(0);
+			Logger.log("Database.newUser(): " + e.getMessage());
 		}
 
 	}
@@ -162,10 +163,10 @@ public class UserLogin {
 			debug.Debugger.out("Schülertabelle erstellt!");
 
 			c.setAutoCommit(false);
-			ResultSet rsUsern = stmt
-					.executeQuery("SELECT Username FROM Teachers WHERE Username = " + "'" + values[0] + "'");
+			ResultSet rsUsern = stmt.executeQuery("SELECT Username FROM Teachers WHERE Username = " + "'" + values[0] + "'");
 			ResultSet rsEmail = stmt.executeQuery("SELECT Email FROM Teachers WHERE Email = " + "'" + values[1] + "'");
-
+			c.setAutoCommit(true);
+			
 			if (rsUsern.next() || rsEmail.next()) {
 
 				noTeacher = false;
@@ -178,8 +179,7 @@ public class UserLogin {
 			c.close();
 		}
 		catch (Exception e) {
-			System.err.println(e.getClass().getName() + ": " + e.getMessage());
-			System.exit(0);
+			Logger.log("UserLogin.checkPossible(): " + e.getMessage());
 		}
 
 		// Überprüfen ob ein Schüler mit dem Username oder Email vorhanden ist
@@ -187,13 +187,14 @@ public class UserLogin {
 		try {
 			Class.forName(driver);
 			c = DriverManager.getConnection(url, username, password);
-			c.setAutoCommit(false);
 			stmt = c.createStatement();
 
+			c.setAutoCommit(false);
 			ResultSet rsUsern = stmt
 					.executeQuery("SELECT Username FROM Students WHERE Username = " + "'" + values[0] + "'");
 			ResultSet rsEmail = stmt.executeQuery("SELECT Email FROM Students WHERE Email = " + "'" + values[1] + "'");
-
+			c.setAutoCommit(true);			
+			
 			if (rsUsern.next() || rsEmail.next()) {
 
 				noStudent = false;
@@ -206,8 +207,7 @@ public class UserLogin {
 			c.close();
 		}
 		catch (Exception e) {
-			System.err.println(e.getClass().getName() + ": " + e.getMessage());
-			System.exit(0);
+			Logger.log("UserLogin.checkPossible(): " + e.getMessage());
 		}
 
 		// Wenn keine Lehrer und keine Schüler mit passendem Username oder Email
@@ -251,8 +251,10 @@ public class UserLogin {
 			String insertT ="INSERT INTO Teachers (Username) VALUES (" + newName + ") WHERE Username = " + oldName + ";";
 			String insertS ="INSERT INTO Students (Username) VALUES (" + newName + ") WHERE Username = " + oldName + ";";
 			
+			c.setAutoCommit(false);
 			ResultSet rsT = stmt.executeQuery(checkT);
 			ResultSet rsS = stmt.executeQuery(checkS);
+			c.setAutoCommit(true);
 			
 			if (rsT == null && rsS == null)
 			{
@@ -270,6 +272,7 @@ public class UserLogin {
 		
 		} catch (Exception e)
 		{
+			Logger.log("UserLogin.changeUsername(): " + e.getMessage());
 			return false;
 		}
 	}
@@ -304,8 +307,7 @@ public class UserLogin {
 			c.close();
 		}
 		catch (Exception e) {
-			System.err.println(e.getClass().getName() + ": " + e.getMessage());
-			System.exit(0);
+			Logger.log("UserLogin.delUser(): " + e.getMessage());
 		}
 
 	}
@@ -330,10 +332,11 @@ public class UserLogin {
 			Class.forName(driver);
 			c = DriverManager.getConnection(url, username, password);
 			stmt = c.createStatement();
+			
 			c.setAutoCommit(false);
-
 			ResultSet rs = stmt.executeQuery("SELECT Password FROM Students WHERE Username = '" + userData[0] + "'");
-
+			c.setAutoCommit(true);
+			
 			while (rs.next()) {
 
 				password = rs.getString("Password");
@@ -344,8 +347,7 @@ public class UserLogin {
 			c.close();
 		}
 		catch (Exception e) {
-			System.err.println(e.getClass().getName() + ": " + e.getMessage());
-			System.exit(0);
+			Logger.log("UserLogin.loginUser(): " + e.getMessage());
 		}
 
 		if (userData[1].equals(password)) {

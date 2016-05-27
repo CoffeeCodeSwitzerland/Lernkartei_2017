@@ -3,6 +3,8 @@ package database;
 import java.sql.*;
 import java.util.ArrayList;
 
+import debug.Logger;
+
 
 public class Database extends SQLiteConnector {
 
@@ -44,10 +46,9 @@ public class Database extends SQLiteConnector {
 
 			String setID;
 			c.setAutoCommit(false);
-
 			ResultSet selectSet = stmt.executeQuery("SELECT PK_Kategorie FROM Kategorie WHERE Kategorie = '"
 					+ values[2] + "'");
-
+			c.setAutoCommit(true);
 			if (selectSet.next()) {
 				setID = Integer.toString(selectSet.getInt("PK_Kategorie"));
 				selectSet.close();
@@ -59,24 +60,20 @@ public class Database extends SQLiteConnector {
 				return false;
 			}
 
-			c.setAutoCommit(true);
-
 			String insert = "INSERT INTO Stock (Frontside, Backside, Set_ID, Priority, Color)" +
 					"VALUES ('" + values[0] + "','" + values[1] + "'," + setID + ", " + values[3] + ", '"
 					+ values[4] + "')";
 
-			debug.Debugger.out(insert);
 			stmt.executeUpdate(insert);
 			stmt.close();
 			c.close();
-
+			return true;
 		}
 		catch (Exception e) {
-			System.err.println(e.getClass().getName() + ": " + e.getMessage());
-			System.exit(0);
+			Logger.log("Database.pushToStock(): " + e.getMessage());
 		}
 
-		return true;
+		return false;
 
 	}
 
@@ -111,10 +108,10 @@ public class Database extends SQLiteConnector {
 			stmt.executeUpdate(sql);
 
 			c.setAutoCommit(false);
-
 			String IDwhichSet = "";
 			ResultSet s = stmt.executeQuery("SELECT PK_Kategorie FROM Kategorie WHERE Kategorie = '" + whichSet + "'");
-
+			c.setAutoCommit(true);
+			
 			if (s.next()) {
 				IDwhichSet = Integer.toString(s.getInt("PK_Kategorie"));
 			}
@@ -126,9 +123,10 @@ public class Database extends SQLiteConnector {
 			}
 
 			s.close();
-
+			c.setAutoCommit(false);
 			ResultSet rs = stmt.executeQuery("SELECT * FROM Stock WHERE Set_ID = '" + IDwhichSet + "'");
-
+			c.setAutoCommit(true);
+			
 			while (rs.next()) {
 
 				String[] set = new String[7];
@@ -149,8 +147,7 @@ public class Database extends SQLiteConnector {
 
 		}
 		catch (Exception e) {
-			System.err.println(e.getClass().getName() + ": " + e.getMessage());
-			System.exit(0);
+			Logger.log("Database.pullFromStock(): " + e.getMessage());
 		}
 
 		return results;
@@ -210,6 +207,7 @@ public class Database extends SQLiteConnector {
 
 			String sel = "SELECT * FROM Stock WHERE PK_Stk = " + id;
 			ResultSet rs = stmt.executeQuery(sel);
+			c.setAutoCommit(true);
 
 			if (!rs.next()) {
 				rs.close();
@@ -234,8 +232,7 @@ public class Database extends SQLiteConnector {
 
 		}
 		catch (Exception e) {
-			System.err.println(e.getClass().getName() + ": " + e.getMessage());
-			System.exit(0);
+			Logger.log("Database.editEntry(): " + e.getMessage());
 		}
 
 		return true;
@@ -276,9 +273,10 @@ public class Database extends SQLiteConnector {
 
 
 			// Frage die Aktuelle Priorität ab
-
+			c.setAutoCommit(false);
 			ResultSet actualPrio = stmt.executeQuery("SELECT Priority FROM Stock WHERE PK_Stk = " + PK_ID.toString());
-
+			c.setAutoCommit(true);
+			
 			// Überprüft ob vorhanden oder nicht
 
 			if (actualPrio.next()) {
@@ -311,8 +309,7 @@ public class Database extends SQLiteConnector {
 
 		}
 		catch (Exception e) {
-			System.err.println("Database upPrio() : " + e.getClass().getName() + ": " + e.getMessage());
-			System.exit(0);
+			Logger.log("Database.upPrio(): " + e.getMessage());
 		}
 
 	}
@@ -346,8 +343,7 @@ public class Database extends SQLiteConnector {
 		}
 		
 		catch (Exception e) {
-			System.err.println(e.getClass().getName() + ": " + e.getMessage());
-			System.exit(0);
+			Logger.log("Database.resetPrio(): " + e.getMessage());
 		}
 
 	}
@@ -370,10 +366,12 @@ public class Database extends SQLiteConnector {
 			Class.forName(driver);
 			c = DriverManager.getConnection(url);
 			stmt = c.createStatement();
-			c.setAutoCommit(false);
+			
 
 			String getPrio = "SELECT Priority FROM Stock WHERE PK_Stk = " + ID_Card;
+			c.setAutoCommit(false);
 			ResultSet rsPrio = stmt.executeQuery(getPrio);
+			c.setAutoCommit(true);
 			
 			if (rsPrio.next()) {
 				prio = rsPrio.getInt("Priority");
@@ -386,8 +384,7 @@ public class Database extends SQLiteConnector {
 
 		}
 		catch (Exception e) {
-			System.err.println(e.getClass().getName() + ": " + e.getMessage());
-			System.exit(0);
+			Logger.log("Database.getPriority(): " + e.getMessage());
 		}
 		
 		return prio;
@@ -414,16 +411,16 @@ public class Database extends SQLiteConnector {
 			Class.forName(driver);
 			c = DriverManager.getConnection(url);
 			stmt = c.createStatement();
-			c.setAutoCommit(false);
+			
 
 			// Alle Prioritäten aus Tabelle hlen, welche als Set das mitgegebene
 			// haben.
 
 			String getScore = "SELECT Priority FROM Stock WHERE Set_ID = (SELECT PK_Kategorie FROM Kategorie"
 					+ " WHERE Kategorie = '" + whichSet + "')";
-
+			c.setAutoCommit(false);
 			ResultSet scrs = stmt.executeQuery(getScore);
-
+			c.setAutoCommit(true);
 			// Durch loopen und die Maximale sowie die Erreichte Punktzahl
 			// speichern
 
@@ -446,9 +443,7 @@ public class Database extends SQLiteConnector {
 
 		}
 		catch (Exception e) {
-			System.out.println("Exception getScore");
-			System.err.println(e.getClass().getName() + ": " + e.getMessage());
-			System.exit(0);
+			Logger.log("Database.getPriority(): " + e.getMessage());
 		}
 
 		// Erreichte Punktzahl zurückgeben

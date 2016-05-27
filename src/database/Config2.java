@@ -2,6 +2,8 @@ package database;
 
 import java.sql.ResultSet;
 
+import debug.Logger;
+
 
 public class Config2 extends SQLiteConnector {
 
@@ -64,8 +66,7 @@ public class Config2 extends SQLiteConnector {
 
 		}
 		catch (Exception e) {
-			System.err.println(e.getClass().getName() + ": " + e.getMessage());
-			System.exit(0);
+			Logger.log("Database.getValue(): " + e.getMessage());
 		}
 		closeDB();
 		return value;

@@ -14,8 +14,8 @@ public class MainViewSettings extends FXStage {
 		super (primaryStage);
 		
 		// TODO: the following does not work
-//		this.setWidth(920);
-//		this.setHeight(620);
+		this.setWidth(920);
+		this.setHeight(620);
 		
 		// TODO: the follwing does not work
 //		FXStage.setBackroundColor(new Color(0.0,1.0,1.0,0.5));

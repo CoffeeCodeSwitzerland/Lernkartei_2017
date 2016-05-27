@@ -120,21 +120,27 @@ public class EditorView extends FXViewModel
 				String isolatedWord = back.getText().substring(start, end);
 					bold.setOnMouseClicked(a ->{
 						back.setText(codeBefore+"[b]"+isolatedWord+"[/b]"+codeAfter);
+						UpdatePreview();
 					});
 					italic.setOnMouseClicked(a ->{
 						back.setText(codeBefore+"[i]"+isolatedWord+"[/i]"+codeAfter);
+						UpdatePreview();
 					});
 					crossed.setOnMouseClicked(a ->{
 						back.setText(codeBefore+"[s]"+isolatedWord+"[/s]"+codeAfter);
+						UpdatePreview();
 					});
 					under.setOnMouseClicked(a ->{
 						back.setText(codeBefore+"[u]"+isolatedWord+"[/u]"+codeAfter);
+						UpdatePreview();
 					});
 					sup.setOnMouseClicked(a ->{
 						back.setText(codeBefore+"[sup]"+isolatedWord+"[/sup]"+codeAfter);
+						UpdatePreview();
 					});
 					sub.setOnMouseClicked(a ->{
 						back.setText(codeBefore+"[sub]"+isolatedWord+"[/sub]"+codeAfter);
+						UpdatePreview();
 					});
 					cp.setOnMouseClicked(a ->{
 						ColorPicker colorPicker = new ColorPicker();
@@ -163,21 +169,27 @@ public class EditorView extends FXViewModel
 				String isolatedWord = front.getText().substring(start, end);
 					bold1.setOnMouseClicked(a ->{
 						front.setText(codeBefore+"[b]"+isolatedWord+"[/b]"+codeAfter);
+						UpdatePreview();
 					});
 					italic1.setOnMouseClicked(a ->{
 						front.setText(codeBefore+"[i]"+isolatedWord+"[/i]"+codeAfter);
+						UpdatePreview();
 					});
 					crossed1.setOnMouseClicked(a ->{
 						front.setText(codeBefore+"[s]"+isolatedWord+"[/s]"+codeAfter);
+						UpdatePreview();
 					});
 					under1.setOnMouseClicked(a ->{
 						front.setText(codeBefore+"[u]"+isolatedWord+"[/u]"+codeAfter);
+						UpdatePreview();
 					});
 					sup1.setOnMouseClicked(a ->{
 						front.setText(codeBefore+"[sup]"+isolatedWord+"[/sup]"+codeAfter);
+						UpdatePreview();
 					});
 					sub1.setOnMouseClicked(a ->{
 						front.setText(codeBefore+"[sub]"+isolatedWord+"[/sub]"+codeAfter);
+						UpdatePreview();
 					});
 					cp1.setOnMouseClicked(a ->{
 						ColorPicker colorPicker = new ColorPicker();

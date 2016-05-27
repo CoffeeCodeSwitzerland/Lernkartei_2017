@@ -12,6 +12,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import mvc.fx.FXController;
 import mvc.fx.FXView;
 import views.components.AppButton;
@@ -55,13 +56,21 @@ public class QuizletInfoView extends FXView
 		ScrollPane scroller = new ScrollPane();
 		scroller.setMaxWidth(800);
 		
-		Hyperlink link = new Hyperlink("Quizlet");
-		link.setOnAction(e -> Functions.openWebpage("http://quizlet.com/"));
+		
 
-		scroller.setContent(labelText);
+		
 		scroller.setHbarPolicy(ScrollBarPolicy.NEVER);
 		scroller.setVbarPolicy(ScrollBarPolicy.ALWAYS);
 
+		VBox contentLayout = new VBox(20);
+		
+		Hyperlink QuizletLink = new Hyperlink("Quizlet");
+		QuizletLink.setOnAction(e -> Functions.openWebpage("http://quizlet.com/"));
+		
+		contentLayout.getChildren().addAll(labelText, QuizletLink);
+		scroller.setContent(contentLayout);
+		
+		
 		HBox controlLayout = new HBox(20);
 		controlLayout.setAlignment(Pos.BOTTOM_CENTER);
 		controlLayout.getChildren().addAll(backBtn);

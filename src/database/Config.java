@@ -108,15 +108,15 @@ public class Config extends SQLiteConnector {
 			ResultSet tbl = stmt.executeQuery(getTbl);
 			c.setAutoCommit(true);
 			
-			
 			if (!tbl.next()) {
-				debug.Debugger.out("Table config not existent, no Values are generated yet!");
+				debug.Debugger.out("Config.getValue(): No table: config");
 				stmt.close();
 				c.close(); 
 				return value;
 			}
 
 			String getValue = "SELECT Value FROM config WHERE Key = '" + key + "'";
+			
 			c.setAutoCommit(false);
 			ResultSet rs = stmt.executeQuery(getValue);
 			c.setAutoCommit(true);

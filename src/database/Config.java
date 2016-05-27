@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
+import debug.Debugger;
 import debug.Logger;
 
 public class Config extends SQLiteConnector {
@@ -49,8 +50,9 @@ public class Config extends SQLiteConnector {
 
 			String checkTkn = "SELECT Key FROM config WHERE Key = '" + key + "'";
 			c.setAutoCommit(false);
-
 			ResultSet rs = stmt.executeQuery(checkTkn);
+			c.setAutoCommit(true);
+			
 			if (rs.next()) {
 				// SQLite Statement zum Ersetzen des letzten Tokeneintrags
 
@@ -99,11 +101,14 @@ public class Config extends SQLiteConnector {
 			Class.forName(driver);
 			c = DriverManager.getConnection(url);
 			stmt = c.createStatement();
+
+			String getTbl = "SELECT tbl_name FROM sqlite_master WHERE type='table' AND tbl_name = 'config'";
+			
 			c.setAutoCommit(false);
-
-			String getTbl = "SELECT name FROM sqlite_master WHERE type='table' AND name = 'config'";
 			ResultSet tbl = stmt.executeQuery(getTbl);
-
+			c.setAutoCommit(true);
+			
+			
 			if (!tbl.next()) {
 				debug.Debugger.out("Table config not existent, no Values are generated yet!");
 				stmt.close();
@@ -112,7 +117,9 @@ public class Config extends SQLiteConnector {
 			}
 
 			String getValue = "SELECT Value FROM config WHERE Key = '" + key + "'";
+			c.setAutoCommit(false);
 			ResultSet rs = stmt.executeQuery(getValue);
+			c.setAutoCommit(true);
 
 			if (rs.next()) {
 				value = rs.getString("Value");
@@ -129,8 +136,8 @@ public class Config extends SQLiteConnector {
 
 		}
 		catch (Exception e) {
-			System.err.println(e.getClass().getName() + ": " + e.getMessage());
-			System.exit(0);
+			Debugger.out("Config.getValue(): " + e.getMessage());
+			Logger.log("Config.getValue(): " + e.getMessage());
 		}
 
 		return value;

@@ -1,10 +1,11 @@
 package database;
 
-// z
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+
+import debug.Logger;
 
 
 public class Score {
@@ -46,12 +47,11 @@ public class Score {
 			stmt.executeUpdate(sql);
 
 			Integer currentLifes = 0;
-
-			c.setAutoCommit(false);
-
 			String getCurrent = "SELECT Lifecount FROM Lifes";
 
+			c.setAutoCommit(false);
 			ResultSet getCurt = stmt.executeQuery(getCurrent);
+			c.setAutoCommit(true);
 
 			if (getCurt.next()) {
 				currentLifes = getCurt.getInt("Lifecount");
@@ -73,8 +73,7 @@ public class Score {
 
 		}
 		catch (Exception e) {
-			System.err.println(e.getClass().getName() + ": " + e.getMessage());
-			System.exit(0);
+			Logger.log("Database.correctCard(): " + e.getMessage());
 		}
 
 	}
@@ -98,11 +97,12 @@ public class Score {
 
 			Integer currentLifes = 0;
 
-			c.setAutoCommit(false);
-
+			
 			String getCurrent = "SELECT Lifecount FROM Lifes";
 
+			c.setAutoCommit(false);
 			ResultSet rs = stmt.executeQuery(getCurrent);
+			c.setAutoCommit(true);
 			
 			if(rs.next()){
 				currentLifes = rs.getInt("Lifecount");
@@ -116,8 +116,7 @@ public class Score {
 
 		}
 		catch (Exception e) {
-			System.err.println(e.getClass().getName() + ": " + e.getMessage());
-			System.exit(0);
+			Logger.log("Database.getLifecount(): " + e.getMessage());
 		}
 
 		return anzahlLeben;
@@ -143,15 +142,16 @@ public class Score {
 
 			Integer currentLifes = 0;
 
-			c.setAutoCommit(false);
-
 			String getCurrent = "SELECT Lifecount FROM Lifes";
-
+			
+			c.setAutoCommit(false);
 			ResultSet rs = stmt.executeQuery(getCurrent);
+			c.setAutoCommit(true);
+			
 			if(rs.next()){
 				currentLifes = rs.getInt("Lifecount");
 			}
-			c.setAutoCommit(true);
+			
 			
 			if (currentLifes >= 30) {
 				String updt = "UPDATE Lifes SET Lifecount = " + (currentLifes - 30);
@@ -163,8 +163,7 @@ public class Score {
 
 		}
 		catch (Exception e) {
-			System.err.println(e.getClass().getName() + ": " + e.getMessage());
-			System.exit(0);
+			Logger.log("Database.death(): " + e.getMessage());
 		}
 
 	}
@@ -188,11 +187,13 @@ public class Score {
 
 			currentLifes = 0;
 
-			c.setAutoCommit(false);
+			
 
 			String getCurrent = "SELECT Lifecount FROM Lifes";
-
+			
+			c.setAutoCommit(false);
 			ResultSet rs = stmt.executeQuery(getCurrent);
+			c.setAutoCommit(true);
 			
 			if(rs.next()){
 				currentLifes = rs.getInt("Lifecount");
@@ -203,8 +204,7 @@ public class Score {
 
 		}
 		catch (Exception e) {
-			System.err.println(e.getClass().getName() + ": " + e.getMessage());
-			System.exit(0);
+			Logger.log("Database.getCorrectCards(): " + e.getMessage());
 		}
 
 		return currentLifes;

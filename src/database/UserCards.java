@@ -3,9 +3,10 @@ package database;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+
+import debug.Logger;
 
 /**
  * 
@@ -41,11 +42,8 @@ public class UserCards {
 			debug.Debugger.out(sql);
 			stmt.executeUpdate(sql);
 		}
-		catch (SQLException e) {
-			e.printStackTrace();
-		}
-		catch (ClassNotFoundException e) {
-			e.printStackTrace();
+		catch (Exception e) {
+			Logger.log("UserCards Constructor: " + e.getMessage()); 
 		}
 	}
 
@@ -86,7 +84,7 @@ public class UserCards {
 
 		}
 		catch (Exception e) {
-			debug.Debugger.out(e.getMessage());
+			Logger.log("Database.getCards(): " + e.getMessage());
 			listCards.clear();
 			return listCards;
 		}
@@ -104,19 +102,12 @@ public class UserCards {
 			Class.forName(driver);
 			c = DriverManager.getConnection(url);
 			stmt = c.createStatement();
-
-			debug.Debugger.out(query);
-
 			stmt.executeUpdate(query);
-
 		}
-		catch (ClassNotFoundException e) {
-			e.printStackTrace();
+		catch (Exception e) {
+			Logger.log("UserCards.addCards(): " + e.getMessage());
 		}
-		catch (SQLException e) {
-			e.printStackTrace();
-		}
-
+		
 		return wasSuccessful;
 	}
 

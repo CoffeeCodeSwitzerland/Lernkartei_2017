@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import debug.Logger;
 
 public class Doors {
 
@@ -46,17 +47,16 @@ public class Doors {
 
 			// Überprüft, ob bereits ein Eintrag mit dem Selben Namen enthalten
 			// ist
-
+			
 			c.setAutoCommit(false);
-
 			ResultSet checkName = stmt
 					.executeQuery("SELECT Doorname FROM Doors WHERE Doorname = " + "'" + eingabe + "'");
-
+			c.setAutoCommit(true);
+			
 			if (!checkName.next()) {
 
 				checkName.close();
-				c.setAutoCommit(true);
-
+				
 				// Einfügen des Datensatzes in Doors
 
 				String insert = "INSERT INTO Doors (Doorname)" +
@@ -79,8 +79,7 @@ public class Doors {
 
 		}
 		catch (Exception e) {
-			System.err.println(e.getClass().getName() + ": " + e.getMessage());
-			System.exit(0);
+			Logger.log("Database.newDoor(): " + e.getMessage());
 		}
 
 		return worked;
@@ -104,15 +103,17 @@ public class Doors {
 		try {
 			Class.forName(driver);
 			c = DriverManager.getConnection(url);
-			c.setAutoCommit(false);
 			stmt = c.createStatement();
-
-			ResultSet tbl = stmt.executeQuery("SELECT name FROM sqlite_master WHERE type='table' AND name='Doors'");
-
+			
+			c.setAutoCommit(false);
+			ResultSet tbl = stmt.executeQuery("SELECT tbl_name FROM sqlite_master WHERE type='table' AND tbl_name='Doors'");
+			c.setAutoCommit(true);			
+			
 			if (tbl.next()) {
-
+				c.setAutoCommit(false);
 				ResultSet rs = stmt.executeQuery("SELECT Doorname FROM Doors");
-
+				c.setAutoCommit(true);
+				
 				while (rs.next()) {
 
 					String name = "";
@@ -135,8 +136,7 @@ public class Doors {
 			}
 		}
 		catch (Exception e) {
-			System.err.println(e.getClass().getName() + ": " + e.getMessage());
-			System.exit(0);
+			Logger.log("Database.getDoors(): " + e.getMessage());
 		}
 
 		return data;
@@ -162,15 +162,19 @@ public class Doors {
 			Class.forName(driver);
 			c = DriverManager.getConnection(url);
 			stmt = c.createStatement();
-			c.setAutoCommit(false);
 			
+			c.setAutoCommit(false);
 			ResultSet del = stmt.executeQuery("SELECT * FROM Doors WHERE Doorname = '" + delName + "'");
-
+			c.setAutoCommit(true);
+			
 			if (del.next()) {
 				Integer doorID = del.getInt("PK_Doors");
 				del.close();
 
+				c.setAutoCommit(false);
 				ResultSet getStacks = stmt.executeQuery("SELECT * FROM Kategorie WHERE FK_Door = " + doorID);
+				c.setAutoCommit(true);
+				
 				while (getStacks.next()) {
 					setsToDel.add(getStacks.getString("Kategorie"));
 				}
@@ -199,8 +203,7 @@ public class Doors {
 
 		}
 		catch (Exception e) {
-			System.err.println(e.getClass().getName() + ": " + e.getMessage());
-			System.exit(0);
+			Logger.log("Database.delDoor(): " + e.getMessage());
 		}
 
 		return worked;
@@ -236,8 +239,7 @@ public class Doors {
 			c.close();
 		}
 		catch (Exception e) {
-			System.err.println(e.getClass().getName() + ": " + e.getMessage());
-			System.exit(0);
+			Logger.log("Database.update(): " + e.getMessage());
 		}
 		
 		return worked;

@@ -3,7 +3,6 @@ package database;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
@@ -92,8 +91,7 @@ public class Stack {
 			c.close();
 		}
 		catch (Exception e) {
-			System.err.println(e.getClass().getName() + ": " + e.getMessage());
-			System.exit(0);
+			Logger.log("Database.newStack(): " + e.getMessage());
 		}
 
 		return errorMsg;
@@ -155,8 +153,7 @@ public class Stack {
 			c.close();
 		}
 		catch (Exception e) {
-			System.err.println(e.getClass().getName() + ": " + e.getMessage());
-			System.exit(0);
+			Logger.log("Database.getKategorie(): " + e.getMessage());
 		}
 
 		return datensatz;
@@ -196,7 +193,8 @@ public class Stack {
 			// Abfragen, ob zu löschende Kategorie vorhanden ist oder nicht.
 			// Wenn ja, wird gelöscht
 
-			ResultSet del = stmt.executeQuery("SELECT Kategorie FROM Kategorie WHERE Kategorie = '" + category + "'");
+			ResultSet del = stmt.executeQuery("SELECT Kategorie FROM Kategorie WHERE"
+											+ " Kategorie = '" + category + "'");
 			Integer setID = del.getInt("Kategorie");
 			boolean contin = del.next();
 			del.close();
@@ -219,15 +217,13 @@ public class Stack {
 		catch (Exception e) {
 			debug.Debugger.out("Stack.delStack(" + category +"): " + e.getMessage());
 			Logger.log("Stack.delStack(" + category +"): " + e.getMessage());
-//			System.err.println(e.getClass().getName() + ": " + e.getMessage());
-//			System.exit(0);
 		}
 		try {
 			stmt.close();
 			c.close();
 		}
-		catch (SQLException e) {
-
+		catch (Exception e) {
+			debug.Debugger.out("Stack.delStack(" + category + "): " + e.getMessage());
 		}
 		
 		return worked;
@@ -273,8 +269,7 @@ public class Stack {
 
 		}
 		catch (Exception e) {
-			System.err.println(e.getClass().getName() + ": " + e.getMessage());
-			System.exit(0);
+			Logger.log("Database.getStackNames(): " + e.getMessage());
 		}
 		return Stacks;
 	}
@@ -310,9 +305,7 @@ public class Stack {
 
 		}
 		catch (Exception e) {
-			ID = 0;
-			System.err.println(e.getClass().getName() + ": " + e.getMessage());
-			System.exit(0);
+			Logger.log("Database.getStackID(): " + e.getMessage());
 		}
 
 		return ID;
@@ -348,8 +341,7 @@ public class Stack {
 
 		}
 		catch (Exception e) {
-			System.err.println(e.getClass().getName() + ": " + e.getMessage());
-			System.exit(0);
+			Logger.log("Database.possible(): " + e.getMessage());
 		}
 
 		return true;
@@ -387,8 +379,7 @@ public class Stack {
 			c.close();
 		}
 		catch (Exception e) {
-			System.err.println(e.getClass().getName() + ": " + e.getMessage());
-			System.exit(0);
+			Logger.log("Database.update(): " + e.getMessage());
 		}
 
 		return worked;

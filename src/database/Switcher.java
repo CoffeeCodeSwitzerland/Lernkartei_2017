@@ -2,6 +2,8 @@ package database;
 
 import java.sql.*;
 
+import debug.Logger;
+
 public class Switcher {
 
 	// Varibeln Connection
@@ -44,8 +46,7 @@ public class Switcher {
 			c.close();
 		}
 		catch (Exception e) {
-			System.err.println(e.getClass().getName() + ": " + e.getMessage());
-			System.exit(0);
+			Logger.log("Database.newSwitch(): " + e.getMessage());
 		}
 		
 		return worked;
@@ -85,8 +86,7 @@ public class Switcher {
 
 		}
 		catch (Exception e) {
-			System.err.println(e.getClass().getName() + ": " + e.getMessage());
-			System.exit(0);
+			Logger.log("Database.delSwitch(): " + e.getMessage());
 		}
 		
 		return worked;
@@ -125,8 +125,7 @@ public class Switcher {
 
 		}
 		catch (Exception e) {
-			System.err.println(e.getClass().getName() + ": " + e.getMessage());
-			System.exit(0);
+			Logger.log("Database.checkSwitched(): " + e.getMessage());
 		}
 		
 		return checked;

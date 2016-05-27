@@ -53,6 +53,7 @@ public class BBCodeInfo extends FXView
 			EditorView.back.setText(EditorView.backinfo);
 			EditorView.engineback.loadContent(EditorView.backinfo);
 			EditorView.enginefront.loadContent(EditorView.frontinfo);
+			EditorView.UpdatePreview();
 		});
 
 		BorderPane headLayout = new BorderPane(labelTitel);

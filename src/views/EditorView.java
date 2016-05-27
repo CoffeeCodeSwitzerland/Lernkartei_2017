@@ -298,7 +298,7 @@ public class EditorView extends FXViewModel
 		}
 	}
 	
-	public void UpdatePreview(){
+	public static void UpdatePreview(){
 		
 			String text = back.getText();
 			text = Functions.AntiHTMLTags(text);

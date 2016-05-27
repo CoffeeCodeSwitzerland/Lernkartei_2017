@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 import debug.Logger;
 
-public class Doors {
+public class Doors extends SQLiteConnector {
 
 	// URL und Driver
 
@@ -63,25 +63,16 @@ public class Doors {
 						"VALUES ('" + eingabe + "')";
 
 				stmt.executeUpdate(insert);
-				stmt.close();
-				c.close();
-				
 				worked = true;
-
 			}
 			else {
-
 				worked = false;
-				stmt.close();
-				c.close();
-
 			}
-
 		}
 		catch (Exception e) {
 			Logger.log("Database.newDoor(): " + e.getMessage());
 		}
-
+		closeDB();
 		return worked;
 
 	}
@@ -115,30 +106,21 @@ public class Doors {
 				c.setAutoCommit(true);
 				
 				while (rs.next()) {
-
 					String name = "";
 					name = rs.getString("Doorname");
 					data.add(name);
-
 				}
-
 				rs.close();
 				stmt.close();
-				c.close();
-
 			}
 			else {
-
 				debug.Debugger.out("Table Doors is not created yet.");
-				stmt.close();
-				c.close();
-
 			}
 		}
 		catch (Exception e) {
 			Logger.log("Database.getDoors(): " + e.getMessage());
 		}
-
+		closeDB();
 		return data;
 
 	}
@@ -183,21 +165,16 @@ public class Doors {
 				for (String s : setsToDel) {
 					database.Stack.delStack(s);
 				}
-				c.setAutoCommit(true);
 				
 				String delDoor = "DELETE FROM Doors WHERE Doorname = '" + delName + "'";
 				String delSets = "DELETE FROM Kategorie WHERE FK_Door = " + doorID;
 				
 				stmt.executeUpdate(delDoor);
 				stmt.executeUpdate(delSets);
-				stmt.close();
-				c.close();
 				worked = true;
 			}
 			else {
 				del.close();
-				stmt.close();
-				c.close();
 				worked = false;
 			}
 
@@ -205,7 +182,7 @@ public class Doors {
 		catch (Exception e) {
 			Logger.log("Database.delDoor(): " + e.getMessage());
 		}
-
+		closeDB();
 		return worked;
 
 	}
@@ -235,13 +212,11 @@ public class Doors {
 				checkDoor.close();
 			}
 			
-			stmt.close();
-			c.close();
 		}
 		catch (Exception e) {
 			Logger.log("Database.update(): " + e.getMessage());
 		}
-		
+		closeDB();
 		return worked;
 		
 	}

@@ -8,7 +8,7 @@ import java.sql.Statement;
 import debug.Logger;
 
 
-public class Score {
+public class Score extends SQLiteConnector {
 
 	// URL und Driver
 
@@ -57,25 +57,19 @@ public class Score {
 				currentLifes = getCurt.getInt("Lifecount");
 				getCurt.close();
 			} else {
-				c.setAutoCommit(true);
 				String newEntry = "INSERT INTO Lifes (Lifecount) VALUES (0)";
 				stmt.executeUpdate(newEntry);
 			}
 			
 			getCurt.close();
-			c.setAutoCommit(true);
 
 			String updt = "UPDATE Lifes SET Lifecount = " + (currentLifes + 1);
 			stmt.executeUpdate(updt);
-
-			stmt.close();
-			c.close();
-
 		}
 		catch (Exception e) {
 			Logger.log("Database.correctCard(): " + e.getMessage());
 		}
-
+		closeDB();
 	}
 
 	public static int getLifecount () {
@@ -96,8 +90,6 @@ public class Score {
 			stmt.executeUpdate(sql);
 
 			Integer currentLifes = 0;
-
-			
 			String getCurrent = "SELECT Lifecount FROM Lifes";
 
 			c.setAutoCommit(false);
@@ -107,27 +99,19 @@ public class Score {
 			if(rs.next()){
 				currentLifes = rs.getInt("Lifecount");
 			}
-			
 			float notRounded = currentLifes / 30;
 			anzahlLeben = Math.round(notRounded);
-			
-			stmt.close();
-			c.close();
-
 		}
 		catch (Exception e) {
 			Logger.log("Database.getLifecount(): " + e.getMessage());
 		}
-
+		closeDB();
 		return anzahlLeben;
-
 	}
 
 	public static void death () {
-
 		Connection c = null;
 		Statement stmt = null;
-
 		try {
 			Class.forName(driver);
 			c = DriverManager.getConnection(url);
@@ -157,15 +141,11 @@ public class Score {
 				String updt = "UPDATE Lifes SET Lifecount = " + (currentLifes - 30);
 				stmt.executeUpdate(updt);
 			}	
-
-			stmt.close();
-			c.close();
-
 		}
 		catch (Exception e) {
 			Logger.log("Database.death(): " + e.getMessage());
 		}
-
+		closeDB();
 	}
 	
 	public static int getCorrectCards () {
@@ -186,9 +166,6 @@ public class Score {
 			stmt.executeUpdate(sql);
 
 			currentLifes = 0;
-
-			
-
 			String getCurrent = "SELECT Lifecount FROM Lifes";
 			
 			c.setAutoCommit(false);
@@ -198,17 +175,11 @@ public class Score {
 			if(rs.next()){
 				currentLifes = rs.getInt("Lifecount");
 			}
-
-			stmt.close();
-			c.close();
-
 		}
 		catch (Exception e) {
 			Logger.log("Database.getCorrectCards(): " + e.getMessage());
 		}
-
+		closeDB();
 		return currentLifes;
-
 	}
-	
 }

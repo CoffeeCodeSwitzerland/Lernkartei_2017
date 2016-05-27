@@ -4,7 +4,7 @@ import java.sql.*;
 
 import debug.Logger;
 
-public class Switcher {
+public class Switcher extends SQLiteConnector {
 
 	// Varibeln Connection
 
@@ -31,24 +31,21 @@ public class Switcher {
 			
 			c.setAutoCommit(false);			
 			ResultSet checkExists = stmt.executeQuery("SELECT * FROM Switcher WHERE SwitchStack = '" + setName + "';");
+			c.setAutoCommit(true);			
 			
 			if (checkExists.next()) {
 				checkExists.close();
 			} else {
 				checkExists.close();
-				c.setAutoCommit(true);	
 				String insertSwitch = "INSERT INTO Switcher (SwitchStack) VALUES ('" + setName + "');";
 				stmt.executeUpdate(insertSwitch);
 				worked = true;
 			}
-			
-			stmt.close();
-			c.close();
 		}
 		catch (Exception e) {
 			Logger.log("Database.newSwitch(): " + e.getMessage());
 		}
-		
+		closeDB();
 		return worked;
 	}
 
@@ -70,27 +67,22 @@ public class Switcher {
 			
 			c.setAutoCommit(false);			
 			ResultSet checkExists = stmt.executeQuery("SELECT * FROM Switcher WHERE SwitchStack = '" + setName + "';");
+			c.setAutoCommit(true);	
 			
 			if (checkExists.next()) {
 				checkExists.close();
 			} else {
 				checkExists.close();
-				c.setAutoCommit(true);	
 				String updateSwitch = "DELETE FROM Switcher WHERE SwitchStack = '" + setName + "'";
 				stmt.executeUpdate(updateSwitch);
 				worked = true;
 			}
-			
-			stmt.close();
-			c.close();
-
 		}
 		catch (Exception e) {
 			Logger.log("Database.delSwitch(): " + e.getMessage());
 		}
-		
+		closeDB();
 		return worked;
-
 	}
 
 	public static boolean checkSwitched (String setName) {
@@ -111,6 +103,7 @@ public class Switcher {
 			
 			c.setAutoCommit(false);			
 			ResultSet checkExists = stmt.executeQuery("SELECT * FROM Switcher WHERE SwitchStack = '" + setName + "';");
+			c.setAutoCommit(true);			
 			
 			if (checkExists.next()) {
 				checkExists.close();
@@ -119,17 +112,11 @@ public class Switcher {
 				checkExists.close();
 				checked = false;
 			}
-			
-			stmt.close();
-			c.close();
-
 		}
 		catch (Exception e) {
 			Logger.log("Database.checkSwitched(): " + e.getMessage());
 		}
-		
+		closeDB();
 		return checked;
-
 	}
-
 }

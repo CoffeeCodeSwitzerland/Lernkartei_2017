@@ -3,14 +3,13 @@ package database;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
 import debug.Logger;
 
 
-public class Stack {
+public class Stack extends SQLiteConnector {
 
 	// Connectioninformationen URL & Driver
 
@@ -51,12 +50,13 @@ public class Stack {
 					+ " FK_Door INTEGER NOT NULL)";
 
 			stmt.executeUpdate(sql);
-			c.setAutoCommit(false);
 
 			// SELECT Befehl, welcher die ID der Tür abruft, in welcher die
 			// Kategorie erstellt wird
 
+			c.setAutoCommit(false);
 			ResultSet id = stmt.executeQuery("SELECT PK_Doors FROM Doors WHERE Doorname = '" + fk_door + "'");
+			c.setAutoCommit(true);
 
 			// Überprüft, ob die Tür exisitert oder nicht
 
@@ -65,36 +65,33 @@ public class Stack {
 				id.close();
 			}
 			else {
+				closeDB();
 				return -1;
 			}
 
+			c.setAutoCommit(false);
 			ResultSet check = stmt.executeQuery("SELECT * FROM Kategorie WHERE Kategorie = '" + eingabe + "'");
+			c.setAutoCommit(true);
 
 			if (check.next()) {
 				check.close();
+				closeDB();
 				return -2;
 			}
 			else {
 				check.close();
 			}
-
-			c.setAutoCommit(true);
-
 			// Erstellt die neue Kategorie als Eintrag in der Datenbank mit
 			// einem Fremdkey für die Tür
 
 			String insert = "INSERT INTO Kategorie (Kategorie, FK_Door)" +
 					"VALUES ('" + eingabe + "', " + FK_ID + ")";
-
 			stmt.executeUpdate(insert);
-
-			stmt.close();
-			c.close();
 		}
 		catch (Exception e) {
 			Logger.log("Database.newStack(): " + e.getMessage());
 		}
-
+		closeDB();
 		return errorMsg;
 
 	}
@@ -155,20 +152,13 @@ public class Stack {
 			}
 
 			rs.close();
-			stmt.close();
-			c.close();
 		}
 		catch (Exception e) {
 			if (doorname == null) doorname = "{null}";
 			debug.Debugger.out("Database.getKategorie("+doorname+"): " + e.getMessage());
 			Logger.log("Database.getKategorie("+doorname+"): " + e.getMessage());
 		}
-		try {
-			stmt.close();
-			c.close();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-		}
+		closeDB();
 		return datensatz;
 	}
 
@@ -178,7 +168,6 @@ public class Stack {
 	 * @param category
 	 *            --> Name der zu löschenden Kategorie
 	 */
-
 	public static boolean delStack (String category) {
 
 		Connection c = null;
@@ -200,14 +189,14 @@ public class Stack {
 					+ " Kategorie TEXT NOT NULL,"
 					+ " FK_Door INTEGER NOT NULL);";
 			stmt.executeUpdate(sql);
-			c.setAutoCommit(false);
 
 			// Abfragen, ob zu löschende Kategorie vorhanden ist oder nicht.
 			// Wenn ja, wird gelöscht
 			sql = "SELECT Kategorie FROM Kategorie WHERE"+ " Kategorie = '" + category + "';";
+			c.setAutoCommit(false);
 			ResultSet del = stmt.executeQuery(sql);
 			debug.Debugger.out("Stack.delStack(" + sql +"): Size="+del.getFetchSize());
-			
+			c.setAutoCommit(true);
 			Integer setID  = del.getInt("Kategorie");
 			debug.Debugger.out("Stack.delStack(" + category +"): ID="+setID);
 
@@ -215,22 +204,22 @@ public class Stack {
 			del.close();
 
 			if (contin) {
-
-				sql = "DELETE FROM Stock WHERE Set_ID = " + setID + ";";
+				try {
+					sql = "DELETE FROM Stock WHERE Set_ID = " + setID + ";";
+					int ret = stmt.executeUpdate(sql);
+					debug.Debugger.out("Stack.delStack(" + sql +"):"+ret);
+				} catch (Exception e) {
+					debug.Debugger.out("Stack.delStack(" + sql +")...");
+					debug.Debugger.out("Stack.delStack(" + category +"): " + e.getMessage());
+					Logger.log("Stack.delStack(" + category +"): " + e.getMessage());
+				}
+				sql = "DELETE FROM Kategorie WHERE Kategorie = '" + category + "';";
 				int ret = stmt.executeUpdate(sql);
 				debug.Debugger.out("Stack.delStack(" + sql +"):"+ret);
 
-				sql = "DELETE FROM Kategorie WHERE Kategorie = '" + category + "';";
-				ret = stmt.executeUpdate(sql);
-				debug.Debugger.out("Stack.delStack(" + sql +"):"+ret);
-
-				stmt.close();
-				c.close();
 				worked = true;
 			}
 			else {
-				stmt.close();
-				c.close();
 				worked = false;
 			}
 		}
@@ -239,13 +228,7 @@ public class Stack {
 			debug.Debugger.out("Stack.delStack(" + category +"): " + e.getMessage());
 			Logger.log("Stack.delStack(" + category +"): " + e.getMessage());
 		}
-		try {
-			stmt.close();
-			c.close();
-		}
-		catch (Exception e) {
-			debug.Debugger.out("Stack.delStack(...closing: "+worked+"): " + e.getMessage());
-		}		
+		closeDB();
 		return worked;
 	}
 
@@ -270,7 +253,9 @@ public class Stack {
 
 			stmt.executeUpdate(sql);
 
+			c.setAutoCommit(false);
 			ResultSet StackSet = stmt.executeQuery("SELECT Kategorie FROM Kategorie");
+			c.setAutoCommit(true);
 			if (StackSet.isAfterLast()) {
 				Stacks = null;
 			}
@@ -283,13 +268,11 @@ public class Stack {
 			}
 
 			StackSet.close();
-			stmt.close();
-			c.close();
-
 		}
 		catch (Exception e) {
 			Logger.log("Database.getStackNames(): " + e.getMessage());
 		}
+		closeDB();
 		return Stacks;
 	}
 
@@ -312,21 +295,18 @@ public class Stack {
 
 			stmt.executeUpdate(sql);
 			c.setAutoCommit(false);
-
 			ResultSet StackSet = stmt
 					.executeQuery("SELECT PK_Kategorie FROM Kategorie WHERE Kategorie = '" + KategorieName + "'");
+			c.setAutoCommit(true);
 
 			ID = Integer.parseInt(StackSet.getString(StackSet.getInt(1)));
 
 			StackSet.close();
-			stmt.close();
-			c.close();
-
 		}
 		catch (Exception e) {
 			Logger.log("Database.getStackID(): " + e.getMessage());
 		}
-
+		closeDB();
 		return ID;
 	}
 
@@ -341,20 +321,18 @@ public class Stack {
 			stmt = c.createStatement();
 
 			String sql = "SELECT * FROM Kategorie WHERE Kategorie = '" + boxName + "';";
-
 			c.setAutoCommit(false);
 			ResultSet checkPossible = stmt.executeQuery(sql);
+			c.setAutoCommit(true);
 
 			if (checkPossible.next()) {
 				checkPossible.close();
-				stmt.close();
-				c.close();
+				closeDB();
 				return false;
 			}
 			else {
 				checkPossible.close();
-				stmt.close();
-				c.close();
+				closeDB();
 				return true;
 			}
 
@@ -362,9 +340,8 @@ public class Stack {
 		catch (Exception e) {
 			Logger.log("Database.possible(): " + e.getMessage());
 		}
-
+		closeDB();
 		return true;
-
 	}
 
 	public static boolean update (String oldName, String newName) {
@@ -379,10 +356,9 @@ public class Stack {
 			stmt = c.createStatement();
 
 			c.setAutoCommit(false);
-
 			ResultSet checkStack = stmt.executeQuery("SELECT * FROM Kategorie WHERE Kategorie = '" + oldName + "';");
-
 			c.setAutoCommit(true);
+
 			if (checkStack.next()) {
 				String updateStack = "UPDATE Kategorie SET Kategorie = '" + newName + "' WHERE Kategorie = '" + oldName + "';";
 				stmt.executeUpdate(updateStack);
@@ -393,16 +369,11 @@ public class Stack {
 				worked = false;
 				checkStack.close();
 			}
-
-			stmt.close();
-			c.close();
 		}
 		catch (Exception e) {
 			Logger.log("Database.update(): " + e.getMessage());
 		}
-
+		closeDB();
 		return worked;
-
 	}
-
 }

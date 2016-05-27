@@ -45,10 +45,12 @@ public class Database extends SQLiteConnector {
 			stmt.executeUpdate(sql);
 
 			String setID;
+
 			c.setAutoCommit(false);
 			ResultSet selectSet = stmt.executeQuery("SELECT PK_Kategorie FROM Kategorie WHERE Kategorie = '"
 					+ values[2] + "'");
 			c.setAutoCommit(true);
+
 			if (selectSet.next()) {
 				setID = Integer.toString(selectSet.getInt("PK_Kategorie"));
 				selectSet.close();
@@ -65,14 +67,13 @@ public class Database extends SQLiteConnector {
 					+ values[4] + "')";
 
 			stmt.executeUpdate(insert);
-			stmt.close();
-			c.close();
+			closeDB();
 			return true;
 		}
 		catch (Exception e) {
 			Logger.log("Database.pushToStock(): " + e.getMessage());
 		}
-
+		closeDB();
 		return false;
 
 	}
@@ -117,8 +118,7 @@ public class Database extends SQLiteConnector {
 			}
 			else {
 				debug.Debugger.out("No Kategorie: " + whichSet + "in Table Kategorie");
-				stmt.close();
-				c.close();
+				closeDB();
 				return null;
 			}
 
@@ -142,14 +142,11 @@ public class Database extends SQLiteConnector {
 			}
 
 			rs.close();
-			stmt.close();
-			c.close();
-
 		}
 		catch (Exception e) {
 			Logger.log("Database.pullFromStock(): " + e.getMessage());
 		}
-
+		closeDB();
 		return results;
 
 	}
@@ -168,16 +165,11 @@ public class Database extends SQLiteConnector {
 			String del = "DELETE FROM Stock WHERE PK_Stk = " + id;
 			stmt.executeUpdate(del);
 			deleted = true;
-
-			stmt.close();
-			c.close();
-
 		}
 		catch (Exception e) {
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
-			System.exit(0);
 		}
-
+		closeDB();
 		return deleted;
 
 	}
@@ -202,23 +194,21 @@ public class Database extends SQLiteConnector {
 		try {
 			Class.forName(driver);
 			c = DriverManager.getConnection(url);
-			c.setAutoCommit(false);
 			stmt = c.createStatement();
 
+			c.setAutoCommit(false);
 			String sel = "SELECT * FROM Stock WHERE PK_Stk = " + id;
 			ResultSet rs = stmt.executeQuery(sel);
 			c.setAutoCommit(true);
 
 			if (!rs.next()) {
 				rs.close();
-				stmt.close();
-				c.commit();
+				closeDB();
 				return false;
 			}
 			else {
 				rs.close();
 			}
-
 			c.setAutoCommit(true);
 			String del = "UPDATE Stock SET Frontside = '" + frontside
 					+ "', Backside = '" + backside
@@ -226,15 +216,11 @@ public class Database extends SQLiteConnector {
 
 			debug.Debugger.out(del);
 			stmt.executeUpdate(del);
-
-			stmt.close();
-			c.close();
-
 		}
 		catch (Exception e) {
 			Logger.log("Database.editEntry(): " + e.getMessage());
 		}
-
+		closeDB();
 		return true;
 
 	}
@@ -257,7 +243,6 @@ public class Database extends SQLiteConnector {
 			Class.forName(driver);
 			c = DriverManager.getConnection(url);
 			stmt = c.createStatement();
-			c.setAutoCommit(false);
 			
 			String sql = "CREATE TABLE IF NOT EXISTS Stock " +
 					"(PK_Stk INTEGER PRIMARY KEY AUTOINCREMENT," +
@@ -300,18 +285,13 @@ public class Database extends SQLiteConnector {
 
 			// Schreibt die Neue Priorität in die Datenbank
 
-			c.setAutoCommit(true);
 			String updatePrio = "UPDATE Stock SET Priority = " + newPrio + " WHERE PK_Stk = " + PK_ID;
 			stmt.executeUpdate(updatePrio);
-
-			stmt.close();
-			c.close();
-
 		}
 		catch (Exception e) {
 			Logger.log("Database.upPrio(): " + e.getMessage());
 		}
-
+		closeDB();
 	}
 
 	/**
@@ -336,16 +316,11 @@ public class Database extends SQLiteConnector {
 
 			String updatePrio = "UPDATE Stock SET Priority = 1 WHERE PK_Stk = " + PK_ID;
 			stmt.executeUpdate(updatePrio);
-
-			stmt.close();
-			c.close();
-
 		}
-		
 		catch (Exception e) {
 			Logger.log("Database.resetPrio(): " + e.getMessage());
 		}
-
+		closeDB();
 	}
 	
 	/**
@@ -378,15 +353,11 @@ public class Database extends SQLiteConnector {
 			} else {
 				debug.Debugger.out("No such Card exists!");
 			}
-			
-			stmt.close();
-			c.close();
-
 		}
 		catch (Exception e) {
 			Logger.log("Database.getPriority(): " + e.getMessage());
 		}
-		
+		closeDB();
 		return prio;
 		
 	}
@@ -433,14 +404,9 @@ public class Database extends SQLiteConnector {
 				}
 
 			} else {
-				
+				closeDB();
 				return null;
-				
 			}
-
-			stmt.close();
-			c.close();
-
 		}
 		catch (Exception e) {
 			Logger.log("Database.getPriority(): " + e.getMessage());
@@ -450,7 +416,7 @@ public class Database extends SQLiteConnector {
 		
 		score[0] = maxPoints;
 		score[1] = reachedPoints;
-
+		closeDB();
 		return score;
 
 	}

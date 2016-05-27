@@ -59,7 +59,6 @@ public class Config extends SQLiteConnector {
 				String replace = "UPDATE config SET Value = '" + value + "' "
 						+ "WHERE Key = '" + key + "'";
 
-				c.setAutoCommit(true);
 				stmt.executeUpdate(replace);
 				debug.Debugger.out(replace + "\n\nErfolgreich Eintrag erneuert!");
 			}
@@ -70,7 +69,6 @@ public class Config extends SQLiteConnector {
 						+ "VALUES ('" + key + "','" + value + "')";
 
 				stmt.executeUpdate(create);
-				c.setAutoCommit(true);
 				debug.Debugger.out(create + "\n\nEintrag erstellt!");
 			}
 		}
@@ -110,8 +108,7 @@ public class Config extends SQLiteConnector {
 			
 			if (!tbl.next()) {
 				debug.Debugger.out("Config.getValue("+key+"): No table 'config'");
-				stmt.close();
-				c.close(); 
+				closeDB();
 				return value;
 			}
 
@@ -123,14 +120,12 @@ public class Config extends SQLiteConnector {
 
 			if (rs.next()) {
 				value = rs.getString("Value");
-				stmt.close();
-				c.close();
+				closeDB();
 				return value;
 			}
 			else {
 				debug.Debugger.out("Config.getValue(" + key + "): No Values with this Key exist!");
-				stmt.close();
-				c.close();
+				closeDB();
 				return value;
 			}
 
@@ -139,9 +134,7 @@ public class Config extends SQLiteConnector {
 			Debugger.out("Config.getValue(): " + e.getMessage());
 			Logger.log("Config.getValue(): " + e.getMessage());
 		}
-
+		closeDB();
 		return value;
-
 	}
-
 }

@@ -33,6 +33,7 @@ public class EditorView extends FXViewModel
 
 	VBox editLayout = new VBox(10);
 	Label headLbl;
+	AppButton backBtn;
 
 	@Override
 	public Parent constructContainer() {
@@ -43,7 +44,7 @@ public class EditorView extends FXViewModel
 		headLayout.setPadding(new Insets(25));
 		
 		//Zurück Button
-		AppButton backBtn = new AppButton("_Zurück");
+		backBtn = new AppButton("_Zurück");
 		backBtn.setOnAction(e -> 
 		getController().showView("simpleeditorview"));	
 		
@@ -238,6 +239,16 @@ public class EditorView extends FXViewModel
 					}
 				}
 			});
+			
+			backBtn.setOnAction(e -> {
+				if (back.getText() != null && !back.getText().equals("") && front.getText() != null
+						&& !front.getText().equals(""))
+				{
+					getController().getModel("cards").doAction("edit", cardSides[0] + Globals.SEPARATOR
+							+ front.getText() + Globals.SEPARATOR + back.getText());
+					getController().showView("simpleeditorview");
+				}
+			});	
 			
 			HBox buttonLL = new HBox(8);
 			buttonLL.setAlignment(Pos.TOP_LEFT);

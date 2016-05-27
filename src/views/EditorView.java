@@ -34,6 +34,12 @@ public class EditorView extends FXViewModel
 	VBox editLayout = new VBox(10);
 	Label headLbl;
 	AppButton backBtn;
+	TextField front = new TextField();
+	TextField back = new TextField();
+	WebView previewfront = new WebView();
+	WebView previewback = new WebView();
+	WebEngine enginefront = previewfront.getEngine();
+	WebEngine engineback = previewback.getEngine();
 
 	@Override
 	public Parent constructContainer() {
@@ -96,12 +102,6 @@ public class EditorView extends FXViewModel
 			Button sup1 = new Button("SP");
 			Button sub1 = new Button("SB");
 			Button cp1 = new Button("C");
-			TextField front = new TextField();
-			TextField back = new TextField();
-			WebView previewfront = new WebView();
-			WebView previewback = new WebView();
-			WebEngine enginefront = previewfront.getEngine();
-			WebEngine engineback = previewback.getEngine();
 			
 			front.setMinHeight(150);
 			back.setMinHeight(150);
@@ -109,6 +109,8 @@ public class EditorView extends FXViewModel
 			String[] cardSides = data.split(Globals.SEPARATOR);
 				front.setText(cardSides[1]);
 				back.setText(cardSides[2]);
+				
+				UpdatePreview();
 
 			back.setOnMouseReleased(e ->{
 				int start = back.getSelection().getStart();
@@ -196,22 +198,11 @@ public class EditorView extends FXViewModel
 					});
 			});
 			
-			back.setOnInputMethodTextChanged(e ->{
-				String text = back.getText();
-				text = Functions.AntiHTMLTags(text);
-				text = Functions.ColorBBCode(text);
-				text = Functions.simpleBbCode2HTML(text, Globals.evenTags);
-				text = Functions.realBbCode2HTML(text, Globals.pairedTags); 
-				engineback.loadContent(text);
+			front.setOnKeyReleased(e ->{
+				UpdatePreview();
 			});
-			
-			front.setOnInputMethodTextChanged(e ->{
-				String text = front.getText();
-				text = Functions.AntiHTMLTags(text);
-				text = Functions.ColorBBCode(text);
-				text = Functions.simpleBbCode2HTML(text, Globals.evenTags);
-				text = Functions.realBbCode2HTML(text, Globals.pairedTags);			
-				enginefront.loadContent(text);
+			back.setOnKeyReleased(e ->{
+				UpdatePreview();
 			});
 			
 			front.focusedProperty().addListener(e ->
@@ -280,5 +271,23 @@ public class EditorView extends FXViewModel
 
 			editLayout.getChildren().addAll(mainL);
 		}
+	}
+	
+	public void UpdatePreview(){
+		
+			String text = back.getText();
+			text = Functions.AntiHTMLTags(text);
+			text = Functions.ColorBBCode(text);
+			text = Functions.simpleBbCode2HTML(text, Globals.evenTags);
+			text = Functions.realBbCode2HTML(text, Globals.pairedTags); 
+			engineback.loadContent(text);
+		
+			String text2 = front.getText();
+			text2 = Functions.AntiHTMLTags(text2);
+			text2 = Functions.ColorBBCode(text2);
+			text2 = Functions.simpleBbCode2HTML(text2, Globals.evenTags);
+			text2 = Functions.realBbCode2HTML(text2, Globals.pairedTags);			
+			enginefront.loadContent(text2);
+		
 	}
 }

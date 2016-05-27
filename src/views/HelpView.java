@@ -33,18 +33,20 @@ public class HelpView extends FXView
 		AppButton quizletBtn = new AppButton("_Quizlet");
 		AppButton anleitungBtn = new AppButton("_Anleitung");
 		AppButton indexBtn     = new AppButton("Inde_x");
+		AppButton logBtn     = new AppButton("_Logger");
 		CloseButton closeBtn = new CloseButton();
 		
 		impressumBtn.setOnAction(e -> getController().showView("impressumview"));
 		quizletBtn.setOnAction(e -> getController().showView("quizletview"));
 		anleitungBtn.setOnAction(e -> getController().showView("manualview"));
 		indexBtn.setOnAction(e -> getController().showView("indexview"));
+		logBtn.setOnAction(e -> getController().showView("logview"));
 
 		VBox tempVBox = new VBox();
 		tempVBox.setPadding(new Insets(10));
 		tempVBox.setSpacing(10);
 		tempVBox.setAlignment(Pos.CENTER);
-		tempVBox.getChildren().addAll(impressumBtn, quizletBtn, anleitungBtn, indexBtn, closeBtn);
+		tempVBox.getChildren().addAll(impressumBtn, quizletBtn, anleitungBtn, indexBtn, logBtn, closeBtn);
 
 		tempVBox.setId("help");
 		return tempVBox;

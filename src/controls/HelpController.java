@@ -1,10 +1,7 @@
 package controls;
 
 import mvc.fx.FXController;
-import views.HelpInfoView;
-import views.HelpSerachView;
-import views.ImpressumView;
-import views.QuizletInfoView;
+import views.*;
 /**
  * Diese Klasse Kontrolliert alle Sichten und Models. Den Sichten wird die
  * Navigation zur Verfügung gestellt. Alle Sichten (ausser Modalfenster) werden
@@ -27,6 +24,7 @@ public class HelpController extends FXController
 		this.addUniqueView(new HelpSerachView("indexview", this));
 		this.addUniqueView(new HelpInfoView("manualview", this));
 		this.addUniqueView(new ImpressumView("impressumview", this));
+		this.addUniqueView(new LogView("logview", this));
 		//this.addUniqueView(new MainView(getMainViewName(), this));
 	}
 

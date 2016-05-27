@@ -6,6 +6,7 @@ import globals.Functions;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
@@ -44,6 +45,7 @@ public class HelpInfoView extends FXView {
 		labelText.setWrapText(true);
 		labelText.setMaxWidth(800);
 		labelText.setId("impressumtext");
+		
 
 		Label labelTitel = new Label("Anleitung");
 		labelTitel.setId("impressumtitel");

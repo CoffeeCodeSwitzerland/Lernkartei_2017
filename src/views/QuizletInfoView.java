@@ -42,6 +42,7 @@ public class QuizletInfoView extends FXView
 		labelText.setWrapText(true);
 		labelText.setMaxWidth(800);
 		labelText.setId("impressumtext");
+		
 
 		Label labelTitel = new Label("Quizlet");
 		labelTitel.setId("impressumtitel");

@@ -6,11 +6,13 @@ import globals.Functions;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import mvc.fx.FXController;
 import mvc.fx.FXView;
 import views.components.AppButton;
@@ -51,11 +53,24 @@ public class ImpressumView extends FXView
 		headLayout.setPadding(new Insets(20));
 		ScrollPane scroller = new ScrollPane();
 		scroller.setMaxWidth(800);
+		
+		Hyperlink WISSlink = new Hyperlink("WISS Webseite");
+		WISSlink.setOnAction(e -> Functions.openWebpage("http://www.wiss.ch/"));
+			
+		Hyperlink BITLink = new Hyperlink("BIT Webseite");
+		BITLink.setOnAction(e -> Functions.openWebpage("https://www.bit.admin.ch/"));
+				
+		Hyperlink LehrlingeLink = new Hyperlink("Unsere Webseite");
+		LehrlingeLink.setOnAction(e -> Functions.openWebpage("http://bund2015.wiss-bern.ch/"));
 
-		scroller.setContent(labelText);
+
 		scroller.setHbarPolicy(ScrollBarPolicy.NEVER);
 		scroller.setVbarPolicy(ScrollBarPolicy.ALWAYS);
 
+		VBox contentLayout = new VBox(20);
+		contentLayout.getChildren().addAll(labelText, WISSlink, BITLink, LehrlingeLink);
+		scroller.setContent(contentLayout);
+		
 		HBox controlLayout = new HBox(20);
 		controlLayout.setAlignment(Pos.BOTTOM_CENTER);
 		controlLayout.getChildren().addAll(backBtn);

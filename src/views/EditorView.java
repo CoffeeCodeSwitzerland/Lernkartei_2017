@@ -33,7 +33,7 @@ public class EditorView extends FXViewModel
 
 	VBox editLayout = new VBox(10);
 	Label headLbl;
-	AppButton backBtn;
+	AppButton backBtn, infobtn;
 	TextField front = new TextField();
 	TextField back = new TextField();
 	WebView previewfront = new WebView();
@@ -55,7 +55,7 @@ public class EditorView extends FXViewModel
 		getController().showView("simpleeditorview"));	
 		
 		//Info Button
-		AppButton infobtn = new AppButton("Hilfe");
+		infobtn = new AppButton("Hilfe");
 		infobtn.setOnAction(e ->
 		getController().showView("bbcodeinfo"));
 		
@@ -156,6 +156,7 @@ public class EditorView extends FXViewModel
 			                save.setOnAction(b ->{
 			                	String cstrg = Integer.toHexString(colorPicker.getValue().hashCode()).substring(0, 6).toUpperCase();
 			                	back.setText(codeBefore+"[color=" + "(" + cstrg + ")" + "]"+isolatedWord+"[/color]"+codeAfter);
+			                	UpdatePreview();
 			                	dialog.close();
 			               });
 					});
@@ -205,6 +206,7 @@ public class EditorView extends FXViewModel
 			                save.setOnAction(b ->{
 			                	String cstrg = Integer.toHexString(colorPicker.getValue().hashCode()).substring(0, 6).toUpperCase();
 			                	front.setText(codeBefore+"[color=" + "(" + cstrg + ")" + "]"+isolatedWord+"[/color]"+codeAfter);
+			                	UpdatePreview();
 			                	dialog.close();
 			                });
 					});
@@ -252,6 +254,16 @@ public class EditorView extends FXViewModel
 					getController().showView("simpleeditorview");
 				}
 			});	
+			
+			infobtn.setOnAction(e ->{
+				if (back.getText() != null && !back.getText().equals("") && front.getText() != null
+						&& !front.getText().equals(""))
+				{
+					getController().getModel("cards").doAction("edit", cardSides[0] + Globals.SEPARATOR
+							+ front.getText() + Globals.SEPARATOR + back.getText());
+					getController().showView("bbcodeinfo");
+				}
+			});
 			
 			HBox buttonLL = new HBox(8);
 			buttonLL.setAlignment(Pos.TOP_LEFT);

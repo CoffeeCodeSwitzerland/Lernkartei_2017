@@ -261,6 +261,19 @@ public class Database extends SQLiteConnector {
 			c = DriverManager.getConnection(url);
 			stmt = c.createStatement();
 			c.setAutoCommit(false);
+			
+			String sql = "CREATE TABLE IF NOT EXISTS Stock " +
+					"(PK_Stk INTEGER PRIMARY KEY AUTOINCREMENT," +
+					" Frontside       TEXT    NOT NULL, " +
+					" Backside      TEXT    NOT NULL, " +
+					" Set_ID    		INTEGER NOT NULL, " +
+					" Priority	    INTEGER DEFAULT 1," +
+					" Description    TEXT    		, " +
+					" Color			TEXT    		 )";
+
+			debug.Debugger.out(sql);
+			stmt.executeUpdate(sql);
+
 
 			// Frage die Aktuelle Priorität ab
 

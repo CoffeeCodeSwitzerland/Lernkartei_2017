@@ -36,10 +36,10 @@ public class EditorView extends FXViewModel
 	AppButton backBtn, infobtn;
 	public static TextField front = new TextField();
 	public static TextField back = new TextField();
-	WebView previewfront = new WebView();
-	WebView previewback = new WebView();
-	WebEngine enginefront = previewfront.getEngine();
-	WebEngine engineback = previewback.getEngine();
+	public static WebView previewfront = new WebView();
+	public static WebView previewback = new WebView();
+	public static WebEngine enginefront = previewfront.getEngine();
+	public static WebEngine engineback = previewback.getEngine();
 	public static String frontinfo;
 	public static String backinfo;
 
@@ -258,15 +258,12 @@ public class EditorView extends FXViewModel
 			});	
 			
 			infobtn.setOnAction(e ->{
-				if (back.getText() != null && !back.getText().equals("") && front.getText() != null
-						&& !front.getText().equals(""))
-				{
-					getController().getModel("cards").doAction("edit", cardSides[0] + Globals.SEPARATOR
-							+ front.getText() + Globals.SEPARATOR + back.getText());
+
 					getController().showView("bbcodeinfo");
 					frontinfo = front.getText();
 					backinfo = back.getText();
-				}
+					engineback.loadContent(back.getText());
+					enginefront.loadContent(front.getText());
 			});
 			
 			HBox buttonLL = new HBox(8);

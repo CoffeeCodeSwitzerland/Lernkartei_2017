@@ -132,11 +132,14 @@ public class SimpleEditorView extends FXViewModel
 			TextField back = new TextField();
 			Button editBtn = new Button("\u270E"); // \u270d \u2055 \u2699 \u270E
 			
-			editBtn.setOnAction(e ->
-			{	
-					getController().setViewData("editorview",front.getText() + Globals.SEPARATOR + back.getText());
-					getController().showView("editorview");
-			});
+			if(back.getText() == null){		
+				editBtn.setOnAction(e ->
+				{		
+						getController().setViewData("editorview",front.getText() + Globals.SEPARATOR + back.getText());
+						getController().showView("editorview");
+				});
+			}
+			
 			Button addBtn = new Button("\u2713");
 			addBtn.setMaxWidth(35);
 

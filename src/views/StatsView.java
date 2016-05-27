@@ -151,7 +151,7 @@ public class StatsView extends FXView
 					// Daten für das Diagramm. Die verarbeitugn und
 					// bereitstellung
 					// findet alles in Diagramm.java (getChartData()) statt.
-					if (statisticsModel.getObservableDiagrammList("saulendiagramm") == null)
+					if (statisticsModel.getObservableDiagrammList("saulendiagramm").isEmpty())
 					{
 						errorText.setText("Das Programm konnte die Daten für das Diagramm nicht laden");
 					} else

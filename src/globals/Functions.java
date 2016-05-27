@@ -1,6 +1,10 @@
 package globals;
 
 import java.awt.Desktop;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.net.URL;
 
 import debug.Debugger;
@@ -139,5 +143,33 @@ public static String AntiHTMLTags(String input){
 	    	Debugger.out("Functions.openWebpage("+urlString+"): " + e.getMessage());
 	        e.printStackTrace();
 	    }
+	}
+	
+
+	public static String fileToString(File textFile) throws FileNotFoundException {
+
+		// Checks if file exists
+		if (!textFile.exists()) {
+			throw new FileNotFoundException("File does not exist: " + textFile);
+		}
+
+		StringBuilder contents = new StringBuilder();
+
+		try {
+			BufferedReader input = new BufferedReader(new FileReader(textFile));
+			try {
+				String line = null;
+				while ((line = input.readLine()) != null) {
+					contents.append(line);
+					contents.append(System.getProperty("line.separator"));
+				}
+			} finally {
+				input.close();
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+
+		return contents.toString();
 	}
 }

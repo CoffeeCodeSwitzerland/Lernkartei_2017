@@ -1,7 +1,9 @@
 package views;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 
+import globals.Environment;
 import globals.Functions;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -16,18 +18,20 @@ import mvc.fx.FXView;
 import views.components.AppButton;
 
 /**
- * Hilfesystem Info Anzeige
+ *	Hilfesystem Info Anzeige
  * 
  * @author hugo-lucca
  *
  */
-public class HelpInfoView extends FXView {
+public class LogView extends FXView
+{
 
-	public HelpInfoView(String newName, FXController newController) {
+	public LogView(String newName, FXController newController) {
 		// this constructor is the same for all view's
 		super(newController);
 		construct(newName);
 	}
+
 	@Override
 	public Parent constructContainer() {
 		// TODO Auto-generated method stub
@@ -35,19 +39,20 @@ public class HelpInfoView extends FXView {
 		Label labelText;
 		try {
 			labelText = new Label (Functions.fileToString(new File(
-					"src\\views\\txt\\anleitung.txt")) );
-		} catch (Exception e) {
+					Environment.getDatabaseLocation()+Environment.getFileSep()+"LogfileOf"+Environment.getUserName()+".txt"))
+					);
+		} catch (FileNotFoundException e1) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			e1.printStackTrace();
 			labelText = new Label("leer");
 		}
+		Label labelTitel = new Label("Log-Datei");
 		labelText.setWrapText(true);
 		labelText.setMaxWidth(800);
-		labelText.setId("impressumtext");
 
-		Label labelTitel = new Label("Anleitung");
 		labelTitel.setId("impressumtitel");
-
+		labelText.setId("impressumtext");
+			
 		AppButton backBtn = new AppButton("_Zurück");
 		backBtn.setOnAction(e -> getController().showMainView());
 
@@ -55,15 +60,16 @@ public class HelpInfoView extends FXView {
 		headLayout.setPadding(new Insets(20));
 		ScrollPane scroller = new ScrollPane();
 		scroller.setMaxWidth(800);
-
+		
+				
 		scroller.setContent(labelText);
 		scroller.setHbarPolicy(ScrollBarPolicy.NEVER);
-		scroller.setVbarPolicy(ScrollBarPolicy.ALWAYS);
-
+		scroller.setVbarPolicy(ScrollBarPolicy.ALWAYS);  
+			
 		HBox controlLayout = new HBox(20);
 		controlLayout.setAlignment(Pos.BOTTOM_CENTER);
 		controlLayout.getChildren().addAll(backBtn);
-		controlLayout.setPadding(new Insets(10));
+		controlLayout.setPadding(new Insets (10));
 
 		BorderPane mainLayout = new BorderPane();
 		mainLayout.setPadding(new Insets(15));
@@ -77,6 +83,6 @@ public class HelpInfoView extends FXView {
 	@Override
 	public void refreshView() {
 		// TODO Auto-generated method stub
-
+		
 	}
 }

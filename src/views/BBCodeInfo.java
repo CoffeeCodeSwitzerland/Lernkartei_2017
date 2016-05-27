@@ -1,26 +1,26 @@
 package views;
 
+import java.io.File;
+
+import globals.Functions;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import mvc.fx.FXController;
 import mvc.fx.FXView;
 import views.components.AppButton;
 
-/**
- *	Hilfesystem Info Anzeige
- * 
- * @author hugo-lucca
- *
- */
+
 public class BBCodeInfo extends FXView
 {
 
-	public BBCodeInfo(String newName, FXController newController) {
+	public BBCodeInfo (String newName, FXController newController)
+	{
 		// this constructor is the same for all view's
 		super(newController);
 		construct(newName);
@@ -29,59 +29,51 @@ public class BBCodeInfo extends FXView
 	@Override
 	public Parent constructContainer() {
 		// TODO Auto-generated method stub
-		
-				// Buttons
-				AppButton backBtn = new AppButton("_Zurück");
-					
-				//Labels (für die Infotexte)
-				Label labelTitel = new Label("BBCode");
-				
-				//Hier kommt der angezeigte Text hin:
-				Label labelText = new Label("Was ist BBCode:\nBBCode ist ähnlich wie HTML-Tags nur das sie aus eckigen Klammern([]) bestehen. Dies ermöglicht uns, dass weniger Speicherplatz verschwendet wird und wir haben die voll Kontrolle!\n\nBBCode-Liste:\nFett = [b]\nItalic = [i]\nUnterstrichen = [u]\nDurchgestrichen = [s]\nHochgestellt = [sup]\nHinuntergestellt = [sub]\nTextfarbe = [color=]");
-				
-				//Zeilenumbruch am Fensterrand
-				labelText.setWrapText(true);
 
-				//IDs für CSS
-				labelTitel.setId("impressumtext");
-				labelText.setId("impressumtext");
+		Label labelText;
+		try {
+			labelText = new Label (Functions.fileToString(new File(
+					"src\\views\\txt\\BBCodeInfo.txt")) );
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			labelText = new Label("leer");
+		}
+		labelText.setWrapText(true);
+		labelText.setMaxWidth(800);
+		labelText.setId("impressumtext");
 
-				//Damit der Text nicht bis zum Fensterrand geht sondern noch etwas abstand hat
-				Double size = getController().getMyFXStage().getOPTIMAL_WIDTH()*.95;
-				size += 10;
-				labelText.setPrefWidth(size);
-				labelTitel.setPrefWidth(size);
-				
-				//Box für die Navigation
-				HBox naviBox = new HBox(10);
-				naviBox.getChildren().addAll(backBtn);
-					
-				//Box für Titel
-				VBox TitelBox = new VBox(10);
-				TitelBox.getChildren().addAll(labelTitel);
-				TitelBox.setAlignment(Pos.CENTER);
-						
-				//Box für Mitte Text
-				VBox BoxMitText = new VBox(20);
-				BoxMitText.getChildren().addAll(labelText);
-				BoxMitText.setAlignment(Pos.CENTER);
-				
-				// Behaviour
-				backBtn.setOnAction(e -> getController().showLastView());
-				
-				// Layout
-				BorderPane borderPane = new BorderPane();
-				borderPane.setPadding(new Insets(15));
-				borderPane.setBottom(naviBox);
-				borderPane.setCenter(BoxMitText);
-				borderPane.setTop(TitelBox);
-				
-		return borderPane;
+		Label labelTitel = new Label("BBCode");
+		labelTitel.setId("impressumtitel");
+
+		AppButton backBtn = new AppButton("_Zurück");
+		backBtn.setOnAction(e -> getController().showMainView());
+
+		BorderPane headLayout = new BorderPane(labelTitel);
+		headLayout.setPadding(new Insets(20));
+		ScrollPane scroller = new ScrollPane();
+		scroller.setMaxWidth(800);
+
+		scroller.setContent(labelText);
+		scroller.setHbarPolicy(ScrollBarPolicy.NEVER);
+		scroller.setVbarPolicy(ScrollBarPolicy.ALWAYS);
+
+		HBox controlLayout = new HBox(20);
+		controlLayout.setAlignment(Pos.BOTTOM_CENTER);
+		controlLayout.getChildren().addAll(backBtn);
+		controlLayout.setPadding(new Insets(10));
+
+		BorderPane mainLayout = new BorderPane();
+		mainLayout.setPadding(new Insets(15));
+		mainLayout.setTop(headLayout);
+		mainLayout.setCenter(scroller);
+		mainLayout.setBottom(controlLayout);
+
+		return mainLayout;
 	}
 
 	@Override
-	public void refreshView() {
-		// TODO Auto-generated method stub
-		
+	public void refreshView ()
+	{
 	}
 }

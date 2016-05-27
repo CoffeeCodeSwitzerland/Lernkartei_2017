@@ -49,7 +49,7 @@ public class EditorView extends FXViewModel
 		getController().showView("simpleeditorview"));	
 		
 		//Info Button
-		AppButton infobtn = new AppButton("\u2139");
+		AppButton infobtn = new AppButton("Hilfe");
 		infobtn.setOnAction(e ->
 		getController().showView("bbcodeinfo"));
 		
@@ -107,8 +107,8 @@ public class EditorView extends FXViewModel
 			back.setMinHeight(150);
 			
 			String[] cardSides = data.split(Globals.SEPARATOR);
-			front.setText(cardSides[1]);
-			back.setText(cardSides[2]);
+				front.setText(cardSides[1]);
+				back.setText(cardSides[2]);
 
 			back.setOnMouseReleased(e ->{
 				int start = back.getSelection().getStart();

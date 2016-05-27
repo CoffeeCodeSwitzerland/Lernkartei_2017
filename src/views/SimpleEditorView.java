@@ -43,7 +43,7 @@ public class SimpleEditorView extends FXViewModel
 		backBtn.setOnAction(e -> getController().showView("stack"));
 
 		//Info Button
-		AppButton infobtn = new AppButton("\u2139");
+		AppButton infobtn = new AppButton("Hilfe");
 		infobtn.setOnAction(e ->
 		getController().showView("bbcodeinfo"));
 		
@@ -133,9 +133,9 @@ public class SimpleEditorView extends FXViewModel
 			Button editBtn = new Button("\u270E"); // \u270d \u2055 \u2699 \u270E
 			
 			editBtn.setOnAction(e ->
-			{
-				getController().setViewData("editorview",front.getText() + Globals.SEPARATOR + back.getText());
-				getController().showView("editorview");
+			{	
+					getController().setViewData("editorview",front.getText() + Globals.SEPARATOR + back.getText());
+					getController().showView("editorview");
 			});
 			Button addBtn = new Button("\u2713");
 			addBtn.setMaxWidth(35);

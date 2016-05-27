@@ -1,0 +1,11 @@
+BBCode ist eine an HTML angelehnte, jedoch vereinfachte Auszeichnungssprache, die bevorzugt für die Erstellung von Beiträgen in Webforen eingesetzt wird. BBCode ist nicht offiziell reglementiert, stellt aber wegen seiner hohen Verbreitung einen Quasi-Standard sowie eine Best Current Practice dar.
+Nebenbei wird mit BBCode Sicherheitsprobleme umgangen.
+
+Was gibt es alles:
+[b]Text[/b] 			-->	Text fett
+[i]Text[/i] 			-->	Text schrägstellen
+[s]Text[/s] 			-->	Text durchstreichen
+[u]Text[/u] 			-->	Text unterstreichen
+[sup]Text[/sup] 		-->	Text hochstellen
+[sub]Text[/sub] 		-->	Text hinunterstellen
+[color=(FFFFFF)]Text[color] 	-->	farbiger Text

@@ -40,6 +40,7 @@ public class StackModel extends Model
 			}
 			else
 			{
+				refreshViews();
 				return -3;
 			}
 		} else if (functionName.equals("possible")) {

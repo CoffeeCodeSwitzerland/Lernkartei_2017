@@ -37,6 +37,7 @@ public class MainController extends FXController
 	@Override
 	public void initMyViews() {
 		Logger.log("Instanziere Views....");
+		debug.Debugger.out("Instanziere Views....");
 		this.addUniqueView(new MainView(getMainViewName(), this));
 		//this.addUniqueView(new StatisticsView("statisticsview", this));
 		this.addUniqueView(new StatsView("statsview", this));
@@ -59,6 +60,7 @@ public class MainController extends FXController
 		this.addUniqueView(new PostLearnView("postlearn", this));
 		
 		this.addUniqueView(new ImpressumView("impressumview", this));
+		debug.Debugger.out("Instanzierung beendet....");
 		Logger.log("Instanzierung beendet....");
 	}
 

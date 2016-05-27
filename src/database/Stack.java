@@ -3,6 +3,7 @@ package database;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
@@ -106,6 +107,11 @@ public class Stack {
 
 		ArrayList<String> datensatz = new ArrayList<String>();
 
+		String sql = "CREATE TABLE IF NOT EXISTS Kategorie "
+				+ "(PK_Kategorie INTEGER PRIMARY KEY AUTOINCREMENT,"
+				+ " Kategorie TEXT NOT NULL,"
+				+ " FK_Door INTEGER NOT NULL);";
+
 		try {
 
 			// Verbindung erstellen
@@ -116,17 +122,15 @@ public class Stack {
 
 			// Tabelle generieren, falls nicht vorhanden
 
-			String sql = "CREATE TABLE IF NOT EXISTS Kategorie "
-					+ "(PK_Kategorie INTEGER PRIMARY KEY AUTOINCREMENT,"
-					+ " Kategorie TEXT NOT NULL,"
-					+ " FK_Door INTEGER NOT NULL)";
-
 			stmt.executeUpdate(sql);
-			c.setAutoCommit(false);
+			debug.Debugger.out("Database.getKategorie("+sql+"): ");
 
 			// Abfrage, ob die Tür bereits existiert
-
-			ResultSet id = stmt.executeQuery("SELECT PK_Doors FROM Doors WHERE Doorname = '" + doorname + "'");
+			sql = "SELECT PK_Doors FROM Doors WHERE Doorname = '" + doorname + "';";
+			c.setAutoCommit(false);
+			ResultSet id = stmt.executeQuery(sql);
+			c.setAutoCommit(true);
+			debug.Debugger.out("Database.getKategorie("+sql+"): ");
 
 			if (id.next()) {
 				FK_ID = id.getInt("PK_Doors");
@@ -139,8 +143,10 @@ public class Stack {
 			id.close();
 
 			// Alle Sets ausgeben, welche in dieser Tür enthalten sind
-
-			ResultSet rs = stmt.executeQuery("SELECT * FROM Kategorie WHERE FK_Door = " + FK_ID);
+			sql = "SELECT * FROM Kategorie WHERE FK_Door = " + FK_ID + ";";
+			c.setAutoCommit(false);
+			ResultSet rs = stmt.executeQuery(sql);
+			c.setAutoCommit(true);
 
 			// Daten werden in die Liste geschrieben
 
@@ -153,11 +159,17 @@ public class Stack {
 			c.close();
 		}
 		catch (Exception e) {
-			Logger.log("Database.getKategorie(): " + e.getMessage());
+			if (doorname == null) doorname = "{null}";
+			debug.Debugger.out("Database.getKategorie("+doorname+"): " + e.getMessage());
+			Logger.log("Database.getKategorie("+doorname+"): " + e.getMessage());
 		}
-
+		try {
+			stmt.close();
+			c.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+		}
 		return datensatz;
-
 	}
 
 	/**
@@ -172,7 +184,7 @@ public class Stack {
 		Connection c = null;
 		Statement stmt = null;
 		boolean worked = false;
-
+		String sql = null;
 		try {
 
 			// Verbindung erstellen
@@ -183,27 +195,35 @@ public class Stack {
 
 			// Tabelle generieren wenn nicht vorhanden
 
-			String sql = "CREATE TABLE IF NOT EXISTS Kategorie "
+			sql = "CREATE TABLE IF NOT EXISTS Kategorie "
 					+ "(PK_Kategorie INTEGER PRIMARY KEY AUTOINCREMENT,"
 					+ " Kategorie TEXT NOT NULL,"
-					+ " FK_Door INTEGER NOT NULL)";
+					+ " FK_Door INTEGER NOT NULL);";
 			stmt.executeUpdate(sql);
 			c.setAutoCommit(false);
 
 			// Abfragen, ob zu löschende Kategorie vorhanden ist oder nicht.
 			// Wenn ja, wird gelöscht
+			sql = "SELECT Kategorie FROM Kategorie WHERE"+ " Kategorie = '" + category + "';";
+			ResultSet del = stmt.executeQuery(sql);
+			debug.Debugger.out("Stack.delStack(" + sql +"): Size="+del.getFetchSize());
+			
+			Integer setID  = del.getInt("Kategorie");
+			debug.Debugger.out("Stack.delStack(" + category +"): ID="+setID);
 
-			ResultSet del = stmt.executeQuery("SELECT Kategorie FROM Kategorie WHERE"
-											+ " Kategorie = '" + category + "'");
-			Integer setID = del.getInt("Kategorie");
 			boolean contin = del.next();
 			del.close();
 
 			if (contin) {
-				String delDoor = "DELETE FROM Kategorie WHERE Kategorie = '" + category + "'";
-				String delCards = "DELETE FROM Stock WHERE Set_ID = " + setID;
-				stmt.executeUpdate(delCards);
-				stmt.executeUpdate(delDoor);
+
+				sql = "DELETE FROM Stock WHERE Set_ID = " + setID + ";";
+				int ret = stmt.executeUpdate(sql);
+				debug.Debugger.out("Stack.delStack(" + sql +"):"+ret);
+
+				sql = "DELETE FROM Kategorie WHERE Kategorie = '" + category + "';";
+				ret = stmt.executeUpdate(sql);
+				debug.Debugger.out("Stack.delStack(" + sql +"):"+ret);
+
 				stmt.close();
 				c.close();
 				worked = true;
@@ -215,6 +235,7 @@ public class Stack {
 			}
 		}
 		catch (Exception e) {
+			debug.Debugger.out("Stack.delStack(" + sql +")...");
 			debug.Debugger.out("Stack.delStack(" + category +"): " + e.getMessage());
 			Logger.log("Stack.delStack(" + category +"): " + e.getMessage());
 		}
@@ -223,11 +244,9 @@ public class Stack {
 			c.close();
 		}
 		catch (Exception e) {
-			debug.Debugger.out("Stack.delStack(" + category + "): " + e.getMessage());
-		}
-		
+			debug.Debugger.out("Stack.delStack(...closing: "+worked+"): " + e.getMessage());
+		}		
 		return worked;
-
 	}
 
 	public static ArrayList<String> getStacknames () {

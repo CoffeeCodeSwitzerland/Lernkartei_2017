@@ -102,14 +102,14 @@ public class Config extends SQLiteConnector {
 			c = DriverManager.getConnection(url);
 			stmt = c.createStatement();
 
-			String getTbl = "SELECT tbl_name FROM sqlite_master WHERE type='table' AND tbl_name = 'config'";
+			String getTbl = "SELECT tbl_name FROM sqlite_master WHERE type='table' AND tbl_name = 'config';";
 			
 			c.setAutoCommit(false);
 			ResultSet tbl = stmt.executeQuery(getTbl);
 			c.setAutoCommit(true);
 			
 			if (!tbl.next()) {
-				debug.Debugger.out("Config.getValue(): No table: config");
+				debug.Debugger.out("Config.getValue("+key+"): No table 'config'");
 				stmt.close();
 				c.close(); 
 				return value;

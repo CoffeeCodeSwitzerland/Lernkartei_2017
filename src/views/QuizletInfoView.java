@@ -1,5 +1,7 @@
 package views;
 
+import java.io.File;
+
 import globals.Functions;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -26,35 +28,37 @@ public class QuizletInfoView extends FXView
 	}
 
 	@Override
-	public Parent constructContainer ()
-	{
-		// Labels (für die Infotexte)
-		Label labelTitel = new Label("Quizlet Info");
-		Label labelText = new Label("Quizlet ist eine Online-Lernplatform. "
-				+ "User können Flashcards (Kartei- bzw. Lernkarten) erfassen und lernen."
-				+ "\nWir ermöglichen den Import von Stapeln, "
-				+ "da Quizlet als grosse Platform mit Millionen von Stapeln die Arbeit mit Flashcards erheblich erleichtert.");
-		
+	public Parent constructContainer() {
+		// TODO Auto-generated method stub
+
+		Label labelText;
+		try {
+			labelText = new Label (Functions.fileToString(new File(
+					"src\\views\\txt\\quizletInfo.txt")) );
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			labelText = new Label("leer");
+		}
 		labelText.setWrapText(true);
 		labelText.setMaxWidth(800);
-		labelTitel.setId("impressumtitel");
 		labelText.setId("impressumtext");
-		
-		Hyperlink link = new Hyperlink("Quizlet");
-		link.setOnAction(e -> Functions.openWebpage("http://quizlet.com/"));
+
+		Label labelTitel = new Label("Quizlet");
+		labelTitel.setId("impressumtitel");
 
 		AppButton backBtn = new AppButton("_Zurück");
 		backBtn.setOnAction(e -> getController().showMainView());
 
 		BorderPane headLayout = new BorderPane(labelTitel);
 		headLayout.setPadding(new Insets(20));
-		
-		VBox contentLayout = new VBox(20);
-		contentLayout.getChildren().addAll(labelText, link);
-		
 		ScrollPane scroller = new ScrollPane();
 		scroller.setMaxWidth(800);
-		scroller.setContent(contentLayout);
+		
+		Hyperlink link = new Hyperlink("Quizlet");
+		link.setOnAction(e -> Functions.openWebpage("http://quizlet.com/"));
+
+		scroller.setContent(labelText);
 		scroller.setHbarPolicy(ScrollBarPolicy.NEVER);
 		scroller.setVbarPolicy(ScrollBarPolicy.ALWAYS);
 

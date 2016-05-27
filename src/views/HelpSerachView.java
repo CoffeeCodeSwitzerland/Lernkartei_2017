@@ -1,5 +1,8 @@
 package views;
 
+import java.io.File;
+
+import globals.Functions;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
@@ -30,15 +33,23 @@ public class HelpSerachView extends FXView
 	@Override
 	public Parent constructContainer() {
 		// TODO Auto-generated method stub
-				
-		Label labelTitel = new Label("Index");
-		Label labelText = new Label("-Türen- 			Das sind die Themen.\n-Boxen- 			Das sind die Unterthemen\n-Jump 'n' Run- 	Mit lernen kannst du dir Leben verdienen für das Spiel. Du findest es im Hauptmenü.\n-Optionen- 		Hier kannst du einstellen wie viele Kärtchen du auf einmal lernen möchtest.\n-Statistiken- 		Hier kannst du deinen Fortschritt sehen. Unter anderem wie viele Punkte du gesammelt hast beim lernen.\n-Quizlet-			Von dort kannst du Kärtchen importieren wenn du sie nicht selber schreiben möchtest.\n-Lernkarteien-		Hier drücken um die Kartei auszuwählen und sie zu lernen.\n-(?) Icon-			Hier findest du Anleitungen, Infos, Index und anderes.\n-Index-			Hier werden Begriffe erklärt\n-Impressum-		Wer an diesem Programm gearbeitet hat, die Lizenzen und Rechte etc.\n-Anleitung-		Kurze Info wie man WISSLearnCards benutzt.\n\nWichtiges:			...\n-etc-			\n-etc-			\n-etc-			\n-etc-			\n-etc-			\n-etc-			\n-etc-			\n-etc-			\n-etc-			\n-etc-			\n-etc-			");
+
+		Label labelText;
+		try {
+			labelText = new Label (Functions.fileToString(new File(
+					"src\\views\\txt\\index.txt")) );
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			labelText = new Label("leer");
+		}
 		labelText.setWrapText(true);
 		labelText.setMaxWidth(800);
-
-		labelTitel.setId("impressumtitel");
 		labelText.setId("impressumtext");
-			
+
+		Label labelTitel = new Label("Index");
+		labelTitel.setId("impressumtitel");
+
 		AppButton backBtn = new AppButton("_Zurück");
 		backBtn.setOnAction(e -> getController().showMainView());
 
@@ -46,16 +57,15 @@ public class HelpSerachView extends FXView
 		headLayout.setPadding(new Insets(20));
 		ScrollPane scroller = new ScrollPane();
 		scroller.setMaxWidth(800);
-		
-				
+
 		scroller.setContent(labelText);
 		scroller.setHbarPolicy(ScrollBarPolicy.NEVER);
-		scroller.setVbarPolicy(ScrollBarPolicy.ALWAYS);  
-			
+		scroller.setVbarPolicy(ScrollBarPolicy.ALWAYS);
+
 		HBox controlLayout = new HBox(20);
 		controlLayout.setAlignment(Pos.BOTTOM_CENTER);
 		controlLayout.getChildren().addAll(backBtn);
-		controlLayout.setPadding(new Insets (10));
+		controlLayout.setPadding(new Insets(10));
 
 		BorderPane mainLayout = new BorderPane();
 		mainLayout.setPadding(new Insets(15));
@@ -63,10 +73,7 @@ public class HelpSerachView extends FXView
 		mainLayout.setCenter(scroller);
 		mainLayout.setBottom(controlLayout);
 
-		return mainLayout;	
-				
-				
-	
+		return mainLayout;
 	}
 
 	@Override

@@ -1,0 +1,5 @@
+﻿Quizlet ist eine Online-Lernplatform.User können Flashcards (Kartei- bzw. Lernkarten) erfassen und lernen.
+Wir ermöglichen den Import von Stapeln, da Quizlet als grosse Platform mit Millionen von Stapeln die Arbeit
+mit Flashcards erheblich erleichtert.	
+
+

@@ -1,0 +1,23 @@
+﻿Das Programm WISSLearnCards wurde programmiert im Rahmen eines Projekts durch die Informatiklernenden im Auftrag der
+
+Stiftung Wirtschaftsinformatikschule Schweiz WISS
+Ostermundigenstrasse 81
+CH-3006 Bern
+
+
+Teilnehmer: 
+
+Informatiklernende vom
+
+Bundesamt für Informatik und Telekommunikation BIT
+Monbijoustrasse 74
+CH-3003 Bern
+
+
+•Yanis Weibel
+•Joel Häberli
+•David Schor
+•Nina Egger
+•Roger Schneiter
+•Miro Albrecht
+•Tim Leibacher

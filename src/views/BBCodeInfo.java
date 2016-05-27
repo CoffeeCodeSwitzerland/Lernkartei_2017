@@ -47,7 +47,11 @@ public class BBCodeInfo extends FXView
 		labelTitel.setId("impressumtitel");
 
 		AppButton backBtn = new AppButton("_Zurück");
-		backBtn.setOnAction(e -> getController().showLastView());
+		backBtn.setOnAction(e -> {
+			getController().showLastView();
+			EditorView.front.setText(EditorView.frontinfo);
+			EditorView.back.setText(EditorView.backinfo);
+		});
 
 		BorderPane headLayout = new BorderPane(labelTitel);
 		headLayout.setPadding(new Insets(20));

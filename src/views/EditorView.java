@@ -34,12 +34,14 @@ public class EditorView extends FXViewModel
 	VBox editLayout = new VBox(10);
 	Label headLbl;
 	AppButton backBtn, infobtn;
-	TextField front = new TextField();
-	TextField back = new TextField();
+	public static TextField front = new TextField();
+	public static TextField back = new TextField();
 	WebView previewfront = new WebView();
 	WebView previewback = new WebView();
 	WebEngine enginefront = previewfront.getEngine();
 	WebEngine engineback = previewback.getEngine();
+	public static String frontinfo;
+	public static String backinfo;
 
 	@Override
 	public Parent constructContainer() {
@@ -262,6 +264,8 @@ public class EditorView extends FXViewModel
 					getController().getModel("cards").doAction("edit", cardSides[0] + Globals.SEPARATOR
 							+ front.getText() + Globals.SEPARATOR + back.getText());
 					getController().showView("bbcodeinfo");
+					frontinfo = front.getText();
+					backinfo = back.getText();
 				}
 			});
 			

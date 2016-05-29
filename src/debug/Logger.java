@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 import globals.Environment;
 
-/*-
+/**
  * Purpose:	
  * - to simplify logging (handles a log-file and an ArrayList)
  * - you may log in RAM (fast method) and/or

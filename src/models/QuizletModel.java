@@ -10,11 +10,6 @@ import mvc.Model;
 
 public class QuizletModel extends Model {
 
-//	public QuizletModel (String myName) {
-//		super(myName);
-//		
-//	}
-
 	@Override
 	public ArrayList<String> getDataList (String query) {
 		
@@ -30,7 +25,6 @@ public class QuizletModel extends Model {
 			catch (IOException e) {
 				debug.Debugger.out(e.getMessage());
 			}
-			
 		} else if (query.split(Globals.SEPARATOR)[0].equals("set")) {
 			
 			Quizlet q = new Quizlet("3RhaPk5H9C");
@@ -43,13 +37,9 @@ public class QuizletModel extends Model {
 			catch (IOException e) {
 				debug.Debugger.out(e.getMessage());
 			}
-			
 		} else {
 			return null;			
 		}
-		
 		return null;
-		
 	}
-	
 }

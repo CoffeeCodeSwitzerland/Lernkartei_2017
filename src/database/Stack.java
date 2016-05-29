@@ -341,7 +341,7 @@ public class Stack extends SQLiteConnector {
 			Logger.log("Database.possible(): " + e.getMessage());
 		}
 		closeDB();
-		return true;
+		return false;
 	}
 
 	public static boolean update (String oldName, String newName) {

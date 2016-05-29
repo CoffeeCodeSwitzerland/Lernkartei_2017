@@ -46,12 +46,12 @@ public class LogView extends FXView
 			e1.printStackTrace();
 			labelText = new Label("leer");
 		}
-		Label labelTitel = new Label("Log-Datei");
 		labelText.setWrapText(true);
 		labelText.setMaxWidth(800);
-
-		labelTitel.setId("impressumtitel");
 		labelText.setId("impressumtext");
+
+		Label labelTitel = new Label("Log-File ("+Environment.getDatabaseLocation()+Environment.getFileSep()+"LogfileOf"+Environment.getUserName()+".txt"+")");
+		labelTitel.setStyle("-fx-font-weight: bold; -fx-font-size: 1.4em;");
 			
 		AppButton backBtn = new AppButton("_Zurück");
 		backBtn.setOnAction(e -> getController().showMainView());

@@ -7,6 +7,8 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.web.WebEngine;
@@ -21,9 +23,9 @@ import views.components.BackButton;
  * @author hugo-lucca
  *
  */
-public class ManualView extends FXView {
+public class TroubleShootView extends FXView {
 
-	public ManualView(String newName, FXController newController) {
+	public TroubleShootView(String newName, FXController newController) {
 		// this constructor is the same for all view's
 		super(newController);
 		construct(newName);
@@ -39,7 +41,7 @@ public class ManualView extends FXView {
 		try {
 			// To avoid strange chars like "﻿", the html -Tag is added here separately:
 			webContent.loadContent("<html>"+Functions.fileToString(new File(
-								   "src/views/txt/anleitung.htm"))+"</html>");
+								   "src/views/txt/troubleshoot.htm"))+"</html>");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -51,9 +53,8 @@ public class ManualView extends FXView {
 		webPage.setPrefWidth(pageWidth*.93);
 		//webContent.setJavaScriptEnabled(true);
 		webPage.applyCss();
-		webPage.setId("anleitung");
 
-		Label labelTitel = new Label("Anleitung");
+		Label labelTitel = new Label("Fehlerbehandlung");
 		labelTitel.setId("anleitungstitel");
 
 		BackButton backBtn = new BackButton(this.getFXController());
@@ -61,12 +62,13 @@ public class ManualView extends FXView {
 		BorderPane headLayout = new BorderPane(labelTitel);
 		headLayout.setPadding(new Insets(20));
 
-//		ScrollPane scroller = new ScrollPane();
-//		scroller.setMaxWidth(pageWidth);
-//
-//		scroller.setContent(webPage);
-//		scroller.setHbarPolicy(ScrollBarPolicy.NEVER);
-//		scroller.setVbarPolicy(ScrollBarPolicy.ALWAYS);
+		ScrollPane scroller = new ScrollPane();
+		scroller.setMaxWidth(pageWidth);
+
+		scroller.setContent(webPage);
+		scroller.setHbarPolicy(ScrollBarPolicy.NEVER);
+		scroller.setVbarPolicy(ScrollBarPolicy.ALWAYS);
+		scroller.setId("anleitung");
 
 		HBox controlLayout = new HBox(20);
 		controlLayout.setAlignment(Pos.BOTTOM_CENTER);
@@ -76,7 +78,7 @@ public class ManualView extends FXView {
 		BorderPane mainLayout = new BorderPane();
 		mainLayout.setPadding(new Insets(15));
 		mainLayout.setTop(headLayout);
-		mainLayout.setCenter(webPage);
+		mainLayout.setCenter(scroller);
 		mainLayout.setBottom(controlLayout);
 
 		return mainLayout;

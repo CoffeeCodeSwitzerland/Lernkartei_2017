@@ -21,7 +21,7 @@ public class HelpController extends FXController
 	public void initMyViews() {
 		// add only new view's, the helpview is added automaticly as mainView
 		this.addUniqueView(new QuizletInfoView("quizletview", this));
-		this.addUniqueView(new HelpSerachView("indexview", this));
+		this.addUniqueView(new TroubleShootView("troubleshootview", this));
 		this.addUniqueView(new ManualView("manualview", this));
 		this.addUniqueView(new ImpressumView("impressumview", this));
 		this.addUniqueView(new LogView("logview", this));

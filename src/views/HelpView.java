@@ -29,17 +29,17 @@ public class HelpView extends FXView
 		this.getWindow().setTitle(Globals.appTitle+"Hilfe"+Globals.appVersion);
 		this.getWindow().setResizable(false);
 
-		AppButton impressumBtn = new AppButton("_Impressum");
-		AppButton quizletBtn = new AppButton("_Quizlet");
-		AppButton anleitungBtn = new AppButton("_Anleitung");
-		AppButton indexBtn     = new AppButton("Inde_x");
-		AppButton logBtn     = new AppButton("_Logger");
-		CloseButton closeBtn = new CloseButton("Hilfe _Beenden");
+		AppButton impressumBtn = new AppButton  ("_Impressum");
+		AppButton quizletBtn   = new AppButton  ("_Quizlet");
+		AppButton anleitungBtn = new AppButton  ("_Anleitung");
+		AppButton indexBtn     = new AppButton  ("_Trouble Shoot");
+		AppButton logBtn       = new AppButton  ("_Logger");
+		CloseButton closeBtn   = new CloseButton("Hilfe _Beenden");
 		
 		impressumBtn.setOnAction(e -> getController().showView("impressumview"));
 		quizletBtn.setOnAction(e -> getController().showView("quizletview"));
 		anleitungBtn.setOnAction(e -> getController().showView("manualview"));
-		indexBtn.setOnAction(e -> getController().showView("indexview"));
+		indexBtn.setOnAction(e -> getController().showView("troubleshootview"));
 		logBtn.setOnAction(e -> getController().showView("logview"));
 
 		VBox tempVBox = new VBox();

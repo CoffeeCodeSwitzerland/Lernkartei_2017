@@ -1,18 +1,15 @@
 #manualview{
-	-fx-background-image: url("pictures/viewbackground.png");
+    -fx-background-image: url("pictures/viewbackground.png");
 	-fx-background-repeat: stretch;   
     -fx-background-size: stretch;
 }
 
-
-
-#impressumtext {
+#anleitung {
 	-fx-font-family: "Segoe UI Semibold";
-	-fx-background-color: white;
-	-fx-text-fill: black;
 	-fx-padding: 10.0px;
 }
-#impressumtitel{
+
+#anleitungstitel {
 	-fx-text-fill: black;
 	-fx-font-family: "Segoe UI Semibold";
 	-fx-font-size:25.0;

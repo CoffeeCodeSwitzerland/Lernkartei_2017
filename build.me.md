@@ -2,6 +2,9 @@
 # Build Informationen für FX Applikationen #
 # ======================================== #
 
+>	@AUTHOR hugo-lucca
+	@DATE	29. Mai 2016
+
 1. Edit Globals.java and set DebuggerIsOn and TestingIsOn to false
 2. Edit Globals.java and assert DB settings ForceNewDB and ForDBVersionLT are ok.
 3. copy (no move) alle .css from **views.styles** to **views** folder

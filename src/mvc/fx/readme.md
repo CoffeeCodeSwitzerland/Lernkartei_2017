@@ -1,34 +1,28 @@
 # ======================================================================================== #
-#	Model-View-Controller (MVC) - Konzept Applikatios- und Toolkit-neutral                  #
+#	Model-View-Controller (MVC) - Konzept Applikatiosneutral, aber FX spezifisch            #
 	- nur Kernfunktionen für das MVC Zusammenspiel
-	- GUI Toolkit neutral
 	- für Applikationen mit relativ einfacher Navigation
 	
->	@Author 	hugo-lucca
-	@Version	1.1 - 16.05.2016
-=============================================================================================================
+>	@AUTHOR hugo-lucca
+	@DATE	29. Mai 2016
+# ======================================================================================== #
 
-##	Inhalte:
->	- die **Interfaces** definieren die zwingend zu implementierenden Methoden (die Schnittstelle) für dieses MVC Konzept
-	- die **abstrakten** Klassen sind "Halbfabrikate", d.h. vorbereitete Implementationen für eine einfache Beerbung
-	
->	*Controller-Klassen (C)*:
-		- ContollerInterface	Interface für alle **Controller** Klassen
-		- Controller			Abstrakte Klasse für den Controller (C).
+##	Content:
+>	*FXController-Klasse*:
+		- FXController			Abstrakte Klasse für den Controller (C).
 								Hat mindestens eine erbende Klasse, der "MainController" im app-package (controls).
 		
->	*Model-Klassen (M)*:
-		- ModelInterface	Interface für alle erbenden **Model** Klassen
-		- DataModel			Abstrakte Klasse für ein komplettes Modell mit Datenstrukturen (D-M)
-		- Model				Erweiterte Beispiel-Implementation vom DataModel und wird zum bsp. im FXViewModel
+>	*FXModel-Klasse*:
+		- FXModel				abstract fx specific model (to be inherited from application model in models-package)
+								reason: in fx the arraylist's may be observable (form an other collection)
 		
->	*View-Klassen (V)*:
-		- ViewInterface		Interface für alle folgenden **View** Klassen
-		- View				Abstrakte Klasse für ein View (V)
-		- ViewModel			Ist nur eine Biespielimplementation, sollte nicht direkt beerbt werden, da die
-							Toolkit Implementation Vorrang hat und multiple inheritance in Java nicht geht.
-
-##	Abhängigkeiten ##
+>	*FXView-Klassen*:
+		- FXStage				to maipulate stages (experimantal)
+		- FXSettings			to maipulate gui settings (experimental)
+		- FXView				abstract fx specific view (to be inherited from application view in views-package)
+		- FXViewModel			sam as FWView but has a local model
+		
+##	Dependencies:
 >	- globals package
 	- debug package
 

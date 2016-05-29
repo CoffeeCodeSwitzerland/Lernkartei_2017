@@ -34,7 +34,7 @@ public class HelpView extends FXView
 		AppButton anleitungBtn = new AppButton("_Anleitung");
 		AppButton indexBtn     = new AppButton("Inde_x");
 		AppButton logBtn     = new AppButton("_Logger");
-		CloseButton closeBtn = new CloseButton();
+		CloseButton closeBtn = new CloseButton("Hilfe _Beenden");
 		
 		impressumBtn.setOnAction(e -> getController().showView("impressumview"));
 		quizletBtn.setOnAction(e -> getController().showView("quizletview"));

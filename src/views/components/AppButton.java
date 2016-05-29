@@ -2,40 +2,27 @@ package views.components;
 
 import javafx.scene.control.Button;
 import javafx.scene.input.KeyCode;
-
 /**
- * Gamestartfenster
+ * Um die Button Voreinstellungen zentral zu halten, 
+ * die nicht im CSS vorgenommen werden sollen
  * 
- * @author hugo-lucca
- *
+ * TODO: die Werte sollten sich evtl. der Fenstergrösse anpassen können
+ * 
+ * @autor hugo-lucca
  */
 public class AppButton extends Button {
 	
-	final static int DEFAULT_BUTTON_WIDTH = 200;
-	final static int DEFAULT_BUTTON_MIN_WIDTH = 150;
-	/**
-	 * Wir leiten eine Zwischenklasse ab, damit alle Buttons gleich initialisert werden können
-	 * 
-	 * Die Idee dahinter:
-	 * -----------------
-	 * - varaible Werte wie Grösse, die evtl. später noch zu berechnen sind, hier in FX lösen, 
-	 * 	 da dies ja in CSSn (ohne Web-Kit) nicht geht (keine Variablen)
-	 * - den Rest der Darstellung in der CSS vornehmen, dort ist viel einfacher
-	 * 
-	 * @autor hugo-lucca
-	 */
+	public final static int DEFAULT_BUTTON_WIDTH = 200;
+	public final static int DEFAULT_BUTTON_MIN_WIDTH = 150;
+
 	public AppButton (String value) {
 		super(value);
 		setMinWidth(DEFAULT_BUTTON_MIN_WIDTH);
 		setMaxWidth(DEFAULT_BUTTON_WIDTH);
-		// alle Buttons sollen gleich gross sein
-		// bestimme ihr aussehen in des CSS Datei
-		
+
 		this.setOnKeyReleased(e -> {
 			if (e.getCode() == KeyCode.ENTER)
 				this.fire();
 		});
-		
-		// TODO: der Wert von defaultButtonWidth sollte sich dem Geräte-BS anpassen können
 	}
 }

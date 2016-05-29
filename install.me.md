@@ -1,6 +1,8 @@
 ====================================
 Installationsanweisungen für Eclipse
 ====================================
+>	@AUTHOR hugo-lucca
+	@DATE	29. Mai 2016
 
 Zu Java FX:
 ==========
@@ -43,14 +45,3 @@ Zum GitHub Konto
 Voraussetzungen:
 - Konto erstellen
 - Zugang zum Projekt bekommen
-
-Zur Lernkartei
-==============
-...
-
-Zu Servelets:
-============
-- benötigt auf jeden Fall die EE Mars 2 Edition (Erkennungszeichen: grüner Ladebalken)
-- benötigt weitere Plug-Ins:
-...
-

@@ -23,7 +23,7 @@ Gleichzeitig sollen WISS Studenten auch motiviert werden können mit diesem Progr
 - Yanis	Weibel								(learning)
 
 
-## Zusammenfassung User-Stories (Teil 1) ## 
+## Zusammenfassung User-Stories (Teil 1) ##
 -------------------------------------------
 Der Benutzer soll auf einfache Weise Karten eingeben und diese Stapelweise lernen können.
 Die Lernkartei soll ihre Karten und Lernphasen nach den neuesten lernpsychologischen Erkenntnissen anbieten. 

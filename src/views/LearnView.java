@@ -164,7 +164,6 @@ public class LearnView extends FXViewModel
 		}
 		else
 		{
-			headLbl.setText(getData());
 			ArrayList<String> cards = getController().getModel("learn").getDataList(getData());
 			
 			int stackPartSize = Globals.defaultStackPartSize;
@@ -179,6 +178,8 @@ public class LearnView extends FXViewModel
 					}
 				}
 			}
+			
+			headLbl.setText(getData() + " (" + (counter % stackPartSize + 1) + ")");
 			
 			
 			if (doNotSkip || (counter % stackPartSize > 0 && counter < cards.size()))

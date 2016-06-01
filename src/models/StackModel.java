@@ -17,11 +17,17 @@ public class StackModel extends Model
 		// -2: Kategorie bereits vorhanden
 		// -3: Konnte nicht gelöscht werden
 		
+		// -4: Leerer String
+		
 		// possible --> 1 = Nicht vorhanden, -1 = vorhanden
 
 		if (functionName.equals("new"))
 		{
 			String eingabe[] = paramS.split(globals.Globals.SEPARATOR);
+			if (eingabe.length < 2)
+			{
+				return -4;
+			}
 			int i = database.Stack.newStack(eingabe[1], eingabe[0]);
 			refreshViews();
 			return i;

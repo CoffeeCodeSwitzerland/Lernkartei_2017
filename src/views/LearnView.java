@@ -21,11 +21,17 @@ import mvc.fx.FXViewModel;
 import views.components.AppButton;
 
 
+/**
+ * Lernen. Es werden Karten nacheinander angezeigt, die der User als Richtig
+ * oder Falsch markieren kann.
+ * 
+ * @author miro albrecht
+ *
+ */
 public class LearnView extends FXViewModel
 {
 	public LearnView (String newName, FXController newController)
 	{
-		// this constructor is the same for all view's
 		super(newController);
 		construct(newName);
 	}

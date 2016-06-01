@@ -99,7 +99,7 @@ public class QuizletImportView extends FXViewModel
 		scroller.setVbarPolicy(ScrollBarPolicy.AS_NEEDED);
 
 		AppButton backBtn = new AppButton("_Zurück");
-		backBtn.setOnAction(e -> getController().showView("stack"));
+		backBtn.setOnAction(e -> getFXController().showView("stack"));
 
 		HBox infoLayout = new HBox(15);
 		infoLayout.setPadding(new Insets(15));
@@ -141,7 +141,7 @@ public class QuizletImportView extends FXViewModel
 									s1, 500);
 						}
 						loading.setProgress(cardNumber / cardListSize);
-						getController().getModel("cards").doAction("new",
+						getFXController().getModel("cards").doAction("new",
 								s1.split(Globals.SEPARATOR)[1] + Globals.SEPARATOR
 										+ s1.split(Globals.SEPARATOR)[2] + Globals.SEPARATOR + downloadStackName);
 
@@ -161,7 +161,7 @@ public class QuizletImportView extends FXViewModel
 						loadingAnimation.stop();
 
 						loading.setProgress(0);
-						getController().showView("stack");
+						getFXController().showView("stack");
 					}
 				}
 			}
@@ -192,7 +192,7 @@ public class QuizletImportView extends FXViewModel
 			}
 
 			quizletSets = new ArrayList<>();
-			searchResult = getController().getModel("quizlet")
+			searchResult = getFXController().getModel("quizlet")
 					.getDataList("search" + Globals.SEPARATOR + searchInput.getText());
 
 			if (searchResult != null)
@@ -242,7 +242,7 @@ public class QuizletImportView extends FXViewModel
 									return;
 								}
 
-								searchResult = getController().getModel("quizlet")
+								searchResult = getFXController().getModel("quizlet")
 										.getDataList("set" + Globals.SEPARATOR + stackInfo[0]);
 
 								String name = Alert.simpleString("Neuer Stapel", "Name für den Quizletstapel",
@@ -250,14 +250,14 @@ public class QuizletImportView extends FXViewModel
 
 								if (name == null) { return; }
 
-								int possible = getController().getModel("stack").doAction("possible", name);
+								int possible = getFXController().getModel("stack").doAction("possible", name);
 
 								while (name.equals("") || possible < 0)
 								{
 									if (possible < 1)
 									{
 										int i = 1;
-										while (getController().getModel("stack").doAction("possible",
+										while (getFXController().getModel("stack").doAction("possible",
 												name + " (" + i + ")") < 0)
 										{
 											i++;
@@ -270,14 +270,14 @@ public class QuizletImportView extends FXViewModel
 									name = Alert.simpleString("Neuer Stapel",
 											"Dieser Name ist nicht gültig. Bitte wählen sie einen Anderen.",
 											stackInfo[1]);
-									possible = getController().getModel("stack").doAction("possible", name);
+									possible = getFXController().getModel("stack").doAction("possible", name);
 								}
 
 								downloadStackName = name;
 								loading.setProgress(-1);
 								cardNumber = 1;
 								cardListSize = Float.parseFloat(stackInfo[3]);
-								getController().getModel("stack").doAction("new",
+								getFXController().getModel("stack").doAction("new",
 										getData() + globals.Globals.SEPARATOR + name);
 							});
 							additionalInfoLayout.getChildren().clear();

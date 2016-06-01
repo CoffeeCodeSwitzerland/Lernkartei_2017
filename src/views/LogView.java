@@ -54,7 +54,7 @@ public class LogView extends FXView
 		labelTitel.setStyle("-fx-font-weight: bold; -fx-font-size: 1.4em;");
 			
 		AppButton backBtn = new AppButton("_Zurück");
-		backBtn.setOnAction(e -> getController().showMainView());
+		backBtn.setOnAction(e -> getFXController().showMainView());
 
 		BorderPane headLayout = new BorderPane(labelTitel);
 		headLayout.setPadding(new Insets(20));

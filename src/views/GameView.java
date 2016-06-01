@@ -45,11 +45,11 @@ public class GameView extends FXView {
 
 		// Button für Zurück zum Hauptmenue:
 
-		btn.setOnAction(e -> getController().getModel("game").doAction("start")); 
+		btn.setOnAction(e -> getFXController().getModel("game").doAction("start")); 
 
-		btnInfo.setOnAction(e -> getController().showView("gameoptionview")); 
+		btnInfo.setOnAction(e -> getFXController().showView("gameoptionview")); 
 
-		btnBacktoKartei.setOnAction(e -> getController().showMainView()); 
+		btnBacktoKartei.setOnAction(e -> getFXController().showMainView()); 
 
 		// Erstellt VBox Layout für beide obige Elemente:
 		menuLayout.getChildren().addAll(grund, btn, btnInfo, btnBacktoKartei); 
@@ -61,7 +61,7 @@ public class GameView extends FXView {
 
 		mainLayout.setPadding(new Insets(5)); 
 		mainLayout.setCenter(menuLayout);
-		((GameModel) getController().getModel("game")).registerView(this, getController());
+		((GameModel) getFXController().getModel("game")).registerView(this, getFXController());
 		return mainLayout;
 
 		// VBox in neuem Borderpane einfügen, zwingend wenn Hintergrund neu sein

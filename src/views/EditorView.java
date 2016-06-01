@@ -54,12 +54,12 @@ public class EditorView extends FXViewModel
 		//Zurück Button
 		backBtn = new AppButton("_Zurück");
 		backBtn.setOnAction(e -> 
-		getController().showView("simpleeditorview"));	
+		getFXController().showView("simpleeditorview"));	
 		
 		//Info Button
 		infobtn = new AppButton("Hilfe");
 		infobtn.setOnAction(e ->
-		getController().showView("bbcodeinfo"));
+		getFXController().showView("bbcodeinfo"));
 		
 		//EditLayout
 		editLayout.setPadding(new Insets(10));
@@ -88,7 +88,7 @@ public class EditorView extends FXViewModel
 
 		if (data != null)
 		{
-			headLbl.setText(data + " - " + getController().getViewData("stack"));
+			headLbl.setText(data + " - " + getFXController().getViewData("stack"));
 			
 			Button bold = new Button("B");
 			Button italic = new Button("I");
@@ -228,7 +228,7 @@ public class EditorView extends FXViewModel
 					if (back.getText() != null && !back.getText().equals("") && front.getText() != null
 							&& !front.getText().equals(""))
 					{
-						getController().getModel("cards").doAction("edit", cardSides[0] + Globals.SEPARATOR
+						getFXController().getModel("cards").doAction("edit", cardSides[0] + Globals.SEPARATOR
 								+ front.getText() + Globals.SEPARATOR + back.getText());
 					}
 				}
@@ -241,7 +241,7 @@ public class EditorView extends FXViewModel
 					if (back.getText() != null && !back.getText().equals("") && front.getText() != null
 							&& !front.getText().equals(""))
 					{
-						getController().getModel("cards").doAction("edit", cardSides[0] + Globals.SEPARATOR
+						getFXController().getModel("cards").doAction("edit", cardSides[0] + Globals.SEPARATOR
 								+ front.getText() + Globals.SEPARATOR + back.getText());
 					}
 				}
@@ -251,15 +251,15 @@ public class EditorView extends FXViewModel
 				if (back.getText() != null && !back.getText().equals("") && front.getText() != null
 						&& !front.getText().equals(""))
 				{
-					getController().getModel("cards").doAction("edit", cardSides[0] + Globals.SEPARATOR
+					getFXController().getModel("cards").doAction("edit", cardSides[0] + Globals.SEPARATOR
 							+ front.getText() + Globals.SEPARATOR + back.getText());
-					getController().showView("simpleeditorview");
+					getFXController().showView("simpleeditorview");
 				}
 			});	
 			
 			infobtn.setOnAction(e ->{
 
-					getController().showView("bbcodeinfo");
+					getFXController().showView("bbcodeinfo");
 					frontinfo = front.getText();
 					backinfo = back.getText();
 					engineback.loadContent(back.getText());

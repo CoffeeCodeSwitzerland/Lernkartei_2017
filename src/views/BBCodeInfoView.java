@@ -59,7 +59,7 @@ public class BBCodeInfoView extends FXView
 		AppButton backBtn = new AppButton("_Zurück");
 		backBtn.setOnAction(e ->
 		{
-			getController().showLastView();
+			getFXController().showLastView();
 			EditorView.front.setText(EditorView.frontinfo);
 			EditorView.back.setText(EditorView.backinfo);
 			EditorView.engineback.loadContent(EditorView.backinfo);

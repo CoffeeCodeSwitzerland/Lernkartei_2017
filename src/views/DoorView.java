@@ -52,7 +52,7 @@ public class DoorView extends FXView
 		scDoors.setHbarPolicy(ScrollBarPolicy.NEVER);
 
 		// Buttons
-		HomeButton homeBtn = new HomeButton(getController());
+		HomeButton homeBtn = new HomeButton(getFXController());
 		AppButton newDoorBtn = new AppButton("_Neue Tür");
 		AppButton renameBtn = new AppButton("Umbennen");
 
@@ -77,7 +77,7 @@ public class DoorView extends FXView
 			String doorName = Alert.simpleString("Neue Tür", "Wie soll die neue Tür heissen?");
 			if (doorName != null && !doorName.equals(""))
 			{
-				int succesful = getController().getModel("door").doAction("new", doorName);
+				int succesful = getFXController().getModel("door").doAction("new", doorName);
 				if (succesful == -1)
 				{
 					Alert.simpleInfoBox("Tür wurde nicht erstellt", "Dieser Name ist schon vergeben.");
@@ -109,7 +109,7 @@ public class DoorView extends FXView
 			{
 				if (Alert.ok("Achtung", "Willst du die Tür '" + db.getString() + "' wirklich löschen?"))
 				{
-					getController().getModel("door").doAction("delete", db.getString());
+					getFXController().getModel("door").doAction("delete", db.getString());
 				}
 				success = true;
 			}
@@ -118,7 +118,7 @@ public class DoorView extends FXView
 			event.consume();
 		});
 
-		getController().getModel("door").registerView(this);
+		getFXController().getModel("door").registerView(this);
 		return mainLayout;
 	}
 
@@ -127,7 +127,7 @@ public class DoorView extends FXView
 	{
 		doorLayout.getChildren().clear();
 
-		ArrayList<String> doorNames = getController().getModel("door").getDataList("doors");
+		ArrayList<String> doorNames = getFXController().getModel("door").getDataList("doors");
 		ArrayList<AppButton> doors = new ArrayList<>();
 
 		if (doorNames != null)
@@ -143,8 +143,8 @@ public class DoorView extends FXView
 			a.setId("DoorButtons");
 			a.setOnAction(e ->
 			{
-				getController().setViewData("stack", a.getText());
-				getController().showView("stack");
+				getFXController().setViewData("stack", a.getText());
+				getFXController().showView("stack");
 			});
 
 			a.setOnDragDetected(e ->

@@ -51,7 +51,7 @@ public class HelpSerachView extends FXView
 		labelTitel.setId("impressumtitel");
 
 		AppButton backBtn = new AppButton("_Zurück");
-		backBtn.setOnAction(e -> getController().showMainView());
+		backBtn.setOnAction(e -> getFXController().showMainView());
 
 		BorderPane headLayout = new BorderPane(labelTitel);
 		headLayout.setPadding(new Insets(20));

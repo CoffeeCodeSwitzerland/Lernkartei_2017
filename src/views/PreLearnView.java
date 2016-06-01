@@ -43,8 +43,8 @@ public class PreLearnView extends FXViewModel
 	{
 		// Reset the data of the learn model which forces the model to shuffle
 		// again
-		getController().getModel("learn").getDataList(null).clear();
-		getController().getModel("learn").setString(null);
+		getFXController().getModel("learn").getDataList(null).clear();
+		getFXController().getModel("learn").setString(null);
 
 		if (getData() == null || getData().equals(""))
 		{

@@ -151,7 +151,7 @@ public class LearnView extends FXViewModel
 			}
 		});
 
-		getController().getModel("learn").registerView(this);
+		getFXController().getModel("learn").registerView(this);
 		return mainLayout;
 	}
 
@@ -167,7 +167,7 @@ public class LearnView extends FXViewModel
 		}
 		else
 		{
-			ArrayList<String> cards = getController().getModel("learn").getDataList(getData());
+			ArrayList<String> cards = getFXController().getModel("learn").getDataList(getData());
 
 			int stackPartSize = Globals.defaultStackPartSize;
 			if (getFXController().getModel("config").getDataList("cardLimit") != null)
@@ -223,8 +223,8 @@ public class LearnView extends FXViewModel
 
 	public void clearShuffle ()
 	{
-		getController().getModel("learn").getDataList(null).clear();
-		getController().getModel("learn").setString(null);
+		getFXController().getModel("learn").getDataList(null).clear();
+		getFXController().getModel("learn").setString(null);
 	}
 
 	private void turnCard ()
@@ -236,7 +236,7 @@ public class LearnView extends FXViewModel
 	private int changeCardPriority (String command)
 	{
 		counter++;
-		return getController().getModel("learn").doAction(command, cardData[0]);
+		return getFXController().getModel("learn").doAction(command, cardData[0]);
 	}
 
 	@Override

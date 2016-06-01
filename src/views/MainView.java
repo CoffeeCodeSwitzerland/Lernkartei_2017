@@ -53,7 +53,7 @@ public class MainView extends FXView
 		menuLayout.setSpacing(15);
 		menuLayout.setAlignment(Pos.CENTER);
 
-		CloseButton quitBtn = new CloseButton(getController());
+		CloseButton quitBtn = new CloseButton(getFXController());
 		menuLayout.getChildren().addAll(startBtn,/* statBtn,*/ stat2Btn, optionsBtn, gameBtn, /*helpBtn,*/ quitBtn);
 
 		// Main Layout
@@ -61,15 +61,15 @@ public class MainView extends FXView
 		mainLayout.setCenter(menuLayout);
 
 		// Behaviour
-		startBtn.setOnAction(e -> getController().showView("doorview"));
-		stat2Btn.setOnAction(e -> getController().showView("statsview"));
-		optionsBtn.setOnAction(e -> getController().showView("optionsview"));
-		gameBtn.setOnAction(e -> getController().showView("gameview"));
+		startBtn.setOnAction(e -> getFXController().showView("doorview"));
+		stat2Btn.setOnAction(e -> getFXController().showView("statsview"));
+		optionsBtn.setOnAction(e -> getFXController().showView("optionsview"));
+		gameBtn.setOnAction(e -> getFXController().showView("gameview"));
 
 		getWindow().setOnCloseRequest(e ->
 		{
 			debug.Debugger.out("closing window");
-			GameModel gm = (GameModel) getController().getModel("game");
+			GameModel gm = (GameModel) getFXController().getModel("game");
 			if (gm != null) gm.dispose();
 			getWindow().close();
 		});
@@ -79,7 +79,7 @@ public class MainView extends FXView
 		// Impressum Leerbox (IMG in CSS eingefügt)
 		BorderPane imgPane = new BorderPane();
 		imgPane.setId("helpbtn");
-		imgPane.setOnMouseClicked(e -> getController().showView("helpview"));
+		imgPane.setOnMouseClicked(e -> getFXController().showView("helpview"));
 		imgPane.setMinSize(20.0, 50.0);
 		mainLayout.setBottom(imgPane);
 

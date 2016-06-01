@@ -40,12 +40,12 @@ public class SimpleEditorView extends FXViewModel
 		headLbl.setId("bold");
 
 		AppButton backBtn = new AppButton("_Zurück");
-		backBtn.setOnAction(e -> getController().showView("stack"));
+		backBtn.setOnAction(e -> getFXController().showView("stack"));
 
 		//Info Button
 		AppButton infobtn = new AppButton("Hilfe");
 		infobtn.setOnAction(e ->
-		getController().showView("bbcodeinfo"));
+		getFXController().showView("bbcodeinfo"));
 		
 		BorderPane headLayout = new BorderPane(headLbl);
 		headLayout.setPadding(new Insets(25));
@@ -64,7 +64,7 @@ public class SimpleEditorView extends FXViewModel
 		mainLayout.setCenter(scroller);
 		mainLayout.setBottom(controlLayout);
 
-		getController().getModel("cards").registerView(this);
+		getFXController().getModel("cards").registerView(this);
 		return mainLayout;
 	}
 
@@ -77,9 +77,9 @@ public class SimpleEditorView extends FXViewModel
 
 		if (data != null)
 		{
-			headLbl.setText(data + " - " + getController().getViewData("stack"));
+			headLbl.setText(data + " - " + getFXController().getViewData("stack"));
 
-			ArrayList<String> cardStrings = getController().getModel("cards").getDataList(data);
+			ArrayList<String> cardStrings = getFXController().getModel("cards").getDataList(data);
 			ArrayList<HBox> cards = new ArrayList<>();
 			debug.Debugger.out("" + cardStrings.size());
 			for (String s : cardStrings)
@@ -95,7 +95,7 @@ public class SimpleEditorView extends FXViewModel
 						if (back.getText() != null && !back.getText().equals("") && front.getText() != null
 								&& !front.getText().equals(""))
 						{
-							getController().getModel("cards").doAction("edit", cardSides[0] + Globals.SEPARATOR
+							getFXController().getModel("cards").doAction("edit", cardSides[0] + Globals.SEPARATOR
 									+ front.getText() + Globals.SEPARATOR + back.getText());
 						}
 					}
@@ -108,7 +108,7 @@ public class SimpleEditorView extends FXViewModel
 						if (back.getText() != null && !back.getText().equals("") && front.getText() != null
 								&& !front.getText().equals(""))
 						{
-							getController().getModel("cards").doAction("edit", cardSides[0] + Globals.SEPARATOR
+							getFXController().getModel("cards").doAction("edit", cardSides[0] + Globals.SEPARATOR
 									+ front.getText() + Globals.SEPARATOR + back.getText());
 						}
 					}
@@ -117,11 +117,11 @@ public class SimpleEditorView extends FXViewModel
 				Button delete  = new Button("X");
 				Button editBtn = new Button("\u270E"); // \u270d \u2055 \u2699 \u270E
 				
-				delete.setOnAction(e -> getController().getModel("cards").doAction("delete", cardSides[0]));
+				delete.setOnAction(e -> getFXController().getModel("cards").doAction("delete", cardSides[0]));
 				editBtn.setOnAction(e ->
 				{
-					getController().setViewData("editorview",cardSides[0] + Globals.SEPARATOR + front.getText() + Globals.SEPARATOR + back.getText());
-					getController().showView("editorview");
+					getFXController().setViewData("editorview",cardSides[0] + Globals.SEPARATOR + front.getText() + Globals.SEPARATOR + back.getText());
+					getFXController().showView("editorview");
 				});
 				HBox v = new HBox(8);
 				v.setAlignment(Pos.CENTER);
@@ -136,8 +136,8 @@ public class SimpleEditorView extends FXViewModel
 			if(back.getText() == null){		
 				editBtn.setOnAction(e ->
 				{		
-						getController().setViewData("editorview",front.getText() + Globals.SEPARATOR + back.getText());
-						getController().showView("editorview");
+						getFXController().setViewData("editorview",front.getText() + Globals.SEPARATOR + back.getText());
+						getFXController().showView("editorview");
 				});
 			}
 			
@@ -149,7 +149,7 @@ public class SimpleEditorView extends FXViewModel
 				if (back.getText() != null && !back.getText().equals("") && front.getText() != null
 						&& !front.getText().equals(""))
 				{
-					getController().getModel("cards").doAction("new",
+					getFXController().getModel("cards").doAction("new",
 							front.getText() + Globals.SEPARATOR + back.getText() + Globals.SEPARATOR + data);
 				}
 			});

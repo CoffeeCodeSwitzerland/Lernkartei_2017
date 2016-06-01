@@ -35,7 +35,7 @@ public class OptionsView extends FXView
 	public Parent constructContainer ()
 	{
 		Label cardLimitDescription = new Label("Anzahl Karten, die auf einmal gelernt werden, limitieren.");
-		TextField cardLearnLimit = new TextField(getController().getModel("config").getDataList("cardLimit").get(0)); // Achtung
+		TextField cardLearnLimit = new TextField(getFXController().getModel("config").getDataList("cardLimit").get(0)); // Achtung
 		
 		lastValidCardLimit = cardLearnLimit.getText();
 		
@@ -48,7 +48,7 @@ public class OptionsView extends FXView
 				try
 				{
 					Integer.parseInt(cardLearnLimit.getText());
-					getController().getModel("config").doAction("setValue", "cardLimit" + Globals.SEPARATOR + cardLearnLimit.getText());
+					getFXController().getModel("config").doAction("setValue", "cardLimit" + Globals.SEPARATOR + cardLearnLimit.getText());
 					lastValidCardLimit = cardLearnLimit.getText();
 				}
 				catch (Exception ex)
@@ -83,7 +83,7 @@ public class OptionsView extends FXView
 			getFXController().getModel("config").doAction("setValue", "widthState" + Globals.SEPARATOR + value);
 		});		
 		
-		BackButton back = new BackButton(getController());
+		BackButton back = new BackButton(getFXController());
 
 		
 		VBox mainLayout = new VBox();

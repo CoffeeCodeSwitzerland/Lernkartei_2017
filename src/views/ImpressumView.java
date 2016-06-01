@@ -8,8 +8,6 @@ import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -54,7 +52,7 @@ public class ImpressumView extends FXView
 		labelTitel.setId("impressumtitel");
 
 		AppButton backBtn = new AppButton("_Zurück");
-		backBtn.setOnAction(e -> getController().showMainView());
+		backBtn.setOnAction(e -> getFXController().showMainView());
 
 		BorderPane headLayout = new BorderPane(labelTitel);
 		headLayout.setPadding(new Insets(20));

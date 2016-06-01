@@ -65,7 +65,7 @@ public class StatsView extends FXView
 		controls.setPadding(new Insets(15));
 
 		// Buttons / Controls
-		back.setOnAction(e -> getController().showMainView());
+		back.setOnAction(e -> getFXController().showMainView());
 		controls.getChildren().addAll(back, learn);
 
 		pane.setBottom(controls);
@@ -124,7 +124,7 @@ public class StatsView extends FXView
 
 		// Daten für Rangliste abholen über StatisticsModel und dann
 		// Rangliste.java
-		statisticsModel = ((StatisticsModel) getController().getFXModel("statistics"));
+		statisticsModel = ((StatisticsModel) getFXController().getFXModel("statistics"));
 
 		xAchse.setLabel("Karteien");
 		yAchse.setLabel("Ergebnis (%)");

@@ -301,15 +301,15 @@ public class EditorView extends FXViewModel
 	public static void UpdatePreview(){
 		
 			String text = back.getText();
-			text = Functions.AntiHTMLTags(text);
-			text = Functions.ColorBBCode(text);
+			text = Functions.removeHTMLTags(text);
+			text = Functions.colorBbCode2HTML(text);
 			text = Functions.simpleBbCode2HTML(text, Globals.evenTags);
 			text = Functions.realBbCode2HTML(text, Globals.pairedTags); 
 			engineback.loadContent(text);
 		
 			String text2 = front.getText();
-			text2 = Functions.AntiHTMLTags(text2);
-			text2 = Functions.ColorBBCode(text2);
+			text2 = Functions.removeHTMLTags(text2);
+			text2 = Functions.colorBbCode2HTML(text2);
 			text2 = Functions.simpleBbCode2HTML(text2, Globals.evenTags);
 			text2 = Functions.realBbCode2HTML(text2, Globals.pairedTags);			
 			enginefront.loadContent(text2);

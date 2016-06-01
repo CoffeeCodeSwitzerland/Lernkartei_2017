@@ -1,4 +1,4 @@
-package debug.test;
+package globals.test;
 
 import static org.junit.Assert.assertEquals;
 
@@ -10,7 +10,9 @@ import globals.Environment;
 public class EnvironementTest {
 
 	public static void myTest() {
-		assertEquals("\\", Environment.getFileSep());
+		String test =Environment.getFileSep();
+		assertEquals("\\", test);
+		assertEquals("/", Environment.getFileSep());
 	}
 
 	@Test

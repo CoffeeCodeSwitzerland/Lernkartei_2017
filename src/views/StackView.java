@@ -7,6 +7,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.ClipboardContent;
@@ -46,6 +47,7 @@ public class StackView extends FXViewModel
 		// Layouts für dynamische Inhalte
 		boxLayout = new VBox(20);
 		boxLayout.setAlignment(Pos.CENTER);
+		ScrollPane scStacks = new ScrollPane(boxLayout);
 
 		options = new VBox(20);
 		options.setAlignment(Pos.CENTER);
@@ -71,7 +73,7 @@ public class StackView extends FXViewModel
 		BorderPane borderPane = new BorderPane();
 		borderPane.setPadding(new Insets(15));
 
-		borderPane.setCenter(boxLayout);
+		borderPane.setCenter(scStacks);
 		borderPane.setLeft(options);
 		borderPane.setRight(placeholder);
 		borderPane.setBottom(hBox);

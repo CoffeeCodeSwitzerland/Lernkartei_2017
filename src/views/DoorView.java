@@ -6,6 +6,8 @@ import globals.Globals;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.ClipboardContent;
@@ -20,6 +22,7 @@ import views.components.Alert;
 import views.components.AppButton;
 import views.components.HomeButton;
 
+
 /**
  * Zeigt alle Türen an. Erlaubt die Erstellung und das Löschen von Türen.
  * 
@@ -28,20 +31,23 @@ import views.components.HomeButton;
  */
 public class DoorView extends FXView
 {
-	public DoorView(String newName, FXController newController) {
-		// this constructor is the same for all view's
+	public DoorView (String newName, FXController newController)
+	{
 		super(newController);
 		construct(newName);
 	}
 
-	// Zeigt Türen dynamisch an
+	// Zeigt Türen dynamisch an (muss im construct und im refresh verfügbar sein)
 	VBox doorLayout;
-	
+
 	@Override
-	public Parent constructContainer() {
+	public Parent constructContainer ()
+	{
 		// Initialisiere Layout für Türen
 		doorLayout = new VBox(20);
 		doorLayout.setAlignment(Pos.CENTER);
+		ScrollPane scDoor = new ScrollPane(doorLayout);
+		scDoor.setHbarPolicy(ScrollBarPolicy.NEVER);
 
 		// Buttons
 		HomeButton homeBtn = new HomeButton(getController());
@@ -61,7 +67,7 @@ public class DoorView extends FXView
 		BorderPane mainLayout = new BorderPane();
 		mainLayout.setPadding(new Insets(15));
 
-		mainLayout.setCenter(doorLayout);
+		mainLayout.setCenter(scDoor);
 		mainLayout.setBottom(controlsLayout);
 
 		newDoorBtn.setOnAction(e ->
@@ -76,7 +82,7 @@ public class DoorView extends FXView
 				}
 			}
 		});
-		
+
 		renameBtn.setOnAction(e ->
 		{
 			getFXController().setViewData("rename", "door" + Globals.SEPARATOR + "doors");
@@ -85,15 +91,14 @@ public class DoorView extends FXView
 
 		trashImgView.setOnDragOver(e ->
 		{
-			if (e.getGestureSource() != trashImgView &&
-					e.getDragboard().hasString())
+			if (e.getGestureSource() != trashImgView && e.getDragboard().hasString())
 			{
 				e.acceptTransferModes(TransferMode.COPY_OR_MOVE);
 			}
 
 			e.consume();
 		});
-		
+
 		trashImgView.setOnDragDropped(event ->
 		{
 			Dragboard db = event.getDragboard();
@@ -106,7 +111,7 @@ public class DoorView extends FXView
 				}
 				success = true;
 			}
-			
+
 			event.setDropCompleted(success);
 			event.consume();
 		});
@@ -119,10 +124,10 @@ public class DoorView extends FXView
 	public void refreshView ()
 	{
 		doorLayout.getChildren().clear();
-		
+
 		ArrayList<String> doorNames = getController().getModel("door").getDataList("doors");
 		ArrayList<AppButton> doors = new ArrayList<>();
-		
+
 		if (doorNames != null)
 		{
 			for (String s : doorNames)
@@ -139,7 +144,7 @@ public class DoorView extends FXView
 				getController().setViewData("stack", a.getText());
 				getController().showView("stack");
 			});
-			
+
 			a.setOnDragDetected(e ->
 			{
 				Dragboard db = a.startDragAndDrop(TransferMode.MOVE);

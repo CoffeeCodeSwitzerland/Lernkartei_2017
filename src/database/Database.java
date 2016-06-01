@@ -130,7 +130,6 @@ public class Database extends SQLiteConnector {
 			c.setAutoCommit(true);
 			
 			while (rs.next()) {
-
 				String[] set = new String[7];
 				set[0] = Integer.toString(rs.getInt("PK_Stk"));
 				set[1] = rs.getString("Frontside");
@@ -140,9 +139,7 @@ public class Database extends SQLiteConnector {
 				set[5] = Integer.toString(rs.getInt("Priority"));
 				set[6] = rs.getString("Color");
 				results.add(set);
-
 			}
-
 			rs.close();
 		}
 		catch (Exception e) {
@@ -150,7 +147,6 @@ public class Database extends SQLiteConnector {
 		}
 		closeDB();
 		return results;
-
 	}
 
 	public static boolean delEntry (String id) {
@@ -168,7 +164,6 @@ public class Database extends SQLiteConnector {
 		}
 		closeDB();
 		return deleted;
-
 	}
 
 	/**
@@ -196,15 +191,12 @@ public class Database extends SQLiteConnector {
 				rs.close();
 				closeDB();
 				return false;
-			}
-			else {
+			} else {
 				rs.close();
 			}
-			c.setAutoCommit(true);
 			String del = "UPDATE Stock SET Frontside = '" + frontside
 					+ "', Backside = '" + backside
 					+ "' WHERE PK_Stk = " + id;
-
 			debug.Debugger.out(del);
 			stmt.executeUpdate(del);
 		}
@@ -213,7 +205,6 @@ public class Database extends SQLiteConnector {
 		}
 		closeDB();
 		return true;
-
 	}
 
 	/**
@@ -242,7 +233,6 @@ public class Database extends SQLiteConnector {
 			debug.Debugger.out(sql);
 			stmt.executeUpdate(sql);
 
-
 			// Frage die Aktuelle Priorität ab
 			c.setAutoCommit(false);
 			ResultSet actualPrio = stmt.executeQuery("SELECT Priority FROM Stock WHERE PK_Stk = " + PK_ID.toString());
@@ -252,12 +242,11 @@ public class Database extends SQLiteConnector {
 
 			if (actualPrio.next()) {
 				oldPrio = actualPrio.getInt("Priority");
-				actualPrio.close();
 			}
 			else {
 				debug.Debugger.out("No Card with this ID exists.");
-				actualPrio.close();
 			}
+			actualPrio.close();
 
 			// Wenn Aktuelle Priorität = 5, bleibt die neue bei 5, sonst wird
 			// sie um 1 erhöht
@@ -339,8 +328,7 @@ public class Database extends SQLiteConnector {
 	 *  
 	 * @param whichSet --> Score von welchem Stack geliefert werden soll
 	 * @return --> Retourniert diesen gewünschten Score
-	 */
-	
+	 */	
 	public static Double[] getScore (String whichSet) {
 
 		Double maxPoints = 0.0;
@@ -383,7 +371,5 @@ public class Database extends SQLiteConnector {
 		score[1] = reachedPoints;
 		closeDB();
 		return score;
-
 	}
-
 }

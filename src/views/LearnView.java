@@ -36,9 +36,10 @@ public class LearnView extends FXViewModel
 		construct(newName);
 	}
 
-	AppButton	successfulBtn	= new AppButton("_Richtig");
-	AppButton	wrongBtn		= new AppButton("_Falsch");
+	AppButton	successfulBtn	= new AppButton("Richtig");
+	AppButton	wrongBtn		= new AppButton("Falsch");
 	Label		headLbl			= new Label("");
+	Label		cardNrLbl		= new Label("");
 	WebView		card			= new WebView();
 	WebEngine	engine			= card.getEngine();
 
@@ -107,7 +108,7 @@ public class LearnView extends FXViewModel
 
 		VBox cardLayout = new VBox(20);
 		cardLayout.setAlignment(Pos.CENTER);
-		cardLayout.getChildren().addAll(card);
+		cardLayout.getChildren().addAll(card, cardNrLbl);
 
 		cardLayout.setOnMouseClicked(e ->
 		{
@@ -118,12 +119,14 @@ public class LearnView extends FXViewModel
 		controlLayout.setAlignment(Pos.CENTER);
 		controlLayout.getChildren().addAll(backBtn, preCard, successfulBtn, wrongBtn, nextCard);
 
+		BorderPane headLayout = new BorderPane(headLbl);
+		
 		BorderPane mainLayout = new BorderPane();
 		mainLayout.setCenter(cardLayout);
 		mainLayout.setBottom(controlLayout);
 
 		mainLayout.setPadding(new Insets(15));
-		mainLayout.setTop(headLbl);
+		mainLayout.setTop(headLayout);
 
 		mainLayout.setOnKeyReleased(e ->
 		{
@@ -188,7 +191,8 @@ public class LearnView extends FXViewModel
 				}
 			}
 
-			headLbl.setText(getData() + " (" + (counter % stackPartSize + 1) + ")");
+			headLbl.setText(getData());
+			cardNrLbl.setText("(" + (counter % stackPartSize + 1) + "/20)");
 
 			if (counter == counterBase || (counter % stackPartSize > 0 && counter < cards.size()))
 			{

@@ -32,6 +32,8 @@ import views.components.HomeButton;
  */
 public class DoorView extends FXView
 {
+	private String txtNewTheme = "Neues Fach";
+
 	public DoorView (String newName, FXController newController)
 	{
 		super(newController);
@@ -52,10 +54,11 @@ public class DoorView extends FXView
 		scDoors.setId("DoorScrollPane");
 		scDoors.setPadding(new Insets(25));
 		scDoors.setHbarPolicy(ScrollBarPolicy.NEVER);
+		scDoors.setMaxWidth(400);
 
 		// Buttons
 		HomeButton homeBtn = new HomeButton(getFXController());
-		AppButton newDoorBtn = new AppButton("_Neue Tür");
+		AppButton newDoorBtn = new AppButton(txtNewTheme);
 		AppButton renameBtn = new AppButton("Umbennen");
 
 		// Trash Image

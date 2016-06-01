@@ -24,7 +24,8 @@ import views.components.HomeButton;
 
 
 /**
- * Zeigt alle Türen an. Erlaubt die Erstellung und das Löschen von Türen.
+ * Zeigt alle Türen an. Erlaubt die Erstellung und das Löschen von Türen. Eine
+ * Tür entspricht einem Themenbereich.
  * 
  * @author miro albrecht & hugo lucca
  *
@@ -37,7 +38,8 @@ public class DoorView extends FXView
 		construct(newName);
 	}
 
-	// Zeigt Türen dynamisch an (muss im construct und im refresh verfügbar sein)
+	// Zeigt Türen dynamisch an (muss im construct und im refresh verfügbar
+	// sein)
 	VBox doorLayout;
 
 	@Override

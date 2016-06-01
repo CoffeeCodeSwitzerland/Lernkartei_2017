@@ -21,56 +21,62 @@ import mvc.fx.FXController;
 import mvc.fx.FXViewModel;
 import views.components.AppButton;
 
+
+/**
+ * Der Editor erlaubt umfangreiche Formatierungmöglichkeiten für Karten-
+ * 
+ * @author miro albrecht
+ *
+ */
 public class EditorView extends FXViewModel
 {
 	// ArrayList<VBox> cards;
 
-	public EditorView(String newName, FXController newController) {
-		// this constructor is the same for all view's
+	public EditorView (String newName, FXController newController)
+	{
 		super(newController);
 		construct(newName);
 	}
 
-	VBox editLayout = new VBox(10);
-	Label headLbl;
-	AppButton backBtn, infobtn;
-	public static TextField front = new TextField();
-	public static TextField back = new TextField();
-	public static WebView previewfront = new WebView();
-	public static WebView previewback = new WebView();
-	public static WebEngine enginefront = previewfront.getEngine();
-	public static WebEngine engineback = previewback.getEngine();
-	public static String frontinfo;
-	public static String backinfo;
+	VBox					editLayout		= new VBox(10);
+	Label					headLbl;
+	AppButton				backBtn, infobtn;
+	public static TextField	front			= new TextField();
+	public static TextField	back			= new TextField();
+	public static WebView	previewfront	= new WebView();
+	public static WebView	previewback		= new WebView();
+	public static WebEngine	enginefront		= previewfront.getEngine();
+	public static WebEngine	engineback		= previewback.getEngine();
+	public static String	frontinfo;
+	public static String	backinfo;
 
 	@Override
-	public Parent constructContainer() {
+	public Parent constructContainer ()
+	{
 		headLbl = new Label("");
-		headLbl.setId("bold");	
-		
+		headLbl.setId("bold");
+
 		BorderPane headLayout = new BorderPane(headLbl);
 		headLayout.setPadding(new Insets(25));
-		
-		//Zurück Button
+
+		// Zurück Button
 		backBtn = new AppButton("_Zurück");
-		backBtn.setOnAction(e -> 
-		getFXController().showView("simpleeditorview"));	
-		
-		//Info Button
+		backBtn.setOnAction(e -> getFXController().showView("simpleeditorview"));
+
+		// Info Button
 		infobtn = new AppButton("Hilfe");
-		infobtn.setOnAction(e ->
-		getFXController().showView("bbcodeinfo"));
-		
-		//EditLayout
+		infobtn.setOnAction(e -> getFXController().showView("bbcodeinfo"));
+
+		// EditLayout
 		editLayout.setPadding(new Insets(10));
 		editLayout.setAlignment(Pos.TOP_CENTER);
 
-		//Controll Layout
+		// Controll Layout
 		HBox controlLayout = new HBox(20);
 		controlLayout.setAlignment(Pos.CENTER);
 		controlLayout.getChildren().addAll(backBtn, infobtn);
 
-		//Main Layout
+		// Main Layout
 		BorderPane mainLayout = new BorderPane();
 		mainLayout.setPadding(new Insets(15));
 		mainLayout.setTop(headLayout);
@@ -81,15 +87,17 @@ public class EditorView extends FXViewModel
 	}
 
 	@Override
-	public void refreshView() {
-
+	public void refreshView ()
+	{
 		editLayout.getChildren().clear();
+
 		String data = getData();
 
 		if (data != null)
 		{
 			headLbl.setText(data + " - " + getFXController().getViewData("stack"));
-			
+
+			// TODO Keine doppelten Buttons
 			Button bold = new Button("B");
 			Button italic = new Button("I");
 			Button crossed = new Button("S");
@@ -104,132 +112,153 @@ public class EditorView extends FXViewModel
 			Button sup1 = new Button("SP");
 			Button sub1 = new Button("SB");
 			Button cp1 = new Button("C");
-			
+
 			front.setMinHeight(150);
 			back.setMinHeight(150);
-			
-			String[] cardSides = data.split(Globals.SEPARATOR);
-				front.setText(cardSides[1]);
-				back.setText(cardSides[2]);
-				
-				UpdatePreview();
 
-			back.setOnMouseReleased(e ->{
+			String[] cardSides = data.split(Globals.SEPARATOR);
+			front.setText(cardSides[1]);
+			back.setText(cardSides[2]);
+
+			UpdatePreview();
+
+			back.setOnMouseReleased(e ->
+			{
 				int start = back.getSelection().getStart();
 				int end = back.getSelection().getEnd();
 				String codeBefore = back.getText().substring(0, start);
 				String codeAfter = back.getText().substring(end);
 				String isolatedWord = back.getText().substring(start, end);
-					bold.setOnMouseClicked(a ->{
-						back.setText(codeBefore+"[b]"+isolatedWord+"[/b]"+codeAfter);
+				// TODO Create a function for 'back.setText(codeBefore + "[b]" +
+				// isolatedWord + "[/b]" + codeAfter);'
+				bold.setOnMouseClicked(a ->
+				{
+					back.setText(codeBefore + "[b]" + isolatedWord + "[/b]" + codeAfter);
+					UpdatePreview();
+				});
+				italic.setOnMouseClicked(a ->
+				{
+					back.setText(codeBefore + "[i]" + isolatedWord + "[/i]" + codeAfter);
+					UpdatePreview();
+				});
+				crossed.setOnMouseClicked(a ->
+				{
+					back.setText(codeBefore + "[s]" + isolatedWord + "[/s]" + codeAfter);
+					UpdatePreview();
+				});
+				under.setOnMouseClicked(a ->
+				{
+					back.setText(codeBefore + "[u]" + isolatedWord + "[/u]" + codeAfter);
+					UpdatePreview();
+				});
+				sup.setOnMouseClicked(a ->
+				{
+					back.setText(codeBefore + "[sup]" + isolatedWord + "[/sup]" + codeAfter);
+					UpdatePreview();
+				});
+				sub.setOnMouseClicked(a ->
+				{
+					back.setText(codeBefore + "[sub]" + isolatedWord + "[/sub]" + codeAfter);
+					UpdatePreview();
+				});
+				cp.setOnMouseClicked(a ->
+				{
+					ColorPicker colorPicker = new ColorPicker();
+					Button save = new Button("Save");
+					final Stage dialog = new Stage();
+					dialog.initModality(Modality.APPLICATION_MODAL);
+					VBox dialogVbox = new VBox(20);
+					dialogVbox.getChildren().addAll(colorPicker, save);
+					Scene dialogScene = new Scene(dialogVbox);
+					dialog.setScene(dialogScene);
+					dialog.show();
+
+					save.setOnAction(b ->
+					{
+						String cstrg = Integer.toHexString(colorPicker.getValue().hashCode()).substring(0, 6).toUpperCase();
+						back.setText(codeBefore + "[color=" + "(" + cstrg + ")" + "]" + isolatedWord + "[/color]" + codeAfter);
 						UpdatePreview();
+						dialog.close();
 					});
-					italic.setOnMouseClicked(a ->{
-						back.setText(codeBefore+"[i]"+isolatedWord+"[/i]"+codeAfter);
-						UpdatePreview();
-					});
-					crossed.setOnMouseClicked(a ->{
-						back.setText(codeBefore+"[s]"+isolatedWord+"[/s]"+codeAfter);
-						UpdatePreview();
-					});
-					under.setOnMouseClicked(a ->{
-						back.setText(codeBefore+"[u]"+isolatedWord+"[/u]"+codeAfter);
-						UpdatePreview();
-					});
-					sup.setOnMouseClicked(a ->{
-						back.setText(codeBefore+"[sup]"+isolatedWord+"[/sup]"+codeAfter);
-						UpdatePreview();
-					});
-					sub.setOnMouseClicked(a ->{
-						back.setText(codeBefore+"[sub]"+isolatedWord+"[/sub]"+codeAfter);
-						UpdatePreview();
-					});
-					cp.setOnMouseClicked(a ->{
-						ColorPicker colorPicker = new ColorPicker();
-						Button save = new Button("Save");
-						final Stage dialog = new Stage();
-			            dialog.initModality(Modality.APPLICATION_MODAL);
-			            VBox dialogVbox = new VBox(20);
-			            dialogVbox.getChildren().addAll(colorPicker, save);
-			            Scene dialogScene = new Scene(dialogVbox);
-			            dialog.setScene(dialogScene);
-			            dialog.show();
-			                
-			                save.setOnAction(b ->{
-			                	String cstrg = Integer.toHexString(colorPicker.getValue().hashCode()).substring(0, 6).toUpperCase();
-			                	back.setText(codeBefore+"[color=" + "(" + cstrg + ")" + "]"+isolatedWord+"[/color]"+codeAfter);
-			                	UpdatePreview();
-			                	dialog.close();
-			               });
-					});
+				});
 			});
-			
-			front.setOnMouseReleased(e ->{
+
+			front.setOnMouseReleased(e ->
+			{
 				int start = front.getSelection().getStart();
 				int end = front.getSelection().getEnd();
 				String codeBefore = front.getText().substring(0, start);
 				String codeAfter = front.getText().substring(end);
 				String isolatedWord = front.getText().substring(start, end);
-					bold1.setOnMouseClicked(a ->{
-						front.setText(codeBefore+"[b]"+isolatedWord+"[/b]"+codeAfter);
+				bold1.setOnMouseClicked(a ->
+				{
+					// TODO siehe oben
+					front.setText(codeBefore + "[b]" + isolatedWord + "[/b]" + codeAfter);
+					UpdatePreview();
+				});
+				italic1.setOnMouseClicked(a ->
+				{
+					front.setText(codeBefore + "[i]" + isolatedWord + "[/i]" + codeAfter);
+					UpdatePreview();
+				});
+				crossed1.setOnMouseClicked(a ->
+				{
+					front.setText(codeBefore + "[s]" + isolatedWord + "[/s]" + codeAfter);
+					UpdatePreview();
+				});
+				under1.setOnMouseClicked(a ->
+				{
+					front.setText(codeBefore + "[u]" + isolatedWord + "[/u]" + codeAfter);
+					UpdatePreview();
+				});
+				sup1.setOnMouseClicked(a ->
+				{
+					front.setText(codeBefore + "[sup]" + isolatedWord + "[/sup]" + codeAfter);
+					UpdatePreview();
+				});
+				sub1.setOnMouseClicked(a ->
+				{
+					front.setText(codeBefore + "[sub]" + isolatedWord + "[/sub]" + codeAfter);
+					UpdatePreview();
+				});
+				cp1.setOnMouseClicked(a ->
+				{
+					ColorPicker colorPicker = new ColorPicker();
+					Button save = new Button("Save");
+					final Stage dialog = new Stage();
+					dialog.initModality(Modality.APPLICATION_MODAL);
+					VBox dialogVbox = new VBox(20);
+					dialogVbox.getChildren().addAll(colorPicker, save);
+					Scene dialogScene = new Scene(dialogVbox);
+					dialog.setScene(dialogScene);
+					dialog.show();
+
+					save.setOnAction(b ->
+					{
+						String cstrg = Integer.toHexString(colorPicker.getValue().hashCode()).substring(0, 6).toUpperCase();
+						front.setText(codeBefore + "[color=" + "(" + cstrg + ")" + "]" + isolatedWord + "[/color]" + codeAfter);
 						UpdatePreview();
+						dialog.close();
 					});
-					italic1.setOnMouseClicked(a ->{
-						front.setText(codeBefore+"[i]"+isolatedWord+"[/i]"+codeAfter);
-						UpdatePreview();
-					});
-					crossed1.setOnMouseClicked(a ->{
-						front.setText(codeBefore+"[s]"+isolatedWord+"[/s]"+codeAfter);
-						UpdatePreview();
-					});
-					under1.setOnMouseClicked(a ->{
-						front.setText(codeBefore+"[u]"+isolatedWord+"[/u]"+codeAfter);
-						UpdatePreview();
-					});
-					sup1.setOnMouseClicked(a ->{
-						front.setText(codeBefore+"[sup]"+isolatedWord+"[/sup]"+codeAfter);
-						UpdatePreview();
-					});
-					sub1.setOnMouseClicked(a ->{
-						front.setText(codeBefore+"[sub]"+isolatedWord+"[/sub]"+codeAfter);
-						UpdatePreview();
-					});
-					cp1.setOnMouseClicked(a ->{
-						ColorPicker colorPicker = new ColorPicker();
-						Button save = new Button("Save");
-						final Stage dialog = new Stage();
-			            dialog.initModality(Modality.APPLICATION_MODAL);
-			            VBox dialogVbox = new VBox(20);
-			            dialogVbox.getChildren().addAll(colorPicker, save);
-			            Scene dialogScene = new Scene(dialogVbox);
-			            dialog.setScene(dialogScene);
-			            dialog.show();
-			                
-			                save.setOnAction(b ->{
-			                	String cstrg = Integer.toHexString(colorPicker.getValue().hashCode()).substring(0, 6).toUpperCase();
-			                	front.setText(codeBefore+"[color=" + "(" + cstrg + ")" + "]"+isolatedWord+"[/color]"+codeAfter);
-			                	UpdatePreview();
-			                	dialog.close();
-			                });
-					});
+				});
 			});
-			
-			front.setOnKeyReleased(e ->{
+
+			front.setOnKeyReleased(e ->
+			{
 				UpdatePreview();
 			});
-			back.setOnKeyReleased(e ->{
+			back.setOnKeyReleased(e ->
+			{
 				UpdatePreview();
 			});
-			
+
 			front.focusedProperty().addListener(e ->
 			{
 				if (!front.isFocused())
 				{
-					if (back.getText() != null && !back.getText().equals("") && front.getText() != null
-							&& !front.getText().equals(""))
+					if (back.getText() != null && !back.getText().equals("") && front.getText() != null && !front.getText().equals(""))
 					{
-						getFXController().getModel("cards").doAction("edit", cardSides[0] + Globals.SEPARATOR
-								+ front.getText() + Globals.SEPARATOR + back.getText());
+						getFXController().getModel("cards").doAction("edit", cardSides[0] + Globals.SEPARATOR + front.getText() + Globals.SEPARATOR + back.getText());
 					}
 				}
 			});
@@ -238,58 +267,56 @@ public class EditorView extends FXViewModel
 			{
 				if (!back.isFocused())
 				{
-					if (back.getText() != null && !back.getText().equals("") && front.getText() != null
-							&& !front.getText().equals(""))
+					if (back.getText() != null && !back.getText().equals("") && front.getText() != null && !front.getText().equals(""))
 					{
-						getFXController().getModel("cards").doAction("edit", cardSides[0] + Globals.SEPARATOR
-								+ front.getText() + Globals.SEPARATOR + back.getText());
+						getFXController().getModel("cards").doAction("edit", cardSides[0] + Globals.SEPARATOR + front.getText() + Globals.SEPARATOR + back.getText());
 					}
 				}
 			});
-			
-			backBtn.setOnAction(e -> {
-				if (back.getText() != null && !back.getText().equals("") && front.getText() != null
-						&& !front.getText().equals(""))
+
+			backBtn.setOnAction(e ->
+			{
+				if (back.getText() != null && !back.getText().equals("") && front.getText() != null && !front.getText().equals(""))
 				{
-					getFXController().getModel("cards").doAction("edit", cardSides[0] + Globals.SEPARATOR
-							+ front.getText() + Globals.SEPARATOR + back.getText());
+					getFXController().getModel("cards").doAction("edit", cardSides[0] + Globals.SEPARATOR + front.getText() + Globals.SEPARATOR + back.getText());
 					getFXController().showView("simpleeditorview");
 				}
-			});	
-			
-			infobtn.setOnAction(e ->{
-
-					getFXController().showView("bbcodeinfo");
-					frontinfo = front.getText();
-					backinfo = back.getText();
-					engineback.loadContent(back.getText());
-					enginefront.loadContent(front.getText());
 			});
-			
+
+			infobtn.setOnAction(e ->
+			{
+
+				getFXController().showView("bbcodeinfo");
+				frontinfo = front.getText();
+				backinfo = back.getText();
+				engineback.loadContent(back.getText());
+				enginefront.loadContent(front.getText());
+			});
+
 			HBox buttonLL = new HBox(8);
 			buttonLL.setAlignment(Pos.TOP_LEFT);
 			buttonLL.getChildren().addAll(bold1, italic1, crossed1, under1, sup1, sub1, cp1);
-			
+
 			HBox buttonLR = new HBox(8);
 			buttonLR.setAlignment(Pos.TOP_LEFT);
 			buttonLR.getChildren().addAll(bold, italic, crossed, under, sup, sub, cp);
-			
+
 			HBox eingabeL = new HBox(8);
 			eingabeL.setAlignment(Pos.CENTER);
 			eingabeL.getChildren().addAll(front, back);
-			
+
 			HBox vorschauL = new HBox(8);
 			vorschauL.setAlignment(Pos.BOTTOM_CENTER);
 			vorschauL.getChildren().addAll(previewfront, previewback);
-			
+
 			VBox leftL = new VBox(8);
 			leftL.setAlignment(Pos.CENTER_LEFT);
 			leftL.getChildren().addAll(buttonLL, front, previewfront);
-			
+
 			VBox rightL = new VBox(8);
 			rightL.setAlignment(Pos.CENTER_RIGHT);
 			rightL.getChildren().addAll(buttonLR, back, previewback);
-			
+
 			HBox mainL = new HBox(8);
 			mainL.setAlignment(Pos.BOTTOM_CENTER);
 			mainL.getChildren().addAll(leftL, rightL);
@@ -297,22 +324,23 @@ public class EditorView extends FXViewModel
 			editLayout.getChildren().addAll(mainL);
 		}
 	}
-	
-	public static void UpdatePreview(){
-		
-			String text = back.getText();
-			text = Functions.removeHTMLTags(text);
-			text = Functions.colorBbCode2HTML(text);
-			text = Functions.simpleBbCode2HTML(text, Globals.evenTags);
-			text = Functions.realBbCode2HTML(text, Globals.pairedTags); 
-			engineback.loadContent(text);
-		
-			String text2 = front.getText();
-			text2 = Functions.removeHTMLTags(text2);
-			text2 = Functions.colorBbCode2HTML(text2);
-			text2 = Functions.simpleBbCode2HTML(text2, Globals.evenTags);
-			text2 = Functions.realBbCode2HTML(text2, Globals.pairedTags);			
-			enginefront.loadContent(text2);
-		
+
+	public static void UpdatePreview ()
+	{
+
+		String text = back.getText();
+		text = Functions.removeHTMLTags(text);
+		text = Functions.colorBbCode2HTML(text);
+		text = Functions.simpleBbCode2HTML(text, Globals.evenTags);
+		text = Functions.realBbCode2HTML(text, Globals.pairedTags);
+		engineback.loadContent(text);
+
+		String text2 = front.getText();
+		text2 = Functions.removeHTMLTags(text2);
+		text2 = Functions.colorBbCode2HTML(text2);
+		text2 = Functions.simpleBbCode2HTML(text2, Globals.evenTags);
+		text2 = Functions.realBbCode2HTML(text2, Globals.pairedTags);
+		enginefront.loadContent(text2);
+
 	}
 }

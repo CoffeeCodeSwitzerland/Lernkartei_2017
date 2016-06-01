@@ -2,6 +2,8 @@ package debug.test;
 
 import org.junit.Test;
 
+import globals.test.EnvironementTest;
+
 public class TestAll {
 
 	@Test

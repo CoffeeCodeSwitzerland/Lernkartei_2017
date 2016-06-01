@@ -12,10 +12,10 @@ public class SupervisorTest {
 		Supervisor.setSupervisorExitState(3);
 		assertEquals(3,Supervisor.getSupervisorExitState());
 
-		Supervisor.setSupervisorExitState(99);
+		Supervisor.setSupervisorExitState(77);
 		assertEquals(4,Supervisor.getSupervisorExitState());
 
-		Supervisor.setSupervisorExitState(-1);
+		Supervisor.setSupervisorExitState(-4);
 		assertEquals(0,Supervisor.getSupervisorExitState());
 
 		Supervisor.setSupervisorExitState(0);

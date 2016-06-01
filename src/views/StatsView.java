@@ -128,34 +128,21 @@ public class StatsView extends FXView
 
 		xAchse.setLabel("Karteien");
 		yAchse.setLabel("Ergebnis (%)");
+		
 		try
 		{
-			if (statisticsModel.doAction("checkDatabase") == -1)
-			{
-				// Dieses TextField wird geaddet, wenn keine Daten für die
-				// Rangliste oder das Diagramm gefunden werden können.
-				errorText.setText("Es tut uns leid aber wir konnten keine Daten zur Auswertung Ihrer Statistik finden");
-			} else
-			{
 				statisticsModel.doAction("DeleteOldData");
 				if (statisticsModel != null)
 				{
 					if (statisticsModel.getObservableDataList("Rangliste").get(0).equals("thisIsEmpty"))
 					{
-						errorText.setText("Das Programm konnte die Daten für die Rangliste nicht laden");
+						errorText.setText("Das Programm konnte die Daten für die Rangliste oder das Diagramm nicht laden");
 					} else
 					{
 						Ranks.setItems(statisticsModel.getObservableDataList("Rangliste"));
-					}
-
-					// Daten für das Diagramm. Die verarbeitugn und
-					// bereitstellung
-					// findet alles in Diagramm.java (getChartData()) statt.
-					if (statisticsModel.getObservableDiagrammList("saulendiagramm").isEmpty())
-					{
-						errorText.setText("Das Programm konnte die Daten für das Diagramm nicht laden");
-					} else
-					{
+						// Daten für das Diagramm. Die verarbeitugn und
+						// bereitstellung
+						// findet alles in Diagramm.java (getChartData()) statt.
 						bc.getData().addAll(statisticsModel.getObservableDiagrammList("saulendiagramm"));
 					}
 				} else
@@ -177,9 +164,7 @@ public class StatsView extends FXView
 
 				// Wenn kein Error passiert kann man hier noch einen Text
 				// eingeben der dem User angezeigt wird-
-				errorText.setText("Deine Statistik. Lerne fleissig um 100% uzu erhalten.");
-
-			}
+				errorText.setText("Deine Statistik. Lerne weiterhin fleissig um 100% zu erhalten. Wähle Links die Kartei, die du gerne lernen möchtest");
 		} catch (Exception e)
 		{
 			Logger.log("StatsView Exception : " + e.fillInStackTrace());

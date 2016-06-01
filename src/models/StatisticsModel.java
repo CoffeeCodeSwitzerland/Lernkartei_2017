@@ -3,6 +3,7 @@ package models;
 import java.util.ArrayList;
 
 import database.Database;
+import debug.Debugger;
 import globals.Globals;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -40,6 +41,7 @@ public class StatisticsModel extends FXModel
 	{
 		if (query.equals("saulendiagramm"))
 		{
+			Debugger.out("StatisticsModel 1");
 			return Diagramm.getChartData();
 		}
 		else

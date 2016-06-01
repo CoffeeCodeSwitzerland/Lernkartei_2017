@@ -21,14 +21,31 @@ public class Rangliste
 
 		ArrayList<String> testStacks = new ArrayList<String>();
 		ArrayList<Double> testPoints = new ArrayList<Double>();
+		
+		testStacks = Stack.getStacknames();
+		for (int i = 0; i < Stacks.size(); i++)
+		{
+			Double[] temp = Database.getScore(testStacks.get(i).toString());
+			if (temp != null)
+			{
+				testPoints.add(temp[1]);
+			} else
+			{
+				continue;
+			}
+		}
 
-		if ((testStacks.isEmpty() || testPoints.isEmpty()) || (testStacks.isEmpty() && testPoints.isEmpty()))
+		if (testStacks.isEmpty() || testPoints.isEmpty())
 		{
 			isFilled = false;
 		} else
 		{
 			isFilled = true;
 		}
+		
+		testStacks = null;
+		testPoints = null;
+		
 		return isFilled;
 	}
 
@@ -36,7 +53,6 @@ public class Rangliste
 
 	public static ObservableList<String> getRangliste()
 	{
-
 		resetData();
 
 		getKarteien();
@@ -48,22 +64,11 @@ public class Rangliste
 
 	public static void getKarteien()
 	{
-		if (Stack.getStacknames() == null || Stack.getStacknames().get(0).equals(""))
-		{
-			Stacks = null;
-		} else
-		{
 			Stacks = Stack.getStacknames();
-		}
 	}
 
 	private static void getPunkte()
 	{
-		if (Stacks == null || Stacks.get(0).equals(""))
-		{
-			Punkte.add(-1.0);
-		} else
-		{
 			for (int i = 0; i < Stacks.size(); i++)
 			{
 				Double[] temp = Database.getScore(Stacks.get(i).toString());
@@ -75,7 +80,6 @@ public class Rangliste
 					continue;
 				}
 			}
-		}
 	}
 
 	private static void sortKarteien()
@@ -83,12 +87,7 @@ public class Rangliste
 
 		ArrayList<Double> tempPunkte = new ArrayList<Double>();
 		ArrayList<String> tempSortedStacks = new ArrayList<String>();
-
-		if (Stack.getStacknames().isEmpty())
-		{
-			Ranking.add("thisIsEmpty");
-		} else
-		{
+		
 			try
 			{
 				for (int i = 0; i < Punkte.size(); i++)
@@ -134,11 +133,10 @@ public class Rangliste
 
 			} catch (Exception e)
 			{
-				Logger.log("sortKarteien : " + e.getMessage());
-				Logger.log("sortKarteien : " + e.fillInStackTrace());
+				Logger.log("Rangliste, sortKarteien meldet: " + e.getMessage());
+				Logger.log("Rangliste, sortKarteien meldet: " + e.fillInStackTrace());
 
 			}
-		}
 	}
 
 	// Diese Funktion füllt die sortierten Listen in eine Liste ein, in Welcher

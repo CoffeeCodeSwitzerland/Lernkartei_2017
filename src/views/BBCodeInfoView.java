@@ -16,10 +16,10 @@ import mvc.fx.FXView;
 import views.components.AppButton;
 
 
-public class BBCodeInfo extends FXView
+public class BBCodeInfoView extends FXView
 {
 
-	public BBCodeInfo (String newName, FXController newController)
+	public BBCodeInfoView (String newName, FXController newController)
 	{
 		// this constructor is the same for all view's
 		super(newController);
@@ -33,7 +33,7 @@ public class BBCodeInfo extends FXView
 		Label labelText;
 		try {
 			labelText = new Label (Functions.fileToString(new File(
-					"src\\views\\txt\\BBCodeInfo.txt")) );
+					"src\\views\\txt\\BBCodeInfoView.txt")) );
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

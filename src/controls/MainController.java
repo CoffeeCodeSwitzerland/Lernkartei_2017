@@ -49,7 +49,7 @@ public class MainController extends FXController
 		this.addUniqueView(new QuizletImportView("quizlet", this));
 		this.addUniqueView(new SimpleEditorView("simpleeditorview", this));
 		this.addUniqueView(new EditorView("editorview", this));
-		this.addUniqueView(new BBCodeInfo("bbcodeinfo", this));
+		this.addUniqueView(new BBCodeInfoView("bbcodeinfo", this));
 		
 		this.addUniqueView(new DoorView("doorview", this));
 		this.addUniqueView(new StackView("stack", this));

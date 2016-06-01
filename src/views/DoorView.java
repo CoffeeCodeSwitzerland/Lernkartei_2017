@@ -47,7 +47,7 @@ public class DoorView extends FXView
 		doorLayout = new VBox(20);
 		doorLayout.setAlignment(Pos.CENTER);
 		ScrollPane scDoors = new ScrollPane(doorLayout);
-
+		scDoors.setId("DoorScrollPane");
 		scDoors.setPadding(new Insets(25));
 		scDoors.setHbarPolicy(ScrollBarPolicy.NEVER);
 

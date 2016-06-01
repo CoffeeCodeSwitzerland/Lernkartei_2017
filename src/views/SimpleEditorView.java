@@ -56,6 +56,7 @@ public class SimpleEditorView extends FXViewModel
 		HBox controlLayout = new HBox(20);
 		controlLayout.setAlignment(Pos.CENTER);
 		controlLayout.getChildren().addAll(backBtn, infobtn);
+		controlLayout.setPadding(new Insets(15));
 
 		BorderPane mainLayout = new BorderPane();
 		mainLayout.setPadding(new Insets(15));

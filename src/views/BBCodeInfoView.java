@@ -16,29 +16,39 @@ import mvc.fx.FXView;
 import views.components.AppButton;
 
 
+/**
+ * Diese Klasse hilft dem User das Prinzip von BB-Codes zu verstehen und
+ * anzuwenden.
+ * 
+ * @author miro albrecht
+ *
+ */
 public class BBCodeInfoView extends FXView
 {
+	private String filePath = "src\\views\\txt\\BBCodeInfo.txt";
 
 	public BBCodeInfoView (String newName, FXController newController)
 	{
-		// this constructor is the same for all view's
 		super(newController);
 		construct(newName);
 	}
 
 	@Override
-	public Parent constructContainer() {
-		// TODO Auto-generated method stub
-
+	public Parent constructContainer ()
+	{
 		Label labelText;
-		try {
-			labelText = new Label (Functions.fileToString(new File(
-					"src\\views\\txt\\BBCodeInfoView.txt")) );
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			labelText = new Label("leer");
+
+		try
+		{
+			labelText = new Label(Functions.fileToString(new File(filePath)));
 		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+			labelText = new Label("leer"); // TODO saubere verarbeitung der
+											 // exception
+		}
+
 		labelText.setWrapText(true);
 		labelText.setMaxWidth(800);
 		labelText.setId("impressumtext");
@@ -47,7 +57,8 @@ public class BBCodeInfoView extends FXView
 		labelTitel.setId("impressumtitel");
 
 		AppButton backBtn = new AppButton("_Zurück");
-		backBtn.setOnAction(e -> {
+		backBtn.setOnAction(e ->
+		{
 			getController().showLastView();
 			EditorView.front.setText(EditorView.frontinfo);
 			EditorView.back.setText(EditorView.backinfo);
@@ -82,5 +93,6 @@ public class BBCodeInfoView extends FXView
 	@Override
 	public void refreshView ()
 	{
+		// No refresh needed
 	}
 }

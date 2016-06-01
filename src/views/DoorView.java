@@ -49,7 +49,6 @@ public class DoorView extends FXView
 		ScrollPane scDoor = new ScrollPane(doorLayout);
 		scDoor.setHbarPolicy(ScrollBarPolicy.NEVER);
 
-		scDoor.setId("DoorScrollPane");
 		// Buttons
 		HomeButton homeBtn = new HomeButton(getController());
 		AppButton newDoorBtn = new AppButton("_Neue Tür");

@@ -60,13 +60,13 @@ public class QuizletInfoView extends FXView
 		backBtn.setOnAction(e -> getController().showMainView());
 
 		BorderPane headLayout = new BorderPane(labelTitel);
-		headLayout.setPadding(new Insets(20));
+		headLayout.setPadding(new Insets(5));
 	
 		//ScrollPane scroller = new ScrollPane();
 		//scroller.setMaxWidth(800);
 		//scroller.setHbarPolicy(ScrollBarPolicy.NEVER);
 		//scroller.setVbarPolicy(ScrollBarPolicy.ALWAYS);
-		VBox contentLayout = new VBox(20);
+		VBox contentLayout = new VBox(0);
 		
 		
 		Hyperlink QuizletLink = new Hyperlink("Quizlet");
@@ -77,13 +77,13 @@ public class QuizletInfoView extends FXView
 		contentLayout.setMinHeight(pageHeight*0.8);
 		contentLayout.setPrefWidth(pageWidth*.93);		
 		
-		HBox controlLayout = new HBox(20);
+		HBox controlLayout = new HBox(5);
 		controlLayout.setAlignment(Pos.BOTTOM_CENTER);
 		controlLayout.getChildren().addAll(backBtn);
-		controlLayout.setPadding(new Insets(10));
+		controlLayout.setPadding(new Insets(5));
 
 		BorderPane mainLayout = new BorderPane();
-		mainLayout.setPadding(new Insets(15));
+		mainLayout.setPadding(new Insets(20));
 		mainLayout.setTop(headLayout);
 		mainLayout.setCenter(contentLayout);
 		mainLayout.setBottom(controlLayout);

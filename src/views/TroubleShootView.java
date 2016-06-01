@@ -58,8 +58,9 @@ public class TroubleShootView extends FXView {
 		labelTitel.setId("anleitungstitel");
 
 		BackButton backBtn = new BackButton(this.getFXController());
+
 		BorderPane headLayout = new BorderPane(labelTitel);
-		
+		headLayout.setPadding(new Insets(20));
 
 		ScrollPane scroller = new ScrollPane();
 		scroller.setMaxWidth(pageWidth);
@@ -69,11 +70,13 @@ public class TroubleShootView extends FXView {
 		scroller.setVbarPolicy(ScrollBarPolicy.ALWAYS);
 		scroller.setId("anleitung");
 
-		HBox controlLayout = new HBox(5);
+		HBox controlLayout = new HBox(20);
 		controlLayout.setAlignment(Pos.BOTTOM_CENTER);
 		controlLayout.getChildren().addAll(backBtn);
+		controlLayout.setPadding(new Insets(10));
+
 		BorderPane mainLayout = new BorderPane();
-		
+		mainLayout.setPadding(new Insets(15));
 		mainLayout.setTop(headLayout);
 		mainLayout.setCenter(scroller);
 		mainLayout.setBottom(controlLayout);

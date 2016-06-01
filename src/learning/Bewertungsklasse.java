@@ -3,6 +3,7 @@ package learning;
 import java.util.ArrayList;
 
 import database.Database;
+import debug.Logger;
 import globals.Globals;
 
 public class Bewertungsklasse {
@@ -41,8 +42,9 @@ public class Bewertungsklasse {
 	// Wenn Karte Richtig ist
 	public static int CardCorrect(String cardID, int KartenPunkt) {
 		int validate = database.Database.getPriority(cardID);
-		
+		Logger.log("CallUpprio");
 		Database.upPrio(Integer.parseInt(cardID));
+		Logger.log("EndUpprio");
 		
 		datumZuweisen(cardID);
 		
@@ -57,8 +59,11 @@ public class Bewertungsklasse {
 
 	// Wenn Karte Falsch ist
 	public static int CardFalse(String cardID, int KartenPunkt) {
-		
+
+
+		Logger.log("Callresetprio");
 		Database.resetPrio(Integer.parseInt(cardID));
+		Logger.log("Endresetprio");
 
 		if (database.Database.getPriority(cardID) == 1) {
 			return 2;

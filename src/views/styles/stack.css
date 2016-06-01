@@ -8,4 +8,9 @@
 	-fx-background-repeat: no-repeat;
 	-fx-padding: 17.0 10.0 17.0 10.0;
 	}
-    
+#StackScrollPane > .viewport {
+   -fx-background-color: transparent;
+}
+#StackScrollPane {
+   -fx-background-color: transparent;
+}

@@ -48,7 +48,7 @@ public class StackView extends FXViewModel
 		boxLayout = new VBox(20);
 		boxLayout.setAlignment(Pos.CENTER);
 		ScrollPane scStacks = new ScrollPane(boxLayout);
-
+		scStacks.setId("StackScrollPane");
 		options = new VBox(20);
 		options.setAlignment(Pos.CENTER);
 		options.setMinWidth(200);

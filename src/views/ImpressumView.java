@@ -13,6 +13,8 @@ import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
 import mvc.fx.FXController;
 import mvc.fx.FXView;
 import views.components.AppButton;
@@ -25,23 +27,28 @@ public class ImpressumView extends FXView
 		super(newController);
 		construct(newName);
 	}
+	WebView		webPage		= new WebView();
+	WebEngine	webContent	= webPage.getEngine();
 
 	@Override
 	public Parent constructContainer() {
-		// TODO Auto-generated method stub
-
-		Label labelText;
+		webContent.loadContent("<html><body><b>Missing a manual</b></body></html>");
 		try {
-			labelText = new Label (Functions.fileToString(new File(
-					"src\\views\\txt\\impressum.txt")) );
+			// To avoid strange chars like "﻿", the html -Tag is added here separately:
+			webContent.loadContent("<html>"+Functions.fileToString(new File(
+								   "src/views/txt/impressum.htm"))+"</html>");
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
-			labelText = new Label("leer");
 		}
-		labelText.setWrapText(true);
-		labelText.setMaxWidth(800);
-		labelText.setId("impressumtext");
+		double pageWidth = this.getFXController().getMyFXStage().getOPTIMAL_WIDTH();
+		double pageHeight = this.getFXController().getMyFXStage().getOPTIMAL_HEIGHT();
+		debug.Debugger.out("ManualView sizes: w:"+pageWidth+" h:"+pageHeight);
+		
+		//webPage.setPrefHeight(pageHeight);
+		webPage.setPrefWidth(pageWidth*.93);
+		//webContent.setJavaScriptEnabled(true);
+		webPage.applyCss();
+		webPage.setId("anleitung");
 
 		Label labelTitel = new Label("Impressum");
 		labelTitel.setId("impressumtitel");
@@ -51,8 +58,8 @@ public class ImpressumView extends FXView
 
 		BorderPane headLayout = new BorderPane(labelTitel);
 		headLayout.setPadding(new Insets(20));
-		ScrollPane scroller = new ScrollPane();
-		scroller.setMaxWidth(800);
+		//ScrollPane scroller = new ScrollPane();
+		//scroller.setMaxWidth(800);
 		
 		Hyperlink WISSlink = new Hyperlink("WISS Webseite");
 		WISSlink.setOnAction(e -> Functions.openWebpage("http://www.wiss.ch/"));
@@ -64,12 +71,12 @@ public class ImpressumView extends FXView
 		LehrlingeLink.setOnAction(e -> Functions.openWebpage("http://bund2015.wiss-bern.ch/"));
 
 
-		scroller.setHbarPolicy(ScrollBarPolicy.NEVER);
-		scroller.setVbarPolicy(ScrollBarPolicy.ALWAYS);
+		//scroller.setHbarPolicy(ScrollBarPolicy.NEVER);
+		//scroller.setVbarPolicy(ScrollBarPolicy.ALWAYS);
 
-		VBox contentLayout = new VBox(20);
-		contentLayout.getChildren().addAll(labelText, WISSlink, BITLink, LehrlingeLink);
-		scroller.setContent(contentLayout);
+		//VBox contentLayout = new VBox(20);
+		//contentLayout.getChildren().addAll(labelText, WISSlink, BITLink, LehrlingeLink);
+		//scroller.setContent(contentLayout);
 		
 		HBox controlLayout = new HBox(20);
 		controlLayout.setAlignment(Pos.BOTTOM_CENTER);
@@ -79,7 +86,7 @@ public class ImpressumView extends FXView
 		BorderPane mainLayout = new BorderPane();
 		mainLayout.setPadding(new Insets(15));
 		mainLayout.setTop(headLayout);
-		mainLayout.setCenter(scroller);
+		mainLayout.setCenter(webPage);
 		mainLayout.setBottom(controlLayout);
 
 		return mainLayout;

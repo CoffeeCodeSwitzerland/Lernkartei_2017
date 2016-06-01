@@ -2,4 +2,3 @@
 Wir ermöglichen den Import von Stapeln, da Quizlet als grosse Platform mit Millionen von Stapeln die Arbeit
 mit Flashcards erheblich erleichtert.	
 
-

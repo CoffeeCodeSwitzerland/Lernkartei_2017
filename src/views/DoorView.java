@@ -46,8 +46,10 @@ public class DoorView extends FXView
 		// Initialisiere Layout für Türen
 		doorLayout = new VBox(20);
 		doorLayout.setAlignment(Pos.CENTER);
-		ScrollPane scDoor = new ScrollPane(doorLayout);
-		scDoor.setHbarPolicy(ScrollBarPolicy.NEVER);
+		ScrollPane scDoors = new ScrollPane(doorLayout);
+
+		scDoors.setPadding(new Insets(25));
+		scDoors.setHbarPolicy(ScrollBarPolicy.NEVER);
 
 		// Buttons
 		HomeButton homeBtn = new HomeButton(getController());
@@ -67,7 +69,7 @@ public class DoorView extends FXView
 		BorderPane mainLayout = new BorderPane();
 		mainLayout.setPadding(new Insets(15));
 
-		mainLayout.setCenter(scDoor);
+		mainLayout.setCenter(scDoors);
 		mainLayout.setBottom(controlsLayout);
 
 		newDoorBtn.setOnAction(e ->

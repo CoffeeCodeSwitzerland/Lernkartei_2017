@@ -5,14 +5,27 @@ import java.util.ArrayList;
 
 import debug.Logger;
 
-
 public class Database extends SQLiteConnector {
 
-	// Varibeln Connection
+	private static final String dbURL = urlBase + globals.Globals.db_name + ".db";
 
-	private static String	url		= "jdbc:sqlite:" + globals.Environment.getDatabasePath()
-			+ globals.Globals.db_name + ".db";
-	private static String	driver	= "org.sqlite.JDBC";
+	protected static String myTableName  =  "Stock";
+//	private   static String myPrimaryKey = "PK_Stk";
+	protected static String myFKName     = "Set_ID";	
+//	private   static String mySeekAttribute = "Priority";
+//	private   static String myAttributeList = myFKName+", Frontside, Backside, Priority, Datum";
+//	private   static String myAttributes = 
+//				myPrimaryKey + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+//				" Frontside     	TEXT    NOT NULL, " +
+//				" Backside      	TEXT    NOT NULL, " +
+//				" "+myFKName+"    	INTEGER NOT NULL, " +
+//				" "+mySeekAttribute+"	INTEGER DEFAULT 1," +
+//				" Description   	TEXT    		, " +
+//				" Datum				TEXT";
+		
+	public static String getDbURL() {
+		return dbURL;
+	}
 
 	/**
 	 * Keine neue Instanz Database erstellen, sondern nur die Methode benutzen
@@ -23,15 +36,8 @@ public class Database extends SQLiteConnector {
 	 */
 
 	public static boolean pushToStock (String[] values) {
-
-		Connection c = null;
-		Statement stmt = null;
-
+		Database.setConnection(dbURL);
 		try {
-			Class.forName(driver);
-			c = DriverManager.getConnection(url);
-			stmt = c.createStatement();
-
 			String sql = "CREATE TABLE IF NOT EXISTS Stock " +
 					"(PK_Stk INTEGER PRIMARY KEY AUTOINCREMENT," +
 					" Frontside       TEXT    NOT NULL, " +
@@ -88,13 +94,9 @@ public class Database extends SQLiteConnector {
 	public static ArrayList<String[]> pullFromStock (String whichSet) {
 
 		ArrayList<String[]> results = new ArrayList<String[]>();
-		Connection c = null;
-		Statement stmt = null;
 
+		Database.setConnection(dbURL);
 		try {
-			Class.forName(driver);
-			c = DriverManager.getConnection(url);
-			stmt = c.createStatement();
 
 			String sql = "CREATE TABLE IF NOT EXISTS Stock " +
 					"(PK_Stk INTEGER PRIMARY KEY AUTOINCREMENT," +
@@ -153,15 +155,10 @@ public class Database extends SQLiteConnector {
 
 	public static boolean delEntry (String id) {
 
-		Connection c = null;
-		Statement stmt = null;
 		boolean deleted = false;
 
+		Database.setConnection(dbURL);
 		try {
-			Class.forName(driver);
-			c = DriverManager.getConnection(url);
-			stmt = c.createStatement();
-
 			String del = "DELETE FROM Stock WHERE PK_Stk = " + id;
 			stmt.executeUpdate(del);
 			deleted = true;
@@ -188,14 +185,8 @@ public class Database extends SQLiteConnector {
 
 	public static boolean editEntry (String id, String frontside, String backside) {
 
-		Connection c = null;
-		Statement stmt = null;
-
+		Database.setConnection(dbURL);
 		try {
-			Class.forName(driver);
-			c = DriverManager.getConnection(url);
-			stmt = c.createStatement();
-
 			c.setAutoCommit(false);
 			String sel = "SELECT * FROM Stock WHERE PK_Stk = " + id;
 			ResultSet rs = stmt.executeQuery(sel);
@@ -234,16 +225,11 @@ public class Database extends SQLiteConnector {
 
 	public static void upPrio (Integer PK_ID) {
 
-		Connection c = null;
-		Statement stmt = null;
 		Integer oldPrio = null;
 		String newPrio = "";
 
+		Database.setConnection(dbURL);
 		try {
-			Class.forName(driver);
-			c = DriverManager.getConnection(url);
-			stmt = c.createStatement();
-			
 			String sql = "CREATE TABLE IF NOT EXISTS Stock " +
 					"(PK_Stk INTEGER PRIMARY KEY AUTOINCREMENT," +
 					" Frontside       TEXT    NOT NULL, " +
@@ -304,14 +290,8 @@ public class Database extends SQLiteConnector {
 
 	public static void resetPrio (Integer PK_ID) {
 
-		Connection c = null;
-		Statement stmt = null;
-
+		Database.setConnection(dbURL);
 		try {
-			Class.forName(driver);
-			c = DriverManager.getConnection(url);
-			stmt = c.createStatement();
-
 			// Setzt die Priorität zurück auf 1
 
 			String updatePrio = "UPDATE Stock SET Priority = 1 WHERE PK_Stk = " + PK_ID;
@@ -332,17 +312,9 @@ public class Database extends SQLiteConnector {
 	
 	public static int getPriority (String ID_Card) {
 		
-		Connection c = null;
-		Statement stmt = null;
-
 		int prio = 0;
-
+		Database.setConnection(dbURL);
 		try {
-			Class.forName(driver);
-			c = DriverManager.getConnection(url);
-			stmt = c.createStatement();
-			
-
 			String getPrio = "SELECT Priority FROM Stock WHERE PK_Stk = " + ID_Card;
 			c.setAutoCommit(false);
 			ResultSet rsPrio = stmt.executeQuery(getPrio);
@@ -371,19 +343,12 @@ public class Database extends SQLiteConnector {
 	
 	public static Double[] getScore (String whichSet) {
 
-		Connection c = null;
-		Statement stmt = null;
-
 		Double maxPoints = 0.0;
 		Double reachedPoints = 0.0;
 		Double[] score = new Double[2];
 
+		Database.setConnection(dbURL);
 		try {
-			Class.forName(driver);
-			c = DriverManager.getConnection(url);
-			stmt = c.createStatement();
-			
-
 			// Alle Prioritäten aus Tabelle hlen, welche als Set das mitgegebene
 			// haben.
 

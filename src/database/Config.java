@@ -1,49 +1,38 @@
 package database;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
-import java.sql.Statement;
 
-import debug.Debugger;
 import debug.Logger;
 
 public class Config extends SQLiteConnector {
 
-	// Connectioninformationen URL & Driver
+	// Connection information: URL & Driver
+	private final static String configURL = urlBase + "config.db";
 
-	private static String	url			= "jdbc:sqlite:" +  globals.Environment.getDatabasePath()
-	 									 + "config.db";
-	private static String	driver	= "org.sqlite.JDBC";
-
+	protected static String myTableName  = "config";
+	protected static String mySeekAttribute = "Key";
+	protected static String myPrimaryKey = "PK_Cfg";
+//	private   static String myAttributeList = mySeekAttribute+", Value";
+	private   static String myAttributes = 
+								myPrimaryKey + " INTEGER PRIMARY KEY AUTOINCREMENT," + 
+								mySeekAttribute + " TEXT NOT NULL," + 
+								"Value TEXT NOT NULL";
 	/**
 	 * Neuer Eintrag in der Datenbank config erstellen
 	 * 
 	 * @param key
-	 *            --> Art des Werts
+	 *            --> Welche Art von Wert mitgeliefert werden soll
 	 * @param value
-	 *            --> Der Wert Selbst
+	 *            --> Der absolute Wert welcher gesetzt wird
 	 */
+	public static void setValue(String key, String value) {
 
-	public static void setValue (String key, String value) {
-
-		// Verbindung und Aktionen mit der Datenbank
-
-		Database.setConnection(url);
+		Database.setConnection(configURL);
 		try {
-			// Tabelle erstellen
-//			String newTbl = "CREATE TABLE IF NOT EXISTS config ("
-//					+ "PK_Cfg INTEGER PRIMARY KEY AUTOINCREMENT,"
-//					+ "Key TEXT NOT NULL,"
-//					+ "Value TEXT NOT NULL)";
-//
-//			debug.Debugger.out(newTbl + "\n\nTable generated!");
-//			stmt.executeUpdate(newTbl);
-
-			String attr = "PK_Cfg INTEGER PRIMARY KEY AUTOINCREMENT,"
-							+ "Key TEXT NOT NULL,"
-							+ "Value TEXT NOT NULL";
-			createTableIfNotExists("config", attr);
+//			String attr = "PK_Cfg INTEGER PRIMARY KEY AUTOINCREMENT,"
+//							+ "Key TEXT NOT NULL,"
+//							+ "Value TEXT NOT NULL";
+			createTableIfNotExists(Config.myTableName, Config.myAttributes);
 
 			// Überprüfen ob bereits ein Token vorhanden ist, wenn ja,
 			// überschreiben
@@ -90,16 +79,10 @@ public class Config extends SQLiteConnector {
 
 	public static String getValue (String key) {
 
-		Connection c = null;
-		Statement stmt = null;
 		String value = null;
 
+		Database.setConnection(configURL);
 		try {
-
-			Class.forName(driver);
-			c = DriverManager.getConnection(url);
-			stmt = c.createStatement();
-
 			String getTbl = "SELECT tbl_name FROM sqlite_master WHERE type='table' AND tbl_name = 'config';";
 			
 			c.setAutoCommit(false);
@@ -131,7 +114,7 @@ public class Config extends SQLiteConnector {
 
 		}
 		catch (Exception e) {
-			Debugger.out("Config.getValue(): " + e.getMessage());
+			debug.Debugger.out("Config.getValue(): " + e.getMessage());
 			Logger.log("Config.getValue(): " + e.getMessage());
 		}
 		closeDB();

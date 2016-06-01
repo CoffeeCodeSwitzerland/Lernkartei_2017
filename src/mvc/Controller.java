@@ -89,8 +89,12 @@ public abstract class Controller implements ControllerInterface
 		if (withName != null) {
 			View v = seekView(withName);
 			if (v!=null) {
-				lastView=thisView; // build show history (depth 2)
-				thisView=v;
+				if (this == v.getMyController()) {
+					lastView=thisView; // build show history (depth 2)
+					thisView=v;
+				} else {
+					debug.Debugger.out("No Last View Setting (view is on an other Controller)!");
+				}
 				v.setVisible();
 			} else {
 				Logger.log("Controller.showView(): no view("+withName+")!");

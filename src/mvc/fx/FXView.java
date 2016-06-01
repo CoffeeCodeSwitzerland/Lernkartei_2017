@@ -23,7 +23,7 @@ public abstract class FXView extends View
 {
 	private Scene scene;
 	private final BorderPane mainLayout = new BorderPane();
-	private FXController myFXController;
+	//private FXController myFXController;
 	private boolean constructed = false;
 	protected Parent myParentLayout;
 
@@ -52,19 +52,15 @@ public abstract class FXView extends View
 	}
 
 	public FXView(FXController newController) {
-		myFXController = newController;
+		this.setMyController(newController);
 		scene = null;
 	}
 
 	public FXController getFXController() {
-		if (myFXController != null) return myFXController;
+		FXController fxc = (FXController) this.getMyController();
+		if (fxc != null) return fxc;
 		Supervisor.warnAndDebug(this, "FXView("+getName()+").getFXController(): no FXController defined for this stage!");
 		return null;
-	}
-	
-	public FXController getController() {
-		
-		return getFXController();
 	}
 	
 	public Stage getWindow () {

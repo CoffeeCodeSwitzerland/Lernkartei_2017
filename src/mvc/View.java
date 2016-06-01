@@ -12,11 +12,20 @@ import debug.Logger;
  */
 public abstract class View implements ViewInterface
 {
+	private Controller myController;
 	/**
 	 * May not be invoked!
 	 */
 	protected void setVisible()
 	{
 		Logger.log("view.setVisible() has no toolkit implementation!");
+	}
+	
+	protected Controller getMyController() {
+		return myController;
+	}
+	
+	protected void setMyController(Controller myController) {
+		this.myController = myController;
 	}
 }

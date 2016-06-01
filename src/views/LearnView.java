@@ -42,6 +42,7 @@ public class LearnView extends FXViewModel
 	Button		nextCard		= new Button("\u25B6");
 
 	int			counter			= 0;
+	int			counterBase		= 0;
 
 	String[]	cardData		= new String[3];
 
@@ -85,10 +86,10 @@ public class LearnView extends FXViewModel
 		card.setMaxSize(320, 180);
 		card.setId("bold");
 		card.setDisable(true);
-		
+
 		preCard.setOnAction(e ->
 		{
-			counter = counter > 0 ? counter - 1 : counter;
+			counter = counter > counterBase ? counter - 1 : counter;
 			refreshView();
 		});
 
@@ -97,15 +98,16 @@ public class LearnView extends FXViewModel
 			counter++;
 			refreshView();
 		});
-		
+
 		VBox cardLayout = new VBox(20);
 		cardLayout.setAlignment(Pos.CENTER);
 		cardLayout.getChildren().addAll(card);
-		
-		cardLayout.setOnMouseClicked(e -> {
+
+		cardLayout.setOnMouseClicked(e ->
+		{
 			turnCard();
 		});
-		
+
 		HBox controlLayout = new HBox(20);
 		controlLayout.setAlignment(Pos.CENTER);
 		controlLayout.getChildren().addAll(backBtn, preCard, successfulBtn, wrongBtn, nextCard);
@@ -117,7 +119,8 @@ public class LearnView extends FXViewModel
 		mainLayout.setPadding(new Insets(15));
 		mainLayout.setTop(headLbl);
 
-		mainLayout.setOnKeyReleased(e -> {
+		mainLayout.setOnKeyReleased(e ->
+		{
 			if (e.getCode() == KeyCode.T)
 			{
 				turnCard();
@@ -147,13 +150,13 @@ public class LearnView extends FXViewModel
 				}
 			}
 		});
-		
+
 		getController().getModel("learn").registerView(this);
 		return mainLayout;
 	}
 
 	boolean doNotSkip = true;
-	
+
 	@Override
 	public void refreshView ()
 	{
@@ -165,7 +168,7 @@ public class LearnView extends FXViewModel
 		else
 		{
 			ArrayList<String> cards = getController().getModel("learn").getDataList(getData());
-			
+
 			int stackPartSize = Globals.defaultStackPartSize;
 			if (getFXController().getModel("config").getDataList("cardLimit") != null)
 			{
@@ -178,11 +181,10 @@ public class LearnView extends FXViewModel
 					}
 				}
 			}
-			
+
 			headLbl.setText(getData() + " (" + (counter % stackPartSize + 1) + ")");
-			
-			
-			if (doNotSkip || (counter % stackPartSize > 0 && counter < cards.size()))
+
+			if (counter == counterBase || (counter % stackPartSize > 0 && counter < cards.size()))
 			{
 				doNotSkip = false;
 				successfulBtn.setDisable(false);
@@ -190,7 +192,7 @@ public class LearnView extends FXViewModel
 				nextCard.setDisable(false);
 				String d = cards.get(counter); // Ensure valid counter variable
 				cardData = d.split(Globals.SEPARATOR);
-				
+
 				for (int i = 1; i < 3; i++)
 				{
 					cardData[i] = Functions.removeHTMLTags(cardData[i]);
@@ -198,12 +200,13 @@ public class LearnView extends FXViewModel
 					cardData[i] = Functions.simpleBbCode2HTML(cardData[i], Globals.evenTags);
 					cardData[i] = Functions.realBbCode2HTML(cardData[i], Globals.pairedTags);
 				}
-				
+
 				engine.loadContent(cardData[1]);
 				frontIsShowed = true;
 			}
 			else
 			{
+				counterBase = counter;
 				successfulBtn.setDisable(true);
 				wrongBtn.setDisable(true);
 				nextCard.setDisable(true);
@@ -223,23 +226,24 @@ public class LearnView extends FXViewModel
 		getController().getModel("learn").getDataList(null).clear();
 		getController().getModel("learn").setString(null);
 	}
-	
-	private void turnCard()
+
+	private void turnCard ()
 	{
 		engine.loadContent(frontIsShowed ? cardData[2] : cardData[1]);
 		frontIsShowed = !frontIsShowed;
 	}
-	
-	private int changeCardPriority(String command)
+
+	private int changeCardPriority (String command)
 	{
 		counter++;
 		return getController().getModel("learn").doAction(command, cardData[0]);
 	}
-	
+
 	@Override
 	public void setData (String data)
 	{
 		counter = 0;
+		counterBase = 0;
 		getMyModel().setString(data);
 	}
 }

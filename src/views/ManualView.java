@@ -63,7 +63,7 @@ public class ManualView extends FXView {
 		BorderPane headLayout = new BorderPane(labelTitel);
 		headLayout.setPadding(new Insets(5));
 
-//		//ScrollPane scroller = new ScrollPane();
+		//ScrollPane scroller = new ScrollPane();
 		//scroller.setMaxWidth(800);
 		//scroller.setHbarPolicy(ScrollBarPolicy.NEVER);
 		//scroller.setVbarPolicy(ScrollBarPolicy.ALWAYS);
@@ -77,10 +77,10 @@ public class ManualView extends FXView {
 		HBox controlLayout = new HBox(5);
 		controlLayout.setAlignment(Pos.BOTTOM_CENTER);
 		controlLayout.getChildren().addAll(backBtn);
-		controlLayout.setPadding(new Insets(5));
+		controlLayout.setPadding(new Insets(10));
 
 		BorderPane mainLayout = new BorderPane();
-		mainLayout.setPadding(new Insets(20));
+		mainLayout.setPadding(new Insets(25));
 		mainLayout.setTop(headLayout);
 		mainLayout.setCenter(contentLayout);
 		mainLayout.setBottom(controlLayout);

@@ -21,13 +21,6 @@ import mvc.fx.FXController;
 import mvc.fx.FXViewModel;
 import views.components.AppButton;
 
-
-/**
- * Der Editor erlaubt umfangreiche Formatierungmöglichkeiten für Karten-
- * 
- * @author miro albrecht
- *
- */
 public class EditorView extends FXViewModel
 {
 	// ArrayList<VBox> cards;
@@ -95,16 +88,23 @@ public class EditorView extends FXViewModel
 
 		if (data != null)
 		{
-			headLbl.setText(data + " - " + getFXController().getViewData("stack"));
+			headLbl.setText("Erweiterter Editor");
 
 			// TODO Keine doppelten Buttons
 			Button bold = new Button("B");
+			bold.setId("boldbtn");
 			Button italic = new Button("I");
+			italic.setId("italicbtn");
 			Button crossed = new Button("S");
+			crossed.setId("crossedbtn");
 			Button under = new Button("U");
+			under.setId("underbtn");
 			Button sup = new Button("SP");
+			sup.setId("supbtn");
 			Button sub = new Button("SB");
+			sub.setId("subbtn");
 			Button cp = new Button("C");
+			cp.setId("cpbtn");
 			Button bold1 = new Button("B");
 			Button italic1 = new Button("I");
 			Button crossed1 = new Button("S");

@@ -235,7 +235,7 @@ public class QuizletImportView extends FXViewModel
 							downloadStack.setOnAction(e1 ->
 							{
 								// Lädt Stapel herunter
-								if (stackInfo[6].contains("photo") || stackInfo[7].contains("photo"))
+								if (stackInfo[4].equals("true"))
 								{
 									Alert.simpleInfoBox("Download nicht möglich",
 											"Es werden keine Bilder unterstützt...");

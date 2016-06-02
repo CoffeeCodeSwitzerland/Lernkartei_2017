@@ -43,9 +43,9 @@ public class QuizletInfoView extends FXView
 		double pageHeight = this.getFXController().getMyFXStage().getOPTIMAL_HEIGHT();
 		debug.Debugger.out("ManualView sizes: w:"+pageWidth+" h:"+pageHeight);
 		
+		//webContent.setJavaScriptEnabled(true);
 		webPage.setPrefHeight(pageHeight);
 		webPage.setPrefWidth(pageWidth*.93);
-		//webContent.setJavaScriptEnabled(true);
 		webPage.applyCss();		
 		
 		Label labelTitel = new Label("Quizlet");
@@ -61,15 +61,14 @@ public class QuizletInfoView extends FXView
 		//scroller.setMaxWidth(800);
 		//scroller.setHbarPolicy(ScrollBarPolicy.NEVER);
 		//scroller.setVbarPolicy(ScrollBarPolicy.ALWAYS);
-		VBox contentLayout = new VBox(0);
-		
-		
+		//scroller.setContent(contentLayout);
+			
 		Hyperlink QuizletLink = new Hyperlink("Quizlet");
 		QuizletLink.setOnAction(e -> Functions.openWebpage("http://quizlet.com/"));
 		QuizletLink.setId("LinkiD");
 		
+		VBox contentLayout = new VBox(0);
 		contentLayout.getChildren().addAll(webPage);
-		//scroller.setContent(contentLayout);
 		contentLayout.setMinHeight(pageHeight*0.6);
 		contentLayout.setPrefWidth(pageWidth*.93);		
 		

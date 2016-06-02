@@ -55,7 +55,9 @@ public class ImpressumView extends FXView
 
 		BorderPane headLayout = new BorderPane(labelTitel);
 		headLayout.setPadding(new Insets(20));
-				
+			
+		//Info: Die Links sind nun im Controlllayout damit sie mit dem
+		//ZurückButton auf einer Höhe sind.
 		Hyperlink WISSlink = new Hyperlink("WISS Webseite");
 		WISSlink.setOnAction(e -> Functions.openWebpage("http://www.wiss.ch/"));	
 		Hyperlink BITLink = new Hyperlink("BIT Webseite");
@@ -66,12 +68,20 @@ public class ImpressumView extends FXView
 		WISSlink.setId("LinkiD");
 		BITLink.setId("LinkiD");
 		LehrlingeLink.setId("LinkiD");
-			
+		
+		//ScrollPane scroller = new ScrollPane();
+		//scroller.setMaxWidth(800);
+		//scroller.setHbarPolicy(ScrollBarPolicy.NEVER);
+		//scroller.setVbarPolicy(ScrollBarPolicy.ALWAYS);
+		//scroller.setContent(contentLayout);
+		
+		//Contentlayout beinhaltet webpage
 		VBox contentLayout = new VBox(20);
 		contentLayout.setMinHeight(pageHeight*0.6);
 		contentLayout.setPrefWidth(pageWidth*.93);		
 		contentLayout.getChildren().addAll(webPage);
 		
+		//Für die ControllButtons und die Links
 		HBox controlLayout = new HBox(20);
 		controlLayout.setAlignment(Pos.BOTTOM_CENTER);
 		controlLayout.getChildren().addAll(backBtn,WISSlink, BITLink, LehrlingeLink);

@@ -18,3 +18,9 @@
 	-fx-font-family: "Segoe UI Semibold";
 	-fx-font-size:25.0;
 }
+
+#LinkiD{
+	-fx-text-fill: White;
+	-fx-font-size:25.0;
+	
+}

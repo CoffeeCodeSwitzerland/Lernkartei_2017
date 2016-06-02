@@ -69,6 +69,7 @@ public class QuizletInfoView extends FXView
 		
 		Hyperlink QuizletLink = new Hyperlink("Quizlet");
 		QuizletLink.setOnAction(e -> Functions.openWebpage("http://quizlet.com/"));
+		QuizletLink.setId("LinkiD");
 		
 		contentLayout.getChildren().addAll(webPage);
 		//scroller.setContent(contentLayout);

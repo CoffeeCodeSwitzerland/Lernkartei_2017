@@ -86,6 +86,12 @@ public class ImpressumView extends FXView
 		controlLayout.setAlignment(Pos.BOTTOM_CENTER);
 		controlLayout.getChildren().addAll(backBtn,WISSlink, BITLink, LehrlingeLink);
 		controlLayout.setPadding(new Insets(10));
+		
+		WISSlink.setId("LinkiD");
+		BITLink.setId("LinkiD");
+		LehrlingeLink.setId("LinkiD");
+		
+		
 
 		BorderPane mainLayout = new BorderPane();
 		mainLayout.setPadding(new Insets(15));

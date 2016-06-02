@@ -43,8 +43,8 @@ public class ImpressumView extends FXView
 		debug.Debugger.out("ManualView sizes: w:"+pageWidth+" h:"+pageHeight);
 		
 		//webPage.setPrefHeight(pageHeight);
-		webPage.setPrefWidth(pageWidth*.93);
 		//webContent.setJavaScriptEnabled(true);
+		webPage.setPrefWidth(pageWidth*.93);
 		webPage.applyCss();
 
 		Label labelTitel = new Label("Impressum");
@@ -55,28 +55,19 @@ public class ImpressumView extends FXView
 
 		BorderPane headLayout = new BorderPane(labelTitel);
 		headLayout.setPadding(new Insets(20));
-		//ScrollPane scroller = new ScrollPane();
-		//scroller.setMaxWidth(800);
-		
-		Hyperlink WISSlink = new Hyperlink("WISS Webseite");
-		WISSlink.setOnAction(e -> Functions.openWebpage("http://www.wiss.ch/"));
-			
-		Hyperlink BITLink = new Hyperlink("BIT Webseite");
-		BITLink.setOnAction(e -> Functions.openWebpage("https://www.bit.admin.ch/"));
 				
+		Hyperlink WISSlink = new Hyperlink("WISS Webseite");
+		WISSlink.setOnAction(e -> Functions.openWebpage("http://www.wiss.ch/"));	
+		Hyperlink BITLink = new Hyperlink("BIT Webseite");
+		BITLink.setOnAction(e -> Functions.openWebpage("https://www.bit.admin.ch/"));		
 		Hyperlink LehrlingeLink = new Hyperlink("Unsere Webseite");
 		LehrlingeLink.setOnAction(e -> Functions.openWebpage("http://bund2015.wiss-bern.ch/"));
 
-
-		//scroller.setHbarPolicy(ScrollBarPolicy.NEVER);
-		//scroller.setVbarPolicy(ScrollBarPolicy.ALWAYS);
-
+		WISSlink.setId("LinkiD");
+		BITLink.setId("LinkiD");
+		LehrlingeLink.setId("LinkiD");
+			
 		VBox contentLayout = new VBox(20);
-		
-		//scroller.setContent(contentLayout);
-		
-		
-		//scroller.setContent(contentLayout);
 		contentLayout.setMinHeight(pageHeight*0.6);
 		contentLayout.setPrefWidth(pageWidth*.93);		
 		contentLayout.getChildren().addAll(webPage);
@@ -86,12 +77,6 @@ public class ImpressumView extends FXView
 		controlLayout.getChildren().addAll(backBtn,WISSlink, BITLink, LehrlingeLink);
 		controlLayout.setPadding(new Insets(10));
 		
-		WISSlink.setId("LinkiD");
-		BITLink.setId("LinkiD");
-		LehrlingeLink.setId("LinkiD");
-		
-		
-
 		BorderPane mainLayout = new BorderPane();
 		mainLayout.setPadding(new Insets(15));
 		mainLayout.setTop(headLayout);

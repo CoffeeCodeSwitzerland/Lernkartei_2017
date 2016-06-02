@@ -45,7 +45,6 @@ public class QuizletInfoView extends FXView
 		
 		webPage.setPrefHeight(pageHeight);
 		webPage.setPrefWidth(pageWidth*.93);
-		
 		//webContent.setJavaScriptEnabled(true);
 		webPage.applyCss();		
 		

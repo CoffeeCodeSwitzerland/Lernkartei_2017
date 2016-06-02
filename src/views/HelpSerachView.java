@@ -43,6 +43,8 @@ public class HelpSerachView extends FXView
 			e.printStackTrace();
 			labelText = new Label("leer");
 		}
+		
+		
 		labelText.setWrapText(true);
 		labelText.setMaxWidth(800);
 		labelText.setId("impressumtext");
@@ -55,9 +57,9 @@ public class HelpSerachView extends FXView
 
 		BorderPane headLayout = new BorderPane(labelTitel);
 		headLayout.setPadding(new Insets(20));
+		
 		ScrollPane scroller = new ScrollPane();
 		scroller.setMaxWidth(800);
-
 		scroller.setContent(labelText);
 		scroller.setHbarPolicy(ScrollBarPolicy.NEVER);
 		scroller.setVbarPolicy(ScrollBarPolicy.ALWAYS);

@@ -70,14 +70,14 @@ public class QuizletInfoView extends FXView
 		Hyperlink QuizletLink = new Hyperlink("Quizlet");
 		QuizletLink.setOnAction(e -> Functions.openWebpage("http://quizlet.com/"));
 		
-		contentLayout.getChildren().addAll(webPage,QuizletLink);
+		contentLayout.getChildren().addAll(webPage);
 		//scroller.setContent(contentLayout);
-		contentLayout.setMinHeight(pageHeight*0.8);
+		contentLayout.setMinHeight(pageHeight*0.6);
 		contentLayout.setPrefWidth(pageWidth*.93);		
 		
 		HBox controlLayout = new HBox(5);
 		controlLayout.setAlignment(Pos.BOTTOM_CENTER);
-		controlLayout.getChildren().addAll(backBtn);
+		controlLayout.getChildren().addAll(backBtn,QuizletLink);
 		controlLayout.setPadding(new Insets(5));
 
 		BorderPane mainLayout = new BorderPane();

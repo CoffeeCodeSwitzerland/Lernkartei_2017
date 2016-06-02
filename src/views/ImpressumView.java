@@ -78,13 +78,13 @@ public class ImpressumView extends FXView
 		
 		
 		//scroller.setContent(contentLayout);
-		contentLayout.setMinHeight(pageHeight*0.8);
+		contentLayout.setMinHeight(pageHeight*0.6);
 		contentLayout.setPrefWidth(pageWidth*.93);		
-		contentLayout.getChildren().addAll(webPage,WISSlink, BITLink, LehrlingeLink);
+		contentLayout.getChildren().addAll(webPage);
 		
 		HBox controlLayout = new HBox(20);
 		controlLayout.setAlignment(Pos.BOTTOM_CENTER);
-		controlLayout.getChildren().addAll(backBtn);
+		controlLayout.getChildren().addAll(backBtn,WISSlink, BITLink, LehrlingeLink);
 		controlLayout.setPadding(new Insets(10));
 
 		BorderPane mainLayout = new BorderPane();

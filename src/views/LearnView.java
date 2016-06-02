@@ -184,15 +184,19 @@ public class LearnView extends FXViewModel
 				String cardLimitString = getFXController().getModel("config").getDataList("cardLimit").get(0);
 				if (cardLimitString != null)
 				{
-					if (cardLimitString.length() >= Globals.minStackPartSize)
+					if (cardLimitString.length() > 0)
 					{
 						stackPartSize = Integer.parseInt(cardLimitString);
+						if (stackPartSize < Globals.minStackPartSize)
+						{
+							stackPartSize = Globals.minStackPartSize;
+						}
 					}
 				}
 			}
 
 			headLbl.setText(getData());
-			cardNrLbl.setText("(" + (counter % stackPartSize + 1) + "/20)");
+			cardNrLbl.setText("(" + (counter % stackPartSize + 1) + "/"+stackPartSize+")");
 
 			if (counter == counterBase || (counter % stackPartSize > 0 && counter < cards.size()))
 			{

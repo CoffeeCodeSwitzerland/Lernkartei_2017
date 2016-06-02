@@ -68,7 +68,8 @@ public class QuizletImportView extends FXViewModel
 				refreshView();
 			}
 		});
-
+		
+		okBtn.setId("small");
 		okBtn.setOnAction(e ->
 		{
 			refreshView();

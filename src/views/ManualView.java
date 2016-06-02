@@ -6,9 +6,11 @@ import globals.Functions;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import mvc.fx.FXController;
@@ -59,26 +61,31 @@ public class ManualView extends FXView {
 		BackButton backBtn = new BackButton(this.getFXController());
 
 		BorderPane headLayout = new BorderPane(labelTitel);
-		headLayout.setPadding(new Insets(20));
+		headLayout.setPadding(new Insets(5));
 
-//		ScrollPane scroller = new ScrollPane();
-//		scroller.setMaxWidth(pageWidth);
-//
-//		scroller.setContent(webPage);
-//		scroller.setHbarPolicy(ScrollBarPolicy.NEVER);
-//		scroller.setVbarPolicy(ScrollBarPolicy.ALWAYS);
-
-		HBox controlLayout = new HBox(20);
+//		//ScrollPane scroller = new ScrollPane();
+		//scroller.setMaxWidth(800);
+		//scroller.setHbarPolicy(ScrollBarPolicy.NEVER);
+		//scroller.setVbarPolicy(ScrollBarPolicy.ALWAYS);
+		VBox contentLayout = new VBox(0);
+		
+		
+		contentLayout.getChildren().addAll(webPage);
+		//scroller.setContent(contentLayout);
+		contentLayout.setMinHeight(pageHeight*0.6);
+		contentLayout.setPrefWidth(pageWidth*.93);		
+		
+		HBox controlLayout = new HBox(5);
 		controlLayout.setAlignment(Pos.BOTTOM_CENTER);
 		controlLayout.getChildren().addAll(backBtn);
-		controlLayout.setPadding(new Insets(10));
+		controlLayout.setPadding(new Insets(5));
 
 		BorderPane mainLayout = new BorderPane();
-		mainLayout.setPadding(new Insets(15));
+		mainLayout.setPadding(new Insets(20));
 		mainLayout.setTop(headLayout);
-		mainLayout.setCenter(webPage);
+		mainLayout.setCenter(contentLayout);
 		mainLayout.setBottom(controlLayout);
-
+		
 		return mainLayout;
 	}
 

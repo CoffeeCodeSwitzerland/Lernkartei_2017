@@ -47,9 +47,7 @@ public class QuizletInfoView extends FXView
 		webPage.setPrefWidth(pageWidth*.93);
 		
 		//webContent.setJavaScriptEnabled(true);
-		webPage.applyCss();
-		webPage.setId("anleitung");
-		
+		webPage.applyCss();		
 		
 		Label labelTitel = new Label("Quizlet");
 		labelTitel.setId("impressumtitel");

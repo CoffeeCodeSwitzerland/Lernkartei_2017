@@ -46,7 +46,6 @@ public class ImpressumView extends FXView
 		webPage.setPrefWidth(pageWidth*.93);
 		//webContent.setJavaScriptEnabled(true);
 		webPage.applyCss();
-		webPage.setId("anleitung");
 
 		Label labelTitel = new Label("Impressum");
 		labelTitel.setId("impressumtitel");

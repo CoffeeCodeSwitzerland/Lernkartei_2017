@@ -252,27 +252,7 @@ public class EditorView extends FXViewModel
 				UpdatePreview();
 			});
 
-			front.focusedProperty().addListener(e ->
-			{
-				if (!front.isFocused())
-				{
-					if (back.getText() != null && !back.getText().equals("") && front.getText() != null && !front.getText().equals(""))
-					{
-						getFXController().getModel("cards").doAction("edit", cardSides[0] + Globals.SEPARATOR + front.getText() + Globals.SEPARATOR + back.getText());
-					}
-				}
-			});
-
-			back.focusedProperty().addListener(e ->
-			{
-				if (!back.isFocused())
-				{
-					if (back.getText() != null && !back.getText().equals("") && front.getText() != null && !front.getText().equals(""))
-					{
-						getFXController().getModel("cards").doAction("edit", cardSides[0] + Globals.SEPARATOR + front.getText() + Globals.SEPARATOR + back.getText());
-					}
-				}
-			});
+			
 
 			backBtn.setOnAction(e ->
 			{

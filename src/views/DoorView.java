@@ -115,7 +115,7 @@ public class DoorView extends FXView
 			{
 				if (Alert.ok("Achtung", "Willst du die Tür '" + db.getString() + "' wirklich löschen?"))
 				{
-					getFXController().getModel("door").doAction("delete", db.getString());
+					getFXController().getModel("door").doAction(Command.DELETE, db.getString());
 				}
 				success = true;
 			}

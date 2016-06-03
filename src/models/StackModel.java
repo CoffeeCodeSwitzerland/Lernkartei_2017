@@ -75,21 +75,21 @@ public class StackModel extends Model
 		switch (command)
 		{
 			case NEW:
-				if (param.length != 2) { return -4; }
+				if (param.length != 2) { return -2; }
 				int newIsSuccessful = Stack.newStack(param[0], param[1]);
 				refreshViews(); // TODO siehe kommentar von 'case DELETE'
 				return newIsSuccessful;
 			case UPDATE:
-				if (param.length != 2) { return -4; }
+				if (param.length != 2) { return -2; }
 				boolean updateIsSuccessful = Stack.update(param[0], param[1]);
 				return updateIsSuccessful ? 1 : -1;
 			case DELETE:
-				if (param.length != 1) { return -4; }
+				if (param.length != 1) { return -2; }
 				boolean successfulDelete = Stack.delStack(param[0]);
 				refreshViews(); // TODO überprüfen ob nötig oder ob view stack selbst löschen kann.
 				return successfulDelete ? 1 : -1;
 			case CAN_CREATE:
-				if (param.length != 1) { return -4; }
+				if (param.length != 1) { return -2; }
 				boolean canCreate = Stack.possible(param[0]);
 				return canCreate ? 1 : -1;
 			default:

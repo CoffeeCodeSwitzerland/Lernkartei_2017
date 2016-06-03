@@ -6,8 +6,14 @@ import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.ScrollPane.ScrollBarPolicy;
+import javafx.scene.control.Separator;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import mvc.ModelInterface.Command;
 import mvc.fx.FXController;
 import mvc.fx.FXView;
 import views.components.Alert;
@@ -27,76 +33,97 @@ public class OptionsView extends FXView
 		super(newController);
 		construct(newName);
 	}
-	
-	boolean resetChange = false;
-	String lastValidCardLimit;
+
+	boolean	resetChange	= false;
+	String	lastValidCardLimit;
+	TextField cardLearnLimit;
 	
 	@Override
 	public Parent constructContainer ()
 	{
 		Label cardLimitDescription = new Label("Anzahl Karten, die auf einmal gelernt werden, limitieren.");
-		TextField cardLearnLimit = new TextField(getFXController().getModel("config").getDataList("cardLimit").get(0)); // Achtung
-		
+		cardLearnLimit = new TextField(getFXController().getModel("config").getDataList("cardLimit").get(0)); // Achtung
+
 		lastValidCardLimit = cardLearnLimit.getText();
-		
-		cardLimitDescription.setMaxWidth(200);
+
 		cardLimitDescription.setWrapText(true);
-		cardLearnLimit.setMaxWidth(200);
-		cardLearnLimit.textProperty().addListener(e -> {
+		cardLearnLimit.textProperty().addListener(e ->
+		{
 			if (!resetChange)
 			{
 				try
 				{
-					Integer.parseInt(cardLearnLimit.getText());
-					getFXController().getModel("config").doAction("setValue", "cardLimit" + Globals.SEPARATOR + cardLearnLimit.getText());
+					int cardLimit = Integer.parseInt(cardLearnLimit.getText());
+					cardLimit = cardLimit < Globals.minStackPartSize ? Globals.minStackPartSize : cardLimit;
+					String cardLimitParam = "" + cardLimit; // TODO bessere lösung
+					getFXController().getModel("config").doAction(Command.SET, "cardLimit", cardLimitParam);
+					resetChange = true;
+					cardLearnLimit.setText(cardLimitParam);
 					lastValidCardLimit = cardLearnLimit.getText();
+					resetChange = false;
 				}
 				catch (Exception ex)
 				{
-					Alert.complexChoiceBox("Achtung", "Es muss eine gültige Ganzzahl eingegeben werden!", new String[]{"OK"});
+					Alert.complexChoiceBox("Achtung", "Es muss eine gültige Ganzzahl eingegeben werden!", new String[] { "OK" });
 					resetChange = true;
 					cardLearnLimit.setText(lastValidCardLimit);
 					resetChange = false;
 				}
 			}
-			
+
 		});
-		
-		
-		Label autoWidthDescription = new Label("Wenn aktiviert, werden alle Stapel dem grössten angepasst. Sonst orientiert sich die Grösse jeweils am Namen des Stapels");
-		autoWidthDescription.setMaxWidth(200);
+
+		Label autoWidthDescription = new Label("Wenn aktiviert, werden alle Buttons dem Grössten angepasst. Sonst orientiert sich die Grösse jeweils am Namen des Buttons.");
 		autoWidthDescription.setWrapText(true);
 
 		boolean oldValue = false;
-		if (getFXController().getModel("config").getDataList("widthState") != null
-				&& getFXController().getModel("config").getDataList("widthState").get(0) != null
-				&& getFXController().getModel("config").getDataList("widthState").get(0).equals("true"))
+		if (getFXController().getModel("config").getDataList("widthState") != null && getFXController().getModel("config").getDataList("widthState").get(0) != null && getFXController().getModel("config").getDataList("widthState").get(0).equals("true"))
 		{
 			oldValue = true;
 		}
-		
-		CheckBox autoWidth = new CheckBox("Biggy is the ruler");
+
+		CheckBox autoWidth = new CheckBox("Grösse Anpassen");
 		autoWidth.setSelected(oldValue);
-		autoWidth.selectedProperty().addListener(e -> {
+		autoWidth.selectedProperty().addListener(e ->
+		{
 			debug.Debugger.out("Width property has changed");
 			String value = autoWidth.selectedProperty().getValue() ? "true" : "000";
 			getFXController().getModel("config").doAction("setValue", "widthState" + Globals.SEPARATOR + value);
-		});		
-		
+		});
+
 		BackButton back = new BackButton(getFXController());
 
+		VBox vLayout = new VBox(20);
+		vLayout.setPadding(new Insets(30));
+		vLayout.setMaxWidth(400);
+		vLayout.setAlignment(Pos.CENTER);
+		vLayout.getChildren().addAll(cardLimitDescription, cardLearnLimit, sepp(), autoWidthDescription, autoWidth, sepp());
 		
-		VBox mainLayout = new VBox();
-		mainLayout.setPadding(new Insets(10));
-		mainLayout.setSpacing(10);
-		mainLayout.setAlignment(Pos.CENTER);
-		mainLayout.getChildren().addAll(cardLimitDescription, cardLearnLimit, autoWidthDescription, autoWidth, back);
-
+		ScrollPane sc = new ScrollPane(vLayout);
+		sc.setMaxWidth(400);
+		sc.setHbarPolicy(ScrollBarPolicy.NEVER);
+		
+		HBox controlLayout = new HBox(back);
+		controlLayout.setAlignment(Pos.CENTER);
+		controlLayout.setPadding(new Insets(30));
+		
+		BorderPane mainLayout = new BorderPane(sc);
+		mainLayout.setPadding(new Insets(30, 50, 0, 50));
+		mainLayout.setBottom(controlLayout);
+		
+		getFXController().getModel("config").registerView(this);
+		
 		return mainLayout;
 	}
 
 	@Override
 	public void refreshView ()
 	{
+		
+	}
+	
+	private Separator sepp ()
+	{
+		return new Separator();
 	}
 }

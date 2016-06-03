@@ -2,33 +2,35 @@ package models;
 
 import java.util.ArrayList;
 
+import database.Config;
 import mvc.Model;
 
-public class ConfigModel extends Model {
 
-//	public ConfigModel (String myName) {
-//		super(myName);
-//	}
-	
-	@Override	
-	public int doAction (String functionName, String paramS, double paramD) {
-		
-		if (functionName.equals("setValue")) {
-			database.Config.setValue(paramS.split(globals.Globals.SEPARATOR)[0],
-									 paramS.split(globals.Globals.SEPARATOR)[1]);
-			return 1;
-		} 
-		return 0;
-	}
+public class ConfigModel extends Model
+{
+	@Override
+	public int doAction (Command command, String... param)
+	{
+		switch (command)
+		{
+			case SET:
+				if (param.length != 2) { return -2; }
+				Config.setValue(param[0], param[1]);
+				return 1;
+
+			default:
+				int successfulSuper = super.doAction(command, param);
+				return successfulSuper;
+		}
+	};
 
 	@Override
-	public ArrayList<String> getDataList (String query) {
-		
+	public ArrayList<String> getDataList (String query)
+	{
 		ArrayList<String> values = new ArrayList<String>();
 		values.add(database.Config.getValue(query));
-		
+
 		return values;
-		
 	}
-	
+
 }

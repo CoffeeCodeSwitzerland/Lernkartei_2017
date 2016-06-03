@@ -3,48 +3,55 @@ package models;
 import java.util.ArrayList;
 
 import database.Doors;
-import debug.Debugger;
 import mvc.Model;
 
-public class DoorModel extends Model {
 
-//	public DoorModel (String myName) {
-//		super(myName);	
-//	}
-		
-	@Override	
-	public int doAction (String functionName, String paramS, double paramD) {
-
-		if (functionName == "new") {
-			try {
+public class DoorModel extends Model
+{
+	@Override
+	public int doAction (String functionName, String paramS, double paramD)
+	{
+		if (functionName == "new")
+		{
+			try
+			{
 				boolean success = Doors.newDoor(paramS);
 				refreshViews();
 				return success ? 1 : -1;
 			}
-			catch (Exception e) {
+			catch (Exception e)
+			{
 				return -2;
-			}	
-			
-		} else if (functionName == "delete") {
-			try {
+			}
+		}
+		else if (functionName == "delete")
+		{
+			try
+			{
 				boolean success = Doors.delDoor(paramS);
 				refreshViews();
 				return success ? 1 : -1;
 			}
-			catch (Exception e) {
+			catch (Exception e)
+			{
 				return -2;
-			}			
-		}  else if (functionName.equals("update")) {
-			if (database.Doors.update(paramS.split(globals.Globals.SEPARATOR)[0], paramS.split(globals.Globals.SEPARATOR)[1])) {
+			}
+		}
+		else if (functionName.equals("update"))
+		{
+			if (database.Doors.update(paramS.split(globals.Globals.SEPARATOR)[0], paramS.split(globals.Globals.SEPARATOR)[1]))
+			{
 				return 1;
-			} else {
+			}
+			else
+			{
 				return -1;
 			}
 		}
-		
+
 		return 0;
 	}
-	
+
 	@Override
 	public int doAction (Command command, String... param)
 	{
@@ -58,22 +65,20 @@ public class DoorModel extends Model {
 				boolean updateIsSuccessful = Doors.update(param[0], param[1]);
 				return updateIsSuccessful ? 1 : -1;
 			case DELETE:
-				boolean success = Doors.delDoor(param[0]);
+				boolean deleteIsSuccessful = Doors.delDoor(param[0]);
 				refreshViews();
-				return success ? 1 : -1;
+				return deleteIsSuccessful ? 1 : -1;
 			default:
-				break;
-			
+				int superIsSuccessful = super.doAction(command, param);
+				return superIsSuccessful;
 		}
-		
-		Debugger.out("DoorModel.doAction : command not implemented");
-		return 0;
 	}
 
 	@Override
-	public ArrayList<String> getDataList (String query) {
-
-		if (query.equals("doors")) {
+	public ArrayList<String> getDataList (String query)
+	{
+		if (query.equals("doors"))
+		{
 			try
 			{
 				return Doors.getDoors();

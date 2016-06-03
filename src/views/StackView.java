@@ -16,6 +16,7 @@ import javafx.scene.input.TransferMode;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import mvc.ModelInterface.Command;
 import mvc.fx.FXController;
 import mvc.fx.FXViewModel;
 import views.components.Alert;
@@ -93,7 +94,7 @@ public class StackView extends FXViewModel
 					final String stackName = Alert.simpleString("Neuer Stapel", "Wie soll der neue Stapel heissen?");
 					if (/* this.getName() != null && */ stackName != null)
 					{
-						getFXController().getModel("stack").doAction("new", getData() + globals.Globals.SEPARATOR + stackName);
+						getFXController().getModel("stack").doAction(Command.NEW, stackName, getData());
 						// TODO Feedback für den User (Fehlermeldungen)
 					}
 					break;
@@ -132,7 +133,7 @@ public class StackView extends FXViewModel
 				boolean canDeleteStack = Alert.ok("Achtung", "Willst du den Stapel '" + db.getString() + "' wirklich endgültig löschen?");
 				if (canDeleteStack)
 				{
-					getFXController().getModel("stack").doAction("delete", db.getString());
+					getFXController().getModel("stack").doAction(Command.DELETE, db.getString());
 					// TODO Feedback für den User (Fehlermeldungen)
 					boolean isLabel = options.getChildren().get(0).getTypeSelector().equals("Label");
 					if (isLabel)
@@ -234,7 +235,7 @@ public class StackView extends FXViewModel
 		Label stackTitle = new Label(stack);
 		AppButton lernen = new AppButton("Lernen");
 		AppButton edit = new AppButton("Bearbeiten");
-		//CheckBox switcher = new CheckBox("Seite 2 zuerst");
+		// CheckBox switcher = new CheckBox("Seite 2 zuerst");
 
 		stackTitle.setId("bold");
 		lernen.setOnAction(e ->
@@ -247,19 +248,16 @@ public class StackView extends FXViewModel
 			getFXController().setViewData("simpleeditorview", stack);
 			getFXController().showView("simpleeditorview");
 		});
-		/*switcher.setSelected(getFXController().getModel("switcher").doAction("check", stack) == 1 ? true : false);
-		switcher.selectedProperty().addListener(event ->
-		{
-			if (switcher.isSelected())
-			{
-				getFXController().getModel("switcher").doAction("new", stack);
-			}
-			else
-			{
-				getFXController().getModel("switcher").doAction("delete", stack);
-			}
-		});*/
+		/*
+		 * switcher.setSelected(getFXController().getModel("switcher").doAction(
+		 * "check", stack) == 1 ? true : false);
+		 * switcher.selectedProperty().addListener(event -> { if
+		 * (switcher.isSelected()) {
+		 * getFXController().getModel("switcher").doAction("new", stack); } else
+		 * { getFXController().getModel("switcher").doAction("delete", stack); }
+		 * });
+		 */
 
-		options.getChildren().addAll(stackTitle, lernen, edit/*, switcher*/);
+		options.getChildren().addAll(stackTitle, lernen, edit/* , switcher */);
 	}
 }

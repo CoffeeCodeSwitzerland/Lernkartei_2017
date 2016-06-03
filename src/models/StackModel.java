@@ -2,6 +2,7 @@ package models;
 
 import java.util.ArrayList;
 
+import database.Stack;
 import mvc.Model;
 
 
@@ -16,18 +17,15 @@ public class StackModel extends Model
 		// -1: Keine Tür mit dem Namen
 		// -2: Kategorie bereits vorhanden
 		// -3: Konnte nicht gelöscht werden
-		
+
 		// -4: Leerer String
-		
+
 		// possible --> 1 = Nicht vorhanden, -1 = vorhanden
 
 		if (functionName.equals("new"))
 		{
 			String eingabe[] = paramS.split(globals.Globals.SEPARATOR);
-			if (eingabe.length < 2)
-			{
-				return -4;
-			}
+			if (eingabe.length < 2) { return -4; }
 			int i = database.Stack.newStack(eingabe[1], eingabe[0]);
 			refreshViews();
 			return i;
@@ -44,22 +42,61 @@ public class StackModel extends Model
 				refreshViews();
 				return -3;
 			}
-		} else if (functionName.equals("possible")) {
-			if (database.Stack.possible(paramS)) {
+		}
+		else if (functionName.equals("possible"))
+		{
+			if (database.Stack.possible(paramS))
+			{
 				return 1;
-			} else {
+			}
+			else
+			{
 				return -1;
 			}
-		} else if (functionName.equals("update")) {
-			if (database.Stack.update(paramS.split(globals.Globals.SEPARATOR)[0], paramS.split(globals.Globals.SEPARATOR)[1])) {
+		}
+		else if (functionName.equals("update"))
+		{
+			if (database.Stack.update(paramS.split(globals.Globals.SEPARATOR)[0], paramS.split(globals.Globals.SEPARATOR)[1]))
+			{
 				return 1;
-			} else {
+			}
+			else
+			{
 				return -1;
 			}
 		}
 
 		return 0;
 	}
+
+	@Override
+	public int doAction (Command command, String... param)
+	{
+		switch (command)
+		{
+			case NEW:
+				if (param.length != 2) { return -4; }
+				int newIsSuccessful = Stack.newStack(param[0], param[1]);
+				refreshViews(); // TODO siehe kommentar von 'case DELETE'
+				return newIsSuccessful;
+			case UPDATE:
+				if (param.length != 2) { return -4; }
+				boolean updateIsSuccessful = Stack.update(param[0], param[1]);
+				return updateIsSuccessful ? 1 : -1;
+			case DELETE:
+				if (param.length != 1) { return -4; }
+				boolean successfulDelete = Stack.delStack(param[0]);
+				refreshViews(); // TODO überprüfen ob nötig oder ob view stack selbst löschen kann.
+				return successfulDelete ? 1 : -1;
+			case CAN_CREATE:
+				if (param.length != 1) { return -4; }
+				boolean canCreate = Stack.possible(param[0]);
+				return canCreate ? 1 : -1;
+			default:
+				int superIsSuccessful = super.doAction(command, param);
+				return superIsSuccessful;
+		}
+	};
 
 	@Override
 	public ArrayList<String> getDataList (String query)

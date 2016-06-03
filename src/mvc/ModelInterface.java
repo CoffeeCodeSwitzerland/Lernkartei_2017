@@ -25,7 +25,8 @@ public interface ModelInterface
 		
 		GET,
 		SET,
-		// CHECK, (may not necessary)
+		
+		CAN_CREATE,
 		
 		TRUE,
 		FALSE,

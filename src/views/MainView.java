@@ -5,6 +5,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import models.GameModel;
@@ -27,13 +28,15 @@ public class MainView extends FXView
 		construct(newName);
 	}
 
-	BorderPane mainLayout = new BorderPane();
+	GridPane mainLayout = new GridPane();
+	
 	AppButton UserBtn = new AppButton("");
 	AppButton startBtn = new AppButton("_Lernkarteien");
 	AppButton stat2Btn = new AppButton("Statistiken");
 	AppButton optionsBtn = new AppButton("_Optionen");
 	AppButton gameBtn = new AppButton("_Jump 'n' Run");
 	AppButton loginBtn = new AppButton("Login");
+
 	VBox menuLayout = new VBox();
 	HBox loginBox = new HBox();
 	
@@ -47,7 +50,7 @@ public class MainView extends FXView
 
 		loginBox.getChildren().addAll(loginBtn,UserBtn);
 		loginBox.setAlignment(Pos.TOP_RIGHT);
-		mainLayout.setTop(loginBox);
+//mainLayout.setTop(loginBox);
 		
 		loginBtn.setId("loginBtn");
 		UserBtn.setId("UserBtn");
@@ -69,7 +72,7 @@ public class MainView extends FXView
 
 		// Main Layout
 		mainLayout.setPadding(new Insets(5));
-		mainLayout.setCenter(menuLayout);
+//mainLayout.setCenter(menuLayout);
 
 		// Behaviour
 		startBtn.setOnAction(e -> getFXController().showView("doorview"));
@@ -90,9 +93,10 @@ public class MainView extends FXView
 		// Impressum Leerbox (IMG in CSS eingefügt)
 		BorderPane imgPane = new BorderPane();
 		imgPane.setId("helpbtn");
-		imgPane.setOnMouseClicked(e -> getFXController().showView("helpview"));
 		imgPane.setMinSize(20.0, 50.0);
-		mainLayout.setBottom(imgPane);
+		imgPane.setOnMouseClicked(e -> getFXController().showView("helpview"));
+
+//mainLayout.setBottom(imgPane);
 
 		return mainLayout;
 	}

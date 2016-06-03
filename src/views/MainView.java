@@ -79,16 +79,9 @@ public class MainView extends FXView
 		quitBtn.setOnMouseClicked(e ->
 		{
 			debug.Debugger.out("closing button");
-			Window window = getFXController().getMyFXStage();   
-			if (getFXController() != null) {
-				GameModel gm = (GameModel) getFXController().getModel("game");
-				if (gm != null) gm.dispose();
-			}
-	        if (window instanceof Stage){
-	            ((Stage) window).close();
-	        } else {
-				debug.Logger.log("no stage found for closing button");
-	        }
+			GameModel gm = (GameModel) getFXController().getModel("game");
+			if (gm != null) gm.dispose();
+			getWindow().close();
 		});		
 		
 		// IDs um im CSS die Bilder einzufügen.
@@ -114,13 +107,13 @@ public class MainView extends FXView
 		lueckenfueller2.setMinSize(100.0,100.0);
 		
 		
-//		getWindow().setOnCloseRequest(e ->
-//		{
-//			debug.Debugger.out("closing window");
-//			GameModel gm = (GameModel) getFXController().getModel("game");
-//			if (gm != null) gm.dispose();
-//			getWindow().close();
-//		});
+		getWindow().setOnCloseRequest(e ->
+		{
+			debug.Debugger.out("closing window");
+			GameModel gm = (GameModel) getFXController().getModel("game");
+			if (gm != null) gm.dispose();
+			getWindow().close();
+		});
 		
 		//debug.Debugger.out("Set impressum...");
 		

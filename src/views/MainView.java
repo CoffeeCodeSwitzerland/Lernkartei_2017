@@ -59,13 +59,13 @@ public class MainView extends FXView
 		GridPane gridpane = new GridPane();
 		gridpane.setHgap(10);
 		gridpane.setVgap(10);
-	    gridpane.add(startBtn, 3, 1); 	
-	    gridpane.add(UserBtn, 1, 2);  
+	    gridpane.add(startBtn, 3, 3); 	
+	    gridpane.add(UserBtn, 3, 1);  
 	    gridpane.add(stat2Btn, 6, 2);  
-	    gridpane.add(quitBtn, 3, 3);  
+	    gridpane.add(quitBtn, 3, 5);  
 	    gridpane.add(gameBtn, 1, 4); 
 	    gridpane.add(optionsBtn, 6, 4);
-	    gridpane.add(helpbtn, 3, 5);
+	    gridpane.add(helpbtn, 1, 2);
 	    gridpane.setAlignment(Pos.CENTER);
 	    gridpane.add(lueckenfueller1 , 2 ,3);
 	    gridpane.add(lueckenfueller2 , 5 ,3);
@@ -101,7 +101,7 @@ public class MainView extends FXView
 		gameBtn.setMinSize(100.0, 100.0);
 		UserBtn.setMinSize(100.0, 100.0);
 		helpbtn.setMinSize(100.0, 100.0);
-		startBtn.setMinSize(100.0,100.0);
+		startBtn.setMinSize(120.0,120.0);
 		quitBtn.setMinSize(100.0,100.0);
 		lueckenfueller1.setMinSize(100.0,100.0);
 		lueckenfueller2.setMinSize(100.0,100.0);

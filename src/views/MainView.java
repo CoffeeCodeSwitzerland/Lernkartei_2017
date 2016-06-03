@@ -95,14 +95,15 @@ public class MainView extends FXView
 		quitBtn.setId("quitBtn");
 		
 		//Grösse muss angegeben werden oder es überschatten alles....
-		loginBtn.setMinSize(90.0, 90.0);
-		optionsBtn.setMinSize(100.0, 100.0);
-		stat2Btn.setMinSize(100.0, 100.0);
-		gameBtn.setMinSize(100.0, 100.0);
-		UserBtn.setMinSize(100.0, 100.0);
-		helpbtn.setMinSize(90.0, 90.0);
-		startBtn.setMinSize(120.0,120.0);
-		quitBtn.setMinSize(100.0,100.0);
+		loginBtn.setMinSize(100.0, 90.0);
+		optionsBtn.setMinSize(100.0, 90.0);
+		stat2Btn.setMinSize(100.0, 90.0);
+		gameBtn.setMinSize(100.0, 90.0);
+		UserBtn.setMinSize(100.0, 90.0);
+		helpbtn.setMinSize(100.0, 90.0);
+		startBtn.setMinSize(100.0,90.0);
+		quitBtn.setMinSize(100.0,90.0);
+		
 		lueckenfueller1.setMinSize(100.0,100.0);
 		lueckenfueller2.setMinSize(100.0,100.0);
 		

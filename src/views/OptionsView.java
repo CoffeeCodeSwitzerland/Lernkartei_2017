@@ -47,7 +47,7 @@ public class OptionsView extends FXView
 		lastValidCardLimit = cardLearnLimit.getText();
 
 		cardLimitDescription.setWrapText(true);
-		cardLearnLimit.textProperty().addListener(e ->
+		cardLearnLimit.focusedProperty().addListener(e ->
 		{
 			if (!resetChange)
 			{
@@ -70,7 +70,6 @@ public class OptionsView extends FXView
 					resetChange = false;
 				}
 			}
-
 		});
 
 		Label autoWidthDescription = new Label("Wenn aktiviert, werden alle Buttons dem Grössten angepasst. Sonst orientiert sich die Grösse jeweils am Namen des Buttons.");
@@ -88,7 +87,7 @@ public class OptionsView extends FXView
 		{
 			debug.Debugger.out("Width property has changed");
 			String value = autoWidth.selectedProperty().getValue() ? "true" : "000";
-			getFXController().getModel("config").doAction("setValue", "widthState" + Globals.SEPARATOR + value);
+			getFXController().getModel("config").doAction(Command.SET, "widthState", value);
 		});
 
 		BackButton back = new BackButton(getFXController());

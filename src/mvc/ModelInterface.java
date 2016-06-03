@@ -2,8 +2,6 @@ package mvc;
 
 import java.util.ArrayList;
 
-import globals.Globals.Command;
-
 /**
  * To define what a model must be able to do.
  * 
@@ -19,6 +17,22 @@ import globals.Globals.Command;
  */
 public interface ModelInterface
 {
+	public enum Command
+	{
+		NEW,
+		UPDATE,
+		DELETE,
+		
+		GET,
+		SET,
+		// CHECK, (may not necessary)
+		
+		TRUE,
+		FALSE,
+		
+		CLEAR // Clears Model data
+	}
+	
 	// for view to model communication (view registration):
 	public abstract void registerView (View theView); // notification may return errors
 
@@ -27,8 +41,7 @@ public interface ModelInterface
 	public abstract int  doAction (String functionName, String paramS);
 	public abstract int  doAction (String functionName);
 	
-	public abstract int doAction (Command Command, String paramS);
-	public abstract int doAction (Command Command);
+	public abstract int doAction (Command Command, String... param);
 
 	// To handle a single Data element (DataModel only):
 	public abstract void setString (String data);

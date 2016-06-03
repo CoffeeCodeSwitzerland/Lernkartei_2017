@@ -30,21 +30,7 @@ public abstract class Globals {
 	
 	// TODO implement this in doAction
 	
-	public static enum Command
-	{
-		NEW,
-		UPDATE,
-		DELETE,
-		
-		GET,
-		SET,
-		// CHECK, (may not necessary)
-		
-		TRUE,
-		FALSE,
-		
-		CLEAR // Clears Model data
-	}
+	
 		
 	// The logger should always remain active, to track user problems.
 	// The log-file is stored at the same place of both databases (LK and config)

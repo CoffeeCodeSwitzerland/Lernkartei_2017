@@ -3,8 +3,6 @@ package mvc;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import globals.Globals.Command;
-
 /**
  * This class is the model base class and not the model class itself.
  * - a final model should not be forced to implement all this methods, 
@@ -21,7 +19,7 @@ public abstract class DataModel implements ModelInterface
 	// yet implemented, because frequently used:
 	private String smallData;  // a single data element as String and/or
 	private final ArrayList<String> dataList = new ArrayList<>(); // a data list of String's
-
+	
 	/**
 	 * Allows different parameter settings for the same method:
 	 */
@@ -39,12 +37,6 @@ public abstract class DataModel implements ModelInterface
 	{
 		return doAction(functionName, null, 0.0F);
 	}
-	
-	@Override
-	public int doAction(Command Command)
-	{
-		return doAction(Command, null);
-	};
 
 	/**
 	 * To register a view for his notification in case of data changes:

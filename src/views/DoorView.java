@@ -16,6 +16,7 @@ import javafx.scene.input.TransferMode;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import mvc.ModelInterface.Command;
 import mvc.fx.FXController;
 import mvc.fx.FXView;
 import views.components.Alert;
@@ -82,7 +83,7 @@ public class DoorView extends FXView
 			String doorName = Alert.simpleString("Neue Tür", "Wie soll die neue Tür heissen?");
 			if (doorName != null && !doorName.equals(""))
 			{
-				int succesful = getFXController().getModel("door").doAction("new", doorName);
+				int succesful = getFXController().getModel("door").doAction(Command.NEW, doorName);
 				if (succesful == -1)
 				{
 					Alert.simpleInfoBox("Tür wurde nicht erstellt", "Dieser Name ist schon vergeben.");
@@ -105,7 +106,7 @@ public class DoorView extends FXView
 
 			e.consume();
 		});
-
+		
 		trashImgView.setOnDragDropped(event ->
 		{
 			Dragboard db = event.getDragboard();

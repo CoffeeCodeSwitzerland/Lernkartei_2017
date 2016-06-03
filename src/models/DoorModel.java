@@ -1,7 +1,9 @@
 package models;
 
 import java.util.ArrayList;
+
 import database.Doors;
+import debug.Debugger;
 import mvc.Model;
 
 public class DoorModel extends Model {
@@ -40,6 +42,31 @@ public class DoorModel extends Model {
 			}
 		}
 		
+		return 0;
+	}
+	
+	@Override
+	public int doAction (Command command, String... param)
+	{
+		switch (command)
+		{
+			case NEW:
+				boolean newIsSuccessful = Doors.newDoor(param[0]);
+				refreshViews();
+				return newIsSuccessful ? 1 : -1;
+			case UPDATE:
+				boolean updateIsSuccessful = Doors.update(param[0], param[1]);
+				return updateIsSuccessful ? 1 : -1;
+			case DELETE:
+				boolean success = Doors.delDoor(param[0]);
+				refreshViews();
+				return success ? 1 : -1;
+			default:
+				break;
+			
+		}
+		
+		Debugger.out("DoorModel.doAction : command not implemented");
 		return 0;
 	}
 

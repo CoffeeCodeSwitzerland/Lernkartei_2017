@@ -5,7 +5,6 @@ import java.util.Iterator;
 
 import debug.Debugger;
 import globals.Functions;
-import globals.Globals.Command;
 
 
 /**
@@ -53,9 +52,9 @@ public class Model extends DataModel
 	}
 
 	@Override
-	public int doAction (Command Command, String paramS)
+	public int doAction (Command command, String... param)
 	{
-		if (Command == globals.Globals.Command.CLEAR)
+		if (command == Command.CLEAR)
 		{
 			this.setString(null);
 			this.getDataList(null).clear();

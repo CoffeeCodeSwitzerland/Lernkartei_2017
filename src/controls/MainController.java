@@ -42,7 +42,7 @@ public class MainController extends FXController
 		//this.addUniqueView(new StatisticsView("statisticsview", this));
 		this.addUniqueView(new StatsView("statsview", this));
 		
-		this.addUniqueView(new OptionsView("optionsview", this));
+		addUniqueView(new OptionsView("optionsview", this));
 		this.addViewOnNewStage(new HelpView("helpview", new HelpController())); // on new stage
 		this.addUniqueView(new GameOptionView("gameoptionview", this));
 		this.addUniqueView(new GameView("gameview", this));

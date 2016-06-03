@@ -4,7 +4,6 @@ import globals.Globals;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -30,6 +29,7 @@ public class MainView extends FXView
 		construct(newName);
 	}
 
+	//Wir haben das ganze mit den BorderPanes gelöst.
 	BorderPane mainLayout = new BorderPane();
 	BorderPane helpbtn = new BorderPane();
 	BorderPane UserBtn = new BorderPane();
@@ -53,6 +53,9 @@ public class MainView extends FXView
 		debug.Debugger.out("constructing MainView Container with title '"+title+"'...");
 		getFXController().getMyFXStage().setTitle(title);
 		
+		//Hier wird mit Koordinaten Psotionen angegeben. 
+		//Die Lückenfüller sind da weil eine Spalte nicht Nichts enthalten kann wegen 
+		//dem Abstand. Es würde es einfach ignorieren. Deswegen 2 leere Labels da.
 		GridPane gridpane = new GridPane();
 		gridpane.setHgap(10);
 		gridpane.setVgap(10);
@@ -67,6 +70,7 @@ public class MainView extends FXView
 	    gridpane.add(lueckenfueller1 , 2 ,3);
 	    gridpane.add(lueckenfueller2 , 5 ,3);
 			
+	    //Behavior
 	    startBtn.setOnMouseClicked(e -> getFXController().showView("doorview"));
 		stat2Btn.setOnMouseClicked(e -> getFXController().showView("statsview"));
 		optionsBtn.setOnMouseClicked(e -> getFXController().showView("optionsview"));
@@ -87,7 +91,7 @@ public class MainView extends FXView
 	        }
 		});		
 		
-		// Buttons
+		// IDs um im CSS die Bilder einzufügen.
 		startBtn.setId("startbtn");
 		stat2Btn.setId("stat2btn");
 		optionsBtn.setId("optionsbtn");
@@ -97,7 +101,7 @@ public class MainView extends FXView
 		helpbtn.setId("helpbtn");
 		quitBtn.setId("quitBtn");
 		
-		
+		//Grösse muss angegeben werden oder es überschatten alles....
 		loginBtn.setMinSize(100.0, 100.0);
 		optionsBtn.setMinSize(100.0, 100.0);
 		stat2Btn.setMinSize(100.0, 100.0);
@@ -110,13 +114,13 @@ public class MainView extends FXView
 		lueckenfueller2.setMinSize(100.0,100.0);
 		
 		
-		getWindow().setOnCloseRequest(e ->
-		{
-			debug.Debugger.out("closing window");
-			GameModel gm = (GameModel) getFXController().getModel("game");
-			if (gm != null) gm.dispose();
-			getWindow().close();
-		});
+//		getWindow().setOnCloseRequest(e ->
+//		{
+//			debug.Debugger.out("closing window");
+//			GameModel gm = (GameModel) getFXController().getModel("game");
+//			if (gm != null) gm.dispose();
+//			getWindow().close();
+//		});
 		
 		//debug.Debugger.out("Set impressum...");
 		

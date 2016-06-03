@@ -13,6 +13,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import mvc.ModelInterface.Command;
 import mvc.fx.FXController;
 import mvc.fx.FXViewModel;
 import views.components.AppButton;
@@ -95,8 +96,7 @@ public class SimpleEditorView extends FXViewModel
 						if (back.getText() != null && !back.getText().equals("") && front.getText() != null
 								&& !front.getText().equals(""))
 						{
-							getFXController().getModel("cards").doAction("edit", cardSides[0] + Globals.SEPARATOR
-									+ front.getText() + Globals.SEPARATOR + back.getText());
+							getFXController().getModel("cards").doAction(Command.UPDATE, cardSides[0], front.getText(), back.getText());
 						}
 					}
 				});
@@ -108,8 +108,7 @@ public class SimpleEditorView extends FXViewModel
 						if (back.getText() != null && !back.getText().equals("") && front.getText() != null
 								&& !front.getText().equals(""))
 						{
-							getFXController().getModel("cards").doAction("edit", cardSides[0] + Globals.SEPARATOR
-									+ front.getText() + Globals.SEPARATOR + back.getText());
+							getFXController().getModel("cards").doAction(Command.UPDATE, cardSides[0], front.getText(), back.getText());
 						}
 					}
 				});
@@ -117,7 +116,7 @@ public class SimpleEditorView extends FXViewModel
 				Button delete  = new Button("X");
 				Button editBtn = new Button("\u270E"); // \u270d \u2055 \u2699 \u270E
 				
-				delete.setOnAction(e -> getFXController().getModel("cards").doAction("delete", cardSides[0]));
+				delete.setOnAction(e -> getFXController().getModel("cards").doAction(Command.DELETE, cardSides[0]));
 				editBtn.setOnAction(e ->
 				{
 					getFXController().setViewData("editorview",cardSides[0] + Globals.SEPARATOR + front.getText() + Globals.SEPARATOR + back.getText());
@@ -149,8 +148,7 @@ public class SimpleEditorView extends FXViewModel
 				if (back.getText() != null && !back.getText().equals("") && front.getText() != null
 						&& !front.getText().equals(""))
 				{
-					getFXController().getModel("cards").doAction("new",
-							front.getText() + Globals.SEPARATOR + back.getText() + Globals.SEPARATOR + data);
+					getFXController().getModel("cards").doAction(Command.NEW, front.getText(), back.getText(), data);
 				}
 			});
 

@@ -1,18 +1,20 @@
 package views;
 
 import globals.Globals;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
+import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+import javafx.stage.Window;
 import models.GameModel;
 import mvc.fx.FXController;
 import mvc.fx.FXView;
 import views.components.AppButton;
-import views.components.CloseButton;
 
 /**
  * Hauptfenster
@@ -29,13 +31,16 @@ public class MainView extends FXView
 	}
 
 	BorderPane mainLayout = new BorderPane();
-	
-	AppButton UserBtn = new AppButton("");
-	AppButton startBtn = new AppButton("_Lernkarteien");
-	AppButton stat2Btn = new AppButton("Statistiken");
-	AppButton optionsBtn = new AppButton("_Optionen");
-	AppButton gameBtn = new AppButton("_Jump 'n' Run");
+	BorderPane helpbtn = new BorderPane();
+	BorderPane UserBtn = new BorderPane();
+	BorderPane startBtn = new BorderPane();
+	BorderPane stat2Btn = new BorderPane();
+	BorderPane optionsBtn = new BorderPane();
+	BorderPane gameBtn = new BorderPane();
 	AppButton loginBtn = new AppButton("Login");
+	BorderPane quitBtn = new BorderPane();
+	Label lueckenfueller1 = new Label("");
+	Label lueckenfueller2 = new Label("");
 
 	VBox menuLayout = new VBox();
 	HBox loginBox = new HBox();
@@ -46,40 +51,65 @@ public class MainView extends FXView
 		this.getWindow().setTitle(title);
 
 		debug.Debugger.out("constructing MainView Container with title '"+title+"'...");
-		//getController().getMyFXStage().setTitle(title);
-
-		loginBox.getChildren().addAll(loginBtn,UserBtn);
-		loginBox.setAlignment(Pos.TOP_RIGHT);
-		mainLayout.setTop(loginBox);
+		getFXController().getMyFXStage().setTitle(title);
 		
-		loginBtn.setId("loginBtn");
-		UserBtn.setId("UserBtn");
-				
+		GridPane gridpane = new GridPane();
+		gridpane.setHgap(10);
+		gridpane.setVgap(10);
+	    gridpane.add(startBtn, 3, 1); 	
+	    gridpane.add(UserBtn, 1, 2);  
+	    gridpane.add(stat2Btn, 6, 2);  
+	    gridpane.add(quitBtn, 3, 3);  
+	    gridpane.add(gameBtn, 1, 4); 
+	    gridpane.add(optionsBtn, 6, 4);
+	    gridpane.add(helpbtn, 3, 5);
+	    gridpane.setAlignment(Pos.CENTER);
+	    gridpane.add(lueckenfueller1 , 2 ,3);
+	    gridpane.add(lueckenfueller2 , 5 ,3);
+			
+	    startBtn.setOnMouseClicked(e -> getFXController().showView("doorview"));
+		stat2Btn.setOnMouseClicked(e -> getFXController().showView("statsview"));
+		optionsBtn.setOnMouseClicked(e -> getFXController().showView("optionsview"));
+		gameBtn.setOnMouseClicked(e -> getFXController().showView("gameview"));
+		helpbtn.setOnMouseClicked(e -> getFXController().showView("helpview"));
+		quitBtn.setOnMouseClicked(e ->
+		{
+			debug.Debugger.out("closing button");
+			Window window = getFXController().getMyFXStage();   
+			if (getFXController() != null) {
+				GameModel gm = (GameModel) getFXController().getModel("game");
+				if (gm != null) gm.dispose();
+			}
+	        if (window instanceof Stage){
+	            ((Stage) window).close();
+	        } else {
+				debug.Logger.log("no stage found for closing button");
+	        }
+		});		
+		
 		// Buttons
 		startBtn.setId("startbtn");
 		stat2Btn.setId("stat2btn");
 		optionsBtn.setId("optionsbtn");
 		gameBtn.setId("gamebtn");
+		loginBtn.setId("loginBtn");
+		UserBtn.setId("UserBtn");
+		helpbtn.setId("helpbtn");
+		quitBtn.setId("quitBtn");
 		
-		debug.Debugger.out("Instanziere Div....");
-		// Layout für Menu Items
-		menuLayout.setPadding(new Insets(10));
-		menuLayout.setSpacing(15);
-		menuLayout.setAlignment(Pos.CENTER);
-
-		CloseButton quitBtn = new CloseButton(getFXController());
-		menuLayout.getChildren().addAll(startBtn,/* statBtn,*/ stat2Btn, optionsBtn, gameBtn, /*helpBtn,*/ quitBtn);
-
-		// Main Layout
-		mainLayout.setPadding(new Insets(5));
-			mainLayout.setCenter(menuLayout);
-
-		// Behaviour
-		startBtn.setOnAction(e -> getFXController().showView("doorview"));
-		stat2Btn.setOnAction(e -> getFXController().showView("statsview"));
-		optionsBtn.setOnAction(e -> getFXController().showView("optionsview"));
-		gameBtn.setOnAction(e -> getFXController().showView("gameview"));
-
+		
+		loginBtn.setMinSize(100.0, 100.0);
+		optionsBtn.setMinSize(100.0, 100.0);
+		stat2Btn.setMinSize(100.0, 100.0);
+		gameBtn.setMinSize(100.0, 100.0);
+		UserBtn.setMinSize(100.0, 100.0);
+		helpbtn.setMinSize(100.0, 100.0);
+		startBtn.setMinSize(100.0,100.0);
+		quitBtn.setMinSize(100.0,100.0);
+		lueckenfueller1.setMinSize(100.0,100.0);
+		lueckenfueller2.setMinSize(100.0,100.0);
+		
+		
 		getWindow().setOnCloseRequest(e ->
 		{
 			debug.Debugger.out("closing window");
@@ -88,17 +118,9 @@ public class MainView extends FXView
 			getWindow().close();
 		});
 		
-		debug.Debugger.out("Set impressum...");
-
-		// Impressum Leerbox (IMG in CSS eingefügt)
-		BorderPane imgPane = new BorderPane();
-		imgPane.setId("helpbtn");
-		imgPane.setMinSize(20.0, 50.0);
-		imgPane.setOnMouseClicked(e -> getFXController().showView("helpview"));
-
-		mainLayout.setBottom(imgPane);
-
-		return mainLayout;
+		//debug.Debugger.out("Set impressum...");
+		
+		return gridpane;
 	}
 
 	@Override

@@ -41,7 +41,9 @@ public abstract class Globals {
 		// CHECK, (may not necessary)
 		
 		TRUE,
-		FALSE
+		FALSE,
+		
+		CLEAR // Clears Model data
 	}
 		
 	// The logger should always remain active, to track user problems.

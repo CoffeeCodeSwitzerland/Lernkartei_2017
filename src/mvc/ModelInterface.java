@@ -2,6 +2,8 @@ package mvc;
 
 import java.util.ArrayList;
 
+import globals.Globals.Command;
+
 /**
  * To define what a model must be able to do.
  * 
@@ -24,6 +26,9 @@ public interface ModelInterface
 	public abstract int  doAction (String functionName, String paramS, double paramD);
 	public abstract int  doAction (String functionName, String paramS);
 	public abstract int  doAction (String functionName);
+	
+	public abstract int doAction (Command Command, String paramS);
+	public abstract int doAction (Command Command);
 
 	// To handle a single Data element (DataModel only):
 	public abstract void setString (String data);

@@ -28,7 +28,7 @@ public class MainView extends FXView
 		construct(newName);
 	}
 
-	GridPane mainLayout = new GridPane();
+	BorderPane mainLayout = new BorderPane();
 	
 	AppButton UserBtn = new AppButton("");
 	AppButton startBtn = new AppButton("_Lernkarteien");
@@ -50,7 +50,7 @@ public class MainView extends FXView
 
 		loginBox.getChildren().addAll(loginBtn,UserBtn);
 		loginBox.setAlignment(Pos.TOP_RIGHT);
-//mainLayout.setTop(loginBox);
+		mainLayout.setTop(loginBox);
 		
 		loginBtn.setId("loginBtn");
 		UserBtn.setId("UserBtn");
@@ -72,7 +72,7 @@ public class MainView extends FXView
 
 		// Main Layout
 		mainLayout.setPadding(new Insets(5));
-//mainLayout.setCenter(menuLayout);
+			mainLayout.setCenter(menuLayout);
 
 		// Behaviour
 		startBtn.setOnAction(e -> getFXController().showView("doorview"));
@@ -96,7 +96,7 @@ public class MainView extends FXView
 		imgPane.setMinSize(20.0, 50.0);
 		imgPane.setOnMouseClicked(e -> getFXController().showView("helpview"));
 
-//mainLayout.setBottom(imgPane);
+		mainLayout.setBottom(imgPane);
 
 		return mainLayout;
 	}

@@ -25,7 +25,7 @@ public class MainController extends FXController
 		Logger.log("Instanziere Models....");
 		this.addUniqueModel(new GameModel(),"game");
 		this.addUniqueModel(new DoorModel(),"door");
-		this.addUniqueModel(new DruckModel(),"druck");
+		this.addUniqueModel(new DruckModel(),"drucken");
 		this.addUniqueModel(new StackModel(),"stack");
 		this.addUniqueModel(new CardModel(),"cards");
 		this.addUniqueModel(new LearnModel(),"learn");

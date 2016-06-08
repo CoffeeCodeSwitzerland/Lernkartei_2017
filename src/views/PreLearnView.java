@@ -94,11 +94,11 @@ public class PreLearnView extends FXViewModel
 		AppButton backBtn = new AppButton("Zurück");
 		backBtn.setOnAction(e -> getFXController().showView("stack"));
 		
-		AppButton backbtn = new AppButton("Drucken");
-		backbtn.setOnAction(e ->  getFXController().getModel("druck").doAction("drucken"));
+		AppButton printbtn = new AppButton("Drucken");
+		printbtn.setOnAction(e ->  getFXController().getModel("drucken").doAction("druck"));
 
 		VBox layout = new VBox(30);
-		layout.getChildren().addAll(stackName, stackInfo, stackScore, goBtn, backBtn);
+		layout.getChildren().addAll(stackName, stackInfo, stackScore, goBtn, backBtn, printbtn);
 
 		mainLayout.setCenter(layout);
 	}

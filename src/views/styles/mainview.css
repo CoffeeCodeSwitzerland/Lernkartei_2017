@@ -19,7 +19,7 @@
 	-fx-background-image: url("pictures/DiagrammIcon.png");
 	-fx-background-repeat: no-repeat;
 	-fx-background-size:contain;}
-#start2btn:hover {
+#stat2btn:hover {
 	-fx-background-size:83%;
 	-fx-background-position: 5px;
 }

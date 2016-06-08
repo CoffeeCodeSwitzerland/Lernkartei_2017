@@ -49,7 +49,7 @@ public class OptionsView extends FXView
 		cardLimitDescription.setWrapText(true);
 		cardLearnLimit.focusedProperty().addListener(e ->
 		{
-			if (!resetChange)
+			if (!cardLearnLimit.isFocused() && !resetChange)
 			{
 				try
 				{
@@ -64,8 +64,12 @@ public class OptionsView extends FXView
 				}
 				catch (Exception ex)
 				{
-					Alert.complexChoiceBox("Achtung", "Es muss eine gültige Ganzzahl eingegeben werden!", new String[] { "OK" });
+					Alert.simpleInfoBox("Achtung", "Es muss eine gültige Ganzzahl eingegeben werden!");
 					resetChange = true;
+					if (lastValidCardLimit == null || lastValidCardLimit.equals(""))
+					{
+						lastValidCardLimit = Integer.toString(Globals.defaultStackPartSize);
+					}
 					cardLearnLimit.setText(lastValidCardLimit);
 					resetChange = false;
 				}

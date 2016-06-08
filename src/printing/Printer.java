@@ -12,11 +12,6 @@ import java.awt.event.WindowEvent;
 import javax.swing.JFrame;
 
 public class Printer extends JFrame {
-	/**
-	 * 
-	 */
-
-	// public printer wnd;
 
 	public static final long serialVersionUID = 1L;
 
@@ -37,13 +32,7 @@ public class Printer extends JFrame {
 			}
 		});
 	}
-
-	public void init() {
-		setSize(500, 300);
-		setFocusable(true);
-	}
-
-	void druckeTestseite() {
+	public void druckeTestseite() {
 		PrintJob prjob = getToolkit().getPrintJob(this, "Testseite", null);
 
 		if (null != prjob) {

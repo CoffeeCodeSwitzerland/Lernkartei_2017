@@ -11,7 +11,10 @@ public class DruckModel extends Model {
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {
+				
+				//Erstellt "Haus(Klasse)" in diesem "Haus(Klasse)" sind "Objekte(Methoden)" 
 				Printer p = new Printer();
+				//Zugriff auf "Objekte im Haus"(Methoden)
 				p.printer();				
 			}
 		});

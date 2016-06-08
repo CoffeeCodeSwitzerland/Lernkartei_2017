@@ -5,27 +5,36 @@
 	-fx-background-repeat: stretch;   
     -fx-background-size: stretch, cover;
 }
-#startbtn{
+#lernenbtn{
 	-fx-background-image: url("pictures/KarteIcon.png");
 	-fx-background-repeat: no-repeat;
-	-fx-background-size:contain
+	-fx-background-size:contain;
+}
+#lernenbtn:hover {
+	-fx-background-size:83%;
+	-fx-background-position: 5px;
 }
 	
 #stat2btn{
 	-fx-background-image: url("pictures/DiagrammIcon.png");
 	-fx-background-repeat: no-repeat;
-	-fx-background-size:contain}
+	-fx-background-size:contain;}
+#stat2btn:hover {
+	-fx-background-size:83%;
+	-fx-background-position: 5px;
+}
+	
 	
 #optionsbtn{
 	-fx-background-image: url("pictures/OptionIcon.png");
 	
 	-fx-background-repeat: no-repeat;
-	-fx-background-size:contain}
+	-fx-background-size:contain;}
 	
 #gamebtn{
 	-fx-background-image: url("pictures/GameIcon.png");
 	-fx-background-repeat: no-repeat;
-	-fx-background-size:contain}
+	-fx-background-size:contain;}
 	
 #loginBtn{
 	-fx-font-family: "Segoe UI Semibold";
@@ -52,3 +61,4 @@
 	-fx-background-repeat: no-repeat;
 	-fx-background-size:contain;
 	}
+	

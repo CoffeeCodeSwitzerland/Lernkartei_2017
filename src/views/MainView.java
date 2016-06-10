@@ -30,12 +30,12 @@ public class MainView extends FXView
 	//Wir haben das ganze mit den BorderPanes gelöst.
 	//BorderPane mainLayout = new BorderPane();
 	// Graphic Buttons:
-	BorderPane helpbtn = new BorderPane();
-	BorderPane userLoginBtn = new BorderPane();
+	HoverButton helpbtn = new HoverButton(this,"Hilfe...","helpview","helpbtn");
+	HoverButton userLoginBtn = new HoverButton(this,"Login","","UserBtn");
 	HoverButton lernenStartBtn = new HoverButton(this,"Lernen...","doorview", "lernenbtn");
 	HoverButton statisticBtn = new HoverButton(this,"Statistik...","statsview", "stat2btn");
-	BorderPane optionsBtn = new BorderPane();
-	BorderPane gameBtn = new BorderPane();
+	HoverButton optionsBtn = new HoverButton(this,"Optionen...","optionsview","optionsbtn");
+	HoverButton gameBtn = new HoverButton(this,"Jumo 'n' Run...","gameview","gamebtn");
 	BorderPane quitBtn = new BorderPane();
 	
 	// FX braucht 2 Lückenfüller für das Gridpane zu füllen:
@@ -72,9 +72,9 @@ public class MainView extends FXView
 	    gridpane.add(lueckenfueller2 , 5 ,3);
 	    
 	    //Behavior
-		optionsBtn.setOnMouseClicked(e -> getFXController().showView("optionsview"));
-		gameBtn.setOnMouseClicked(e -> getFXController().showView("gameview"));
-		helpbtn.setOnMouseClicked(e -> getFXController().showView("helpview"));
+		//optionsBtn.setOnMouseClicked(e -> getFXController().showView("optionsview"));
+		//gameBtn.setOnMouseClicked(e -> getFXController().showView("gameview"));
+		//helpbtn.setOnMouseClicked(e -> getFXController().showView("helpview"));
 
 		quitBtn.setOnMouseClicked(e ->
 		{
@@ -85,23 +85,23 @@ public class MainView extends FXView
 		});		
 		
 		// IDs um im CSS die Bilder einzufügen.
-		optionsBtn.setId("optionsbtn");
-		gameBtn.setId("gamebtn");
+		//optionsBtn.setId("optionsbtn");
+		//gameBtn.setId("gamebtn");
 		//loginBtn.setId("loginBtn");
-		userLoginBtn.setId("UserBtn");
-		helpbtn.setId("helpbtn");
+		//userLoginBtn.setId("UserBtn");
+		//helpbtn.setId("helpbtn");
 		quitBtn.setId("quitBtn");
 		
 		//Grösse muss angegeben werden oder es überschatten alles....
 		//loginBtn.setMinSize(100.0, 90.0);
-		optionsBtn.setMinSize(100.0, 90.0);
-		gameBtn.setMinSize(100.0, 90.0);
-		userLoginBtn.setMinSize(100.0, 90.0);
-		helpbtn.setMinSize(100.0, 90.0);
-		quitBtn.setMinSize(100.0,90.0);
+		//optionsBtn.setMinSize(100.0, 90.0);
+		//gameBtn.setMinSize(100.0, 90.0);
+		//userLoginBtn.setMinSize(100.0, 90.0);
+		//helpbtn.setMinSize(100.0, 90.0);
+		quitBtn.setMinSize(100.0, 90.0);
 		
-		lueckenfueller1.setMinSize(100.0,100.0);
-		lueckenfueller2.setMinSize(100.0,100.0);
+		lueckenfueller1.setMinSize(100.0,90.0);
+		lueckenfueller2.setMinSize(100.0,90.0);
 		
 		
 		getWindow().setOnCloseRequest(e ->

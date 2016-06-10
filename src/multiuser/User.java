@@ -1,7 +1,6 @@
 package multiuser;
 
 import javafx.collections.*;
-import multiuser.Security.CannotPerformOperationException;
 
 public class User
 {

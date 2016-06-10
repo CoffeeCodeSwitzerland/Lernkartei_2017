@@ -18,7 +18,7 @@ public class Printer extends JFrame {
 	public void printer() {
 		setSize(500, 150);
 		setVisible(true);
-		Button bttn = new Button("Button betätigen, um Ausdruck einer Testseite zu starten ...");
+		Button bttn = new Button("Kartenstapel ausdrucken.");
 		add(BorderLayout.CENTER, bttn);
 		bttn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ev) {

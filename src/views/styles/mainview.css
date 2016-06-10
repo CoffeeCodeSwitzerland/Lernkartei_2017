@@ -106,7 +106,7 @@
 	-fx-background-size:contain;
 	}
 #quitBtn:hover {
-	-fx-background-size:83%;
+	-fx-background-size:83%;	
 	-fx-background-position: 5px;
 }
 	

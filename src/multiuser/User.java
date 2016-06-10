@@ -1,8 +1,7 @@
 package multiuser;
 
-import javax.crypto.Cipher;
-
 import javafx.collections.*;
+import multiuser.Security.CannotPerformOperationException;
 
 public class User
 {
@@ -13,34 +12,22 @@ public class User
 	//Alle Angaben die ein User hat
 	private String Name;
 	private String Passwort;
+	private String Hash;
+	private byte[] Salz;
 	private String Email;
 	private Integer Usertype;
 	private ObservableList<String> myGroups = FXCollections.observableArrayList();
 	
-	//TODO : Passwort Verschlüsselungs- und Entschlüsselungsfunktion
-	private String cryptPasswort(String passwort) {
-		try {
-			Cipher c = Cipher.getInstance("AES");
-			String crypted = "";
-			
-			//TODO : https://www.youtube.com/watch?v=8AID7DKhSoM -> Verschlüsselung
-			
-			return crypted;
-		} catch(Exception e) {
-			return "";
-		}
+	//TODO : Wenn datenbank funktioniert darin speichern
+	public void setSalt(byte[] salt) {
+		Salz = salt;
 	}
 	
-	private String encryptPasswort(String cryptedPassword) {
-		try {
-			Cipher c = Cipher.getInstance("AES/CBC/crYphtPAtt");
-			String crypted = "";
-			
-			return crypted;
-		} catch(Exception e) {
-			return "";
-		}
-	}
+	//TODO : Wenn Datenbank funktioniiert Salt daraus auslesen
+	@SuppressWarnings("unused")
+	private byte[] getSalt() {
+		return Salz = null;	
+	}	
 	
 	//Validierung der drei Eingaben mit entsprechendem Regex
 	private Boolean checkName(String name) {
@@ -59,7 +46,7 @@ public class User
 			return false;
 		}
 	}
-	private Boolean checkPasswort(String passwort) {
+	private Boolean checkPasswortMachbarkeit(String passwort) {
 		String regexPw = "[A-Za-z\\d\\!\\?\\$\\*\\%\\&\\£\\@\\'](8,100)";
 		if (passwort.matches(regexPw)) {
 			return true;
@@ -92,17 +79,36 @@ public class User
 	//TODO : Wenn datenbank funktioniert darin speichern
 	public Boolean setPasswort(String passwort)
 	{
-		if (checkPasswort(passwort)) {
-			if (cryptPasswort(passwort) == "") {
+		//Wenn Passwort zulässig und das Salz gefüllt
+		if (checkPasswortMachbarkeit(passwort) && !(Salz == null)) {
+			char[] pw = passwort.toCharArray();
+			try
+			{
+				if (Security.createHash(pw, Salz) == null) {
+					return false;
+				} else {
+					Passwort = passwort;
+					return true;
+				}
+			} catch (CannotPerformOperationException e)
+			{
+				e.printStackTrace();
 				return false;
-			} else {
-				Passwort = passwort;
-				return true;
 			}
 		} else {
 			return false;
 		}
 	}
+	public String getHash()
+	{
+		return Hash;
+	}
+
+	public void setHash(String hash)
+	{
+		Hash = hash;
+	}
+
 	public String getEmail()
 	{
 		return Email;
@@ -132,6 +138,5 @@ public class User
 	}
 	public void setMyGroups(ObservableList<String> myGroups)
 	{
-		myGroups = myGroups;
 	}
 }

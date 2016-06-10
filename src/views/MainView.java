@@ -27,8 +27,8 @@ public class MainView extends FXView
 		construct(newName);
 	}
 
-	//Wir haben das ganze mit den BorderPanes gelöst.
-	//BorderPane mainLayout = new BorderPane();
+	
+	
 	// Graphic Buttons:
 	HoverButton helpbtn = new HoverButton(this,"Hilfe...","helpview","helpbtn");
 	HoverButton userLoginBtn = new HoverButton(this,"Login","","UserBtn");
@@ -54,9 +54,14 @@ public class MainView extends FXView
 		debug.Debugger.out("constructing MainView Container with title '"+title+"'...");
 		getFXController().getMyFXStage().setTitle(title);
 		
+		
 		//Hier wird mit Koordinaten Psotionen angegeben. 
+		
 		//Die Lückenfüller sind da weil eine Spalte nicht Nichts enthalten kann wegen 
 		//dem Abstand. Es würde es einfach ignorieren. Deswegen 2 leere Labels da.
+		
+		//Und "Nein" man kann nicht das gleiche Label an 2 verschiedenen Stellen
+		//hinzufügen. 
 		GridPane gridpane = new GridPane();
 	    gridpane.setAlignment(Pos.CENTER);
 		gridpane.setHgap(4);
@@ -85,6 +90,7 @@ public class MainView extends FXView
 		});		
 		
 		// IDs um im CSS die Bilder einzufügen.
+	 
 		//optionsBtn.setId("optionsbtn");
 		//gameBtn.setId("gamebtn");
 		//loginBtn.setId("loginBtn");
@@ -92,7 +98,7 @@ public class MainView extends FXView
 		//helpbtn.setId("helpbtn");
 		quitBtn.setId("quitBtn");
 		
-		//Grösse muss angegeben werden oder es überschatten alles....
+		
 		//loginBtn.setMinSize(100.0, 90.0);
 		//optionsBtn.setMinSize(100.0, 90.0);
 		//gameBtn.setMinSize(100.0, 90.0);

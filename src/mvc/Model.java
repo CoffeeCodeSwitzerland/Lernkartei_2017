@@ -9,11 +9,12 @@ import globals.Functions;
 
 /**
  * Abstract GUI-Toolkit independent Model of my MVC concept
- * ======================================================== - allows navigation
- * by name - handles list of String's with like() and filtered by query. - clear
- * data is implemented as doAction("clear")
+ * ========================================================
+ * - allows navigation by name
+ * - handles list of String's with like() and filtered by query. 
+ * - clear data is implemented as doAction("clear")
  * 
- * @author hugo-lucca
+ * @author  hugo-lucca
  * @version Mai 2016
  */
 public class Model extends DataModel

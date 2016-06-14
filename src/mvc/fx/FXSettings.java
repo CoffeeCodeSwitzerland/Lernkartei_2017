@@ -11,6 +11,10 @@ import debug.*;
  */
 public class FXSettings {
 
+	
+	public static double HoverButtonWidth = 100.0;
+	public static double HoverButtonHeight =  90.0;
+	
 	public static double width  = 920;
 	public static double height = 570;
 	public static Color backroundColor = new Color(1.0,1.0,1.0,0.5); 

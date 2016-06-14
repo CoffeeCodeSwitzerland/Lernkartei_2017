@@ -6,9 +6,6 @@
     -fx-background-size: stretch, cover;
 }
 
-
-
-
 #lernenbtn{
 	-fx-background-image: url("pictures/KarteIcon.png");
 	-fx-background-repeat: no-repeat;
@@ -19,9 +16,6 @@
 	-fx-background-position: 5px;
 }
 	
-	
-	
-	
 #stat2btn{
 	-fx-background-image: url("pictures/DiagrammIcon.png");
 	-fx-background-repeat: no-repeat;
@@ -30,8 +24,6 @@
 	-fx-background-size:83%;
 	-fx-background-position: 5px;
 }
-	
-
 	
 #optionsbtn{
 	-fx-background-image: url("pictures/OptionIcon.png");
@@ -42,8 +34,6 @@
 	-fx-background-size:83%;
 	-fx-background-position: 5px;
 }
-
-
 	
 #gamebtn{
 	-fx-background-image: url("pictures/GameIcon.png");
@@ -84,9 +74,6 @@
 	-fx-background-position: 5px;
 }
 
-
-
-
 #helpbtn{
 	-fx-background-image: url("pictures/HelpIcon.png");
 	-fx-background-repeat: no-repeat;
@@ -97,16 +84,12 @@
 	-fx-background-position: 5px;
 }
 
-
-
-
-#quitBtn{
+#quitbtn{
 	-fx-background-image: url("pictures/ExitIcon.png");
 	-fx-background-repeat: no-repeat;
 	-fx-background-size:contain;
 	}
-#quitBtn:hover {
+#quitbtn:hover {
 	-fx-background-size:83%;	
 	-fx-background-position: 5px;
 }
-	

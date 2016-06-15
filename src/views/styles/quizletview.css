@@ -19,5 +19,9 @@
 #LinkiD{
 	-fx-text-fill: White;
 	-fx-font-size:25.0;
+	-fx-underline: true;
 	
+}
+#LinkiD:hover{
+	-fx-text-fill:#00bfff;
 }

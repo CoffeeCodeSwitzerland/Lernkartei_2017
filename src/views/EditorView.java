@@ -114,13 +114,21 @@ public class EditorView extends FXViewModel
 			cp.setId("cpbtn");
 			Button explorer = new Button("Img");
 			explorer.setId("imgbtn");
+			
 			Button bold1 = new Button("B");
+			bold1.setId("boldbtn");
 			Button italic1 = new Button("I");
+			italic1.setId("italicbtn");
 			Button crossed1 = new Button("S");
+			crossed1.setId("crossedbtn");
 			Button under1 = new Button("U");
+			under1.setId("underbtn");
 			Button sup1 = new Button("SP");
+			sup1.setId("supbtn");
 			Button sub1 = new Button("SB");
+			sub1.setId("subbtn");
 			Button cp1 = new Button("C");
+			cp1.setId("cpbtn");
 			Button explorer1 = new Button("Img");
 			Button leftbtn = new Button("<");
 			Button rightbtn = new Button(">");

@@ -55,6 +55,7 @@ public class OptionsView extends FXView
 				{
 					int cardLimit = Integer.parseInt(cardLearnLimit.getText());
 					cardLimit = cardLimit < Globals.minStackPartSize ? Globals.minStackPartSize : cardLimit;
+					cardLimit = cardLimit > Globals.maxStackPartSize ? Globals.maxStackPartSize : cardLimit;
 					String cardLimitParam = "" + cardLimit; // TODO bessere lösung
 					getFXController().getModel("config").doAction(Command.SET, "cardLimit", cardLimitParam);
 					resetChange = true;

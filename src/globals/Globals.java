@@ -28,6 +28,7 @@ public abstract class Globals
 	
 	public static final int defaultStackPartSize = 20;
 	public static final int minStackPartSize = 5;
+	public static final int maxStackPartSize = 1000;
 	
 
 		

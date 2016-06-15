@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import database.Database;
 import debug.Debugger;
+import debug.Supervisor;
 import globals.Globals;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -97,20 +98,27 @@ public class StatisticsModel extends FXModel
 
 	public int doAction (String functionName, String paramS, double paramD)
 	{
-		if (functionName.equals("DeleteOldData"))
+		Supervisor.errorAndDebug(this, "WARNING (StatisticsModel): Use of deprecated doAction. Use the new one instead");
+		
+		return -9;
+	}
+	
+	@Override
+	public int doAction (Command command, String... param)
+	{
+		switch (command)
 		{
-			Diagramm.resetData();
-			Rangliste.resetData();
-			return 1;
-		}
-		else if (functionName.equals("checkDatabase"))
-		{
-			success = Rangliste.checkDatabase();
-			return success ? 1 : -1;
-		}
-		else
-		{
-			return -2;
+			case DELETE:
+				Diagramm.resetData();
+				Rangliste.resetData();
+				return 1; // TODO check if successful
+				
+			case GET:
+				success = Rangliste.checkDatabase();
+				return success ? 1 : -1;
+				
+			default:
+				return super.doAction(command, param);
 		}
 	}
 

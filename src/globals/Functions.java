@@ -14,7 +14,7 @@ import views.components.Alert;
 
 /**
  * 
- * @author miro albrecht
+ * @author miro albrecht, Dr.Med. David Schor
  *
  */
 public abstract class Functions
@@ -68,36 +68,48 @@ public abstract class Functions
 	 *            String mit Color-BB-Codes
 	 * @return String mit HTML-Color-Tag
 	 */
-	public static String colorBbCode2HTML (String input)
+	public static String colorBbCode2HTML (String input, String...tags)
 	{
-		if (input.contains("[color="))
+		//public static String[] = {"<span style=\"color:", "<img src=\""};
+		
+		for (String s : Globals.complexTags)
 		{
-			String findStr = "[color=";
-			int lastIndex = 0;
-			int count = 0;
-
-			while (lastIndex != -1)
+			System.out.println(endHTML(s));
+			String fist = "[" + s + "=(";
+			if (input.contains(fist))
 			{
-
-				lastIndex = input.indexOf(findStr, lastIndex);
-
-				if (lastIndex != -1)
+				System.out.println(input);
+				String findStr = fist;
+				int lastIndex = 0;
+				int count = 0;
+	
+				while (lastIndex != -1)
 				{
-					count++;
-					lastIndex += findStr.length();
+	
+					lastIndex = input.indexOf(findStr, lastIndex);
+	
+					if (lastIndex != -1)
+					{
+						count++;
+						lastIndex += findStr.length();
+					}
 				}
-			}
+			
 			int up = 0;
 			while (count > up)
 			{
 				String result = input.substring(input.indexOf("(") + 1, input.indexOf(")"));
-				input = input.replace("[color=(" + result + ")]", "<span style=\"color:" + result + "\">");
-				input = input.replace("[/color]", "</span>");
+				//result = Convert.ToFile(result);
+				input = input.replace(fist + result + ")]", "<img src=\"" + result + "\">");
+				input = input.replace(endBB(s), endHTML(s));
 				up++;
+				System.out.println(input);
 			}
+		}
 		}
 
 		return input;
+		
 	}
 
 	/**
@@ -256,5 +268,18 @@ public abstract class Functions
 		}
 
 		return contents.toString();
+	}
+	
+	public static String FullBb2HTML (String text)
+	{
+		String imgs = text;
+		imgs = Functions.removeHTMLTags(imgs);
+		imgs = Functions.colorBbCode2HTML(imgs);
+		imgs = Functions.simpleBbCode2HTML(imgs, Globals.evenTags);
+		imgs = Functions.realBbCode2HTML(imgs, Globals.pairedTags);
+		
+		return imgs;
+		
+	
 	}
 }

@@ -8,6 +8,9 @@ import mvc.Model;
 
 public class DoorModel extends Model
 {
+	/**
+	 * @deprecated
+	 */
 	@Override
 	public int doAction (String functionName, String paramS, double paramD)
 	{

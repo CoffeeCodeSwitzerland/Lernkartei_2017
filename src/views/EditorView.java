@@ -1,5 +1,6 @@
 package views;
 
+import java.io.File;
 import globals.Functions;
 import globals.Globals;
 import javafx.geometry.Insets;
@@ -15,6 +16,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
+import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import mvc.ModelInterface.Command;
@@ -106,6 +108,8 @@ public class EditorView extends FXViewModel
 			sub.setId("subbtn");
 			Button cp = new Button("C");
 			cp.setId("cpbtn");
+			Button explorer = new Button("Img");
+			explorer.setId("imgbtn");
 			Button bold1 = new Button("B");
 			Button italic1 = new Button("I");
 			Button crossed1 = new Button("S");
@@ -113,6 +117,9 @@ public class EditorView extends FXViewModel
 			Button sup1 = new Button("SP");
 			Button sub1 = new Button("SB");
 			Button cp1 = new Button("C");
+			Button explorer1 = new Button("Img");
+			Button leftbtn = new Button("<");
+			Button rightbtn = new Button(">");
 
 			front.setMinHeight(150);
 			back.setMinHeight(150);
@@ -182,6 +189,22 @@ public class EditorView extends FXViewModel
 						dialog.close();
 					});
 				});
+			});
+			
+			explorer1.setOnAction(e ->{
+				FileChooser fileChooser = new FileChooser();
+				FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Images", "*.jpg", "*.png", "*.jpeg", "*.gif");
+				fileChooser.getExtensionFilters().add(extFilter);
+				File selectedFile = fileChooser.showOpenDialog(null);
+				front.setText("[img=(" + selectedFile.getAbsolutePath() + ")][/img]");
+			});
+			
+			explorer.setOnAction(e ->{
+				FileChooser fileChooser = new FileChooser();
+				FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Images", "*.jpg", "*.png", "*.jpeg", "*.gif");
+				fileChooser.getExtensionFilters().add(extFilter);
+				File selectedFile = fileChooser.showOpenDialog(null);
+				back.setText("[img=(" + selectedFile.getAbsolutePath() + ")][/img]");
 			});
 
 			front.setOnMouseReleased(e ->
@@ -263,6 +286,14 @@ public class EditorView extends FXViewModel
 					getFXController().showView("simpleeditorview");
 				}
 			});
+			
+			rightbtn.setOnAction(e ->{
+				for(int i = 0; i < cardSides.length; i++) {
+					System.out.print(cardSides[i] + ":");
+				}
+					  front.setText(cardSides[1]);
+						back.setText(cardSides[2]);
+			});
 
 			infobtn.setOnAction(e ->
 			{
@@ -276,11 +307,19 @@ public class EditorView extends FXViewModel
 
 			HBox buttonLL = new HBox(8);
 			buttonLL.setAlignment(Pos.TOP_LEFT);
-			buttonLL.getChildren().addAll(bold1, italic1, crossed1, under1, sup1, sub1, cp1);
+			buttonLL.getChildren().addAll(bold1, italic1, crossed1, under1, sup1, sub1, cp1, explorer1);
 
 			HBox buttonLR = new HBox(8);
 			buttonLR.setAlignment(Pos.TOP_LEFT);
-			buttonLR.getChildren().addAll(bold, italic, crossed, under, sup, sub, cp);
+			buttonLR.getChildren().addAll(bold, italic, crossed, under, sup, sub, cp, explorer);
+			
+			VBox leftbtnL = new VBox(8);
+			leftbtnL.setAlignment(Pos.CENTER_LEFT);
+			leftbtnL.getChildren().addAll(leftbtn);
+			
+			VBox rightbtnR = new VBox(8);
+			rightbtnR.setAlignment(Pos.CENTER_RIGHT);
+			rightbtnR.getChildren().addAll(rightbtn);
 
 			HBox eingabeL = new HBox(8);
 			eingabeL.setAlignment(Pos.CENTER);
@@ -300,7 +339,7 @@ public class EditorView extends FXViewModel
 
 			HBox mainL = new HBox(8);
 			mainL.setAlignment(Pos.BOTTOM_CENTER);
-			mainL.getChildren().addAll(leftL, rightL);
+			mainL.getChildren().addAll(leftbtnL, leftL, rightL, rightbtnR);
 
 			editLayout.getChildren().addAll(mainL);
 		}
@@ -309,19 +348,25 @@ public class EditorView extends FXViewModel
 	public static void UpdatePreview ()
 	{
 
-		String text = back.getText();
-		text = Functions.removeHTMLTags(text);
-		text = Functions.colorBbCode2HTML(text);
-		text = Functions.simpleBbCode2HTML(text, Globals.evenTags);
-		text = Functions.realBbCode2HTML(text, Globals.pairedTags);
-		engineback.loadContent(text);
+
+		
+		engineback.loadContent(Functions.FullBb2HTML(back.getText()));
 
 		String text2 = front.getText();
 		text2 = Functions.removeHTMLTags(text2);
 		text2 = Functions.colorBbCode2HTML(text2);
 		text2 = Functions.simpleBbCode2HTML(text2, Globals.evenTags);
 		text2 = Functions.realBbCode2HTML(text2, Globals.pairedTags);
-		enginefront.loadContent(text2);
+		
+		String imgs2 = "";
+		
+		if(front.getText().contains("C:")){
+			File f = new File(front.getText());
+			imgs2 += "<img src=\""+f.toURI()+"\">";
+            enginefront.loadContent(imgs2);
+		}else{
+			enginefront.loadContent(text2);
+		}
 
 	}
 }

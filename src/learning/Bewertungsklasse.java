@@ -40,38 +40,43 @@ public class Bewertungsklasse {
 	}
 
 	// Wenn Karte Richtig ist
-	public static int CardCorrect(String cardID, int KartenPunkt) {
-		int validate = database.Database.getPriority(cardID);
-		Logger.log("CallUpprio");
+	public static int cardIsCorrect(String cardID)
+	{
+		int oldPriority = Database.getPriority(cardID);
+		
+		Logger.log("Call Upprio");
 		Database.upPrio(Integer.parseInt(cardID));
-		Logger.log("EndUpprio");
+		Logger.log("End Upprio");
 		
 		datumZuweisen(cardID);
-		
 
-		if (validate >= database.Database.getPriority(cardID)) {
+		if (oldPriority <= Database.getPriority(cardID))
+		{
 			return 1;
-		} else {
+		}
+		else
+		{
 			return -1;
 		}
-
 	}
 
 	// Wenn Karte Falsch ist
-	public static int CardFalse(String cardID, int KartenPunkt) {
-
-
-		Logger.log("Callresetprio");
+	public static int cardIsFalse(String cardID)
+	{
+		Logger.log("Call Resetprio");
 		Database.resetPrio(Integer.parseInt(cardID));
-		Logger.log("Endresetprio");
+		Logger.log("End Resetprio");
 
-		if (database.Database.getPriority(cardID) == 1) {
-			return 2;
-		} else {
-			return -2;
+		if (Database.getPriority(cardID) == 1)
+		{
+			return 1;
 		}
-
+		else
+		{
+			return -1;
+		}
 	}
+	
 	public static void datumZuweisen(String cardID)
 	{
 		//database.Database.InsertDate(cardID);

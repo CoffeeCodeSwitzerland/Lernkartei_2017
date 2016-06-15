@@ -9,20 +9,21 @@ public class Database extends SQLiteConnector {
 
 	private static final String dbURL = urlBase + globals.Globals.db_name + ".db";
 
-	protected static String myTableName  =  "Stock";
-//	private   static String myPrimaryKey = "PK_Stk";
-	protected static String myFKName     = "Set_ID";	
-//	private   static String mySeekAttribute = "Priority";
-//	private   static String myAttributeList = myFKName+", Frontside, Backside, Priority, Datum";
-//	private   static String myAttributes = 
-//				myPrimaryKey + " INTEGER PRIMARY KEY AUTOINCREMENT," +
-//				" Frontside     	TEXT    NOT NULL, " +
-//				" Backside      	TEXT    NOT NULL, " +
-//				" "+myFKName+"    	INTEGER NOT NULL, " +
-//				" "+mySeekAttribute+"	INTEGER DEFAULT 1," +
-//				" Description   	TEXT    		, " +
-//				" Datum				TEXT";
-		
+	protected static String myTableName = "Stock";
+	// private static String myPrimaryKey = "PK_Stk";
+	protected static String myFKName = "Set_ID";
+	// private static String mySeekAttribute = "Priority";
+	// private static String myAttributeList = myFKName+", Frontside, Backside,
+	// Priority, Datum";
+	// private static String myAttributes =
+	// myPrimaryKey + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+	// " Frontside TEXT NOT NULL, " +
+	// " Backside TEXT NOT NULL, " +
+	// " "+myFKName+" INTEGER NOT NULL, " +
+	// " "+mySeekAttribute+" INTEGER DEFAULT 1," +
+	// " Description TEXT , " +
+	// " Datum TEXT";
+
 	public static String getDbURL() {
 		return dbURL;
 	}
@@ -35,17 +36,13 @@ public class Database extends SQLiteConnector {
 	 *            Set_ID, 4. Priorität (1-5), 5. Color
 	 */
 
-	public static boolean pushToStock (String[] values) {
+	public static boolean pushToStock(String[] values) {
 		Database.setConnection(dbURL);
 		try {
-			String sql = "CREATE TABLE IF NOT EXISTS Stock " +
-					"(PK_Stk INTEGER PRIMARY KEY AUTOINCREMENT," +
-					" Frontside       TEXT    NOT NULL, " +
-					" Backside      TEXT    NOT NULL, " +
-					" Set_ID    		INTEGER NOT NULL, " +
-					" Priority	    INTEGER DEFAULT 1," +
-					" Description    TEXT    		, " +
-					" Color			TEXT    		 )";
+			String sql = "CREATE TABLE IF NOT EXISTS Stock " + "(PK_Stk INTEGER PRIMARY KEY AUTOINCREMENT,"
+					+ " Frontside       TEXT    NOT NULL, " + " Backside      TEXT    NOT NULL, "
+					+ " Set_ID    		INTEGER NOT NULL, " + " Priority	    INTEGER DEFAULT 1,"
+					+ " Description    TEXT    		, " + " Color			TEXT    		 )";
 
 			debug.Debugger.out(sql);
 			stmt.executeUpdate(sql);
@@ -53,30 +50,27 @@ public class Database extends SQLiteConnector {
 			String setID;
 
 			c.setAutoCommit(false);
-			ResultSet selectSet = stmt.executeQuery("SELECT PK_Kategorie FROM Kategorie WHERE Kategorie = '"
-					+ values[2] + "'");
+			ResultSet selectSet = stmt
+					.executeQuery("SELECT PK_Kategorie FROM Kategorie WHERE Kategorie = '" + values[2] + "'");
 			c.setAutoCommit(true);
 
 			if (selectSet.next()) {
 				setID = Integer.toString(selectSet.getInt("PK_Kategorie"));
 				selectSet.close();
-			}
-			else {
+			} else {
 				selectSet.close();
 				stmt.close();
 				c.close();
 				return false;
 			}
 
-			String insert = "INSERT INTO Stock (Frontside, Backside, Set_ID, Priority, Color)" +
-					"VALUES ('" + values[0] + "','" + values[1] + "'," + setID + ", " + values[3] + ", '"
-					+ values[4] + "')";
+			String insert = "INSERT INTO Stock (Frontside, Backside, Set_ID, Priority, Color)" + "VALUES ('" + values[0]
+					+ "','" + values[1] + "'," + setID + ", " + values[3] + ", '" + values[4] + "')";
 
 			stmt.executeUpdate(insert);
 			closeDB();
 			return true;
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			Logger.log("Database.pushToStock(): " + e.getMessage());
 		}
 		closeDB();
@@ -91,21 +85,17 @@ public class Database extends SQLiteConnector {
 	 *         Rückseite, Description, Set_ID, Priorität, Farbe
 	 */
 
-	public static ArrayList<String[]> pullFromStock (String whichSet) {
+	public static ArrayList<String[]> pullFromStock(String whichSet) {
 
 		ArrayList<String[]> results = new ArrayList<String[]>();
 
 		Database.setConnection(dbURL);
 		try {
 
-			String sql = "CREATE TABLE IF NOT EXISTS Stock " +
-					"(PK_Stk INTEGER PRIMARY KEY AUTOINCREMENT," +
-					" Frontside       TEXT    NOT NULL, " +
-					" Backside      TEXT    NOT NULL, " +
-					" Set_ID    		INTEGER NOT NULL, " +
-					" Priority	    INTEGER DEFAULT 1," +
-					" Description    TEXT    		, " +
-					" Color			TEXT    		 )";
+			String sql = "CREATE TABLE IF NOT EXISTS Stock " + "(PK_Stk INTEGER PRIMARY KEY AUTOINCREMENT,"
+					+ " Frontside       TEXT    NOT NULL, " + " Backside      TEXT    NOT NULL, "
+					+ " Set_ID    		INTEGER NOT NULL, " + " Priority	    INTEGER DEFAULT 1,"
+					+ " Description    TEXT    		, " + " Color			TEXT    		 )";
 
 			debug.Debugger.out(sql);
 			stmt.executeUpdate(sql);
@@ -114,11 +104,10 @@ public class Database extends SQLiteConnector {
 			String IDwhichSet = "";
 			ResultSet s = stmt.executeQuery("SELECT PK_Kategorie FROM Kategorie WHERE Kategorie = '" + whichSet + "'");
 			c.setAutoCommit(true);
-			
+
 			if (s.next()) {
 				IDwhichSet = Integer.toString(s.getInt("PK_Kategorie"));
-			}
-			else {
+			} else {
 				debug.Debugger.out("No Kategorie: " + whichSet + "in Table Kategorie");
 				closeDB();
 				return null;
@@ -128,7 +117,7 @@ public class Database extends SQLiteConnector {
 			c.setAutoCommit(false);
 			ResultSet rs = stmt.executeQuery("SELECT * FROM Stock WHERE Set_ID = '" + IDwhichSet + "'");
 			c.setAutoCommit(true);
-			
+
 			while (rs.next()) {
 				String[] set = new String[7];
 				set[0] = Integer.toString(rs.getInt("PK_Stk"));
@@ -141,15 +130,14 @@ public class Database extends SQLiteConnector {
 				results.add(set);
 			}
 			rs.close();
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			Logger.log("Database.pullFromStock(): " + e.getMessage());
 		}
 		closeDB();
 		return results;
 	}
 
-	public static boolean delEntry (String id) {
+	public static boolean delEntry(String id) {
 
 		boolean deleted = false;
 
@@ -158,8 +146,7 @@ public class Database extends SQLiteConnector {
 			String del = "DELETE FROM Stock WHERE PK_Stk = " + id;
 			stmt.executeUpdate(del);
 			deleted = true;
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
 		}
 		closeDB();
@@ -178,7 +165,7 @@ public class Database extends SQLiteConnector {
 	 * @return --> True: Funktionierte, False: Nicht geklappt
 	 */
 
-	public static boolean editEntry (String id, String frontside, String backside) {
+	public static boolean editEntry(String id, String frontside, String backside) {
 
 		Database.setConnection(dbURL);
 		try {
@@ -194,13 +181,11 @@ public class Database extends SQLiteConnector {
 			} else {
 				rs.close();
 			}
-			String del = "UPDATE Stock SET Frontside = '" + frontside
-					+ "', Backside = '" + backside
+			String del = "UPDATE Stock SET Frontside = '" + frontside + "', Backside = '" + backside
 					+ "' WHERE PK_Stk = " + id;
 			debug.Debugger.out(del);
 			stmt.executeUpdate(del);
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			Logger.log("Database.editEntry(): " + e.getMessage());
 		}
 		closeDB();
@@ -214,21 +199,17 @@ public class Database extends SQLiteConnector {
 	 *            --> PK_Stock ID der Karte, welche erhöht wird
 	 */
 
-	public static void upPrio (Integer PK_ID) {
+	public static void upPrio(Integer PK_ID) {
 
 		Integer oldPrio = null;
 		String newPrio = "";
 
 		Database.setConnection(dbURL);
 		try {
-			String sql = "CREATE TABLE IF NOT EXISTS Stock " +
-					"(PK_Stk INTEGER PRIMARY KEY AUTOINCREMENT," +
-					" Frontside       TEXT    NOT NULL, " +
-					" Backside      TEXT    NOT NULL, " +
-					" Set_ID    		INTEGER NOT NULL, " +
-					" Priority	    INTEGER DEFAULT 1," +
-					" Description    TEXT    		, " +
-					" Color			TEXT    		 )";
+			String sql = "CREATE TABLE IF NOT EXISTS Stock " + "(PK_Stk INTEGER PRIMARY KEY AUTOINCREMENT,"
+					+ " Frontside       TEXT    NOT NULL, " + " Backside      TEXT    NOT NULL, "
+					+ " Set_ID    		INTEGER NOT NULL, " + " Priority	    INTEGER DEFAULT 1,"
+					+ " Description    TEXT    		, " + " Color			TEXT    		 )";
 
 			debug.Debugger.out(sql);
 			stmt.executeUpdate(sql);
@@ -237,13 +218,12 @@ public class Database extends SQLiteConnector {
 			c.setAutoCommit(false);
 			ResultSet actualPrio = stmt.executeQuery("SELECT Priority FROM Stock WHERE PK_Stk = " + PK_ID.toString());
 			c.setAutoCommit(true);
-			
+
 			// Überprüft ob vorhanden oder nicht
 
 			if (actualPrio.next()) {
 				oldPrio = actualPrio.getInt("Priority");
-			}
-			else {
+			} else {
 				debug.Debugger.out("No Card with this ID exists.");
 			}
 			actualPrio.close();
@@ -253,8 +233,7 @@ public class Database extends SQLiteConnector {
 
 			if (oldPrio == 5) {
 				newPrio = "5";
-			}
-			else {
+			} else {
 				newPrio = Integer.toString(oldPrio + 1);
 			}
 
@@ -262,8 +241,7 @@ public class Database extends SQLiteConnector {
 
 			String updatePrio = "UPDATE Stock SET Priority = " + newPrio + " WHERE PK_Stk = " + PK_ID;
 			stmt.executeUpdate(updatePrio);
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			Logger.log("Database.upPrio(): " + e.getMessage());
 		}
 		closeDB();
@@ -277,7 +255,7 @@ public class Database extends SQLiteConnector {
 	 *            --> Welche Karte reseted wird
 	 */
 
-	public static void resetPrio (Integer PK_ID) {
+	public static void resetPrio(Integer PK_ID) {
 
 		Database.setConnection(dbURL);
 		try {
@@ -285,22 +263,22 @@ public class Database extends SQLiteConnector {
 
 			String updatePrio = "UPDATE Stock SET Priority = 1 WHERE PK_Stk = " + PK_ID;
 			stmt.executeUpdate(updatePrio);
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			Logger.log("Database.resetPrio(): " + e.getMessage());
 		}
 		closeDB();
 	}
-	
+
 	/**
-	 * Liefert die Priorität der Karte mit mitgegebener ID mit 
+	 * Liefert die Priorität der Karte mit mitgegebener ID mit
 	 * 
-	 * @param ID_Card --> ID der Karte, von welcher die Priorität gebraaucht wird
+	 * @param ID_Card
+	 *            --> ID der Karte, von welcher die Priorität gebraaucht wird
 	 * @return --> Gibt die Kartenpriorität als Integer zurück
 	 */
-	
-	public static int getPriority (String ID_Card) {
-		
+
+	public static int getPriority(String ID_Card) {
+
 		int prio = 0;
 		Database.setConnection(dbURL);
 		try {
@@ -308,28 +286,28 @@ public class Database extends SQLiteConnector {
 			c.setAutoCommit(false);
 			ResultSet rsPrio = stmt.executeQuery(getPrio);
 			c.setAutoCommit(true);
-			
+
 			if (rsPrio.next()) {
 				prio = rsPrio.getInt("Priority");
 			} else {
 				debug.Debugger.out("No such Card exists!");
 			}
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			Logger.log("Database.getPriority(): " + e.getMessage());
 		}
 		closeDB();
 		return prio;
-		
+
 	}
-	
+
 	/**
 	 * Liefert den Maximalen und den bisher erreichten Score eines Stacks zurück
-	 *  
-	 * @param whichSet --> Score von welchem Stack geliefert werden soll
+	 * 
+	 * @param whichSet
+	 *            --> Score von welchem Stack geliefert werden soll
 	 * @return --> Retourniert diesen gewünschten Score
-	 */	
-	public static Double[] getScore (String whichSet) {
+	 */
+	public static Double[] getScore(String whichSet) {
 
 		Double maxPoints = 0.0;
 		Double reachedPoints = 0.0;
@@ -360,26 +338,26 @@ public class Database extends SQLiteConnector {
 				closeDB();
 				return null;
 			}
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			Logger.log("Database.getPriority(): " + e.getMessage());
 		}
 
 		// Erreichte Punktzahl zurückgeben
-		
+
 		score[0] = maxPoints;
 		score[1] = reachedPoints;
 		closeDB();
 		return score;
 	}
-	public static String[] getFrontAndBackside(  )
-	{		
-		//Author: Yanis Weibel
-		String frontside ="Hallo" , backside = "Hello";
-		//TODO Abrage Statement, es soll die vorder und rückseite gegeben werden, und immer automatisch ein kärtchen weiter.
-		// frontside = SELECT frontside FROM 
-		String[] VorderundRückseite = {frontside, backside};	
-		
-		return VorderundRückseite;	
+
+	public static String[] getFrontAndBackside() {
+		// Author: Yanis Weibel
+		String frontside = "Hallo", backside = "Hello";
+		// TODO Abrage Statement, es soll die vorder und rückseite gegeben
+		// werden, und immer automatisch ein kärtchen weiter.
+		// frontside = SELECT frontside FROM
+		String[] VorderundRückseite = { frontside, backside };
+
+		return VorderundRückseite;
 	}
 }

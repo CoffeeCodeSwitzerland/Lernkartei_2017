@@ -1,8 +1,6 @@
 //Author: Yanis Weibel
 
-
 package printing;
-
 
 import java.awt.BorderLayout;
 import java.awt.Button;
@@ -36,6 +34,7 @@ public class Printer extends JFrame {
 			}
 		});
 	}
+
 	public void druckeKartenset() {
 		PrintJob prjob = getToolkit().getPrintJob(this, "Testseite", null);
 
@@ -67,10 +66,10 @@ public class Printer extends JFrame {
 
 					iPageWidthEight = iPageWidth / 10;
 					for (int c = 0; c < 2; c++) {
-						String[] VorderUndRückseite = database.Database.getFrontAndBackside();					
-						
-						//TODO Hier Datenbank funktion einfügen						
-								
+						String[] VorderUndRückseite = database.Database.getFrontAndBackside();
+
+						// TODO Hier Datenbank funktion einfügen
+
 						pg.drawString(VorderUndRückseite[0], iPageWidthEight, iPageHeightEight);
 
 						iPageWidthEight += iPageWidth / 4;

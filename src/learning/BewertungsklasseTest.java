@@ -15,9 +15,9 @@ public class BewertungsklasseTest
 	private static final String dbURL = "jdbc:sqlite:" + globals.Environment.getDatabasePath() + globals.Globals.db_name + ".db";
 	private static final Statement stmt = null;
 	
-	private static Integer whichSet = 0;
+//	private static Integer whichSet = 0;
 	
-	private static ResultSet testResult;
+	//private static ResultSet testResult;
 	
 	//Bevor der effektive Test startet, füge ich hier Testdaten in die Datenbank ein, damit ich die Funktionen einfacher testen kann
 	@Before
@@ -65,9 +65,9 @@ public class BewertungsklasseTest
 			String pkstk = PK_Stk.getString(1);
 			debug.Debugger.out(pkstk);
 			
-			whichSet = Integer.parseInt(pkstk);
+	//		whichSet = Integer.parseInt(pkstk);
 			
-			testResult = stmt.executeQuery("SELECT Frontside, Backside, Set_ID FROM Stock WHERE PK_Stk = " + whichSet);
+	//		testResult = stmt.executeQuery("SELECT Frontside, Backside, Set_ID FROM Stock WHERE PK_Stk = " + whichSet);
 			
 			
 		} catch (Exception e) 

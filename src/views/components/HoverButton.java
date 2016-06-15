@@ -15,6 +15,10 @@ public class HoverButton extends VBox {
 	private static String tooltipEnable = null;
 	private static boolean isTooltipActif = true;
 	
+	public static void clearSettings () {
+		tooltipEnable = null;
+	}
+	
 	public HoverButton (FXView v, String tipp, String targetView, String id) {
 		myTipp = tipp;
 		if (tooltipEnable == null) {

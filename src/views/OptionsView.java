@@ -38,7 +38,7 @@ public class OptionsView extends FXView
 	String		lastValidCardLimit;
 	TextField	cardLearnLimit;
 
-	String		tooltipDescription	= "Deaktiviere Tooltips. Wenn diese Option aktiviert ist, werden keine Tooltips angezeigt.";
+	String		tooltipDescription	= "Deaktiviere Tooltipps. Wenn diese Option aktiviert ist, werden keine Tooltipps angezeigt.";
 
 	@Override
 	public Parent constructContainer ()
@@ -100,7 +100,7 @@ public class OptionsView extends FXView
 		Label disableTooltipDescription = new Label(tooltipDescription);
 		disableTooltipDescription.setWrapText(true);
 
-		CheckBox disableTooltips = new CheckBox("Tooltips deaktivieren");
+		CheckBox disableTooltips = new CheckBox("Tooltipps deaktivieren");
 		// TODO link checkbox with database
 
 		BackButton back = new BackButton(getFXController());

@@ -1,6 +1,6 @@
 package database;
 
-import java.sql.*;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 
 import debug.Logger;
@@ -10,56 +10,78 @@ public class Database extends SQLiteConnector {
 	private static final String dbURL = urlBase + globals.Globals.db_name + ".db";
 
 	protected static String myTableName  =  "Stock";
-	private   static String myPrimaryKey = "PK_Stk";
+//	private   static String myPrimaryKey = "PK_Stk";
 	protected static String myFKName     = "Set_ID";	
-	private   static String mySeekAttribute = "Priority";
-	private   static String myAttributeList = myFKName+", Frontside, Backside, Priority, Datum";
-	private   static String myAttributes = 
-				myPrimaryKey + " INTEGER PRIMARY KEY AUTOINCREMENT," +
-				" Frontside     	TEXT    NOT NULL, " +
-				" Backside      	TEXT    NOT NULL, " +
-				" "+myFKName+"    	INTEGER NOT NULL, " +
-				" "+mySeekAttribute+"	INTEGER DEFAULT 1," +
-				" Description   	TEXT    		, " +
-				" Datum				TEXT";
+//	private   static String mySeekAttribute = "Priority";
+//	private   static String myAttributeList = myFKName+", Frontside, Backside, Priority, Datum";
+//	private   static String myAttributes = 
+//				myPrimaryKey + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+//				" Frontside     	TEXT    NOT NULL, " +
+//				" Backside      	TEXT    NOT NULL, " +
+//				" "+myFKName+"    	INTEGER NOT NULL, " +
+//				" "+mySeekAttribute+"	INTEGER DEFAULT 1," +
+//				" Description   	TEXT    		, " +
+//				" Datum				TEXT";
 		
 	public static String getDbURL() {
 		return dbURL;
 	}
 
 	/**
+	 * Keine neue Instanz Database erstellen, sondern nur die Methode benutzen
 	 * 
 	 * @param values
 	 *            --> Array mit 5 Werten: 1. Vorderseite, 2. Rückseite, 3.
 	 *            Set_ID, 4. Priorität (1-5), 5. Color
 	 */
+
 	public static boolean pushToStock (String[] values) {
 		Database.setConnection(dbURL);
 		try {
-			createTableIfNotExists ("Stock", myAttributes);
-			ResultSet selectSet = seekInTable (Stack.myTableName, Stack.myPrimaryKey, Stack.mySeekAttribute, values[2]);
-			String setID = "";
+			String sql = "CREATE TABLE IF NOT EXISTS Stock " +
+					"(PK_Stk INTEGER PRIMARY KEY AUTOINCREMENT," +
+					" Frontside       TEXT    NOT NULL, " +
+					" Backside      TEXT    NOT NULL, " +
+					" Set_ID    		INTEGER NOT NULL, " +
+					" Priority	    INTEGER DEFAULT 1," +
+					" Description    TEXT    		, " +
+					" Color			TEXT    		 )";
+
+			debug.Debugger.out(sql);
+			stmt.executeUpdate(sql);
+
+			String setID;
+
+			c.setAutoCommit(false);
+			ResultSet selectSet = stmt.executeQuery("SELECT PK_Kategorie FROM Kategorie WHERE Kategorie = '"
+					+ values[2] + "'");
+			c.setAutoCommit(true);
+
 			if (selectSet.next()) {
-				setID = Integer.toString(selectSet.getInt(Stack.myPrimaryKey));
+				setID = Integer.toString(selectSet.getInt("PK_Kategorie"));
 				selectSet.close();
 			}
 			else {
 				selectSet.close();
-				closeDB();
+				stmt.close();
+				c.close();
 				return false;
 			}
-			values[2] = values[3]; // TODO dieser murgs muss weg (siehe Aufruf)
-			values[3] = values[4];
-			values[4] = null;
-			insertIntoTable (Database.myTableName, Database.myAttributeList, setID, values);
+
+			String insert = "INSERT INTO Stock (Frontside, Backside, Set_ID, Priority, Color)" +
+					"VALUES ('" + values[0] + "','" + values[1] + "'," + setID + ", " + values[3] + ", '"
+					+ values[4] + "')";
+
+			stmt.executeUpdate(insert);
 			closeDB();
 			return true;
-		} catch (Exception e) {
-			debug.Debugger.out("Database.pushToStock(...): "+e.getMessage());
-			Logger.log("Database.pushToStock(...): "+e.getMessage());
+		}
+		catch (Exception e) {
+			Logger.log("Database.pushToStock(): " + e.getMessage());
 		}
 		closeDB();
-		return false; // TODO evtl. false? ... auch weiter unten ein Problem
+		return false;
+
 	}
 
 	/**
@@ -75,46 +97,71 @@ public class Database extends SQLiteConnector {
 
 		Database.setConnection(dbURL);
 		try {
-			createTableIfNotExists (Database.myTableName, myAttributes);
+
+			String sql = "CREATE TABLE IF NOT EXISTS Stock " +
+					"(PK_Stk INTEGER PRIMARY KEY AUTOINCREMENT," +
+					" Frontside       TEXT    NOT NULL, " +
+					" Backside      TEXT    NOT NULL, " +
+					" Set_ID    		INTEGER NOT NULL, " +
+					" Priority	    INTEGER DEFAULT 1," +
+					" Description    TEXT    		, " +
+					" Color			TEXT    		 )";
+
+			debug.Debugger.out(sql);
+			stmt.executeUpdate(sql);
+
+			c.setAutoCommit(false);
 			String IDwhichSet = "";
-			ResultSet selectSet = seekInTable (Stack.myTableName, Stack.myPrimaryKey, Stack.mySeekAttribute, whichSet);
-			if (selectSet.next()) {
-				IDwhichSet = Integer.toString(selectSet.getInt(Stack.myPrimaryKey));
+			ResultSet s = stmt.executeQuery("SELECT PK_Kategorie FROM Kategorie WHERE Kategorie = '" + whichSet + "'");
+			c.setAutoCommit(true);
+			
+			if (s.next()) {
+				IDwhichSet = Integer.toString(s.getInt("PK_Kategorie"));
 			}
 			else {
-				debug.Debugger.out("No Primary Key '" + whichSet + "' in Table '"+Stack.myTableName+"'");
-				selectSet.close();
+				debug.Debugger.out("No Kategorie: " + whichSet + "in Table Kategorie");
 				closeDB();
 				return null;
 			}
-			selectSet.close();
-			ResultSet rs = seekInTable(Database.myTableName, "*", Database.myFKName, IDwhichSet);
+
+			s.close();
+			c.setAutoCommit(false);
+			ResultSet rs = stmt.executeQuery("SELECT * FROM Stock WHERE Set_ID = '" + IDwhichSet + "'");
+			c.setAutoCommit(true);
+			
 			while (rs.next()) {
 				String[] set = new String[7];
-				set[0] = Integer.toString(rs.getInt(Database.myPrimaryKey));
+				set[0] = Integer.toString(rs.getInt("PK_Stk"));
 				set[1] = rs.getString("Frontside");
 				set[2] = rs.getString("Backside");
 				set[3] = rs.getString("Description");
-				set[4] = Integer.toString(rs.getInt(Database.myFKName));
-				set[5] = Integer.toString(rs.getInt(Database.mySeekAttribute));
+				set[4] = Integer.toString(rs.getInt("Set_ID"));
+				set[5] = Integer.toString(rs.getInt("Priority"));
 				set[6] = rs.getString("Color");
 				results.add(set);
 			}
 			rs.close();
-			closeDB();
 		}
 		catch (Exception e) {
-			if (whichSet==null) whichSet="{null}";
-			debug.Debugger.out("Database.pullFromStock("+whichSet+"): "+e.getMessage());
-			Logger.log("Database.pullFromStock("+whichSet+"): "+e.getMessage());
-			closeDB();
+			Logger.log("Database.pullFromStock(): " + e.getMessage());
 		}
+		closeDB();
 		return results;
 	}
 
 	public static boolean delEntry (String id) {
+
+		boolean deleted = false;
+
 		Database.setConnection(dbURL);
-		Boolean deleted = deleteSQL (Database.myTableName, Stack.myPrimaryKey, Integer.decode(id));
+		try {
+			String del = "DELETE FROM Stock WHERE PK_Stk = " + id;
+			stmt.executeUpdate(del);
+			deleted = true;
+		}
+		catch (Exception e) {
+			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+		}
 		closeDB();
 		return deleted;
 	}
@@ -130,29 +177,34 @@ public class Database extends SQLiteConnector {
 	 *            --> Welcher Text als Rückseite
 	 * @return --> True: Funktionierte, False: Nicht geklappt
 	 */
+
 	public static boolean editEntry (String id, String frontside, String backside) {
 
 		Database.setConnection(dbURL);
 		try {
-			ResultSet rs = seekInTable(Database.myTableName, "*", Database.myPrimaryKey, id);
+			c.setAutoCommit(false);
+			String sel = "SELECT * FROM Stock WHERE PK_Stk = " + id;
+			ResultSet rs = stmt.executeQuery(sel);
+			c.setAutoCommit(true);
+
 			if (!rs.next()) {
-				c.commit();
+				rs.close();
 				closeDB();
 				return false;
-			}
-			else {
+			} else {
 				rs.close();
 			}
-			updateInTable(Database.myTableName, "Frontside", frontside, "Backside", backside, Database.myPrimaryKey, id);
-			closeDB();
-			return true;
+			String del = "UPDATE Stock SET Frontside = '" + frontside
+					+ "', Backside = '" + backside
+					+ "' WHERE PK_Stk = " + id;
+			debug.Debugger.out(del);
+			stmt.executeUpdate(del);
 		}
 		catch (Exception e) {
-			debug.Debugger.out("Database.editEntry("+id+"): "+e.getMessage());
-			Logger.log("Database.editEntry("+id+"): "+e.getMessage());
+			Logger.log("Database.editEntry(): " + e.getMessage());
 		}
 		closeDB();
-		return false;
+		return true;
 	}
 
 	/**
@@ -164,22 +216,37 @@ public class Database extends SQLiteConnector {
 
 	public static void upPrio (Integer PK_ID) {
 
-		Database.setConnection(dbURL);
 		Integer oldPrio = null;
 		String newPrio = "";
+
+		Database.setConnection(dbURL);
 		try {
+			String sql = "CREATE TABLE IF NOT EXISTS Stock " +
+					"(PK_Stk INTEGER PRIMARY KEY AUTOINCREMENT," +
+					" Frontside       TEXT    NOT NULL, " +
+					" Backside      TEXT    NOT NULL, " +
+					" Set_ID    		INTEGER NOT NULL, " +
+					" Priority	    INTEGER DEFAULT 1," +
+					" Description    TEXT    		, " +
+					" Color			TEXT    		 )";
+
+			debug.Debugger.out(sql);
+			stmt.executeUpdate(sql);
+
 			// Frage die Aktuelle Priorität ab
-			ResultSet actualPrio = seekInTable(	Database.myTableName, Database.mySeekAttribute,
-												Database.myPrimaryKey, PK_ID.toString());
+			c.setAutoCommit(false);
+			ResultSet actualPrio = stmt.executeQuery("SELECT Priority FROM Stock WHERE PK_Stk = " + PK_ID.toString());
+			c.setAutoCommit(true);
+			
 			// Überprüft ob vorhanden oder nicht
+
 			if (actualPrio.next()) {
-				oldPrio = actualPrio.getInt(Database.mySeekAttribute);
-				actualPrio.close();
+				oldPrio = actualPrio.getInt("Priority");
 			}
 			else {
-				debug.Debugger.out("No Card with "+Database.myPrimaryKey+"='"+PK_ID.toString()+"' exists.");
-				actualPrio.close();
+				debug.Debugger.out("No Card with this ID exists.");
 			}
+			actualPrio.close();
 
 			// Wenn Aktuelle Priorität = 5, bleibt die neue bei 5, sonst wird
 			// sie um 1 erhöht
@@ -193,14 +260,11 @@ public class Database extends SQLiteConnector {
 
 			// Schreibt die Neue Priorität in die Datenbank
 
-			c.setAutoCommit(true);
-
-			updateInTable (	Database.myTableName, Database.mySeekAttribute, newPrio, 
-							Database.myPrimaryKey, PK_ID.toString());
+			String updatePrio = "UPDATE Stock SET Priority = " + newPrio + " WHERE PK_Stk = " + PK_ID;
+			stmt.executeUpdate(updatePrio);
 		}
 		catch (Exception e) {
-			debug.Debugger.out("Database.upPrio("+PK_ID+"): "+e.getMessage());
-			Logger.log("Database.upPrio("+PK_ID+"): "+e.getMessage());
+			Logger.log("Database.upPrio(): " + e.getMessage());
 		}
 		closeDB();
 	}
@@ -212,16 +276,18 @@ public class Database extends SQLiteConnector {
 	 * @param karte
 	 *            --> Welche Karte reseted wird
 	 */
+
 	public static void resetPrio (Integer PK_ID) {
+
 		Database.setConnection(dbURL);
 		try {
 			// Setzt die Priorität zurück auf 1
-			updateInTable (	Database.myTableName, Database.mySeekAttribute, "1", 
-							Database.myPrimaryKey, PK_ID.toString());
+
+			String updatePrio = "UPDATE Stock SET Priority = 1 WHERE PK_Stk = " + PK_ID;
+			stmt.executeUpdate(updatePrio);
 		}
 		catch (Exception e) {
-			debug.Debugger.out("Database.resetPrio("+PK_ID+"): "+e.getMessage());
-			Logger.log("Database.resetPrio("+PK_ID+"): "+e.getMessage());
+			Logger.log("Database.resetPrio(): " + e.getMessage());
 		}
 		closeDB();
 	}
@@ -232,26 +298,29 @@ public class Database extends SQLiteConnector {
 	 * @param ID_Card --> ID der Karte, von welcher die Priorität gebraaucht wird
 	 * @return --> Gibt die Kartenpriorität als Integer zurück
 	 */
+	
 	public static int getPriority (String ID_Card) {
-		Database.setConnection(dbURL);
+		
 		int prio = 0;
+		Database.setConnection(dbURL);
 		try {
-			// Frage die Aktuelle Priorität ab
-			ResultSet rsPrio = seekInTable(	Database.myTableName, Database.mySeekAttribute,
-											Database.myPrimaryKey, ID_Card);
+			String getPrio = "SELECT Priority FROM Stock WHERE PK_Stk = " + ID_Card;
+			c.setAutoCommit(false);
+			ResultSet rsPrio = stmt.executeQuery(getPrio);
+			c.setAutoCommit(true);
+			
 			if (rsPrio.next()) {
-				prio = rsPrio.getInt(Database.mySeekAttribute);
+				prio = rsPrio.getInt("Priority");
 			} else {
-				debug.Debugger.out("No such Cards exists in stock @ ID ("+ID_Card+")!");
+				debug.Debugger.out("No such Card exists!");
 			}
 		}
 		catch (Exception e) {
-			if (ID_Card==null) ID_Card="{null}";
-			debug.Debugger.out("Database.getPriority("+ID_Card+"): "+e.getMessage());
-			Logger.log("Database.getPriority("+ID_Card+"): "+e.getMessage());
+			Logger.log("Database.getPriority(): " + e.getMessage());
 		}
 		closeDB();
 		return prio;
+		
 	}
 	
 	/**
@@ -259,45 +328,45 @@ public class Database extends SQLiteConnector {
 	 *  
 	 * @param whichSet --> Score von welchem Stack geliefert werden soll
 	 * @return --> Retourniert diesen gewünschten Score
-	 */
+	 */	
 	public static Double[] getScore (String whichSet) {
 
-		Database.setConnection(dbURL);
 		Double maxPoints = 0.0;
 		Double reachedPoints = 0.0;
 		Double[] score = new Double[2];
+
+		Database.setConnection(dbURL);
 		try {
-			// Alle Prioritäten aus Tabelle holen, welche als Set das mitgegebene haben.
-//			String seekAttribute = "Priority";
-//			String katAttribute = "PK_Kategorie";
-//			String katTable = "Kategorie";
-//			String katName  = "Kategorie"; // TODO ??? = PK_Kategorie
+			// Alle Prioritäten aus Tabelle hlen, welche als Set das mitgegebene
+			// haben.
 
-			String subSelect = "(SELECT " + Stack.myPrimaryKey + " FROM " + Stack.myTableName
-							 + " WHERE "+ Stack.mySeekAttribute +" = '" + whichSet + "')";
-			ResultSet scrs = seekInTable (	Database.myTableName, Database.mySeekAttribute, 
-											Database.myFKName, subSelect);
-
+			String getScore = "SELECT Priority FROM Stock WHERE Set_ID = (SELECT PK_Kategorie FROM Kategorie"
+					+ " WHERE Kategorie = '" + whichSet + "')";
+			c.setAutoCommit(false);
+			ResultSet scrs = stmt.executeQuery(getScore);
+			c.setAutoCommit(true);
 			// Durch loopen und die Maximale sowie die Erreichte Punktzahl
 			// speichern
+
 			if (scrs.next()) {
 				maxPoints += 4.0;
-				reachedPoints += scrs.getInt(Database.mySeekAttribute) - 1.0;
+				reachedPoints += scrs.getInt("Priority") - 1.0;
 				while (scrs.next()) {
 					maxPoints += 4.0;
-					reachedPoints += scrs.getInt(Database.mySeekAttribute) - 1.0;
+					reachedPoints += scrs.getInt("Priority") - 1.0;
 				}
+
 			} else {
 				closeDB();
 				return null;
 			}
 		}
 		catch (Exception e) {
-			if (whichSet==null) whichSet="{null}";
-			debug.Debugger.out("Database.getScore("+whichSet+"): "+e.getMessage());
-			Logger.log("Database.getScore("+whichSet+"): "+e.getMessage());
+			Logger.log("Database.getPriority(): " + e.getMessage());
 		}
+
 		// Erreichte Punktzahl zurückgeben
+		
 		score[0] = maxPoints;
 		score[1] = reachedPoints;
 		closeDB();

@@ -1,68 +1,113 @@
 package database;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
 
 import debug.Logger;
-import globals.Globals;
 
-public class Switcher  extends SQLiteConnector {
+public class Switcher extends SQLiteConnector {
 
-	protected static String myTableName  = "Switcher";
-	protected static String mySeekAttribute = "SwitchStack";
-	protected static String myPrimaryKey = "PK_Swt";
-//	private   static String myFKName     = "FK_Door";
-	private   static String myAttributeList = mySeekAttribute;
-	private   static String myAttributes = 
-									  myPrimaryKey + " INTEGER PRIMARY KEY AUTOINCREMENT,"
-									+ " "+ mySeekAttribute + " TEXT NOT NULL";
+	// Varibeln Connection
+
+	private static String	url		= "jdbc:sqlite:" + globals.Environment.getDatabasePath()
+													 + globals.Globals.db_name + ".db";
 	
+	private static String	driver	= "org.sqlite.JDBC";
+
 	public static boolean newSwitch (String setName) {
 
+		Connection c = null;
+		Statement stmt = null;
 		boolean worked = false;
-		Database.setConnection(Database.getDbURL());
-		try {
-			createTableIfNotExists(Switcher.myTableName, Switcher.myAttributes);
 
-			ResultSet checkExists = seekInTable(Switcher.myTableName, "*",
-												Switcher.mySeekAttribute, setName);
+		try {
+			Class.forName(driver);
+			c = DriverManager.getConnection(url);
+			stmt = c.createStatement();
+			
+			String create = "CREATE TABLE IF NOT EXISTS Switcher ("
+							+ "PK_Swt INTEGER PRIMARY KEY AUTOINCREMENT,"
+							+ "SwitchStack TEXT NOT NULL);";
+			stmt.executeUpdate(create);
+			
+			c.setAutoCommit(false);			
+			ResultSet checkExists = stmt.executeQuery("SELECT * FROM Switcher WHERE SwitchStack = '" + setName + "';");
+			c.setAutoCommit(true);			
+			
 			if (checkExists.next()) {
 				checkExists.close();
 			} else {
 				checkExists.close();
-
-				String [] values = setName.split(Globals.SEPARATOR);
-				insertIntoTable (Switcher.myTableName, myAttributeList, values);
+				String insertSwitch = "INSERT INTO Switcher (SwitchStack) VALUES ('" + setName + "');";
+				stmt.executeUpdate(insertSwitch);
 				worked = true;
 			}
 		}
 		catch (Exception e) {
-			if (setName==null) setName = "{null}";
-			debug.Debugger.out("Switcher.newSwitch("+setName+"): "+e.getMessage());
-			Logger.log("Switcher.newSwitch("+setName+"): "+e.getMessage());
+			Logger.log("Database.newSwitch(): " + e.getMessage());
 		}
 		closeDB();
 		return worked;
 	}
 
 	public static boolean delSwitch (String setName) {
+
+		Connection c = null;
+		Statement stmt = null;
 		boolean worked = false;
-		Database.setConnection(Database.getDbURL());
-		createTableIfNotExists(Switcher.myTableName, Switcher.myAttributes);
-		worked = delEntryIfExists (Switcher.myTableName, Switcher.mySeekAttribute, setName);
+
+		try {
+			Class.forName(driver);
+			c = DriverManager.getConnection(url);
+			stmt = c.createStatement();
+			
+			String create = "CREATE TABLE IF NOT EXISTS TABLE Switcher ("
+					+ "PK_Swt INTEGER PRIMARY KEY AUTOINCREMENT,"
+					+ "SwitchStack TEXT NOT NULL);";
+			stmt.executeUpdate(create);
+			
+			c.setAutoCommit(false);			
+			ResultSet checkExists = stmt.executeQuery("SELECT * FROM Switcher WHERE SwitchStack = '" + setName + "';");
+			c.setAutoCommit(true);	
+			
+			if (checkExists.next()) {
+				checkExists.close();
+			} else {
+				checkExists.close();
+				String updateSwitch = "DELETE FROM Switcher WHERE SwitchStack = '" + setName + "'";
+				stmt.executeUpdate(updateSwitch);
+				worked = true;
+			}
+		}
+		catch (Exception e) {
+			Logger.log("Database.delSwitch(): " + e.getMessage());
+		}
 		closeDB();
 		return worked;
 	}
 
 	public static boolean checkSwitched (String setName) {
 
+		Connection c = null;
+		Statement stmt = null;
 		boolean checked = false;
 
-		Database.setConnection(Database.getDbURL());
 		try {
-			createTableIfNotExists(Switcher.myTableName, Switcher.myAttributes);
+			Class.forName(driver);
+			c = DriverManager.getConnection(url);
+			stmt = c.createStatement();
 
-			ResultSet checkExists = seekInTable(Switcher.myTableName, "*",
-												Switcher.mySeekAttribute, setName);
+			String create = "CREATE TABLE IF NOT EXISTS TABLE Switcher ("
+					+ "PK_Swt INTEGER PRIMARY KEY AUTOINCREMENT,"
+					+ "SwitchStack TEXT NOT NULL);";
+			stmt.executeUpdate(create);
+			
+			c.setAutoCommit(false);			
+			ResultSet checkExists = stmt.executeQuery("SELECT * FROM Switcher WHERE SwitchStack = '" + setName + "';");
+			c.setAutoCommit(true);			
+			
 			if (checkExists.next()) {
 				checkExists.close();
 				checked = true;
@@ -72,9 +117,7 @@ public class Switcher  extends SQLiteConnector {
 			}
 		}
 		catch (Exception e) {
-			if (setName==null) setName = "{null}";
-			debug.Debugger.out("Switcher.checkSwitched("+setName+"): "+e.getMessage());
-			Logger.log("Switcher.checkSwitched("+setName+"): "+e.getMessage());
+			Logger.log("Database.checkSwitched(): " + e.getMessage());
 		}
 		closeDB();
 		return checked;

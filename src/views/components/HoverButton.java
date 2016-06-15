@@ -4,6 +4,7 @@ import javafx.geometry.Pos;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import mvc.ModelInterface.Command;
 import mvc.fx.FXSettings;
 import mvc.fx.FXView;
 
@@ -20,8 +21,11 @@ public class HoverButton extends VBox {
 			/**
 			 *  this all is to be more efficient when handling the event below
 			 */
-			tooltipEnable = v.getFXController().getModel("config").getDataList("tooltip").get(0);
+			tooltipEnable = v.getFXController().getModel("config").getDataList("tooltipp").get(0);
 			isTooltipActif = true;
+			if (tooltipEnable == null) {
+				v.getFXController().getModel("config").doAction(Command.SET,"tooltipp","yes");
+			}
 			if (tooltipEnable != null && tooltipEnable.equals("no")) {
 				isTooltipActif = false;
 			}

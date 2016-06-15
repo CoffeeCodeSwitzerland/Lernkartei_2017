@@ -8,6 +8,7 @@ public class Config extends SQLiteConnector {
 
 	// Connection information: URL & Driver
 	private final static String configURL = urlBase + "config.db";
+	private static boolean tableExists = false;
 
 	protected static String myTableName  = "config";
 	protected static String mySeekAttribute = "Key";
@@ -34,8 +35,10 @@ public class Config extends SQLiteConnector {
 	{
 		setConnection(configURL);
 		try {
-			createTableIfNotExists(Config.myTableName, Config.myAttributes);
-			replaceOrInsert2Token(Config.myTableName, Config.mySeekAttribute, key, "Value", value);
+			debug.Debugger.out("Config.setValue("+key+","+value+")");
+			if (!tableExists)
+				tableExists = createTableIfNotExists(myTableName, myAttributes);
+			replaceOrInsert2Token(myTableName, mySeekAttribute, key, "Value", value);
 		} catch (Exception e) {
 			if (key==null) key="{null}";
 			if (value==null) value="{null}";
@@ -53,14 +56,13 @@ public class Config extends SQLiteConnector {
 	protected static String getKeyValueFromTable(	String tabName, String valueName, String keyName,  
 												String key) {
 		try {
-			ResultSet tbl = seekInTable("sqlite_master", "tbl_name", "type='table' AND tbl_name", tabName);
-
-			// TODO check auf 'config' tabelle fehlt (testet im Moment nur, ob eine Tabelle da)
-			if (!tbl.next()) {
-				debug.Debugger.out("Table '"+tabName+"' not existent, no Values are generated yet!");
-				return null;
-			}
-		
+//			ResultSet tbl = seekInTable(myTableName, "*");
+//
+//			// TODO check auf 'config' tabelle fehlt (testet im Moment nur, ob eine Tabelle da)
+//			if (!tbl.next()) {
+//				debug.Debugger.out("Table '"+tabName+"' not existent, no Values are generated yet!");
+//				return null;
+//			}
 			ResultSet rs = seekInTable(tabName, valueName, keyName, key);
 			if (rs.next()) {
 				return rs.getString(valueName);
@@ -81,10 +83,12 @@ public class Config extends SQLiteConnector {
 	 * @return --> Retourniert den Wert mit dem Key von oben
 	 */
 	public static String getValue(String key) {
-
-		String value = null;
 		setConnection(configURL);
+		String value = null;
 		try {
+			debug.Debugger.out("Config.getValue("+key+")");
+			if (!tableExists)
+				tableExists = createTableIfNotExists(myTableName, myAttributes);
 			c.setAutoCommit(false);
 			value = getKeyValueFromTable(Config.myTableName,"Value",Config.mySeekAttribute,key);
 			if (value == null) {

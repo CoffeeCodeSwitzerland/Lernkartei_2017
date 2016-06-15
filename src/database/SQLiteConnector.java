@@ -81,23 +81,35 @@ public abstract class SQLiteConnector extends SQLHandler {
 			if (key == null) key = "{null}";
 			if (value == null) value = "{null}";
 			Logger.log("SQLiteConnector.replaceOrInsertToken(" + key + "," + value + ")" + e.getMessage());
+			debug.Debugger.out("SQLiteConnector.replaceOrInsertToken(" + key + "," + value + ")" + e.getMessage());
 		}
 		closeDB();
 		return false;
 	}
 
 	protected static ResultSet seekSQL(String query) {
+		ResultSet result = null;
 		try {
 			c.setAutoCommit(false);
-			ResultSet result = stmt.executeQuery(query);
+			result = stmt.executeQuery(query);
 			c.setAutoCommit(true);
+			debug.Debugger.out("seekSQL:'"+query+"'->OK!");
 			return result;
 		} catch (Exception e) {
 			if (stmt == null) {
 				Logger.log("SQLHandler.seekInTable(...): open first!");
+				debug.Debugger.out("?!?SQLLiteConnector.seekSQL.1:''->NOT OK!");
+			} else {
+				// TODO kann im Moment nicht zwischen leer und nicht existent unterscheiden...
+				// evtl. nicht von Nöten.
+//				if (result == null) {
+//					Logger.log("SQLHandler.seekInTable(" + query + ")");
+//					Logger.log("SQLHandler.seekInTable(..): " + e.getMessage());
+//					debug.Debugger.out("?!?SQLLiteConnector.seekSQL.2:'"+query+"'->NOT OK!");
+//				} else {
+					debug.Debugger.out("SQLLiteConnector.seekSQL.3:'"+query+"'->TABLE EMPTY!");
+//				}
 			}
-			Logger.log("SQLHandler.seekInTable(" + query + ")");
-			Logger.log("SQLHandler.seekInTable(..): " + e.getMessage());
 		}
 		try {
 			c.setAutoCommit(true);
@@ -106,10 +118,18 @@ public abstract class SQLiteConnector extends SQLHandler {
 	}
 
 	protected static ResultSet seekInTable(String tabName, String attName, String pkey, String value) {
+		return seekSQL( "SELECT " + attName + " FROM " + tabName + " WHERE " + pkey + " = '" + value+"'" );
+	}
+
+	protected static ResultSet seekInTable(String tabName, String attName, String pkey, int value) {
 		return seekSQL( "SELECT " + attName + " FROM " + tabName + " WHERE " + pkey + " = " + value );
 	}
 
 	protected static ResultSet seekInTable (String tabName, String attName, String value) {
+		return seekInTable(tabName, attName, tabName, value);
+	}
+
+	protected static ResultSet seekInTable (String tabName, String attName, int value) {
 		return seekInTable(tabName, attName, tabName, value);
 	}
 

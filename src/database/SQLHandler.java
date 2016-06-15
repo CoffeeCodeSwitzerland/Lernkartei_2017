@@ -7,7 +7,7 @@ import debug.Logger;
 public abstract class SQLHandler {
 
 	protected static Statement stmt = null;
-
+	
 	protected static boolean createTableIfNotExists(String tableName, String attributes) {
 		String sqlUpdate = "CREATE TABLE IF NOT EXISTS " + tableName + " " + "(" + attributes + ");";
 		try {

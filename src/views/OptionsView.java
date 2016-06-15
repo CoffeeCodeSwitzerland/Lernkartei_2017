@@ -11,13 +11,13 @@ import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.control.Separator;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import mvc.ModelInterface.Command;
 import mvc.fx.FXController;
 import mvc.fx.FXView;
 import views.components.Alert;
 import views.components.BackButton;
+import views.components.ControlLayout;
 
 
 /**
@@ -117,13 +117,9 @@ public class OptionsView extends FXView
 		sc.setMaxWidth(400);
 		sc.setHbarPolicy(ScrollBarPolicy.NEVER);
 
-		HBox controlLayout = new HBox(back);
-		controlLayout.setAlignment(Pos.CENTER);
-		controlLayout.setPadding(new Insets(30));
-
 		BorderPane mainLayout = new BorderPane(sc);
-		mainLayout.setPadding(new Insets(30, 50, 0, 50));
-		mainLayout.setBottom(controlLayout);
+		mainLayout.setPadding(new Insets(30, 15, 15, 15));
+		mainLayout.setBottom(new ControlLayout(back));
 
 		getFXController().getModel("config").registerView(this);
 

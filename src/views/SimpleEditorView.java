@@ -17,6 +17,7 @@ import mvc.ModelInterface.Command;
 import mvc.fx.FXController;
 import mvc.fx.FXViewModel;
 import views.components.AppButton;
+import views.components.ControlLayout;
 
 
 public class SimpleEditorView extends FXViewModel
@@ -54,16 +55,11 @@ public class SimpleEditorView extends FXViewModel
 		editLayout.setPadding(new Insets(10));
 		editLayout.setAlignment(Pos.TOP_CENTER);
 
-		HBox controlLayout = new HBox(20);
-		controlLayout.setAlignment(Pos.CENTER);
-		controlLayout.getChildren().addAll(backBtn, infobtn);
-		controlLayout.setPadding(new Insets(15));
-
 		BorderPane mainLayout = new BorderPane();
 		mainLayout.setPadding(new Insets(15));
 		mainLayout.setTop(headLayout);
 		mainLayout.setCenter(scroller);
-		mainLayout.setBottom(controlLayout);
+		mainLayout.setBottom(new ControlLayout(backBtn, infobtn));
 
 		getFXController().getModel("cards").registerView(this);
 		return mainLayout;

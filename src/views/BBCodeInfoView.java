@@ -4,16 +4,15 @@ import java.io.File;
 
 import globals.Functions;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
 import mvc.fx.FXController;
 import mvc.fx.FXView;
 import views.components.AppButton;
+import views.components.ControlLayout;
 
 
 /**
@@ -76,16 +75,13 @@ public class BBCodeInfoView extends FXView
 		scroller.setHbarPolicy(ScrollBarPolicy.NEVER);
 		scroller.setVbarPolicy(ScrollBarPolicy.ALWAYS);
 
-		HBox controlLayout = new HBox(20);
-		controlLayout.setAlignment(Pos.BOTTOM_CENTER);
-		controlLayout.getChildren().addAll(backBtn);
-		controlLayout.setPadding(new Insets(10));
+		ControlLayout conLay = new ControlLayout(backBtn);
 
 		BorderPane mainLayout = new BorderPane();
 		mainLayout.setPadding(new Insets(15));
 		mainLayout.setTop(headLayout);
 		mainLayout.setCenter(scroller);
-		mainLayout.setBottom(controlLayout);
+		mainLayout.setBottom(conLay);
 
 		return mainLayout;
 	}

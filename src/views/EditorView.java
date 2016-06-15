@@ -1,6 +1,7 @@
 package views;
 
 import java.io.File;
+
 import globals.Functions;
 import globals.Globals;
 import javafx.geometry.Insets;
@@ -14,8 +15,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontPosture;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.FileChooser;
@@ -25,6 +24,7 @@ import mvc.ModelInterface.Command;
 import mvc.fx.FXController;
 import mvc.fx.FXViewModel;
 import views.components.AppButton;
+import views.components.ControlLayout;
 
 /**
  * 
@@ -74,16 +74,14 @@ public class EditorView extends FXViewModel
 		editLayout.setAlignment(Pos.TOP_CENTER);
 
 		// Controll Layout
-		HBox controlLayout = new HBox(20);
-		controlLayout.setAlignment(Pos.CENTER);
-		controlLayout.getChildren().addAll(backBtn, infobtn);
+		ControlLayout conLay = new ControlLayout(backBtn, infobtn);
 
 		// Main Layout
 		BorderPane mainLayout = new BorderPane();
 		mainLayout.setPadding(new Insets(15));
 		mainLayout.setTop(headLayout);
 		mainLayout.setCenter(editLayout);
-		mainLayout.setBottom(controlLayout);
+		mainLayout.setBottom(conLay);
 
 		return mainLayout;
 	}

@@ -37,15 +37,15 @@ public class LearnView extends FXViewModel
 		construct(newName);
 	}
 
-	AppButton	successfulBtn	= new AppButton("Richtig");
-	AppButton	wrongBtn		= new AppButton("Falsch");
+	AppButton	successfulBtn	= new AppButton("\u2714 ");
+	AppButton	wrongBtn		= new AppButton("X");
 	Label		headLbl			= new Label("");
 	Label		cardNrLbl		= new Label("");
 	WebView		card			= new WebView();
 	WebEngine	engine			= card.getEngine();
 
 	boolean		frontIsShowed	= true;
-
+	Button		turnCard		= new Button("\u21BA");
 	Button		preCard			= new Button("\u25C0");
 	Button		nextCard		= new Button("\u25B6");
 
@@ -116,18 +116,41 @@ public class LearnView extends FXViewModel
 			turnCard();
 		});
 
-		HBox controlLayout = new HBox(20);
-		controlLayout.setAlignment(Pos.CENTER);
-		controlLayout.getChildren().addAll(backBtn, preCard, successfulBtn, wrongBtn, nextCard);
+		//Navigation zwischen Kärtchen und Kärtchen drehen Button
+				HBox ersteReihe = new HBox(20);
+				ersteReihe.setAlignment(Pos.CENTER);
+				ersteReihe.getChildren().addAll(preCard, turnCard, nextCard);
+				
+				//Hier wird nur bestätigt ob richtig oder falsch
+				HBox zweiteReihe = new HBox(20);
+				zweiteReihe.setAlignment(Pos.CENTER);
+				zweiteReihe.getChildren().addAll(backBtn , successfulBtn, wrongBtn);
+				
+				//Hier werden ersteReihe und zweiteReihe unterienander gestellt
+				VBox reihenLayout = new VBox(20);
+				reihenLayout.setAlignment(Pos.CENTER);
+				reihenLayout.getChildren().addAll(ersteReihe,zweiteReihe);
 
-		BorderPane headLayout = new BorderPane(headLbl);
-		
-		BorderPane mainLayout = new BorderPane();
-		mainLayout.setCenter(cardLayout);
-		mainLayout.setBottom(controlLayout);
+				//Das äusserste Layout mit backBtn und den 2 Reihen im reihenLayout
+				HBox controlLayout = new HBox(20);
+				controlLayout.setAlignment(Pos.CENTER);
+				controlLayout.getChildren().addAll(reihenLayout);
+				
+				//Hier noch die IDs fürs CSS
+				preCard.setId("preCard");
+				turnCard.setId("turnCard");
+				nextCard.setId("nextCard");
+				successfulBtn.setId("successfulBtn");
+				wrongBtn.setId("wrongBtn");
+				
+				BorderPane headLayout = new BorderPane(headLbl);
+				
+				BorderPane mainLayout = new BorderPane();
+				mainLayout.setCenter(cardLayout);
+				mainLayout.setBottom(controlLayout);
 
-		mainLayout.setPadding(new Insets(15));
-		mainLayout.setTop(headLayout);
+				mainLayout.setPadding(new Insets(15));
+				mainLayout.setTop(headLayout);
 
 		mainLayout.setOnKeyReleased(e ->
 		{

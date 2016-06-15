@@ -51,12 +51,12 @@ public class DoorView extends FXView
 		// Initialisiere Layout für Türen
 		doorLayout = new VBox(20);
 		doorLayout.setAlignment(Pos.CENTER);
-		doorLayout.setMinWidth(350);
 		
 		ScrollPane scDoors = new ScrollPane(doorLayout);
 		//scDoors.setId("DoorScrollPane");
 		scDoors.setPadding(new Insets(25));
 		scDoors.setHbarPolicy(ScrollBarPolicy.NEVER);
+		scDoors.setFitToWidth(true);
 		scDoors.setMaxWidth(400);
 
 		// Buttons

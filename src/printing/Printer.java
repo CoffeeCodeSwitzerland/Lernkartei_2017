@@ -23,7 +23,7 @@ public class Printer extends JFrame {
 		add(BorderLayout.CENTER, bttn);
 		bttn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ev) {
-				druckeTestseite();
+				druckeKartenset();
 			}
 		});
 		addWindowListener(new WindowAdapter() {
@@ -33,7 +33,7 @@ public class Printer extends JFrame {
 			}
 		});
 	}
-	public void druckeTestseite() {
+	public void druckeKartenset() {
 		PrintJob prjob = getToolkit().getPrintJob(this, "Testseite", null);
 
 		if (null != prjob) {

@@ -8,13 +8,15 @@
 	-fx-text-fill: #3f3f3f;
 }
 #italicbtn{
-	-fx-font-size: 1.1em;
-	-fx-font-weight: none;
+	-fx-font-family: Serif;
+	-fx-font-style: italic;
+	-fx-font-size: 1.4em;
 	-fx-text-fill: #6d6d6d;
 }
 #crossedbtn{
+	-fx-background-image: url("pictures/rect4140.png");
+	-fx-background-size: contain;
 	-fx-font-size: 1.1em;
-	-fx-text-fill: #6d6d6d;
 }
 #underbtn{
 	-fx-underline: true;

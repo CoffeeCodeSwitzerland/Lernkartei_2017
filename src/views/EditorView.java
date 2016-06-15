@@ -14,6 +14,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.FileChooser;
@@ -85,7 +87,7 @@ public class EditorView extends FXViewModel
 
 		return mainLayout;
 	}
-
+			
 	@Override
 	public void refreshView ()
 	{
@@ -102,8 +104,10 @@ public class EditorView extends FXViewModel
 			bold.setId("boldbtn");
 			Button italic = new Button("I");
 			italic.setId("italicbtn");
-			Button crossed = new Button("S");
+			
+			Button crossed = new Button("");
 			crossed.setId("crossedbtn");
+			
 			Button under = new Button("U");
 			under.setId("underbtn");
 			Button sup = new Button("SP");
@@ -119,8 +123,10 @@ public class EditorView extends FXViewModel
 			bold1.setId("boldbtn");
 			Button italic1 = new Button("I");
 			italic1.setId("italicbtn");
-			Button crossed1 = new Button("S");
+			
+			Button crossed1 = new Button("");
 			crossed1.setId("crossedbtn");
+			
 			Button under1 = new Button("U");
 			under1.setId("underbtn");
 			Button sup1 = new Button("SP");
@@ -134,6 +140,9 @@ public class EditorView extends FXViewModel
 			Button leftbtn = new Button("<");
 			Button rightbtn = new Button(">");
 
+			crossed1.setMinWidth(40);
+			crossed.setMinWidth(40);
+			
 			front.setMinHeight(150);
 			back.setMinHeight(150);
 

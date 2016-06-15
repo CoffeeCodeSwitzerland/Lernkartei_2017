@@ -14,10 +14,12 @@ import javafx.scene.layout.HBox;
  */
 public class ControlLayout extends HBox
 {
+	private static Insets padding = new Insets(20, 0, 0, 0);
+	
 	public ControlLayout (Node... nodes)
 	{
 		setAlignment(Pos.CENTER);
-		setPadding(new Insets(20, 0, 0, 0));
+		setPadding(padding);
 		setSpacing(20);
 		getChildren().addAll(nodes);
 	}

@@ -69,12 +69,11 @@ public class StackView extends FXViewModel
 		Image trashImg = new Image("views/pictures/Papierkorb.png");
 		ImageView trashImgView = new ImageView(trashImg);
 
-		
 		ControlLayout conLay = new ControlLayout(backBtn, newStackBtn, renameBtn, trashImgView);
 
 		// Layout für die Scene
 		BorderPane borderPane = new BorderPane();
-		borderPane.setPadding(new Insets(15));
+		borderPane.setPadding(new Insets(30, 15, 15, 15));
 
 		borderPane.setCenter(scStacks);
 		borderPane.setLeft(options);
@@ -82,7 +81,7 @@ public class StackView extends FXViewModel
 		borderPane.setBottom(conLay);
 
 		// Behaviour
-		backBtn.setOnAction(e -> getFXController().showView("doorview"));
+		backBtn.setOnAction(event -> getFXController().showView("doorview"));
 
 		newStackBtn.setOnAction(e ->
 		{

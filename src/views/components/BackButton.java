@@ -2,19 +2,22 @@ package views.components;
 
 import mvc.fx.FXController;
 
+
 /**
  * Back-Button's are always the same and use the same event handler
  * 
  * @author hugo-lucca
  */
-public class BackButton extends AppButton {
-	
+public class BackButton extends AppButton
+{
+
 	FXController myController;
 
 	/**
-	 * To go back to last shown view you need to know the main-controller 
+	 * To go back to last shown view you need to know the main-controller
 	 */
-	public BackButton (FXController c, String btnText) {
+	public BackButton (FXController c, String btnText)
+	{
 		super(btnText);
 		setId("backbtn");
 		myController = c;
@@ -25,10 +28,11 @@ public class BackButton extends AppButton {
 	}
 
 	/**
-	 * To go back to last shown view you need to know the main-controller.
-	 * This is using a default button text. 
+	 * To go back to last shown view you need to know the main-controller. This
+	 * is using a default button text.
 	 */
-	public BackButton (FXController c) {
-		this(c, "_Zurück");
+	public BackButton (FXController c)
+	{
+		this(c, "Zurück");
 	}
 }

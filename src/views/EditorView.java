@@ -24,10 +24,14 @@ import mvc.fx.FXController;
 import mvc.fx.FXViewModel;
 import views.components.AppButton;
 
+/**
+ * 
+ * @author Dr.Med. David Schor
+ *
+ */
+
 public class EditorView extends FXViewModel
 {
-	// ArrayList<VBox> cards;
-
 	public EditorView (String newName, FXController newController)
 	{
 		super(newController);

@@ -26,7 +26,7 @@ import views.components.AppButton;
  * Lernen. Es werden Karten nacheinander angezeigt, die der User als Richtig
  * oder Falsch markieren kann.
  * 
- * @author miro albrecht
+ * @author miro albrecht, Dr.Med. David Schor
  *
  */
 public class LearnView extends FXViewModel

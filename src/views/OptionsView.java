@@ -23,7 +23,7 @@ import views.components.BackButton;
 /**
  * Optionen
  * 
- * @author miro
+ * @author miro albrecht
  *
  */
 public class OptionsView extends FXView
@@ -34,10 +34,12 @@ public class OptionsView extends FXView
 		construct(newName);
 	}
 
-	boolean	resetChange	= false;
-	String	lastValidCardLimit;
-	TextField cardLearnLimit;
-	
+	boolean		resetChange			= false;
+	String		lastValidCardLimit;
+	TextField	cardLearnLimit;
+
+	String		tooltipDescription	= "Deaktiviere Tooltips. Wenn diese Option aktiviert ist, werden keine Tooltips angezeigt.";
+
 	@Override
 	public Parent constructContainer ()
 	{
@@ -56,7 +58,7 @@ public class OptionsView extends FXView
 					int cardLimit = Integer.parseInt(cardLearnLimit.getText());
 					cardLimit = cardLimit < Globals.minStackPartSize ? Globals.minStackPartSize : cardLimit;
 					cardLimit = cardLimit > Globals.maxStackPartSize ? Globals.maxStackPartSize : cardLimit;
-					String cardLimitParam = "" + cardLimit; // TODO bessere lösung
+					String cardLimitParam = Integer.toString(cardLimit);
 					getFXController().getModel("config").doAction(Command.SET, "cardLimit", cardLimitParam);
 					resetChange = true;
 					cardLearnLimit.setText(cardLimitParam);
@@ -95,37 +97,45 @@ public class OptionsView extends FXView
 			getFXController().getModel("config").doAction(Command.SET, "widthState", value);
 		});
 
+		Label disableTooltipDescription = new Label(tooltipDescription);
+		disableTooltipDescription.setWrapText(true);
+
+		CheckBox disableTooltips = new CheckBox("Tooltips deaktivieren");
+		// TODO link checkbox with database
+
 		BackButton back = new BackButton(getFXController());
 
 		VBox vLayout = new VBox(20);
 		vLayout.setPadding(new Insets(30));
 		vLayout.setMaxWidth(400);
 		vLayout.setAlignment(Pos.CENTER);
-		vLayout.getChildren().addAll(cardLimitDescription, cardLearnLimit, sepp(), autoWidthDescription, autoWidth, sepp());
-		
+		vLayout.getChildren().addAll(cardLimitDescription, cardLearnLimit, sepp());
+		vLayout.getChildren().addAll(autoWidthDescription, autoWidth, sepp());
+		vLayout.getChildren().addAll(disableTooltipDescription, disableTooltips);
+
 		ScrollPane sc = new ScrollPane(vLayout);
 		sc.setMaxWidth(400);
 		sc.setHbarPolicy(ScrollBarPolicy.NEVER);
-		
+
 		HBox controlLayout = new HBox(back);
 		controlLayout.setAlignment(Pos.CENTER);
 		controlLayout.setPadding(new Insets(30));
-		
+
 		BorderPane mainLayout = new BorderPane(sc);
 		mainLayout.setPadding(new Insets(30, 50, 0, 50));
 		mainLayout.setBottom(controlLayout);
-		
+
 		getFXController().getModel("config").registerView(this);
-		
+
 		return mainLayout;
 	}
 
 	@Override
 	public void refreshView ()
 	{
-		
+
 	}
-	
+
 	private Separator sepp ()
 	{
 		return new Separator();

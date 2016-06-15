@@ -14,13 +14,13 @@ import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import mvc.ModelInterface.Command;
 import mvc.fx.FXController;
 import mvc.fx.FXView;
 import views.components.Alert;
 import views.components.AppButton;
+import views.components.ControlLayout;
 import views.components.HomeButton;
 
 
@@ -69,17 +69,14 @@ public class DoorView extends FXView
 		ImageView trashImgView = new ImageView(trashImg);
 
 		// Layout für Controls (Hauptsteuerung)
-		HBox controlsLayout = new HBox(20);
-		controlsLayout.setAlignment(Pos.CENTER); // NICHT MEHR ENTFERNEN
-		controlsLayout.getChildren().addAll(homeBtn, newDoorBtn, renameBtn, trashImgView);
-		controlsLayout.setPadding(new Insets(20,  0, 0, 0));
+		ControlLayout conLay = new ControlLayout(homeBtn, newDoorBtn, renameBtn, trashImgView);
 
 		// Main Layout
 		BorderPane mainLayout = new BorderPane();
 		mainLayout.setPadding(new Insets(30, 15, 15, 15));
 
 		mainLayout.setCenter(scDoors);
-		mainLayout.setBottom(controlsLayout);
+		mainLayout.setBottom(conLay);
 
 		newDoorBtn.setOnAction(e ->
 		{

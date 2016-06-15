@@ -51,8 +51,10 @@ public class DoorView extends FXView
 		// Initialisiere Layout für Türen
 		doorLayout = new VBox(20);
 		doorLayout.setAlignment(Pos.CENTER);
+		doorLayout.setMinWidth(350);
+		
 		ScrollPane scDoors = new ScrollPane(doorLayout);
-		scDoors.setId("DoorScrollPane");
+		//scDoors.setId("DoorScrollPane");
 		scDoors.setPadding(new Insets(25));
 		scDoors.setHbarPolicy(ScrollBarPolicy.NEVER);
 		scDoors.setMaxWidth(400);
@@ -70,10 +72,11 @@ public class DoorView extends FXView
 		HBox controlsLayout = new HBox(20);
 		controlsLayout.setAlignment(Pos.CENTER); // NICHT MEHR ENTFERNEN
 		controlsLayout.getChildren().addAll(homeBtn, newDoorBtn, renameBtn, trashImgView);
+		controlsLayout.setPadding(new Insets(20,  0, 0, 0));
 
 		// Main Layout
 		BorderPane mainLayout = new BorderPane();
-		mainLayout.setPadding(new Insets(15));
+		mainLayout.setPadding(new Insets(30, 15, 15, 15));
 
 		mainLayout.setCenter(scDoors);
 		mainLayout.setBottom(controlsLayout);
@@ -174,5 +177,7 @@ public class DoorView extends FXView
 		}
 
 		doorLayout.getChildren().addAll(doors);
+
+		doorLayout.setAlignment(Pos.CENTER);
 	}
 }

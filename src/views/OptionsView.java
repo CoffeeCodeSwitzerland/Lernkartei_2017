@@ -18,6 +18,7 @@ import mvc.fx.FXView;
 import views.components.Alert;
 import views.components.BackButton;
 import views.components.ControlLayout;
+import views.components.HoverButton;
 
 
 /**
@@ -105,7 +106,7 @@ public class OptionsView extends FXView
 
 		CheckBox disableTooltips = new CheckBox("Tooltipps deaktivieren");
 		boolean oldTooltippValue = false;
-		if (getFXController().getModel("config").getDataList("tooltipp") != null && getFXController().getModel("config").getDataList("tooltipp").get(0) != null && getFXController().getModel("config").getDataList("tooltipp").get(0).equals("yes"))
+		if (getFXController().getModel("config").getDataList("tooltipp") != null && getFXController().getModel("config").getDataList("tooltipp").get(0) != null && getFXController().getModel("config").getDataList("tooltipp").get(0).equals("no"))
 		{
 			oldTooltippValue = true;
 		}
@@ -115,6 +116,7 @@ public class OptionsView extends FXView
 			debug.Debugger.out("Tooltipp property has changed");
 			String value = disableTooltips.selectedProperty().getValue() ? "no" : "yes";
 			getFXController().getModel("config").doAction(Command.SET, "tooltipp", value);
+			HoverButton.clearSettings();
 		});
 
 		BackButton back = new BackButton(getFXController());

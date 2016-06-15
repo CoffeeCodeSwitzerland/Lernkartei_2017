@@ -1,9 +1,6 @@
 package database;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
-import java.sql.Statement;
 import java.util.ArrayList;
 
 import debug.Logger;
@@ -15,100 +12,79 @@ import debug.Logger;
  * 		@WhatIsThis? Gibt Daten für DataModel aus, und kann neue verabrbeiten
  */
 
-public class UserCards {
+public class UserCards  extends SQLiteConnector {
 
-	// URL und Driver
-
-	private static String	url			= "jdbc:sqlite:" +  globals.Environment.getDatabasePath()
-	 									 + globals.Globals.db_name + ".db";
-	private static String	driver		= "org.sqlite.JDBC";
-	
+	protected static String myTableName  = "Score";
+	protected static String mySeekAttribute = "Kartei";
+	protected static String myPrimaryKey = "PK_Score";
+//	private   static String myFKName     = "FK_Door";
+//	private   static String myAttributeList = mySeekAttribute;
+	private   static String myAttributes = 
+									myPrimaryKey + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+									+ "Kartei TEXT NOT NULL,"
+									+ "Score  REAL NOT NULL";
+	/**
+	 *  sicherstellen, dass die Tabelle "Score" existiert
+	 */
 	public UserCards () {
-
-		// für Später, damit sichergestellt ist, dass die Tabelle "Score"
-		// existiert
-		Connection c = null;
-		Statement stmt = null;
-
+		Database.setConnection(Database.getDbURL());
 		try {
-
-			Class.forName(driver);
-			c = DriverManager.getConnection(url);
-			stmt = c.createStatement();
-
-			String sql = "CREATE TABLE IF NOT EXISTS Score 	(PK_Score INTEGER PRIMARY KEY AUTOINCREMENT,"
-					+ "Kartei TEXT NOT NULL,"
-					+ "Score REAL NOT NULL);";
-			debug.Debugger.out(sql);
-			stmt.executeUpdate(sql);
+			createTableIfNotExists(UserCards.myTableName, UserCards.myAttributes);
 		}
 		catch (Exception e) {
-			Logger.log("UserCards Constructor: " + e.getMessage()); 
+			debug.Debugger.out("Score.UserCards(): "+e.getMessage());
+			Logger.log("Score.UserCards(): "+e.getMessage());
 		}
+		closeDB();
 	}
 
 	/**
-	 * 
 	 * Fragt die Karteien eines Users ab
 	 * 
 	 * @return --> Returned eine ArrayList mit Karteien, returnt eine leere,
 	 *         wenn keine Kartei vorhanden
 	 */
-
 	private static ArrayList<String> listCards = new ArrayList<String>();
 
 	public static ArrayList<String> getCards () {
 
-		Connection c = null;
-		Statement stmt = null;
 		listCards.clear();
 
+		Database.setConnection(Database.getDbURL());
 		try {
-			Class.forName(driver);
-			c = DriverManager.getConnection(url);
-			stmt = c.createStatement();
-			String Karten = "SELECT Kartei FROM Score";
-			ResultSet Cards = stmt.executeQuery(Karten);
-
-			String testEintrag = Cards.getString(Cards.findColumn("Kartei"));
-
-			debug.Debugger.out(testEintrag);
-
+			ResultSet Cards = seekInTable( UserCards.myTableName, UserCards.mySeekAttribute);
+			
+			Cards.getString(Cards.findColumn(UserCards.mySeekAttribute));
 			Cards.afterLast();
+			
 			int letzterEintrag = Cards.getRow() - 1;
-
 			for (int i = 1; i < letzterEintrag; i++) {
 				listCards.add(Cards.getString(i));
 			}
-			return listCards;
-
 		}
 		catch (Exception e) {
-			Logger.log("Database.getCards(): " + e.getMessage());
+			debug.Debugger.out("Score.getCards(): "+e.getMessage());
+			Logger.log("Score.getCards(): "+e.getMessage());
 			listCards.clear();
-			return listCards;
 		}
-
+		closeDB();
+		return listCards;
 	}
-
-	boolean wasSuccessful;
 
 	public boolean addCards (String query) {
-
-		Connection c = null;
-		Statement stmt = null;
-
+		// TODO change to call without query, only keys
+		boolean wasSuccessful = false;
+		Database.setConnection(Database.getDbURL());
 		try {
-			Class.forName(driver);
-			c = DriverManager.getConnection(url);
-			stmt = c.createStatement();
 			stmt.executeUpdate(query);
+			wasSuccessful = true;
 		}
 		catch (Exception e) {
-			Logger.log("UserCards.addCards(): " + e.getMessage());
+			if (query == null) query="{null}";
+			debug.Debugger.out("Score.addCards("+query+"): "+e.getMessage());
+			Logger.log("Score.addCards("+query+"): "+e.getMessage());
 		}
-		
+		closeDB();
 		return wasSuccessful;
 	}
-
 }

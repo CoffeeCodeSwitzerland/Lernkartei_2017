@@ -1,19 +1,22 @@
 package database;
 
-import java.sql.*;
+import java.sql.ResultSet;
 
 import debug.Logger;
 
 
-public class UserLogin {
+public class UserLogin extends MYSQLConnector {
 
-	// Variabeln Datenbank Verbindung
-
-	private static String	url			= "jdbc:mariadb://192.168.3.150:3306/userdb";
-	private static String	username	= "prototyp";
-	private static String	password	= "prototyp";
-	private static String	driver		= "com.mysql.jdbc.Driver";
-
+	protected static String myTableName  = "Users";
+	protected static String mySeekAttribute = "Username";
+	protected static String myPrimaryKey = "PK_Usr";
+	private   static String myAttributeList = mySeekAttribute + ", Email, Password, Rule";
+	private   static String myAttributes = 
+									myPrimaryKey + " INTEGER PRIMARY KEY AUTOINCREMENT,"+
+									mySeekAttribute +" TEXT NOT NULL," +
+									" Email 	TEXT NOT NULL," +
+									" Password 	TEXT NOT NULL," +
+									" Rule 		TEXT NOT NULL";
 	/**
 	 * Fügt der Datenbank einen neuen User hinzu
 	 * 
@@ -22,100 +25,49 @@ public class UserLogin {
 	 * @param teacher
 	 *            --> Boolean: true = Lehrer, false = Schüler
 	 */
-
 	public static void newUser (String[] values, boolean teacher) {
 
-		Connection c = null;
-		Statement stmt = null;
+		Database.setConnection(Database.getDbURL());
+//		String usedb = "USE " + "userdb";
+//		stmt.executeQuery(usedb);
 
 		try {
-			Class.forName(driver);
-			c = DriverManager.getConnection(url, username, password);
-			stmt = c.createStatement();
 
-			String studValues = "";
+			// TODO Werte anders setzen!!!
+//			String studValues = "";
+//			for (int i = 0; i < values.length; i++) {
+//				if (i < values.length - 1) {
+//					studValues += "'" + values[i] + "',";
+//				}
+//				else {
+//					studValues += "'" + values[i] + "'";
+//				}
+//			}
+//			String teachValues = "";
+//			for (int i = 0; i < values.length; i++) {
+//				if (i < values.length - 1) {
+//					teachValues += "'" + values[i] + "',";
+//				}
+//				else {
+//					teachValues += "'" + values[i] + "'";
+//				}
+//			}
 
-			for (int i = 0; i < values.length; i++) {
-
-				if (i < values.length - 1) {
-
-					studValues += "'" + values[i] + "',";
-
-				}
-				else {
-
-					studValues += "'" + values[i] + "'";
-
-				}
-
-			}
-
-			String teachValues = "";
-
-			for (int i = 0; i < values.length; i++) {
-
-				if (i < values.length - 1) {
-
-					teachValues += "'" + values[i] + "',";
-
-				}
-				else {
-
-					teachValues += "'" + values[i] + "'";
-
-				}
-
-			}
-
-			String usedb = "USE " + "userdb";
-			stmt.executeQuery(usedb);
-
-			debug.Debugger.out("Opened database successfully");
-
-			String sql1 = "CREATE TABLE IF NOT EXISTS Teachers " +
-					"(PK_Teachers INT PRIMARY KEY AUTO_INCREMENT," +
-					" Username TEXT NOT NULL," +
-					" Email TEXT NOT NULL," +
-					" Password TEXT NOT NULL" + ")";
-
-			debug.Debugger.out(sql1);
-			stmt.executeUpdate(sql1);
-			debug.Debugger.out("Lehrertabelle erstellt!");
-
-			String sql2 = "CREATE TABLE IF NOT EXISTS Students " +
-					"(PK_Students INT PRIMARY KEY AUTO_INCREMENT," +
-					" Username TEXT NOT NULL," +
-					" Email TEXT NOT NULL," +
-					" Password TEXT NOT NULL" + ")";
-
-			debug.Debugger.out(sql2);
-			stmt.executeUpdate(sql2);
-			debug.Debugger.out("Schülertabelle erstellt!");
+			createTableIfNotExists(UserLogin.myTableName, UserLogin.myAttributes);
 
 			if (teacher) {
-
-				String newTeach = "INSERT INTO Teachers (Username, Email, Password) VALUES (" + teachValues + ")";
-				stmt.executeUpdate(newTeach);
-				debug.Debugger.out(newTeach);
-				debug.Debugger.out("Teacher sucessfully added!");
-
+				// TODO set teacher rule
+				insertIntoTable (UserLogin.myTableName, UserLogin.myAttributeList, values);
+			} else {
+				// TODO set student rule
+				insertIntoTable (UserLogin.myTableName, UserLogin.myAttributeList, values);
 			}
-			else if (!teacher) {
-
-				String newStud = "INSERT INTO Students (Username, Email, Password) VALUES (" + studValues + ")";
-				debug.Debugger.out(newStud);
-				stmt.executeUpdate(newStud);
-				debug.Debugger.out("Student sucessfully added!");
-
-			}
-
-			stmt.close();
-			c.close();
 		}
 		catch (Exception e) {
-			Logger.log("Database.newUser(): " + e.getMessage());
+			debug.Debugger.out("UserLogin.newUser(): "+e.getMessage());
+			Logger.log("UserLogin.newUser(): "+e.getMessage());
 		}
-
+		closeDB();
 	}
 
 	/**
@@ -129,103 +81,30 @@ public class UserLogin {
 	public static boolean checkPossible (String[] values) {
 
 		boolean possible = true;
-		boolean noTeacher = true;
-		boolean noStudent = true;
 
 		// Überprüfen ob ein Lehrer mit dem Username oder Email vorhanden ist
-
-		Connection c = null;
-		Statement stmt = null;
-
+		Database.setConnection(Database.getDbURL());
 		try {
-			Class.forName(driver);
-			c = DriverManager.getConnection(url, username, password);
-			stmt = c.createStatement();
+			createTableIfNotExists(UserLogin.myTableName, UserLogin.myAttributes);
 
-			String sql1 = "CREATE TABLE IF NOT EXISTS Teachers " +
-					"(PK_Lehrer INT PRIMARY KEY AUTO_INCREMENT," +
-					" Username TEXT NOT NULL," +
-					" Email TEXT NOT NULL," +
-					" Password TEXT NOT NULL" + ")";
-
-			debug.Debugger.out(sql1);
-			stmt.executeUpdate(sql1);
-			debug.Debugger.out("Lehrertabelle erstellt!");
-
-			String sql2 = "CREATE TABLE IF NOT EXISTS Students " +
-					"(PK_Lehrer INT PRIMARY KEY AUTO_INCREMENT," +
-					" Username TEXT NOT NULL," +
-					" Email TEXT NOT NULL," +
-					" Password TEXT NOT NULL" + ")";
-
-			debug.Debugger.out(sql2);
-			stmt.executeUpdate(sql2);
-			debug.Debugger.out("Schülertabelle erstellt!");
-
-			c.setAutoCommit(false);
-			ResultSet rsUsern = stmt.executeQuery("SELECT Username FROM Teachers WHERE Username = " + "'" + values[0] + "'");
-			ResultSet rsEmail = stmt.executeQuery("SELECT Email FROM Teachers WHERE Email = " + "'" + values[1] + "'");
-			c.setAutoCommit(true);
-			
+			ResultSet rsUsern = seekInTable( 	UserLogin.myTableName, UserLogin.mySeekAttribute,
+					 							UserLogin.mySeekAttribute, values[0]);
+			ResultSet rsEmail = seekInTable( 	UserLogin.myTableName, "EMail",
+					 							"EMail", values[1]);
 			if (rsUsern.next() || rsEmail.next()) {
-
-				noTeacher = false;
-
+				possible = false;
 			}
-
 			rsUsern.close();
 			rsEmail.close();
-			stmt.close();
-			c.close();
 		}
 		catch (Exception e) {
-			Logger.log("UserLogin.checkPossible(): " + e.getMessage());
+			debug.Debugger.out("UserLogin.checkPossible(): "+e.getMessage());
+			Logger.log("UserLogin.checkPossible(): "+e.getMessage());
 		}
-
-		// Überprüfen ob ein Schüler mit dem Username oder Email vorhanden ist
-
-		try {
-			Class.forName(driver);
-			c = DriverManager.getConnection(url, username, password);
-			stmt = c.createStatement();
-
-			c.setAutoCommit(false);
-			ResultSet rsUsern = stmt
-					.executeQuery("SELECT Username FROM Students WHERE Username = " + "'" + values[0] + "'");
-			ResultSet rsEmail = stmt.executeQuery("SELECT Email FROM Students WHERE Email = " + "'" + values[1] + "'");
-			c.setAutoCommit(true);			
-			
-			if (rsUsern.next() || rsEmail.next()) {
-
-				noStudent = false;
-
-			}
-
-			rsUsern.close();
-			rsEmail.close();
-			stmt.close();
-			c.close();
-		}
-		catch (Exception e) {
-			Logger.log("UserLogin.checkPossible(): " + e.getMessage());
-		}
-
 		// Wenn keine Lehrer und keine Schüler mit passendem Username oder Email
 		// vorhanden ist, ist es möglich
-
-		if (noTeacher && noStudent) {
-
-			possible = true;
-
-		}
-		else {
-
-			possible = false;
-
-		}
-
+		closeDB();
 		return possible;
-
 	}
 	
 	/**
@@ -237,44 +116,24 @@ public class UserLogin {
 	
 	public static boolean changeUsername(String newName, String oldName) {
 		
-		Connection c = null;
-		Statement stmt = null;
-		
-		try
-		{
-			Class.forName(driver);
-			c = DriverManager.getConnection(url, username, password);
-			stmt = c.createStatement();
-			
-			String checkT = "SELECT * FROM Teachers WHERE Username = " + newName + ";";
-			String checkS = "SELECT * FROM Students WHERE Username = " + newName + ";";
-			String insertT ="INSERT INTO Teachers (Username) VALUES (" + newName + ") WHERE Username = " + oldName + ";";
-			String insertS ="INSERT INTO Students (Username) VALUES (" + newName + ") WHERE Username = " + oldName + ";";
-			
-			c.setAutoCommit(false);
-			ResultSet rsT = stmt.executeQuery(checkT);
-			ResultSet rsS = stmt.executeQuery(checkS);
-			c.setAutoCommit(true);
-			
-			if (rsT == null && rsS == null)
+		Database.setConnection(Database.getDbURL());
+		try {
+			ResultSet rsT = seekInTable( 	UserLogin.myTableName, "*",
+											UserLogin.mySeekAttribute, newName);
+			if (rsT == null)
 			{
-				try
-				{
-					stmt.executeUpdate(insertT);
-				} catch (Exception e)
-				{
-					stmt.executeUpdate(insertS);
-				}
+				updateInTable (	UserLogin.myTableName, UserLogin.mySeekAttribute, newName, 
+								UserLogin.mySeekAttribute, oldName);
+				closeDB();
 				return true;
-			} else {
-				return false;
 			}
-		
 		} catch (Exception e)
 		{
-			Logger.log("UserLogin.changeUsername(): " + e.getMessage());
-			return false;
+			debug.Debugger.out("UserLogin.changeUserName(): "+e.getMessage());
+			Logger.log("UserLogin.changeUserName(): "+e.getMessage());
 		}
+		closeDB();
+		return false;
 	}
 
 	/**
@@ -286,30 +145,9 @@ public class UserLogin {
 	 */
 
 	public static void delUser (String delName) {
-
-		Connection c = null;
-		Statement stmt = null;
-
-		try {
-			Class.forName(driver);
-			c = DriverManager.getConnection(url, username, password);
-			stmt = c.createStatement();
-
-			String delStudent = "DELETE FROM Students WHERE Username = " + delName;
-			String delTeacher = "DELETE FROM Teachers WHERE Username = " + delName;
-
-			stmt.executeUpdate(delStudent);
-			stmt.executeUpdate(delTeacher);
-
-			debug.Debugger.out("Successfully deleted User: " + delName);
-
-			stmt.close();
-			c.close();
-		}
-		catch (Exception e) {
-			Logger.log("UserLogin.delUser(): " + e.getMessage());
-		}
-
+		Database.setConnection(Database.getDbURL());
+		deleteSQL (UserLogin.myTableName, UserLogin.mySeekAttribute, delName);
+		closeDB();
 	}
 
 	/**
@@ -325,39 +163,23 @@ public class UserLogin {
 		boolean loggedIn = false;
 		String password = null;
 
-		Connection c = null;
-		Statement stmt = null;
-
+		Database.setConnection(Database.getDbURL());
 		try {
-			Class.forName(driver);
-			c = DriverManager.getConnection(url, username, password);
-			stmt = c.createStatement();
-			
-			c.setAutoCommit(false);
-			ResultSet rs = stmt.executeQuery("SELECT Password FROM Students WHERE Username = '" + userData[0] + "'");
-			c.setAutoCommit(true);
-			
+			ResultSet rs = seekInTable( UserLogin.myTableName, "Password",
+										UserLogin.mySeekAttribute, userData[0]);
 			while (rs.next()) {
-
 				password = rs.getString("Password");
-
 			}
-
-			stmt.close();
-			c.close();
 		}
 		catch (Exception e) {
-			Logger.log("UserLogin.loginUser(): " + e.getMessage());
+			debug.Debugger.out("UserLogin.loginUser(): "+e.getMessage());
+			Logger.log("UserLogin.loginUser(): "+e.getMessage());
 		}
-
 		if (userData[1].equals(password)) {
-
 			loggedIn = true;
-
 		}
-
+		closeDB();
 		return loggedIn;
 	}	
-	
 }
 

@@ -32,7 +32,7 @@ public class Config extends SQLiteConnector {
 	 */
 	public static void setValue(String key, String value)
 	{
-		Database.setConnection(configURL);
+		setConnection(configURL);
 		try {
 			createTableIfNotExists(Config.myTableName, Config.myAttributes);
 			replaceOrInsert2Token(Config.myTableName, Config.mySeekAttribute, key, "Value", value);
@@ -83,7 +83,7 @@ public class Config extends SQLiteConnector {
 	public static String getValue(String key) {
 
 		String value = null;
-		Database.setConnection(configURL);
+		setConnection(configURL);
 		try {
 			c.setAutoCommit(false);
 			value = getKeyValueFromTable(Config.myTableName,"Value",Config.mySeekAttribute,key);

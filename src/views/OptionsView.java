@@ -34,16 +34,18 @@ public class OptionsView extends FXView
 		construct(newName);
 	}
 
-	boolean		resetChange			= false;
+	boolean		resetChange				= false;
 	String		lastValidCardLimit;
 	TextField	cardLearnLimit;
 
-	String		tooltipDescription	= "Deaktiviere Tooltipps. Wenn diese Option aktiviert ist, werden keine Tooltipps angezeigt.";
+	String		descTxtCardLimit		= "Anzahl Karten, die auf einmal gelernt werden, limitieren.";
+	String		descTxtEnableAutoWidth	= "Wenn aktiviert, werden alle Buttons dem Grössten angepasst. Sonst orientiert sich die Grösse jeweils am Namen des Buttons.";
+	String		descTxtDisableTooltipps	= "Deaktiviere Tooltipps. Wenn diese Option aktiviert ist, werden keine Tooltipps angezeigt.";
 
 	@Override
 	public Parent constructContainer ()
 	{
-		Label cardLimitDescription = new Label("Anzahl Karten, die auf einmal gelernt werden, limitieren.");
+		Label cardLimitDescription = new Label(descTxtCardLimit);
 		cardLearnLimit = new TextField(getFXController().getModel("config").getDataList("cardLimit").get(0)); // Achtung
 
 		lastValidCardLimit = cardLearnLimit.getText();
@@ -79,7 +81,7 @@ public class OptionsView extends FXView
 			}
 		});
 
-		Label autoWidthDescription = new Label("Wenn aktiviert, werden alle Buttons dem Grössten angepasst. Sonst orientiert sich die Grösse jeweils am Namen des Buttons.");
+		Label autoWidthDescription = new Label(descTxtEnableAutoWidth);
 		autoWidthDescription.setWrapText(true);
 
 		boolean oldValue = false;
@@ -97,7 +99,7 @@ public class OptionsView extends FXView
 			getFXController().getModel("config").doAction(Command.SET, "widthState", value);
 		});
 
-		Label disableTooltipDescription = new Label(tooltipDescription);
+		Label disableTooltipDescription = new Label(descTxtDisableTooltipps);
 		disableTooltipDescription.setWrapText(true);
 
 		CheckBox disableTooltips = new CheckBox("Tooltipps deaktivieren");

@@ -211,7 +211,7 @@ public class LearnView extends FXViewModel
 				for (int i = 1; i < 3; i++)
 				{
 					cardData[i] = Functions.removeHTMLTags(cardData[i]);
-					cardData[i] = Functions.colorBbCode2HTML(cardData[i]);
+					cardData[i] = Functions.complexBbCode2HTML(cardData[i]);
 					cardData[i] = Functions.simpleBbCode2HTML(cardData[i], Globals.evenTags);
 					cardData[i] = Functions.realBbCode2HTML(cardData[i], Globals.pairedTags);
 				}

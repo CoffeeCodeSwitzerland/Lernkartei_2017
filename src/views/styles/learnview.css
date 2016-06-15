@@ -2,3 +2,17 @@
 	-fx-background-image: url("pictures/viewbackground.png");
 	-fx-background-repeat: stretch;   
     -fx-background-size: stretch, cover;}
+    
+#ersteReihe {
+	-fx-font-weight: bold;
+	-fx-font-size: 1.0em;
+	-fx-padding: 20,10,20,10;}
+	
+#zweiteReihe {
+	-fx-font-weight: bold;
+	-fx-font-size: 1.5em;
+	-fx-padding: 10,50,10,10;}
+#TurnIcon{
+	-fx-font-weight: bold;
+	-fx-font-size: 1.5em;
+}

@@ -37,8 +37,8 @@ public class LearnView extends FXViewModel
 		construct(newName);
 	}
 
-	AppButton	successfulBtn	= new AppButton("\u2714 ");
-	AppButton	wrongBtn		= new AppButton("X");
+	Button	successfulBtn		= new Button("\u2714 ");
+	Button	wrongBtn			= new Button("X");
 	Label		headLbl			= new Label("");
 	Label		cardNrLbl		= new Label("");
 	WebView		card			= new WebView();
@@ -117,39 +117,43 @@ public class LearnView extends FXViewModel
 		});
 
 		//Navigation zwischen Kärtchen und Kärtchen drehen Button
-				HBox ersteReihe = new HBox(20);
+				HBox ersteReihe = new HBox(40);
 				ersteReihe.setAlignment(Pos.CENTER);
 				ersteReihe.getChildren().addAll(preCard, turnCard, nextCard);
 				
 				//Hier wird nur bestätigt ob richtig oder falsch
 				HBox zweiteReihe = new HBox(20);
 				zweiteReihe.setAlignment(Pos.CENTER);
-				zweiteReihe.getChildren().addAll(backBtn , successfulBtn, wrongBtn);
+				zweiteReihe.getChildren().addAll(successfulBtn, wrongBtn);
 				
 				//Hier werden ersteReihe und zweiteReihe unterienander gestellt
 				VBox reihenLayout = new VBox(20);
-				reihenLayout.setAlignment(Pos.CENTER);
 				reihenLayout.getChildren().addAll(ersteReihe,zweiteReihe);
-
-				//Das äusserste Layout mit backBtn und den 2 Reihen im reihenLayout
+								
 				HBox controlLayout = new HBox(20);
+				controlLayout.getChildren().addAll(backBtn, reihenLayout);
 				controlLayout.setAlignment(Pos.CENTER);
-				controlLayout.getChildren().addAll(reihenLayout);
 				
 				//Hier noch die IDs fürs CSS
-				preCard.setId("preCard");
-				turnCard.setId("turnCard");
-				nextCard.setId("nextCard");
-				successfulBtn.setId("successfulBtn");
-				wrongBtn.setId("wrongBtn");
+				preCard.setId("ersteReihe");
+				turnCard.setId("TurnIcon");
+				nextCard.setId("ersteReihe");
+				successfulBtn.setId("zweiteReihe");
+				wrongBtn.setId("zweiteReihe");
+				
+				//Hab hier die Grössen festgelegt da es das Padding im CSS ignoriert.
+				turnCard.setMinWidth(100);
+				preCard.setMinWidth(60);
+				nextCard.setMinWidth(60);
+				successfulBtn.setMinWidth(80);
+				wrongBtn.setMinWidth(80);
 				
 				BorderPane headLayout = new BorderPane(headLbl);
 				
 				BorderPane mainLayout = new BorderPane();
+				mainLayout.setPadding(new Insets(15));
 				mainLayout.setCenter(cardLayout);
 				mainLayout.setBottom(controlLayout);
-
-				mainLayout.setPadding(new Insets(15));
 				mainLayout.setTop(headLayout);
 
 		mainLayout.setOnKeyReleased(e ->

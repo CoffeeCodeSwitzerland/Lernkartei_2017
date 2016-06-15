@@ -197,6 +197,7 @@ public class EditorView extends FXViewModel
 				fileChooser.getExtensionFilters().add(extFilter);
 				File selectedFile = fileChooser.showOpenDialog(null);
 				front.setText("[img=(" + selectedFile.getAbsolutePath() + ")][/img]");
+				UpdatePreview();
 			});
 			
 			explorer.setOnAction(e ->{
@@ -205,6 +206,7 @@ public class EditorView extends FXViewModel
 				fileChooser.getExtensionFilters().add(extFilter);
 				File selectedFile = fileChooser.showOpenDialog(null);
 				back.setText("[img=(" + selectedFile.getAbsolutePath() + ")][/img]");
+				UpdatePreview();
 			});
 
 			front.setOnMouseReleased(e ->
@@ -348,25 +350,8 @@ public class EditorView extends FXViewModel
 	public static void UpdatePreview ()
 	{
 
-
-		
 		engineback.loadContent(Functions.FullBb2HTML(back.getText()));
-
-		String text2 = front.getText();
-		text2 = Functions.removeHTMLTags(text2);
-		text2 = Functions.colorBbCode2HTML(text2);
-		text2 = Functions.simpleBbCode2HTML(text2, Globals.evenTags);
-		text2 = Functions.realBbCode2HTML(text2, Globals.pairedTags);
-		
-		String imgs2 = "";
-		
-		if(front.getText().contains("C:")){
-			File f = new File(front.getText());
-			imgs2 += "<img src=\""+f.toURI()+"\">";
-            enginefront.loadContent(imgs2);
-		}else{
-			enginefront.loadContent(text2);
-		}
+		enginefront.loadContent(Functions.FullBb2HTML(front.getText()));
 
 	}
 }

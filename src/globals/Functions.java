@@ -68,10 +68,8 @@ public abstract class Functions
 	 *            String mit Color-BB-Codes
 	 * @return String mit HTML-Color-Tag
 	 */
-	public static String colorBbCode2HTML (String input, String...tags)
-	{
-		//public static String[] = {"<span style=\"color:", "<img src=\""};
-		
+	public static String complexBbCode2HTML (String input, String...tags)
+	{		
 		for (String s : Globals.complexTags)
 		{
 			System.out.println(endHTML(s));
@@ -99,8 +97,12 @@ public abstract class Functions
 			while (count > up)
 			{
 				String result = input.substring(input.indexOf("(") + 1, input.indexOf(")"));
-				//result = Convert.ToFile(result);
-				input = input.replace(fist + result + ")]", "<img src=\"" + result + "\">");
+				File f = new File(result);
+				if(s == "img"){
+					input = input.replace(fist + result + ")]", "<img src=\"" + f.toURI() + "\">");
+				}else{
+					input = input.replace(fist + result + ")]", "<span style=\"color:" + result + "\">");
+				}
 				input = input.replace(endBB(s), endHTML(s));
 				up++;
 				System.out.println(input);
@@ -274,7 +276,7 @@ public abstract class Functions
 	{
 		String imgs = text;
 		imgs = Functions.removeHTMLTags(imgs);
-		imgs = Functions.colorBbCode2HTML(imgs);
+		imgs = Functions.complexBbCode2HTML(imgs);
 		imgs = Functions.simpleBbCode2HTML(imgs, Globals.evenTags);
 		imgs = Functions.realBbCode2HTML(imgs, Globals.pairedTags);
 		

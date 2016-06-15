@@ -5,15 +5,15 @@ import java.util.ArrayList;
 import learning.Bewertungsklasse;
 import mvc.Model;
 
-public class LearnModel extends Model {
 
-//	public LearnModel(String myName) {
-//		super(myName);
-//
-//	}
-
+public class LearnModel extends Model
+{
+	/**
+	 * @deprecated
+	 */
 	@Override
-	public int doAction(String functionName, String freeStringParam, double freeDoubleParam) {
+	public int doAction (String functionName, String freeStringParam, double freeDoubleParam)
+	{
 
 		// Aufruf der Bewertungs Klasse
 		// Returns:
@@ -25,37 +25,76 @@ public class LearnModel extends Model {
 		// 3:
 		// -3:
 
-		int KartenPunkt = 0;
+		if (functionName.equals("Richtig"))
+		{
+			int newPriorityIsValid = Bewertungsklasse.cardIsCorrect(freeStringParam);
 
-		if (functionName.equals("Richtig")) {
-			KartenPunkt = Bewertungsklasse.CardCorrect(freeStringParam, KartenPunkt);
 			database.Score.correctCard();
 			refreshViews();
 
-			return 1;
-		} else if (functionName.equals("Falsch")) {
-			KartenPunkt = Bewertungsklasse.CardFalse(freeStringParam, KartenPunkt);
-			refreshViews();
-			return 2;
+			return newPriorityIsValid;
+		}
+		else if (functionName.equals("Falsch"))
+		{
+			int newPriorityIsValid = Bewertungsklasse.cardIsFalse(freeStringParam);
 
-		} else {
-			return 0; // no error
+			refreshViews();
+
+			return newPriorityIsValid;
+		}
+		else
+		{
+			return 0;
 		}
 	}
 
 	@Override
-	public ArrayList<String> getDataList(String query) {
+	public int doAction (Command command, String... param)
+	{
+		int newPriorityIsValid = 0;
 
-		if (query == null) {
-			return super.getDataList(null);
+		switch (command)
+		{
+			case TRUE:
+
+				if (param.length != 1) { return -2; }
+
+				newPriorityIsValid = Bewertungsklasse.cardIsCorrect(param[0]);
+
+				database.Score.correctCard();
+				refreshViews();
+
+				return newPriorityIsValid;
+
+			case FALSE:
+
+				if (param.length != 1) { return -2; }
+
+				newPriorityIsValid = Bewertungsklasse.cardIsFalse(param[0]);
+
+				refreshViews();
+
+				return newPriorityIsValid;
+
+			default:
+				int successfulSuper = super.doAction(command, param);
+				return successfulSuper;
 		}
+	};
+
+	@Override
+	public ArrayList<String> getDataList (String query)
+	{
+		if (query == null) { return super.getDataList(null); }
 
 		ArrayList<String> memoList = super.getDataList(null);
 
-		if (!getString(null).equals(query)) {
+		if (!getString(null).equals(query))
+		{
 			memoList = Bewertungsklasse.getShuffledCards(query);
 			super.getDataList(null).clear();
-			for (String s : memoList) {
+			for (String s : memoList)
+			{
 				add(s);
 			}
 			setString(query);
@@ -63,5 +102,5 @@ public class LearnModel extends Model {
 
 		return memoList;
 	}
-	
+
 }

@@ -28,7 +28,8 @@ public class Score extends SQLiteConnector {
 	 * @return --> Returned einen Double Wert des Scores, returned -1, wenn kein
 	 *         Score vorhanden
 	 */
-
+	
+	// TODO javadoc commant?? what does this method?
 	public static void correctCard () {
 
 		Connection c = null;

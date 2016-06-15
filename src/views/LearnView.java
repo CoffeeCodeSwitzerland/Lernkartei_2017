@@ -16,6 +16,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
+import mvc.ModelInterface.Command;
 import mvc.fx.FXController;
 import mvc.fx.FXViewModel;
 import views.components.AppButton;
@@ -66,7 +67,7 @@ public class LearnView extends FXViewModel
 
 		successfulBtn.setOnAction(e ->
 		{
-			int feedback = changeCardPriority("Richtig");
+			int feedback = changeCardPriority(Command.TRUE);
 			if (feedback < 0)
 			{
 				counter--;
@@ -79,7 +80,7 @@ public class LearnView extends FXViewModel
 
 		wrongBtn.setOnAction(e ->
 		{
-			int feedback = changeCardPriority("Falsch");
+			int feedback = changeCardPriority(Command.FALSE);
 			if (feedback < 0)
 			{
 				counter--;
@@ -136,7 +137,7 @@ public class LearnView extends FXViewModel
 			}
 			else if (e.getCode() == KeyCode.R)
 			{
-				int feedback = changeCardPriority("Richtig");
+				int feedback = changeCardPriority(Command.FALSE);
 				if (feedback < 0)
 				{
 					counter--;
@@ -148,7 +149,7 @@ public class LearnView extends FXViewModel
 			}
 			else if (e.getCode() == KeyCode.F)
 			{
-				int feedback = changeCardPriority("Falsch");
+				int feedback = changeCardPriority(Command.FALSE);
 				if (feedback < 0)
 				{
 					counter--;
@@ -247,7 +248,7 @@ public class LearnView extends FXViewModel
 		frontIsShowed = !frontIsShowed;
 	}
 
-	private int changeCardPriority (String command)
+	private int changeCardPriority (Command command)
 	{
 		counter++;
 		return getFXController().getModel("learn").doAction(command, cardData[0]);

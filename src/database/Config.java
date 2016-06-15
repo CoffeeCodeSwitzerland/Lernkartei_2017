@@ -17,6 +17,11 @@ public class Config extends SQLiteConnector {
 								myPrimaryKey + " INTEGER PRIMARY KEY AUTOINCREMENT," + 
 								mySeekAttribute + " TEXT NOT NULL," + 
 								"Value TEXT NOT NULL";
+	
+	
+	// TODO check if key OR value is null!
+	// TODO fix set value
+	
 	/**
 	 * Neuer Eintrag in der Datenbank config erstellen
 	 * 
@@ -25,8 +30,8 @@ public class Config extends SQLiteConnector {
 	 * @param value
 	 *            --> Der absolute Wert welcher gesetzt wird
 	 */
-	public static void setValue(String key, String value) {
-
+	public static void setValue(String key, String value)
+	{
 		Database.setConnection(configURL);
 		try {
 			createTableIfNotExists(Config.myTableName, Config.myAttributes);

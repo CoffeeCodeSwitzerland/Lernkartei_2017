@@ -10,10 +10,9 @@ import mvc.Model;
 public class CardModel extends Model
 {
 
-	// public CardModel (String myName) {
-	// super(myName);
-	// }
-	//
+	/**
+	 * @deprecated
+	 */
 	@Override
 	public int doAction (String functionName, String paramS, double paramD)
 	{

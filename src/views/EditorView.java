@@ -17,6 +17,7 @@ import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import mvc.ModelInterface.Command;
 import mvc.fx.FXController;
 import mvc.fx.FXViewModel;
 import views.components.AppButton;
@@ -258,7 +259,7 @@ public class EditorView extends FXViewModel
 			{
 				if (back.getText() != null && !back.getText().equals("") && front.getText() != null && !front.getText().equals(""))
 				{
-					getFXController().getModel("cards").doAction("edit", cardSides[0] + Globals.SEPARATOR + front.getText() + Globals.SEPARATOR + back.getText());
+					getFXController().getModel("cards").doAction(Command.UPDATE, cardSides[0], front.getText(), back.getText());
 					getFXController().showView("simpleeditorview");
 				}
 			});

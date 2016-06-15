@@ -17,6 +17,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import mvc.ModelInterface.Command;
 import mvc.fx.FXController;
 import mvc.fx.FXViewModel;
 import views.components.Alert;
@@ -135,16 +136,16 @@ public class QuizletImportView extends FXViewModel
 						isLoadingACard = true;
 						String s1 = searchResult.get(cardNumber);
 						cardNumber++;
-						if (s1.split(Globals.SEPARATOR).length != 3)
+						String[] card = s1.split(Globals.SEPARATOR);
+						if (card.length != 3)
 						{
 							s1 = Alert.simpleString("Achtung",
 									"Ein ungültiger String wurde gefunden. Bitte passen sie den String an.",
 									s1, 500);
 						}
 						loading.setProgress(cardNumber / cardListSize);
-						getFXController().getModel("cards").doAction("new",
-								s1.split(Globals.SEPARATOR)[1] + Globals.SEPARATOR
-										+ s1.split(Globals.SEPARATOR)[2] + Globals.SEPARATOR + downloadStackName);
+						
+						getFXController().getModel("cards").doAction(Command.NEW, card[1], card[2], downloadStackName);
 
 						isLoadingACard = false;
 					}

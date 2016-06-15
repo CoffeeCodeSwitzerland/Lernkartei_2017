@@ -7,6 +7,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import models.GameModel;
+import mvc.ModelInterface.Command;
 import mvc.fx.FXController;
 import mvc.fx.FXView;
 import views.components.AppButton;
@@ -45,7 +46,7 @@ public class GameView extends FXView {
 
 		// Button für Zurück zum Hauptmenue:
 
-		btn.setOnAction(e -> getFXController().getModel("game").doAction("start")); 
+		btn.setOnAction(e -> getFXController().getModel("game").doAction(Command.NEW)); 
 
 		btnInfo.setOnAction(e -> getFXController().showView("gameoptionview")); 
 

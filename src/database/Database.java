@@ -373,9 +373,10 @@ public class Database extends SQLiteConnector {
 		return score;
 	}
 	public static String[] getFrontAndBackside(  )
-	{
-		//TODO Abrage Statement, es soll die vorder und rückseite gegeben werden, und immer automatisch ein kärtchen weiter.
+	{		
 		String frontside ="Hallo" , backside = "Hello";
+		//TODO Abrage Statement, es soll die vorder und rückseite gegeben werden, und immer automatisch ein kärtchen weiter.
+		// frontside = SELECT frontside FROM 
 		String[] VorderundRückseite = {frontside, backside};	
 		
 		return VorderundRückseite;	

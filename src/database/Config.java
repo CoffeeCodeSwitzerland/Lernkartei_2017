@@ -45,7 +45,7 @@ public class Config extends SQLiteConnector {
 	 * @param key --> Der Key, von welchem der Wert zurückgeliefert werden soll
 	 * @return --> Retourniert den Wert mit dem Key von oben
 	 */
-	public static String getKeyValueFromTable(	String tabName, String valueName, String keyName,  
+	protected static String getKeyValueFromTable(	String tabName, String valueName, String keyName,  
 												String key) {
 		try {
 			ResultSet tbl = seekInTable("sqlite_master", "tbl_name", "type='table' AND tbl_name", tabName);

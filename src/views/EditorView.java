@@ -130,6 +130,7 @@ public class EditorView extends FXViewModel
 			Button cp1 = new Button("C");
 			cp1.setId("cpbtn");
 			Button explorer1 = new Button("Img");
+			explorer1.setId("imgbtn");
 			Button leftbtn = new Button("<");
 			Button rightbtn = new Button(">");
 

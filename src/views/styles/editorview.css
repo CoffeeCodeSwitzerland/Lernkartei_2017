@@ -2,17 +2,44 @@
 #editorview{
 	-fx-background-color: #cef0ffff;
 	}
-
 #boldbtn{
 	-fx-font-weight: bold;
+	-fx-font-size: 1.1em;
+	-fx-text-fill: #3f3f3f;
 }
 #italicbtn{
-	
+	-fx-font-size: 1.1em;
+	-fx-font-weight: none;
+	-fx-text-fill: #6d6d6d;
 }
 #crossedbtn{
-	
+	-fx-font-size: 1.1em;
+	-fx-text-fill: #6d6d6d;
 }
-
 #underbtn{
 	-fx-underline: true;
+	-fx-font-size: 1.1em;
+	-fx-font-weight: none;
+	-fx-text-fill: #6d6d6d;
 }
+#supbtn{
+	-fx-font-size: 1.1em;
+	-fx-text-fill: #6d6d6d;
+}
+#subbtn{
+	-fx-font-size: 1.1em;
+	-fx-text-fill: #6d6d6d;
+}
+#cpbtn{
+	-fx-font-size: 1.1em;
+	-fx-text-fill: #6d6d6d;
+	}
+#imgbtn{
+	-fx-font-size: 1.1em;
+	-fx-text-fill: #6d6d6d;
+	}
+#cpbtn{
+	-fx-font-size: 1.1em;
+	-fx-text-fill: #6d6d6d;
+	}
+	

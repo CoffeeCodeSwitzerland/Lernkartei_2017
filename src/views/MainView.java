@@ -85,7 +85,6 @@ public class MainView extends FXView
 		});
 		
 		//debug.Debugger.out("Set impressum...");
-		
 		return gridpane;
 	}
 

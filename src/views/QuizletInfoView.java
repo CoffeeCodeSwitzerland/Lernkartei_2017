@@ -41,7 +41,7 @@ public class QuizletInfoView extends FXView
 		}
 		double pageWidth = this.getFXController().getMyFXStage().getOPTIMAL_WIDTH();
 		double pageHeight = this.getFXController().getMyFXStage().getOPTIMAL_HEIGHT();
-		debug.Debugger.out("ManualView sizes: w:"+pageWidth+" h:"+pageHeight);
+		debug.Debugger.out("QuizletView sizes: w:"+pageWidth+" h:"+pageHeight);
 		
 		//webContent.setJavaScriptEnabled(true);
 		webPage.setPrefHeight(pageHeight);

@@ -5,8 +5,8 @@ package globals;
  * 
  * @author hugo-lucca
  */
-public abstract class Globals {
-
+public abstract class Globals
+{
 	public static String userLang = "CH-D"; // will be used in future translator
 
 	public static final String appTitle = "WISSLearnCards 2016";
@@ -29,21 +29,7 @@ public abstract class Globals {
 	public static final int defaultStackPartSize = 20;
 	public static final int minStackPartSize = 5;
 	
-	// TODO implement this in doAction
-	
-	public static enum Command
-	{
-		NEW,
-		UPDATE,
-		DELETE,
-		
-		GET,
-		SET,
-		// CHECK, (may not necessary)
-		
-		TRUE,
-		FALSE
-	}
+
 		
 	// The logger should always remain active, to track user problems.
 	// The log-file is stored at the same place of both databases (LK and config)

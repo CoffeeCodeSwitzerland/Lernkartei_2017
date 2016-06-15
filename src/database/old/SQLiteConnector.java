@@ -1,4 +1,4 @@
-package database;
+package database.old;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -10,6 +10,7 @@ import debug.Logger;
  * @author WISS
  *
  */
+
 public abstract class SQLiteConnector extends SQLHandler {
 
 	protected final static String driver = "org.sqlite.JDBC";
@@ -79,54 +80,4 @@ public abstract class SQLiteConnector extends SQLHandler {
 		return false;
 	}
 
-	protected static ResultSet seekSQL(String query) {
-		try {
-			c.setAutoCommit(false);
-			ResultSet result = stmt.executeQuery(query);
-			c.setAutoCommit(true);
-			return result;
-		} catch (Exception e) {
-			if (stmt == null) {
-				Logger.log("SQLHandler.seekInTable(...): open first!");
-			}
-			Logger.log("SQLHandler.seekInTable(" + query + ")");
-			Logger.log("SQLHandler.seekInTable(..): " + e.getMessage());
-		}
-		try {
-			c.setAutoCommit(true);
-		} catch (Exception e) {};
-		return null;
-	}
-
-	protected static ResultSet seekInTable(String tabName, String attName, String pkey, String value) {
-		return seekSQL( "SELECT " + attName + " FROM " + tabName + " WHERE " + pkey + " = " + value );
-	}
-
-	protected static ResultSet seekInTable (String tabName, String attName, String value) {
-		return seekInTable(tabName, attName, tabName, value);
-	}
-
-	protected static ResultSet seekInTable(String tabName, String attName) {
-		return seekSQL( "SELECT " + attName + " FROM " + tabName );
-	}
-
-	public static boolean delEntryIfExists (String tabName, String seekAttr, String setName) {
-		boolean worked = false;
-		try {
-			ResultSet checkExists = seekInTable(tabName, "*", seekAttr, setName);
-			if (checkExists.next()) {
-				checkExists.close();
-			} else {
-				checkExists.close();
-				deleteSQL (tabName, seekAttr, setName);
-				worked = true;
-			}
-		}
-		catch (Exception e) {
-			if (setName==null) setName = "{null}";
-			debug.Debugger.out("SQLiteConnector.delEntyIfExists("+setName+"): "+e.getMessage());
-			Logger.log("SQLiteConnector.delEntyIfExists("+setName+"): "+e.getMessage());
-		}
-		return worked;
-	}
 }

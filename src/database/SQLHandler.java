@@ -1,7 +1,5 @@
 package database;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.Statement;
 
 import debug.Logger;
@@ -11,7 +9,7 @@ public abstract class SQLHandler {
 	protected static Statement stmt = null;
 
 	protected static boolean createTableIfNotExists(String tableName, String attributes) {
-		String sqlUpdate = "CREATE TABLE IF NOT EXISTS " + tableName + " " + "(" + attributes + ")";
+		String sqlUpdate = "CREATE TABLE IF NOT EXISTS " + tableName + " " + "(" + attributes + ");";
 		try {
 			stmt.executeUpdate(sqlUpdate);
 			debug.Debugger.out(sqlUpdate);
@@ -26,45 +24,93 @@ public abstract class SQLHandler {
 		return true;
 	}
 
-	protected static ResultSet seekInTable(Connection c, String tabName, String attName, String pkey, String value) {
-		String query = "SELECT " + attName + " FROM " + tabName + " WHERE " + pkey + " = " + value;
+	/**
+	 * 
+	 * @param sqlStatement
+	 * @return 0, row count or -1 for error
+	 */
+	protected static int updateSQL (String sqlStatement) {
 		try {
-			c.setAutoCommit(false);
-			ResultSet result = stmt.executeQuery(query);
-			c.setAutoCommit(true);
-			return result;
-		} catch (Exception e) {
-			if (stmt == null) {
-				Logger.log("SQLHandler.seekInTable(...): open first!");
-			}
-			Logger.log("SQLHandler.seekInTable(" + query + ")");
-			Logger.log("SQLHandler.seekInTable(..): " + e.getMessage());
-		}
-		try {
-			c.setAutoCommit(true);
-		} catch (Exception e) {};
-		return null;
-	}
-
-	protected static ResultSet seekInTable (Connection c, String tabName, String attName, String value) {
-		return seekInTable(c, tabName, attName, tabName, value);
-	}
-
-	protected static ResultSet updateInTable(String tabName, String attName, String value, String pkeyName,
-			String pkeyValue) {
-		String update = "UPDATE " + tabName + " SET " + attName + " = " + value + " WHERE " + pkeyName + " = "
-				+ pkeyValue;
-		try {
-			stmt.executeUpdate(update);
+			return stmt.executeUpdate(sqlStatement);
 		} catch (Exception e) {
 			if (stmt == null) {
 				Logger.log("SQLHandler.updateInTable(...): open first!");
 			}
-			Logger.log("SQLHandler.updateInTable(" + update + ")");
+			debug.Debugger.out("SQLHandler.updateInTable(" + sqlStatement + ")");
+			Logger.log("SQLHandler.updateInTable(" + sqlStatement + ")");
 			Logger.log("SQLHandler.updateInTable(..): " + e.getMessage());
 		}
-		return null;
+		return -1;
 	}
 
-
+	protected static int updateInTable(String tabName, String att1Name, String value1, 
+							String att2Name, String value2, String pkeyName, String pkeyValue) {
+		
+		return updateSQL( "UPDATE " + tabName + " SET " 
+						+ att1Name + " = '" + value1 + "'"
+						+ att2Name + " = '" + value2 + "'"
+						+" WHERE " + pkeyName + " = '" + pkeyValue+"'");
+	}
+	
+	protected static int updateInTable(	String tabName, String attName, String value, String pkeyName,
+										String pkeyValue) {
+		return updateSQL( "UPDATE " + tabName + " SET " 
+						+ attName + " = '" + value + "'" 
+						+ " WHERE " + pkeyName + " = '"+ pkeyValue+"'");
+	}
+	
+	protected static int insertSQL (String sqlStatement) {
+		try {
+			return stmt.executeUpdate(sqlStatement);
+		} catch (Exception e) {
+			if (stmt == null) {
+				Logger.log("SQLHandler.insertSQL(...): open first!");
+			}
+			debug.Debugger.out("SQLHandler.insertSQL(" + sqlStatement + ")");
+			Logger.log("SQLHandler.insertSQL(" + sqlStatement + ")");
+			Logger.log("SQLHandler.insertSQL(..): " + e.getMessage());
+		}
+		return -1;
+	}
+	
+	protected static int insertIntoTable (String tabName, String attributes, String FK_ID, String[] values) {
+		String sqlStatement = "INSERT INTO Stock ("+attributes+") VALUES ('" + FK_ID;
+		for (int i=0; i< values.length; i++) {
+			sqlStatement += "','" + values[i];
+		}
+		sqlStatement += "')";
+		return insertSQL (sqlStatement);
+	}
+	
+	protected static int insertIntoTable (String tabName, String attributes, String[] values) {
+		String sqlStatement = "INSERT INTO Stock ("+attributes+") VALUES ('" + values[0];
+		for (int i=1; i< values.length; i++) {
+			sqlStatement += "','" + values[i];
+		}
+		sqlStatement += "')";
+		return insertSQL (sqlStatement);
+	}
+	
+	/**
+	 * 
+	 * @param sqlStatement
+	 * @return 0, row count or -1 for error
+	 */
+	protected static boolean deleteSQL (String tabName, String pkName, String substring) {
+		boolean deleted = false;
+		String del = "DELETE FROM "+tabName+" WHERE "+pkName+" = " + substring;
+		try {
+			stmt.executeUpdate(del);
+			deleted = true;
+		}
+		catch (Exception e) {
+			debug.Debugger.out("SQLHandler.deleteSQL("+del+"): "+e.getMessage());
+			Logger.log("SQLHandler.deleteSQL("+del+"): "+e.getMessage());
+		}
+		return deleted;
+	}
+	
+	protected static boolean deleteSQL (String tabName, String pkName, Integer id) {
+		return deleteSQL (tabName, pkName, "'" + Integer.toString(id) +"'");
+	}
 }

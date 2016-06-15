@@ -1,24 +1,20 @@
 package database;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
-import java.sql.Statement;
 
 import debug.Logger;
 
 
 public class Score extends SQLiteConnector {
 
-	// URL und Driver
-
-	private static String	url		= "jdbc:sqlite:" + globals.Environment.getDatabasePath()
-			+ globals.Globals.db_name + ".db";
-	private static String	driver	= "org.sqlite.JDBC";
-
-	private static Integer	anzahlLeben;
-	private static Integer currentLifes;
-
+	protected static String myTableName  = "Lifes";
+	protected static String mySeekAttribute = "Lifecount";
+	protected static String myPrimaryKey = "PK_Lvs";
+//	private   static String myFKName     = "FK_Door";
+//	private   static String myAttributeList = mySeekAttribute;
+	private   static String myAttributes = 
+									  myPrimaryKey + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+									+ " "+ mySeekAttribute + " INTEGER DEFAULT 0";
 	/**
 	 * 
 	 * Fragt den Score einer Kartei ab
@@ -28,157 +24,69 @@ public class Score extends SQLiteConnector {
 	 * @return --> Returned einen Double Wert des Scores, returned -1, wenn kein
 	 *         Score vorhanden
 	 */
-
 	public static void correctCard () {
 
-		Connection c = null;
-		Statement stmt = null;
-
+		Database.setConnection(Database.getDbURL());
 		try {
-			Class.forName(driver);
-			c = DriverManager.getConnection(url);
-			stmt = c.createStatement();
-
-			String sql = "CREATE TABLE IF NOT EXISTS Lifes " +
-					"(PK_Lvs INTEGER PRIMARY KEY AUTOINCREMENT," +
-					" Lifecount INTEGER DEFAULT 0);";
-
-			debug.Debugger.out(sql);
-			stmt.executeUpdate(sql);
-
+			createTableIfNotExists(Score.myTableName, Score.myAttributes);
 			Integer currentLifes = 0;
-			String getCurrent = "SELECT Lifecount FROM Lifes";
 
-			c.setAutoCommit(false);
-			ResultSet getCurt = stmt.executeQuery(getCurrent);
-			c.setAutoCommit(true);
-
+			ResultSet getCurt = seekInTable( Score.myTableName, Score.mySeekAttribute);
 			if (getCurt.next()) {
-				currentLifes = getCurt.getInt("Lifecount");
+				currentLifes = getCurt.getInt(Score.mySeekAttribute);
 				getCurt.close();
 			} else {
-				String newEntry = "INSERT INTO Lifes (Lifecount) VALUES (0)";
-				stmt.executeUpdate(newEntry);
+				// TODO bei der Verallgemeinerung values[0] = 0 setzen 
+				insertSQL ("INSERT INTO Lifes (Lifecount) VALUES (0)");
 			}
-			
 			getCurt.close();
-
-			String updt = "UPDATE Lifes SET Lifecount = " + (currentLifes + 1);
-			stmt.executeUpdate(updt);
+			updateSQL("UPDATE Lifes SET Lifecount = " + (currentLifes + 1));
 		}
 		catch (Exception e) {
-			Logger.log("Database.correctCard(): " + e.getMessage());
+			debug.Debugger.out("Score.correctCard(): "+e.getMessage());
+			Logger.log("Score.correctCard(): "+e.getMessage());
 		}
 		closeDB();
 	}
 
-	public static int getLifecount () {
-
-		Connection c = null;
-		Statement stmt = null;
-
+	private static int getCurrentLifes () {
+		Integer currentLifes = 0;
 		try {
-			Class.forName(driver);
-			c = DriverManager.getConnection(url);
-			stmt = c.createStatement();
-
-			String sql = "CREATE TABLE IF NOT EXISTS Lifes " +
-					"(PK_Lvs INTEGER PRIMARY KEY AUTOINCREMENT," +
-					" Lifecount INTEGER DEFAULT 0);";
-
-			debug.Debugger.out(sql);
-			stmt.executeUpdate(sql);
-
-			Integer currentLifes = 0;
-			String getCurrent = "SELECT Lifecount FROM Lifes";
-
-			c.setAutoCommit(false);
-			ResultSet rs = stmt.executeQuery(getCurrent);
-			c.setAutoCommit(true);
-			
+			createTableIfNotExists(Score.myTableName, Score.myAttributes);
+			ResultSet rs = seekInTable( Score.myTableName, Score.mySeekAttribute);
 			if(rs.next()){
-				currentLifes = rs.getInt("Lifecount");
+				currentLifes = rs.getInt(Score.mySeekAttribute);
 			}
-			float notRounded = currentLifes / 30;
-			anzahlLeben = Math.round(notRounded);
+			rs.close();
 		}
 		catch (Exception e) {
-			Logger.log("Database.getLifecount(): " + e.getMessage());
+			debug.Debugger.out("Score.getCurrenLifes(): "+e.getMessage());
+			Logger.log("Score.getCurrentLifes(): "+e.getMessage());
 		}
+		return currentLifes;
+	}
+
+	public static int getLifecount () {
+		Database.setConnection(Database.getDbURL());
+		int currentLifes = getCurrentLifes ();
+		float notRounded = currentLifes / 30;
+		Integer anzahlLeben = Math.round(notRounded);
 		closeDB();
 		return anzahlLeben;
 	}
 
 	public static void death () {
-		Connection c = null;
-		Statement stmt = null;
-		try {
-			Class.forName(driver);
-			c = DriverManager.getConnection(url);
-			stmt = c.createStatement();
-
-			String sql = "CREATE TABLE IF NOT EXISTS Lifes " +
-					"(PK_Lvs INTEGER PRIMARY KEY AUTOINCREMENT," +
-					" Lifecount INTEGER DEFAULT 0);";
-
-			debug.Debugger.out(sql);
-			stmt.executeUpdate(sql);
-
-			Integer currentLifes = 0;
-
-			String getCurrent = "SELECT Lifecount FROM Lifes";
-			
-			c.setAutoCommit(false);
-			ResultSet rs = stmt.executeQuery(getCurrent);
-			c.setAutoCommit(true);
-			
-			if(rs.next()){
-				currentLifes = rs.getInt("Lifecount");
-			}
-			
-			
-			if (currentLifes >= 30) {
-				String updt = "UPDATE Lifes SET Lifecount = " + (currentLifes - 30);
-				stmt.executeUpdate(updt);
-			}	
-		}
-		catch (Exception e) {
-			Logger.log("Database.death(): " + e.getMessage());
-		}
+		Database.setConnection(Database.getDbURL());
+		int currentLifes = getCurrentLifes ();
+		if (currentLifes >= 30) {
+			updateSQL("UPDATE Lifes SET Lifecount = " + (currentLifes -30));
+		}	
 		closeDB();
 	}
 	
 	public static int getCorrectCards () {
-
-		Connection c = null;
-		Statement stmt = null;
-
-		try {
-			Class.forName(driver);
-			c = DriverManager.getConnection(url);
-			stmt = c.createStatement();
-
-			String sql = "CREATE TABLE IF NOT EXISTS Lifes " +
-					"(PK_Lvs INTEGER PRIMARY KEY AUTOINCREMENT," +
-					" Lifecount INTEGER DEFAULT 0);";
-
-			debug.Debugger.out(sql);
-			stmt.executeUpdate(sql);
-
-			currentLifes = 0;
-			String getCurrent = "SELECT Lifecount FROM Lifes";
-			
-			c.setAutoCommit(false);
-			ResultSet rs = stmt.executeQuery(getCurrent);
-			c.setAutoCommit(true);
-			
-			if(rs.next()){
-				currentLifes = rs.getInt("Lifecount");
-			}
-		}
-		catch (Exception e) {
-			Logger.log("Database.getCorrectCards(): " + e.getMessage());
-		}
+		Database.setConnection(Database.getDbURL());
+		int currentLifes = getCurrentLifes ();
 		closeDB();
 		return currentLifes;
 	}

@@ -40,7 +40,7 @@ public class ImpressumView extends FXView
 		}
 		double pageWidth = this.getFXController().getMyFXStage().getOPTIMAL_WIDTH();
 		double pageHeight = this.getFXController().getMyFXStage().getOPTIMAL_HEIGHT();
-		debug.Debugger.out("ManualView sizes: w:"+pageWidth+" h:"+pageHeight);
+		debug.Debugger.out("ImpressumView sizes: w:"+pageWidth+" h:"+pageHeight);
 		
 		//webPage.setPrefHeight(pageHeight);
 		//webContent.setJavaScriptEnabled(true);

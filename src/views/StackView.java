@@ -14,13 +14,13 @@ import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import mvc.ModelInterface.Command;
 import mvc.fx.FXController;
 import mvc.fx.FXViewModel;
 import views.components.Alert;
 import views.components.AppButton;
+import views.components.ControlLayout;
 
 
 /**
@@ -69,23 +69,19 @@ public class StackView extends FXViewModel
 		Image trashImg = new Image("views/pictures/Papierkorb.png");
 		ImageView trashImgView = new ImageView(trashImg);
 
-		// Layout für Controls
-		HBox hBox = new HBox(20);
-		hBox.setAlignment(Pos.CENTER);
-		hBox.getChildren().addAll(backBtn, newStackBtn, renameBtn, trashImgView);
-		hBox.setPadding(new Insets(15, 0,0,0));
+		ControlLayout conLay = new ControlLayout(backBtn, newStackBtn, renameBtn, trashImgView);
 
 		// Layout für die Scene
 		BorderPane borderPane = new BorderPane();
-		borderPane.setPadding(new Insets(15));
+		borderPane.setPadding(new Insets(30, 15, 15, 15));
 
 		borderPane.setCenter(scStacks);
 		borderPane.setLeft(options);
 		borderPane.setRight(placeholder);
-		borderPane.setBottom(hBox);
+		borderPane.setBottom(conLay);
 
 		// Behaviour
-		backBtn.setOnAction(e -> getFXController().showView("doorview"));
+		backBtn.setOnAction(event -> getFXController().showView("doorview"));
 
 		newStackBtn.setOnAction(e ->
 		{

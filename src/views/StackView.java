@@ -50,7 +50,9 @@ public class StackView extends FXViewModel
 		boxLayout.setAlignment(Pos.CENTER);
 		ScrollPane scStacks = new ScrollPane(boxLayout);
 		scStacks.setPadding(new Insets(25));
-		scStacks.setId("StackScrollPane");
+		//scStacks.setId("StackScrollPane");
+		scStacks.setFitToWidth(true);
+		scStacks.setMaxWidth(400);
 
 		options = new VBox(20);
 		options.setAlignment(Pos.CENTER);
@@ -71,6 +73,7 @@ public class StackView extends FXViewModel
 		HBox hBox = new HBox(20);
 		hBox.setAlignment(Pos.CENTER);
 		hBox.getChildren().addAll(backBtn, newStackBtn, renameBtn, trashImgView);
+		hBox.setPadding(new Insets(15, 0,0,0));
 
 		// Layout für die Scene
 		BorderPane borderPane = new BorderPane();

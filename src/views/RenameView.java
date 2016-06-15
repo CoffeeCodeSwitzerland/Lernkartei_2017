@@ -50,6 +50,7 @@ public class RenameView extends FXViewModel
 
 		HBox controlsLayout = new HBox();
 		controlsLayout.setPadding(new Insets(20, 0, 0, 0));
+		controlsLayout.setAlignment(Pos.CENTER);
 		controlsLayout.getChildren().add(backBtn);
 
 		elements.setPadding(new Insets(30));
@@ -58,6 +59,8 @@ public class RenameView extends FXViewModel
 		ScrollPane scrollLayout = new ScrollPane(elements);
 		scrollLayout.setHbarPolicy(ScrollBarPolicy.NEVER);
 		scrollLayout.setPadding(new Insets(10));
+		scrollLayout.setMaxWidth(400);
+		scrollLayout.setFitToWidth(true);
 
 		BorderPane mainLayout = new BorderPane(scrollLayout);
 		mainLayout.setBottom(controlsLayout);
@@ -69,11 +72,11 @@ public class RenameView extends FXViewModel
 	@Override
 	public void refreshView ()
 	{
-		elements.setMinWidth(getWindow().getScene().getWidth() - 80);
+		//elements.setMinWidth(getWindow().getScene().getWidth() - 80);
 
 		getWindow().getScene().widthProperty().addListener(event ->
 		{
-			elements.setMinWidth(getWindow().getScene().getWidth() - 80);
+			//elements.setMinWidth(getWindow().getScene().getWidth() - 80);
 		});
 
 		// info[0] = stack OR door (model)

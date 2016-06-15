@@ -109,12 +109,12 @@ public class OptionsView extends FXView
 		{
 			oldTooltippValue = true;
 		}
-		autoWidth.setSelected(oldTooltippValue);
-		autoWidth.selectedProperty().addListener(e ->
+		disableTooltips.setSelected(oldTooltippValue);
+		disableTooltips.selectedProperty().addListener(e ->
 		{
 			debug.Debugger.out("Tooltipp property has changed");
-			String value = autoWidth.selectedProperty().getValue() ? "no" : "yes";
-			getFXController().getModel("config").doAction(Command.SET, "tolltipp", value);
+			String value = disableTooltips.selectedProperty().getValue() ? "no" : "yes";
+			getFXController().getModel("config").doAction(Command.SET, "tooltipp", value);
 		});
 
 		BackButton back = new BackButton(getFXController());

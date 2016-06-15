@@ -1,5 +1,6 @@
 package printing;
 
+
 import java.awt.BorderLayout;
 import java.awt.Button;
 import java.awt.Graphics;
@@ -63,11 +64,21 @@ public class Printer extends JFrame {
 
 					iPageWidthEight = iPageWidth / 10;
 					for (int c = 0; c < 2; c++) {
-						pg.drawString("Karte 1", iPageWidthEight, iPageHeightEight);
+						String vorderseite;
+						String rückseite;
+						vorderseite = "";
+						rückseite = "";
+						String[] VorderundRückseite = {vorderseite, rückseite};
+						//TODO Hier Datenbank funktion einfügen
+						
+				//		database.Database.getFrontAndBackside(VorderundRückseite);
+						
+								
+						pg.drawString(vorderseite, iPageWidthEight, iPageHeightEight);
 
 						iPageWidthEight += iPageWidth / 4;
 
-						pg.drawString("Karte 2", iPageWidthEight, iPageHeightEight);
+						pg.drawString(rückseite, iPageWidthEight, iPageHeightEight);
 
 						iPageWidthEight += iPageWidth / 4;
 					}

@@ -372,4 +372,12 @@ public class Database extends SQLiteConnector {
 		closeDB();
 		return score;
 	}
+	public static String[] getFrontAndBackside(String[] Rückgabewert)
+	{
+		
+		String Vorderseite ="Hallo" , Rückseite = "Hello";
+		String[] VorderundRückseite = {Vorderseite, Rückseite};	
+		
+		return VorderundRückseite;	
+	}
 }

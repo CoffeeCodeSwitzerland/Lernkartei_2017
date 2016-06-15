@@ -38,6 +38,7 @@ public class OptionsView extends FXView
 	String		lastValidCardLimit;
 	TextField	cardLearnLimit;
 
+	// Describe the Options
 	String		descTxtCardLimit		= "Anzahl Karten, die auf einmal gelernt werden, limitieren.";
 	String		descTxtEnableAutoWidth	= "Wenn aktiviert, werden alle Buttons dem Grössten angepasst. Sonst orientiert sich die Grösse jeweils am Namen des Buttons.";
 	String		descTxtDisableTooltipps	= "Deaktiviere Tooltipps. Wenn diese Option aktiviert ist, werden keine Tooltipps angezeigt.";
@@ -103,7 +104,18 @@ public class OptionsView extends FXView
 		disableTooltipDescription.setWrapText(true);
 
 		CheckBox disableTooltips = new CheckBox("Tooltipps deaktivieren");
-		// TODO link checkbox with database
+		boolean oldTooltippValue = false;
+		if (getFXController().getModel("config").getDataList("tooltipp") != null && getFXController().getModel("config").getDataList("tooltipp").get(0) != null && getFXController().getModel("config").getDataList("tooltipp").get(0).equals("yes"))
+		{
+			oldTooltippValue = true;
+		}
+		autoWidth.setSelected(oldTooltippValue);
+		autoWidth.selectedProperty().addListener(e ->
+		{
+			debug.Debugger.out("Tooltipp property has changed");
+			String value = autoWidth.selectedProperty().getValue() ? "no" : "yes";
+			getFXController().getModel("config").doAction(Command.SET, "tolltipp", value);
+		});
 
 		BackButton back = new BackButton(getFXController());
 

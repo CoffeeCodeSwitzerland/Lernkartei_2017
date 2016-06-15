@@ -104,13 +104,13 @@ public abstract class FXView extends View
 	}
 
 	public void setupScene(Parent p) {
-		Double width = getFXController().getMyFXStage().getOPTIMAL_WIDTH();
-		Double height = getFXController().getMyFXStage().getOPTIMAL_HEIGHT();
+		
+		Double width = FXSettings.getOPTIMAL_WIDTH();
+		Double height = FXSettings.getOPTIMAL_HEIGHT();
 		this.scene = new Scene(p, width, height);
 		// TODO: add Color settings to scene
-		
+
 		String sep = Environment.getFileSep();
-		
 		String mainCSS = Globals.mainStyleFileName+Globals.CSSExtention;		
 		if (!loadCSS(mainCSS)) {
 			mainCSS = Globals.stylesSupPath+sep+Globals.mainStyleFileName+Globals.CSSExtention;		

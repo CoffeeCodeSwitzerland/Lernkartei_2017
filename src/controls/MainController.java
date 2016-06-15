@@ -56,6 +56,8 @@ public class MainController extends FXController
 		this.addUniqueView(new StackView("stack", this));
 		this.addUniqueView(new RenameView("rename", this));
 		
+		this.addUniqueView(new LoginView("loginview", this));
+		
 		this.addUniqueView(new PreLearnView("prelearn", this));
 		this.addUniqueView(new LearnView("learnview", this));
 		this.addUniqueView(new PostLearnView("postlearn", this));

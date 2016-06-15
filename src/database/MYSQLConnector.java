@@ -11,11 +11,11 @@ import debug.Logger;
  */
 public abstract class MYSQLConnector extends SQLiteConnector {
 
-	private static String	username	= "prototyp";
-	private static String	password	= "prototyp";
+	protected static String	username	= "prototyp";
+	protected static String	password	= "prototyp";
 
-	private static String	mysqlURL	= "jdbc:mariadb://192.168.3.150:3306/userdb";
-	private static String	mysqlDriver	= "com.mysql.jdbc.Driver";
+	protected static String	mysqlURL	= "jdbc:mariadb://192.168.3.150:3306/userdb";
+	protected static String	mysqlDriver	= "com.mysql.jdbc.Driver";
 	protected static Connection c = null;
 
 	public static void setConnection(String dbURL) {

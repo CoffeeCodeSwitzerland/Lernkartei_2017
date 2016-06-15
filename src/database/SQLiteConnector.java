@@ -43,7 +43,12 @@ public abstract class SQLiteConnector extends SQLHandler {
 		stmt = null;
 	}
 
-	public static boolean replaceOrInsert2Token(String tabName, String kName, String key, String vName, String value) {
+	/**
+	 * 
+	 * 
+	 */
+	public static boolean replaceOrInsert2Token(String tabName, String kName, String key, 
+												String vName,   String value) {
 		try {
 			// Überprüfen ob bereits ein Token vorhanden ist, wenn ja,
 			// überschreiben
@@ -51,17 +56,21 @@ public abstract class SQLiteConnector extends SQLHandler {
 			c.setAutoCommit(false);
 			ResultSet rs = stmt.executeQuery(checkTkn);
 			if (rs.next()) {
+				// mindestens einen Eintrag gefunden:
 				// SQLite Statement zum Ersetzen des letzten Tokeneintrags
-				String replace = "UPDATE " + tabName + " SET " + vName + " = '" + value + "'" 
-								+ " WHERE " + kName
-						+ " = '" + key + "'";
+				// TODO prüfen, dass es nur einer ist (sollte eigentlich, wenn unique)...
+				//
+				String replace = "UPDATE " + tabName   + " SET " + vName + " = '" + value + "'" 
+								           + " WHERE " + kName
+						                   + " = '"    + key     + "'";
 				c.setAutoCommit(true);
 				stmt.executeUpdate(replace);
 				debug.Debugger.out(replace + "\n\nErfolgreich Eintrag erneuert!");
 			} else {
+				// Kein Eintrag gefunden:
 				// SQLite Statement zum Erstellen eines neuen Tokens
-				String create = "INSERT INTO " + tabName + " (" + kName + ", " + vName + ") " + "VALUES ('" + key
-						+ "','" + value + "')";
+				String create = "INSERT INTO " + tabName + " ("  + kName + ", " + vName + ") " + "VALUES ('" + key
+						                       + "','"   + value + "')";
 				stmt.executeUpdate(create);
 				c.setAutoCommit(true);
 				debug.Debugger.out(create + "\n\nEintrag erstellt!");
@@ -69,10 +78,8 @@ public abstract class SQLiteConnector extends SQLHandler {
 			closeDB();
 			return true;
 		} catch (Exception e) {
-			if (key == null)
-				key = "{null}";
-			if (value == null)
-				value = "{null}";
+			if (key == null) key = "{null}";
+			if (value == null) value = "{null}";
 			Logger.log("SQLiteConnector.replaceOrInsertToken(" + key + "," + value + ")" + e.getMessage());
 		}
 		closeDB();

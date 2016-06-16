@@ -30,7 +30,7 @@ public class LoginView extends FXView
 	HBox Controls;
 	HBox Errorbox;
 	
-	Label Errortext;
+	Label errorText;
 
 	TextField txtName;
 	PasswordField pwPassword;
@@ -67,7 +67,8 @@ public class LoginView extends FXView
 		reg = new AppButton("Noch kein Profil?");
 		log = new AppButton("Login");
 		
-		Errorbox.getChildren().addAll(Errortext);
+		errorText = new Label("???"); // TODO Namenskonventionen einhalten, keine Leeren Objekte irgendwo hinzufügen
+		Errorbox.getChildren().addAll(errorText);
 		
 		Controls.getChildren().addAll(home, reg);
 		
@@ -93,10 +94,10 @@ public class LoginView extends FXView
 						if (success > 0) {
 							getFXController().showView("userview");
 						} else {
-							Errortext.setText("Das Login ist fehlgeschlagen");
+							errorText.setText("Das Login ist fehlgeschlagen");
 						}
 					} else {
-						Errortext.setText("Das Login ist fehlgeschlagen");
+						errorText.setText("Das Login ist fehlgeschlagen");
 					}
 				}
 			);

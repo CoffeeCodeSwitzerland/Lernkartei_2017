@@ -1,11 +1,14 @@
 package views;
 
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import mvc.fx.FXController;
 import mvc.fx.FXView;
 import views.components.AppButton;
@@ -22,7 +25,7 @@ public class LoginView extends FXView
 	
 	BorderPane bp;
 
-	HBox Fields;
+	VBox AllFields;
 	HBox Controls;
 	
 	Label lblName;
@@ -39,9 +42,17 @@ public class LoginView extends FXView
 	public Parent constructContainer()
 	{
 		bp = new BorderPane();
-
-		Fields = new HBox(50);
+		
+		bp.setId("loginviewbg");
+		
+		AllFields = new VBox(50);
+		AllFields.setAlignment(Pos.CENTER);
+		AllFields.setMaxWidth(300);
+		AllFields.setPadding(new Insets(20));
+		
 		Controls = new HBox(50);
+		Controls.setAlignment(Pos.CENTER);
+		Controls.setPadding(new Insets(20));
 		
 		lblName = new Label("Gib deinen Usernamen ein");
 		lblPassword = new Label("Gib dein Passwort ein");
@@ -50,13 +61,14 @@ public class LoginView extends FXView
 		pwPassword = new PasswordField();
 		
 		home = new HomeButton(getFXController());
-		reg = new AppButton("Registrieren");
+		reg = new AppButton("Noch kein Profil?");
 		log = new AppButton("Login");
 		
-		Fields.getChildren().addAll(lblName, txtName, lblPassword, pwPassword);
-		Controls.getChildren().addAll(home, log, reg);
+		Controls.getChildren().addAll(home, reg);
 		
-		bp.setCenter(Fields);
+		AllFields.getChildren().addAll(lblName, txtName, lblPassword, pwPassword, log);
+		
+		bp.setCenter(AllFields);
 		bp.setBottom(Controls);
 		
 		return bp;
@@ -65,8 +77,7 @@ public class LoginView extends FXView
 	@Override
 	public void refreshView()
 	{
-		// TODO Auto-generated method stub
-		
+		bp.setId("loginviewbg");
 	}
 
 }

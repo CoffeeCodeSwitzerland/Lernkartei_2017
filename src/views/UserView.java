@@ -9,9 +9,10 @@ import mvc.fx.FXView;
 public class UserView extends FXView
 {
 
-	public UserView(FXController newController)
+	public UserView(String newName, FXController newController)
 	{
 		super(newController);
+		construct(newName);
 	}
 
 	

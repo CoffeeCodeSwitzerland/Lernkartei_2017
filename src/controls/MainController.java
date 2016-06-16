@@ -34,6 +34,7 @@ public class MainController extends FXController
 		this.addUniqueModel(new QuizletModel(),"quizlet");
 		this.addUniqueModel(new ConfigModel(),"config");
 		this.addUniqueModel(new StatisticsModel(),"statistics");
+		this.addUniqueModel(new UserSecurityModel(), "usersecuritymodel");
 	}
 
 	@Override
@@ -59,6 +60,7 @@ public class MainController extends FXController
 		
 		this.addUniqueView(new LoginView("loginview", this));
 		this.addUniqueView(new RegisterView("registerview", this));
+		this.addUniqueView(new UserView("userview", this));
 		
 		this.addUniqueView(new PreLearnView("prelearn", this));
 		this.addUniqueView(new LearnView("learnview", this));

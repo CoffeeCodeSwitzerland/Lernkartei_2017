@@ -4,18 +4,18 @@ import java.io.File;
 
 import globals.Functions;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import mvc.fx.FXController;
 import mvc.fx.FXView;
 import views.components.AppButton;
+import views.components.ControlLayout;
+import views.components.MainLayout;
 
 public class ImpressumView extends FXView
 {
@@ -82,18 +82,11 @@ public class ImpressumView extends FXView
 		contentLayout.getChildren().addAll(webPage);
 		
 		//Für die ControllButtons und die Links
-		HBox controlLayout = new HBox(20);
-		controlLayout.setAlignment(Pos.BOTTOM_CENTER);
-		controlLayout.getChildren().addAll(backBtn,WISSlink, BITLink, LehrlingeLink);
-		controlLayout.setPadding(new Insets(10));
+		ControlLayout conLay = new ControlLayout(backBtn,WISSlink, BITLink, LehrlingeLink);
 		
-		BorderPane mainLayout = new BorderPane();
-		mainLayout.setPadding(new Insets(15));
-		mainLayout.setTop(headLayout);
-		mainLayout.setCenter(contentLayout);
-		mainLayout.setBottom(controlLayout);
+		MainLayout maLay = new MainLayout(contentLayout, headLayout, conLay);
 
-		return mainLayout;
+		return maLay;
 	}
 
 	@Override

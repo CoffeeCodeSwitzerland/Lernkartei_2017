@@ -3,7 +3,6 @@ package views;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import models.GameModel;
@@ -11,6 +10,7 @@ import mvc.ModelInterface.Command;
 import mvc.fx.FXController;
 import mvc.fx.FXView;
 import views.components.AppButton;
+import views.components.MainLayout;
 
 /**
  * Gamestartfenster ================ Zweck dieses BS ist eine Art Warte- und
@@ -31,7 +31,6 @@ public class GameView extends FXView {
 	Text text;
 
 	public static Text lifes = new Text("");
-	BorderPane mainLayout = new BorderPane();
 	public static AppButton btn = new AppButton("Spiel starten");
 	VBox menuLayout = new VBox();
 	AppButton btnInfo = new AppButton("Info");
@@ -58,12 +57,11 @@ public class GameView extends FXView {
 		menuLayout.setPadding(new Insets(10)); 
 		menuLayout.setSpacing(10);
 		menuLayout.setAlignment(Pos.CENTER);
-		mainLayout.setTop(lifes); 
-
-		mainLayout.setPadding(new Insets(5)); 
-		mainLayout.setCenter(menuLayout);
+		
+		MainLayout maLay = new MainLayout(menuLayout, lifes, null);
+		
 		((GameModel) getFXController().getModel("game")).registerView(this, getFXController());
-		return mainLayout;
+		return maLay;
 
 		// VBox in neuem Borderpane einfügen, zwingend wenn Hintergrund neu sein
 		// soll

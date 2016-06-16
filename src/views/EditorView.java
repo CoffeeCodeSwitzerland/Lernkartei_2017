@@ -25,6 +25,7 @@ import mvc.fx.FXController;
 import mvc.fx.FXViewModel;
 import views.components.AppButton;
 import views.components.ControlLayout;
+import views.components.MainLayout;
 
 /**
  * 
@@ -77,13 +78,9 @@ public class EditorView extends FXViewModel
 		ControlLayout conLay = new ControlLayout(backBtn, infobtn);
 
 		// Main Layout
-		BorderPane mainLayout = new BorderPane();
-		mainLayout.setPadding(new Insets(15));
-		mainLayout.setTop(headLayout);
-		mainLayout.setCenter(editLayout);
-		mainLayout.setBottom(conLay);
+		MainLayout maLay = new MainLayout(editLayout, headLayout, conLay);
 
-		return mainLayout;
+		return maLay;
 	}
 			
 	@Override

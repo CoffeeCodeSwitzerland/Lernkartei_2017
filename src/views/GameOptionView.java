@@ -1,13 +1,12 @@
 package views;
 
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import mvc.fx.FXController;
 import mvc.fx.FXView;
 import views.components.AppButton;
+import views.components.MainLayout;
 
 
 /**
@@ -18,7 +17,6 @@ import views.components.AppButton;
  */
 public class GameOptionView extends FXView
 {
-
 	public GameOptionView (String newName, FXController newController)
 	{
 		super(newController);
@@ -28,21 +26,17 @@ public class GameOptionView extends FXView
 	@Override
 	public Parent constructContainer ()
 	{
-		// Objekte
-
-		AppButton BacktoGameMenu = new AppButton("Zurück");
-		BorderPane mainLayout = new BorderPane();
+		AppButton backToGameMenu = new AppButton("Zurück");
 
 		VBox itemsLayout = new VBox();
 		itemsLayout.setAlignment(Pos.BOTTOM_CENTER);
 
-		BacktoGameMenu.setOnAction(e -> getFXController().showView("gameview"));
+		backToGameMenu.setOnAction(e -> getFXController().showView("gameview"));
 
-		itemsLayout.getChildren().addAll(BacktoGameMenu);
+		itemsLayout.getChildren().addAll(backToGameMenu);
 
-		mainLayout.setCenter(itemsLayout);
-		mainLayout.setPadding(new Insets(50));
-		return mainLayout;
+		MainLayout maLay = new MainLayout(itemsLayout);
+		return maLay;
 	}
 
 	@Override

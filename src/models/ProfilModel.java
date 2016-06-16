@@ -21,26 +21,8 @@ public class ProfilModel extends FXModel
 	@Override
 	public int doAction(String functionName, String paramS, double paramD)
 	{
-		if (functionName.equals("change"))
-		{
-			//Ändert den Usernamen, wenn der neue nicht bereits vorhanden ist
-			
-			Supervisor.errorAndDebug(this, "ProfilModel: Method deprecated! Please use the new doAction!");
-			
-			return -1;
-		}
-		else if (functionName.equals("getName"))
-		{
-			//Gibt den Usernamen des Users zurück
-			Supervisor.errorAndDebug(this, "ProfilModel: Method deprecated! Please use the new doAction!");
-			
-			return -1;
-		}
-		else
-		{
-			//Defaultreturn
-			return 0;
-		}
+		Supervisor.errorAndDebug(this, "Deprecated method (ProfilModel). Please use the new doAction");
+		return -9;
 	}
 	
 	@Override

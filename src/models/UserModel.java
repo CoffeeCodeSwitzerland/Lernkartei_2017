@@ -3,81 +3,63 @@ package models;
 import java.util.ArrayList;
 
 import database.UserCards;
+import debug.Supervisor;
 import mvc.Model;
 import user.User;
 
 
 public class UserModel extends Model
 {
-//	public UserModel (String myName)
-//	{
-//		super(myName);
-//	}
-
 	@Override
 	public int doAction (String functionName, String paramS, double paramD)
 	{
-		// Wenn "Ich bin ein Lehrer" angekreuzt -> 1 als double übergeben sonst
-		// 0
-		boolean isTeacher;
-		if (paramD == 1)
+		Supervisor.errorAndDebug(this, "Deprecated method (UserModel). Please use the new doAction");
+		return -9;
+	}
+	
+	@Override
+	public int doAction (Command command, String... param)
+	{
+		switch (command)
 		{
-			isTeacher = true;
-		}
-		else
-		{
-			isTeacher = false;
-		}
-
-		// Funktionen von "User"
-		if (functionName.equals("register"))
-		{
-			// Um User zu registrieren
-			// Als String bitte Username:::Email:::Password -> ::: = Separator
-			// (Constants.SEPARATOR)
-			try
-			{
-				boolean success = User.Register(paramS, isTeacher);
-				return success ? 1 : -1;
-			}
-			catch (Exception e)
-			{
-				return -2;
-			}
-			// Funktion von User zum Einloggen
-			// Als String bitte Username:::Password -> ::: = Separator
-			// (Constants.SEPARATOR)
-		}
-		else if (functionName.equals("login"))
-		{
-			try
-			{
-				boolean success = User.Login(paramS);
-				return success ? 1 : -1;
-			}
-			catch (Exception e)
-			{
-				return -2;
-			}
-			// Funktion zum Löschen von Benutzern -> Nur durchführbar wenn man
-			// eingeloggt ist mit dem User, welchen man löschen will
-			// Als String wird hier nur Username nötig
-		}
-		else if (functionName.equals("delete"))
-		{
-			try
-			{
-				boolean success = User.Delete(paramS);
-				return success ? 1 : -1;
-			}
-			catch (Exception e)
-			{
-				return -2;
-			}
-		}
-		else
-		{
-			return 0;
+			case NEW:
+				if (param.length != 2) { return -2; }
+				try
+				{
+					boolean success = User.Register(param[0], param[1].equals("1") ? true : false); // saubere Lösung
+					return success ? 1 : -1;
+				}
+				catch (Exception e)
+				{
+					return -3;
+				}
+				
+			case SET:
+				if (param.length != 1) { return -2; }
+				try
+				{
+					boolean success = User.Login(param[0]);
+					return success ? 1 : -1;
+				}
+				catch (Exception e)
+				{
+					return -3;
+				}
+				
+			case DELETE:
+				if (param.length != 1) { return -2; }
+				try
+				{
+					boolean success = User.Delete(param[0]);
+					return success ? 1 : -1;
+				}
+				catch (Exception e)
+				{
+					return -3;
+				}
+				
+			default:
+				return super.doAction(command, param);
 		}
 	}
 

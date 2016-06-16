@@ -3,6 +3,7 @@ package models;
 import java.util.ArrayList;
 
 import database.Doors;
+import debug.Supervisor;
 import mvc.Model;
 
 
@@ -14,45 +15,8 @@ public class DoorModel extends Model
 	@Override
 	public int doAction (String functionName, String paramS, double paramD)
 	{
-		if (functionName == "new")
-		{
-			try
-			{
-				boolean success = Doors.newDoor(paramS);
-				refreshViews();
-				return success ? 1 : -1;
-			}
-			catch (Exception e)
-			{
-				return -2;
-			}
-		}
-		else if (functionName == "delete")
-		{
-			try
-			{
-				boolean success = Doors.delDoor(paramS);
-				refreshViews();
-				return success ? 1 : -1;
-			}
-			catch (Exception e)
-			{
-				return -2;
-			}
-		}
-		else if (functionName.equals("update"))
-		{
-			if (database.Doors.update(paramS.split(globals.Globals.SEPARATOR)[0], paramS.split(globals.Globals.SEPARATOR)[1]))
-			{
-				return 1;
-			}
-			else
-			{
-				return -1;
-			}
-		}
-
-		return 0;
+		Supervisor.errorAndDebug(this, "Deprecated method (DoorModel). Please use the new doAction");
+		return -9;
 	}
 
 	@Override

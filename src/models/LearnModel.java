@@ -2,6 +2,7 @@ package models;
 
 import java.util.ArrayList;
 
+import debug.Supervisor;
 import learning.Bewertungsklasse;
 import mvc.Model;
 
@@ -14,38 +15,8 @@ public class LearnModel extends Model
 	@Override
 	public int doAction (String functionName, String freeStringParam, double freeDoubleParam)
 	{
-
-		// Aufruf der Bewertungs Klasse
-		// Returns:
-		// 0: Falsche Eingabe --> functionName existiert nicht
-		// 1: Erfolgreich Punkt hinzugefügt
-		// -1: Funktion wurde nicht ausgeeführt
-		// 2: Punkt wurde erfolgreich von Karte abgezogen
-		// -2: Punkt wurde nicht abgezogen
-		// 3:
-		// -3:
-
-		if (functionName.equals("Richtig"))
-		{
-			int newPriorityIsValid = Bewertungsklasse.cardIsCorrect(freeStringParam);
-
-			database.Score.correctCard();
-			refreshViews();
-
-			return newPriorityIsValid;
-		}
-		else if (functionName.equals("Falsch"))
-		{
-			int newPriorityIsValid = Bewertungsklasse.cardIsFalse(freeStringParam);
-
-			refreshViews();
-
-			return newPriorityIsValid;
-		}
-		else
-		{
-			return 0;
-		}
+		Supervisor.errorAndDebug(this, "Deprecated method (LearnModel). Please use the new doAction");
+		return -9;
 	}
 
 	@Override

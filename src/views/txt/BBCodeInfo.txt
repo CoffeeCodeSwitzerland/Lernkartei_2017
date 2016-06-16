@@ -2,10 +2,10 @@ BBCode ist eine an HTML angelehnte, jedoch vereinfachte Auszeichnungssprache, di
 Nebenbei wird mit BBCode Sicherheitsprobleme umgangen.
 
 Was gibt es alles:
-[b]Text[/b] 			-->	Text fett
-[i]Text[/i] 			-->	Text schrägstellen
-[s]Text[/s] 			-->	Text durchstreichen
-[u]Text[/u] 			-->	Text unterstreichen
-[sup]Text[/sup] 		-->	Text hochstellen
-[sub]Text[/sub] 		-->	Text hinunterstellen
+[b]Text[/b] 				-->	Text fett
+[i]Text[/i] 					-->	Text schrägstellen
+[s]Text[/s] 				-->	Text durchstreichen
+[u]Text[/u] 				-->	Text unterstreichen
+[sup]Text[/sup] 			-->	Text hochstellen
+[sub]Text[/sub] 			-->	Text hinunterstellen
 [color=(FFFFFF)]Text[color] 	-->	farbiger Text

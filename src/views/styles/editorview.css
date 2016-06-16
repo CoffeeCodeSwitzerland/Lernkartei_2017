@@ -39,8 +39,10 @@
 	-fx-text-fill: #6d6d6d;
 	}
 #imgbtn{
+	-fx-background-image: url("pictures/PictureIcon.png");
+	-fx-background-repeat: no-repeat;
+	-fx-background-size: contain;
 	-fx-font-size: 1.1em;
-	-fx-text-fill: #6d6d6d;
 	}
 #cpbtn{
 	-fx-font-size: 1.1em;

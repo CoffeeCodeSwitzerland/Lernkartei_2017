@@ -114,7 +114,7 @@ public class EditorView extends FXViewModel
 			sub.setId("subbtn");
 			Button cp = new Button("C");
 			cp.setId("cpbtn");
-			Button explorer = new Button("Img");
+			Button explorer = new Button("");
 			explorer.setId("imgbtn");
 			
 			Button bold1 = new Button("B");
@@ -133,11 +133,15 @@ public class EditorView extends FXViewModel
 			sub1.setId("subbtn");
 			Button cp1 = new Button("C");
 			cp1.setId("cpbtn");
-			Button explorer1 = new Button("Img");
+			Button explorer1 = new Button("");
 			explorer1.setId("imgbtn");
 			Button leftbtn = new Button("<");
 			Button rightbtn = new Button(">");
 
+			
+			explorer.setMinWidth(45);
+			explorer1.setMinWidth(45);
+			
 			crossed1.setMinWidth(40);
 			crossed.setMinWidth(40);
 			

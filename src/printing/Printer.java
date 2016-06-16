@@ -66,16 +66,16 @@ public class Printer extends JFrame {
 
 					iPageWidthEight = iPageWidth / 10;
 					for (int c = 0; c < 2; c++) {
-//TODO						String[] VorderUndRückseite = database.Database.getFrontAndBackside();
+						String[] VorderUndRückseite = database.Database.getFrontAndBackside();
 //
-//						// TODO Hier Datenbank funktion einfügen
-//
-//						pg.drawString(VorderUndRückseite[0], iPageWidthEight, iPageHeightEight);
-//
-//						iPageWidthEight += iPageWidth / 4;
-//
-//						pg.drawString(VorderUndRückseite[1], iPageWidthEight, iPageHeightEight);
-//
+						// TODO Hier Datenbank funktion einfügen
+
+						pg.drawString(VorderUndRückseite[0], iPageWidthEight, iPageHeightEight);
+
+						iPageWidthEight += iPageWidth / 4;
+
+						pg.drawString(VorderUndRückseite[1], iPageWidthEight, iPageHeightEight);
+
 						iPageWidthEight += iPageWidth / 4;
 					}
 

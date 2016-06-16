@@ -357,5 +357,17 @@ public class Database extends SQLiteConnector {
 		score[1] = reachedPoints;
 		closeDB();
 		return score;
+		
+		
+	}
+
+	public static String[] getFrontAndBackside() {
+		String vorderseite = "Hallo";
+		
+		String rückseite = "Hello";
+		
+		String[] VorderUndRückseite = {vorderseite, rückseite};
+		
+		return VorderUndRückseite;
 	}
 }

@@ -16,7 +16,7 @@ public class UserModel extends Model
 		Supervisor.errorAndDebug(this, "Deprecated method (UserModel). Please use the new doAction");
 		return -9;
 	}
-	
+
 	@Override
 	public int doAction (Command command, String... param)
 	{
@@ -26,14 +26,15 @@ public class UserModel extends Model
 				if (param.length != 2) { return -2; }
 				try
 				{
-					boolean success = User.Register(param[0], param[1].equals("1") ? true : false); // saubere Lösung
+					boolean success = User.Register(param[0], param[1].equals("1") ? true : false); // saubere
+																									 // Lösung
 					return success ? 1 : -1;
 				}
 				catch (Exception e)
 				{
 					return -3;
 				}
-				
+
 			case SET:
 				if (param.length != 1) { return -2; }
 				try
@@ -45,7 +46,7 @@ public class UserModel extends Model
 				{
 					return -3;
 				}
-				
+
 			case DELETE:
 				if (param.length != 1) { return -2; }
 				try
@@ -57,7 +58,7 @@ public class UserModel extends Model
 				{
 					return -3;
 				}
-				
+
 			default:
 				return super.doAction(command, param);
 		}

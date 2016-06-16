@@ -2,6 +2,7 @@ package views;
 
 import java.util.ArrayList;
 
+import debug.Debugger;
 import globals.Globals;
 import javafx.animation.AnimationTimer;
 import javafx.geometry.Insets;
@@ -271,7 +272,8 @@ public class QuizletImportView extends FXViewModel
 								loading.setProgress(-1);
 								cardNumber = 1;
 								cardListSize = Float.parseFloat(stackInfo[3]);
-								getFXController().getModel("stack").doAction(Command.NEW, getData(), name);
+								Debugger.out(getData());
+								getFXController().getModel("stack").doAction(Command.NEW, name, getData());
 							});
 							additionalInfoLayout.getChildren().clear();
 							additionalInfoLayout.getChildren().addAll(stackTitle, stackCount, stackAuthor, stackLangs,

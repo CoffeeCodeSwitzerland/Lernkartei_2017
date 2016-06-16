@@ -10,8 +10,6 @@ import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
@@ -22,6 +20,9 @@ import mvc.fx.FXController;
 import mvc.fx.FXViewModel;
 import views.components.Alert;
 import views.components.AppButton;
+import views.components.ControlLayout;
+import views.components.MainLayout;
+import views.components.VerticalScroller;
 
 
 /**
@@ -95,31 +96,27 @@ public class QuizletImportView extends FXViewModel
 		listLayout.setAlignment(Pos.CENTER);
 		listLayout.setPadding(new Insets(35));
 
-		ScrollPane scroller = new ScrollPane(listLayout);
-		scroller.setPadding(new Insets(20));
-		scroller.setHbarPolicy(ScrollBarPolicy.NEVER);
-		scroller.setVbarPolicy(ScrollBarPolicy.AS_NEEDED);
+		VerticalScroller scroLay = new VerticalScroller(listLayout){public void requestFocus(){}}; // Make the ScrollPane not selectable
+		scroLay.setMaxWidth(getWindow().getMaxWidth());
 
 		AppButton backBtn = new AppButton("_Zurück");
 		backBtn.setOnAction(e -> getFXController().showView("stack"));
-
-		HBox infoLayout = new HBox(15);
-		infoLayout.setPadding(new Insets(15));
-		infoLayout.setAlignment(Pos.CENTER_LEFT);
-		infoLayout.getChildren().addAll(backBtn, new Label("Powered by Quizlet"));
-
+		
+		ControlLayout conLay = new ControlLayout(backBtn, new Label("Powered by Quizlet"));
+		conLay.setAlignment(Pos.CENTER_LEFT);
+		conLay.setPadding(new Insets(15));
+		
 		VBox bottomLayout = new VBox();
-		bottomLayout.getChildren().addAll(infoLayout, loading);
+		bottomLayout.getChildren().addAll(conLay, loading);
 
-		BorderPane mainLayout = new BorderPane();
-		mainLayout.setCenter(scroller);
-		mainLayout.setTop(headLayout);
-		mainLayout.setRight(additionalInfoLayout);
-		mainLayout.setBottom(bottomLayout);
-
+		
+		MainLayout maLay = new MainLayout(scroLay, headLayout, additionalInfoLayout, bottomLayout, null);
+		maLay.setPadding(new Insets(0));
+		
 		getFXController().getModel("stack").registerView(this);
 		getFXController().getModel("cards").registerView(this);
-		return mainLayout;
+		
+		return maLay;
 	}
 
 	AnimationTimer loadingAnimation = new AnimationTimer()
@@ -127,57 +124,53 @@ public class QuizletImportView extends FXViewModel
 		@Override
 		public void handle (long now)
 		{
-			if (isLoading)
+			if (!isLoadingACard)
 			{
-				if (!isLoadingACard)
+				if (cardNumber < searchResult.size())
 				{
-					if (cardNumber < searchResult.size())
+					isLoadingACard = true;
+					String s1 = searchResult.get(cardNumber);
+					cardNumber++;
+					String[] card = s1.split(Globals.SEPARATOR);
+					if (card.length != 3)
 					{
-						isLoadingACard = true;
-						String s1 = searchResult.get(cardNumber);
-						cardNumber++;
-						String[] card = s1.split(Globals.SEPARATOR);
-						if (card.length != 3)
-						{
-							s1 = Alert.simpleString("Achtung",
-									"Ein ungültiger String wurde gefunden. Bitte passen sie den String an.",
-									s1, 500);
-						}
-						loading.setProgress(cardNumber / cardListSize);
-						
-						getFXController().getModel("cards").doAction(Command.NEW, card[1], card[2], downloadStackName);
-
-						isLoadingACard = false;
+						s1 = Alert.simpleString("Achtung",
+								"Ein ungültiger String wurde gefunden. Bitte passen sie den String an.",
+								s1, 500); // TODO andere Lösung
 					}
-					else
-					{
-						getWindow().getScene().widthProperty()
-								.removeListener(oldEvent -> loading.setMinWidth(getWindow().getScene().getWidth()));
+					loading.setProgress(cardNumber / cardListSize);
+					
+					getFXController().getModel("cards").doAction(Command.NEW, card[1], card[2], downloadStackName);
 
-						downloadStackName = "";
-						cardNumber = -1;
-						alreadyDownloaded = 0;
-						cardListSize = 0;
+					isLoadingACard = false;
+				}
+				else
+				{
+					getWindow().getScene().widthProperty().removeListener(oldEvent -> loading.setMinWidth(getWindow().getScene().getWidth()));
 
-						isLoading = false;
-						loadingAnimation.stop();
+					downloadStackName = "";
+					cardNumber = -1;
+					alreadyDownloaded = 0;
+					cardListSize = 0;
 
-						loading.setProgress(0);
-						getFXController().showView("stack");
-					}
+					isLoading = false;
+					loadingAnimation.stop();
+
+					loading.setProgress(0);
+					getFXController().showView("stack");
 				}
 			}
 		}
 	};
-
+	
 	@Override
 	public void refreshView ()
 	{
 		if (cardNumber == -1)
 		{
 			loading.setMinWidth(getWindow().getScene().getWidth());
-			getWindow().getScene().widthProperty()
-					.addListener(e -> loading.setMinWidth(getWindow().getScene().getWidth()));
+			// TODO change when windows isn't resizeable yet
+			getWindow().getScene().widthProperty().addListener(e -> loading.setMinWidth(getWindow().getScene().getWidth()));
 
 			if (searchInput.getText() == null || searchInput.getText().equals("")) { return; }
 
@@ -307,7 +300,6 @@ public class QuizletImportView extends FXViewModel
 			{
 				isLoading = true;
 				loadingAnimation.start();
-				;
 			}
 		}
 	}

@@ -57,7 +57,7 @@ public class Quizlet
 	 * @throws MalformedURLException
 	 * @throws IOException
 	 */
-	public ArrayList<String> searchSet (String query) throws MalformedURLException, IOException
+	public ArrayList<String> searchSet (String query, String page) throws MalformedURLException, IOException
 	{
 		if (query == null)
 			return null;
@@ -68,6 +68,11 @@ public class Quizlet
 		// Setzt den vollständigen URL zusammen
 		String queryUrl = searchSetUrl + tokenUrl + "&q=" + query;
 
+		if (page != null)
+		{
+			queryUrl += "&page=" + page;
+		}
+		
 		// Fragt das JSON Object ab
 		JSONObject obj = Request.GetJSONObject(queryUrl);
 		// Speichert das JSON Array mit den Sets
@@ -99,6 +104,11 @@ public class Quizlet
 		}
 
 		return tempList;
+	}
+	
+	public ArrayList<String> searchSet (String query) throws MalformedURLException, IOException
+	{
+		return searchSet(query, null);
 	}
 
 	/**

@@ -13,4 +13,9 @@ public class VerticalScroller extends ScrollPane
 		setMaxWidth(Globals.defaultScrollerWidth);
 		setFitToWidth(true);
 	}
+	
+	@Override
+	public void requestFocus ()
+	{
+	}
 }

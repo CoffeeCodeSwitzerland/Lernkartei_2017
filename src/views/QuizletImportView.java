@@ -44,7 +44,10 @@ public class QuizletImportView extends FXViewModel
 	VBox				additionalInfoLayout	= new VBox(20);
 	ProgressBar			loading					= new ProgressBar(0);
 	String				downloadStackName		= "";
+	String currentSearch = "";
 	int					cardNumber				= -1;
+	int					page					= 1;
+	int pageCount = 0;
 	float				alreadyDownloaded		= 0;
 	float				cardListSize			= 0;
 
@@ -71,7 +74,7 @@ public class QuizletImportView extends FXViewModel
 				refreshView();
 			}
 		});
-		
+
 		okBtn.setId("small");
 		okBtn.setOnAction(e ->
 		{
@@ -97,31 +100,50 @@ public class QuizletImportView extends FXViewModel
 		listLayout.setAlignment(Pos.CENTER);
 		listLayout.setPadding(new Insets(35));
 
-		VerticalScroller scroLay = new VerticalScroller(listLayout){public void requestFocus(){}}; // Make the ScrollPane not selectable
+		VerticalScroller scroLay = new VerticalScroller(listLayout);
 		scroLay.setMaxWidth(getWindow().getMaxWidth());
 
 		AppButton backBtn = new AppButton("_Zurück");
 		backBtn.setOnAction(e -> getFXController().showView("stack"));
+
+		AppButton prevPageBtn = new AppButton("Vorherige Seite");
+		prevPageBtn.setOnAction(e ->
+		{
+			if (page > 1)
+			{
+				page--;
+				refreshView();
+			}
+		}); 
 		
-		ControlLayout conLay = new ControlLayout(backBtn, new Label("Powered by Quizlet"));
+		AppButton nextPageBtn = new AppButton("Nächste Seite");
+		nextPageBtn.setOnAction(e ->
+		{
+			if (page < pageCount)
+			{
+				page++;
+				refreshView();
+			}
+		}); 
+		
+		
+		ControlLayout conLay = new ControlLayout(backBtn, prevPageBtn, nextPageBtn, new Label("Powered by Quizlet"));
 		conLay.setAlignment(Pos.CENTER_LEFT);
 		conLay.setPadding(new Insets(15));
-		
+
 		VBox bottomLayout = new VBox();
 		bottomLayout.getChildren().addAll(conLay, loading);
 
-		
 		MainLayout maLay = new MainLayout(scroLay, headLayout, additionalInfoLayout, bottomLayout, null);
 		maLay.setPadding(new Insets(0));
-		
+
 		getFXController().getModel("stack").registerView(this);
 		getFXController().getModel("cards").registerView(this);
-		
+
 		return maLay;
 	}
 
-	AnimationTimer loadingAnimation = new AnimationTimer()
-	{
+	AnimationTimer loadingAnimation = new AnimationTimer() {
 		@Override
 		public void handle (long now)
 		{
@@ -135,12 +157,12 @@ public class QuizletImportView extends FXViewModel
 					String[] card = s1.split(Globals.SEPARATOR);
 					if (card.length != 3)
 					{
-						s1 = Alert.simpleString("Achtung",
-								"Ein ungültiger String wurde gefunden. Bitte passen sie den String an.",
-								s1, 500); // TODO andere Lösung
+						s1 = Alert.simpleString("Achtung", "Ein ungültiger String wurde gefunden. Bitte passen sie den String an.", s1, 500); // TODO
+																																				 // andere
+																																				 // Lösung
 					}
 					loading.setProgress(cardNumber / cardListSize);
-					
+
 					getFXController().getModel("cards").doAction(Command.NEW, card[1], card[2], downloadStackName);
 
 					isLoadingACard = false;
@@ -163,7 +185,7 @@ public class QuizletImportView extends FXViewModel
 			}
 		}
 	};
-	
+
 	@Override
 	public void refreshView ()
 	{
@@ -175,7 +197,14 @@ public class QuizletImportView extends FXViewModel
 
 			if (searchInput.getText() == null || searchInput.getText().equals("")) { return; }
 
-			searchTitle.setText("Suche '" + searchInput.getText() + "'");
+			if (!currentSearch.equals(searchInput.getText()))
+			{
+				page = 1;
+				pageCount = 0;
+				currentSearch = searchInput.getText();
+			}
+			
+			searchTitle.setText("Suche '" + currentSearch + "'");
 
 			if (listLayout.getChildren() != null)
 			{
@@ -188,8 +217,7 @@ public class QuizletImportView extends FXViewModel
 			}
 
 			quizletSets = new ArrayList<>();
-			searchResult = getFXController().getModel("quizlet")
-					.getDataList("search" + Globals.SEPARATOR + searchInput.getText());
+			searchResult = getFXController().getModel("quizlet").getDataList("search" + Globals.SEPARATOR + currentSearch + Globals.SEPARATOR + page);
 
 			if (searchResult != null)
 			{
@@ -210,8 +238,7 @@ public class QuizletImportView extends FXViewModel
 						showStackInfo.setId("icon");
 						showStackInfo.setOnKeyReleased(e ->
 						{
-							if (e.getCode() == KeyCode.ENTER)
-								showStackInfo.fire();
+							if (e.getCode() == KeyCode.ENTER) showStackInfo.fire();
 						});
 						showStackInfo.setOnAction(e ->
 						{
@@ -225,24 +252,20 @@ public class QuizletImportView extends FXViewModel
 							Button downloadStack = new Button("_Herunterladen");
 							downloadStack.setOnKeyReleased(dnldEvent ->
 							{
-								if (dnldEvent.getCode() == KeyCode.ENTER)
-									downloadStack.fire();
+								if (dnldEvent.getCode() == KeyCode.ENTER) downloadStack.fire();
 							});
 							downloadStack.setOnAction(e1 ->
 							{
 								// Lädt Stapel herunter
 								if (stackInfo[4].equals("true"))
 								{
-									Alert.simpleInfoBox("Download nicht möglich",
-											"Es werden keine Bilder unterstützt...");
+									Alert.simpleInfoBox("Download nicht möglich", "Es werden keine Bilder unterstützt...");
 									return;
 								}
 
-								searchResult = getFXController().getModel("quizlet")
-										.getDataList("set" + Globals.SEPARATOR + stackInfo[0]);
+								searchResult = getFXController().getModel("quizlet").getDataList("set" + Globals.SEPARATOR + stackInfo[0]);
 
-								String name = Alert.simpleString("Neuer Stapel", "Name für den Quizletstapel",
-										stackInfo[1]);
+								String name = Alert.simpleString("Neuer Stapel", "Name für den Quizletstapel", stackInfo[1]);
 
 								if (name == null) { return; }
 
@@ -257,14 +280,10 @@ public class QuizletImportView extends FXViewModel
 										{
 											i++;
 										}
-										name = Alert.simpleString("Neuer Stapel",
-												"'" + name + "' ist nicht gültig. Bitte wählen sie einen Anderen.",
-												name + " (" + i + ")");
+										name = Alert.simpleString("Neuer Stapel", "'" + name + "' ist nicht gültig. Bitte wählen sie einen Anderen.", name + " (" + i + ")");
 										break;
 									}
-									name = Alert.simpleString("Neuer Stapel",
-											"Dieser Name ist nicht gültig. Bitte wählen sie einen Anderen.",
-											stackInfo[1]);
+									name = Alert.simpleString("Neuer Stapel", "Dieser Name ist nicht gültig. Bitte wählen sie einen Anderen.", stackInfo[1]);
 									possible = getFXController().getModel("stack").doAction(Command.CAN_CREATE, name);
 								}
 
@@ -276,8 +295,7 @@ public class QuizletImportView extends FXViewModel
 								getFXController().getModel("stack").doAction(Command.NEW, name, getData());
 							});
 							additionalInfoLayout.getChildren().clear();
-							additionalInfoLayout.getChildren().addAll(stackTitle, stackCount, stackAuthor, stackLangs,
-									stackHasImgs, downloadStack);
+							additionalInfoLayout.getChildren().addAll(stackTitle, stackCount, stackAuthor, stackLangs, stackHasImgs, downloadStack);
 
 							additionalInfoLayout.setPadding(new Insets(20));
 						});
@@ -288,8 +306,8 @@ public class QuizletImportView extends FXViewModel
 					}
 					else
 					{
-						searchInfoLbl.setText(
-								stackInfo[0] + " Sets gefunden. Seite " + stackInfo[3] + " von " + stackInfo[1]);
+						searchInfoLbl.setText(stackInfo[0] + " Sets gefunden. Seite " + stackInfo[3] + " von " + stackInfo[1]);
+						pageCount = Integer.parseInt(stackInfo[1]);
 					}
 				}
 

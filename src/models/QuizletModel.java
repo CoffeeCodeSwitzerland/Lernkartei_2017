@@ -11,13 +11,24 @@ import mvc.Model;
 public class QuizletModel extends Model {
 
 	@Override
-	public ArrayList<String> getDataList (String query) {
+	public ArrayList<String> getDataList (String query)
+	{
+		String[] queryData = query.split(Globals.SEPARATOR);
 		
-		if (query.split(Globals.SEPARATOR)[0].equals("search")) {
+		if (queryData.length != 2 && queryData.length != 3)
+		{
+			return null;
+		}
+		if (queryData.length == 2)
+		{
+			queryData = new String[]{queryData[0], queryData[1], null};
+		}
+		
+		if (queryData[0].equals("search")) {
 			
 			Quizlet q = new Quizlet("3RhaPk5H9C");
 			try {
-				return q.searchSet(query.split(Globals.SEPARATOR)[1]);
+				return q.searchSet(queryData[1], queryData[2]);
 			}
 			catch (MalformedURLException e) {
 				debug.Debugger.out(e.getMessage());
@@ -25,11 +36,11 @@ public class QuizletModel extends Model {
 			catch (IOException e) {
 				debug.Debugger.out(e.getMessage());
 			}
-		} else if (query.split(Globals.SEPARATOR)[0].equals("set")) {
+		} else if (queryData[0].equals("set")) {
 			
 			Quizlet q = new Quizlet("3RhaPk5H9C");
 			try {
-				return q.getSet(query.split(Globals.SEPARATOR)[1]);
+				return q.getSet(queryData[1]);
 			}
 			catch (MalformedURLException e) {
 				debug.Debugger.out(e.getMessage());

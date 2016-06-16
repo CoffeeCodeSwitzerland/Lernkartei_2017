@@ -6,15 +6,14 @@ import globals.Globals;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import mvc.fx.FXController;
 import mvc.fx.FXViewModel;
 import views.components.AppButton;
 import views.components.ControlLayout;
+import views.components.MainLayout;
+import views.components.VerticalScroller;
 
 
 /**
@@ -48,22 +47,14 @@ public class RenameView extends FXViewModel
 			getFXController().showLastView();
 		});
 
-		
-
 		elements.setPadding(new Insets(30));
 		elements.setAlignment(Pos.TOP_CENTER);
 
-		ScrollPane scrollLayout = new ScrollPane(elements);
-		scrollLayout.setHbarPolicy(ScrollBarPolicy.NEVER);
-		scrollLayout.setPadding(new Insets(10));
-		scrollLayout.setMaxWidth(400);
-		scrollLayout.setFitToWidth(true);
+		VerticalScroller scroLay = new VerticalScroller(elements);
 
-		BorderPane mainLayout = new BorderPane(scrollLayout);
-		mainLayout.setBottom(new ControlLayout(backBtn));
-		mainLayout.setPadding(new Insets(30));
+		MainLayout maLay = new MainLayout(scroLay, new ControlLayout(backBtn));
 
-		return mainLayout;
+		return maLay;
 	}
 
 	@Override

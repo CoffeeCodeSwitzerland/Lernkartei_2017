@@ -9,7 +9,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import mvc.ModelInterface.Command;
 import mvc.fx.FXController;
 import mvc.fx.FXView;
 import views.components.AppButton;

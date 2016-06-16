@@ -3,17 +3,14 @@ package views;
 import java.util.ArrayList;
 
 import globals.Globals;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import mvc.ModelInterface.Command;
 import mvc.fx.FXController;
@@ -21,6 +18,8 @@ import mvc.fx.FXViewModel;
 import views.components.Alert;
 import views.components.AppButton;
 import views.components.ControlLayout;
+import views.components.MainLayout;
+import views.components.VerticalScroller;
 
 
 /**
@@ -48,11 +47,8 @@ public class StackView extends FXViewModel
 		// Layouts für dynamische Inhalte
 		boxLayout = new VBox(20);
 		boxLayout.setAlignment(Pos.CENTER);
-		ScrollPane scStacks = new ScrollPane(boxLayout);
-		scStacks.setPadding(new Insets(25));
-		//scStacks.setId("StackScrollPane");
-		scStacks.setFitToWidth(true);
-		scStacks.setMaxWidth(400);
+		
+		VerticalScroller scroLay = new VerticalScroller(boxLayout, 25);
 
 		options = new VBox(20);
 		options.setAlignment(Pos.CENTER);
@@ -72,13 +68,7 @@ public class StackView extends FXViewModel
 		ControlLayout conLay = new ControlLayout(backBtn, newStackBtn, renameBtn, trashImgView);
 
 		// Layout für die Scene
-		BorderPane borderPane = new BorderPane();
-		borderPane.setPadding(new Insets(30, 15, 15, 15));
-
-		borderPane.setCenter(scStacks);
-		borderPane.setLeft(options);
-		borderPane.setRight(placeholder);
-		borderPane.setBottom(conLay);
+		MainLayout maLay = new MainLayout(scroLay, null, placeholder, conLay, options);
 
 		// Behaviour
 		backBtn.setOnAction(event -> getFXController().showView("doorview"));
@@ -151,7 +141,7 @@ public class StackView extends FXViewModel
 			event.consume();
 		});
 		getFXController().getModel("stack").registerView(this);
-		return borderPane;
+		return maLay;
 	}
 
 	@Override

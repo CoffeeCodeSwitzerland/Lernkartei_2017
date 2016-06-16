@@ -3,17 +3,13 @@ package views;
 import java.util.ArrayList;
 
 import globals.Globals;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import mvc.ModelInterface.Command;
 import mvc.fx.FXController;
@@ -22,6 +18,8 @@ import views.components.Alert;
 import views.components.AppButton;
 import views.components.ControlLayout;
 import views.components.HomeButton;
+import views.components.MainLayout;
+import views.components.VerticalScroller;
 
 
 /**
@@ -52,12 +50,7 @@ public class DoorView extends FXView
 		doorLayout = new VBox(20);
 		doorLayout.setAlignment(Pos.CENTER);
 		
-		ScrollPane scDoors = new ScrollPane(doorLayout);
-		//scDoors.setId("DoorScrollPane");
-		scDoors.setPadding(new Insets(25));
-		scDoors.setHbarPolicy(ScrollBarPolicy.NEVER);
-		scDoors.setFitToWidth(true);
-		scDoors.setMaxWidth(400);
+		VerticalScroller scroLay = new VerticalScroller(doorLayout, 25);
 
 		// Buttons
 		HomeButton homeBtn = new HomeButton(getFXController());
@@ -72,11 +65,7 @@ public class DoorView extends FXView
 		ControlLayout conLay = new ControlLayout(homeBtn, newDoorBtn, renameBtn, trashImgView);
 
 		// Main Layout
-		BorderPane mainLayout = new BorderPane();
-		mainLayout.setPadding(new Insets(30, 15, 15, 15));
-
-		mainLayout.setCenter(scDoors);
-		mainLayout.setBottom(conLay);
+		MainLayout maLay = new MainLayout(scroLay, conLay);
 
 		newDoorBtn.setOnAction(e ->
 		{
@@ -125,7 +114,7 @@ public class DoorView extends FXView
 		});
 
 		getFXController().getModel("door").registerView(this);
-		return mainLayout;
+		return maLay;
 	}
 
 	@Override

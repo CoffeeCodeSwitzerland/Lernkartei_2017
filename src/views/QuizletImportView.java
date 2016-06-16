@@ -67,6 +67,7 @@ public class QuizletImportView extends FXViewModel
 		searchTitle.setId("bold");
 		searchInfoLbl = new Label("");
 
+		searchInput.setPromptText("Suchen");
 		searchInput.setOnKeyReleased(e ->
 		{
 			if (e.getCode() == KeyCode.ENTER)
@@ -100,7 +101,7 @@ public class QuizletImportView extends FXViewModel
 		listLayout.setAlignment(Pos.CENTER);
 		listLayout.setPadding(new Insets(35));
 
-		VerticalScroller scroLay = new VerticalScroller(listLayout);
+		VerticalScroller scroLay = new VerticalScroller(listLayout, 1);
 		scroLay.setMaxWidth(getWindow().getMaxWidth());
 
 		AppButton backBtn = new AppButton("_Zurück");

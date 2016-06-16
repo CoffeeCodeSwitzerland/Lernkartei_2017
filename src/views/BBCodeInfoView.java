@@ -6,13 +6,13 @@ import globals.Functions;
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.layout.BorderPane;
 import mvc.fx.FXController;
 import mvc.fx.FXView;
 import views.components.AppButton;
 import views.components.ControlLayout;
+import views.components.MainLayout;
+import views.components.VerticalScroller;
 
 
 /**
@@ -68,22 +68,15 @@ public class BBCodeInfoView extends FXView
 
 		BorderPane headLayout = new BorderPane(labelTitel);
 		headLayout.setPadding(new Insets(20));
-		ScrollPane scroller = new ScrollPane();
-		scroller.setMaxWidth(800);
 
-		scroller.setContent(labelText);
-		scroller.setHbarPolicy(ScrollBarPolicy.NEVER);
-		scroller.setVbarPolicy(ScrollBarPolicy.ALWAYS);
+		VerticalScroller scroLay = new VerticalScroller(labelText);
+		scroLay.setMaxWidth(800);
 
 		ControlLayout conLay = new ControlLayout(backBtn);
 
-		BorderPane mainLayout = new BorderPane();
-		mainLayout.setPadding(new Insets(15));
-		mainLayout.setTop(headLayout);
-		mainLayout.setCenter(scroller);
-		mainLayout.setBottom(conLay);
+		MainLayout maLay = new MainLayout(scroLay, headLayout, conLay);
 
-		return mainLayout;
+		return maLay;
 	}
 
 	@Override

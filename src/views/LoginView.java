@@ -67,7 +67,7 @@ public class LoginView extends FXView
 		reg = new AppButton("Noch kein Profil?");
 		log = new AppButton("Login");
 		
-		errorText = new Label("???"); // TODO Namenskonventionen einhalten, keine Leeren Objekte irgendwo hinzufügen
+		errorText = new Label("");
 		Errorbox.getChildren().addAll(errorText);
 		
 		Controls.getChildren().addAll(home, reg);
@@ -88,19 +88,7 @@ public class LoginView extends FXView
 	{
 		bp.setId("loginviewbg");
 
-		log.setOnAction(e -> {
-					if (txtName.getText() != "" && pwPassword.getText() != "") {
-						int success = getFXController().getModel("usersecuritymodel").doAction(Command.TRUE, txtName.getText(), pwPassword.getText());
-						if (success > 0) {
-							getFXController().showView("userview");
-						} else {
-							errorText.setText("Das Login ist fehlgeschlagen");
-						}
-					} else {
-						errorText.setText("Das Login ist fehlgeschlagen");
-					}
-				}
-			);
+		log.setOnAction(e -> getFXController().showView("userview"));
 		
 	}
 

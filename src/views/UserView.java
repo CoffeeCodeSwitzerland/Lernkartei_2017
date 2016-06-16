@@ -1,6 +1,7 @@
 package views;
 
 import javafx.scene.Parent;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import mvc.fx.FXController;
@@ -15,17 +16,23 @@ public class UserView extends FXView
 		construct(newName);
 	}
 
-	
+	Button back = new Button("Zurück");
 	
 	@Override
 	public Parent constructContainer()
 	{
-		BorderPane p = new BorderPane();
+		BorderPane bp = new BorderPane();
 		// TODO Auto-generated method stub
 		
-		p.getChildren().addAll(new Label("TEST"));
+		Label lblVoruebergehend = new Label();
+		lblVoruebergehend.setText("HIER WIRD NOCH DER USERVIEW ERSTELLT");
 		
-		return null;
+		bp.setCenter(lblVoruebergehend);
+		bp.setBottom(back);
+		
+		back.setOnAction(e -> getFXController().showMainView());
+		
+		return bp;
 	}
 
 	@Override

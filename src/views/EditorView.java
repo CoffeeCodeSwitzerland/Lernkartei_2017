@@ -108,9 +108,9 @@ public class EditorView extends FXViewModel
 			
 			Button under = new Button("U");
 			under.setId("underbtn");
-			Button sup = new Button("SP");
+			Button sup = new Button("");
 			sup.setId("supbtn");
-			Button sub = new Button("SB");
+			Button sub = new Button("");
 			sub.setId("subbtn");
 			Button cp = new Button("C");
 			cp.setId("cpbtn");
@@ -127,9 +127,9 @@ public class EditorView extends FXViewModel
 			
 			Button under1 = new Button("U");
 			under1.setId("underbtn");
-			Button sup1 = new Button("SP");
+			Button sup1 = new Button("");
 			sup1.setId("supbtn");
-			Button sub1 = new Button("SB");
+			Button sub1 = new Button("");
 			sub1.setId("subbtn");
 			Button cp1 = new Button("C");
 			cp1.setId("cpbtn");

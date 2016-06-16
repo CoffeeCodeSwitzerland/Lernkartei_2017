@@ -25,12 +25,14 @@
 	-fx-text-fill: #6d6d6d;
 }
 #supbtn{
+	-fx-background-image: url("pictures/Xhoch2.png");
+	-fx-background-size: contain;
 	-fx-font-size: 1.1em;
-	-fx-text-fill: #6d6d6d;
 }
 #subbtn{
+	-fx-background-image: url("pictures/2unterX.png");
+	-fx-background-size: contain;
 	-fx-font-size: 1.1em;
-	-fx-text-fill: #6d6d6d;
 }
 #cpbtn{
 	-fx-font-size: 1.1em;

@@ -33,7 +33,6 @@ public class StackView extends FXViewModel
 {
 	public StackView (String newName, FXController newController)
 	{
-		// this constructor is the same for all view's
 		super(newController);
 		construct(newName);
 	}
@@ -188,10 +187,10 @@ public class StackView extends FXViewModel
 
 				a.setId("BoxButtons");
 				a.setOnAction(e ->
-
 				{
 					setOptions(a.getText());
 				});
+				
 				a.setOnDragDetected(e ->
 				{
 					Dragboard db = a.startDragAndDrop(TransferMode.MOVE);
@@ -237,6 +236,7 @@ public class StackView extends FXViewModel
 			getFXController().setViewData("simpleeditorview", stack);
 			getFXController().showView("simpleeditorview");
 		});
+		
 		/*
 		 * switcher.setSelected(getFXController().getModel("switcher").doAction(
 		 * "check", stack) == 1 ? true : false);

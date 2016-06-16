@@ -30,6 +30,9 @@ public abstract class Globals
 	public static final int minStackPartSize = 5;
 	public static final int maxStackPartSize = 1000;
 	
+	
+	public static final int defaultScrollerWidth = 400;
+	
 
 		
 	// The logger should always remain active, to track user problems.

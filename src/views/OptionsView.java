@@ -1,16 +1,15 @@
 package views;
 
+import java.util.ArrayList;
+
 import globals.Globals;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.control.Separator;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import mvc.ModelInterface.Command;
 import mvc.fx.FXController;
@@ -19,6 +18,8 @@ import views.components.Alert;
 import views.components.BackButton;
 import views.components.ControlLayout;
 import views.components.HoverButton;
+import views.components.MainLayout;
+import views.components.VerticalScroller;
 
 
 /**
@@ -106,9 +107,18 @@ public class OptionsView extends FXView
 
 		CheckBox disableTooltips = new CheckBox("Tooltipps deaktivieren");
 		boolean oldTooltippValue = false;
-		if (getFXController().getModel("config").getDataList("tooltipp") != null && getFXController().getModel("config").getDataList("tooltipp").get(0) != null && getFXController().getModel("config").getDataList("tooltipp").get(0).equals("no"))
+		
+		ArrayList<String> data = getFXController().getModel("config").getDataList("tooltipp");
+		if (data != null)
 		{
-			oldTooltippValue = true;
+			String dataValue = data.get(0);
+			if (dataValue != null)
+			{
+				if (dataValue.equals("no"))
+				{
+					oldTooltippValue = true;
+				}
+			}
 		}
 		disableTooltips.setSelected(oldTooltippValue);
 		disableTooltips.selectedProperty().addListener(e ->
@@ -116,36 +126,37 @@ public class OptionsView extends FXView
 			debug.Debugger.out("Tooltipp property has changed");
 			String value = disableTooltips.selectedProperty().getValue() ? "no" : "yes";
 			getFXController().getModel("config").doAction(Command.SET, "tooltipp", value);
-			HoverButton.clearSettings();
+			HoverButton.clearSettings(); // TODO mvc einhalten
 		});
 
-		BackButton back = new BackButton(getFXController());
+		BackButton backBtn = new BackButton(getFXController());
 
-		VBox vLayout = new VBox(20);
-		vLayout.setPadding(new Insets(30));
-		vLayout.setMaxWidth(400);
-		vLayout.setAlignment(Pos.CENTER);
-		vLayout.getChildren().addAll(cardLimitDescription, cardLearnLimit, sepp());
-		vLayout.getChildren().addAll(autoWidthDescription, autoWidth, sepp());
-		vLayout.getChildren().addAll(disableTooltipDescription, disableTooltips);
+		
+		VBox optionsLay = new VBox(20);
+		
+		optionsLay.setPadding(new Insets(30));
+		optionsLay.setAlignment(Pos.CENTER);
+		
+		optionsLay.getChildren().addAll(cardLimitDescription, cardLearnLimit, sepp());
+		optionsLay.getChildren().addAll(autoWidthDescription, autoWidth, sepp());
+		optionsLay.getChildren().addAll(disableTooltipDescription, disableTooltips);
 
-		ScrollPane sc = new ScrollPane(vLayout);
-		sc.setMaxWidth(400);
-		sc.setHbarPolicy(ScrollBarPolicy.NEVER);
+		
+		VerticalScroller scroLay = new VerticalScroller(optionsLay);
 
-		BorderPane mainLayout = new BorderPane(sc);
-		mainLayout.setPadding(new Insets(30, 15, 15, 15));
-		mainLayout.setBottom(new ControlLayout(back));
+		ControlLayout conLay = new ControlLayout(backBtn);
+
+		MainLayout mainLay = new MainLayout(scroLay, conLay);
 
 		getFXController().getModel("config").registerView(this);
 
-		return mainLayout;
+		return mainLay;
 	}
 
 	@Override
 	public void refreshView ()
 	{
-
+		// do nothing
 	}
 
 	private Separator sepp ()

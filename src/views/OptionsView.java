@@ -36,14 +36,15 @@ public class OptionsView extends FXView
 		construct(newName);
 	}
 
-	boolean		resetChange				= false;
+	boolean		resetChange					= false;
 	String		lastValidCardLimit;
 	TextField	cardLearnLimit;
 
 	// Describe the Options
-	String		descTxtCardLimit		= "Anzahl Karten, die auf einmal gelernt werden, limitieren.";
-	String		descTxtEnableAutoWidth	= "Wenn aktiviert, werden alle Buttons dem Grössten angepasst. Sonst orientiert sich die Grösse jeweils am Namen des Buttons.";
-	String		descTxtDisableTooltipps	= "Deaktiviere Tooltipps. Wenn diese Option aktiviert ist, werden keine Tooltipps angezeigt.";
+	String		descTxtCardLimit			= "Anzahl Karten, die auf einmal gelernt werden, limitieren.";
+	String		descTxtEnableAutoWidth		= "Wenn aktiviert, werden alle Buttons dem Grössten angepasst. Sonst orientiert sich die Grösse jeweils am Namen des Buttons.";
+	String		descTxtDisableTooltipps		= "Deaktiviere Tooltipps. Wenn diese Option aktiviert ist, werden keine Tooltipps angezeigt.";
+	String		descTxtDontShowImageStacks	= "Zeige nur Stapel, die keine Bilder enthalten";
 
 	@Override
 	public Parent constructContainer ()
@@ -107,7 +108,7 @@ public class OptionsView extends FXView
 
 		CheckBox disableTooltips = new CheckBox("Tooltipps deaktivieren");
 		boolean oldTooltippValue = false;
-		
+
 		ArrayList<String> data = getFXController().getModel("config").getDataList("tooltipp");
 		if (data != null)
 		{
@@ -129,19 +130,43 @@ public class OptionsView extends FXView
 			HoverButton.clearSettings(); // TODO mvc einhalten
 		});
 
+		Label hideImgStacksDescription = new Label(descTxtDontShowImageStacks);
+		CheckBox hideImgStacks = new CheckBox("Nur Stapel ohne Bilder");
+		boolean oldshowImgStacksValue = false;
+
+		data = getFXController().getModel("config").getDataList("hideImageStacks");
+		if (data != null)
+		{
+			String dataValue = data.get(0);
+			if (dataValue != null)
+			{
+				if (dataValue.equals("true"))
+				{
+					oldshowImgStacksValue = true;
+				}
+			}
+		}
+		hideImgStacks.setSelected(oldshowImgStacksValue);
+		hideImgStacks.selectedProperty().addListener(e ->
+		{
+			debug.Debugger.out("HideImageStacks property has changed");
+			String value = hideImgStacks.selectedProperty().getValue() ? "true" : "false";
+			getFXController().getModel("config").doAction(Command.SET, "hideImageStacks", value);
+		});
+		
+		
 		BackButton backBtn = new BackButton(getFXController());
 
-		
 		VBox optionsLay = new VBox(20);
-		
+
 		optionsLay.setPadding(new Insets(30));
 		optionsLay.setAlignment(Pos.CENTER);
-		
+
 		optionsLay.getChildren().addAll(cardLimitDescription, cardLearnLimit, sepp());
 		optionsLay.getChildren().addAll(autoWidthDescription, autoWidth, sepp());
-		optionsLay.getChildren().addAll(disableTooltipDescription, disableTooltips);
+		optionsLay.getChildren().addAll(disableTooltipDescription, disableTooltips, sepp());
+		optionsLay.getChildren().addAll(hideImgStacksDescription, hideImgStacks);
 
-		
 		VerticalScroller scroLay = new VerticalScroller(optionsLay);
 
 		ControlLayout conLay = new ControlLayout(backBtn);

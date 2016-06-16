@@ -44,10 +44,10 @@ public class QuizletImportView extends FXViewModel
 	VBox				additionalInfoLayout	= new VBox(20);
 	ProgressBar			loading					= new ProgressBar(0);
 	String				downloadStackName		= "";
-	String currentSearch = "";
+	String				currentSearch			= "";
 	int					cardNumber				= -1;
 	int					page					= 1;
-	int pageCount = 0;
+	int					pageCount				= 0;
 	float				alreadyDownloaded		= 0;
 	float				cardListSize			= 0;
 
@@ -101,6 +101,8 @@ public class QuizletImportView extends FXViewModel
 		listLayout.setAlignment(Pos.CENTER);
 		listLayout.setPadding(new Insets(35));
 
+		additionalInfoLayout.setMaxWidth(300); // TODO no hard coded value
+
 		VerticalScroller scroLay = new VerticalScroller(listLayout, 1);
 		scroLay.setMaxWidth(getWindow().getMaxWidth());
 
@@ -115,8 +117,8 @@ public class QuizletImportView extends FXViewModel
 				page--;
 				refreshView();
 			}
-		}); 
-		
+		});
+
 		AppButton nextPageBtn = new AppButton("Nächste Seite");
 		nextPageBtn.setOnAction(e ->
 		{
@@ -125,9 +127,8 @@ public class QuizletImportView extends FXViewModel
 				page++;
 				refreshView();
 			}
-		}); 
-		
-		
+		});
+
 		ControlLayout conLay = new ControlLayout(backBtn, prevPageBtn, nextPageBtn, new Label("Powered by Quizlet"));
 		conLay.setAlignment(Pos.CENTER_LEFT);
 		conLay.setPadding(new Insets(15));
@@ -204,7 +205,7 @@ public class QuizletImportView extends FXViewModel
 				pageCount = 0;
 				currentSearch = searchInput.getText();
 			}
-			
+
 			searchTitle.setText("Suche '" + currentSearch + "'");
 
 			if (listLayout.getChildren() != null)
@@ -215,6 +216,21 @@ public class QuizletImportView extends FXViewModel
 			{
 				additionalInfoLayout.getChildren().clear();
 				additionalInfoLayout.setPadding(new Insets(0));
+			}
+
+			boolean hideImg = false;
+
+			ArrayList<String> configDataList = getFXController().getModel("config").getDataList("hideImageStacks");
+			if (configDataList != null)
+			{
+				String configData = configDataList.get(0);
+				if (configData != null)
+				{
+					if (configData.equals("true"))
+					{
+						hideImg = true;
+					}
+				}
 			}
 
 			quizletSets = new ArrayList<>();
@@ -228,6 +244,10 @@ public class QuizletImportView extends FXViewModel
 					String[] stackInfo = s.split(Globals.SEPARATOR);
 					if (searchResult.indexOf(s) != 0)
 					{
+						if (hideImg && stackInfo[4].equals("true"))
+						{
+							continue;
+						}
 						Label stackName = new Label(stackInfo[1] + " (" + stackInfo[3] + ")");
 						stackName.setId("bold");
 
@@ -246,6 +266,7 @@ public class QuizletImportView extends FXViewModel
 							// Zeigt mehr Infos an
 							Label stackTitle = new Label(stackInfo[1]);
 							stackTitle.setId("bold");
+							stackTitle.setWrapText(true);
 							Label stackCount = new Label("Anzahl: " + stackInfo[3]);
 							Label stackAuthor = new Label("Author: " + stackInfo[2]);
 							Label stackLangs = new Label("Sprachen: " + stackInfo[6] + " - " + stackInfo[7]);

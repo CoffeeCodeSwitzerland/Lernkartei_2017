@@ -4,6 +4,12 @@ import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.layout.BorderPane;
 
+
+/**
+ * 
+ * @author miro albrecht
+ *
+ */
 public class MainLayout extends BorderPane
 {
 	public MainLayout (Node center, Node top, Node right, Node bottom, Node left)
@@ -15,7 +21,7 @@ public class MainLayout extends BorderPane
 		setLeft(left);
 		setPadding(new Insets(30));
 	}
-	
+
 	public MainLayout (Node center, Node top, Node bottom)
 	{
 		super(center);
@@ -23,14 +29,14 @@ public class MainLayout extends BorderPane
 		setBottom(bottom);
 		setPadding(new Insets(30));
 	}
-	
+
 	public MainLayout (Node center, Node bottom)
 	{
 		super(center);
 		setBottom(bottom);
 		setPadding(new Insets(30));
 	}
-	
+
 	public MainLayout (Node center)
 	{
 		super(center);

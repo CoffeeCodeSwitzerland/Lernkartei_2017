@@ -5,6 +5,12 @@ import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
 
+
+/**
+ * 
+ * @author miro albrecht
+ *
+ */
 public class VerticalScroller extends ScrollPane
 {
 	public VerticalScroller (Node node, double padding)
@@ -15,7 +21,7 @@ public class VerticalScroller extends ScrollPane
 		setFitToWidth(true);
 		setPadding(new Insets(padding));
 	}
-	
+
 	public VerticalScroller (Node node)
 	{
 		super(node);

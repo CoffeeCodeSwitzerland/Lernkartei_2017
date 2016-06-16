@@ -1,5 +1,6 @@
 package multiuser;
 
+import debug.Logger;
 import javafx.collections.*;
 
 public class User
@@ -10,7 +11,6 @@ public class User
 	
 	//Alle Angaben die ein User hat
 	private String Name;
-	private String Passwort;
 	private String Hash;
 	private byte[] Salz;
 	private String Email;
@@ -18,14 +18,54 @@ public class User
 	//Das system mit klassen wird ev. nicht implementiert aus Zeitgründen
 	private ObservableList<String> myGroups = FXCollections.observableArrayList();
 	
-	//TODO : Wenn datenbank funktioniert darin speichern
-	public void setSalt(byte[] salt) {
-		Salz = salt;
+	//Wird beim registrieren aufgerufen -> Wenn etwas falsch ist oder etwas nicht funktionierte wird false returnt
+	// schritte beim registrieren:
+	// 1.) Die Eingaben mit einem Regex überprüfen
+	// 2.) Salz generieren
+	// 3.) Passwort hashen mit Salz
+	// 4.) Salz, Passworthash, Username, Email in DB speichern
+	public boolean registration(String name, String mail, String passwort, int usertype) {
+		if (checkNameMachbarkeit(name) && checkEmailMachbarkeit(mail) && checkPasswortMachbarkeit(passwort)) {
+			try {
+				setSalt();
+				Hash = Security.createHash(passwort, Salz);
+				return true;
+			} catch (Exception e) {
+				Logger.log(e.getMessage());
+				return false;
+			}
+		} else {
+			return false;
+		}
 	}
 	
-	// TODO : Login Name in lokale DB speichern, damit man sich nicht immer einloggen muss.
-	public void pushToLocalDb() {
+	// Wird beim Login aufgerufen
+	// Schritte beim Login:
+	// 1.) Salz und Passworthash aus DB laden wo name gleich name welcher übergeben wurde
+	// 2.) Salz und übergebenes Passwort hashen 
+	// 3.) Diesen generierten hash mit Passworthash vergleichen
+	// 4.) Wenn übereinstimmt -> Namen des Users in lokale DB speichern und dann das Profil anzeigen 
+	public boolean login(String name, String passwort) throws CannotPerformOperationException {
+		Salz = getSalt();
+		Hash = getHash();
 		
+		if (Security.createHash(passwort, Salz) == Hash) {
+			//TODO : Save to local db
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	// wird beim Löschen von einem Account gebraucht
+	// Löscht den User aus der Db mit all seinen Einträgen
+	public boolean delete(String name, String mail) {
+		return false;
+	}
+	
+	//TODO : Wenn datenbank funktioniert darin speichern
+	private void setSalt() {
+		Salz = Security.generateSalt();
 	}
 	
 	//TODO : Wenn Datenbank funktioniiert Salt daraus auslesen
@@ -35,7 +75,7 @@ public class User
 	}	
 	
 	//Validierung der drei Eingaben mit entsprechendem Regex
-	private Boolean checkName(String name) {
+	private Boolean checkNameMachbarkeit(String name) {
 		String regexName = "[A-Za-z\\d](4,100)";
 		if (name.matches(regexName)) {
 			return true;
@@ -43,7 +83,8 @@ public class User
 			return false;
 		}
 	}
-	private Boolean checkEmail(String mail) {
+	
+	private Boolean checkEmailMachbarkeit(String mail) {
 		String regexMail = "[A-Za-z\\d]{@}[A-Za-z\\d]{\\.}[A-Za-z0-9]";
 		if (mail.matches(regexMail)) {
 			return true;
@@ -51,6 +92,7 @@ public class User
 			return false;
 		}
 	}
+	
 	private Boolean checkPasswortMachbarkeit(String passwort) {
 		String regexPw = "[A-Za-z\\d\\!\\?\\$\\*\\%\\&\\£\\@\\'](8,100)";
 		if (passwort.matches(regexPw)) {
@@ -59,7 +101,7 @@ public class User
 			return false;
 		}
 	}
-	
+
 	//Getter und Setter der Angaben
 	public String getName()
 	{
@@ -69,16 +111,12 @@ public class User
 	//TODO : Wenn datenbank funktioniert darin speichern
 	public Boolean setName(String name)
 	{
-		if (checkName(name)) {
+		if (checkNameMachbarkeit(name)) {
 			Name = name;
 			return true;
 		} else {
 			return false;
 		}
-	}
-	public String getPasswort()
-	{
-		return Passwort;
 	}
 	//Wenn true -> gespeichert / Wenn false -> nicht gespeicher weil Fehler (User eine Meldung geben)
 	//TODO : Wenn datenbank funktioniert darin speichern
@@ -86,13 +124,12 @@ public class User
 	{
 		//Wenn Passwort zulässig und das Salz gefüllt
 		if (checkPasswortMachbarkeit(passwort) && !(Salz == null)) {
-			char[] pw = passwort.toCharArray();
 			try
 			{
-				if (Security.createHash(pw, Salz) == null) {
+				if (Security.createHash(passwort, Salz) == null) {
 					return false;
 				} else {
-					Passwort = passwort;
+					Hash = passwort;
 					return true;
 				}
 			} catch (CannotPerformOperationException e)
@@ -104,16 +141,10 @@ public class User
 			return false;
 		}
 	}
-	public String getHash()
-	{
-		return Hash;
+	// TODO : Wenn Datenbank funktioniert, den Passwort daraus holen
+	private String getHash() {
+		return Hash = null;
 	}
-
-	public void setHash(String hash)
-	{
-		Hash = hash;
-	}
-
 	public String getEmail()
 	{
 		return Email;
@@ -122,7 +153,7 @@ public class User
 	//TODO : Wenn datenbank funktioniert darin speichern
 	public Boolean setEmail(String email)
 	{
-		if (checkEmail(email)) {
+		if (checkEmailMachbarkeit(email)) {
 			Email = email;
 			return true;
 		} else {

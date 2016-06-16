@@ -40,12 +40,12 @@ public abstract class Security
 	// Salz generieren und und neu setzen -> Beim Regsitrieren und Passwort
 	// ändern angwendet
 	// Salz generieren
-	public static void generateSalt(User u)
+	public static byte[] generateSalt()
 	{
 		SecureRandom random = new SecureRandom();
 		byte[] salt = new byte[SALT_BYTE_SIZE];
 		random.nextBytes(salt);
-		u.setSalt(salt);
+		return salt;
 	}
 
 	public static String createHash(String password, byte[] salt) throws CannotPerformOperationException

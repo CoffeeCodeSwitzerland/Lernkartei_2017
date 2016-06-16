@@ -45,24 +45,6 @@
 	-fx-background-position: 5px;
 }	
 
-
-
-/* 
-#loginBtn{
-	-fx-font-family: "Segoe UI Semibold";
-	-fx-color: #ffebb2;
-    -fx-text-fill: #875100; 
-    -fx-padding: 6.0 20.0 5.0 20.0;
-    -fx-background-insets: 0,1,2; 
-}
-#loginBtn:hover {
-	-fx-background-size:83%;
-	-fx-background-position: 5px;
-}	
-*/
-
-
-
 #UserBtn{
 	
 	-fx-background-image: url("pictures/UserIcon.png");

@@ -32,7 +32,7 @@ public class MainView extends FXView
 	HoverButton statisticBtn = new HoverButton(this,"Statistik","statsview", "stat2btn");
 	HoverButton optionsBtn = new HoverButton(this,"Optionen","optionsview","optionsbtn");
 	HoverButton gameBtn = new HoverButton(this,"Jump 'n' Run","gameview","gamebtn");
-	HoverButton quitBtn = new HoverButton(this,"Schliessen", null, "quitbtn");
+	HoverButton quitBtn = new HoverButton(this,"Beenden", null, "quitbtn");
 	
 	// FX needs 2 empty components filling the Gridpane as we need it:
 	Label lueckenfueller1 = new Label("");

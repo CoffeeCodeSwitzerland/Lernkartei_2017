@@ -40,7 +40,9 @@ public class UserSecurityModel extends FXModel
 			{
 				Logger.log(e.getMessage());
 			}
+		default:
+			int superIsSuccessful = super.doAction(command, param);
+			return superIsSuccessful;
 		}
-		return 1;
 	}
 }

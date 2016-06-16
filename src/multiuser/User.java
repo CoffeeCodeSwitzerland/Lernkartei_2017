@@ -14,6 +14,7 @@ public class User
 	private String Hash;
 	private byte[] Salz;
 	private String Email;
+	// den Usertype braucht es erst, wenn man auch Lehrer erstellen kann.
 	private Integer Usertype;
 	// Das system mit klassen wird ev. nicht implementiert aus Zeitgründen
 	private ObservableList<String> myGroups = FXCollections.observableArrayList();

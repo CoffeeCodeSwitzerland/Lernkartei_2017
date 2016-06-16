@@ -15,6 +15,7 @@ public class User
 	private byte[] Salz;
 	private String Email;
 	private Integer Usertype;
+	//Das system mit klassen wird ev. nicht implementiert aus Zeitgründen
 	private ObservableList<String> myGroups = FXCollections.observableArrayList();
 	
 	//TODO : Wenn datenbank funktioniert darin speichern
@@ -22,7 +23,7 @@ public class User
 		Salz = salt;
 	}
 	
-	// TODO : Login Name in lokale DB speichern, damit man sich nicth immer einloggen muss.
+	// TODO : Login Name in lokale DB speichern, damit man sich nicht immer einloggen muss.
 	public void pushToLocalDb() {
 		
 	}

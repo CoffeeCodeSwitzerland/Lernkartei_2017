@@ -22,7 +22,7 @@ public class Student extends User
 		
 	}
 	
-	// TODO : Wenn DB funktioniert, muss man hier die Karteien des USers updaten können 
+	// TODO : Wenn DB funktioniert, muss man hier die Karteien des Users updaten können 
 	public void updateKarteien() {
 		
 	}

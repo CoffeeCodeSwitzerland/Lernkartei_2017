@@ -3,7 +3,6 @@ package views;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
-import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
@@ -23,14 +22,11 @@ public class LoginView extends FXView
 		construct(newName);
 	}
 	
-	BorderPane bp;
+	BorderPane bp = new BorderPane();
 
 	VBox AllFields;
 	HBox Controls;
-	
-	Label lblName;
-	Label lblPassword;
-	
+
 	TextField txtName;
 	PasswordField pwPassword;
 	
@@ -41,8 +37,6 @@ public class LoginView extends FXView
 	@Override
 	public Parent constructContainer()
 	{
-		bp = new BorderPane();
-		
 		bp.setId("loginviewbg");
 		
 		AllFields = new VBox(50);
@@ -53,9 +47,6 @@ public class LoginView extends FXView
 		Controls = new HBox(50);
 		Controls.setAlignment(Pos.CENTER);
 		Controls.setPadding(new Insets(20));
-		
-//		lblName = new Label("Gib deinen Usernamen ein");
-//		lblPassword = new Label("Gib dein Passwort ein");
 		
 		txtName = new TextField();
 		txtName.setPromptText("Username");
@@ -74,7 +65,7 @@ public class LoginView extends FXView
 		bp.setCenter(AllFields);
 		bp.setBottom(Controls);
 		
-		log.requestFocus();
+		reg.setOnAction(e -> getFXController().showView("registerview"));
 		
 		return bp;
 	}

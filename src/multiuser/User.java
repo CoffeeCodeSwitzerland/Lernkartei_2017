@@ -22,6 +22,11 @@ public class User
 		Salz = salt;
 	}
 	
+	// TODO : Login Name in lokale DB speichern, damit man sich nicth immer einloggen muss.
+	public void pushToLocalDb() {
+		
+	}
+	
 	//TODO : Wenn Datenbank funktioniiert Salt daraus auslesen
 	@SuppressWarnings("unused")
 	private byte[] getSalt() {

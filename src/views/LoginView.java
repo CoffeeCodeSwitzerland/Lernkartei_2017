@@ -54,11 +54,14 @@ public class LoginView extends FXView
 		Controls.setAlignment(Pos.CENTER);
 		Controls.setPadding(new Insets(20));
 		
-		lblName = new Label("Gib deinen Usernamen ein");
-		lblPassword = new Label("Gib dein Passwort ein");
+//		lblName = new Label("Gib deinen Usernamen ein");
+//		lblPassword = new Label("Gib dein Passwort ein");
 		
 		txtName = new TextField();
+		txtName.setPromptText("Username");
+		
 		pwPassword = new PasswordField();
+		pwPassword.setPromptText("Passwort");;
 		
 		home = new HomeButton(getFXController());
 		reg = new AppButton("Noch kein Profil?");
@@ -66,10 +69,12 @@ public class LoginView extends FXView
 		
 		Controls.getChildren().addAll(home, reg);
 		
-		AllFields.getChildren().addAll(lblName, txtName, lblPassword, pwPassword, log);
+		AllFields.getChildren().addAll(txtName, pwPassword, log);
 		
 		bp.setCenter(AllFields);
 		bp.setBottom(Controls);
+		
+		log.requestFocus();
 		
 		return bp;
 	}

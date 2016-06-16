@@ -90,6 +90,8 @@ public class LearnView extends FXViewModel
 				Debugger.out("views/LearnView/constructContainer: doAction(Falsch) Parameter ungültig");
 			}
 		});
+		//TODO turn Card Knopf gleich wie oben(Richtig/Falsch noch anpassen kurz erklären @Author Yanis
+		turnCard.setOnAction(e -> turnCard());
 
 		card.setMaxSize(320, 180);
 		card.setId("bold");

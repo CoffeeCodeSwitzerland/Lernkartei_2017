@@ -2,7 +2,7 @@ package models;
 
 import java.util.ArrayList;
 
-import database.Database;
+import database.CardEntity;
 import debug.Debugger;
 import debug.Supervisor;
 import globals.Globals;
@@ -62,21 +62,21 @@ public class StatisticsModel extends FXModel
 		String[] Decision = CombinedString.split(Globals.SEPARATOR);
 		if (Decision[1].equals("end"))
 		{
-			Double[] doubleArray = Database.getScore(Decision[0]);
+			Double[] doubleArray = CardEntity.getScore(Decision[0]);
 			temp.clear();
 			temp.add(100 / doubleArray[0] * doubleArray[1]);
 			return temp;
 		}
 		else if (Decision[1].equals("difference"))
 		{
-			Double[] doubleArray = Database.getScore(Decision[0]);
+			Double[] doubleArray = CardEntity.getScore(Decision[0]);
 			temp.clear();
 			temp.add((100 / doubleArray[0] * doubleArray[1]) - tempStart);
 			return temp;
 		}
 		else if (Decision[1].equals("start"))
 		{
-			Double[] doubleArray = Database.getScore(Decision[0]);
+			Double[] doubleArray = CardEntity.getScore(Decision[0]);
 			if (doubleArray != null)
 			{
 				tempStart = 100 / doubleArray[0] * doubleArray[1];

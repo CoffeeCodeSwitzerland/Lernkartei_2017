@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 import debug.Logger;
 
-public class Database extends SQLiteConnector {
+public class CardEntity extends SQLiteConnector {
 
 	protected static String myTableName  =  "Stock";
 	private   static String myPrimaryKey = "PK_Stk";
@@ -38,7 +38,7 @@ public class Database extends SQLiteConnector {
 	 *            Set_ID, 4. Priorität (1-5), 5. Color
 	 */
 	public static boolean pushToStock (String[] values) {
-		Database.setConnection(dbURL);
+		CardEntity.setConnection(dbURL);
 		try {
 			stmt.executeUpdate(pushSql);
 
@@ -84,7 +84,7 @@ public class Database extends SQLiteConnector {
 
 		ArrayList<String[]> results = new ArrayList<String[]>();
 
-		Database.setConnection(dbURL);
+		CardEntity.setConnection(dbURL);
 		try {
 
 			stmt.executeUpdate(pushSql);
@@ -134,7 +134,7 @@ public class Database extends SQLiteConnector {
 
 		boolean deleted = false;
 
-		Database.setConnection(dbURL);
+		CardEntity.setConnection(dbURL);
 		try {
 			String del = "DELETE FROM Stock WHERE PK_Stk = " + id;
 			stmt.executeUpdate(del);
@@ -160,7 +160,7 @@ public class Database extends SQLiteConnector {
 
 	public static boolean editEntry(String id, String frontside, String backside) {
 
-		Database.setConnection(dbURL);
+		CardEntity.setConnection(dbURL);
 		try {
 			c.setAutoCommit(false);
 			String sel = "SELECT * FROM Stock WHERE PK_Stk = " + id;
@@ -199,7 +199,7 @@ public class Database extends SQLiteConnector {
 
 	public static void upPrio (Integer PK_ID) {
 
-		Database.setConnection(dbURL);
+		CardEntity.setConnection(dbURL);
 		Integer oldPrio = null;
 		String newPrio = "";
 		try {
@@ -212,11 +212,11 @@ public class Database extends SQLiteConnector {
 
 			// Überprüft ob vorhanden oder nicht
 			if (actualPrio.next()) {
-				oldPrio = actualPrio.getInt(Database.mySeekAttribute);
+				oldPrio = actualPrio.getInt(CardEntity.mySeekAttribute);
 				actualPrio.close();
 			}
 			else {
-				debug.Debugger.out("No Card with "+Database.myPrimaryKey+"='"+PK_ID.toString()+"' exists.");
+				debug.Debugger.out("No Card with "+CardEntity.myPrimaryKey+"='"+PK_ID.toString()+"' exists.");
 				actualPrio.close();
 			}
 
@@ -250,7 +250,7 @@ public class Database extends SQLiteConnector {
 	 *            --> Welche Karte reseted wird
 	 */
 	public static void resetPrio (Integer PK_ID) {
-		Database.setConnection(dbURL);
+		CardEntity.setConnection(dbURL);
 		try {
 			// Setzt die Priorität zurück auf 1
 
@@ -271,7 +271,7 @@ public class Database extends SQLiteConnector {
 	 * @return --> Gibt die Kartenpriorität als Integer zurück
 	 */
 	public static int getPriority (String ID_Card) {
-		Database.setConnection(dbURL);
+		CardEntity.setConnection(dbURL);
 		int prio = 0;
 		try {
 			String getPrio = "SELECT Priority FROM Stock WHERE PK_Stk = " + ID_Card;
@@ -302,7 +302,7 @@ public class Database extends SQLiteConnector {
 	 */
 	public static Double[] getScore (String whichSet) {
 
-		Database.setConnection(dbURL);
+		CardEntity.setConnection(dbURL);
 		Double maxPoints = 0.0;
 		Double reachedPoints = 0.0;
 		Double[] score = new Double[2];

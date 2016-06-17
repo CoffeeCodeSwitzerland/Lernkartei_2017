@@ -66,7 +66,7 @@ public class Printer extends JFrame {
 					iPageWidthEight = iPageWidth / 10;
 					for (int c = 0; c < 2; c++) {
 						int kartenID = c + 1;
-						String[] VorderUndRückseite = database.Database.getFrontAndBackside(Stack, kartenID);
+						String[] VorderUndRückseite = database.CardEntity.getFrontAndBackside(Stack, kartenID);
 
 						pg.drawString(VorderUndRückseite[0], iPageWidthEight, iPageHeightEight);
 

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import database.Stack;
 import debug.Logger;
-import database.Database;
+import database.CardEntity;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -25,7 +25,7 @@ public class Rangliste
 		testStacks = Stack.getStacknames();
 		for (int i = 0; i < Stacks.size(); i++)
 		{
-			Double[] temp = Database.getScore(testStacks.get(i).toString());
+			Double[] temp = CardEntity.getScore(testStacks.get(i).toString());
 			if (temp != null)
 			{
 				testPoints.add(temp[1]);
@@ -71,7 +71,7 @@ public class Rangliste
 	{
 			for (int i = 0; i < Stacks.size(); i++)
 			{
-				Double[] temp = Database.getScore(Stacks.get(i).toString());
+				Double[] temp = CardEntity.getScore(Stacks.get(i).toString());
 				if (temp != null)
 				{
 					Punkte.add(temp[1]);

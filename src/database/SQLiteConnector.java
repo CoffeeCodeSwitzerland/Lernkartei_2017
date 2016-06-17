@@ -92,11 +92,11 @@ public abstract class SQLiteConnector extends SQLHandler {
 			c.setAutoCommit(false);
 			result = stmt.executeQuery(query);
 			c.setAutoCommit(true);
-			debug.Debugger.out("seekSQL:'"+query+"'->OK!");
+			debug.Debugger.out("SQLiteConnector.seekSQL:'"+query+"'->OK!");
 			return result;
 		} catch (Exception e) {
 			if (stmt == null) {
-				Logger.log("SQLHandler.seekInTable(...): open first!");
+				Logger.log("SQLiteConnector.seekInTable(...): open first!");
 				debug.Debugger.out("?!?SQLLiteConnector.seekSQL.1:''->NOT OK!");
 			} else {
 				// TODO kann im Moment nicht zwischen leer und nicht existent unterscheiden...

@@ -35,7 +35,7 @@ public class Config extends SQLiteConnector {
 	{
 		setConnection(configURL);
 		try {
-			debug.Debugger.out("Config.setValue("+key+","+value+")");
+//			debug.Debugger.out("Config.setValue("+key+","+value+")");
 			if (!tableExists)
 				tableExists = createTableIfNotExists(myTableName, myAttributes);
 			replaceOrInsert2Token(myTableName, mySeekAttribute, key, "Value", value);
@@ -43,6 +43,7 @@ public class Config extends SQLiteConnector {
 			if (key==null) key="{null}";
 			if (value==null) value="{null}";
 			Logger.log("Config.setConnection("+key+","+value+")"+e.getMessage());
+			debug.Debugger.out("Config.setConnection("+key+","+value+")"+e.getMessage());
 		}
 		closeDB();
 	}
@@ -67,11 +68,12 @@ public class Config extends SQLiteConnector {
 			if (rs.next()) {
 				return rs.getString(valueName);
 			} else {
-				debug.Debugger.out("No Values with this Key exist!");
+				debug.Debugger.out("Config.getKeyValueFromTable: No Values for Key '"+key+"' exist!");
 			}
 		} catch (Exception e) {
 			if (keyName==null) keyName="{null}";
 			Logger.log("Config.getKeyValueFromTable("+keyName+")"+e.getMessage());
+			debug.Debugger.out("Config.getKeyValueFromTable("+keyName+")"+e.getMessage());
 		}
 		return null;
 	}

@@ -132,8 +132,8 @@ public class OptionsView extends FXView
 
 		Label hideImgStacksDescription = new Label(descTxtDontShowImageStacks);
 		CheckBox hideImgStacks = new CheckBox("Nur Stapel ohne Bilder");
+		
 		boolean oldshowImgStacksValue = false;
-
 		data = getFXController().getModel("config").getDataList("hideImageStacks");
 		if (data != null)
 		{
@@ -146,6 +146,11 @@ public class OptionsView extends FXView
 				}
 			}
 		}
+		else
+		{
+			getFXController().getModel("config").doAction(Command.SET, "hideImageStacks", "false");
+		}
+		
 		hideImgStacks.setSelected(oldshowImgStacksValue);
 		hideImgStacks.selectedProperty().addListener(e ->
 		{

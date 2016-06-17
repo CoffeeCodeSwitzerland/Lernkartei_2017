@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 import debug.Logger;
 
-public class Database extends SQLiteConnector {
+public class Database_old extends SQLiteConnector {
 
 	private static final String dbURL = urlBase + globals.Globals.db_name + ".db";
 
@@ -13,12 +13,12 @@ public class Database extends SQLiteConnector {
 	private static String myPrimaryKey = "PK_Stk";
 	protected static String myFKName = "Set_ID";
 	private static String mySeekAttribute = "Priority";
-	private static String myAttributeList = myFKName + ", Frontside, Backside, Priority, Datum";
-	private static String myAttributes = myPrimaryKey + " INTEGER PRIMARY KEY AUTOINCREMENT,"
-			+ " Frontside     	TEXT    NOT NULL, " + " Backside      	TEXT    NOT NULL, " + " " + myFKName
-			+ "    	INTEGER NOT NULL, " + " " + mySeekAttribute + "	INTEGER DEFAULT 1,"
-			+ " Description   	TEXT    		, " + " Datum				TEXT";
-
+//	private static String myAttributeList = myFKName + ", Frontside, Backside, Priority, Datum";
+//	private static String myAttributes = myPrimaryKey + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+//			+ " Frontside     	TEXT    NOT NULL, " + " Backside      	TEXT    NOT NULL, " + " " + myFKName
+//			+ "    	INTEGER NOT NULL, " + " " + mySeekAttribute + "	INTEGER DEFAULT 1,"
+//			+ " Description   	TEXT    		, " + " Datum				TEXT";
+//
 	public static String getDbURL() {
 		return dbURL;
 	}
@@ -31,7 +31,7 @@ public class Database extends SQLiteConnector {
 	 *            Set_ID, 4. Priorität (1-5), 5. Color
 	 */
 	public static boolean pushToStock(String[] values) {
-		Database.setConnection(dbURL);
+		setConnection(dbURL);
 		try {
 			String sql = "CREATE TABLE IF NOT EXISTS Stock " + "(PK_Stk INTEGER PRIMARY KEY AUTOINCREMENT,"
 					+ " Frontside       TEXT    NOT NULL, " + " Backside      TEXT    NOT NULL, "
@@ -84,7 +84,7 @@ public class Database extends SQLiteConnector {
 
 		ArrayList<String[]> results = new ArrayList<String[]>();
 
-		Database.setConnection(dbURL);
+		setConnection(dbURL);
 		try {
 
 			String sql = "CREATE TABLE IF NOT EXISTS Stock " + "(PK_Stk INTEGER PRIMARY KEY AUTOINCREMENT,"
@@ -140,7 +140,7 @@ public class Database extends SQLiteConnector {
 
 		boolean deleted = false;
 
-		Database.setConnection(dbURL);
+		setConnection(dbURL);
 		try {
 			String del = "DELETE FROM Stock WHERE PK_Stk = " + id;
 			stmt.executeUpdate(del);
@@ -166,7 +166,7 @@ public class Database extends SQLiteConnector {
 
 	public static boolean editEntry(String id, String frontside, String backside) {
 
-		Database.setConnection(dbURL);
+		setConnection(dbURL);
 		try {
 			c.setAutoCommit(false);
 			String sel = "SELECT * FROM Stock WHERE PK_Stk = " + id;
@@ -203,7 +203,7 @@ public class Database extends SQLiteConnector {
 
 	public static void upPrio(Integer PK_ID) {
 
-		Database.setConnection(dbURL);
+		setConnection(dbURL);
 		Integer oldPrio = null;
 		String newPrio = "";
 		try {
@@ -222,10 +222,10 @@ public class Database extends SQLiteConnector {
 
 			// Überprüft ob vorhanden oder nicht
 			if (actualPrio.next()) {
-				oldPrio = actualPrio.getInt(Database.mySeekAttribute);
+				oldPrio = actualPrio.getInt(mySeekAttribute);
 				actualPrio.close();
 			} else {
-				debug.Debugger.out("No Card with " + Database.myPrimaryKey + "='" + PK_ID.toString() + "' exists.");
+				debug.Debugger.out("No Card with " + myPrimaryKey + "='" + PK_ID.toString() + "' exists.");
 				actualPrio.close();
 			}
 
@@ -257,7 +257,7 @@ public class Database extends SQLiteConnector {
 	 *            --> Welche Karte reseted wird
 	 */
 	public static void resetPrio(Integer PK_ID) {
-		Database.setConnection(dbURL);
+		setConnection(dbURL);
 		try {
 			// Setzt die Priorität zurück auf 1
 
@@ -278,7 +278,7 @@ public class Database extends SQLiteConnector {
 	 * @return --> Gibt die Kartenpriorität als Integer zurück
 	 */
 	public static int getPriority(String ID_Card) {
-		Database.setConnection(dbURL);
+		setConnection(dbURL);
 		int prio = 0;
 		try {
 			String getPrio = "SELECT Priority FROM Stock WHERE PK_Stk = " + ID_Card;
@@ -310,7 +310,7 @@ public class Database extends SQLiteConnector {
 	 */
 	public static Double[] getScore(String whichSet) {
 
-		Database.setConnection(dbURL);
+		setConnection(dbURL);
 		Double maxPoints = 0.0;
 		Double reachedPoints = 0.0;
 		Double[] score = new Double[2];

@@ -24,7 +24,7 @@ public class Printer extends JFrame {
 		add(BorderLayout.CENTER, bttn);
 		bttn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ev) {
-				druckeKartenset();
+				druckeKartenset(Stack);
 			}
 		});
 		addWindowListener(new WindowAdapter() {
@@ -34,7 +34,7 @@ public class Printer extends JFrame {
 		});
 	}
 
-	public void druckeKartenset() {
+	public void druckeKartenset(String Stack) {
 		PrintJob prjob = getToolkit().getPrintJob(this, "Testseite", null);
 
 		if (null != prjob) {
@@ -65,7 +65,7 @@ public class Printer extends JFrame {
 
 					iPageWidthEight = iPageWidth / 10;
 					for (int c = 0; c < 2; c++) {
-						String[] VorderUndRückseite = database.Database.getFrontAndBackside();
+						String[] VorderUndRückseite = database.Database.getFrontAndBackside(Stack);
 //
 						// TODO Hier Datenbank funktion einfügen
 

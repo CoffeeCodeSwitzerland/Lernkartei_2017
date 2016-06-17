@@ -7,7 +7,7 @@ import java.sql.Statement;
 
 import debug.Logger;
 
-public class Switcher_old extends SQLiteConnector {
+public class LearnState extends SQLiteConnector {
 
 	// Varibeln Connection
 

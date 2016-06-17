@@ -361,7 +361,7 @@ public class Database extends SQLiteConnector {
 		
 	}
 
-	public static String[] getFrontAndBackside() {
+	public static String[] getFrontAndBackside(String Stack) {
 		String vorderseite = "Hallo";
 		
 		String rückseite = "Hello";

@@ -346,16 +346,14 @@ public class CardEntity extends SQLiteConnector {
 	}
 
 	public static String[] getFrontAndBackside(String Stack, int kartenID) {
-		
-		pullFromStock(Stack);
-		
-		
-		String vorderseite = "Hallo";		
-		String rückseite = "Hello";
-		
-		
-		String[] VorderUndRückseite = {vorderseite, rückseite};
-		
+
+		ArrayList<String[]> cards = pullFromStock(Stack);
+
+		String vorderseite = cards.get(kartenID)[1];
+		String rückseite = cards.get(kartenID)[2];
+
+		String[] VorderUndRückseite = { vorderseite, rückseite };
+
 		return VorderUndRückseite;
 	}
 }

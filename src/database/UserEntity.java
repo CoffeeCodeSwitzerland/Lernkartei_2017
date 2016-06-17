@@ -8,14 +8,14 @@ import java.sql.Statement;
 import debug.Logger;
 
 
-public class Score extends SQLiteConnector {
+public class UserEntity extends SQLiteConnector {
 
 	// URL und Driver
 
-	private static String	url		= "jdbc:sqlite:" + globals.Environment.getDatabasePath()
-			+ globals.Globals.db_name + ".db";
-	private static String	driver	= "org.sqlite.JDBC";
-
+//	private static String	url		= "jdbc:sqlite:" + globals.Environment.getDatabasePath()
+//			+ globals.Globals.db_name + ".db";
+//	private static String	driver	= "org.sqlite.JDBC";
+//
 	private static Integer	anzahlLeben;
 	private static Integer currentLifes;
 
@@ -37,7 +37,7 @@ public class Score extends SQLiteConnector {
 
 		try {
 			Class.forName(driver);
-			c = DriverManager.getConnection(url);
+			c = DriverManager.getConnection(dbURL);
 			stmt = c.createStatement();
 
 			String sql = "CREATE TABLE IF NOT EXISTS Lifes " +
@@ -80,7 +80,7 @@ public class Score extends SQLiteConnector {
 
 		try {
 			Class.forName(driver);
-			c = DriverManager.getConnection(url);
+			c = DriverManager.getConnection(dbURL);
 			stmt = c.createStatement();
 
 			String sql = "CREATE TABLE IF NOT EXISTS Lifes " +
@@ -115,7 +115,7 @@ public class Score extends SQLiteConnector {
 		Statement stmt = null;
 		try {
 			Class.forName(driver);
-			c = DriverManager.getConnection(url);
+			c = DriverManager.getConnection(dbURL);
 			stmt = c.createStatement();
 
 			String sql = "CREATE TABLE IF NOT EXISTS Lifes " +
@@ -156,7 +156,7 @@ public class Score extends SQLiteConnector {
 
 		try {
 			Class.forName(driver);
-			c = DriverManager.getConnection(url);
+			c = DriverManager.getConnection(dbURL);
 			stmt = c.createStatement();
 
 			String sql = "CREATE TABLE IF NOT EXISTS Lifes " +

@@ -2,7 +2,6 @@ package models;
 
 import java.util.ArrayList;
 
-import database.UserCards;
 import debug.Debugger;
 import debug.Supervisor;
 import javafx.collections.ObservableList;
@@ -52,7 +51,7 @@ public class ProfilModel extends FXModel
 	public ArrayList<String> getDataList(String query)
 	{ if (query.equals("kartei"))
 		{
-			return UserCards.getCards();
+			return null; // TODO UserCards.getCards();
 		} else if (query.equals("karteien"))
 		{
 			return p.getKarteien();

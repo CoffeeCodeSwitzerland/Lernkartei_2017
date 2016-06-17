@@ -13,13 +13,13 @@ public class UserLogin extends MYSQLConnector {
 	protected static String myTableName  = "Users";
 	protected static String mySeekAttribute = "Username";
 	protected static String myPrimaryKey = "PK_Usr";
-	private   static String myAttributeList = mySeekAttribute + ", Email, Password, Rule";
-	private   static String myAttributes = 
-									myPrimaryKey + " INTEGER PRIMARY KEY AUTOINCREMENT,"+
-									mySeekAttribute +" TEXT NOT NULL," +
-									" Email 	TEXT NOT NULL," +
-									" Password 	TEXT NOT NULL," +
-									" Rule 		TEXT NOT NULL";
+//	private   static String myAttributeList = mySeekAttribute + ", Email, Password, Rule";
+//	private   static String myAttributes = 
+//									myPrimaryKey + " INTEGER PRIMARY KEY AUTOINCREMENT,"+
+//									mySeekAttribute +" TEXT NOT NULL," +
+//									" Email 	TEXT NOT NULL," +
+//									" Password 	TEXT NOT NULL," +
+//									" Rule 		TEXT NOT NULL";
 	/**
 	 * Fügt der Datenbank einen neuen User hinzu
 	 * 

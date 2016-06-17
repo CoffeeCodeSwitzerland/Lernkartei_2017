@@ -32,7 +32,7 @@ public class LearnModel extends Model
 
 				newPriorityIsValid = Bewertungsklasse.cardIsCorrect(param[0]);
 
-				database.Score.correctCard();
+				database.UserEntity.correctCard();
 				refreshViews();
 
 				return newPriorityIsValid;

@@ -7,22 +7,25 @@ import debug.Logger;
 
 public class Database extends SQLiteConnector {
 
-	private static final String dbURL = urlBase + globals.Globals.db_name + ".db";
-
 	protected static String myTableName  =  "Stock";
 	private   static String myPrimaryKey = "PK_Stk";
 	protected static String myFKName     = "Set_ID";	
 	private   static String mySeekAttribute = "Priority";
-	private   static String myAttributeList = myFKName+", Frontside, Backside, Priority, Datum";
-	private   static String myAttributes = 
-				myPrimaryKey + " INTEGER PRIMARY KEY AUTOINCREMENT," +
-				" Frontside     	TEXT    NOT NULL, " +
-				" Backside      	TEXT    NOT NULL, " +
-				" "+myFKName+"    	INTEGER NOT NULL, " +
-				" "+mySeekAttribute+"	INTEGER DEFAULT 1," +
-				" Description   	TEXT    		, " +
-				" Datum				TEXT";
+//	private   static String myAttributeList = myFKName+", Frontside, Backside, Priority, Datum";
+//	private   static String myAttributes = 
+//				myPrimaryKey + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+//				" Frontside     	TEXT    NOT NULL, " +
+//				" Backside      	TEXT    NOT NULL, " +
+//				" "+myFKName+"    	INTEGER NOT NULL, " +
+//				" "+mySeekAttribute+"	INTEGER DEFAULT 1," +
+//				" Description   	TEXT    		, " +
+//				" Datum				TEXT";
 		
+	private static String pushSql = "CREATE TABLE IF NOT EXISTS Stock " + "(PK_Stk INTEGER PRIMARY KEY AUTOINCREMENT,"
+			+ " Frontside       TEXT    NOT NULL, " + " Backside      TEXT    NOT NULL, "
+			+ " Set_ID    		INTEGER NOT NULL, " + " Priority	    INTEGER DEFAULT 1,"
+			+ " Description    TEXT    		, " + " Color			TEXT    		 )";
+
 	public static String getDbURL() {
 		return dbURL;
 	}
@@ -37,21 +40,14 @@ public class Database extends SQLiteConnector {
 	public static boolean pushToStock (String[] values) {
 		Database.setConnection(dbURL);
 		try {
-			String sql = "CREATE TABLE IF NOT EXISTS Stock " + "(PK_Stk INTEGER PRIMARY KEY AUTOINCREMENT,"
-					+ " Frontside       TEXT    NOT NULL, " + " Backside      TEXT    NOT NULL, "
-					+ " Set_ID    		INTEGER NOT NULL, " + " Priority	    INTEGER DEFAULT 1,"
-					+ " Description    TEXT    		, " + " Color			TEXT    		 )";
-
-			debug.Debugger.out(sql);
-			stmt.executeUpdate(sql);
-
-			String setID;
+			stmt.executeUpdate(pushSql);
 
 			c.setAutoCommit(false);
 			ResultSet selectSet = stmt
 					.executeQuery("SELECT PK_Kategorie FROM Kategorie WHERE Kategorie = '" + values[2] + "'");
 			c.setAutoCommit(true);
-
+			
+			String setID;
 			if (selectSet.next()) {
 				setID = Integer.toString(selectSet.getInt("PK_Kategorie"));
 				selectSet.close();
@@ -91,13 +87,7 @@ public class Database extends SQLiteConnector {
 		Database.setConnection(dbURL);
 		try {
 
-			String sql = "CREATE TABLE IF NOT EXISTS Stock " + "(PK_Stk INTEGER PRIMARY KEY AUTOINCREMENT,"
-					+ " Frontside       TEXT    NOT NULL, " + " Backside      TEXT    NOT NULL, "
-					+ " Set_ID    		INTEGER NOT NULL, " + " Priority	    INTEGER DEFAULT 1,"
-					+ " Description    TEXT    		, " + " Color			TEXT    		 )";
-
-			debug.Debugger.out(sql);
-			stmt.executeUpdate(sql);
+			stmt.executeUpdate(pushSql);
 
 			c.setAutoCommit(false);
 			String IDwhichSet = "";
@@ -213,13 +203,7 @@ public class Database extends SQLiteConnector {
 		Integer oldPrio = null;
 		String newPrio = "";
 		try {
-			String sql = "CREATE TABLE IF NOT EXISTS Stock " + "(PK_Stk INTEGER PRIMARY KEY AUTOINCREMENT,"
-					+ " Frontside       TEXT    NOT NULL, " + " Backside      TEXT    NOT NULL, "
-					+ " Set_ID    		INTEGER NOT NULL, " + " Priority	    INTEGER DEFAULT 1,"
-					+ " Description    TEXT    		, " + " Color			TEXT    		 )";
-
-			debug.Debugger.out(sql);
-			stmt.executeUpdate(sql);
+			stmt.executeUpdate(pushSql);
 
 			// Frage die Aktuelle Priorität ab
 			c.setAutoCommit(false);

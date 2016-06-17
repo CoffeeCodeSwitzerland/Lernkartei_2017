@@ -12,8 +12,10 @@ import debug.Logger;
  */
 public abstract class SQLiteConnector extends SQLHandler {
 
+
 	protected final static String driver = "org.sqlite.JDBC";
 	protected final static String urlBase = "jdbc:sqlite:" + globals.Environment.getDatabasePath();
+	protected static final String dbURL = urlBase + globals.Globals.db_name + ".db";
 	protected static Connection c = null;
 
 	public static void setConnection(String dbURL) {

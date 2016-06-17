@@ -28,6 +28,7 @@ public class RenameView extends FXViewModel
 
 	VBox		elements	= new VBox(20);
 	String		oldValue	= "";
+	AppButton backBtn = new AppButton("Zurück");
 
 	public RenameView (String setName, FXController newController)
 	{
@@ -38,7 +39,6 @@ public class RenameView extends FXViewModel
 	@Override
 	public Parent constructContainer ()
 	{
-		AppButton backBtn = new AppButton("Zurück");
 		backBtn.setOnAction(e ->
 		{
 			getWindow().getScene().widthProperty().removeListener(event ->
@@ -95,6 +95,8 @@ public class RenameView extends FXViewModel
 
 			elements.getChildren().add(field);
 		}
+		
+		backBtn.requestFocus();
 	}
 
 }

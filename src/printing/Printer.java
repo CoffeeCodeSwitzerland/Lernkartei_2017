@@ -61,11 +61,12 @@ public class Printer extends JFrame {
 					iPageHeightQuarter += iPageHeight / 4;
 				}
 				// Text Einfiügen
+				int kartenID = -1;
 				for (int b = 0; b < 4; b++) {
 
 					iPageWidthEight = iPageWidth / 10;
 					for (int c = 0; c < 2; c++) {
-						int kartenID = c + 1;
+						kartenID += 1;
 						String[] VorderUndRückseite = database.Database.getFrontAndBackside(Stack, kartenID);
 
 						pg.drawString(VorderUndRückseite[0], iPageWidthEight, iPageHeightEight);

@@ -9,20 +9,16 @@ public class Database extends SQLiteConnector {
 
 	private static final String dbURL = urlBase + globals.Globals.db_name + ".db";
 
-	protected static String myTableName  =  "Stock";
-	private   static String myPrimaryKey = "PK_Stk";
-	protected static String myFKName     = "Set_ID";	
-	private   static String mySeekAttribute = "Priority";
-	private   static String myAttributeList = myFKName+", Frontside, Backside, Priority, Datum";
-	private   static String myAttributes = 
-				myPrimaryKey + " INTEGER PRIMARY KEY AUTOINCREMENT," +
-				" Frontside     	TEXT    NOT NULL, " +
-				" Backside      	TEXT    NOT NULL, " +
-				" "+myFKName+"    	INTEGER NOT NULL, " +
-				" "+mySeekAttribute+"	INTEGER DEFAULT 1," +
-				" Description   	TEXT    		, " +
-				" Datum				TEXT";
-		
+	protected static String myTableName = "Stock";
+	private static String myPrimaryKey = "PK_Stk";
+	protected static String myFKName = "Set_ID";
+	private static String mySeekAttribute = "Priority";
+	private static String myAttributeList = myFKName + ", Frontside, Backside, Priority, Datum";
+	private static String myAttributes = myPrimaryKey + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+			+ " Frontside     	TEXT    NOT NULL, " + " Backside      	TEXT    NOT NULL, " + " " + myFKName
+			+ "    	INTEGER NOT NULL, " + " " + mySeekAttribute + "	INTEGER DEFAULT 1,"
+			+ " Description   	TEXT    		, " + " Datum				TEXT";
+
 	public static String getDbURL() {
 		return dbURL;
 	}
@@ -34,7 +30,7 @@ public class Database extends SQLiteConnector {
 	 *            --> Array mit 5 Werten: 1. Vorderseite, 2. Rückseite, 3.
 	 *            Set_ID, 4. Priorität (1-5), 5. Color
 	 */
-	public static boolean pushToStock (String[] values) {
+	public static boolean pushToStock(String[] values) {
 		Database.setConnection(dbURL);
 		try {
 			String sql = "CREATE TABLE IF NOT EXISTS Stock " + "(PK_Stk INTEGER PRIMARY KEY AUTOINCREMENT,"
@@ -69,8 +65,8 @@ public class Database extends SQLiteConnector {
 			closeDB();
 			return true;
 		} catch (Exception e) {
-			debug.Debugger.out("Database.pushToStock(...): "+e.getMessage());
-			Logger.log("Database.pushToStock(...): "+e.getMessage());
+			debug.Debugger.out("Database.pushToStock(...): " + e.getMessage());
+			Logger.log("Database.pushToStock(...): " + e.getMessage());
 		}
 		closeDB();
 		return false;
@@ -84,7 +80,7 @@ public class Database extends SQLiteConnector {
 	 *         Rückseite, Description, Set_ID, Priorität, Farbe
 	 */
 
-	public static ArrayList<String[]> pullFromStock (String whichSet) {
+	public static ArrayList<String[]> pullFromStock(String whichSet) {
 
 		ArrayList<String[]> results = new ArrayList<String[]>();
 
@@ -130,11 +126,11 @@ public class Database extends SQLiteConnector {
 			}
 			rs.close();
 			closeDB();
-		}
-		catch (Exception e) {
-			if (whichSet==null) whichSet="{null}";
-			debug.Debugger.out("Database.pullFromStock("+whichSet+"): "+e.getMessage());
-			Logger.log("Database.pullFromStock("+whichSet+"): "+e.getMessage());
+		} catch (Exception e) {
+			if (whichSet == null)
+				whichSet = "{null}";
+			debug.Debugger.out("Database.pullFromStock(" + whichSet + "): " + e.getMessage());
+			Logger.log("Database.pullFromStock(" + whichSet + "): " + e.getMessage());
 			closeDB();
 		}
 		return results;
@@ -181,8 +177,7 @@ public class Database extends SQLiteConnector {
 				c.commit();
 				closeDB();
 				return false;
-			}
-			else {
+			} else {
 				rs.close();
 			}
 			String del = "UPDATE Stock SET Frontside = '" + frontside + "', Backside = '" + backside
@@ -191,10 +186,9 @@ public class Database extends SQLiteConnector {
 			stmt.executeUpdate(del);
 			closeDB();
 			return true;
-		}
-		catch (Exception e) {
-			debug.Debugger.out("Database.editEntry("+id+"): "+e.getMessage());
-			Logger.log("Database.editEntry("+id+"): "+e.getMessage());
+		} catch (Exception e) {
+			debug.Debugger.out("Database.editEntry(" + id + "): " + e.getMessage());
+			Logger.log("Database.editEntry(" + id + "): " + e.getMessage());
 		}
 		closeDB();
 		return false;
@@ -207,7 +201,7 @@ public class Database extends SQLiteConnector {
 	 *            --> PK_Stock ID der Karte, welche erhöht wird
 	 */
 
-	public static void upPrio (Integer PK_ID) {
+	public static void upPrio(Integer PK_ID) {
 
 		Database.setConnection(dbURL);
 		Integer oldPrio = null;
@@ -230,9 +224,8 @@ public class Database extends SQLiteConnector {
 			if (actualPrio.next()) {
 				oldPrio = actualPrio.getInt(Database.mySeekAttribute);
 				actualPrio.close();
-			}
-			else {
-				debug.Debugger.out("No Card with "+Database.myPrimaryKey+"='"+PK_ID.toString()+"' exists.");
+			} else {
+				debug.Debugger.out("No Card with " + Database.myPrimaryKey + "='" + PK_ID.toString() + "' exists.");
 				actualPrio.close();
 			}
 
@@ -241,8 +234,7 @@ public class Database extends SQLiteConnector {
 
 			if (oldPrio == 5) {
 				newPrio = "5";
-			}
-			else {
+			} else {
 				newPrio = Integer.toString(oldPrio + 1);
 			}
 
@@ -250,10 +242,9 @@ public class Database extends SQLiteConnector {
 
 			String updatePrio = "UPDATE Stock SET Priority = " + newPrio + " WHERE PK_Stk = " + PK_ID;
 			stmt.executeUpdate(updatePrio);
-		}
-		catch (Exception e) {
-			debug.Debugger.out("Database.upPrio("+PK_ID+"): "+e.getMessage());
-			Logger.log("Database.upPrio("+PK_ID+"): "+e.getMessage());
+		} catch (Exception e) {
+			debug.Debugger.out("Database.upPrio(" + PK_ID + "): " + e.getMessage());
+			Logger.log("Database.upPrio(" + PK_ID + "): " + e.getMessage());
 		}
 		closeDB();
 	}
@@ -265,28 +256,28 @@ public class Database extends SQLiteConnector {
 	 * @param karte
 	 *            --> Welche Karte reseted wird
 	 */
-	public static void resetPrio (Integer PK_ID) {
+	public static void resetPrio(Integer PK_ID) {
 		Database.setConnection(dbURL);
 		try {
 			// Setzt die Priorität zurück auf 1
 
 			String updatePrio = "UPDATE Stock SET Priority = 1 WHERE PK_Stk = " + PK_ID;
 			stmt.executeUpdate(updatePrio);
-		}
-		catch (Exception e) {
-			debug.Debugger.out("Database.resetPrio("+PK_ID+"): "+e.getMessage());
-			Logger.log("Database.resetPrio("+PK_ID+"): "+e.getMessage());
+		} catch (Exception e) {
+			debug.Debugger.out("Database.resetPrio(" + PK_ID + "): " + e.getMessage());
+			Logger.log("Database.resetPrio(" + PK_ID + "): " + e.getMessage());
 		}
 		closeDB();
 	}
-	
+
 	/**
-	 * Liefert die Priorität der Karte mit mitgegebener ID mit 
+	 * Liefert die Priorität der Karte mit mitgegebener ID mit
 	 * 
-	 * @param ID_Card --> ID der Karte, von welcher die Priorität gebraaucht wird
+	 * @param ID_Card
+	 *            --> ID der Karte, von welcher die Priorität gebraaucht wird
 	 * @return --> Gibt die Kartenpriorität als Integer zurück
 	 */
-	public static int getPriority (String ID_Card) {
+	public static int getPriority(String ID_Card) {
 		Database.setConnection(dbURL);
 		int prio = 0;
 		try {
@@ -298,25 +289,26 @@ public class Database extends SQLiteConnector {
 			if (rsPrio.next()) {
 				prio = rsPrio.getInt("Priority");
 			} else {
-				debug.Debugger.out("No such Cards exists in stock @ ID ("+ID_Card+")!");
+				debug.Debugger.out("No such Cards exists in stock @ ID (" + ID_Card + ")!");
 			}
-		}
-		catch (Exception e) {
-			if (ID_Card==null) ID_Card="{null}";
-			debug.Debugger.out("Database.getPriority("+ID_Card+"): "+e.getMessage());
-			Logger.log("Database.getPriority("+ID_Card+"): "+e.getMessage());
+		} catch (Exception e) {
+			if (ID_Card == null)
+				ID_Card = "{null}";
+			debug.Debugger.out("Database.getPriority(" + ID_Card + "): " + e.getMessage());
+			Logger.log("Database.getPriority(" + ID_Card + "): " + e.getMessage());
 		}
 		closeDB();
 		return prio;
 	}
-	
+
 	/**
 	 * Liefert den Maximalen und den bisher erreichten Score eines Stacks zurück
-	 *  
-	 * @param whichSet --> Score von welchem Stack geliefert werden soll
+	 * 
+	 * @param whichSet
+	 *            --> Score von welchem Stack geliefert werden soll
 	 * @return --> Retourniert diesen gewünschten Score
 	 */
-	public static Double[] getScore (String whichSet) {
+	public static Double[] getScore(String whichSet) {
 
 		Database.setConnection(dbURL);
 		Double maxPoints = 0.0;
@@ -346,32 +338,29 @@ public class Database extends SQLiteConnector {
 				closeDB();
 				return null;
 			}
-		}
-		catch (Exception e) {
-			if (whichSet==null) whichSet="{null}";
-			debug.Debugger.out("Database.getScore("+whichSet+"): "+e.getMessage());
-			Logger.log("Database.getScore("+whichSet+"): "+e.getMessage());
+		} catch (Exception e) {
+			if (whichSet == null)
+				whichSet = "{null}";
+			debug.Debugger.out("Database.getScore(" + whichSet + "): " + e.getMessage());
+			Logger.log("Database.getScore(" + whichSet + "): " + e.getMessage());
 		}
 		// Erreichte Punktzahl zurückgeben
 		score[0] = maxPoints;
 		score[1] = reachedPoints;
 		closeDB();
 		return score;
-		
-		
+
 	}
 
 	public static String[] getFrontAndBackside(String Stack, int kartenID) {
-		
-		pullFromStock(Stack);
-		
-		
-		String vorderseite = "Hallo";		
-		String rückseite = "Hello";
-		
-		
-		String[] VorderUndRückseite = {vorderseite, rückseite};
-		
+
+		ArrayList<String[]> cards = pullFromStock(Stack);
+
+		String vorderseite = cards.get(kartenID)[1];
+		String rückseite = cards.get(kartenID)[2];
+
+		String[] VorderUndRückseite = { vorderseite, rückseite };
+
 		return VorderUndRückseite;
 	}
 }

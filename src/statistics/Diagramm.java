@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import database.Stack;
 import debug.Debugger;
 import debug.Logger;
-import database.Database;
+import database.CardEntity;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.chart.XYChart;
@@ -25,7 +25,7 @@ public class Diagramm
 	{
 				for (int i = 0; i < Stacks.size(); i++)
 				{
-					Double[] temp = Database.getScore(Stacks.get(i).toString());
+					Double[] temp = CardEntity.getScore(Stacks.get(i).toString());
 					Double result = (100 / temp[0]) * temp[1];
 					Punkte.add(result);
 				}

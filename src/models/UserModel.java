@@ -2,7 +2,6 @@ package models;
 
 import java.util.ArrayList;
 
-import database.UserCards;
 import debug.Supervisor;
 import mvc.Model;
 import user.User;
@@ -68,6 +67,7 @@ public class UserModel extends Model
 	public ArrayList<String> getDataList (String query)
 	{
 		// Returnt alle Karteien des Benutzers in form von einer ArrayList
-		return UserCards.getCards();
+		
+		return null; // TODO ... UserCards.getCards();
 	}
 }

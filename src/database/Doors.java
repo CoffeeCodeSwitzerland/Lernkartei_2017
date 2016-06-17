@@ -12,10 +12,10 @@ public class Doors extends SQLiteConnector {
 
 	// URL und Driver
 
-	private static String	url			= "jdbc:sqlite:" +  globals.Environment.getDatabasePath()
-										 + globals.Globals.db_name + ".db";
-	private static String	driver		= "org.sqlite.JDBC";
-
+//	private static String	url			= "jdbc:sqlite:" +  globals.Environment.getDatabasePath()
+//										 + globals.Globals.db_name + ".db";
+//	private static String	driver		= "org.sqlite.JDBC";
+//
 	/**
 	 * Methode, zum Erstellen einer neuen Türe
 	 * 
@@ -35,7 +35,7 @@ public class Doors extends SQLiteConnector {
 
 		try {
 			Class.forName(driver);
-			c = DriverManager.getConnection(url);
+			c = DriverManager.getConnection(dbURL);
 			stmt = c.createStatement();
 
 			String sql = "CREATE TABLE IF NOT EXISTS Doors " +
@@ -93,7 +93,7 @@ public class Doors extends SQLiteConnector {
 
 		try {
 			Class.forName(driver);
-			c = DriverManager.getConnection(url);
+			c = DriverManager.getConnection(dbURL);
 			stmt = c.createStatement();
 			
 			c.setAutoCommit(false);
@@ -142,7 +142,7 @@ public class Doors extends SQLiteConnector {
 		
 		try {
 			Class.forName(driver);
-			c = DriverManager.getConnection(url);
+			c = DriverManager.getConnection(dbURL);
 			stmt = c.createStatement();
 			
 			c.setAutoCommit(false);
@@ -195,7 +195,7 @@ public class Doors extends SQLiteConnector {
 		
 		try {
 			Class.forName(driver);
-			c = DriverManager.getConnection(url);
+			c = DriverManager.getConnection(dbURL);
 			stmt = c.createStatement();
 			
 			c.setAutoCommit(false);

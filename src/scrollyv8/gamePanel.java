@@ -124,7 +124,7 @@ public class gamePanel extends JPanel implements Runnable {
 
 		x = y = 25;
 		vx = vy = 0;
-		lives = database.Score.getLifecount() -1;
+		lives = database.UserEntity.getLifecount() -1;
 		jump = false;
 		//doubleJump = false;
 		ground = true;
@@ -638,7 +638,7 @@ public class gamePanel extends JPanel implements Runnable {
 					}
 					loadLevel(levelBase + "level1.tmx");
 					gameState = INTRO;
-					lives = database.Score.getLifecount();			
+					lives = database.UserEntity.getLifecount();			
 					first = false;
 					//Hier neutrino
 					
@@ -654,7 +654,7 @@ public class gamePanel extends JPanel implements Runnable {
 				} else {
 					loadLevel(levelBase + "level1.tmx");
 					gameState = INTRO;
-					lives = database.Score.getLifecount();
+					lives = database.UserEntity.getLifecount();
 					level = 1;
 				}
 				repaint();
@@ -1155,7 +1155,7 @@ public class gamePanel extends JPanel implements Runnable {
 		if (sound) {
 			MidiPlayer.stop();
 			ClipPlayer.DIE.play();
-			database.Score.death();
+			database.UserEntity.death();
 			Debugger.out("DIE!");
 		}
 		lives--;

@@ -2,7 +2,7 @@ package learning;
 
 import java.util.ArrayList;
 
-import database.Database;
+import database.CardEntity;
 import debug.Logger;
 import globals.Globals;
 
@@ -12,7 +12,7 @@ public class Bewertungsklasse {
 		ArrayList<String> result = new ArrayList<>();
 		ArrayList<Integer> zufallsZahlen = new ArrayList<>();
 
-		ArrayList<String[]> cards = Database.pullFromStock(query);
+		ArrayList<String[]> cards = CardEntity.pullFromStock(query);
 
 		if (cards == null) {
 			debug.Debugger.out("getData cards = null");
@@ -42,15 +42,15 @@ public class Bewertungsklasse {
 	// Wenn Karte Richtig ist
 	public static int cardIsCorrect(String cardID)
 	{
-		int oldPriority = Database.getPriority(cardID);
+		int oldPriority = CardEntity.getPriority(cardID);
 		
 		Logger.log("Call Upprio");
-		Database.upPrio(Integer.parseInt(cardID));
+		CardEntity.upPrio(Integer.parseInt(cardID));
 		Logger.log("End Upprio");
 		
 		datumZuweisen(cardID);
 
-		if (oldPriority <= Database.getPriority(cardID))
+		if (oldPriority <= CardEntity.getPriority(cardID))
 		{
 			return 1;
 		}
@@ -64,10 +64,10 @@ public class Bewertungsklasse {
 	public static int cardIsFalse(String cardID)
 	{
 		Logger.log("Call Resetprio");
-		Database.resetPrio(Integer.parseInt(cardID));
+		CardEntity.resetPrio(Integer.parseInt(cardID));
 		Logger.log("End Resetprio");
 
-		if (Database.getPriority(cardID) == 1)
+		if (CardEntity.getPriority(cardID) == 1)
 		{
 			return 1;
 		}

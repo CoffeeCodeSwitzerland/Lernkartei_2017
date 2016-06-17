@@ -7,15 +7,15 @@ import java.sql.Statement;
 
 import debug.Logger;
 
-public class Switcher extends SQLiteConnector {
+public class Switcher_old extends SQLiteConnector {
 
 	// Varibeln Connection
 
-	private static String	url		= "jdbc:sqlite:" + globals.Environment.getDatabasePath()
-													 + globals.Globals.db_name + ".db";
-	
-	private static String	driver	= "org.sqlite.JDBC";
-
+//	private static String	url		= "jdbc:sqlite:" + globals.Environment.getDatabasePath()
+//													 + globals.Globals.db_name + ".db";
+//	
+//	private static String	driver	= "org.sqlite.JDBC";
+//
 	public static boolean newSwitch (String setName) {
 
 		Connection c = null;
@@ -24,7 +24,7 @@ public class Switcher extends SQLiteConnector {
 
 		try {
 			Class.forName(driver);
-			c = DriverManager.getConnection(url);
+			c = DriverManager.getConnection(dbURL);
 			stmt = c.createStatement();
 			
 			String create = "CREATE TABLE IF NOT EXISTS Switcher ("
@@ -60,7 +60,7 @@ public class Switcher extends SQLiteConnector {
 
 		try {
 			Class.forName(driver);
-			c = DriverManager.getConnection(url);
+			c = DriverManager.getConnection(dbURL);
 			stmt = c.createStatement();
 			
 			String create = "CREATE TABLE IF NOT EXISTS TABLE Switcher ("
@@ -96,7 +96,7 @@ public class Switcher extends SQLiteConnector {
 
 		try {
 			Class.forName(driver);
-			c = DriverManager.getConnection(url);
+			c = DriverManager.getConnection(dbURL);
 			stmt = c.createStatement();
 
 			String create = "CREATE TABLE IF NOT EXISTS TABLE Switcher ("

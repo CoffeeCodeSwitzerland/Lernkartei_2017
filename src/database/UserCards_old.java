@@ -15,7 +15,7 @@ import debug.Logger;
  * 		@WhatIsThis? Gibt Daten für DataModel aus, und kann neue verabrbeiten
  */
 
-public class UserCards {
+public class UserCards_old {
 
 	// URL und Driver
 
@@ -23,7 +23,7 @@ public class UserCards {
 	 									 + globals.Globals.db_name + ".db";
 	private static String	driver		= "org.sqlite.JDBC";
 	
-	public UserCards () {
+	public UserCards_old () {
 
 		// für Später, damit sichergestellt ist, dass die Tabelle "Score"
 		// existiert

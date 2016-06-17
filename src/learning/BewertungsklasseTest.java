@@ -7,7 +7,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import database.Database;
+import database.CardEntity;
 
 public class BewertungsklasseTest
 {
@@ -21,7 +21,7 @@ public class BewertungsklasseTest
 	public void setUp() throws Exception
 	{
 		//Datenbank mit Beispieldaten füllen
-		Database.setConnection(dbURL);
+		CardEntity.setConnection(dbURL);
 		try {
 					
 			String testKategorie = "CREATE TABLE IF NOT EXISTS Kategorie "

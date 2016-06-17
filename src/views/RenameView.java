@@ -8,6 +8,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
+import mvc.ModelInterface.Command;
 import mvc.fx.FXController;
 import mvc.fx.FXViewModel;
 import views.components.AppButton;
@@ -50,7 +51,7 @@ public class RenameView extends FXViewModel
 		elements.setPadding(new Insets(30));
 		elements.setAlignment(Pos.TOP_CENTER);
 
-		VerticalScroller scroLay = new VerticalScroller(elements);
+		VerticalScroller scroLay = new VerticalScroller(elements, 1);
 
 		MainLayout maLay = new MainLayout(scroLay, new ControlLayout(backBtn));
 
@@ -60,13 +61,6 @@ public class RenameView extends FXViewModel
 	@Override
 	public void refreshView ()
 	{
-		//elements.setMinWidth(getWindow().getScene().getWidth() - 80);
-
-		getWindow().getScene().widthProperty().addListener(event ->
-		{
-			//elements.setMinWidth(getWindow().getScene().getWidth() - 80);
-		});
-
 		// info[0] = stack OR door (model)
 		// info[1] = doors OR stacks of which door (getDataList command)
 
@@ -80,13 +74,22 @@ public class RenameView extends FXViewModel
 			TextField field = new TextField(s);
 			field.focusedProperty().addListener(event ->
 			{
+				
 				if (field.isFocused())
 				{
 					oldValue = field.getText();
 				}
 				else
 				{
-					getFXController().getModel(info[0]).doAction("update", oldValue + Globals.SEPARATOR + field.getText());
+					int canCreate = getFXController().getModel(info[0]).doAction(Command.CAN_CREATE, field.getText());
+					if (canCreate == 1)
+					{
+						getFXController().getModel(info[0]).doAction(Command.UPDATE, oldValue, field.getText());
+					}
+					else if (canCreate == -1 && !field.getText().equals(oldValue))
+					{
+						field.setText(oldValue);
+					}
 				}
 			});
 

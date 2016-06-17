@@ -2,7 +2,7 @@ package models;
 
 import java.util.ArrayList;
 
-import database.Database;
+import database.CardEntity;
 import debug.Supervisor;
 import mvc.Model;
 
@@ -35,7 +35,7 @@ public class CardModel extends Model
 					s = s.replace("'", "''");
 				}
 				String[] arguments = new String[] { param[0], param[1], param[2], defaultPriority, defaultColor };
-				boolean successfulNew = Database.pushToStock(arguments);
+				boolean successfulNew = CardEntity.pushToStock(arguments);
 				if (successfulNew)
 				{
 					refreshViews();
@@ -49,12 +49,12 @@ public class CardModel extends Model
 				{
 					s = s.replace("'", "''");
 				}
-				boolean successfulUpdate = Database.editEntry(param[0], param[1], param[2]);
+				boolean successfulUpdate = CardEntity.editEntry(param[0], param[1], param[2]);
 				return successfulUpdate ? 1 : -1;
 
 			case DELETE:
 				if (param.length != 1) { return -2; }
-				boolean successfulDelete = Database.delEntry(param[0]);
+				boolean successfulDelete = CardEntity.delEntry(param[0]);
 				if (successfulDelete)
 				{
 					refreshViews();
@@ -73,7 +73,7 @@ public class CardModel extends Model
 	{
 
 		ArrayList<String> result = new ArrayList<String>();
-		ArrayList<String[]> cards = Database.pullFromStock(query);
+		ArrayList<String[]> cards = CardEntity.pullFromStock(query);
 		if (cards == null)
 		{
 			debug.Debugger.out("getData cards = null");

@@ -35,6 +35,13 @@ public class DoorModel extends Model
 				boolean deleteIsSuccessful = Doors.delDoor(param[0]);
 				refreshViews();
 				return deleteIsSuccessful ? 1 : -1;
+			case CAN_CREATE:
+				ArrayList<String> doors = Doors.getDoors();
+				if (doors.contains(param[0]))
+				{
+					return -1;
+				}
+				return 1;
 			default:
 				int superIsSuccessful = super.doAction(command, param);
 				return superIsSuccessful;

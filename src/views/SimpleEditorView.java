@@ -20,6 +20,7 @@ import mvc.fx.FXController;
 import mvc.fx.FXViewModel;
 import views.components.AppButton;
 import views.components.ControlLayout;
+import views.components.MainLayout;
 
 
 public class SimpleEditorView extends FXViewModel
@@ -56,7 +57,7 @@ public class SimpleEditorView extends FXViewModel
 		getFXController().showView("bbcodeinfo"));
 		
 		BorderPane headLayout = new BorderPane(headLbl);
-		headLayout.setPadding(new Insets(25));
+		headLayout.setPadding(new Insets(0, 0, 25, 0));
 
 		editLayout.setPadding(new Insets(10));
 		editLayout.setAlignment(Pos.TOP_CENTER);
@@ -66,14 +67,9 @@ public class SimpleEditorView extends FXViewModel
 		scroller.setPadding(new Insets(25));
 		
 
-		BorderPane mainLayout = new BorderPane();
-		mainLayout.setPadding(new Insets(15));
-		mainLayout.setTop(headLayout);
-		mainLayout.setCenter(scroller);
-		mainLayout.setBottom(new ControlLayout(backBtn, infobtn));
-
+		MainLayout maLay = new MainLayout(scroller, headLayout, new ControlLayout(backBtn, infobtn));
 		getFXController().getModel("cards").registerView(this);
-		return mainLayout;
+		return maLay;
 	}
 	
 	AnimationTimer setVPos = new AnimationTimer() {

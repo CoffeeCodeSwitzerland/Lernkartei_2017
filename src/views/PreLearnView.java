@@ -69,7 +69,7 @@ public class PreLearnView extends FXViewModel
 			}
 		}
 
-		Label stackScore = new Label("Fortschritt: " + score);
+		Label stackScore = new Label("Fortschritt: " + score + " %");
 
 		AppButton goBtn = new AppButton("Go");
 		goBtn.setOnAction(e ->

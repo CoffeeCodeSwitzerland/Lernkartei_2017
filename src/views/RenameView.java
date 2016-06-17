@@ -6,7 +6,9 @@ import globals.Globals;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import mvc.ModelInterface.Command;
 import mvc.fx.FXController;
@@ -29,6 +31,7 @@ public class RenameView extends FXViewModel
 	VBox		elements	= new VBox(20);
 	String		oldValue	= "";
 	AppButton backBtn = new AppButton("Zurück");
+	Label headLabel = new Label("Umbenennen");
 
 	public RenameView (String setName, FXController newController)
 	{
@@ -53,7 +56,11 @@ public class RenameView extends FXViewModel
 
 		VerticalScroller scroLay = new VerticalScroller(elements, 1);
 
-		MainLayout maLay = new MainLayout(scroLay, new ControlLayout(backBtn));
+		headLabel.setId("bold");
+		BorderPane headLayout = new BorderPane(headLabel);
+		headLayout.setPadding(new Insets(0, 0, 25, 0));
+		
+		MainLayout maLay = new MainLayout(scroLay, headLayout, new ControlLayout(backBtn));
 
 		return maLay;
 	}
@@ -67,6 +74,8 @@ public class RenameView extends FXViewModel
 		String[] info = getData().split(Globals.SEPARATOR);
 		ArrayList<String> list = getFXController().getModel(info[0]).getDataList(info[1]);
 
+		headLabel.setText(info[1].equals("doors") ? "Fächer umbenennen" : "Stapel im Fach " + info[1] + " umbenennen");
+		
 		elements.getChildren().clear();
 
 		for (String s : list)

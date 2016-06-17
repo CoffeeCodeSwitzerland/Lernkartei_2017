@@ -57,8 +57,8 @@ public class PostLearnView extends FXViewModel
 			}
 		}
 		
-		Label now = new Label("Jetzt: " + score);
-		Label diff = new Label("Fortschritt: " + dif);
+		Label now = new Label("Jetzt: " + score + " %");
+		Label diff = new Label("Fortschritt: " + dif + " %");
 		
 		AppButton continueBtn = new AppButton("Weiter");
 		continueBtn.setOnAction(e -> getFXController().showLastView());

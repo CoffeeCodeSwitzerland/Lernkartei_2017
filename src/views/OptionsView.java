@@ -52,6 +52,8 @@ public class OptionsView extends FXView
 	String		autoWidthLabel				= "Grösse Anpassen";
 	String		disableToolTippsLabel		= "Tooltipps deaktivieren";
 	String		hideImageStacksLabel		= "Nur Stapel ohne Bilder";
+	
+	BackButton backBtn = new BackButton(getFXController());
 
 	@Override
 	public Parent constructContainer ()
@@ -98,7 +100,8 @@ public class OptionsView extends FXView
 
 		CheckBoxOption hideImageStacks = new CheckBoxOption(hideImageStacksKey, hideImageStacksDescription, hideImageStacksLabel, getFXController());
 
-		BackButton backBtn = new BackButton(getFXController());
+		
+		
 
 		VBox optionsLay = new VBox(20);
 
@@ -124,7 +127,7 @@ public class OptionsView extends FXView
 	@Override
 	public void refreshView ()
 	{
-		// do nothing
+		backBtn.requestFocus();
 	}
 
 	private Separator sepp ()

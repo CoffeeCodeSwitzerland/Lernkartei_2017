@@ -27,6 +27,7 @@ public abstract class SQLiteConnector extends SQLHandler {
 			if (dbURL == null)
 				dbURL = "{null}";
 			Logger.log("SQLiteConnetor.setConnection(URL: " + dbURL + "): " + e.getMessage());
+			debug.Debugger.out("SQLiteConnetor.setConnection(URL: " + dbURL + "): " + e.getMessage());
 			closeDB();
 		}
 	}
@@ -37,9 +38,7 @@ public abstract class SQLiteConnector extends SQLHandler {
 				stmt.close();
 			if (c != null)
 				c.close();
-		} catch (Exception e2) {
-		}
-		;
+		} catch (Exception e2) { };
 		stmt = null;
 	}
 
@@ -65,7 +64,7 @@ public abstract class SQLiteConnector extends SQLHandler {
 						                   + " = '"    + key     + "'";
 				c.setAutoCommit(true);
 				stmt.executeUpdate(replace);
-				debug.Debugger.out(replace + "\n\nErfolgreich Eintrag erneuert!");
+//				debug.Debugger.out(replace + "\n\nErfolgreich Eintrag erneuert!");
 			} else {
 				// Kein Eintrag gefunden:
 				// SQLite Statement zum Erstellen eines neuen Tokens

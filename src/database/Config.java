@@ -86,19 +86,20 @@ public class Config extends SQLiteConnector {
 		setConnection(configURL);
 		String value = null;
 		try {
-			debug.Debugger.out("Config.getValue("+key+")");
+//			debug.Debugger.out("Config.getValue("+key+")");
 			if (!tableExists)
 				tableExists = createTableIfNotExists(myTableName, myAttributes);
 			c.setAutoCommit(false);
 			value = getKeyValueFromTable(Config.myTableName,"Value",Config.mySeekAttribute,key);
-			if (value == null) {
-				debug.Debugger.out("Config.getValue("+key+"): null!");
-			} else {
-				debug.Debugger.out("Config.getValue("+key+"):"+value);
-			}
+//			if (value == null) {
+//				debug.Debugger.out("Config.getValue("+key+"): null!");
+//			} else {
+//				debug.Debugger.out("Config.getValue("+key+"):"+value);
+//			}
 		} catch (Exception e) {
 			if (key==null) key="{null}";
 			Logger.log("Config.getValue("+key+")"+e.getMessage());
+			debug.Debugger.out("Config.getValue("+key+")"+e.getMessage());
 		}
 		closeDB();
 		return value;

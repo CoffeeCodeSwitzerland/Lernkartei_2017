@@ -9,16 +9,17 @@ public abstract class SQLHandler {
 	protected static Statement stmt = null;
 	
 	protected static boolean createTableIfNotExists(String tableName, String attributes) {
-		String sqlUpdate = "CREATE TABLE IF NOT EXISTS " + tableName + " " + "(" + attributes + ");";
+		String sqlCreate = "CREATE TABLE IF NOT EXISTS " + tableName + " " + "(" + attributes + ");";
 		try {
-			stmt.executeUpdate(sqlUpdate);
-			debug.Debugger.out(sqlUpdate);
+			stmt.executeUpdate(sqlCreate);
+//			debug.Debugger.out(sqlUpdate);
 		} catch (Exception e) {
 			if (stmt == null) {
 				Logger.log("SQLHandler.createTableIfNotExists(...): open first!");
 			}
-			Logger.log("SQLHandler.createTableIfNotExists(" + sqlUpdate + ")");
+			Logger.log("SQLHandler.createTableIfNotExists(" + sqlCreate + ")");
 			Logger.log("SQLHandler.createTableIfNotExists(" + tableName + "): " + e.getMessage());
+			debug.Debugger.out("SQLHandler.createTableIfNotExists(" + sqlCreate + ")");
 			return false;
 		}
 		return true;

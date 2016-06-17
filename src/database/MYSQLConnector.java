@@ -29,6 +29,7 @@ public abstract class MYSQLConnector extends SQLiteConnector {
 			if (dbURL == null)
 				dbURL = "{null}";
 			Logger.log("MYSQLConnector.setConnection(URL: " + dbURL + "): " + e.getMessage());
+			debug.Debugger.out("MYSQLConnector.setConnection(URL: " + dbURL + "): " + e.getMessage());
 			closeDB();
 		}
 	}

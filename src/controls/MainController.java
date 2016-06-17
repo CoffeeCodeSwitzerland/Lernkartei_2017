@@ -22,8 +22,8 @@ public class MainController extends FXController
 
 	@Override
 	public void initMyModels() {
-		Logger.log("Instanziere Models....");
-		debug.Debugger.out("Instanziere Models....");
+		Logger.log("MainController.initMyModels: Instanziere Models....");
+		debug.Debugger.out("MainController.initMyModels: Instanziere Models....");
 		this.addUniqueModel(new GameModel(),"game");
 		this.addUniqueModel(new DoorModel(),"door");
 		this.addUniqueModel(new DruckModel(),"drucken");
@@ -39,8 +39,8 @@ public class MainController extends FXController
 
 	@Override
 	public void initMyViews() {
-		Logger.log("Instanziere Views....");
-		debug.Debugger.out("Instanziere Views....");
+		Logger.log("MainController.initMyViews: Instanziere Views....");
+		debug.Debugger.out("MainController.initMyViews: Instanziere Views....");
 		this.addUniqueView(new MainView(getMainViewName(), this));
 		//this.addUniqueView(new StatisticsView("statisticsview", this));
 		this.addUniqueView(new StatsView("statsview", this));
@@ -68,9 +68,6 @@ public class MainController extends FXController
 
 		
 		this.addUniqueView(new ImpressumView("impressumview", this));
-		Logger.log("Instanzierung beendet....");
-		debug.Debugger.out("Instanzierung beendet....");
-
 	}
 
 	@Override

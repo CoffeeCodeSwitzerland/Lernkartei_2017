@@ -10,8 +10,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
 
 import javax.swing.JFrame;
+
+import com.sun.javafx.logging.PulseLogger;
+
+import database.CardEntity;
 
 public class Printer extends JFrame {
 
@@ -35,7 +40,31 @@ public class Printer extends JFrame {
 	}
 
 	public void druckeKartenset(String Stack) {
-		PrintJob prjob = getToolkit().getPrintJob(this, "Testseite", null);
+		int kartenID = -1;
+		int anzKarten;
+		int anzDurchführungen;
+		ArrayList<String[]> cards = CardEntity.pullFromStock(Stack);
+		
+		anzKarten = cards.size();		
+		anzDurchführungen = anzKarten / 8;
+		if(anzDurchführungen % 2 != 0)
+		{
+			anzDurchführungen++;
+		}
+		
+
+		;
+		anzDurchführungen = 2;
+		for(int i = 0; i < anzDurchführungen;i++)
+		{
+			kartenID = i* 8 + 1;
+			printPage(Stack, kartenID);
+		}
+	}
+	private void printPage(String Stack, int kartenID)
+	{
+		//TODO soll mehrere karten drucken 
+		PrintJob prjob = getToolkit().getDefaultToolkit().getPrintJob(this, "Karten", null);
 
 		if (null != prjob) {
 			final int iPageWidth = 842;
@@ -61,7 +90,6 @@ public class Printer extends JFrame {
 					iPageHeightQuarter += iPageHeight / 4;
 				}
 				// Text Einfiügen
-				int kartenID = -1;
 				for (int b = 0; b < 4; b++) {
 
 					iPageWidthEight = iPageWidth / 10;
@@ -83,7 +111,6 @@ public class Printer extends JFrame {
 				pg.dispose();
 			}
 			prjob.end();
-		}
+		}		
 	}
-
 }

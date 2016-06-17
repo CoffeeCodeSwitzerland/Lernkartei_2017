@@ -361,10 +361,14 @@ public class Database extends SQLiteConnector {
 		
 	}
 
-	public static String[] getFrontAndBackside(String Stack) {
-		String vorderseite = "Hallo";
+	public static String[] getFrontAndBackside(String Stack, int kartenID) {
 		
+		pullFromStock(Stack);
+		
+		
+		String vorderseite = "Hallo";		
 		String rückseite = "Hello";
+		
 		
 		String[] VorderUndRückseite = {vorderseite, rückseite};
 		

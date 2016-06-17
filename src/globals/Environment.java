@@ -114,7 +114,7 @@ public final class Environment {
 		}
 		
 		String path = System.getenv("APPDATA") + fileSep + globals.Globals.db_Path;
-		debug.Debugger.out(path);
+//		debug.Debugger.out("Environement.getDatabaseLocation: "+path);
 		return path;
 	}
 }

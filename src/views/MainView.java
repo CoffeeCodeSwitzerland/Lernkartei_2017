@@ -43,7 +43,7 @@ public class MainView extends FXView
 		// title settings:
 		String title = Globals.appTitle + " " + Globals.appVersion;
 		this.getWindow().setTitle(title);
-		debug.Debugger.out("constructing MainView Container with title '"+title+"'...");
+		//debug.Debugger.out("constructing MainView Container with title '"+title+"'...");
 		getFXController().getMyFXStage().setTitle(title);
 		
 		//Die Lückenfüller sind da weil eine Spalte nicht Nichts enthalten kann wegen 

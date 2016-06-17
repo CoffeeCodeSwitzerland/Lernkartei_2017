@@ -159,9 +159,17 @@ public class QuizletImportView extends FXViewModel
 					String[] card = s1.split(Globals.SEPARATOR);
 					if (card.length != 3)
 					{
-						s1 = Alert.simpleString("Achtung", "Ein ungültiger String wurde gefunden. Bitte passen sie den String an.", s1, 500); // TODO
-																																				 // andere
-																																				 // Lösung
+						// s1 = Alert.simpleString("Achtung", "Ein ungültiger String wurde gefunden. Bitte passen sie den String an.", s1, 500);
+						// TODO // andere  // Lösung
+						loadingAnimation.stop();
+						
+						getFXController().getModel("stack").doAction(Command.DELETE, downloadStackName);
+						
+						Alert.simpleInfoBox("Fehler", "Der Download dieses Stapels ist fehlgeschlagen.");
+						
+						loading.setProgress(0);
+						
+						return;
 					}
 					loading.setProgress(cardNumber / cardListSize);
 

@@ -1,5 +1,6 @@
-//Author: Yanis Weibel
-
+/*
+ * @Author Yanis  
+ */
 package printing;
 
 import java.awt.BorderLayout;
@@ -14,8 +15,6 @@ import java.util.ArrayList;
 
 import javax.swing.JFrame;
 
-import com.sun.javafx.logging.PulseLogger;
-
 import database.CardEntity;
 
 public class Printer extends JFrame {
@@ -23,15 +22,10 @@ public class Printer extends JFrame {
 	public static final long serialVersionUID = 1L;
 
 	public void printer(String Stack) {
-		setSize(500, 150);
-		setVisible(true);
-		Button bttn = new Button("Kartenstapel ausdrucken.");
-		add(BorderLayout.CENTER, bttn);
-		bttn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent ev) {
+		
 				druckeKartenset(Stack);
-			}
-		});
+			
+		
 		addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent ev) {
 				dispose();
@@ -64,11 +58,13 @@ public class Printer extends JFrame {
 	private void printPage(String Stack, int kartenID)
 	{
 		//TODO soll mehrere karten drucken 
-		PrintJob prjob = getToolkit().getDefaultToolkit().getPrintJob(this, "Karten", null);
-
+		  	
+		PrintJob prjob = getToolkit().getPrintJob(this, "KartenDruck", null);
+		
 		if (null != prjob) {
 			final int iPageWidth = 842;
 			final int iPageHeight = 595;
+	
 
 			Graphics pg = prjob.getGraphics();
 

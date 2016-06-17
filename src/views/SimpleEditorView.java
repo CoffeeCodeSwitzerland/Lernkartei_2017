@@ -126,18 +126,9 @@ public class SimpleEditorView extends FXViewModel
 
 			TextField front = new TextField();
 			TextField back = new TextField();
-			Button editBtn = new Button("\u270E"); // \u270d \u2055 \u2699 \u270E
-			
-			if(back.getText() == null){		
-				editBtn.setOnAction(e ->
-				{		
-						getFXController().setViewData("editorview",front.getText() + Globals.SEPARATOR + back.getText());
-						getFXController().showView("editorview");
-				});
-			}
+			//Button editBtn = new Button("\u270E"); // \u270d \u2055 \u2699 \u270E
 			
 			Button addBtn = new Button("\u2713");
-			addBtn.setMaxWidth(35);
 
 			addBtn.setOnAction(e ->
 			{
@@ -151,7 +142,7 @@ public class SimpleEditorView extends FXViewModel
 			HBox v = new HBox(8);
 
 			v.setAlignment(Pos.CENTER);
-			v.getChildren().addAll(front, back, addBtn, editBtn);
+			v.getChildren().addAll(front, back, addBtn);
 			cards.add(v);
 
 			editLayout.getChildren().addAll(cards);

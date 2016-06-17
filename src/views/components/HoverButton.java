@@ -28,9 +28,9 @@ public class HoverButton extends VBox {
 			tooltipEnable = v.getFXController().getModel("config").getDataList("tooltipp").get(0);
 			isTooltipActif = true;
 			if (tooltipEnable == null) {
-				v.getFXController().getModel("config").doAction(Command.SET,"tooltipp","yes");
+				v.getFXController().getModel("config").doAction(Command.SET,"tooltipp","false");
 			}
-			if (tooltipEnable != null && tooltipEnable.equals("no")) {
+			if (tooltipEnable != null && tooltipEnable.equals("true")) {
 				isTooltipActif = false;
 			}
 		}

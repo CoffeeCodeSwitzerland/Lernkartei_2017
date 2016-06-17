@@ -1,12 +1,9 @@
 package views;
 
-import java.util.ArrayList;
-
 import globals.Globals;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
 import javafx.scene.control.TextField;
@@ -16,8 +13,8 @@ import mvc.fx.FXController;
 import mvc.fx.FXView;
 import views.components.Alert;
 import views.components.BackButton;
+import views.components.CheckBoxOption;
 import views.components.ControlLayout;
-import views.components.HoverButton;
 import views.components.MainLayout;
 import views.components.VerticalScroller;
 
@@ -40,11 +37,21 @@ public class OptionsView extends FXView
 	String		lastValidCardLimit;
 	TextField	cardLearnLimit;
 
+	// Config Keys
+	String		autoWidthKey				= "widthState";
+	String		hideImageStacksKey			= "hideImageStacks";
+	String		disableTooltippsKey			= "tooltipp";
+
 	// Describe the Options
 	String		descTxtCardLimit			= "Anzahl Karten, die auf einmal gelernt werden, limitieren.";
-	String		descTxtEnableAutoWidth		= "Wenn aktiviert, werden alle Buttons dem Grössten angepasst. Sonst orientiert sich die Grösse jeweils am Namen des Buttons.";
-	String		descTxtDisableTooltipps		= "Deaktiviere Tooltipps. Wenn diese Option aktiviert ist, werden keine Tooltipps angezeigt.";
-	String		descTxtDontShowImageStacks	= "Zeige nur Stapel, die keine Bilder enthalten";
+	String		autoWidthDescription		= "Wenn aktiviert, werden alle Buttons dem Grössten angepasst. Sonst orientiert sich die Grösse jeweils am Namen des Buttons.";
+	String		disableTooltippsDescription	= "Deaktiviere Tooltipps. Wenn diese Option aktiviert ist, werden keine Tooltipps angezeigt.";
+	String		hideImageStacksDescription	= "Zeige nur Stapel, die keine Bilder enthalten";
+
+	// Label the options
+	String		autoWidthLabel				= "Grösse Anpassen";
+	String		disableToolTippsLabel		= "Tooltipps deaktivieren";
+	String		hideImageStacksLabel		= "Nur Stapel ohne Bilder";
 
 	@Override
 	public Parent constructContainer ()
@@ -85,81 +92,12 @@ public class OptionsView extends FXView
 			}
 		});
 
-		Label autoWidthDescription = new Label(descTxtEnableAutoWidth);
-		autoWidthDescription.setWrapText(true);
+		CheckBoxOption autoWidth = new CheckBoxOption(autoWidthKey, autoWidthDescription, autoWidthLabel, getFXController());
 
-		boolean oldValue = false;
-		if (getFXController().getModel("config").getDataList("widthState") != null && getFXController().getModel("config").getDataList("widthState").get(0) != null && getFXController().getModel("config").getDataList("widthState").get(0).equals("true"))
-		{
-			oldValue = true;
-		}
+		CheckBoxOption disableTooltipps = new CheckBoxOption(disableTooltippsKey, disableTooltippsDescription, disableToolTippsLabel, getFXController());
 
-		CheckBox autoWidth = new CheckBox("Grösse Anpassen");
-		autoWidth.setSelected(oldValue);
-		autoWidth.selectedProperty().addListener(e ->
-		{
-			debug.Debugger.out("Width property has changed");
-			String value = autoWidth.selectedProperty().getValue() ? "true" : "000";
-			getFXController().getModel("config").doAction(Command.SET, "widthState", value);
-		});
+		CheckBoxOption hideImageStacks = new CheckBoxOption(hideImageStacksKey, hideImageStacksDescription, hideImageStacksLabel, getFXController());
 
-		Label disableTooltipDescription = new Label(descTxtDisableTooltipps);
-		disableTooltipDescription.setWrapText(true);
-
-		CheckBox disableTooltips = new CheckBox("Tooltipps deaktivieren");
-		boolean oldTooltippValue = false;
-
-		ArrayList<String> data = getFXController().getModel("config").getDataList("tooltipp");
-		if (data != null)
-		{
-			String dataValue = data.get(0);
-			if (dataValue != null)
-			{
-				if (dataValue.equals("no"))
-				{
-					oldTooltippValue = true;
-				}
-			}
-		}
-		disableTooltips.setSelected(oldTooltippValue);
-		disableTooltips.selectedProperty().addListener(e ->
-		{
-			debug.Debugger.out("Tooltipp property has changed");
-			String value = disableTooltips.selectedProperty().getValue() ? "no" : "yes";
-			getFXController().getModel("config").doAction(Command.SET, "tooltipp", value);
-			HoverButton.clearSettings(); // TODO mvc einhalten
-		});
-
-		Label hideImgStacksDescription = new Label(descTxtDontShowImageStacks);
-		CheckBox hideImgStacks = new CheckBox("Nur Stapel ohne Bilder");
-		
-		boolean oldshowImgStacksValue = false;
-		data = getFXController().getModel("config").getDataList("hideImageStacks");
-		if (data != null)
-		{
-			String dataValue = data.get(0);
-			if (dataValue != null)
-			{
-				if (dataValue.equals("true"))
-				{
-					oldshowImgStacksValue = true;
-				}
-			}
-		}
-		else
-		{
-			getFXController().getModel("config").doAction(Command.SET, "hideImageStacks", "false");
-		}
-		
-		hideImgStacks.setSelected(oldshowImgStacksValue);
-		hideImgStacks.selectedProperty().addListener(e ->
-		{
-			debug.Debugger.out("HideImageStacks property has changed");
-			String value = hideImgStacks.selectedProperty().getValue() ? "true" : "false";
-			getFXController().getModel("config").doAction(Command.SET, "hideImageStacks", value);
-		});
-		
-		
 		BackButton backBtn = new BackButton(getFXController());
 
 		VBox optionsLay = new VBox(20);
@@ -168,9 +106,9 @@ public class OptionsView extends FXView
 		optionsLay.setAlignment(Pos.CENTER);
 
 		optionsLay.getChildren().addAll(cardLimitDescription, cardLearnLimit, sepp());
-		optionsLay.getChildren().addAll(autoWidthDescription, autoWidth, sepp());
-		optionsLay.getChildren().addAll(disableTooltipDescription, disableTooltips, sepp());
-		optionsLay.getChildren().addAll(hideImgStacksDescription, hideImgStacks);
+		optionsLay.getChildren().addAll(autoWidth.toNodesWithSepp());
+		optionsLay.getChildren().addAll(disableTooltipps.toNodesWithSepp());
+		optionsLay.getChildren().addAll(hideImageStacks.toNodes());
 
 		VerticalScroller scroLay = new VerticalScroller(optionsLay);
 

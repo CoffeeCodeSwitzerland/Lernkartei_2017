@@ -39,6 +39,8 @@ public class StackView extends FXViewModel
 
 	VBox	boxLayout;
 	VBox	options;
+	
+	AppButton printBtn = new AppButton("Drucken");
 
 	@Override
 	public Parent constructContainer ()
@@ -60,6 +62,9 @@ public class StackView extends FXViewModel
 		AppButton backBtn = new AppButton("Zurück");
 		AppButton newStackBtn = new AppButton("Neuer Stapel");
 		AppButton renameBtn = new AppButton("Umbennen");
+		
+		printBtn.setOnAction(e ->  getFXController().getModel("drucken").doAction(Command.NEW));
+		
 
 		Image trashImg = new Image("views/pictures/Papierkorb.png");
 		ImageView trashImgView = new ImageView(trashImg);
@@ -246,7 +251,9 @@ public class StackView extends FXViewModel
 		 * { getFXController().getModel("switcher").doAction("delete", stack); }
 		 * });
 		 */
-
-		options.getChildren().addAll(stackTitle, lernen, edit/* , switcher */);
+									//setString übergibt string und kann durch getString wieder geholt werden
+		getFXController().getModel("drucken").setString(stack);
+		
+		options.getChildren().addAll(stackTitle, lernen, edit, printBtn/* , switcher */);
 	}
 }

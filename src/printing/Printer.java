@@ -17,7 +17,7 @@ public class Printer extends JFrame {
 
 	public static final long serialVersionUID = 1L;
 
-	public void printer() {
+	public void printer(String Stack) {
 		setSize(500, 150);
 		setVisible(true);
 		Button bttn = new Button("Kartenstapel ausdrucken.");
@@ -30,7 +30,6 @@ public class Printer extends JFrame {
 		addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent ev) {
 				dispose();
-				System.exit(0);
 			}
 		});
 	}

@@ -7,71 +7,78 @@
 }
 
 #lernenbtn{
-	-fx-background-image: url("pictures/KarteIcon.png");
+	-fx-background-image: url("pictures/KarteiIcon_Klein.png");
 	-fx-background-repeat: no-repeat;
 	-fx-background-size:contain;
 }
 #lernenbtn:hover {
-	-fx-background-size:83%;
-	-fx-background-position: 5px;
+	-fx-background-image: url("pictures/KarteiIcon_Gross.png");
+	-fx-background-repeat: no-repeat;
+	-fx-background-size:contain;
 }
 	
 #stat2btn{
-	-fx-background-image: url("pictures/DiagrammIcon.png");
+	-fx-background-image: url("pictures/DiagrammIcon_Klein.png");
 	-fx-background-repeat: no-repeat;
 	-fx-background-size:contain;}
 #stat2btn:hover {
-	-fx-background-size:83%;
-	-fx-background-position: 5px;
+	-fx-background-image: url("pictures/DiagrammIcon_Gross.png");
+	-fx-background-repeat: no-repeat;
+	-fx-background-size:contain;
 }
 	
 #optionsbtn{
-	-fx-background-image: url("pictures/OptionIcon.png");
+	-fx-background-image: url("pictures/OptionIcon_Klein.png");
 	-fx-background-repeat: no-repeat;
 	-fx-background-size:contain;}
 	
 #optionsbtn:hover {
-	-fx-background-size:83%;
-	-fx-background-position: 5px;
+	-fx-background-image: url("pictures/OptionIcon_Gross.png");
+	-fx-background-repeat: no-repeat;
+	-fx-background-size:contain;
 }
 	
 #gamebtn{
-	-fx-background-image: url("pictures/GameIcon.png");
+	-fx-background-image: url("pictures/GameIcon_Klein.png");
 	-fx-background-repeat: no-repeat;
 	-fx-background-size:contain;}
 
 #gamebtn:hover {
-	-fx-background-size:83%;
-	-fx-background-position: 5px;
+	-fx-background-image: url("pictures/GameIcon_Gross.png");
+	-fx-background-repeat: no-repeat;
+	-fx-background-size:contain;
 }	
 
 #UserBtn{
 	
-	-fx-background-image: url("pictures/UserIcon.png");
+	-fx-background-image: url("pictures/UserIcon_Klein.png");
 	-fx-background-repeat: no-repeat;
 	-fx-background-size:contain;
 }
 #UserBtn:hover {
-	-fx-background-size:83%;
-	-fx-background-position: 5px;
+	-fx-background-image: url("pictures/UserIcon_Gross.png");
+	-fx-background-repeat: no-repeat;
+	-fx-background-size:contain;
 }
 
 #helpbtn{
-	-fx-background-image: url("pictures/HelpIcon.png");
+	-fx-background-image: url("pictures/HelpIcon_Klein.png");
 	-fx-background-repeat: no-repeat;
 	-fx-background-size:contain;
 	}
 #helpbtn:hover {
-	-fx-background-size:83%;
-	-fx-background-position: 5px;
+	-fx-background-image: url("pictures/HelpIcon_Gross.png");
+	-fx-background-repeat: no-repeat;
+	-fx-background-size:contain;
 }
 
 #quitbtn{
-	-fx-background-image: url("pictures/ExitIcon.png");
+	-fx-background-image: url("pictures/ExitIcon_Klein.png");
 	-fx-background-repeat: no-repeat;
 	-fx-background-size:contain;
 	}
 #quitbtn:hover {
-	-fx-background-size:83%;	
-	-fx-background-position: 5px;
+	-fx-background-image: url("pictures/ExitIcon_Gross.png");
+	-fx-background-repeat: no-repeat;
+	-fx-background-size:contain;
 }

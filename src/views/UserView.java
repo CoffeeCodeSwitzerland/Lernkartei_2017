@@ -1,11 +1,14 @@
 package views;
 
 import javafx.scene.Parent;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.layout.BorderPane;
 import mvc.fx.FXController;
 import mvc.fx.FXView;
+import views.components.AppButton;
+import views.components.ContainerLayout;
+import views.components.ControlLayout;
 
 public class UserView extends FXView
 {
@@ -15,23 +18,83 @@ public class UserView extends FXView
 		super(newController);
 		construct(newName);
 	}
-
-	Button back = new Button("Zurück");
 	
+	BorderPane bp;
+
+	// Der Header Bereich setzt sich aus den Buttons zum ändern der
+	// Benutzerdaten und dem Username zusammen.
+	ContainerLayout header;
+	ControlLayout changeButtons;
+	ControlLayout uName;
+
+	Label username;
+	AppButton changeName;
+	AppButton changePasswort;
+	AppButton changeEmail;
+
+	// Der Body setzte sich aus zwei ContainerLAyouts zusammen (Links und
+	// Rechts) darin sind dann nochmals mehrere Elemente vorhanden. Vorgesehen
+	// ist eine Statistik und eine Auflistung aller bereits gelernten Karteien
+	
+	//Rechts
+	ContainerLayout right;
+
+	Label hinweis;
+	
+	//Links
+	ContainerLayout left;
+	
+	ListView<String> stacks;
+	AppButton learn;
+
+	// Der Footer enthält die Buttons, um ins Hauptmenü zurück zu gelangen oder
+	// andere Aktionen durchzuführen. Er entspricht der Hbox "Controls"
+	ControlLayout footer;
+
+	AppButton back;
+
 	@Override
 	public Parent constructContainer()
 	{
-		BorderPane bp = new BorderPane();
+		bp = new BorderPane();
 		// TODO Auto-generated method stub
 		
-		Label lblVoruebergehend = new Label();
-		lblVoruebergehend.setText("HIER WIRD NOCH DER USERVIEW ERSTELLT");
+		header = new ContainerLayout();
+		changeButtons = new ControlLayout();
+		uName = new ControlLayout();
+
+		username = new Label();
+		changeName = new AppButton("Namen ändern");
+		changePasswort = new AppButton("Passwort ändern");
+		changeEmail = new AppButton("E-Mail ändern");
+
+		right = new ContainerLayout();
+		hinweis = new Label("Hinweis : Hier wird später eine Statistik angezeigt");
 		
-		bp.setCenter(lblVoruebergehend);
-		bp.setBottom(back);
+		left = new ContainerLayout();
+		stacks = new ListView<String>();
+		learn = new AppButton("lernen");
+
+		footer = new ControlLayout();
+
+		back = new AppButton("Zurück");
 		
+		footer.getChildren().addAll(back);
+		left.getChildren().addAll(stacks, learn);
+		right.getChildren().addAll(hinweis);
+		
+		uName.getChildren().addAll(username);
+		changeButtons.getChildren().addAll(changeName, changeEmail, changePasswort);
+		
+		header.getChildren().addAll(uName, changeButtons);
+
+		bp.setBottom(footer);
+		bp.setLeft(left);
+		bp.setRight(right);
+		bp.setTop(header);
+
 		back.setOnAction(e -> getFXController().showMainView());
-		
+
 		return bp;
 	}
 
@@ -39,7 +102,7 @@ public class UserView extends FXView
 	public void refreshView()
 	{
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

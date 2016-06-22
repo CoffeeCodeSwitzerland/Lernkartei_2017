@@ -12,13 +12,11 @@ import javafx.scene.layout.VBox;
  *
  */
 public class ContainerLayout extends VBox
-{
-	private static Insets padding = new Insets(20, 0, 0, 0);
-	
+{	
 	public ContainerLayout(Node... nodes)
 	{
 		setAlignment(Pos.CENTER);
-		setPadding(padding);
+		setPadding(new Insets(25));
 		setSpacing(20);
 		getChildren().addAll(nodes);
 	}

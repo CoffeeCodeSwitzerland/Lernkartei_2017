@@ -1,5 +1,6 @@
 package views;
 
+import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -57,13 +58,18 @@ public class UserView extends FXView
 	public Parent constructContainer()
 	{
 		bp = new BorderPane();
-		// TODO Auto-generated method stub
+		bp.setId("userviewbg");
 		
 		header = new ContainerLayout();
+		
 		changeButtons = new ControlLayout();
+		changeButtons.setPadding(new Insets(5));
+		
 		uName = new ControlLayout();
+		uName.setPadding(new Insets(15));
 
-		username = new Label();
+		username = new Label("Here's the name of the user");
+		username.setId("username");
 		changeName = new AppButton("Namen ändern");
 		changePasswort = new AppButton("Passwort ändern");
 		changeEmail = new AppButton("E-Mail ändern");
@@ -76,6 +82,7 @@ public class UserView extends FXView
 		learn = new AppButton("lernen");
 
 		footer = new ControlLayout();
+		footer.setPadding(new Insets(15));
 
 		back = new AppButton("Zurück");
 		

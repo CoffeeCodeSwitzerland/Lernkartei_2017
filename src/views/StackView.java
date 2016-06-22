@@ -84,9 +84,13 @@ public class StackView extends FXViewModel
 			switch (choice)
 			{
 				case 0:
-					final String stackName = Alert.simpleString("Neuer Stapel", "Wie soll der neue Stapel heissen?");
+					String stackName = Alert.simpleString("Neuer Stapel", "Wie soll der neue Stapel heissen?");
 					if (/* this.getName() != null && */ stackName != null)
 					{
+						while (stackName.length() > Globals.maxNameLength)
+						{
+							stackName = Alert.simpleString("Name zu lang", "Bitte wählen Sie einen kürzeren Namen. (max "+Globals.maxNameLength+" Zeichen)", stackName.substring(0, Globals.maxNameLength), 300);
+						}
 						getFXController().getModel("stack").doAction(Command.NEW, stackName, getData());
 						// TODO Feedback für den User (Fehlermeldungen)
 					}
@@ -153,6 +157,7 @@ public class StackView extends FXViewModel
 	{
 		boxLayout.getChildren().clear();
 		options.getChildren().clear();
+		options.setMaxWidth(options.getWidth());
 
 		String localdata = getData();
 
@@ -231,6 +236,7 @@ public class StackView extends FXViewModel
 		// CheckBox switcher = new CheckBox("Seite 2 zuerst");
 
 		stackTitle.setId("bold");
+		stackTitle.setWrapText(true);
 		lernen.setOnAction(e ->
 		{
 			getFXController().setViewData("prelearn", stack);

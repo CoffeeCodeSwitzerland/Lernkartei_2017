@@ -52,6 +52,7 @@ public abstract class Functions
 	 */
 	public static String removeHTMLTags (String input)
 	{
+		// TODO : entferne nullpointer
 		if (input.contains("<") || input.contains(">"))
 		{
 			input = input.replace("<", "");

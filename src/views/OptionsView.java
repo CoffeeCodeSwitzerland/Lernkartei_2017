@@ -1,5 +1,7 @@
 package views;
 
+import java.util.HashMap;
+
 import globals.Globals;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -32,32 +34,38 @@ public class OptionsView extends FXView
 		super(newController);
 		construct(newName);
 	}
-
-	boolean		resetChange					= false;
+	
+	enum ConfigKeys
+	{
+		withState,
+		hideImageStacks,
+		tooltipp
+	}
+	
+	boolean		isChangeingCardLimitValue	= false;
+	
 	String		lastValidCardLimit;
 	TextField	cardLearnLimit;
 
-	// Config Keys
-	String		autoWidthKey				= "widthState";
-	String		hideImageStacksKey			= "hideImageStacks";
-	String		disableTooltippsKey			= "tooltipp";
+	HashMap<ConfigKeys, String> descriptions = new HashMap<>();
+	HashMap<ConfigKeys, String> checkboxLabels = new HashMap<>();
 
-	// Describe the Options
 	String		descTxtCardLimit			= "Anzahl Karten, die auf einmal gelernt werden, limitieren.";
-	String		autoWidthDescription		= "Wenn aktiviert, werden alle Buttons dem Grössten angepasst. Sonst orientiert sich die Grösse jeweils am Namen des Buttons.";
-	String		disableTooltippsDescription	= "Deaktiviere Tooltipps. Wenn diese Option aktiviert ist, werden keine Tooltipps angezeigt.";
-	String		hideImageStacksDescription	= "Zeige nur Stapel, die keine Bilder enthalten";
 
-	// Label the options
-	String		autoWidthLabel				= "Grösse Anpassen";
-	String		disableToolTippsLabel		= "Tooltipps deaktivieren";
-	String		hideImageStacksLabel		= "Nur Stapel ohne Bilder";
-	
-	BackButton backBtn = new BackButton(getFXController());
+	BackButton	backBtn						= new BackButton(getFXController());
 
 	@Override
 	public Parent constructContainer ()
 	{
+		// TODO : may put the strings in a file
+		descriptions.put(ConfigKeys.withState, "Wenn aktiviert, werden alle Buttons dem Grössten angepasst. Sonst orientiert sich die Grösse jeweils am Namen des Buttons.");
+		descriptions.put(ConfigKeys.hideImageStacks, "Zeige nur Stapel, die keine Bilder enthalten");
+		descriptions.put(ConfigKeys.tooltipp, "Deaktiviere Tooltipps. Wenn diese Option aktiviert ist, werden keine Tooltipps angezeigt.");
+
+		checkboxLabels.put(ConfigKeys.withState, "Grösse Anpassen");
+		checkboxLabels.put(ConfigKeys.hideImageStacks, "Tooltipps deaktivieren");
+		checkboxLabels.put(ConfigKeys.tooltipp, "Nur Stapel ohne Bilder");
+		
 		Label cardLimitDescription = new Label(descTxtCardLimit);
 		cardLearnLimit = new TextField(getFXController().getModel("config").getDataList("cardLimit").get(0)); // Achtung
 
@@ -66,8 +74,9 @@ public class OptionsView extends FXView
 		cardLimitDescription.setWrapText(true);
 		cardLearnLimit.focusedProperty().addListener(e ->
 		{
-			if (!cardLearnLimit.isFocused() && !resetChange)
+			if (!cardLearnLimit.isFocused() && !isChangeingCardLimitValue)
 			{
+				// TODO : move to model
 				try
 				{
 					int cardLimit = Integer.parseInt(cardLearnLimit.getText());
@@ -75,44 +84,41 @@ public class OptionsView extends FXView
 					cardLimit = cardLimit > Globals.maxStackPartSize ? Globals.maxStackPartSize : cardLimit;
 					String cardLimitParam = Integer.toString(cardLimit);
 					getFXController().getModel("config").doAction(Command.SET, "cardLimit", cardLimitParam);
-					resetChange = true;
+					isChangeingCardLimitValue = true;
 					cardLearnLimit.setText(cardLimitParam);
 					lastValidCardLimit = cardLearnLimit.getText();
-					resetChange = false;
+					isChangeingCardLimitValue = false;
 				}
 				catch (Exception ex)
 				{
 					Alert.simpleInfoBox("Achtung", "Es muss eine gültige Ganzzahl eingegeben werden!");
-					resetChange = true;
+					isChangeingCardLimitValue = true;
 					if (lastValidCardLimit == null || lastValidCardLimit.equals(""))
 					{
 						lastValidCardLimit = Integer.toString(Globals.defaultStackPartSize);
 					}
 					cardLearnLimit.setText(lastValidCardLimit);
-					resetChange = false;
+					isChangeingCardLimitValue = false;
 				}
 			}
 		});
-
-		CheckBoxOption autoWidth = new CheckBoxOption(autoWidthKey, autoWidthDescription, autoWidthLabel, getFXController());
-
-		CheckBoxOption disableTooltipps = new CheckBoxOption(disableTooltippsKey, disableTooltippsDescription, disableToolTippsLabel, getFXController());
-
-		CheckBoxOption hideImageStacks = new CheckBoxOption(hideImageStacksKey, hideImageStacksDescription, hideImageStacksLabel, getFXController());
-
 		
-		
-
 		VBox optionsLay = new VBox(20);
 
 		optionsLay.setPadding(new Insets(30));
 		optionsLay.setAlignment(Pos.CENTER);
 
 		optionsLay.getChildren().addAll(cardLimitDescription, cardLearnLimit, sepp());
-		optionsLay.getChildren().addAll(autoWidth.toNodesWithSepp());
-		optionsLay.getChildren().addAll(disableTooltipps.toNodesWithSepp());
-		optionsLay.getChildren().addAll(hideImageStacks.toNodes());
-
+		
+		for (ConfigKeys ck : ConfigKeys.values())
+		{
+			CheckBoxOption cbo = new CheckBoxOption(ck.toString(), descriptions.get(ck), checkboxLabels.get(ck), getFXController());
+			optionsLay.getChildren().addAll(cbo.toNodesWithSepp());
+		}
+		
+		// Remove the last separator
+		optionsLay.getChildren().remove(optionsLay.getChildren().size() - 1);
+		
 		VerticalScroller scroLay = new VerticalScroller(optionsLay);
 
 		ControlLayout conLay = new ControlLayout(backBtn);

@@ -132,9 +132,9 @@ public class LearnView extends FXViewModel
 		controlLayout.setAlignment(Pos.BOTTOM_LEFT);
 		
 		//Hier noch die IDs fürs CSS
-		preCard.setId("ersteReihe");
+		preCard.setId("preCard");
 		turnCard.setId("TurnIcon");
-		nextCard.setId("ersteReihe");
+		nextCard.setId("nextCard");
 		successfulBtn.setId("zweiteReihe");
 		wrongBtn.setId("zweiteReihe");
 		

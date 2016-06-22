@@ -138,15 +138,12 @@ public class LearnView extends FXViewModel
 		successfulBtn.setId("zweiteReihe");
 		wrongBtn.setId("zweiteReihe");
 		
-		
 		//Hab hier die Grössen festgelegt da es das Padding im CSS ignoriert.
 		turnCard.setMinWidth(100);
 		preCard.setMinWidth(60);
 		nextCard.setMinWidth(60);
 		successfulBtn.setMinWidth(80);
 		wrongBtn.setMinWidth(80);
-		
-		backBtn.setAlignment(Pos.BOTTOM_LEFT);
 		
 		BorderPane headLayout = new BorderPane(headLbl);
 		

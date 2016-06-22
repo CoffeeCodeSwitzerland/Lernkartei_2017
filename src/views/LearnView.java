@@ -109,31 +109,27 @@ public class LearnView extends FXViewModel
 			counter++;
 			refreshView();
 		});
-
+		//Hier wird nur bestätigt ob richtig oder falsch
+		HBox zweiteReihe = new HBox(20);
+		zweiteReihe.setAlignment(Pos.CENTER);
+		zweiteReihe.getChildren().addAll(successfulBtn, wrongBtn);
+				
+		//Navigation zwischen Kärtchen und Kärtchen drehen Button
+		HBox ersteReihe = new HBox(40);
+		ersteReihe.setAlignment(Pos.CENTER);
+		ersteReihe.getChildren().addAll(preCard, turnCard, nextCard);
+				
 		VBox cardLayout = new VBox(20);
 		cardLayout.setAlignment(Pos.CENTER);
-		cardLayout.getChildren().addAll(card, cardNrLbl);
+		cardLayout.getChildren().addAll(card, cardNrLbl, ersteReihe, zweiteReihe);
 
 		cardLayout.setOnMouseClicked(e ->
 		{
 			turnCard();
 		});
-
-		//Navigation zwischen Kärtchen und Kärtchen drehen Button
-		HBox ersteReihe = new HBox(40);
-		ersteReihe.setAlignment(Pos.CENTER);
-		ersteReihe.getChildren().addAll(preCard, turnCard, nextCard);
-		
-		//Hier wird nur bestätigt ob richtig oder falsch
-		HBox zweiteReihe = new HBox(20);
-		zweiteReihe.setAlignment(Pos.CENTER);
-		zweiteReihe.getChildren().addAll(successfulBtn, wrongBtn);
-		
-		//Hier werden ersteReihe und zweiteReihe unterienander gestellt
-		VBox reihenLayout = new VBox(20);
-		reihenLayout.getChildren().addAll(ersteReihe,zweiteReihe);
 						
-		ControlLayout controlLayout = new ControlLayout(backBtn, reihenLayout);
+		ControlLayout controlLayout = new ControlLayout(backBtn);
+		controlLayout.setAlignment(Pos.BOTTOM_LEFT);
 		
 		//Hier noch die IDs fürs CSS
 		preCard.setId("ersteReihe");
@@ -142,12 +138,15 @@ public class LearnView extends FXViewModel
 		successfulBtn.setId("zweiteReihe");
 		wrongBtn.setId("zweiteReihe");
 		
+		
 		//Hab hier die Grössen festgelegt da es das Padding im CSS ignoriert.
 		turnCard.setMinWidth(100);
 		preCard.setMinWidth(60);
 		nextCard.setMinWidth(60);
 		successfulBtn.setMinWidth(80);
 		wrongBtn.setMinWidth(80);
+		
+		backBtn.setAlignment(Pos.BOTTOM_LEFT);
 		
 		BorderPane headLayout = new BorderPane(headLbl);
 		

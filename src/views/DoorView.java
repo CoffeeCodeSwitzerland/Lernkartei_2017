@@ -72,10 +72,18 @@ public class DoorView extends FXView
 			String doorName = Alert.simpleString("Neue Tür", "Wie soll die neue Tür heissen?");
 			if (doorName != null && !doorName.equals(""))
 			{
-				int succesful = getFXController().getModel("door").doAction(Command.NEW, doorName);
-				if (succesful == -1)
+				int maxNameLength = Globals.maxNameLength;
+				while (doorName != null && doorName.length() > maxNameLength)
 				{
-					Alert.simpleInfoBox("Tür wurde nicht erstellt", "Dieser Name ist schon vergeben.");
+					doorName = Alert.simpleString("Name zu lang", "Bitte wählen Sie einen kürzeren Namen. (max "+maxNameLength+" Zeichen)", doorName.substring(0, maxNameLength), 300);
+				}
+				if (doorName != null && !doorName.equals(""))
+				{
+					int succesful = getFXController().getModel("door").doAction(Command.NEW, doorName);
+					if (succesful == -1)
+					{
+						Alert.simpleInfoBox("Tür wurde nicht erstellt", "Dieser Name ist schon vergeben.");
+					}
 				}
 			}
 		});
@@ -136,6 +144,7 @@ public class DoorView extends FXView
 		for (AppButton a : doors)
 		{
 			a.setId("DoorButtons");
+			a.setMaxWidth(500);
 			a.setOnAction(e ->
 			{
 				getFXController().setViewData("stack", a.getText());

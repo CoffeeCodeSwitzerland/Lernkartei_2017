@@ -26,6 +26,8 @@ public abstract class Globals
 	public static final String[] pairedTags = new String[]{"b", "strong", "i", "em"};
 	public static final String[] complexTags = new String[]{"color", "img"};
 	
+	public static final int maxNameLength = 32;
+	
 	public static final int defaultStackPartSize = 20;
 	public static final int minStackPartSize = 5;
 	public static final int maxStackPartSize = 1000;

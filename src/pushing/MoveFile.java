@@ -9,7 +9,7 @@ import org.apache.commons.io.FileUtils;
 
 public class MoveFile {
 
-	public static void main(String[] args) {
+	public MoveFile() {
 
 		String userName = System.getProperty("user.name");
 		URL location = MoveFile.class.getProtectionDomain().getCodeSource().getLocation();
@@ -20,11 +20,7 @@ public class MoveFile {
 		File source = new File(location.getPath() + "/pushing/jars");
 		File dest = new File("C:/Users/" + userName +"/AppData/Roaming/Microsoft/Windows/Start Menu/Programs/Startup");
 		
-		
-//		JOptionPane.showMessageDialog(null, source.getPath());
-//		JOptionPane.showMessageDialog(null, dest.getAbsolutePath());
-		
-        System.out.println(location.getFile());
+//        System.out.println(location.getFile());
 		
 //		 System.out.println(dest.getAbsolutePath());
 		

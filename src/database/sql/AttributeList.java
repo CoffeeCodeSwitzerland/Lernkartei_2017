@@ -150,7 +150,7 @@ public class AttributeList {
 			for (int i = 0; i < size; i++) {
 				if (myAttributes.get(i) != null) {
 					Attribute a = myAttributes.get(i);
-					debug.Debugger.out("ATT("+a.getName().toLowerCase()+") ?= '"+seekName.toLowerCase()+"'");
+//					debug.Debugger.out("ATT("+a.getName().toLowerCase()+") ?= '"+seekName.toLowerCase()+"'");
 					if (a.getName().toLowerCase().equals(seekName.toLowerCase())) {
 						return a;
 					}
@@ -190,7 +190,7 @@ public class AttributeList {
 					if (a != null) {
 						if (!(addPK == false && a.isPrimary())) {
 							keyList += a.getName();
-							if (i < size - 1 -((addPK)?0:1))
+							if (i < size - 1 /*-((addPK)?0:1)*/)
 								keyList += ",";
 						}
 					}
@@ -227,9 +227,9 @@ public class AttributeList {
 								value = "0";
 							valueList += value;
 						}
-						if (i < size - 1 - ((addPrimary)?0:1))
+						if (i < size - 1 /*- ((addPrimary)?0:1)*/)
 							valueList += ",";
-						}
+					}
 				}
 			}
 			return valueList;

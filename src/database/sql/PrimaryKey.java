@@ -17,6 +17,11 @@ public class PrimaryKey extends Attribute {
 	}
 
 	@Override
+	public boolean isKey() {
+		return true;
+	}
+
+	@Override
 	public boolean isPrimary() {
 		return (getType() == Datatype.PKEY) ? true : false;
 	}

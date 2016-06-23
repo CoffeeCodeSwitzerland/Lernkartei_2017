@@ -50,24 +50,26 @@ public class StackEntity extends Entity {
 			//ResultSet id = stmt.executeQuery("SELECT PK_Doors FROM Doors WHERE Doorname = '" + fk_door + "'");
 			if (getLastResultSet().next()) {
 				FK_ID = getLastResultSet().getInt("PK_Door");
-				getLastResultSet().close();
 			}
 			else {
+				getLastResultSet().close();
 				return -1;
 			}
+			getLastResultSet().close();
 			setLastSQLCommand(SQLHandler.selectCommand(	getMyTableName(),null,"name",eingabe)); 
 			setLastResultSet(executeQuery(getLastSQLCommand()));
 			//ResultSet check = stmt.executeQuery("SELECT * FROM Kategorie WHERE Kategorie = '" + eingabe + "'");
 			if (getLastResultSet().next()) {
+				// existiert schon
 				getLastResultSet().close();
 				return -2;
 			}
-			else {
-				getLastResultSet().close();
-			}
+			getLastResultSet().close();
 			// Erstellt die neue Kategorie als Eintrag in der Datenbank mit
 			// einem Fremdkey für die Tür
-			myAttributes.seekKeyNamed(eingabe).setValue(FK_ID);
+			myAttributes.seekKeyNamed("PK_DOOR").setValue(FK_ID);
+			myAttributes.seekKeyNamed("PK_USER").setValue( 1 /* TODO add user ID */); 
+			myAttributes.seekKeyNamed("name").setValue(eingabe);
 			setLastSQLCommand(SQLHandler.insertIntoTableCommand(getMyTableName(),myAttributes)); 
 			return executeCommand(getLastSQLCommand());
 			//			String insert = "INSERT INTO Kategorie (Kategorie, FK_Door)" +
@@ -95,11 +97,13 @@ public class StackEntity extends Entity {
 				FK_ID = 0;
 			}
 			getLastResultSet().close();
-			setLastSQLCommand(SQLHandler.selectCommand(	getMyTableName(),null,"name",FK_ID)); 
+			setLastSQLCommand(SQLHandler.selectCommand(	getMyTableName(),null,"PK_DOOR",FK_ID)); 
 			setLastResultSet(executeQuery(getLastSQLCommand()));
+			debug.Debugger.out(getLastSQLCommand());
 			//sql = "SELECT * FROM Kategorie WHERE FK_Door = " + FK_ID + ";";
 			while (getLastResultSet().next()) {
 				datensatz.add(getLastResultSet().getString("name"));
+				debug.Debugger.out("ADD:"+getLastResultSet().getString("name"));
 			}
 			getLastResultSet().close();
 		}

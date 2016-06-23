@@ -193,17 +193,21 @@ public class CardEntity extends Entity {
 		Integer oldPrio = null;
 		String newPrio = "";
 		try {
+			setLastSQLCommand(SQLHandler.selectCommand(getMyTableName(),"Priority","PK_STACK", PK_ID.toString())); 
+			setLastResultSet(executeQuery(getLastSQLCommand()));
+			//String sel = "SELECT * FROM Stock WHERE PK_Stk = " + id;
+			//.executeQuery("SELECT Priority FROM Stock WHERE PK_Stk = " + PK_ID.toString());
+
+			if (!getLastResultSet().next()) {
 			// Frage die Aktuelle Priorität ab
-			ResultSet actualPrio = stmt.executeQuery("SELECT Priority FROM Stock WHERE PK_Stk = " + PK_ID.toString());
 
 			// Überprüft ob vorhanden oder nicht
-			if (actualPrio.next()) {
-				oldPrio = actualPrio.getInt(myAttributes.getKeyName());
-				actualPrio.close();
+				oldPrio = getLastResultSet().getInt("PK_STACK");
+				getLastResultSet().close();
 			}
 			else {
-				debug.Debugger.out("No Card with "+myAttributes.getKeyName()+"='"+PK_ID.toString()+"' exists.");
-				actualPrio.close();
+				debug.Debugger.out("No Card with PK_STACK='"+PK_ID.toString()+"' exists.");
+				getLastResultSet().close();
 			}
 
 			// Wenn Aktuelle Priorität = 5, bleibt die neue bei 5, sonst wird
@@ -217,12 +221,13 @@ public class CardEntity extends Entity {
 			}
 
 			// Schreibt die Neue Priorität in die Datenbank
-
-			String updatePrio = "UPDATE Stock SET Priority = " + newPrio + " WHERE PK_Stk = " + PK_ID;
-			stmt.executeUpdate(updatePrio);
+			Attribute k = new Attribute("Priority",newPrio);
+			setLastSQLCommand(SQLHandler.updateInTableCommand(getMyTableName(),myAttributes,k)); 
+			executeCommand(getLastSQLCommand());
+			// "UPDATE Stock SET Priority = " + newPrio + " WHERE PK_Stk = " + PK_ID;
 		}
 		catch (Exception e) {
-			Logger.log("Database.upPrio("+PK_ID+"): "+e.getMessage());
+			Logger.out(e.getMessage());
 		}
 	}
 
@@ -236,11 +241,14 @@ public class CardEntity extends Entity {
 	public void resetPrio (Integer PK_ID) {
 		try {
 			// Setzt die Priorität zurück auf 
-			String updatePrio = "UPDATE Stock SET Priority = 1 WHERE PK_Stk = " + PK_ID;
-			executeQuery(updatePrio);
+			myAttributes.seekKeyNamed("Priority").setValue(1);
+			Attribute k = new Attribute("PK_Stack",PK_ID);
+			setLastSQLCommand(SQLHandler.updateInTableCommand(getMyTableName(),myAttributes,k));
+			executeCommand(getLastSQLCommand());
+			// "UPDATE Stock SET Priority = 1 WHERE PK_Stk = " + PK_ID;
 		}
 		catch (Exception e) {
-			Logger.log("Database.resetPrio("+PK_ID+"): "+e.getMessage());
+			Logger.out(e.getMessage());
 		}
 	}
 	
@@ -253,17 +261,17 @@ public class CardEntity extends Entity {
 	public int getPriority (String ID_Card) {
 		int prio = 0;
 		try {
-			String getPrio = "SELECT Priority FROM Stock WHERE PK_Stk = " + ID_Card;
-			ResultSet rsPrio = stmt.executeQuery(getPrio);
-
-			if (rsPrio.next()) {
-				prio = rsPrio.getInt("Priority");
+			setLastSQLCommand(SQLHandler.selectCommand("STACK","Priority","PK_STACK", ID_Card)); 
+			setLastResultSet(executeQuery(getLastSQLCommand()));
+			// "SELECT Priority FROM Stock WHERE PK_Stk = " + ID_Card;
+			if (getLastResultSet().next()) {
+				prio = getLastResultSet().getInt("Priority");
 			} else {
 				debug.Debugger.out("No such Cards exists in stock @ ID ("+ID_Card+")!");
 			}
 		}
 		catch (Exception e) {
-			Logger.log("Database.getPriority("+ID_Card+"): "+e.getMessage());
+			Logger.out(e.getMessage());
 		}
 		return prio;
 	}
@@ -282,27 +290,28 @@ public class CardEntity extends Entity {
 		try {
 			// Alle Prioritäten aus Tabelle hlen, welche als Set das mitgegebene
 			// haben.
+			//setLastSQLCommand(SQLHandler.selectCommand("STACK","Priority","PK_STACK", ID_Card)); 
+			//setLastResultSet(executeQuery(getLastSQLCommand()));
 
-			String getScore = "SELECT Priority FROM Stock WHERE Set_ID = (SELECT PK_Kategorie FROM Kategorie"
-					+ " WHERE Kategorie = '" + whichSet + "')";
-			ResultSet scrs = stmt.executeQuery(getScore);
+			setLastSQLCommand("SELECT Priority FROM CARD WHERE PK_STACK = (SELECT PK_STACK FROM STACK"
+								+ " WHERE name = '" + whichSet + "')");
+			setLastResultSet(executeQuery(getLastSQLCommand()));
 			// Durch loopen und die Maximale sowie die Erreichte Punktzahl
 			// speichern
 
-			if (scrs.next()) {
+			if (getLastResultSet().next()) {
 				maxPoints += 4.0;
-				reachedPoints += scrs.getInt("Priority") - 1.0;
-				while (scrs.next()) {
+				reachedPoints += getLastResultSet().getInt("Priority") - 1.0;
+				while (getLastResultSet().next()) {
 					maxPoints += 4.0;
-					reachedPoints += scrs.getInt("Priority") - 1.0;
+					reachedPoints += getLastResultSet().getInt("Priority") - 1.0;
 				}
-
 			} else {
 				return null;
 			}
 		}
 		catch (Exception e) {
-			Logger.log("Database.getScore("+whichSet+"): "+e.getMessage());
+			Logger.out(e.getMessage());
 		}
 		// Erreichte Punktzahl zurückgeben
 		score[0] = maxPoints;

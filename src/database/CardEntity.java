@@ -78,17 +78,25 @@ public class CardEntity extends Entity {
 				return false;
 			}
 			values[4] = setID;
-			String attributeList = myAttributes.getCommaSeparatedList(false);
+			for (int i=0, j=0; i< values.length; i++) {
+				j=i;
+				if (i>=2) j++;
+				myAttributes.get(j).setValue(values[i]);
+			}
+			setLastSQLCommand(SQLHandler.insertIntoTableCommand(getMyTableName(), myAttributes)); 
+			return (executeCommand(getLastSQLCommand())>0)?true:false;
+
+//			String attributeList = myAttributes.getCommaSeparatedList(false);
 //			myAttributes.seekKeyNamed("Frontside").setValue(value[0]);
 //			myAttributes.seekKeyNamed("Backside").setValue(value[1]);
 //			myAttributes.seekKeyNamed("Priority").setValue(value[3]);
 //			myAttributes.seekKeyNamed("Color").setValue(value[4]);
-			int inserts = insertIntoTable(attributeList, values);
+//			int inserts = insertIntoTable(attributeList, values);
 //			String insert = "INSERT INTO Stock (Frontside, Backside, Set_ID, Priority, Color)" + "VALUES ('" + values[0]
 //					+ "','" + values[1] + "'," + setID + ", " + values[3] + ", '" + values[4] + "')";
-			if (inserts > 0 ) return true;
-			else 
-				Logger.out("no inserts could be performed!",this.getMyTableName());
+//			if (inserts > 0 ) return true;
+//			else 
+//				Logger.out("no inserts could be performed!",this.getMyTableName());
 		} catch (Exception e) {
 			Logger.out(e.getMessage());
 		}

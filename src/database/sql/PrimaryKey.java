@@ -27,6 +27,11 @@ public class PrimaryKey extends Attribute {
 	}
 
 	@Override
+	public boolean isValue() {
+		return true;
+	}
+
+	@Override
 	public String getAttributeDefinition () {
 		return getName() + " "+ SQLDataTypes[Datatype.PKEY.ordinal()];
 	}

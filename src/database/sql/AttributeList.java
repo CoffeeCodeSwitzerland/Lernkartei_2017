@@ -242,7 +242,7 @@ public class AttributeList {
 							valueList += value;
 						}
 						if (commas < (size - 1 - ((addPrimary==true)?0:primKey))) {
-							//debug.Debugger.out("VAL:"+value+":"+i+"/"+size+"/"+addPrimary);
+							debug.Debugger.out("VAL:"+value+":"+i+"/"+size+"/"+addPrimary+"/V:"+a.isValue());
 							valueList += ",";
 							commas++;
 						}

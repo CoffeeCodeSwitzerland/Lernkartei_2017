@@ -7,7 +7,7 @@ package database.sql;
 public class ForeignKey extends Attribute {
 
 	public ForeignKey (String newName) {
-		super (newName);
+		super (newName,0);
 		setType(Datatype.FKEY);
 	}
 	
@@ -19,6 +19,11 @@ public class ForeignKey extends Attribute {
 	@Override
 	public boolean isForeign() {
 		return (getType() == Datatype.FKEY) ? true : false;
+	}
+
+	@Override
+	public boolean isValue() {
+		return true;
 	}
 
 	@Override

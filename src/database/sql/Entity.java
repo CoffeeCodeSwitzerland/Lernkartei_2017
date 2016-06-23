@@ -299,18 +299,18 @@ public class Entity extends SQLiteDriver {
 	 * @param moreValues
 	 * @return 0, row count or -1 for error
 	 */
-	protected int insertIntoTable(String attributList, String[] values) {
-		AttributeList attributes = new AttributeList();
-		String[] att = attributList.split(",");
-		for (int i = 0; i < values.length; i++) {
-			Attribute a = new Attribute(att[i], values[i]);
-			attributes.add(a);
-		}
-		setConnection();
-		lastSQLCommand = SQLHandler.insertIntoTableCommand(myTableName, attributes);
-		return executeCommand(lastSQLCommand);
-	}
-
+//	protected int insertIntoTable(String attributList, String[] values) {
+//		AttributeList attributes = new AttributeList();
+//		String[] att = attributList.split(",");
+//		for (int i = 0; i < values.length; i++) {
+//			Attribute a = new Attribute(att[i], values[i]);
+//			attributes.add(a);
+//		}
+//		setConnection();
+//		lastSQLCommand = SQLHandler.insertIntoTableCommand(myTableName, attributes);
+//		return executeCommand(lastSQLCommand);
+//	}
+//
 	public ArrayList<String> getDataList(String query) {
 		ArrayList<String> values = new ArrayList<String>();
 		setConnection();

@@ -65,16 +65,19 @@ public class CardEntity extends Entity {
 	public boolean pushToStock (String[] values) {
 		try {
 			// TO DO should accept attribute list only 
-			ResultSet selectSet = seekInTable("Door", values[2]);
+			//&setLastResultSet(seekInTable("STACK", values[2]));
+			setLastSQLCommand(SQLHandler.selectCommand(getMyTableName(),"PK_STACK","PK_STACK",values[2])); 
+			setLastResultSet(executeQuery(getLastSQLCommand()));
+//			ResultSet selectSet = seekInTable("??", values[2]);
 //			ResultSet selectSet = stmt
 //			.executeQuery("SELECT PK_Kategorie FROM Kategorie WHERE Kategorie = '" + values[2] + "'");
 //			
 			String setID;
-			if (selectSet.next()) {
-				setID = Integer.toString(selectSet.getInt("PK_Kategorie"));
-				selectSet.close();
+			if (getLastResultSet().next()) {
+				setID = Integer.toString(getLastResultSet().getInt("PK_Stack"));
+				getLastResultSet().close();
 			} else {
-				selectSet.close();
+				getLastResultSet().close();
 				Logger.out("no Door's in database for Stack"+values[2]+"!",this.getMyTableName());
 				return false;
 			}

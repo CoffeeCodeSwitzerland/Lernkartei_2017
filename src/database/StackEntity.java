@@ -130,11 +130,11 @@ public class StackEntity extends Entity {
 			if (getLastResultSet().next()) {
 				int setID  = getLastResultSet().getInt("name");
 
-				setLastSQLCommand(SQLHandler.deleteEntryCommand("Card", "PK_STOCK", setID)); 
+				setLastSQLCommand(SQLHandler.deleteEntryCommand("Card", "PK_STACK", setID)); 
 				executeCommand(getLastSQLCommand());
 				//sql = "DELETE FROM Stock WHERE Set_ID = " + setID + ";";
 
-				setLastSQLCommand(SQLHandler.deleteEntryCommand(getMyTableName(), "name", category)); 
+				setLastSQLCommand(SQLHandler.deleteEntryCommand(getMyTableName(), "PK_STACK", setID)); 
 				executeCommand(getLastSQLCommand());
 				//sql = "DELETE FROM Kategorie WHERE Kategorie = '" + category + "';";
 				worked = true;

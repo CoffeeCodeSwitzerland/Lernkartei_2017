@@ -92,7 +92,7 @@ public class DoorEntity extends Entity {
 		boolean worked = false;
 		ArrayList<String> setsToDel = new ArrayList<String>();
 		try {
-			setLastSQLCommand(SQLHandler.selectCommand(	this.getMyTableName(),"PK_DOOR","name", delName)); 
+			setLastSQLCommand(SQLHandler.selectCommand(getMyTableName(),"PK_DOOR","name", delName)); 
 			setLastResultSet(executeQuery(getLastSQLCommand()));
 			if (getLastResultSet().next()) {
 				int doorID = getLastResultSet().getInt("PK_DOOR");
@@ -110,9 +110,7 @@ public class DoorEntity extends Entity {
 				for (String s : setsToDel) {
 					LKDatabase.myStacks.delStack(s);
 				}
-				
-				
-				setLastSQLCommand(SQLHandler.deleteEntryCommand(getMyTableName(), "name", delName)); 
+				setLastSQLCommand(SQLHandler.deleteEntryCommand(getMyTableName(), "PK_DOOR", doorID)); 
 				executeCommand(getLastSQLCommand());
 				//String delDoor = "DELETE FROM Doors WHERE Doorname = '" + delName + "'";
 				setLastSQLCommand(SQLHandler.deleteEntryCommand("STACK", "PK_DOOR", doorID)); 

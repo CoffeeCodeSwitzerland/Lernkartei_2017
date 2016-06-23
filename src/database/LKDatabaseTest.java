@@ -32,6 +32,9 @@ public class LKDatabaseTest {
 		debug.Debugger.out("SQL: {"+cmd+"}");
 		assertEquals("INSERT INTO Door (KEY_NAME,VALUE,Name) VALUES ('','','hallo!!!')",cmd);
 	
+		cmd = SQLHandler.selectCommand("STACK","PK_STACK","PK_STACK","franz"); 
+		debug.Debugger.out("SQL: {"+cmd+"}");
+		assertEquals("",cmd);
 	}
 
 	@Test

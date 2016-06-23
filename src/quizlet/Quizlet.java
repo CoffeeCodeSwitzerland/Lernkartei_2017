@@ -1,12 +1,15 @@
 package quizlet;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+
+import debug.Supervisor;
 
 
 /**
@@ -57,13 +60,21 @@ public class Quizlet
 	 * @throws MalformedURLException
 	 * @throws IOException
 	 */
-	public ArrayList<String> searchSet (String query, String page) throws MalformedURLException, IOException
+	public ArrayList<String> searchSet (String query, String page)
 	{
 		if (query == null)
 			return null;
 
 		// Codiert den Query String zu einem gültigen URI
-		query = URLEncoder.encode(query, Request.charset);
+		try
+		{
+			query = URLEncoder.encode(query, Request.charset);
+		}
+		catch (UnsupportedEncodingException e)
+		{
+			Supervisor.errorAndDebug(this, e.toString());
+			return null;
+		}
 
 		// Setzt den vollständigen URL zusammen
 		String queryUrl = searchSetUrl + tokenUrl + "&q=" + query;
@@ -74,7 +85,21 @@ public class Quizlet
 		}
 		
 		// Fragt das JSON Object ab
-		JSONObject obj = Request.GetJSONObject(queryUrl);
+		JSONObject obj = new JSONObject();
+		try
+		{
+			obj = Request.GetJSONObject(queryUrl);
+		}
+		catch (MalformedURLException e)
+		{
+			Supervisor.errorAndDebug(this, e.toString());
+			return null;
+		}
+		catch (IOException e)
+		{
+			Supervisor.errorAndDebug(this, e.toString());
+			return null;
+		}
 		// Speichert das JSON Array mit den Sets
 		JSONArray arr = obj.getJSONArray("sets");
 
@@ -106,7 +131,7 @@ public class Quizlet
 		return tempList;
 	}
 	
-	public ArrayList<String> searchSet (String query) throws MalformedURLException, IOException
+	public ArrayList<String> searchSet (String query)
 	{
 		return searchSet(query, null);
 	}
@@ -124,7 +149,7 @@ public class Quizlet
 	 * @throws MalformedURLException
 	 * @throws IOException
 	 */
-	public ArrayList<String> getSet (String id) throws MalformedURLException, IOException
+	public ArrayList<String> getSet (String id)
 	{
 		if (id == null)
 			return null;
@@ -133,7 +158,21 @@ public class Quizlet
 		String queryUrl = setUrl + id + tokenUrl;
 
 		// Speichert JSON Object
-		JSONObject obj = Request.GetJSONObject(queryUrl);
+		JSONObject obj = new JSONObject();
+		try
+		{
+			obj = Request.GetJSONObject(queryUrl);
+		}
+		catch (MalformedURLException e)
+		{
+			Supervisor.errorAndDebug(this, e.toString());
+			return null;
+		}
+		catch (IOException e)
+		{
+			Supervisor.errorAndDebug(this, e.toString());
+			return null;
+		}
 		JSONArray arr = obj.getJSONArray("terms");
 
 		tempList = new ArrayList<String>();

@@ -196,6 +196,34 @@ public class QuizletImportView extends FXViewModel
 		}
 	};
 
+	AnimationTimer newAnimation = new AnimationTimer()
+	{
+		@Override
+		public void handle (long now)
+		{
+			int result = getFXController().getModel("quizlet").doAction(Command.UPDATE, downloadStackName);
+			if (result == -7)
+			{
+				newAnimation.stop();
+				getWindow().getScene().widthProperty().removeListener(oldEvent -> loading.setMinWidth(getWindow().getScene().getWidth()));
+
+				downloadStackName = "";
+				cardNumber = -1;
+				alreadyDownloaded = 0;
+				cardListSize = 0;
+
+				isLoading = false;
+
+				loading.setProgress(0);
+				getFXController().showView("stack");
+			}
+			else if (result != -1)
+			{
+				loading.setProgress((1000 - result) / 1000); 
+			}
+		}
+	};
+	
 	@Override
 	public void refreshView ()
 	{
@@ -242,7 +270,7 @@ public class QuizletImportView extends FXViewModel
 			}
 
 			quizletSets = new ArrayList<>();
-			searchResult = getFXController().getModel("quizlet").getDataList("search" + Globals.SEPARATOR + currentSearch + Globals.SEPARATOR + page);
+			searchResult = getFXController().getModel("quizlet").getDataList(currentSearch + Globals.SEPARATOR + page);
 
 			if (searchResult != null)
 			{
@@ -293,7 +321,7 @@ public class QuizletImportView extends FXViewModel
 									return;
 								}
 
-								searchResult = getFXController().getModel("quizlet").getDataList("set" + Globals.SEPARATOR + stackInfo[0]);
+								//searchResult = getFXController().getModel("quizlet").getDataList("set" + Globals.SEPARATOR + stackInfo[0]);
 
 								String name = Alert.simpleString("Neuer Stapel", "Name für den Quizletstapel", stackInfo[1]);
 
@@ -322,7 +350,11 @@ public class QuizletImportView extends FXViewModel
 								cardNumber = 1;
 								cardListSize = Float.parseFloat(stackInfo[3]);
 								Debugger.out(getData());
-								getFXController().getModel("stack").doAction(Command.NEW, name, getData());
+								int success = getFXController().getModel("quizlet").doAction(Command.NEW, stackInfo[0], name, getData());
+								if (success == 1)
+								{
+									newAnimation.start();
+								}
 							});
 							additionalInfoLayout.getChildren().clear();
 							additionalInfoLayout.getChildren().addAll(stackTitle, stackCount, stackAuthor, stackLangs, stackHasImgs, downloadStack);

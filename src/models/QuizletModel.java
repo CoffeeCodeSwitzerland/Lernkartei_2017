@@ -1,56 +1,112 @@
 package models;
 
-import java.io.IOException;
-import java.net.MalformedURLException;
 import java.util.ArrayList;
 
+import database.LKDatabase;
 import globals.Globals;
-import quizlet.Quizlet;
 import mvc.Model;
+import quizlet.Quizlet;
 
 public class QuizletModel extends Model {
 
+	Quizlet q;
+	ArrayList<String> cards;
+	
+	@Override
+	public int doAction (Command command, String... param)
+	{
+		switch (command)
+		{
+			case NEW:
+				
+				init();
+
+				cards = q.getSet(param[0]);
+				
+				
+				if (cards == null)
+				{
+					return -1;
+				}
+				
+
+				setString(Integer.toString(cards.size()));
+				
+				for (String s : cards)
+				{
+					add(s);
+				}
+				
+
+				cards = super.getDataList(null);
+				
+				int isSuccessful = LKDatabase.myStacks.newStack(param[1], param[2]);
+				
+				if (isSuccessful == -1)
+				{
+					return -1;
+				}
+				
+				return 1;
+				
+			case UPDATE:
+				
+				
+				if (cards != null)
+				{
+					if (cards.size() > 0)
+					{
+						String[] currentCard = cards.get(0).split(Globals.SEPARATOR);
+						
+						LKDatabase.myCards.pushToStock(new String[]{currentCard[1], currentCard[2], param[0], Integer.toString(1), Integer.toString(-16777216)});
+						
+						cards.remove(0);
+						
+						if (cards.size() == 0)
+						{
+							return 0;
+						}
+						
+						return (1000 * (Integer.parseInt(getString(null)) / cards.size()));
+					}
+					
+					cards.clear();
+					setString(null);
+					return -7;
+				}
+				
+				
+				return -1;
+			default:
+				return super.doAction(command, param);
+		}
+	}
+	
 	@Override
 	public ArrayList<String> getDataList (String query)
 	{
-		String[] queryData = query.split(Globals.SEPARATOR);
-		
-		if (queryData.length != 2 && queryData.length != 3)
+		if (query == null)
 		{
 			return null;
 		}
-		if (queryData.length == 2)
+		
+		String[] queryData = query.split(Globals.SEPARATOR);
+		
+		if (queryData.length != 2)
 		{
-			queryData = new String[]{queryData[0], queryData[1], null};
+			return null;
 		}
 		
-		if (queryData[0].equals("search")) {
-			
-			Quizlet q = new Quizlet("3RhaPk5H9C");
-			try {
-				return q.searchSet(queryData[1], queryData[2]);
-			}
-			catch (MalformedURLException e) {
-				debug.Debugger.out(e.getMessage());
-			}
-			catch (IOException e) {
-				debug.Debugger.out(e.getMessage());
-			}
-		} else if (queryData[0].equals("set")) {
-			
-			Quizlet q = new Quizlet("3RhaPk5H9C");
-			try {
-				return q.getSet(queryData[1]);
-			}
-			catch (MalformedURLException e) {
-				debug.Debugger.out(e.getMessage());
-			}
-			catch (IOException e) {
-				debug.Debugger.out(e.getMessage());
-			}
-		} else {
-			return null;			
+		init();
+		
+		return q.searchSet(queryData[0], queryData[1]);
+	}
+	
+	private void init ()
+	{
+		if (q == null)
+		{
+			q = new Quizlet("3RhaPk5H9C");
 		}
-		return null;
 	}
 }

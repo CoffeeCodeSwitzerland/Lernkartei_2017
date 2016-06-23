@@ -8,7 +8,7 @@ public class Attribute {
 	public enum Datatype {
 		PKEY, FKEY, INT, TEXT, DATE, TIME
 	}
-	final protected static String SQLDataTypes[] = { "INTEGER PRIMARY KEY AUTOINCREMENT", "INTEGER FOREIGN KEY",
+	final protected static String SQLDataTypes[] = { "INTEGER PRIMARY KEY AUTOINCREMENT", "INTEGER",
 			"INTEGER", "TEXT", "DATE", "TIME" }; // !!! same len and order as Datatype!
 
 	private String name; // SQL Attribute Name

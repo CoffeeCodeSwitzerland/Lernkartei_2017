@@ -2,6 +2,7 @@ package models;
 
 import java.util.ArrayList;
 
+import database.LKDatabase;
 import debug.Supervisor;
 import learning.Bewertungsklasse;
 import mvc.Model;
@@ -32,7 +33,7 @@ public class LearnModel extends Model
 
 				newPriorityIsValid = Bewertungsklasse.cardIsCorrect(param[0]);
 
-				database.UserEntity.correctCard();
+				LKDatabase.myUsers.correctCard();
 				refreshViews();
 
 				return newPriorityIsValid;

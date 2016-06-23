@@ -25,6 +25,7 @@ import javax.xml.stream.events.Attribute;
 import javax.xml.stream.events.StartElement;
 import javax.xml.stream.events.XMLEvent;
 
+import database.LKDatabase;
 import debug.Debugger;
 import debug.Logger;
 
@@ -124,7 +125,7 @@ public class gamePanel extends JPanel implements Runnable {
 
 		x = y = 25;
 		vx = vy = 0;
-		lives = database.UserEntity.getLifecount() -1;
+		lives = LKDatabase.myUsers.getLifecount() -1;
 		jump = false;
 		//doubleJump = false;
 		ground = true;
@@ -638,7 +639,7 @@ public class gamePanel extends JPanel implements Runnable {
 					}
 					loadLevel(levelBase + "level1.tmx");
 					gameState = INTRO;
-					lives = database.UserEntity.getLifecount();			
+					lives = LKDatabase.myUsers.getLifecount();			
 					first = false;
 					//Hier neutrino
 					
@@ -654,7 +655,7 @@ public class gamePanel extends JPanel implements Runnable {
 				} else {
 					loadLevel(levelBase + "level1.tmx");
 					gameState = INTRO;
-					lives = database.UserEntity.getLifecount();
+					lives = LKDatabase.myUsers.getLifecount();
 					level = 1;
 				}
 				repaint();
@@ -1155,7 +1156,7 @@ public class gamePanel extends JPanel implements Runnable {
 		if (sound) {
 			MidiPlayer.stop();
 			ClipPlayer.DIE.play();
-			database.UserEntity.death();
+			LKDatabase.myUsers.death();
 			Debugger.out("DIE!");
 		}
 		lives--;

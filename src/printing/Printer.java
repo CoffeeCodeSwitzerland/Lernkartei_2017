@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 import javax.swing.JFrame;
 
-import database.CardEntity;
+import database.LKDatabase;
 
 public class Printer extends JFrame {
 
@@ -33,7 +33,7 @@ public class Printer extends JFrame {
 		int kartenID = -1;
 		int anzKarten;
 		int anzDurchführungen;
-		ArrayList<String[]> cards = CardEntity.pullFromStock(Stack);
+		ArrayList<String[]> cards = LKDatabase.myCards.pullFromStock(Stack);
 		
 		anzKarten = cards.size();		
 		anzDurchführungen = anzKarten / 8;
@@ -87,7 +87,7 @@ public class Printer extends JFrame {
 					iPageWidthEight = iPageWidth / 10;
 					for (int c = 0; c < 2; c++) {
 						kartenID += 1;
-						String[] VorderUndRückseite = database.CardEntity.getFrontAndBackside(Stack, kartenID);
+						String[] VorderUndRückseite = LKDatabase.myCards.getFrontAndBackside(Stack, kartenID);
 
 						pg.drawString(VorderUndRückseite[0], iPageWidthEight, iPageHeightEight);
 

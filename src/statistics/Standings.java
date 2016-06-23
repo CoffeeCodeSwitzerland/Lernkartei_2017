@@ -2,7 +2,7 @@ package statistics;
 
 import java.util.ArrayList;
 
-import database.CardEntity;
+import database.LKDatabase;
 
 public class Standings
 {
@@ -15,14 +15,14 @@ public class Standings
 	
 	public ArrayList<Double> getMax(String Stackname) {
 		ArrayList<Double> start = new ArrayList<Double>();
-		Double[] dbl = CardEntity.getScore(Stackname);
+		Double[] dbl = LKDatabase.myCards.getScore(Stackname);
 		start.add(dbl[0]);
 		return start;
 	}
 	
 	public ArrayList<Double> getStart(String Stackname) {
 		ArrayList<Double> start = new ArrayList<Double>();
-		Double[] dbl = CardEntity.getScore(Stackname);
+		Double[] dbl = LKDatabase.myCards.getScore(Stackname);
 		Start = dbl[1];
 		start.add(dbl[1]);
 		return start;
@@ -31,7 +31,7 @@ public class Standings
 	public ArrayList<Double> getEnd(String Stackname)
 	{
 		ArrayList<Double> end = new ArrayList<Double>();
-		Double[] ende = CardEntity.getScore(Stackname);
+		Double[] ende = LKDatabase.myCards.getScore(Stackname);
 		End = ende[1];
 		end.add(ende[1]);
 		endSet = true;

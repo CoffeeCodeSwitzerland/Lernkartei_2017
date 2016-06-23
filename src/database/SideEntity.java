@@ -3,9 +3,18 @@ package database;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
+import database.sql.Entity;
 import debug.Logger;
 
-public class SideEntity extends SQLiteConnector {
+public class SideEntity extends Entity {
+
+	/**
+	 * @param tabName
+	 */
+	public SideEntity(String tabName) {
+		super(tabName);
+		// TODO Auto-generated constructor stub
+	}
 
 	protected static String myTableName  =  "Stock";
 	private   static String myPrimaryKey = "PK_Stk";
@@ -26,10 +35,6 @@ public class SideEntity extends SQLiteConnector {
 			+ " Set_ID    		INTEGER NOT NULL, " + " Priority	    INTEGER DEFAULT 1,"
 			+ " Description    TEXT    		, " + " Color			TEXT    		 )";
 
-	public static String getDbURL() {
-		return dbURL;
-	}
-
 	/**
 	 * Keine neue Instanz Database erstellen, sondern nur die Methode benutzen
 	 * 
@@ -37,16 +42,12 @@ public class SideEntity extends SQLiteConnector {
 	 *            --> Array mit 5 Werten: 1. Vorderseite, 2. Rückseite, 3.
 	 *            Set_ID, 4. Priorität (1-5), 5. Color
 	 */
-	public static boolean pushToStock (String[] values) {
-		SideEntity.setConnection(dbURL);
+	public boolean pushToStock (String[] values) {
 		try {
 			stmt.executeUpdate(pushSql);
 
-			c.setAutoCommit(false);
 			ResultSet selectSet = stmt
 					.executeQuery("SELECT PK_Kategorie FROM Kategorie WHERE Kategorie = '" + values[2] + "'");
-			c.setAutoCommit(true);
-			
 			String setID;
 			if (selectSet.next()) {
 				setID = Integer.toString(selectSet.getInt("PK_Kategorie"));
@@ -54,7 +55,6 @@ public class SideEntity extends SQLiteConnector {
 			} else {
 				selectSet.close();
 				stmt.close();
-				c.close();
 				return false;
 			}
 
@@ -62,15 +62,11 @@ public class SideEntity extends SQLiteConnector {
 					+ "','" + values[1] + "'," + setID + ", " + values[3] + ", '" + values[4] + "')";
 
 			stmt.executeUpdate(insert);
-			closeDB();
 			return true;
 		} catch (Exception e) {
-			debug.Debugger.out("Database.pushToStock(...): "+e.getMessage());
-			Logger.log("Database.pushToStock(...): "+e.getMessage());
+			Logger.out("Database.pushToStock(...): "+e.getMessage());
 		}
-		closeDB();
 		return false;
-
 	}
 
 	/**
@@ -80,33 +76,22 @@ public class SideEntity extends SQLiteConnector {
 	 *         Rückseite, Description, Set_ID, Priorität, Farbe
 	 */
 
-	public static ArrayList<String[]> pullFromStock (String whichSet) {
+	public ArrayList<String[]> pullFromStock (String whichSet) {
 
 		ArrayList<String[]> results = new ArrayList<String[]>();
 
-		SideEntity.setConnection(dbURL);
 		try {
-
 			stmt.executeUpdate(pushSql);
-
-			c.setAutoCommit(false);
 			String IDwhichSet = "";
 			ResultSet s = stmt.executeQuery("SELECT PK_Kategorie FROM Kategorie WHERE Kategorie = '" + whichSet + "'");
-			c.setAutoCommit(true);
-
 			if (s.next()) {
 				IDwhichSet = Integer.toString(s.getInt("PK_Kategorie"));
 			} else {
 				debug.Debugger.out("No Kategorie: " + whichSet + "in Table Kategorie");
-				closeDB();
 				return null;
 			}
-
 			s.close();
-			c.setAutoCommit(false);
 			ResultSet rs = stmt.executeQuery("SELECT * FROM Stock WHERE Set_ID = '" + IDwhichSet + "'");
-			c.setAutoCommit(true);
-
 			while (rs.next()) {
 				String[] set = new String[7];
 				set[0] = Integer.toString(rs.getInt("PK_Stk"));
@@ -119,30 +104,22 @@ public class SideEntity extends SQLiteConnector {
 				results.add(set);
 			}
 			rs.close();
-			closeDB();
 		}
 		catch (Exception e) {
-			if (whichSet==null) whichSet="{null}";
-			debug.Debugger.out("Database.pullFromStock("+whichSet+"): "+e.getMessage());
-			Logger.log("Database.pullFromStock("+whichSet+"): "+e.getMessage());
-			closeDB();
+			Logger.out("Database.pullFromStock("+whichSet+"): "+e.getMessage());
 		}
 		return results;
 	}
 
-	public static boolean delEntry(String id) {
-
+	public boolean delEntry(String id) {
 		boolean deleted = false;
-
-		SideEntity.setConnection(dbURL);
 		try {
 			String del = "DELETE FROM Stock WHERE PK_Stk = " + id;
 			stmt.executeUpdate(del);
 			deleted = true;
 		} catch (Exception e) {
-			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+			Logger.out(e.getClass().getName() + ": " + e.getMessage());
 		}
-		closeDB();
 		return deleted;
 	}
 
@@ -158,18 +135,12 @@ public class SideEntity extends SQLiteConnector {
 	 * @return --> True: Funktionierte, False: Nicht geklappt
 	 */
 
-	public static boolean editEntry(String id, String frontside, String backside) {
+	public boolean editEntry(String id, String frontside, String backside) {
 
-		SideEntity.setConnection(dbURL);
 		try {
-			c.setAutoCommit(false);
 			String sel = "SELECT * FROM Stock WHERE PK_Stk = " + id;
 			ResultSet rs = stmt.executeQuery(sel);
-			c.setAutoCommit(true);
-
 			if (!rs.next()) {
-				c.commit();
-				closeDB();
 				return false;
 			}
 			else {
@@ -177,16 +148,12 @@ public class SideEntity extends SQLiteConnector {
 			}
 			String del = "UPDATE Stock SET Frontside = '" + frontside + "', Backside = '" + backside
 					+ "' WHERE PK_Stk = " + id;
-			debug.Debugger.out(del);
 			stmt.executeUpdate(del);
-			closeDB();
 			return true;
 		}
 		catch (Exception e) {
-			debug.Debugger.out("Database.editEntry("+id+"): "+e.getMessage());
-			Logger.log("Database.editEntry("+id+"): "+e.getMessage());
+			Logger.out("Database.editEntry("+id+"): "+e.getMessage());
 		}
-		closeDB();
 		return false;
 	}
 
@@ -197,18 +164,15 @@ public class SideEntity extends SQLiteConnector {
 	 *            --> PK_Stock ID der Karte, welche erhöht wird
 	 */
 
-	public static void upPrio (Integer PK_ID) {
+	public void upPrio (Integer PK_ID) {
 
-		SideEntity.setConnection(dbURL);
 		Integer oldPrio = null;
 		String newPrio = "";
 		try {
 			stmt.executeUpdate(pushSql);
 
 			// Frage die Aktuelle Priorität ab
-			c.setAutoCommit(false);
 			ResultSet actualPrio = stmt.executeQuery("SELECT Priority FROM Stock WHERE PK_Stk = " + PK_ID.toString());
-			c.setAutoCommit(true);
 
 			// Überprüft ob vorhanden oder nicht
 			if (actualPrio.next()) {
@@ -236,10 +200,8 @@ public class SideEntity extends SQLiteConnector {
 			stmt.executeUpdate(updatePrio);
 		}
 		catch (Exception e) {
-			debug.Debugger.out("Database.upPrio("+PK_ID+"): "+e.getMessage());
-			Logger.log("Database.upPrio("+PK_ID+"): "+e.getMessage());
+			Logger.out("Database.upPrio("+PK_ID+"): "+e.getMessage());
 		}
-		closeDB();
 	}
 
 	/**
@@ -249,19 +211,15 @@ public class SideEntity extends SQLiteConnector {
 	 * @param karte
 	 *            --> Welche Karte reseted wird
 	 */
-	public static void resetPrio (Integer PK_ID) {
-		SideEntity.setConnection(dbURL);
+	public void resetPrio (Integer PK_ID) {
 		try {
 			// Setzt die Priorität zurück auf 1
-
 			String updatePrio = "UPDATE Stock SET Priority = 1 WHERE PK_Stk = " + PK_ID;
 			stmt.executeUpdate(updatePrio);
 		}
 		catch (Exception e) {
-			debug.Debugger.out("Database.resetPrio("+PK_ID+"): "+e.getMessage());
-			Logger.log("Database.resetPrio("+PK_ID+"): "+e.getMessage());
+			Logger.out("Database.resetPrio("+PK_ID+"): "+e.getMessage());
 		}
-		closeDB();
 	}
 	
 	/**
@@ -270,15 +228,11 @@ public class SideEntity extends SQLiteConnector {
 	 * @param ID_Card --> ID der Karte, von welcher die Priorität gebraaucht wird
 	 * @return --> Gibt die Kartenpriorität als Integer zurück
 	 */
-	public static int getPriority (String ID_Card) {
-		SideEntity.setConnection(dbURL);
+	public int getPriority (String ID_Card) {
 		int prio = 0;
 		try {
 			String getPrio = "SELECT Priority FROM Stock WHERE PK_Stk = " + ID_Card;
-			c.setAutoCommit(false);
 			ResultSet rsPrio = stmt.executeQuery(getPrio);
-			c.setAutoCommit(true);
-
 			if (rsPrio.next()) {
 				prio = rsPrio.getInt("Priority");
 			} else {
@@ -286,11 +240,8 @@ public class SideEntity extends SQLiteConnector {
 			}
 		}
 		catch (Exception e) {
-			if (ID_Card==null) ID_Card="{null}";
-			debug.Debugger.out("Database.getPriority("+ID_Card+"): "+e.getMessage());
-			Logger.log("Database.getPriority("+ID_Card+"): "+e.getMessage());
+			Logger.out("Database.getPriority("+ID_Card+"): "+e.getMessage());
 		}
-		closeDB();
 		return prio;
 	}
 	
@@ -300,9 +251,7 @@ public class SideEntity extends SQLiteConnector {
 	 * @param whichSet --> Score von welchem Stack geliefert werden soll
 	 * @return --> Retourniert diesen gewünschten Score
 	 */
-	public static Double[] getScore (String whichSet) {
-
-		SideEntity.setConnection(dbURL);
+	public Double[] getScore (String whichSet) {
 		Double maxPoints = 0.0;
 		Double reachedPoints = 0.0;
 		Double[] score = new Double[2];
@@ -312,12 +261,9 @@ public class SideEntity extends SQLiteConnector {
 
 			String getScore = "SELECT Priority FROM Stock WHERE Set_ID = (SELECT PK_Kategorie FROM Kategorie"
 					+ " WHERE Kategorie = '" + whichSet + "')";
-			c.setAutoCommit(false);
 			ResultSet scrs = stmt.executeQuery(getScore);
-			c.setAutoCommit(true);
 			// Durch loopen und die Maximale sowie die Erreichte Punktzahl
 			// speichern
-
 			if (scrs.next()) {
 				maxPoints += 4.0;
 				reachedPoints += scrs.getInt("Priority") - 1.0;
@@ -325,37 +271,25 @@ public class SideEntity extends SQLiteConnector {
 					maxPoints += 4.0;
 					reachedPoints += scrs.getInt("Priority") - 1.0;
 				}
-
 			} else {
-				closeDB();
 				return null;
 			}
 		}
 		catch (Exception e) {
-			if (whichSet==null) whichSet="{null}";
-			debug.Debugger.out("Database.getScore("+whichSet+"): "+e.getMessage());
-			Logger.log("Database.getScore("+whichSet+"): "+e.getMessage());
+			Logger.out("Database.getScore("+whichSet+"): "+e.getMessage());
 		}
 		// Erreichte Punktzahl zurückgeben
 		score[0] = maxPoints;
 		score[1] = reachedPoints;
-		closeDB();
 		return score;
-		
-		
 	}
 
 	public static String[] getFrontAndBackside(String Stack, int kartenID) {
 		
-		pullFromStock(Stack);
-		
-		
+//TODO		pullFromStock(Stack);
 		String vorderseite = "Hallo";		
 		String rückseite = "Hello";
-		
-		
 		String[] VorderUndRückseite = {vorderseite, rückseite};
-		
 		return VorderUndRückseite;
 	}
 }

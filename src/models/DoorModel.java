@@ -2,7 +2,7 @@ package models;
 
 import java.util.ArrayList;
 
-import database.Doors;
+import database.LKDatabase;
 import debug.Supervisor;
 import mvc.Model;
 
@@ -25,18 +25,18 @@ public class DoorModel extends Model
 		switch (command)
 		{
 			case NEW:
-				boolean newIsSuccessful = Doors.newDoor(param[0]);
+				boolean newIsSuccessful = LKDatabase.myDoors.newDoor(param[0]);
 				refreshViews();
 				return newIsSuccessful ? 1 : -1;
 			case UPDATE:
-				boolean updateIsSuccessful = Doors.update(param[0], param[1]);
+				boolean updateIsSuccessful = LKDatabase.myDoors.update(param[0], param[1]);
 				return updateIsSuccessful ? 1 : -1;
 			case DELETE:
-				boolean deleteIsSuccessful = Doors.delDoor(param[0]);
+				boolean deleteIsSuccessful = LKDatabase.myDoors.delDoor(param[0]);
 				refreshViews();
 				return deleteIsSuccessful ? 1 : -1;
 			case CAN_CREATE:
-				ArrayList<String> doors = Doors.getDoors();
+				ArrayList<String> doors = LKDatabase.myDoors.getDoors();
 				if (doors.contains(param[0]))
 				{
 					return -1;
@@ -55,7 +55,7 @@ public class DoorModel extends Model
 		{
 			try
 			{
-				return Doors.getDoors();
+				return LKDatabase.myDoors.getDoors();
 			}
 			catch (Exception e)
 			{

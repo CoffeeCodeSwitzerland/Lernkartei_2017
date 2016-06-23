@@ -1,40 +1,49 @@
 package database;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
-import java.sql.Statement;
 
+import database.sql.Attribute;
+import database.sql.Entity;
+import database.sql.ForeignKey;
 import debug.Logger;
 
-public class LearnState extends SQLiteConnector {
+public class LearnEntity extends Entity {
 
 	// Varibeln Connection
 
-//	private static String	url		= "jdbc:sqlite:" + globals.Environment.getDatabasePath()
+/**
+	 * @param tabName
+	 */
+	public LearnEntity(String tabName) {
+		super(tabName,"PK_"+tabName);
+		// set table attributes
+		Attribute a = new Attribute("WasCorrect",0);
+		myAttributes.add(a);
+		a = new Attribute("Date");
+		myAttributes.add(a);
+		ForeignKey f = new ForeignKey("PK_CARD");
+		myAttributes.add(f);
+		f = new ForeignKey("PK_USER");
+		myAttributes.add(f);
+		createTableIfNotExists();
+	}
+
+	//	private static String	url		= "jdbc:sqlite:" + globals.Environment.getDatabasePath()
 //													 + globals.Globals.db_name + ".db";
 //	
 //	private static String	driver	= "org.sqlite.JDBC";
 //
-	public static boolean newSwitch (String setName) {
+	public boolean newSwitch (String setName) {
 
-		Connection c = null;
-		Statement stmt = null;
 		boolean worked = false;
 
 		try {
-			Class.forName(driver);
-			c = DriverManager.getConnection(dbURL);
-			stmt = c.createStatement();
-			
 			String create = "CREATE TABLE IF NOT EXISTS Switcher ("
 							+ "PK_Swt INTEGER PRIMARY KEY AUTOINCREMENT,"
 							+ "SwitchStack TEXT NOT NULL);";
 			stmt.executeUpdate(create);
 			
-			c.setAutoCommit(false);			
 			ResultSet checkExists = stmt.executeQuery("SELECT * FROM Switcher WHERE SwitchStack = '" + setName + "';");
-			c.setAutoCommit(true);			
 			
 			if (checkExists.next()) {
 				checkExists.close();
@@ -52,26 +61,15 @@ public class LearnState extends SQLiteConnector {
 		return worked;
 	}
 
-	public static boolean delSwitch (String setName) {
+	public boolean delSwitch (String setName) {
 
-		Connection c = null;
-		Statement stmt = null;
 		boolean worked = false;
-
 		try {
-			Class.forName(driver);
-			c = DriverManager.getConnection(dbURL);
-			stmt = c.createStatement();
-			
 			String create = "CREATE TABLE IF NOT EXISTS TABLE Switcher ("
 					+ "PK_Swt INTEGER PRIMARY KEY AUTOINCREMENT,"
 					+ "SwitchStack TEXT NOT NULL);";
 			stmt.executeUpdate(create);
-			
-			c.setAutoCommit(false);			
 			ResultSet checkExists = stmt.executeQuery("SELECT * FROM Switcher WHERE SwitchStack = '" + setName + "';");
-			c.setAutoCommit(true);	
-			
 			if (checkExists.next()) {
 				checkExists.close();
 			} else {
@@ -84,30 +82,18 @@ public class LearnState extends SQLiteConnector {
 		catch (Exception e) {
 			Logger.log("Database.delSwitch(): " + e.getMessage());
 		}
-		closeDB();
 		return worked;
 	}
 
-	public static boolean checkSwitched (String setName) {
+	public boolean checkSwitched (String setName) {
 
-		Connection c = null;
-		Statement stmt = null;
 		boolean checked = false;
-
 		try {
-			Class.forName(driver);
-			c = DriverManager.getConnection(dbURL);
-			stmt = c.createStatement();
-
 			String create = "CREATE TABLE IF NOT EXISTS TABLE Switcher ("
 					+ "PK_Swt INTEGER PRIMARY KEY AUTOINCREMENT,"
 					+ "SwitchStack TEXT NOT NULL);";
 			stmt.executeUpdate(create);
-			
-			c.setAutoCommit(false);			
 			ResultSet checkExists = stmt.executeQuery("SELECT * FROM Switcher WHERE SwitchStack = '" + setName + "';");
-			c.setAutoCommit(true);			
-			
 			if (checkExists.next()) {
 				checkExists.close();
 				checked = true;

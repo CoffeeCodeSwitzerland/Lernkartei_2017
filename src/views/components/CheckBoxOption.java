@@ -44,7 +44,7 @@ public class CheckBoxOption
 		
 		if (noEntry)
 		{
-			controller.getModel("config").doAction(Command.SET, configKey, "false");
+//TODO			controller.getModel("config").doAction(Command.SET, configKey, "false");
 		}
 		
 		checkBox.setSelected(oldValue);

@@ -2,7 +2,6 @@ package models;
 
 import javax.swing.SwingUtilities;
 
-import debug.Debugger;
 import debug.Supervisor;
 import javafx.embed.swing.SwingNode;
 import mvc.fx.FXModel;

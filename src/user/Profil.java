@@ -2,8 +2,9 @@ package user;
 
 import java.util.ArrayList;
 
-import database.Stack;
 import database.CardEntity;
+import database.LKDatabase;
+import database.StackEntity;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -16,12 +17,12 @@ public class Profil
 	private ArrayList<String> Stacks = new ArrayList<String>();
 	private ArrayList<String> Punkte = new ArrayList<String>();
 
-	Stack c = new Stack();
-	CardEntity d = new CardEntity();
+	StackEntity stacks = LKDatabase.myStacks;
+	CardEntity mcards = LKDatabase.myCards;
 
 	public Profil()
 	{
-		Stacks = Stack.getStacknames();
+		Stacks = stacks.getStacknames();
 	}
 
 	public ArrayList<String> getKarteien()
@@ -35,7 +36,7 @@ public class Profil
 		for (int i = 1; i < Stacks.size(); i++)
 		{
 			System.out.println("Profil 2");
-			Double[] temp = CardEntity.getScore(Stacks.get(i).toString());
+			Double[] temp = mcards.getScore(Stacks.get(i).toString());
 			System.out.println("Profil 3 " + "Reached points: " + temp[0]);
 			System.out.println("Profil 3 " + "Max points: " + temp[1]);
 			Double result = temp[0] / temp[1] * 100;

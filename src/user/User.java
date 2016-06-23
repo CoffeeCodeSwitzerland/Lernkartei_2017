@@ -3,7 +3,7 @@ package user;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import database.UserLogin;
+import database.LKDatabase;
 import globals.Globals;
 
 public class User
@@ -24,9 +24,9 @@ public class User
 		String[] Data = genArray(Userdata);
 		if (validateUsername() && validatePassword() && validateEmail())
 		{
-			if (UserLogin.checkPossible(Data))
+			if (LKDatabase.myLogins.checkPossible(Data))
 			{
-				UserLogin.newUser(Data, istLehrer);
+				LKDatabase.myLogins.newUser(Data, istLehrer);
 				isOk = true; // Wenn Success
 			} else
 			{
@@ -57,7 +57,7 @@ public class User
 	public static boolean setUsername(String newName, String oldName) {
 		try
 		{
-			boolean possible = UserLogin.changeUsername(newName,oldName);
+			boolean possible = LKDatabase.myLogins.changeUsername(newName,oldName);
 			return possible;
 		} catch (Exception e)
 		{
@@ -79,7 +79,7 @@ public class User
 	{
 		
 		String[] Data = genArray(LoginData);
-		isCorrect = UserLogin.loginUser(Data);
+		isCorrect = LKDatabase.myLogins.loginUser(Data);
 		if (isCorrect)
 		{
 			new Profil(); //Momentan noch eine Sackgasse --> Date 28.04.2016
@@ -100,7 +100,7 @@ public class User
 
 		try
 		{
-			UserLogin.delUser(Username);
+			LKDatabase.myLogins.delUser(Username);
 			isDeleted = true; // if Successfull deleted
 		} catch (Exception e)
 		{

@@ -7,12 +7,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import database.CardEntity;
-
 public class BewertungsklasseTest
 {
 
-	private static final String dbURL = "jdbc:sqlite:" + globals.Environment.getDatabasePath() + globals.Globals.db_name + ".db";
 	private static final Statement stmt = null;
 
 	
@@ -21,7 +18,7 @@ public class BewertungsklasseTest
 	public void setUp() throws Exception
 	{
 		//Datenbank mit Beispieldaten füllen
-		CardEntity.setConnection(dbURL);
+		//LKDatabase.myCards.setConnection(dbURL);
 		try {
 					
 			String testKategorie = "CREATE TABLE IF NOT EXISTS Kategorie "

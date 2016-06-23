@@ -1,22 +1,34 @@
 package database;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
-import java.sql.Statement;
 import java.util.ArrayList;
 
+import database.sql.Attribute;
+import database.sql.Entity;
+import database.sql.ForeignKey;
 import debug.Logger;
 
 
-public class Stack extends SQLiteConnector {
+public class StackEntity extends Entity {
 
 	// Connectioninformationen URL & Driver
 
-	private static String	url		= "jdbc:sqlite:" + globals.Environment.getDatabasePath()
-			+ globals.Globals.db_name + ".db";
-	private static String	driver	= "org.sqlite.JDBC";
-
+	/**
+	 * @param tabName
+	 */
+	public StackEntity(String tabName) {
+		super(tabName,"PK_"+tabName);
+		// set table attributes
+		Attribute a = new Attribute("Name");
+		myAttributes.add(a);
+		a = new Attribute("Description");
+		myAttributes.add(a);
+		ForeignKey f = new ForeignKey("PK_DOOR");
+		myAttributes.add(f);
+		f = new ForeignKey("PK_USER");
+		myAttributes.add(f);
+		createTableIfNotExists();
+	}
 	/**
 	 * 
 	 * Methode, zum Einfügen einer neuen Kategorie
@@ -27,37 +39,20 @@ public class Stack extends SQLiteConnector {
 	 *            --> String Doorname, zu welcher die Kategorie gehört
 	 */
 
-	public static int newStack (String eingabe, String fk_door) {
+	public int newStack (String eingabe, String fk_door) {
 
-		Connection c = null;
-		Statement stmt = null;
 		Integer FK_ID = 0;
 		Integer errorMsg = 0;
-
 		try {
-
-			// Datenbankverbindung erstellen
-
-			Class.forName(driver);
-			c = DriverManager.getConnection(url);
-			stmt = c.createStatement();
-
 			// Tabelle Kategorie erstellen, sofern sie nicht existiert
-
 			String sql = "CREATE TABLE IF NOT EXISTS Kategorie "
 					+ "(PK_Kategorie INTEGER PRIMARY KEY AUTOINCREMENT,"
 					+ " Kategorie TEXT NOT NULL,"
 					+ " FK_Door INTEGER NOT NULL)";
-
 			stmt.executeUpdate(sql);
-
 			// SELECT Befehl, welcher die ID der Tür abruft, in welcher die
 			// Kategorie erstellt wird
-
-			c.setAutoCommit(false);
 			ResultSet id = stmt.executeQuery("SELECT PK_Doors FROM Doors WHERE Doorname = '" + fk_door + "'");
-			c.setAutoCommit(true);
-
 			// Überprüft, ob die Tür exisitert oder nicht
 
 			if (id.next()) {
@@ -65,17 +60,11 @@ public class Stack extends SQLiteConnector {
 				id.close();
 			}
 			else {
-				closeDB();
 				return -1;
 			}
-
-			c.setAutoCommit(false);
 			ResultSet check = stmt.executeQuery("SELECT * FROM Kategorie WHERE Kategorie = '" + eingabe + "'");
-			c.setAutoCommit(true);
-
 			if (check.next()) {
 				check.close();
-				closeDB();
 				return -2;
 			}
 			else {
@@ -83,23 +72,19 @@ public class Stack extends SQLiteConnector {
 			}
 			// Erstellt die neue Kategorie als Eintrag in der Datenbank mit
 			// einem Fremdkey für die Tür
-
 			String insert = "INSERT INTO Kategorie (Kategorie, FK_Door)" +
 					"VALUES ('" + eingabe + "', " + FK_ID + ")";
 			stmt.executeUpdate(insert);
 		}
 		catch (Exception e) {
-			Logger.log("Database.newStack(): " + e.getMessage());
+			Logger.out("Database.newStack(): " + e.getMessage());
 		}
-		closeDB();
 		return errorMsg;
 
 	}
 
-	public static ArrayList<String> getKategorien (String doorname) {
+	public ArrayList<String> getKategorien (String doorname) {
 
-		Connection c = null;
-		Statement stmt = null;
 		Integer FK_ID = 0;
 
 		ArrayList<String> datensatz = new ArrayList<String>();
@@ -110,55 +95,30 @@ public class Stack extends SQLiteConnector {
 				+ " FK_Door INTEGER NOT NULL);";
 
 		try {
-
-			// Verbindung erstellen
-
-			Class.forName(driver);
-			c = DriverManager.getConnection(url);
-			stmt = c.createStatement();
-
 			// Tabelle generieren, falls nicht vorhanden
-
 			stmt.executeUpdate(sql);
-			debug.Debugger.out("Database.getKategorie("+sql+"): ");
-
 			// Abfrage, ob die Tür bereits existiert
 			sql = "SELECT PK_Doors FROM Doors WHERE Doorname = '" + doorname + "';";
-			c.setAutoCommit(false);
 			ResultSet id = stmt.executeQuery(sql);
-			c.setAutoCommit(true);
-			debug.Debugger.out("Database.getKategorie("+sql+"): ");
-
 			if (id.next()) {
 				FK_ID = id.getInt("PK_Doors");
 			}
 			else {
-				debug.Debugger.out("Keine Kategorien mit dieser Tür vorhanden");
 				FK_ID = 0;
 			}
-
 			id.close();
-
 			// Alle Sets ausgeben, welche in dieser Tür enthalten sind
 			sql = "SELECT * FROM Kategorie WHERE FK_Door = " + FK_ID + ";";
-			c.setAutoCommit(false);
 			ResultSet rs = stmt.executeQuery(sql);
-			c.setAutoCommit(true);
-
 			// Daten werden in die Liste geschrieben
-
 			while (rs.next()) {
 				datensatz.add(rs.getString("Kategorie"));
 			}
-
 			rs.close();
 		}
 		catch (Exception e) {
-			if (doorname == null) doorname = "{null}";
-			debug.Debugger.out("Database.getKategorie("+doorname+"): " + e.getMessage());
-			Logger.log("Database.getKategorie("+doorname+"): " + e.getMessage());
+			Logger.out("Database.getKategorie("+doorname+"): " + e.getMessage());
 		}
-		closeDB();
 		return datensatz;
 	}
 
@@ -168,55 +128,33 @@ public class Stack extends SQLiteConnector {
 	 * @param category
 	 *            --> Name der zu löschenden Kategorie
 	 */
-	public static boolean delStack (String category) {
+	public boolean delStack (String category) {
 
-		Connection c = null;
-		Statement stmt = null;
 		boolean worked = false;
 		String sql = null;
 		try {
-
-			// Verbindung erstellen
-
-			Class.forName(driver);
-			c = DriverManager.getConnection(url);
-			stmt = c.createStatement();
-
 			// Tabelle generieren wenn nicht vorhanden
-
 			sql = "CREATE TABLE IF NOT EXISTS Kategorie "
 					+ "(PK_Kategorie INTEGER PRIMARY KEY AUTOINCREMENT,"
 					+ " Kategorie TEXT NOT NULL,"
 					+ " FK_Door INTEGER NOT NULL);";
 			stmt.executeUpdate(sql);
-
 			// Abfragen, ob zu löschende Kategorie vorhanden ist oder nicht.
 			// Wenn ja, wird gelöscht
 			sql = "SELECT Kategorie FROM Kategorie WHERE"+ " Kategorie = '" + category + "';";
-			c.setAutoCommit(false);
 			ResultSet del = stmt.executeQuery(sql);
-			debug.Debugger.out("Stack.delStack(" + sql +"): Size="+del.getFetchSize());
-			c.setAutoCommit(true);
 			Integer setID  = del.getInt("Kategorie");
-			debug.Debugger.out("Stack.delStack(" + category +"): ID="+setID);
-
 			boolean contin = del.next();
 			del.close();
-
 			if (contin) {
 				try {
 					sql = "DELETE FROM Stock WHERE Set_ID = " + setID + ";";
-					int ret = stmt.executeUpdate(sql);
-					debug.Debugger.out("Stack.delStack(" + sql +"):"+ret);
+					stmt.executeUpdate(sql);
 				} catch (Exception e) {
-					debug.Debugger.out("Stack.delStack(" + sql +")...");
-					debug.Debugger.out("Stack.delStack(" + category +"): " + e.getMessage());
-					Logger.log("Stack.delStack(" + category +"): " + e.getMessage());
+					Logger.out("Stack.delStack(" + category +"): " + e.getMessage());
 				}
 				sql = "DELETE FROM Kategorie WHERE Kategorie = '" + category + "';";
-				int ret = stmt.executeUpdate(sql);
-				debug.Debugger.out("Stack.delStack(" + sql +"):"+ret);
-
+				stmt.executeUpdate(sql);
 				worked = true;
 			}
 			else {
@@ -224,38 +162,23 @@ public class Stack extends SQLiteConnector {
 			}
 		}
 		catch (Exception e) {
-			debug.Debugger.out("Stack.delStack(" + sql +")...");
-			debug.Debugger.out("Stack.delStack(" + category +"): " + e.getMessage());
-			Logger.log("Stack.delStack(" + category +"): " + e.getMessage());
+			Logger.out("Stack.delStack(" + category +"): " + e.getMessage());
 		}
-		closeDB();
 		return worked;
 	}
 
-	public static ArrayList<String> getStacknames () {
-
-		Connection c = null;
-		Statement stmt = null;
-
+	public ArrayList<String> getStacknames () {
 		ArrayList<String> Stacks = new ArrayList<String>();
 
 		try {
-			Class.forName(driver);
-			c = DriverManager.getConnection(url);
-			stmt = c.createStatement();
-
 			// Tabelle generieren, falls nicht vorhanden
-
 			String sql = "CREATE TABLE IF NOT EXISTS Kategorie "
 					+ "(PK_Kategorie INTEGER PRIMARY KEY AUTOINCREMENT,"
 					+ " Kategorie TEXT NOT NULL,"
 					+ " FK_Door INTEGER NOT NULL)";
 
 			stmt.executeUpdate(sql);
-
-			c.setAutoCommit(false);
 			ResultSet StackSet = stmt.executeQuery("SELECT Kategorie FROM Kategorie");
-			c.setAutoCommit(true);
 			if (StackSet.isAfterLast()) {
 				Stacks = null;
 			}
@@ -266,99 +189,57 @@ public class Stack extends SQLiteConnector {
 					Stacks.add(StackSet.getString("Kategorie"));
 				}
 			}
-
 			StackSet.close();
 		}
 		catch (Exception e) {
-			Logger.log("Database.getStackNames(): " + e.getMessage());
+			Logger.out("Database.getStackNames(): " + e.getMessage());
 		}
-		closeDB();
 		return Stacks;
 	}
 
 	public int getStackID (String KategorieName) {
 		int ID = 0;
-
-		Connection c = null;
-		Statement stmt = null;
-
 		try {
-
-			Class.forName(driver);
-			c = DriverManager.getConnection(url);
-			stmt = c.createStatement();
-
 			String sql = "CREATE TABLE IF NOT EXISTS Kategorie "
 					+ "(PK_Kategorie INTEGER PRIMARY KEY AUTOINCREMENT,"
 					+ " Kategorie TEXT NOT NULL,"
 					+ " FK_Door INTEGER NOT NULL)";
-
 			stmt.executeUpdate(sql);
-			c.setAutoCommit(false);
 			ResultSet StackSet = stmt
 					.executeQuery("SELECT PK_Kategorie FROM Kategorie WHERE Kategorie = '" + KategorieName + "'");
-			c.setAutoCommit(true);
-
 			ID = Integer.parseInt(StackSet.getString(StackSet.getInt(1)));
-
 			StackSet.close();
 		}
 		catch (Exception e) {
-			Logger.log("Database.getStackID(): " + e.getMessage());
+			Logger.out("Database.getStackID(): " + e.getMessage());
 		}
-		closeDB();
 		return ID;
 	}
 
-	public static boolean possible (String boxName) {
-
-		Connection c = null;
-		Statement stmt = null;
-
+	public boolean possible (String boxName) {
 		try {
-			Class.forName(driver);
-			c = DriverManager.getConnection(url);
-			stmt = c.createStatement();
-
 			String sql = "SELECT * FROM Kategorie WHERE Kategorie = '" + boxName + "';";
-			c.setAutoCommit(false);
 			ResultSet checkPossible = stmt.executeQuery(sql);
-			c.setAutoCommit(true);
-
 			if (checkPossible.next()) {
 				checkPossible.close();
-				closeDB();
 				return false;
 			}
 			else {
 				checkPossible.close();
-				closeDB();
 				return true;
 			}
 
 		}
 		catch (Exception e) {
-			Logger.log("Database.possible(): " + e.getMessage());
+			Logger.out("Database.possible(): " + e.getMessage());
 		}
-		closeDB();
 		return false;
 	}
 
-	public static boolean update (String oldName, String newName) {
-
-		Connection c = null;
-		Statement stmt = null;
+	public boolean update (String oldName, String newName) {
 		boolean worked = true;
-
 		try {
-			Class.forName(driver);
-			c = DriverManager.getConnection(url);
-			stmt = c.createStatement();
-
-			c.setAutoCommit(false);
 			ResultSet checkStack = stmt.executeQuery("SELECT * FROM Kategorie WHERE Kategorie = '" + oldName + "';");
-			c.setAutoCommit(true);
-
 			if (checkStack.next()) {
 				String updateStack = "UPDATE Kategorie SET Kategorie = '" + newName + "' WHERE Kategorie = '" + oldName + "';";
 				stmt.executeUpdate(updateStack);
@@ -371,9 +252,8 @@ public class Stack extends SQLiteConnector {
 			}
 		}
 		catch (Exception e) {
-			Logger.log("Database.update(): " + e.getMessage());
+			Logger.out("Database.update(): " + e.getMessage());
 		}
-		closeDB();
 		return worked;
 	}
 }

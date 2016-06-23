@@ -2,7 +2,7 @@ package models;
 
 import java.util.ArrayList;
 
-import database.CardEntity;
+import database.LKDatabase;
 import debug.Debugger;
 import debug.Supervisor;
 import globals.Globals;
@@ -10,8 +10,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.chart.XYChart;
 import mvc.fx.FXModel;
-import statistics.Rangliste;
 import statistics.Diagramm;
+import statistics.Rangliste;
 
 
 public class StatisticsModel extends FXModel
@@ -62,21 +62,21 @@ public class StatisticsModel extends FXModel
 		String[] Decision = CombinedString.split(Globals.SEPARATOR);
 		if (Decision[1].equals("end"))
 		{
-			Double[] doubleArray = CardEntity.getScore(Decision[0]);
+			Double[] doubleArray = LKDatabase.myCards.getScore(Decision[0]);
 			temp.clear();
 			temp.add(100 / doubleArray[0] * doubleArray[1]);
 			return temp;
 		}
 		else if (Decision[1].equals("difference"))
 		{
-			Double[] doubleArray = CardEntity.getScore(Decision[0]);
+			Double[] doubleArray = LKDatabase.myCards.getScore(Decision[0]);
 			temp.clear();
 			temp.add((100 / doubleArray[0] * doubleArray[1]) - tempStart);
 			return temp;
 		}
 		else if (Decision[1].equals("start"))
 		{
-			Double[] doubleArray = CardEntity.getScore(Decision[0]);
+			Double[] doubleArray = LKDatabase.myCards.getScore(Decision[0]);
 			if (doubleArray != null)
 			{
 				tempStart = 100 / doubleArray[0] * doubleArray[1];

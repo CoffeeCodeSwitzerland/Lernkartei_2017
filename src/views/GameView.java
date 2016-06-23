@@ -5,6 +5,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import database.LKDatabase;
 import models.GameModel;
 import mvc.ModelInterface.Command;
 import mvc.fx.FXController;
@@ -71,13 +72,13 @@ public class GameView extends FXView {
 
 	public void refreshView() {
 
-		if (database.UserEntity.getLifecount() == 0) {
+		if (LKDatabase.myUsers.getLifecount() == 0) {
 			btn.setDisable(true);  
 			grund.setText("Sie müssen zuerst Lernen!");
-			lifes.setText("Lifes: " + database.UserEntity.getLifecount());
+			lifes.setText("Lifes: " + LKDatabase.myUsers.getLifecount());
 		} else { 
 			btn.setDisable(false); 
-			lifes.setText("Lifes: " + database.UserEntity.getLifecount()); 
+			lifes.setText("Lifes: " + LKDatabase.myUsers.getLifecount()); 
 		}
 
 	}

@@ -2,7 +2,7 @@ package models;
 
 import java.util.ArrayList;
 
-import database.Stack;
+import database.LKDatabase;
 import debug.Supervisor;
 import mvc.Model;
 
@@ -29,21 +29,21 @@ public class StackModel extends Model
 		{
 			case NEW:
 				if (param.length != 2) { return -2; }
-				int newIsSuccessful = Stack.newStack(param[0], param[1]);
+				int newIsSuccessful = LKDatabase.myStacks.newStack(param[0], param[1]);
 				refreshViews(); // TODO siehe kommentar von 'case DELETE'
 				return newIsSuccessful;
 			case UPDATE:
 				if (param.length != 2) { return -2; }
-				boolean updateIsSuccessful = Stack.update(param[0], param[1]);
+				boolean updateIsSuccessful = LKDatabase.myStacks.update(param[0], param[1]);
 				return updateIsSuccessful ? 1 : -1;
 			case DELETE:
 				if (param.length != 1) { return -2; }
-				boolean successfulDelete = Stack.delStack(param[0]);
+				boolean successfulDelete = LKDatabase.myStacks.delStack(param[0]);
 				refreshViews(); // TODO überprüfen ob nötig oder ob view stack selbst löschen kann.
 				return successfulDelete ? 1 : -1;
 			case CAN_CREATE:
 				if (param.length != 1) { return -2; }
-				boolean canCreate = Stack.possible(param[0]);
+				boolean canCreate = LKDatabase.myStacks.possible(param[0]);
 				return canCreate ? 1 : -1;
 			default:
 				int superIsSuccessful = super.doAction(command, param);
@@ -57,6 +57,6 @@ public class StackModel extends Model
 		// query = Name der Tür
 		// Return: ArrayList<String> mit allen Kategorien
 
-		return database.Stack.getKategorien(query);
+		return LKDatabase.myStacks.getKategorien(query);
 	}
 }

@@ -2,7 +2,7 @@ package models;
 
 import java.util.ArrayList;
 
-import database.Config;
+import database.LKDatabase;
 import mvc.Model;
 
 
@@ -15,7 +15,7 @@ public class ConfigModel extends Model
 		{
 			case SET:
 				if (param.length != 2) { return -2; }
-				Config.setValue(param[0], param[1]);
+				LKDatabase.myConfig.getMyAttributes().seekKeyNamed(param[0]).setValue(param[1]);
 				return 1;
 
 			default:
@@ -28,8 +28,7 @@ public class ConfigModel extends Model
 	public ArrayList<String> getDataList (String query)
 	{
 		ArrayList<String> values = new ArrayList<String>();
-		values.add(database.Config.getValue(query));
-
+		values.add(LKDatabase.myConfig.getValue(query));
 		return values;
 	}
 

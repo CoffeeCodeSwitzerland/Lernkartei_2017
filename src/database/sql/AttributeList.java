@@ -150,13 +150,15 @@ public class AttributeList {
 			for (int i = 0; i < size; i++) {
 				if (myAttributes.get(i) != null) {
 					Attribute a = myAttributes.get(i);
-					if (a.getName().equals(seekName)) {
+					debug.Debugger.out("ATT("+a.getName().toLowerCase()+") ?= '"+seekName.toLowerCase()+"'");
+					if (a.getName().toLowerCase().equals(seekName.toLowerCase())) {
 						return a;
 					}
 				}
 			}
+			Logger.out("key not found in list of ("+size+")!", seekName);
 		} else {
-			Logger.out("key not found!", seekName);
+			Logger.out("list is empty, key not found!", seekName);
 		}
 		return null;
 	}
@@ -188,7 +190,7 @@ public class AttributeList {
 					if (a != null) {
 						if (!(addPK == false && a.isPrimary())) {
 							keyList += a.getName();
-							if (i < size - 1)
+							if (i < size - 1 -((addPK)?0:1))
 								keyList += ",";
 						}
 					}
@@ -225,7 +227,7 @@ public class AttributeList {
 								value = "0";
 							valueList += value;
 						}
-						if (i < size - 1)
+						if (i < size - 1 - ((addPrimary)?0:1))
 							valueList += ",";
 						}
 				}

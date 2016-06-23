@@ -221,7 +221,10 @@ public class Entity extends SQLiteDriver {
 		}
 		return -1;
 	}
-
+	
+	public String getValue (String query) {
+		return seekInTable(VALUE, KEY_NAME, query);
+	}
 	/**
 	 * set or update an new key with that value
 	 * 

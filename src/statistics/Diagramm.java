@@ -1,10 +1,10 @@
 package statistics;
 
 import java.util.ArrayList;
-import database.Stack;
+
+import database.LKDatabase;
 import debug.Debugger;
 import debug.Logger;
-import database.CardEntity;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.chart.XYChart;
@@ -18,14 +18,14 @@ public class Diagramm
 
 	private static ArrayList<String> getKarteien()
 	{
-			return Stacks = Stack.getStacknames();
+			return Stacks = LKDatabase.myStacks.getStacknames();
 	}
 
 	private static ArrayList<Double> getPunkte()
 	{
 				for (int i = 0; i < Stacks.size(); i++)
 				{
-					Double[] temp = CardEntity.getScore(Stacks.get(i).toString());
+					Double[] temp = LKDatabase.myCards.getScore(Stacks.get(i).toString());
 					Double result = (100 / temp[0]) * temp[1];
 					Punkte.add(result);
 				}

@@ -11,7 +11,7 @@ import debug.Logger;
 public abstract class SQLiteDriver extends DBDriver {
 
 	private final static String sqlDriver = "org.sqlite.JDBC";
-	protected String urlBase = "jdbc:sqlite:" + globals.Environment.getDatabasePath();
+	protected static String urlBase = "jdbc:sqlite:" + globals.Environment.getDatabasePath();
 	private String dbURL;
 
 	public SQLiteDriver () {

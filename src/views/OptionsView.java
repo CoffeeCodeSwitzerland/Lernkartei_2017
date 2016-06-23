@@ -67,9 +67,10 @@ public class OptionsView extends FXView
 		checkboxLabels.put(ConfigKeys.tooltipp, "Nur Stapel ohne Bilder");
 		
 		Label cardLimitDescription = new Label(descTxtCardLimit);
+
 		cardLearnLimit = new TextField(getFXController().getModel("config").getDataList("cardLimit").get(0)); // Achtung
 
-		lastValidCardLimit = cardLearnLimit.getText();
+		//lastValidCardLimit = cardLearnLimit.getText();
 
 		cardLimitDescription.setWrapText(true);
 		cardLearnLimit.focusedProperty().addListener(e ->

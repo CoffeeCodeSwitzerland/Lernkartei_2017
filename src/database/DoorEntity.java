@@ -1,21 +1,25 @@
 package database;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
-import java.sql.Statement;
 import java.util.ArrayList;
 
+import database.sql.Attribute;
+import database.sql.Entity;
 import debug.Logger;
 
-public class Doors extends SQLiteConnector {
+public class DoorEntity extends Entity {
 
-	// URL und Driver
+//	private static String sqlCreate = "CREATE TABLE IF NOT EXISTS Doors (" +
+//										myPrimaryKey+" INTEGER PRIMARY KEY AUTOINCREMENT," +
+//										mySeekAttribute+" TEXT NOT NULL)";
+	DoorEntity (String tabName) {
+		super(tabName, tabName+"_PK");
+		// set table attributes
+		Attribute a = new Attribute("Name");
+		myAttributes.add(a);
+		createTableIfNotExists();
+	}
 
-//	private static String	url			= "jdbc:sqlite:" +  globals.Environment.getDatabasePath()
-//										 + globals.Globals.db_name + ".db";
-//	private static String	driver		= "org.sqlite.JDBC";
-//
 	/**
 	 * Methode, zum Erstellen einer neuen Türe
 	 * 
@@ -26,32 +30,19 @@ public class Doors extends SQLiteConnector {
 	 *         vorhanden
 	 *
 	 */
+	public boolean newDoor (String eingabe) {
 
-	public static boolean newDoor (String eingabe) {
-
-		Connection c = null;
-		Statement stmt = null;
 		boolean worked = false;
 
 		try {
-			Class.forName(driver);
-			c = DriverManager.getConnection(dbURL);
-			stmt = c.createStatement();
-
-			String sql = "CREATE TABLE IF NOT EXISTS Doors " +
-					"(PK_Doors INTEGER PRIMARY KEY AUTOINCREMENT," +
-					" Doorname TEXT NOT NULL)";
-
-			debug.Debugger.out(sql);
-			stmt.executeUpdate(sql);
 
 			// Überprüft, ob bereits ein Eintrag mit dem Selben Namen enthalten
 			// ist
 			
-			c.setAutoCommit(false);
-			ResultSet checkName = stmt
-					.executeQuery("SELECT Doorname FROM Doors WHERE Doorname = " + "'" + eingabe + "'");
-			c.setAutoCommit(true);
+			
+			ResultSet checkName =
+					executeQuery("SELECT Doorname FROM Doors WHERE Doorname = " + "'" + eingabe + "'");
+			
 			
 			if (!checkName.next()) {
 
@@ -62,7 +53,7 @@ public class Doors extends SQLiteConnector {
 				String insert = "INSERT INTO Doors (Doorname)" +
 						"VALUES ('" + eingabe + "')";
 
-				stmt.executeUpdate(insert);
+				executeCommand(insert);
 				worked = true;
 			}
 			else {
@@ -70,11 +61,9 @@ public class Doors extends SQLiteConnector {
 			}
 		}
 		catch (Exception e) {
-			Logger.log("Database.newDoor(): " + e.getMessage());
+			Logger.out(e.getMessage());
 		}
-		closeDB();
 		return worked;
-
 	}
 
 	/**
@@ -84,26 +73,15 @@ public class Doors extends SQLiteConnector {
 	 * @return --> Retourniert die Liste mit allen Türennamen
 	 */
 
-	public static ArrayList<String> getDoors () {
-
-		Connection c = null;
-		Statement stmt = null;
+	public ArrayList<String> getDoors () {
 
 		ArrayList<String> data = new ArrayList<String>();
 
 		try {
-			Class.forName(driver);
-			c = DriverManager.getConnection(dbURL);
-			stmt = c.createStatement();
-			
-			c.setAutoCommit(false);
 			ResultSet tbl = stmt.executeQuery("SELECT tbl_name FROM sqlite_master WHERE type='table' AND tbl_name='Doors'");
-			c.setAutoCommit(true);			
 			
 			if (tbl.next()) {
-				c.setAutoCommit(false);
 				ResultSet rs = stmt.executeQuery("SELECT Doorname FROM Doors");
-				c.setAutoCommit(true);
 				
 				while (rs.next()) {
 					String name = "";
@@ -111,18 +89,15 @@ public class Doors extends SQLiteConnector {
 					data.add(name);
 				}
 				rs.close();
-				stmt.close();
 			}
 			else {
 				debug.Debugger.out("Table Doors is not created yet.");
 			}
 		}
 		catch (Exception e) {
-			Logger.log("Database.getDoors(): " + e.getMessage());
+			Logger.out(e.getMessage());
 		}
-		closeDB();
 		return data;
-
 	}
 
 	/**
@@ -133,29 +108,17 @@ public class Doors extends SQLiteConnector {
 	 * @return --> True, Gelöscht / false, nicht Gelöscht / vorhanden
 	 */
 
-	public static boolean delDoor (String delName) {
-
-		Connection c = null;
-		Statement stmt = null;
+	public boolean delDoor (String delName) {
 		boolean worked = false;
 		ArrayList<String> setsToDel = new ArrayList<String>();
-		
 		try {
-			Class.forName(driver);
-			c = DriverManager.getConnection(dbURL);
-			stmt = c.createStatement();
-			
-			c.setAutoCommit(false);
 			ResultSet del = stmt.executeQuery("SELECT * FROM Doors WHERE Doorname = '" + delName + "'");
-			c.setAutoCommit(true);
 			
 			if (del.next()) {
 				Integer doorID = del.getInt("PK_Doors");
 				del.close();
 
-				c.setAutoCommit(false);
 				ResultSet getStacks = stmt.executeQuery("SELECT * FROM Kategorie WHERE FK_Door = " + doorID);
-				c.setAutoCommit(true);
 				
 				while (getStacks.next()) {
 					setsToDel.add(getStacks.getString("Kategorie"));
@@ -163,7 +126,7 @@ public class Doors extends SQLiteConnector {
 				
 				getStacks.close();
 				for (String s : setsToDel) {
-					database.Stack.delStack(s);
+					LKDatabase.myStacks.delStack(s);
 				}
 				
 				String delDoor = "DELETE FROM Doors WHERE Doorname = '" + delName + "'";
@@ -177,31 +140,17 @@ public class Doors extends SQLiteConnector {
 				del.close();
 				worked = false;
 			}
-
 		}
 		catch (Exception e) {
-			Logger.log("Database.delDoor(): " + e.getMessage());
+			Logger.out(e.getMessage());
 		}
-		closeDB();
 		return worked;
-
 	}
 	
-	public static boolean update(String oldName, String newName) {
-		
-		Connection c = null;
-		Statement stmt = null;
+	public boolean update(String oldName, String newName) {
 		boolean worked = true;
-		
 		try {
-			Class.forName(driver);
-			c = DriverManager.getConnection(dbURL);
-			stmt = c.createStatement();
-			
-			c.setAutoCommit(false);
-			
 			ResultSet checkDoor = stmt.executeQuery("SELECT * FROM Doors WHERE Doorname = '" + oldName + "';");
-			c.setAutoCommit(true);
 			if (checkDoor.next()) {
 				String updateDoor = "UPDATE Doors SET Doorname = '" + newName + "' WHERE Doorname = '" + oldName + "';";
 				stmt.executeUpdate(updateDoor);
@@ -211,14 +160,10 @@ public class Doors extends SQLiteConnector {
 				worked = false;
 				checkDoor.close();
 			}
-			
 		}
 		catch (Exception e) {
-			Logger.log("Database.update(): " + e.getMessage());
+			Logger.out(e.getMessage());
 		}
-		closeDB();
 		return worked;
-		
 	}
-
 }

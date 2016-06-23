@@ -2,7 +2,7 @@ package learning;
 
 import java.util.ArrayList;
 
-import database.CardEntity;
+import database.LKDatabase;
 import debug.Logger;
 import globals.Globals;
 
@@ -12,8 +12,7 @@ public class Bewertungsklasse {
 		ArrayList<String> result = new ArrayList<>();
 		ArrayList<Integer> zufallsZahlen = new ArrayList<>();
 
-		ArrayList<String[]> cards = CardEntity.pullFromStock(query);
-
+		ArrayList<String[]> cards = LKDatabase.myCards.pullFromStock(query);
 		if (cards == null) {
 			debug.Debugger.out("getData cards = null");
 			return result;
@@ -42,15 +41,15 @@ public class Bewertungsklasse {
 	// Wenn Karte Richtig ist
 	public static int cardIsCorrect(String cardID)
 	{
-		int oldPriority = CardEntity.getPriority(cardID);
+		int oldPriority = LKDatabase.myCards.getPriority(cardID);
 		
 		Logger.log("Call Upprio");
-		CardEntity.upPrio(Integer.parseInt(cardID));
+		LKDatabase.myCards.upPrio(Integer.parseInt(cardID));
 		Logger.log("End Upprio");
 		
 		datumZuweisen(cardID);
 
-		if (oldPriority <= CardEntity.getPriority(cardID))
+		if (oldPriority <= LKDatabase.myCards.getPriority(cardID))
 		{
 			return 1;
 		}
@@ -64,10 +63,10 @@ public class Bewertungsklasse {
 	public static int cardIsFalse(String cardID)
 	{
 		Logger.log("Call Resetprio");
-		CardEntity.resetPrio(Integer.parseInt(cardID));
+		LKDatabase.myCards.resetPrio(Integer.parseInt(cardID));
 		Logger.log("End Resetprio");
 
-		if (CardEntity.getPriority(cardID) == 1)
+		if (LKDatabase.myCards.getPriority(cardID) == 1)
 		{
 			return 1;
 		}

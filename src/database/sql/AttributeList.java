@@ -184,14 +184,15 @@ public class AttributeList {
 		int size = myAttributes.size();
 		if (size >= 1) {
 			String keyList = "";
+			int commas =0;
 			for (int i = 0; i < size; i++) {
 				if (myAttributes.get(i) != null) {
 					Attribute a = myAttributes.get(i);
 					if (a != null) {
 						if (!(addPK == false && a.isPrimary())) {
 							keyList += a.getName();
-							if (i < size - 1 /*-((addPK)?0:1)*/)
-								keyList += ",";
+							if (commas < size - 1 -((addPK==true)?0:1))
+								keyList += ","; commas++;
 						}
 					}
 				}
@@ -213,6 +214,7 @@ public class AttributeList {
 		int size = myAttributes.size();
 		if (size >= 1) {
 			String valueList = "";
+			int commas=0;
 			for (int i = 0; i < size; i++) {
 				Attribute a = myAttributes.get(i);
 				if (a != null) {
@@ -227,8 +229,12 @@ public class AttributeList {
 								value = "0";
 							valueList += value;
 						}
-						if (i < size - 1 /*- ((addPrimary)?0:1)*/)
+						if (commas < (size - 1 - ((addPrimary==true)?0:1))) {
+							//debug.Debugger.out("VAL:"+value+":"+i+"/"+size+"/"+addPrimary);
 							valueList += ",";
+							commas++;
+						}
+						//debug.Debugger.out("("+i+")");
 					}
 				}
 			}

@@ -26,14 +26,14 @@ public class HoverButton extends VBox {
 			 *  this all is to be more efficient when handling the event below
 			 */
 // TODO move to model
-//			tooltipEnable = v.getFXController().getModel("config").getDataList("tooltipp").get(0);
-//			isTooltipActif = true;
-//			if (tooltipEnable == null) {
-//				v.getFXController().getModel("config").doAction(Command.SET,"tooltipp","false");
-//			}
-//			if (tooltipEnable != null && tooltipEnable.equals("true")) {
-//				isTooltipActif = false;
-//			}
+			tooltipEnable = v.getFXController().getModel("config").getDataList("tooltipp").get(0);
+			isTooltipActif = true;
+			if (tooltipEnable == null) {
+				v.getFXController().getModel("config").doAction(Command.SET,"tooltipp","false");
+			}
+			if (tooltipEnable != null && tooltipEnable.equals("true")) {
+				isTooltipActif = false;
+			}
 		}
 	    BorderPane bp = new BorderPane();
 	    bp.setOnMouseEntered( e -> {

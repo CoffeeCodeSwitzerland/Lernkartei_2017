@@ -79,7 +79,7 @@ public abstract class SQLHandler {
 				// there must be a correct where clause!
 				String whereClause = toWhereClause(keyName, keyValue, dType);
 				if (!whereClause.equals("")) {
-					return "DELETE FROM " + tableName + whereClause;
+					return "DELETE FROM " + tableName +" " + whereClause;
 				} else {
 					Logger.out("invalid data for a correct delete!", tableName);
 				}

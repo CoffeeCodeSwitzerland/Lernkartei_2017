@@ -1,6 +1,5 @@
 package database;
 
-import java.sql.ResultSet;
 import java.util.ArrayList;
 
 import database.sql.Attribute;
@@ -22,16 +21,16 @@ public class CardEntity extends Entity {
 		myAttributes.add(a);
 		a = new Attribute("Backside");
 		myAttributes.add(a);
+		ForeignKey f = new ForeignKey("PK_STACK");
+		myAttributes.add(f);
+		KeyAttribute k = new KeyAttribute("Priority",0,"1");
+		myAttributes.add(k);
+		a = new Attribute("Color");
+		myAttributes.add(a);
 		a = new Attribute("Description");
 		myAttributes.add(a);
 		a = new Attribute("Date");
 		myAttributes.add(a);
-		a = new Attribute("Color");
-		myAttributes.add(a);
-		KeyAttribute k = new KeyAttribute("Priority",0,"1");
-		myAttributes.add(k);
-		ForeignKey f = new ForeignKey("PK_STACK");
-		myAttributes.add(f);
 		createTableIfNotExists();
 	}
 
@@ -58,35 +57,35 @@ public class CardEntity extends Entity {
 	 * Keine neue Instanz Database erstellen, sondern nur die Methode benutzen
 	 * 
 	 * @param values
-	 *            --> Array mit 5 Werten: 1. Vorderseite, 2. Rückseite, 3.
-	 *            Set_ID, 4. Priorität (1-5), 5. Color
+	 *            --> Array mit 5 Werten: 1. Vorderseite, 2. Rückseite, 3. PK_Stack
+	 *            4. Priorität (1-5), 5. Color
 	 * @  deprecated
 	 */
 	public boolean pushToStock (String[] values) {
 		try {
-			// TO DO should accept attribute list only 
-			//&setLastResultSet(seekInTable("STACK", values[2]));
-			setLastSQLCommand(SQLHandler.selectCommand(getMyTableName(),"PK_STACK","PK_STACK",values[2])); 
+			String id = values[4];
+			setLastSQLCommand(SQLHandler.selectCommand("STACK","PK_STACK","name",id)); 
 			setLastResultSet(executeQuery(getLastSQLCommand()));
-//			ResultSet selectSet = seekInTable("??", values[2]);
-//			ResultSet selectSet = stmt
-//			.executeQuery("SELECT PK_Kategorie FROM Kategorie WHERE Kategorie = '" + values[2] + "'");
-//			
+			debug.Debugger.out(getLastSQLCommand());
+			// "SELECT PK_Kategorie FROM Kategorie WHERE Kategorie = '" + values[2] + "'"
 			String setID;
 			if (getLastResultSet().next()) {
 				setID = Integer.toString(getLastResultSet().getInt("PK_Stack"));
 				getLastResultSet().close();
 			} else {
 				getLastResultSet().close();
-				Logger.out("no Door's in database for Stack"+values[2]+"!",this.getMyTableName());
+				Logger.out("...1. no Stack in database for '"+id+"'!",getMyTableName());
 				return false;
 			}
-			String attributeList = myAttributes.getCommaSeparatedList();
-			values[2] = setID;
+			values[4] = setID;
+			String attributeList = myAttributes.getCommaSeparatedList(false);
+//			myAttributes.seekKeyNamed("Frontside").setValue(value[0]);
+//			myAttributes.seekKeyNamed("Backside").setValue(value[1]);
+//			myAttributes.seekKeyNamed("Priority").setValue(value[3]);
+//			myAttributes.seekKeyNamed("Color").setValue(value[4]);
 			int inserts = insertIntoTable(attributeList, values);
 //			String insert = "INSERT INTO Stock (Frontside, Backside, Set_ID, Priority, Color)" + "VALUES ('" + values[0]
 //					+ "','" + values[1] + "'," + setID + ", " + values[3] + ", '" + values[4] + "')";
-//			stmt.executeUpdate(insert);
 			if (inserts > 0 ) return true;
 			else 
 				Logger.out("no inserts could be performed!",this.getMyTableName());
@@ -94,7 +93,6 @@ public class CardEntity extends Entity {
 			Logger.out(e.getMessage());
 		}
 		return false;
-
 	}
 
 	/**
@@ -109,14 +107,16 @@ public class CardEntity extends Entity {
 		ArrayList<String[]> results = new ArrayList<String[]>();
 
 		try {
-			setLastResultSet(seekInTable("STACK", whichSet));
+			setLastSQLCommand(SQLHandler.selectCommand("STACK","PK_STACK","name",whichSet)); 
+			setLastResultSet(executeQuery(getLastSQLCommand()));
+			//setLastResultSet(seekInTable("STACK", whichSet));
 			//ResultSet s = stmt.executeQuery("SELECT PK_Kategorie FROM Kategorie WHERE Kategorie = '" + whichSet + "'");
 			String ID_SET="0";
 			if (getLastResultSet().next()) {
 				ID_SET = Integer.toString(getLastResultSet().getInt("PK_STACK"));
 				getLastResultSet().close();
 			} else {
-				Logger.out("no Stocks's in database for "+whichSet+"!",getMyTableName());
+				Logger.out("...2. no Stack's in database for "+whichSet+"!",getMyTableName());
 				getLastResultSet().close();
 				return null;
 			}
@@ -144,7 +144,8 @@ public class CardEntity extends Entity {
 	}
 
 	public boolean delEntry(String id) {
-		setLastSQLCommand(SQLHandler.deleteEntryCommand("STACK", "PK_STACK", id)); 
+		setLastSQLCommand(SQLHandler.deleteEntryCommand(getMyTableName(), "PK_CARD", id)); 
+		debug.Debugger.out(getLastSQLCommand());
 		return (executeCommand(getLastSQLCommand())>=0)?true:false;
 	}
 
@@ -163,8 +164,9 @@ public class CardEntity extends Entity {
 	public boolean editEntry(String id, String frontside, String backside) {
 
 		try {
-			setLastSQLCommand(SQLHandler.selectCommand(getMyTableName(),null,"PK_STACK",id)); 
+			setLastSQLCommand(SQLHandler.selectCommand(getMyTableName(),null,"PK_CARD",id)); 
 			setLastResultSet(executeQuery(getLastSQLCommand()));
+			debug.Debugger.out(getLastSQLCommand());
 			//String sel = "SELECT * FROM Stock WHERE PK_Stk = " + id;
 			if (!getLastResultSet().next()) {
 				getLastResultSet().close();
@@ -196,8 +198,9 @@ public class CardEntity extends Entity {
 		Integer oldPrio = null;
 		String newPrio = "";
 		try {
-			setLastSQLCommand(SQLHandler.selectCommand(getMyTableName(),"Priority","PK_STACK", PK_ID.toString())); 
+			setLastSQLCommand(SQLHandler.selectCommand(getMyTableName(),"Priority","PK_CARD", PK_ID.toString())); 
 			setLastResultSet(executeQuery(getLastSQLCommand()));
+			debug.Debugger.out(getLastSQLCommand());
 			//String sel = "SELECT * FROM Stock WHERE PK_Stk = " + id;
 			//.executeQuery("SELECT Priority FROM Stock WHERE PK_Stk = " + PK_ID.toString());
 
@@ -205,11 +208,11 @@ public class CardEntity extends Entity {
 			// Frage die Aktuelle Priorität ab
 
 			// Überprüft ob vorhanden oder nicht
-				oldPrio = getLastResultSet().getInt("PK_STACK");
+				oldPrio = getLastResultSet().getInt("PK_CARD");
 				getLastResultSet().close();
 			}
 			else {
-				debug.Debugger.out("No Card with PK_STACK='"+PK_ID.toString()+"' exists.");
+				debug.Debugger.out("No Card with PK_CARD='"+PK_ID.toString()+"' exists.");
 				getLastResultSet().close();
 			}
 
@@ -227,6 +230,7 @@ public class CardEntity extends Entity {
 			Attribute k = new Attribute("Priority",newPrio);
 			setLastSQLCommand(SQLHandler.updateInTableCommand(getMyTableName(),myAttributes,k)); 
 			executeCommand(getLastSQLCommand());
+			debug.Debugger.out(getLastSQLCommand());
 			// "UPDATE Stock SET Priority = " + newPrio + " WHERE PK_Stk = " + PK_ID;
 		}
 		catch (Exception e) {
@@ -248,6 +252,7 @@ public class CardEntity extends Entity {
 			Attribute k = new Attribute("PK_Stack",PK_ID);
 			setLastSQLCommand(SQLHandler.updateInTableCommand(getMyTableName(),myAttributes,k));
 			executeCommand(getLastSQLCommand());
+			debug.Debugger.out(getLastSQLCommand());
 			// "UPDATE Stock SET Priority = 1 WHERE PK_Stk = " + PK_ID;
 		}
 		catch (Exception e) {
@@ -264,13 +269,14 @@ public class CardEntity extends Entity {
 	public int getPriority (String ID_Card) {
 		int prio = 0;
 		try {
-			setLastSQLCommand(SQLHandler.selectCommand("STACK","Priority","PK_STACK", ID_Card)); 
+			setLastSQLCommand(SQLHandler.selectCommand(getMyTableName(),"Priority","PK_CARD", ID_Card)); 
 			setLastResultSet(executeQuery(getLastSQLCommand()));
+			debug.Debugger.out(getLastSQLCommand());
 			// "SELECT Priority FROM Stock WHERE PK_Stk = " + ID_Card;
 			if (getLastResultSet().next()) {
 				prio = getLastResultSet().getInt("Priority");
 			} else {
-				debug.Debugger.out("No such Cards exists in stock @ ID ("+ID_Card+")!");
+				debug.Debugger.out("No such Cards exists with PK_CARD ("+ID_Card+")!");
 			}
 		}
 		catch (Exception e) {
@@ -299,6 +305,7 @@ public class CardEntity extends Entity {
 			setLastSQLCommand("SELECT Priority FROM CARD WHERE PK_STACK = (SELECT PK_STACK FROM STACK"
 								+ " WHERE name = '" + whichSet + "')");
 			setLastResultSet(executeQuery(getLastSQLCommand()));
+			debug.Debugger.out(getLastSQLCommand());
 			// Durch loopen und die Maximale sowie die Erreichte Punktzahl
 			// speichern
 

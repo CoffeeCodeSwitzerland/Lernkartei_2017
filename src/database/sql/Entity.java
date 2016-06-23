@@ -72,7 +72,7 @@ public class Entity extends SQLiteDriver {
 	}
 
 	public void addAttributes(AttributeList aList) {
-		if (isCreated) myError("is crated, no more attributes may be added!", aList.getCommaSeparatedList());
+		if (isCreated) myError("is crated, no more attributes may be added!", aList.getCommaSeparatedList(true));
 		else myAttributes.add(aList);
 	}
 
@@ -189,7 +189,7 @@ public class Entity extends SQLiteDriver {
 			lastSQLCommand = SQLHandler.selectCommand(myTableName, attributes);
 			return executeQuery(lastSQLCommand);
 		} catch (Exception e) {
-			myError(e,attributes.getCommaSeparatedList());
+			myError(e,attributes.getCommaSeparatedList(true));
 		}
 		return null;
 	}

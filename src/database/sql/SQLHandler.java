@@ -49,7 +49,7 @@ public abstract class SQLHandler {
 	 */
 	public static String createTableIfNotExistsCommand(String tableName, AttributeList attributes) {
 		if (tableName != null && attributes != null && !tableName.equals("")) {
-			String attrList = attributes.getCommaSeparatedList();
+			String attrList = attributes.getCommaSeparatedList(true);
 			if (!attrList.equals(""))
 				return "CREATE TABLE IF NOT EXISTS " + tableName + " " + "(" + attrList + ")";
 			else 

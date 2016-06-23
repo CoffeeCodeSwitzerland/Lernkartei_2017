@@ -48,14 +48,16 @@ public class AttributeList {
 		return myAttributes.get(i);
 	}
 
-	public String getCommaSeparatedList() {
+	public String getCommaSeparatedList(boolean addPrimary) {
 		int size = myAttributes.size();
+		int commas =0;
+		int primKey =0;
 		if (size >= 1) {
 			String attributeList = "";
 			for (int i = 0; i < size; i++) {
 				if (myAttributes.get(i) != null) {
 					Attribute a = myAttributes.get(i);
-					attributeList += a.getName();
+					if (a.isPrimary()) primKey=1;
 					int o;
 					switch (a.getType()) {
 					case INT:
@@ -72,9 +74,12 @@ public class AttributeList {
 						o = Attribute.Datatype.TEXT.ordinal();
 						break;
 					}
-					attributeList += " " + Attribute.SQLDataTypes[o];
-					if (i != size - 1) {
-						attributeList += ",";
+					if (!(a.isPrimary() && addPrimary==false)) {
+						attributeList += a.getName() + " " + Attribute.SQLDataTypes[o];
+						if (commas < size - 1 - ((addPrimary==true) ? 0:primKey) ) {
+							attributeList += ",";
+							commas++;
+						}
 					}
 				}
 			}
@@ -112,7 +117,7 @@ public class AttributeList {
 							break;
 						}
 						attributeList += Attribute.SQLDataTypes[o];
-						if (i != size - 1) {
+						if (i < size - 1) {
 							attributeList += ",";
 						}
 					}
@@ -185,14 +190,19 @@ public class AttributeList {
 		if (size >= 1) {
 			String keyList = "";
 			int commas =0;
+			int primKey=0;
 			for (int i = 0; i < size; i++) {
 				if (myAttributes.get(i) != null) {
 					Attribute a = myAttributes.get(i);
 					if (a != null) {
+						if (a.isPrimary()) primKey=1;
 						if (!(addPK == false && a.isPrimary())) {
 							keyList += a.getName();
-							if (commas < size - 1 -((addPK==true)?0:1))
-								keyList += ","; commas++;
+							if (commas < size - 1 -((addPK==true)?0:primKey)) {
+								keyList += ", "; 
+								commas++;
+							}
+							debug.Debugger.out("KLIST:",a.getName()+" P:"+a.isPrimary());
 						}
 					}
 				}
@@ -215,9 +225,11 @@ public class AttributeList {
 		if (size >= 1) {
 			String valueList = "";
 			int commas=0;
+			int primKey =0;
 			for (int i = 0; i < size; i++) {
 				Attribute a = myAttributes.get(i);
 				if (a != null) {
+					if (a.isPrimary()) primKey=1;
 					if (!(addPrimary==false && a.isPrimary())) {
 						String value = a.getValue();
 						if (a.isValue() == false) {
@@ -229,7 +241,7 @@ public class AttributeList {
 								value = "0";
 							valueList += value;
 						}
-						if (commas < (size - 1 - ((addPrimary==true)?0:1))) {
+						if (commas < (size - 1 - ((addPrimary==true)?0:primKey))) {
 							//debug.Debugger.out("VAL:"+value+":"+i+"/"+size+"/"+addPrimary);
 							valueList += ",";
 							commas++;

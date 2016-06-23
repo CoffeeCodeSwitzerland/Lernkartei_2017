@@ -34,7 +34,12 @@ public class CardModel extends Model
 				{
 					s = s.replace("'", "''");
 				}
-				String[] arguments = new String[] { param[0], param[1], param[2], defaultPriority, defaultColor };
+				// 0: Vorderseite
+				// 1: Rückseite
+				// 2: PK_STACK
+				// 3: Prio
+				// 4: Color
+				String[] arguments = new String[] { "","",param[0], param[1], param[2], defaultPriority, defaultColor };
 				boolean successfulNew = LKDatabase.myCards.pushToStock(arguments);
 				if (successfulNew)
 				{

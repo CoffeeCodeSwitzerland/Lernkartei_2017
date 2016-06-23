@@ -28,26 +28,26 @@ public class SQLHandlerTest {
 
 		AttributeList eaL = e.getMyAttributes();
 		assertEquals(3, eaL.size());
-		String ea = eaL.getCommaSeparatedList();
+		String ea = eaL.getCommaSeparatedList(true);
 		debug.Debugger.out("ATTR: {"+ea+"}");
 		assertEquals("KEY_NAME TEXT,VALUE TEXT,PK_TESTTAB INTEGER PRIMARY KEY AUTOINCREMENT", ea);
 
 		debug.Debugger.out("Test Attributes...");
 		String k = e.getMyAttributes().toKeyList(true);
 		debug.Debugger.out("ATTR: {"+k+"}");
-		assertEquals("KEY_NAME,VALUE,PK_TESTTAB", k);
+		assertEquals("KEY_NAME, VALUE, PK_TESTTAB", k);
 
 		String k0 = e.getMyAttributes().toKeyList(true);
 		debug.Debugger.out("ATTR: {"+k0+"}");
-		assertEquals("KEY_NAME,VALUE,PK_TESTTAB", k0);
+		assertEquals("KEY_NAME, VALUE, PK_TESTTAB", k0);
 
 		e.addAttributes(atts);
 		AttributeList eaL2 = e.getMyAttributes();
 		assertEquals(5, eaL2.size());
 		
-		String ea2 = eaL2.getCommaSeparatedList();
+		String ea2 = eaL2.getCommaSeparatedList(false);
 		debug.Debugger.out("ATTR: {"+ea2+"}");
-		assertEquals("KEY_NAME TEXT,VALUE TEXT,PK_TESTTAB INTEGER PRIMARY KEY AUTOINCREMENT,Name TEXT,Age INTEGER", ea2);
+		assertEquals("KEY_NAME TEXT,VALUE TEXT,Name TEXT,Age INTEGER", ea2);
 
 		assertNotEquals(null, e.createTableIfNotExists());
 		e.addAttributes(atts);
@@ -60,11 +60,11 @@ public class SQLHandlerTest {
 		debug.Debugger.out("ATTR: {"+v+"}");
 		assertEquals("'aaa',11", v);
 		
-		String kl = atts.toKeyList(false);
+		String kl = atts.toKeyList(true);
 		debug.Debugger.out("ATTR: {"+kl+"}");
-		assertEquals("Name,Age", kl);
+		assertEquals("Name, Age", kl);
 		
-		String aa = atts.getCommaSeparatedList();
+		String aa = atts.getCommaSeparatedList(false);
 		debug.Debugger.out("ATTR: {"+aa+"}");
 		assertEquals("Name TEXT,Age INTEGER", aa);
 		
@@ -116,15 +116,15 @@ public class SQLHandlerTest {
 		debug.Debugger.out("Test INSERT...");
 		String k2 = e.getMyAttributes().toKeyList(false);
 		debug.Debugger.out("ATTR: {"+k2+"}");
-		assertEquals("KEY_NAME,VALUE,Name,Age", k2);
+		assertEquals("KEY_NAME, VALUE, Name, Age", k2);
 		String i = SQLHandler.insertIntoTableCommand(e.getMyTableName(), atts);
 		debug.Debugger.out("SQL: {"+i+"}");
-		assertEquals("INSERT INTO TESTTAB (Name,Age) VALUES ('aaa',11)", i);
+		assertEquals("INSERT INTO TESTTAB (Name, Age) VALUES ('aaa',11)", i);
 		
 		debug.Debugger.out("Test set keys (INSERT)...");
 		e.setKeyValue("hallo", "220");
 		debug.Debugger.out("SQL("+r+"): {"+e.getLastSQLCommand()+"}");
-		assertEquals("INSERT INTO TESTTAB (KEY_NAME,VALUE,Name,Age) VALUES ('hallo','220','aaa',11)",e.getLastSQLCommand());
+		assertEquals("INSERT INTO TESTTAB (KEY_NAME, VALUE, Name, Age) VALUES ('hallo','220','aaa',11)",e.getLastSQLCommand());
 
 		AttributeList aList = new AttributeList();
 		Attribute ra = new Attribute ("PK_TESTTAB");

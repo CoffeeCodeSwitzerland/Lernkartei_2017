@@ -1,9 +1,8 @@
 package database;
 
-import java.sql.ResultSet;
-
 import database.sql.Attribute;
 import database.sql.Entity;
+import database.sql.SQLHandler;
 import debug.Logger;
 
 
@@ -19,7 +18,7 @@ public class UserEntity extends Entity {
 		// set table attributes
 		Attribute a = new Attribute("ActualScore",0);
 		myAttributes.add(a);
-		a = new Attribute("Username");
+		a = new Attribute("Username","def");
 		myAttributes.add(a);
 		a = new Attribute("Email");
 		myAttributes.add(a);
@@ -51,87 +50,78 @@ public class UserEntity extends Entity {
 	 */
 	public void correctCard () {
 		try {
-			String sql = "CREATE TABLE IF NOT EXISTS Lifes " +
-					"(PK_Lvs INTEGER PRIMARY KEY AUTOINCREMENT," +
-					" Lifecount INTEGER DEFAULT 0);";
-			stmt.executeUpdate(sql);
 			Integer currentLifes = 0;
-			String getCurrent = "SELECT Lifecount FROM Lifes";
-			ResultSet getCurt = stmt.executeQuery(getCurrent);
-			if (getCurt.next()) {
-				currentLifes = getCurt.getInt("Lifecount");
-				getCurt.close();
+			setLastSQLCommand(SQLHandler.selectCommand(getMyTableName(),"ActualScore",null,null)); 
+			setLastResultSet(executeQuery(getLastSQLCommand()));
+			//String getCurrent = "SELECT Lifecount FROM Lifes";
+			if (getLastResultSet().next()) {
+				currentLifes = getLastResultSet().getInt("ActualScore");
+				getLastResultSet().close();
 			} else {
-				String newEntry = "INSERT INTO Lifes (Lifecount) VALUES (0)";
-				stmt.executeUpdate(newEntry);
+				getLastResultSet().close();
+				myAttributes.seekKeyNamed("ActualScore").setValue(0);
+				setLastSQLCommand(SQLHandler.insertIntoTableCommand(getMyTableName(), myAttributes)); 
+				//String newEntry = "INSERT INTO Lifes (Lifecount) VALUES (0)";
 			}
-			getCurt.close();
-			String updt = "UPDATE Lifes SET Lifecount = " + (currentLifes + 1);
-			stmt.executeUpdate(updt);
+			myAttributes.seekKeyNamed("ActualScore").setValue(currentLifes + 1);
+			Attribute k = new Attribute("Username","def");
+			setLastSQLCommand(SQLHandler.updateInTableCommand(getMyTableName(),myAttributes,k)); 
+			//String updt = "UPDATE Lifes SET Lifecount = " + (currentLifes + 1);
 		}
 		catch (Exception e) {
-			Logger.out("Database.correctCard(): " + e.getMessage());
+			Logger.out(e.getMessage());
 		}
 	}
 
 	public int getLifecount () {
 		try {
-			String sql = "CREATE TABLE IF NOT EXISTS Lifes " +
-					"(PK_Lvs INTEGER PRIMARY KEY AUTOINCREMENT," +
-					" Lifecount INTEGER DEFAULT 0);";
-			stmt.executeUpdate(sql);
 			Integer currentLifes = 0;
-			String getCurrent = "SELECT Lifecount FROM Lifes";
-			ResultSet rs = stmt.executeQuery(getCurrent);
-			if(rs.next()){
-				currentLifes = rs.getInt("Lifecount");
+			setLastSQLCommand(SQLHandler.selectCommand(getMyTableName(),"ActualScore",null,null)); 
+			setLastResultSet(executeQuery(getLastSQLCommand()));
+			//String getCurrent = "SELECT Lifecount FROM Lifes";
+			if (getLastResultSet().next()) {
+				currentLifes = getLastResultSet().getInt("ActualScore");
 			}
+			getLastResultSet().close();
 			float notRounded = currentLifes / 30;
 			anzahlLeben = Math.round(notRounded);
 		}
 		catch (Exception e) {
-			Logger.out("Database.getLifecount(): " + e.getMessage());
+			Logger.out(e.getMessage());
 		}
 		return anzahlLeben;
 	}
 
 	public void death () {
 		try {
-			String sql = "CREATE TABLE IF NOT EXISTS Lifes " +
-					"(PK_Lvs INTEGER PRIMARY KEY AUTOINCREMENT," +
-					" Lifecount INTEGER DEFAULT 0);";
-			stmt.executeUpdate(sql);
 			Integer currentLifes = 0;
-			String getCurrent = "SELECT Lifecount FROM Lifes";
-			ResultSet rs = stmt.executeQuery(getCurrent);
-			if(rs.next()){
-				currentLifes = rs.getInt("Lifecount");
+			setLastSQLCommand(SQLHandler.selectCommand(getMyTableName(),"ActualScore",null,null)); 
+			setLastResultSet(executeQuery(getLastSQLCommand()));
+			if (getLastResultSet().next()) {
+				currentLifes = getLastResultSet().getInt("ActualScore");
 			}
 			if (currentLifes >= 30) {
-				String updt = "UPDATE Lifes SET Lifecount = " + (currentLifes - 30);
-				stmt.executeUpdate(updt);
+				myAttributes.seekKeyNamed("ActualScore").setValue(currentLifes - 30);
+				Attribute k = new Attribute("Username","def");
+				setLastSQLCommand(SQLHandler.updateInTableCommand(getMyTableName(),myAttributes,k)); 
 			}	
 		}
 		catch (Exception e) {
-			Logger.out("Database.death(): " + e.getMessage());
+			Logger.out(e.getMessage());
 		}
 	}
 	
 	public int getCorrectCards () {
 		try {
-			String sql = "CREATE TABLE IF NOT EXISTS Lifes " +
-					"(PK_Lvs INTEGER PRIMARY KEY AUTOINCREMENT," +
-					" Lifecount INTEGER DEFAULT 0);";
-			stmt.executeUpdate(sql);
 			currentLifes = 0;
-			String getCurrent = "SELECT Lifecount FROM Lifes";
-			ResultSet rs = stmt.executeQuery(getCurrent);
-			if(rs.next()){
-				currentLifes = rs.getInt("Lifecount");
+			setLastSQLCommand(SQLHandler.selectCommand(getMyTableName(),"ActualScore",null,null)); 
+			setLastResultSet(executeQuery(getLastSQLCommand()));
+			if (getLastResultSet().next()) {
+				currentLifes = getLastResultSet().getInt("ActualScore");
 			}
 		}
 		catch (Exception e) {
-			Logger.out("Database.getCorrectCards(): " + e.getMessage());
+			Logger.out(e.getMessage());
 		}
 		return currentLifes;
 	}

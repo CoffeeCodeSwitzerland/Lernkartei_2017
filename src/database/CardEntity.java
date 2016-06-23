@@ -110,7 +110,7 @@ public class CardEntity extends Entity {
 			//ResultSet s = stmt.executeQuery("SELECT PK_Kategorie FROM Kategorie WHERE Kategorie = '" + whichSet + "'");
 			String ID_SET="0";
 			if (getLastResultSet().next()) {
-				ID_Set = Integer.toString(getLastResultSet().getInt("PK_STACK"));
+				ID_SET = Integer.toString(getLastResultSet().getInt("PK_STACK"));
 				getLastResultSet().close();
 			} else {
 				Logger.out("no Stocks's in database for "+whichSet+"!",getMyTableName());

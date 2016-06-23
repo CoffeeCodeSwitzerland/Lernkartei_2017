@@ -8,7 +8,7 @@ import javafx.collections.*;
 public class User
 {
 	/*
-	 * @author Joel Häberli
+	 * @author Joel HÃ¤berli
 	 */
 
 	// Alle Angaben die ein User hat
@@ -18,7 +18,7 @@ public class User
 	private String Email;
 	// den Usertype braucht es erst, wenn man auch Lehrer erstellen kann.
 	private Integer Usertype;
-	// Das system mit klassen wird ev. nicht implementiert aus Zeitgründen
+	// Das system mit klassen wird ev. nicht implementiert aus ZeitgrÃ¼nden
 	private ObservableList<String> myGroups = FXCollections.observableArrayList();
 
 	//A new User Entity
@@ -43,7 +43,7 @@ public class User
 				}
 			}
 		} catch(Exception e) {
-			
+			debug.Debugger.out(e.toString());
 		}
 	}
 	
@@ -59,14 +59,14 @@ public class User
 	 * nicht funktionierte wird false returnt
 	 * 
 	 * schritte beim registrieren:
-	 * 1.) Die Eingaben mit einem Regex überprüfen
+	 * 1.) Die Eingaben mit einem Regex Ã¼berprÃ¼fen
 	 * 2.) Salz generieren
 	 * 3.) Passwort hashen mit Salz
 	 * 4.) Salz, Passworthash, Username, Email in DB speichern
 	 * 
 	 * @param name -> Username den der User angibt 
 	 * @param mail -> Mail den der User angibt
-	 * @param passwort -> Das gewünschte PW des Users
+	 * @param passwort -> Das gewÃ¼nschte PW des Users
 	 * @param usertype -> Ob es sich um einen normalen User handelt oder nicht, wird momentan nicht gebraucht
 	 * 
 	 * @return  1 Aktion erfolgreich<br>
@@ -105,10 +105,10 @@ public class User
 	 * 	 Wird beim Login aufgerufen
 	 *   Schritte beim Login:
 	 *   1.) Salz und Passworthash aus DB laden wo name gleich name welcher
-	 *       übergeben wurde
-	 *   2.) Salz und übergebenes Passwort hashen
+	 *       Ã¼bergeben wurde
+	 *   2.) Salz und Ã¼bergebenes Passwort hashen
 	 *   3.) Diesen generierten hash mit Passworthash vergleichen
-	 *   4.) Wenn übereinstimmt -> Namen des Users in lokale DB speichern und dann
+	 *   4.) Wenn Ã¼bereinstimmt -> Namen des Users in lokale DB speichern und dann
 	 *       das Profil anzeigen
 	 * 
 	 * @param name -> Username 
@@ -132,12 +132,12 @@ public class User
 	}
 
 	/**
-	 * wird beim Löschen von einem Account gebraucht.
-	 * Löscht den User aus der Db mit all seinen Einträgen
+	 * wird beim LÃ¶schen von einem Account gebraucht.
+	 * LÃ¶scht den User aus der Db mit all seinen EintrÃ¤gen
 	 * 
 	 * @param name -> des Eingeloggten User
 	 * @param mail -> des Eingeloggten User
-	 * @return Wenn true konnte der User erfolgreich gelöscht werden / Wenn false nicht.
+	 * @return Wenn true konnte der User erfolgreich gelÃ¶scht werden / Wenn false nicht.
 	 */
 	public boolean delete(String name, String mail)
 	{
@@ -184,7 +184,7 @@ public class User
 
 	private Boolean checkPasswortMachbarkeit(String passwort)
 	{
-		String regexPw = "[A-Za-z\\d\\!\\?\\$\\*\\%\\&\\£\\@\\'](8,100)";
+		String regexPw = "[A-Za-z\\d\\!\\?\\$\\*\\%\\&\\Â£\\@\\'](8,100)";
 		if (passwort.matches(regexPw))
 		{
 			return true;
@@ -220,7 +220,7 @@ public class User
 	// TODO : Wenn datenbank funktioniert darin speichern
 	public Boolean setPasswort(String passwort)
 	{
-		// Wenn Passwort zulässig und das Salz gefüllt
+		// Wenn Passwort zulÃ¤ssig und das Salz gefÃ¼llt
 		if (checkPasswortMachbarkeit(passwort) && !(Salz == null))
 		{
 			try

@@ -7,5 +7,6 @@
 	<classpathentry kind="lib" path="src/quizlet/org.json.jar"/>
 	<classpathentry kind="lib" path="src/scrollyv8/jl1.0.1.jar"/>
 	<classpathentry kind="lib" path="src/database/jdbc/sqlite-jdbc-3.8.11.2.jar"/>
+	<classpathentry kind="lib" path="src/pushing/commons-io-2.5.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

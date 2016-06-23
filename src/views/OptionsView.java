@@ -63,8 +63,8 @@ public class OptionsView extends FXView
 		descriptions.put(ConfigKeys.tooltipp, "Deaktiviere Tooltipps. Wenn diese Option aktiviert ist, werden keine Tooltipps angezeigt.");
 
 		checkboxLabels.put(ConfigKeys.withState, "Grösse Anpassen");
-		checkboxLabels.put(ConfigKeys.hideImageStacks, "Tooltipps deaktivieren");
-		checkboxLabels.put(ConfigKeys.tooltipp, "Nur Stapel ohne Bilder");
+		checkboxLabels.put(ConfigKeys.hideImageStacks, "Nur Stapel ohne Bilder");
+		checkboxLabels.put(ConfigKeys.tooltipp, "Tooltipps deaktivieren");
 		
 		Label cardLimitDescription = new Label(descTxtCardLimit);
 

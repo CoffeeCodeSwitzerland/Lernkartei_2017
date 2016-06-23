@@ -39,7 +39,7 @@ public class User
 				}
 			}
 			if (i > 0) {
-				if (ue.checkDatabase(ue.getMyAttributes().get(i), name)) {
+				if (ue.checkDatabase(ue.getMyAttributes().get(1), name)) {
 				}
 			}
 		} catch(Exception e) {

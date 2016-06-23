@@ -131,17 +131,18 @@ public class UserEntity extends Entity {
 	}
 	
 	//Überprüft, ob ein Eintrag bereits vorhanden ist gesteuert mit dem Usernamen. Somit ist der Username einmalig
-	public boolean checkDatabase(Attribute attribut, String nameToCheck) {
+	public String checkDatabase(Attribute attribut, String nameToCheck) {
 		try {
-			setLastSQLCommand(SQLHandler.selectCommand(getMyTableName(),null,attribut.getName(),nameToCheck)); 
+			setLastSQLCommand(SQLHandler.selectCommand(getMyTableName(),"name",attribut.getName(),nameToCheck)); 
 			setLastResultSet(executeQuery(getLastSQLCommand()));
 			if (getLastResultSet().next()) {
-				return true;
+				String nam = getLastResultSet().getString("name");
+				return nam;
 			}
 		} catch (Exception e) {
 			Logger.out(e.getMessage());
 		}
-		return false;
+		return null;
 	}
 	
 //	//ladet den Hash -> Passwort und Salt gehasht

@@ -1,5 +1,7 @@
 package multiuser;
 
+import database.UserEntity;
+import database.sql.Attribute;
 import debug.Logger;
 import javafx.collections.*;
 
@@ -19,6 +21,39 @@ public class User
 	// Das system mit klassen wird ev. nicht implementiert aus Zeitgründen
 	private ObservableList<String> myGroups = FXCollections.observableArrayList();
 
+	//A new User Entity
+	UserEntity ue;
+	
+	
+	//Constructor of User -> Loads the Hash and the salt of the User which name is given in the parameters
+	public User(Attribute attribut, String name) {
+		ue = new UserEntity("User");
+		try {
+			int i = 0;
+			for (int j = 0; j < ue.getMyAttributes().size(); j++)
+			{
+				if (ue.getMyAttributes().get(j) == attribut) {
+					i = j;
+				} else {
+					continue;
+				}
+			}
+			if (i > 0) {
+				if (ue.checkDatabase(ue.getMyAttributes().get(i), name)) {
+				}
+			}
+		} catch(Exception e) {
+			
+		}
+	}
+	
+	//leerer Konstruktor
+	public User() {
+		ue = new UserEntity("User");
+	}
+	
+	
+	
 	/** 
 	 * Wird beim registrieren aufgerufen -> Wenn etwas falsch ist oder etwas
 	 * nicht funktionierte wird false returnt

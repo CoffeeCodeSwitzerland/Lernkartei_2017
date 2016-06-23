@@ -1,5 +1,7 @@
 package database;
 
+import java.sql.ResultSet;
+
 import database.sql.Attribute;
 import database.sql.Entity;
 import database.sql.SQLHandler;
@@ -22,7 +24,9 @@ public class UserEntity extends Entity {
 		myAttributes.add(a);
 		a = new Attribute("Email");
 		myAttributes.add(a);
-		a = new Attribute("Password");
+		a = new Attribute("Password"); //als Passwort wird der gesalzene Hash gespeichert
+		myAttributes.add(a);
+		a = new Attribute("Salz"); //Hier wird das Salz gespeichert
 		myAttributes.add(a);
 		a = new Attribute("HighScore",0);
 		myAttributes.add(a);
@@ -125,4 +129,32 @@ public class UserEntity extends Entity {
 		}
 		return currentLifes;
 	}
+	
+	//Überprüft, ob ein Eintrag bereits vorhanden ist gesteuert mit dem Usernamen. Somit ist der Username einmalig
+	public boolean checkDatabase(Attribute attribut, String nameToCheck) {
+		try {
+			ResultSet rs = null;
+			rs = this.executeQuery("SELECT * FROM " + getMyTableName() + " WHERE " + attribut + " = '" + nameToCheck + "';");
+			if (rs.next()) {
+				return false;
+			} else if(rs.equals("") || rs == null) {
+				return false;
+			} else {
+				return true;
+			}
+		} catch (Exception e) {
+			return false;
+		}
+	}
+	
+//	//ladet den Hash -> Passwort und Salt gehasht
+//	public String getHash() {
+//		ResultSet rs = null;
+//		rs = 
+//	}
+//	
+//	//ladet das Salt
+//	public String getSalt() {
+//		
+//	}
 }

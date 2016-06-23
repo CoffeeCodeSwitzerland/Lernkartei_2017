@@ -2,8 +2,15 @@ package multiuser;
 
 import java.util.ArrayList;
 
+import database.sql.Attribute;
+
 public class Student extends User
 {
+	public Student(Attribute attribute, String name)
+	{
+		super(attribute,name);
+	}
+
 	private Double Highscore;
 	private ArrayList<String> Karteien = new ArrayList<String>();
 	

@@ -131,11 +131,11 @@ public class StackEntity extends Entity {
 				int setID  = getLastResultSet().getInt("name");
 
 				setLastSQLCommand(SQLHandler.deleteEntryCommand("Card", "PK_STOCK", setID)); 
-				setLastResultSet(executeQuery(getLastSQLCommand()));
+				executeCommand(getLastSQLCommand());
 				//sql = "DELETE FROM Stock WHERE Set_ID = " + setID + ";";
 
 				setLastSQLCommand(SQLHandler.deleteEntryCommand(getMyTableName(), "name", category)); 
-				setLastResultSet(executeQuery(getLastSQLCommand()));
+				executeCommand(getLastSQLCommand());
 				//sql = "DELETE FROM Kategorie WHERE Kategorie = '" + category + "';";
 				worked = true;
 			}
@@ -214,7 +214,7 @@ public class StackEntity extends Entity {
 			if (getLastResultSet().next()) {
 				Attribute k = new Attribute("name",oldName);
 				setLastSQLCommand(SQLHandler.updateInTableCommand(getMyTableName(),myAttributes,k)); 
-				setLastResultSet(executeQuery(getLastSQLCommand()));
+				executeCommand(getLastSQLCommand());
 				//String updateStack = "UPDATE Kategorie SET Kategorie = '" + newName + "' WHERE Kategorie = '" + oldName + "';";
 				worked = true;
 				getLastResultSet().close();

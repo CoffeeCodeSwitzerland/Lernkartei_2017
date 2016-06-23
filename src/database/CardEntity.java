@@ -7,6 +7,7 @@ import database.sql.Attribute;
 import database.sql.Entity;
 import database.sql.ForeignKey;
 import database.sql.KeyAttribute;
+import database.sql.SQLHandler;
 import debug.Logger;
 
 public class CardEntity extends Entity {
@@ -24,6 +25,8 @@ public class CardEntity extends Entity {
 		a = new Attribute("Description");
 		myAttributes.add(a);
 		a = new Attribute("Date");
+		myAttributes.add(a);
+		a = new Attribute("Color");
 		myAttributes.add(a);
 		KeyAttribute k = new KeyAttribute("Priority",0,"1");
 		myAttributes.add(k);
@@ -57,7 +60,7 @@ public class CardEntity extends Entity {
 	 * @param values
 	 *            --> Array mit 5 Werten: 1. Vorderseite, 2. Rückseite, 3.
 	 *            Set_ID, 4. Priorität (1-5), 5. Color
-	 * @deprecated
+	 * @  deprecated
 	 */
 	public boolean pushToStock (String[] values) {
 		try {
@@ -103,51 +106,43 @@ public class CardEntity extends Entity {
 		ArrayList<String[]> results = new ArrayList<String[]>();
 
 		try {
-			ResultSet selectSet = seekInTable("Door", whichSet);
+			setLastResultSet(seekInTable("STACK", whichSet));
 			//ResultSet s = stmt.executeQuery("SELECT PK_Kategorie FROM Kategorie WHERE Kategorie = '" + whichSet + "'");
-			String IDwhichSet;
-			if (selectSet.next()) {
-				IDwhichSet = Integer.toString(selectSet.getInt("PK_Kategorie"));
-				selectSet.close();
+			String ID_SET="0";
+			if (getLastResultSet().next()) {
+				ID_Set = Integer.toString(getLastResultSet().getInt("PK_STACK"));
+				getLastResultSet().close();
 			} else {
-				Logger.out("no Door's in database for Stack "+whichSet+"!",this.getMyTableName());
-				selectSet.close();
+				Logger.out("no Stocks's in database for "+whichSet+"!",getMyTableName());
+				getLastResultSet().close();
 				return null;
 			}
 			
-			ResultSet rs = stmt.executeQuery("SELECT * FROM Stock WHERE Set_ID = '" + IDwhichSet + "'");
-			while (rs.next()) {
+			setLastSQLCommand(SQLHandler.selectCommand(getMyTableName(),null,"PK_STACK",ID_SET)); 
+			setLastResultSet(executeQuery(getLastSQLCommand()));
+			//ResultSet rs = stmt.executeQuery("SELECT * FROM Card WHERE Set_ID = '" + IDwhichSet + "'");
+			while (getLastResultSet().next()) {
 				String[] set = new String[7];
-				set[0] = Integer.toString(rs.getInt("PK_Stk"));
-				set[1] = rs.getString("Frontside");
-				set[2] = rs.getString("Backside");
-				set[3] = rs.getString("Description");
-				set[4] = Integer.toString(rs.getInt("Set_ID"));
-				set[5] = Integer.toString(rs.getInt("Priority"));
-				set[6] = rs.getString("Color");
+				set[0] = Integer.toString(getLastResultSet().getInt("PK_CARD"));
+				set[1] = getLastResultSet().getString("Frontside");
+				set[2] = getLastResultSet().getString("Backside");
+				set[3] = getLastResultSet().getString("Description");
+				set[4] = Integer.toString(getLastResultSet().getInt("PK_STACK"));
+				set[5] = Integer.toString(getLastResultSet().getInt("Priority"));
+				set[6] = getLastResultSet().getString("Color");
 				results.add(set);
 			}
-			rs.close();
+			getLastResultSet().close();
 		}
 		catch (Exception e) {
-			Logger.log("Database.pullFromStock("+whichSet+"): "+e.getMessage());
+			Logger.out(e.getMessage());
 		}
 		return results;
 	}
 
 	public boolean delEntry(String id) {
-
-		boolean deleted = false;
-
-		try {
-			String del = "DELETE FROM Stock WHERE PK_Stk = " + id;
-			stmt.executeUpdate(del);
-			deleted = true;
-		} catch (Exception e) {
-			System.err.println(e.getClass().getName() + ": " + e.getMessage());
-		}
-		closeDB();
-		return deleted;
+		setLastSQLCommand(SQLHandler.deleteEntryCommand("STACK", "PK_STACK", id)); 
+		return (executeCommand(getLastSQLCommand())>=0)?true:false;
 	}
 
 	/**
@@ -165,20 +160,19 @@ public class CardEntity extends Entity {
 	public boolean editEntry(String id, String frontside, String backside) {
 
 		try {
-			String sel = "SELECT * FROM Stock WHERE PK_Stk = " + id;
-			ResultSet rs = stmt.executeQuery(sel);
-
-			if (!rs.next()) {
-				rs.close();
+			setLastSQLCommand(SQLHandler.selectCommand(getMyTableName(),null,"PK_STACK",id)); 
+			setLastResultSet(executeQuery(getLastSQLCommand()));
+			//String sel = "SELECT * FROM Stock WHERE PK_Stk = " + id;
+			if (!getLastResultSet().next()) {
+				getLastResultSet().close();
 				return false;
 			}
 			else {
-				rs.close();
+				getLastResultSet().close();
 			}
 
-			String del = "UPDATE Stock SET Frontside = '" + frontside + "', Backside = '" + backside
-					+ "' WHERE PK_Stk = " + id;
-			stmt.executeUpdate(del);
+			//String del = "UPDATE Stock SET Frontside = '" + frontside + "', Backside = '" + backside
+			//		+ "' WHERE PK_Stk = " + id;
 			return true;
 		}
 		catch (Exception e) {

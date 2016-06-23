@@ -113,10 +113,10 @@ public class DoorEntity extends Entity {
 				
 				
 				setLastSQLCommand(SQLHandler.deleteEntryCommand(getMyTableName(), "name", delName)); 
-				setLastResultSet(executeQuery(getLastSQLCommand()));
+				executeCommand(getLastSQLCommand());
 				//String delDoor = "DELETE FROM Doors WHERE Doorname = '" + delName + "'";
 				setLastSQLCommand(SQLHandler.deleteEntryCommand("STACK", "PK_DOOR", doorID)); 
-				setLastResultSet(executeQuery(getLastSQLCommand()));
+				executeCommand(getLastSQLCommand());
 				//String delSets = "DELETE FROM Kategorie WHERE FK_Door = " + doorID;
 // TODO Delete all cards of those stacks...
 //				setLastSQLCommand(SQLHandler.deleteEntryCommand("STACK", "PK_DOOR", doorID)); 
@@ -144,7 +144,7 @@ public class DoorEntity extends Entity {
 			if (getLastResultSet().next()) {
 				Attribute k = new Attribute("name",oldName);
 				setLastSQLCommand(SQLHandler.updateInTableCommand(getMyTableName(),myAttributes,k)); 
-				setLastResultSet(executeQuery(getLastSQLCommand()));
+				executeCommand(getLastSQLCommand());
 				//String updateDoor = "UPDATE Doors SET Doorname = '" + newName + "' WHERE Doorname = '" + oldName + "';";
 				//stmt.executeUpdate(updateDoor);
 				worked = true;

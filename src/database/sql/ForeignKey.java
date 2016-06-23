@@ -22,6 +22,11 @@ public class ForeignKey extends Attribute {
 	}
 
 	@Override
+	public boolean isKey() {
+		return true;
+	}
+
+	@Override
 	public String getAttributeDefinition () {
 		return getName() + " "+ SQLDataTypes[Datatype.PKEY.ordinal()];
 	}

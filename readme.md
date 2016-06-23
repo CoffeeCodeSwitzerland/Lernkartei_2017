@@ -1,4 +1,4 @@
-#   Kurzinfo WISSLearnCards 2016
+﻿#   Kurzinfo WISSLearnCards 2016
 Erstellt im Auftrag der WISS Bern in Ostermundigen.
 Kontakt: André Flury
 

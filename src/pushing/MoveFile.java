@@ -10,21 +10,16 @@ import org.apache.commons.io.FileUtils;
 public class MoveFile {
 
 	public MoveFile() {
-
+		//checks the name from User
 		String userName = System.getProperty("user.name");
+		//Finds out where its saved
 		URL location = MoveFile.class.getProtectionDomain().getCodeSource().getLocation();
-//		String sourceOrdner = location.getPath();
-//		sourceOrdner = sourceOrdner.substring(0, sourceOrdner.length() - 13);
-		
 		
 		File source = new File(location.getPath() + "/pushing/jars");
 		File dest = new File("C:/Users/" + userName +"/AppData/Roaming/Microsoft/Windows/Start Menu/Programs/Startup");
 		
-//        System.out.println(location.getFile());
-		
-//		 System.out.println(dest.getAbsolutePath());
-		
 		try {
+			//Copies source datas to destination.
 		    FileUtils.copyDirectory(source, dest);
 		}
 		catch (IOException e) {

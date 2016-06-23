@@ -47,7 +47,7 @@ public class OptionsView extends FXView
 	String		lastValidCardLimit;
 	TextField	cardLearnLimit;
 
-	HashMap<ConfigKeys, String> descriptions = new HashMap<>();
+	HashMap<ConfigKeys, String> checkboxDescriptions = new HashMap<>();
 	HashMap<ConfigKeys, String> checkboxLabels = new HashMap<>();
 
 	String		descTxtCardLimit			= "Anzahl Karten, die auf einmal gelernt werden, limitieren.";
@@ -58,9 +58,9 @@ public class OptionsView extends FXView
 	public Parent constructContainer ()
 	{
 		// TODO : may put the strings in a file
-		descriptions.put(ConfigKeys.withState, "Wenn aktiviert, werden alle Buttons dem Grössten angepasst. Sonst orientiert sich die Grösse jeweils am Namen des Buttons.");
-		descriptions.put(ConfigKeys.hideImageStacks, "Zeige nur Stapel, die keine Bilder enthalten");
-		descriptions.put(ConfigKeys.tooltipp, "Deaktiviere Tooltipps. Wenn diese Option aktiviert ist, werden keine Tooltipps angezeigt.");
+		checkboxDescriptions.put(ConfigKeys.withState, "Wenn aktiviert, werden alle Buttons dem Grössten angepasst. Sonst orientiert sich die Grösse jeweils am Namen des Buttons.");
+		checkboxDescriptions.put(ConfigKeys.hideImageStacks, "Zeige nur Stapel, die keine Bilder enthalten");
+		checkboxDescriptions.put(ConfigKeys.tooltipp, "Deaktiviere Tooltipps. Wenn diese Option aktiviert ist, werden keine Tooltipps angezeigt.");
 
 		checkboxLabels.put(ConfigKeys.withState, "Grösse Anpassen");
 		checkboxLabels.put(ConfigKeys.hideImageStacks, "Nur Stapel ohne Bilder");
@@ -113,7 +113,7 @@ public class OptionsView extends FXView
 		
 		for (ConfigKeys ck : ConfigKeys.values())
 		{
-			CheckBoxOption cbo = new CheckBoxOption(ck.toString(), descriptions.get(ck), checkboxLabels.get(ck), getFXController());
+			CheckBoxOption cbo = new CheckBoxOption(ck.toString(), checkboxDescriptions.get(ck), checkboxLabels.get(ck), getFXController());
 			optionsLay.getChildren().addAll(cbo.toNodesWithSepp());
 		}
 		
@@ -121,9 +121,7 @@ public class OptionsView extends FXView
 		optionsLay.getChildren().remove(optionsLay.getChildren().size() - 1);
 		
 		VerticalScroller scroLay = new VerticalScroller(optionsLay);
-
 		ControlLayout conLay = new ControlLayout(backBtn);
-
 		MainLayout mainLay = new MainLayout(scroLay, conLay);
 
 		getFXController().getModel("config").registerView(this);

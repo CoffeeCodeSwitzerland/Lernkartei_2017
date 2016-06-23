@@ -222,6 +222,10 @@ public class Entity extends SQLiteDriver {
 		return -1;
 	}
 	
+	public int setValue(int value) {
+		return setValue(Integer.toString(value));
+	}
+	
 	public String getValue (String query) {
 		return seekInTable(VALUE, KEY_NAME, query);
 	}
@@ -332,6 +336,14 @@ public class Entity extends SQLiteDriver {
 
 	public ResultSet getLastResultSet() {
 		return lastResultSet;
+	}
+
+	public void setLastSQLCommand(String lastSQLCommand) {
+		this.lastSQLCommand = lastSQLCommand;
+	}
+
+	public void setLastResultSet(ResultSet lastResultSet) {
+		this.lastResultSet = lastResultSet;
 	}
 	
 }

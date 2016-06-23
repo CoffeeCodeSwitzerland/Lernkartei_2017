@@ -15,7 +15,7 @@ public class ConfigModel extends Model
 		{
 			case SET:
 				if (param.length != 2) { return -2; }
-				LKDatabase.myConfig.getMyAttributes().seekKeyNamed(param[0]).setValue(param[1]);
+				LKDatabase.myConfig.setKeyValue(param[0],param[1]);
 				return 1;
 
 			default:

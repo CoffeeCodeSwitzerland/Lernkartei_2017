@@ -97,6 +97,10 @@ public abstract class SQLHandler {
 		return deleteEntryCommand(tableName, pkeyName, pkeyValue, Datatype.PKEY);
 	}
 
+	public static String deleteEntryCommand(String tableName, String pkeyName, int pkeyValue) {
+		return deleteEntryCommand(tableName, pkeyName, Integer.toString(pkeyValue), Datatype.PKEY);
+	}
+
 	/**
 	 * To update values of an entry in a table
 	 * 
@@ -105,12 +109,12 @@ public abstract class SQLHandler {
 	 * @return
 	 */
 	public static String updateInTableCommand(	String tabName, AttributeList attributes, 
-												Attribute key) {
+												Attribute keyAttribute) {
 		String updateCMD = "UPDATE " + tabName + " SET " + attributes.toClause(",");
 		String clause = attributes.toValueList(false);
-		if (!clause.equals("") && key != null) {
+		if (!clause.equals("") && keyAttribute != null) {
 			AttributeList plist = new AttributeList();
-			plist.add(key);
+			plist.add(keyAttribute);
 			updateCMD += toWhereClause(plist);
 			return updateCMD;
 		}
@@ -195,8 +199,11 @@ public abstract class SQLHandler {
 	public static String selectCommand(String tabName, AttributeList attributes) {
 		if (tabName != null && !tabName.equals("")) {
 			// TODO handle cases with DISTINCT
-			String attList = attributes.getSeekedKeys();
-			if (!(attList != null && !attList.equals(""))) attList ="*";
+			String attList = "*";
+			if (attributes != null) {
+				attList = attributes.getSeekedKeys();
+				if (!(attList != null && !attList.equals(""))) attList ="*";
+			}
 			return "SELECT " +  attList + " FROM " + tabName;
 		} else {
 			Logger.out("invalid table name to build SQL select!", tabName);
@@ -211,19 +218,23 @@ public abstract class SQLHandler {
 				String attList = attributes.toKeyList(true);
 				if (!(attList != null && !attList.equals(""))) attList ="*";
 				String selectCMD = "SELECT " + attList + " FROM " + tabName;
-				AttributeList pklist = new AttributeList();
-				pklist.add(pk);
-				String whereClause = toWhereClause(pklist);
-				if (!whereClause.equals(""))
-					selectCMD += " " + whereClause;
+				if (pk != null) {
+					AttributeList pklist = new AttributeList();
+					pklist.add(pk);
+					String whereClause = toWhereClause(pklist);
+					if (!whereClause.equals(""))
+						selectCMD += " " + whereClause;
+				}
 				return selectCMD;
 			} else {
 				String selectCMD = "SELECT * FROM " + tabName;
-				AttributeList pklist = new AttributeList();
-				pklist.add(pk);
-				String whereClause = toWhereClause(pklist);
-				if (!whereClause.equals(""))
-					selectCMD += " " + whereClause;
+				if (pk != null) {
+					AttributeList pklist = new AttributeList();
+					pklist.add(pk);
+					String whereClause = toWhereClause(pklist);
+					if (!whereClause.equals(""))
+						selectCMD += " " + whereClause;
+				}
 				return selectCMD;
 			}
 		} else {
@@ -248,6 +259,7 @@ public abstract class SQLHandler {
 			Attribute ra = new Attribute (returnKey);
 			aList.add(ra);
 		} else aList = null;
+
 		KeyAttribute a = new KeyAttribute(seekKeyName, seekKeyValue);
 		return selectCommand(tabName, aList, a);
 	}

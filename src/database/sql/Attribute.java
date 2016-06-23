@@ -104,6 +104,11 @@ public class Attribute {
 		this.value = value;
 	}
 
+	public void setValue(int value) {
+		this.value = Integer.toString(value);
+		if (this.isTEXT()) type = Datatype.INT;
+	}
+
 	public Datatype getType() {
 		return type;
 	}

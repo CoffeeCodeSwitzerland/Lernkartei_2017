@@ -6,8 +6,10 @@ import javafx.scene.Node;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
+import mvc.Model;
 import mvc.ModelInterface.Command;
 import mvc.fx.FXController;
+import mvc.fx.FXModel;
 
 /**
  * 
@@ -44,7 +46,12 @@ public class CheckBoxOption
 		
 		if (noEntry)
 		{
-//TODO			controller.getModel("config").doAction(Command.SET, configKey, "false");
+			Model m = controller.getModel("config");
+			if (m!= null) {
+			m.doAction(Command.SET, configKey, "false");
+			} else {
+				debug.Debugger.out("Model config not found!");
+			}
 		}
 		
 		checkBox.setSelected(oldValue);

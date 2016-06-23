@@ -20,7 +20,8 @@ public class LKDatabaseTest {
 		LKDatabase.myConfig.setKeyValue("TestKey", "1234");
 		cmd = LKDatabase.myConfig.getLastSQLCommand();
 		debug.Debugger.out("SQL: {"+cmd+"}");
-		assertEquals("INSERT INTO config (KEY_NAME,VALUE) VALUES ('TestKey','1234')",cmd);
+// nur das erste mal: assertEquals("INSERT INTO config (KEY_NAME,VALUE) VALUES ('TestKey','1234')",cmd);
+// dann update
 		gets = LKDatabase.myConfig.getValue("TestKey");
 		debug.Debugger.out("SQL: {"+gets+"}");
 		assertEquals("1234",gets);

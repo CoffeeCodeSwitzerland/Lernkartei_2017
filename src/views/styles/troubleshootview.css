@@ -1,16 +1,5 @@
-#manualview{
-    -fx-background-image: url("pictures/viewbackground.png");
+#troubleshootview{
+	-fx-background-image: url("pictures/viewbackground.png");
 	-fx-background-repeat: stretch;   
-    -fx-background-size: stretch;
-}
-
-#anleitung {
-	-fx-font-family: "Segoe UI Semibold";
-	-fx-padding: 10.0px;
-}
-
-#anleitungstitel {
-	-fx-text-fill: black;
-	-fx-font-family: "Segoe UI Semibold";
-	-fx-font-size:25.0;
-}
+    -fx-background-size: stretch, cover;
+} 

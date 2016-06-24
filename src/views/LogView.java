@@ -37,11 +37,10 @@ public class LogView extends FXView
 	public Parent constructContainer() {
 		// TODO Auto-generated method stub
 
+		String logfileName = Environment.getDatabaseLocation()+Environment.getFileSep()+"LogfileOf"+Environment.getUserName()+".txt";
 		Label labelText;
 		try {
-			labelText = new Label (Functions.fileToString(new File(
-					Environment.getDatabaseLocation()+Environment.getFileSep()+"LogfileOf"+Environment.getUserName()+".txt"))
-					);
+			labelText = new Label ( Functions.fileToString(new File(logfileName)) );
 		} catch (FileNotFoundException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -51,14 +50,19 @@ public class LogView extends FXView
 		labelText.setMaxWidth(800);
 		labelText.setId("impressumtext");
 
-		Label labelTitel = new Label("Log-File ("+Environment.getDatabaseLocation()+Environment.getFileSep()+"LogfileOf"+Environment.getUserName()+".txt"+")");
+		Label labelTitel = new Label("Log-File ("+logfileName);
 		labelTitel.setStyle("-fx-font-weight: bold; -fx-font-size: 1.4em;");
 			
 		AppButton backBtn = new AppButton("_Zurück");
 		backBtn.setOnAction(e -> getFXController().showMainView());
 		
 		Button deleteLog = new Button("Lösche Log");
-
+		deleteLog.setOnAction(e -> {
+			//Wie krieg ich raus wie das File heisst???
+			//filename.delete();
+			new File(logfileName).delete();
+		});
+		
 		BorderPane headLayout = new BorderPane(labelTitel);
 		headLayout.setPadding(new Insets(20));
 		ScrollPane scroller = new ScrollPane();

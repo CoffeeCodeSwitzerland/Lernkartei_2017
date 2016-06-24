@@ -43,7 +43,7 @@ public abstract class DBDriver {
 		return null;  // null for errors
 	}
 	
-	protected int executeCommand (String SQLcommand) {
+	public int executeCommand (String SQLcommand) {
 		//main.debug.Debugger.out("execute SQL CMD...");
 		try {
 			if (stmt != null) {

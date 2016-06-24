@@ -1,8 +1,11 @@
 package learning;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import database.LKDatabase;
+import database.sql.Attribute;
+import database.sql.SQLHandler;
 import debug.Logger;
 import globals.Globals;
 
@@ -48,7 +51,8 @@ public class Bewertungsklasse {
 		Logger.log("End Upprio");
 		
 		datumZuweisen(cardID);
-
+		LKDatabase.myLearns.getMyAttributes().seekKeyNamed("WasCorrect").setValue(1);
+		
 		if (oldPriority <= LKDatabase.myCards.getPriority(cardID))
 		{
 			return 1;
@@ -65,7 +69,10 @@ public class Bewertungsklasse {
 		Logger.log("Call Resetprio");
 		LKDatabase.myCards.resetPrio(Integer.parseInt(cardID));
 		Logger.log("End Resetprio");
-
+		
+		datumZuweisen(cardID);
+		LKDatabase.myLearns.getMyAttributes().seekKeyNamed("WasCorrect").setValue(0);
+		
 		if (LKDatabase.myCards.getPriority(cardID) == 1)
 		{
 			return 1;
@@ -78,7 +85,9 @@ public class Bewertungsklasse {
 	
 	public static void datumZuweisen(String cardID)
 	{
-		//database.Database.InsertDate(cardID);
-		//TODO Roger: localDate.now muss dort in Attribut Datum eingetragen werden 
+		LKDatabase.myLearns.getMyAttributes().seekKeyNamed("Date").setValue(LocalDate.now().toString());
+		Attribute k = new Attribute("PK_CARD",cardID);
+		String sql = SQLHandler.updateInTableCommand(LKDatabase.myLearns.getMyTableName(),LKDatabase.myLearns.getMyAttributes(),k); 
+		LKDatabase.myLearns.executeCommand(sql);
 	}
 }

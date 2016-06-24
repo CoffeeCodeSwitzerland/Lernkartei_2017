@@ -3,7 +3,6 @@ package models;
 import java.util.ArrayList;
 
 import database.LKDatabase;
-import debug.Debugger;
 import globals.Globals;
 import mvc.Model;
 import quizlet.Quizlet;
@@ -22,15 +21,12 @@ public class QuizletModel extends Model {
 				
 				init();
 
-				Debugger.out("___" + param[0] + " " + param[1] + " " + param[2]);
 				cards = q.getSet(param[0]);
-				
 				
 				if (cards == null)
 				{
 					return -1;
 				}
-				
 
 				setString(Integer.toString(cards.size()));
 				
@@ -39,7 +35,6 @@ public class QuizletModel extends Model {
 					add(s);
 				}
 				
-
 				cards = super.getDataList(null);
 				cards.remove(0);
 				
@@ -54,24 +49,22 @@ public class QuizletModel extends Model {
 				
 			case UPDATE:
 				
-				Debugger.out("___" + param[0]);
 				if (cards != null)
 				{
 					if (cards.size() > 0)
 					{
 						String[] currentCard = cards.get(0).split(Globals.SEPARATOR);
-						Debugger.out(cards.get(0));
-						Debugger.out(currentCard[1] + " _ " + currentCard[2]);
-						LKDatabase.myCards.pushToStock(new String[]{param[0], currentCard[1], currentCard[2], Integer.toString(1), Integer.toString(-16777216)});
+						String[] values = new String[]{param[0], currentCard[1], currentCard[2], Integer.toString(1), Integer.toString(-16777216)};
+						LKDatabase.myCards.pushToStock(values);
 						
 						cards.remove(0);
 						
 						if (cards.size() == 0)
 						{
-							return 0;
+							return 1000;
 						}
 						
-						return (1000 * (Integer.parseInt(getString(null)) / cards.size()));
+						return (int) (1000 - (1000 * (double)((double)cards.size() / (double) Integer.parseInt(getString(null)))));
 					}
 					
 					cards.clear();

@@ -65,7 +65,8 @@ public abstract class SQLiteDriver extends DBDriver {
 		try {
 			if (stmt == null) {
 				Logger.out("connection is close for query "+query);
-				this.setConnection();
+				//this.setConnection();
+				return null;
 			}
 			if (query != null) {
 				connection.setAutoCommit(false);
@@ -87,7 +88,8 @@ public abstract class SQLiteDriver extends DBDriver {
 		try {
 			if (stmt == null) {
 				Logger.out("connection is close for command "+SQLcommand);
-				this.setConnection();
+				//this.setConnection();
+				return -1;
 			}
 			else {
 				if (SQLcommand != null) {

@@ -109,7 +109,7 @@ public class OptionsView extends FXView
 		optionsLay.setPadding(new Insets(30));
 		optionsLay.setAlignment(Pos.CENTER);
 
-		optionsLay.getChildren().addAll(cardLimitDescription, cardLearnLimit, sepp());
+		optionsLay.getChildren().addAll(cardLimitDescription, cardLearnLimit, new Separator());
 		
 		for (ConfigKeys ck : ConfigKeys.values())
 		{
@@ -133,10 +133,5 @@ public class OptionsView extends FXView
 	public void refreshView ()
 	{
 		backBtn.requestFocus();
-	}
-
-	private Separator sepp ()
-	{
-		return new Separator();
 	}
 }

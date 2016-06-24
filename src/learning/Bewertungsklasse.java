@@ -1,6 +1,7 @@
 package learning;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import database.LKDatabase;
@@ -10,6 +11,7 @@ import debug.Logger;
 import globals.Globals;
 
 public class Bewertungsklasse {
+	
 
 	public static ArrayList<String> getShuffledCards(String query) {
 		ArrayList<String> result = new ArrayList<>();
@@ -21,7 +23,7 @@ public class Bewertungsklasse {
 			return result;
 		} else {
 
-		//TODO	new lerndatenzuweisung(cards);
+		//TODO	Implementiere Methode: new lerndatenzuweisung(cards);
 
 			while (result.size() < cards.size()) {
 				Integer i = (int) (Math.random() * 50000) % cards.size();
@@ -83,7 +85,8 @@ public class Bewertungsklasse {
 	
 	public static void datumZuweisen(String cardID)
 	{
-		LKDatabase.myLearns.getMyAttributes().seekKeyNamed("Date").setValue(LocalDate.now().toString());
+		// hier wird dem kärtchen ein neues Datum Zugewiesen. e
+		LKDatabase.myLearns.getMyAttributes().seekKeyNamed("Date").setValue(LocalDate.now().format(globals.Globals.formatter));
 		Attribute k = new Attribute("PK_CARD",cardID);
 		String sql = SQLHandler.updateInTableCommand(LKDatabase.myLearns.getMyTableName(),LKDatabase.myLearns.getMyAttributes(),k); 
 		debug.Debugger.out("SQL: datumZuweisen(): " + sql);

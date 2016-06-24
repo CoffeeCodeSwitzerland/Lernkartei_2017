@@ -1,5 +1,7 @@
 package globals;
 
+import java.time.format.DateTimeFormatter;
+
 /**
  * Contains centralized Globals that are used for this application 
  * 
@@ -35,7 +37,7 @@ public abstract class Globals
 	
 	public static final int defaultScrollerWidth = 400;
 	
-
+	public static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
 		
 	// The logger should always remain active, to track user problems.
 	// The log-file is stored at the same place of both databases (LK and config)

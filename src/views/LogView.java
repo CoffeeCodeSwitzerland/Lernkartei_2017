@@ -60,8 +60,7 @@ public class LogView extends FXView
 		
 		Button deleteLog = new Button("Lösche Log");
 		deleteLog.setOnAction(e -> {
-			//Wie krieg ich raus wie das File heisst???
-			//filename.delete();
+
 			try {
 				boolean succ = new File(logfileName).delete();
 				if (succ == false) {

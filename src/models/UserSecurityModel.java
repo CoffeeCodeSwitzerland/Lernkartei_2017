@@ -16,14 +16,14 @@ public class UserSecurityModel extends FXModel
 			{
 				return -2;
 			}
-			User newUser = new User();
+			User newUser = new User(0);
 			return newUser.registration(param[0], param[1], param[2], param[3]);
 		case DELETE:
 			if (param.length != 2)
 			{
 				return -2;
 			}
-			User u = new User();
+			User u = new User(0);
 			boolean success = u.delete(param[0], param[1]);
 			return success ? 1 : -1;
 		case TRUE:
@@ -31,7 +31,7 @@ public class UserSecurityModel extends FXModel
 			{
 				return -2;
 			}
-			User b = new User();
+			User b = new User(0);
 			try
 			{
 				boolean successb = b.login(param[0], param[1]);

@@ -11,6 +11,11 @@ public class Student extends User
 		super(attribute,name);
 	}
 
+	public Student()
+	{
+		
+	}
+
 	private Double Highscore;
 	private ArrayList<String> Karteien = new ArrayList<String>();
 	

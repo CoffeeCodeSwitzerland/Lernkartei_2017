@@ -2,6 +2,7 @@ package multiuser;
 
 import database.UserEntity;
 import database.sql.Attribute;
+import database.sql.SQLHandler;
 import debug.Logger;
 import javafx.collections.*;
 
@@ -22,38 +23,93 @@ public class User
 	private ObservableList<String> myGroups = FXCollections.observableArrayList();
 
 	//A new User Entity
-	UserEntity ue;
-	
+	UserEntity ue;	
 	
 	//Constructor of User -> Loads the Hash and the salt of the User which name is given in the parameters
 	public User(Attribute attribut, String name) {
 		ue = new UserEntity("User");
 		try {
-			int i = 0;
-			for (int j = 0; j < ue.getMyAttributes().size(); j++)
-			{
-				if (ue.getMyAttributes().get(j) == attribut) {
-					i = j;
-				} else {
-					continue;
-				}
-			}
-			if (i > 0) {
-				if (ue.checkDatabase(ue.getMyAttributes().get(1), name)) {
-				}
-			}
+			loadSalz();
+			loadHash();
 		} catch(Exception e) {
 			debug.Debugger.out(e.toString());
 		}
 	}
 	
-	//leerer Konstruktor
+	//KONSTRUKTOR, Wenn 0 übergeben, werden alle Daten probiert zu Laden (aus DB) wenn 1 übergeben, 
+	public User(int loadVariation) {
+		ue = new UserEntity("User");
+		if (loadVariation == 0) {
+			loadHash();
+			loadName();
+			loadSalz();
+			loadEmail();
+			loadUsertype();
+		}
+	}
+	
 	public User() {
 		ue = new UserEntity("User");
 	}
 	
+	/**
+	 * 
+	 * @param i 1 = push Name / 2 = push Hash / 3 = push Salz / 4 = push E-Mail / 5 = push Usertype / 100 == push all that have been mentioned earlier
+	 * @return true wenn erfolgreich / false wenn nicht erfolgreich
+	 */
+	public Boolean pushToDatabase(int i) {
+		if (i == 1) {
+			ue.setData("Username", Name);
+			return true;
+		} else if (i == 2) {
+			ue.setData("Password", Hash);
+			return true;
+		} else if (i == 3) {
+			ue.setData("Salz", Salz.toString());
+			return true;
+		} else if (i == 4) {
+			ue.setData("Email", Email);
+			return true;
+		} else if (i == 5) {
+			ue.setData("UserType", Usertype.toString());
+			return true;
+		} else if (i == 100) {
+			ue.setData("Username", Name);
+			ue.setData("Password", Hash);
+			ue.setData("Salz", Salz.toString());
+			ue.setData("Email", Email);
+			ue.setData("UserType", Usertype.toString());
+			return true;
+		} else {
+			return false;
+		}
+	}
 	
-	
+	public void loadUsertype()
+	{
+		Usertype = Integer.parseInt(ue.loadData("UserType", this.getName()));
+	}
+
+	public void loadEmail()
+	{
+		ue.loadData("Email", this.getName());
+	}
+
+	public void loadSalz()
+	{
+		Salz = ue.loadData("Salz", this.getName()).getBytes();
+	}
+
+	public void loadName()
+	{
+		ue.loadData("Username", this.getName());
+	}
+
+	public void loadHash()
+	{
+		ue.loadData("Password", this.getName());
+	}
+
 	/** 
 	 * Wird beim registrieren aufgerufen -> Wenn etwas falsch ist oder etwas
 	 * nicht funktionierte wird false returnt
@@ -118,7 +174,7 @@ public class User
 	 */
 	public boolean login(String name, String passwort) throws CannotPerformOperationException
 	{
-		Salz = getSalt();
+		Salz = getSalt().getBytes();
 		Hash = getHash();
 
 		if (Security.createHash(passwort, Salz) == Hash)
@@ -151,10 +207,9 @@ public class User
 	}
 
 	// TODO : Wenn Datenbank funktioniiert Salt daraus auslesen
-	@SuppressWarnings("unused")
-	private byte[] getSalt()
+	public String getSalt()
 	{
-		return Salz = null;
+		return Salz.toString();
 	}
 
 	// Validierung der drei Eingaben mit entsprechendem Regex
@@ -244,10 +299,9 @@ public class User
 		}
 	}
 
-	// TODO : Wenn Datenbank funktioniert, den Passwort daraus holen
-	private String getHash()
+	public String getHash()
 	{
-		return Hash = null;
+		return Hash;
 	}
 
 	public String getEmail()
@@ -257,11 +311,11 @@ public class User
 
 	// Wenn true -> gespeichert / Wenn false -> nicht gespeicher weil Fehler
 	// (User eine Meldung geben)
-	// TODO : Wenn datenbank funktioniert darin speichern
 	public Boolean setEmail(String email)
 	{
 		if (checkEmailMachbarkeit(email))
 		{
+			ue.setData("Email", email);
 			Email = email;
 			return true;
 		} else
@@ -277,6 +331,7 @@ public class User
 
 	public void setUsertype(Integer usertype)
 	{
+		ue.setData("UserType", usertype.toString());
 		Usertype = usertype;
 	}
 

@@ -3,6 +3,7 @@ package models;
 import java.util.ArrayList;
 
 import debug.Supervisor;
+import multiuser.Student;
 import mvc.Model;
 import user.User;
 
@@ -60,6 +61,30 @@ public class UserModel extends Model
 
 			default:
 				return super.doAction(command, param);
+		}
+	}
+	
+	/**
+	 * 
+	 * @param property -> WERT / RETURN --> name / Username // hash / Hash // salz / Salz // 
+	 * @return
+	 */
+	@Override
+	public String getString(String property) {
+		Student s = new Student();
+		switch (property) {
+		case "name":
+			return s.getName();
+		case "hash":
+			return s.getHash();
+		case "email":
+			return s.getEmail();
+		case "salt":
+			return s.getSalt();
+		case "":
+			return s.getUsertype().toString();
+		default:
+			return "nothing";
 		}
 	}
 

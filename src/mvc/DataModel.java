@@ -11,7 +11,7 @@ import java.util.Iterator;
  * 
  * @author hugo-lucca
  */
-public abstract class DataModel implements ModelInterface
+public abstract class DataModel implements ModelInterface, UserInterface
 {
 	// view's may register itself, to be notified in case of data change:
 	private final ArrayList<View> registredViews = new ArrayList<View>();

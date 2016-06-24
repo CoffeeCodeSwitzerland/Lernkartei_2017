@@ -85,4 +85,10 @@ public class Model extends DataModel
 		}
 		return super.getDataList(null);
 	}
+
+	@Override
+	public String getProperty(String property)
+	{
+		return "Property";
+	}
 }

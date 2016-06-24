@@ -108,7 +108,7 @@ public class UserView extends FXView
 	@Override
 	public void refreshView()
 	{
-		// TODO Auto-generated method stub
+		//username = new Label(getFXController().getFXModel("usersecuritymodel")));
 
 	}
 

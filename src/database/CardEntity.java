@@ -27,6 +27,8 @@ public class CardEntity extends Entity {
 		myAttributes.add(k);
 		a = new Attribute("Color");
 		myAttributes.add(a);
+		a = new Attribute("Link");
+		myAttributes.add(a);
 		a = new Attribute("Description");
 		myAttributes.add(a);
 		a = new Attribute("Date");
@@ -39,7 +41,7 @@ public class CardEntity extends Entity {
 	 * 
 	 * @param values
 	 *            --> Array mit 5 Werten: 0. PK_STACK 1. Vorderseite, 2. Rückseite,
-	 *            3. Priorität (1-5), 4. Color
+	 *            3. Priorität (1-5), 4. Color, 5...
 	 * @  deprecated
 	 */
 	public boolean pushToStock (String[] values) {

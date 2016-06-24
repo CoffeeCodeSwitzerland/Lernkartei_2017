@@ -264,7 +264,7 @@ public class Entity extends SQLiteDriver {
 				// "INSERT INTO " + tabName + " (" + kName + ", " + vName + ") "
 				// + "VALUES ('" + key
 				// + "','" + value + "')";
-				lastSQLCommand = SQLHandler.insertIntoTableCommand(myTableName,this.getMyAttributes(), kName, key, vName, value);
+				lastSQLCommand = SQLHandler.insertIntoTableCommand(myTableName,getMyAttributes(), kName, key, vName, value);
 			}
 			return executeCommand(lastSQLCommand);
 		} catch (Exception e) {

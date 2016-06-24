@@ -11,7 +11,7 @@ import debug.Logger;
 public class AttributeList {
 
 	final private ArrayList<Attribute> myAttributes = new ArrayList<>();
-
+	private int countPrimary = 0;
 	/**
 	 * To build a list of attributes
 	 * 
@@ -19,18 +19,23 @@ public class AttributeList {
 	 */
 	public void add(Attribute a) {
 		// Add only new attributes
-		if (myAttributes.size() == 0) {
-			myAttributes.add(a);
-		} else {
-			boolean found = false;
-			for (int i = 0; i < myAttributes.size(); i++) {
-				if (myAttributes.get(i).getName().equals(a.getName())) {
-					found = true;
-					break;
-				}
-			}
-			if (!found)
+		if (a != null) {
+			if (a.isPrimary()) countPrimary++;
+			if (myAttributes.size() == 0) {
 				myAttributes.add(a);
+			} else {
+				boolean found = false;
+				for (int i = 0; i < myAttributes.size(); i++) {
+					if (myAttributes.get(i).getName().equals(a.getName())) {
+						found = true;
+						break;
+					}
+				}
+				if (!found)
+					myAttributes.add(a);
+			}
+		} else {
+			Logger.out("tried to add invalid null attribute");
 		}
 	}
 
@@ -51,13 +56,11 @@ public class AttributeList {
 	public String getCommaSeparatedList(boolean addPrimary) {
 		int size = myAttributes.size();
 		int commas =0;
-		int primKey =0;
 		if (size >= 1) {
 			String attributeList = "";
 			for (int i = 0; i < size; i++) {
 				if (myAttributes.get(i) != null) {
 					Attribute a = myAttributes.get(i);
-					if (a.isPrimary()) primKey=1;
 					int o;
 					switch (a.getType()) {
 					case INT:
@@ -76,7 +79,7 @@ public class AttributeList {
 					}
 					if (!(a.isPrimary() && addPrimary==false)) {
 						attributeList += a.getName() + " " + Attribute.SQLDataTypes[o];
-						if (commas < size - 1 - ((addPrimary==true) ? 0:primKey) ) {
+						if (commas < size - 1 - ((addPrimary==true) ? 0:countPrimary) ) {
 							attributeList += ",";
 							commas++;
 						}
@@ -190,19 +193,17 @@ public class AttributeList {
 		if (size >= 1) {
 			String keyList = "";
 			int commas =0;
-			int primKey=0;
 			for (int i = 0; i < size; i++) {
 				if (myAttributes.get(i) != null) {
 					Attribute a = myAttributes.get(i);
 					if (a != null) {
-						if (a.isPrimary()) primKey=1;
 						if (!(addPK == false && a.isPrimary())) {
 							keyList += a.getName();
-							if (commas < size - 1 -((addPK==true)?0:primKey)) {
+							if (commas < size - 1 -((addPK==true)?0:countPrimary)) {
 								keyList += ", "; 
 								commas++;
 							}
-							debug.Debugger.out("KLIST:",a.getName()+" P:"+a.isPrimary());
+//							debug.Debugger.out("KLIST:",a.getName()+" P:"+a.isPrimary());
 						}
 					}
 				}
@@ -225,11 +226,9 @@ public class AttributeList {
 		if (size >= 1) {
 			String valueList = "";
 			int commas=0;
-			int primKey =0;
 			for (int i = 0; i < size; i++) {
 				Attribute a = myAttributes.get(i);
 				if (a != null) {
-					if (a.isPrimary()) primKey=1;
 					if (!(addPrimary==false && a.isPrimary())) {
 						String value = a.getValue();
 						if (a.isValue() == false) {
@@ -241,8 +240,8 @@ public class AttributeList {
 								value = "0";
 							valueList += value;
 						}
-						if (commas < (size - 1 - ((addPrimary==true)?0:primKey))) {
-							debug.Debugger.out("VAL:"+value+":"+i+"/"+size+"/"+addPrimary+"/V:"+a.isValue());
+						if (commas < (size - 1 - ((addPrimary==true)?0:countPrimary))) {
+//							debug.Debugger.out("VAL:"+value+":"+i+"/"+size+"/"+addPrimary+"/V:"+a.isValue());
 							valueList += ",";
 							commas++;
 						}

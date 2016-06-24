@@ -172,22 +172,28 @@ public abstract class SQLHandler {
 	}
 
 	public static String insertIntoTableCommand(String tabName, AttributeList attributes, String att1, String val1, String att2, String val2) {
-		Attribute a = new Attribute(att1, val1, Datatype.TEXT);
-		attributes.add(a);
-		a = new Attribute(att2, val2, Datatype.TEXT);
-		attributes.add(a);
+		Attribute a = attributes.seekKeyNamed(att1);
+		if (a == null) {
+			a = new Attribute(att1, val1, Datatype.TEXT);
+			attributes.add(a);
+		} else a.setValue(val1);
+		a = attributes.seekKeyNamed(att2);
+		if (a == null) {
+			a = new Attribute(att2, val2, Datatype.TEXT);
+			attributes.add(a);
+		} else a.setValue(val2);
 		return insertIntoTableCommand(tabName, attributes);
 	}
 
-	public static String insertIntoTableCommand(String tabName, String att1, String val1, String att2, String val2) {
-		AttributeList attributes = new AttributeList();
-		Attribute a = new Attribute(att1, val1, Datatype.TEXT);
-		attributes.add(a);
-		a = new Attribute(att2, val2, Datatype.TEXT);
-		attributes.add(a);
-		return insertIntoTableCommand(tabName, attributes);
-	}
-
+//	public static String insertIntoTableCommand(String tabName, String att1, String val1, String att2, String val2) {
+//		AttributeList attributes = new AttributeList();
+//		Attribute a = new Attribute(att1, val1, Datatype.TEXT);
+//		attributes.add(a);
+//		a = new Attribute(att2, val2, Datatype.TEXT);
+//		attributes.add(a);
+//		return insertIntoTableCommand(tabName, attributes);
+//	}
+//
 	/**
 	 * To build a select from data
 	 * 

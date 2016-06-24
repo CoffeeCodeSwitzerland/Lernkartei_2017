@@ -3,6 +3,7 @@ package views;
 import java.io.File;
 import java.io.FileNotFoundException;
 
+import debug.Logger;
 import globals.Environment;
 import globals.Functions;
 import javafx.geometry.Insets;
@@ -26,6 +27,9 @@ import views.components.AppButton;
  */
 public class LogView extends FXView
 {
+	private final String logfileName = Environment.getDatabaseLocation()+Environment.getFileSep()+"LogfileOf"+Environment.getUserName()+".txt";
+	private Label  labelText;
+	private final ScrollPane scroller = new ScrollPane();
 
 	public LogView(String newName, FXController newController) {
 		// this constructor is the same for all view's
@@ -37,8 +41,6 @@ public class LogView extends FXView
 	public Parent constructContainer() {
 		// TODO Auto-generated method stub
 
-		String logfileName = Environment.getDatabaseLocation()+Environment.getFileSep()+"LogfileOf"+Environment.getUserName()+".txt";
-		Label labelText;
 		try {
 			labelText = new Label ( Functions.fileToString(new File(logfileName)) );
 		} catch (FileNotFoundException e1) {
@@ -60,12 +62,19 @@ public class LogView extends FXView
 		deleteLog.setOnAction(e -> {
 			//Wie krieg ich raus wie das File heisst???
 			//filename.delete();
-			new File(logfileName).delete();
+			try {
+				boolean succ = new File(logfileName).delete();
+				if (succ == false) {
+					Logger.out("did not delete '"+logfileName+"'");
+				}
+			} catch (Exception e1) {
+				Logger.out(e1.getMessage());
+			}
+			this.refreshView();
 		});
 		
 		BorderPane headLayout = new BorderPane(labelTitel);
 		headLayout.setPadding(new Insets(20));
-		ScrollPane scroller = new ScrollPane();
 		scroller.setMaxWidth(800);
 		
 				
@@ -83,13 +92,17 @@ public class LogView extends FXView
 		mainLayout.setTop(headLayout);
 		mainLayout.setCenter(scroller);
 		mainLayout.setBottom(controlLayout);
-
+		//getFXController().getModel("door").registerView(this);
 		return mainLayout;
 	}
 
 	@Override
 	public void refreshView() {
-		// TODO Auto-generated method stub
-		
+		try {
+			labelText = new Label( Functions.fileToString(new File(logfileName)) );
+		} catch (FileNotFoundException e1) {
+			labelText = new Label("leer");
+		}
+		scroller.setContent(labelText);
 	}
 }

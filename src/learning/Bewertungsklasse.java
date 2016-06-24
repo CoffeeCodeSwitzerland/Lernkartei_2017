@@ -53,7 +53,7 @@ public class Bewertungsklasse {
 		Logger.log("End Upprio");
 		
 		// TODO: Datum updaten und Tabelle myLearn Datensatz einfügen
-		
+		datumZuweisen(cardID);
 		if (oldPriority <= LKDatabase.myCards.getPriority(cardID))
 		{
 			return 1;
@@ -72,6 +72,7 @@ public class Bewertungsklasse {
 		Logger.log("End Resetprio");
 		
 		// TODO: Datum updaten und Tabelle myLearn Datensatz einfügen
+		datumZuweisen(cardID);
 		
 		if (LKDatabase.myCards.getPriority(cardID) == 1)
 		{

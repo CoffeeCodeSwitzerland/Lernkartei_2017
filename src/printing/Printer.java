@@ -37,7 +37,10 @@ public class Printer extends JFrame {
 		anzKarten = cards.size();
 		anzDurchführungen = ((Math.round(anzKarten / 8 + 1)) >= Math.round(anzKarten / 8))? Math.round(anzKarten / 8) : Math.round(anzKarten / 8 + 1);
 
+		for(int i = 0; i < anzDurchführungen; i++)
+		{
 			printPage(Stack, kartenID);
+		}
 	}
 	private void printPage(String Stack, int kartenID)
 	{

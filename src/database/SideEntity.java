@@ -17,7 +17,7 @@ public class SideEntity extends Entity {
 		myAttributes.add(a);
 		a = new Attribute("Text");
 		myAttributes.add(a);
-		a = new Attribute("Order",0);
+		a = new Attribute("SideOrder",0);
 		myAttributes.add(a);
 		createTableIfNotExists();
 	}

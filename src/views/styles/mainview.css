@@ -56,9 +56,9 @@
 	-fx-background-size:contain;
 }
 #UserBtn:hover {
-	-fx-background-image: url("pictures/UserIcon_Gross.png");
+	/*-fx-background-image: url("pictures/UserIcon_Gross.png");
 	-fx-background-repeat: no-repeat;
-	-fx-background-size:contain;
+	-fx-background-size:contain;*/
 }
 
 #helpbtn{

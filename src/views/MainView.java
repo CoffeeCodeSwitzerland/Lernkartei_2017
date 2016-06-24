@@ -27,7 +27,7 @@ public class MainView extends FXView
 	
 	// My graphic Hover-Buttons:
 	HoverButton helpbtn = new HoverButton(this,"Hilfe","helpview","helpbtn");
-	HoverButton userLoginBtn = new HoverButton(this,"Login","loginview","UserBtn");
+	HoverButton userLoginBtn = new HoverButton(this,null ,null,"UserBtn");
 	HoverButton lernenStartBtn = new HoverButton(this,"Lernen","doorview", "lernenbtn");
 	HoverButton statisticBtn = new HoverButton(this,"Statistik","statsview", "stat2btn");
 	HoverButton optionsBtn = new HoverButton(this,"Optionen","optionsview","optionsbtn");

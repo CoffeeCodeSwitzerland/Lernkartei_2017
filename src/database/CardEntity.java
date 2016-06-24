@@ -17,12 +17,12 @@ public class CardEntity extends Entity {
 	public CardEntity(String tabName) {
 		super(tabName,"PK_"+tabName);
 		// set table attributes
+		ForeignKey f = new ForeignKey("PK_STACK");
+		myAttributes.add(f);
 		Attribute a = new Attribute("Frontside");
 		myAttributes.add(a);
 		a = new Attribute("Backside");
 		myAttributes.add(a);
-		ForeignKey f = new ForeignKey("PK_STACK");
-		myAttributes.add(f);
 		KeyAttribute k = new KeyAttribute("Priority",0,"1");
 		myAttributes.add(k);
 		a = new Attribute("Color");
@@ -38,8 +38,8 @@ public class CardEntity extends Entity {
 	 * Keine neue Instanz Database erstellen, sondern nur die Methode benutzen
 	 * 
 	 * @param values
-	 *            --> Array mit 5 Werten: 1. Vorderseite, 2. Rückseite, 3. PK_Stack
-	 *            4. Priorität (1-5), 5. Color
+	 *            --> Array mit 5 Werten: 0. PK_STACK 1. Vorderseite, 2. Rückseite,
+	 *            3. Priorität (1-5), 4. Color
 	 * @  deprecated
 	 */
 	public boolean pushToStock (String[] values) {
@@ -57,9 +57,9 @@ public class CardEntity extends Entity {
 				Logger.out("...1. no Stack in database for '"+id+"'!",getMyTableName());
 				return false;
 			}
-			myAttributes.get(2).setValue(setID);
+			myAttributes.seekKeyNamed("PK_STACK").setValue(setID);
 			for (int i=1; i < values.length; i++) {
-				myAttributes.get(i + 2).setValue(values[i]);
+				myAttributes.get(i + 3).setValue(values[i]);
 			}
 			setLastSQLCommand(SQLHandler.insertIntoTableCommand(getMyTableName(), myAttributes)); 
 			return (executeCommand(getLastSQLCommand())>0)?true:false;

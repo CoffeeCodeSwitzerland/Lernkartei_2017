@@ -50,8 +50,7 @@ public class Bewertungsklasse {
 		LKDatabase.myCards.upPrio(Integer.parseInt(cardID));
 		Logger.log("End Upprio");
 		
-		datumZuweisen(cardID);
-		LKDatabase.myLearns.getMyAttributes().seekKeyNamed("WasCorrect").setValue(1);
+		// TODO: Datum updaten und Tabelle myLearn Datensatz einfügen
 		
 		if (oldPriority <= LKDatabase.myCards.getPriority(cardID))
 		{
@@ -70,8 +69,7 @@ public class Bewertungsklasse {
 		LKDatabase.myCards.resetPrio(Integer.parseInt(cardID));
 		Logger.log("End Resetprio");
 		
-		datumZuweisen(cardID);
-		LKDatabase.myLearns.getMyAttributes().seekKeyNamed("WasCorrect").setValue(0);
+		// TODO: Datum updaten und Tabelle myLearn Datensatz einfügen
 		
 		if (LKDatabase.myCards.getPriority(cardID) == 1)
 		{
@@ -88,6 +86,7 @@ public class Bewertungsklasse {
 		LKDatabase.myLearns.getMyAttributes().seekKeyNamed("Date").setValue(LocalDate.now().toString());
 		Attribute k = new Attribute("PK_CARD",cardID);
 		String sql = SQLHandler.updateInTableCommand(LKDatabase.myLearns.getMyTableName(),LKDatabase.myLearns.getMyAttributes(),k); 
+		debug.Debugger.out("SQL: datumZuweisen(): " + sql);
 		LKDatabase.myLearns.executeCommand(sql);
 	}
 }

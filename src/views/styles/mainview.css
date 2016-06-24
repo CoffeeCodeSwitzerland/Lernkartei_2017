@@ -51,7 +51,7 @@
 
 #UserBtn{
 	
-	-fx-background-image: url("pictures/UserIcon_Klein.png");
+	-fx-background-image: url("pictures/UserIcon.png");
 	-fx-background-repeat: no-repeat;
 	-fx-background-size:contain;
 }

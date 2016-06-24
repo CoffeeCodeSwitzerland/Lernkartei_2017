@@ -45,7 +45,7 @@ public class CardEntity extends Entity {
 	public boolean pushToStock (String[] values) {
 		String setID;
 		String id = values[0];
-		// Do "SELECT PK_Kategorie FROM Kategorie WHERE Kategorie = '" + values[2] + "'"
+		// Do "SELECT PK_STACK FROM STACK WHERE name = '" + id + "'"
 		setLastSQLCommand(SQLHandler.selectCommand("STACK","PK_STACK","name",id)); 
 		setLastResultSet(executeQuery(getLastSQLCommand()));
 		try {
@@ -57,7 +57,7 @@ public class CardEntity extends Entity {
 				Logger.out("...1. no Stack in database for '"+id+"'!",getMyTableName());
 				return false;
 			}
-			myAttributes.get(0).setValue(setID);
+			myAttributes.get(2).setValue(setID);
 			for (int i=1; i < values.length; i++) {
 				myAttributes.get(i + 2).setValue(values[i]);
 			}

@@ -153,7 +153,24 @@ public final class Logger {
 	}
 
 	public static void out(String debugText, int calls, String param1, String param2) {
-		debug.Debugger.out(debugText, calls, param1, param2);
+		String debugPrefix ="";
+		for (int i=calls+1; i>=3; i--) {
+			if (i < calls+1) debugPrefix += "->"; 
+			debugPrefix += 
+					Thread.currentThread().getStackTrace()[i].getClassName()+"."+
+					Thread.currentThread().getStackTrace()[i].getMethodName();
+			if ((calls+2-i) % 2 == 0 && i != 3) debugPrefix += "\n";
+		}
+		String p = "(";
+		if (param1 != null) p += param1;
+		if (param2 != null) {
+			if (param1 != null) p+=",";
+			p+=param2;
+		}
+		p+=")";
+		String spacing ="  ";
+		for (int i=0; i < 54-debugText.length();i++) spacing +=" ";
+		debug.Debugger.out(debugText +spacing+"{"+debugPrefix+p+"}", param1, param2);
 		log(debugText);
 	}
 

@@ -45,7 +45,13 @@ public final class Debugger {
 	public static void out(String debugText, String param1, String param2) {
 		if (param1 == null) param1 = "{null}";
 		if (param2 == null) param2 = "{null}";
-		out (debugText, 3, param1, param2);
+		if (debugActive && Globals.DebuggerIsOn) {
+			if (debugText == null) {
+				out();
+			} else {
+				System.out.println(">>"+debugText);
+			}
+		}
 	}
 
 	public static void out(String debugText, String param1, int param2) {

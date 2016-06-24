@@ -20,7 +20,7 @@ public final class Debugger {
 			if (debugText == null) {
 				out();
 			} else {
-				String debugPrefix =">> ";
+				String debugPrefix ="";
 				for (int i=calls+1; i>=3; i--) {
 					if (i < calls+1) debugPrefix += "->"; 
 					debugPrefix += 
@@ -34,8 +34,10 @@ public final class Debugger {
 					if (param1 != null) p+=",";
 					p+=param2;
 				}
-				p+="): ";
-				System.out.println(debugPrefix +p+ debugText);
+				p+=")";
+				String spacing ="  ";
+				for (int i=0; i < 54-debugText.length();i++) spacing +=" ";
+				System.out.println(">>"+debugText +spacing+"{"+debugPrefix+p+"}");
 			}
 		}
 	}

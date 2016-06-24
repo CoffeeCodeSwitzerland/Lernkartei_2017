@@ -2,6 +2,7 @@ package views;
 
 import java.util.ArrayList;
 
+import debug.Debugger;
 import globals.Globals;
 import javafx.animation.AnimationTimer;
 import javafx.geometry.Insets;
@@ -105,6 +106,7 @@ public class SimpleEditorView extends FXViewModel
 			debug.Debugger.out("" + cardStrings.size());
 			for (String s : cardStrings)
 			{
+				Debugger.out(s);
 				String[] cardSides = s.split(Globals.SEPARATOR);
 				TextField front = new TextField(cardSides[1]);
 				front.setPromptText("Eingabe erforderlich");

@@ -41,6 +41,7 @@ public class QuizletModel extends Model {
 				
 
 				cards = super.getDataList(null);
+				cards.remove(0);
 				
 				int isSuccessful = LKDatabase.myStacks.newStack(param[1], param[2]);
 				
@@ -53,14 +54,15 @@ public class QuizletModel extends Model {
 				
 			case UPDATE:
 				
-				
+				Debugger.out("___" + param[0]);
 				if (cards != null)
 				{
 					if (cards.size() > 0)
 					{
 						String[] currentCard = cards.get(0).split(Globals.SEPARATOR);
-						
-						LKDatabase.myCards.pushToStock(new String[]{currentCard[1], currentCard[2], param[0], Integer.toString(1), Integer.toString(-16777216)});
+						Debugger.out(cards.get(0));
+						Debugger.out(currentCard[1] + " _ " + currentCard[2]);
+						LKDatabase.myCards.pushToStock(new String[]{param[0], currentCard[1], currentCard[2], Integer.toString(1), Integer.toString(-16777216)});
 						
 						cards.remove(0);
 						

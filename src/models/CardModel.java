@@ -39,7 +39,7 @@ public class CardModel extends Model
 				// 2: PK_STACK
 				// 3: Prio
 				// 4: Color
-				String[] arguments = new String[] { param[0], param[1], param[2], defaultPriority, defaultColor };
+				String[] arguments = new String[] { param[2], param[0], param[1], defaultPriority, defaultColor };
 				boolean successfulNew = LKDatabase.myCards.pushToStock(arguments);
 				if (successfulNew)
 				{

@@ -94,10 +94,10 @@ public class StackEntity extends Entity {
 			// Do "SELECT * FROM Kategorie WHERE FK_Door = " + FK_ID + ";"
 			setLastSQLCommand(SQLHandler.selectCommand(getMyTableName(), null, "PK_DOOR", FK_ID));
 			setLastResultSet(executeQuery(getLastSQLCommand()));
-			debug.Debugger.out(getLastSQLCommand());
+			//debug.Debugger.out(getLastSQLCommand());
 			while (getLastResultSet().next()) {
 				datensatz.add(getLastResultSet().getString("name"));
-				debug.Debugger.out("ADD:" + getLastResultSet().getString("name"));
+				//debug.Debugger.out("ADD:" + getLastResultSet().getString("name"));
 			}
 			getLastResultSet().close();
 		} catch (Exception e) {
@@ -116,18 +116,21 @@ public class StackEntity extends Entity {
 		boolean worked = false;
 		// Abfragen, ob zu löschende Kategorie vorhanden ist oder nicht.
 		// Wenn ja, wird gelöscht
-		// Do "SELECT Kategorie FROM Kategorie WHERE"+ " Kategorie = '" + category + "';"
-		setLastSQLCommand(SQLHandler.selectCommand(getMyTableName(), "name", "name", category));
+		// Do "SELECT * FROM STACK WHERE "+ " name = '" + category + "'"
+		setLastSQLCommand(SQLHandler.selectCommand(getMyTableName(), null, "name", category));
 		setLastResultSet(executeQuery(getLastSQLCommand()));
+		//debug.Debugger.out("DEL-STACK1:"+getLastSQLCommand());
 		try {
 			if (getLastResultSet().next()) {
 				int setID = getLastResultSet().getInt("PK_STACK");
-				// Do "DELETE FROM Stack WHERE PK_STACK = " + setID + ";"
+				// Do "DELETE FROM Stack WHERE PK_STACK = " + setID
 				setLastSQLCommand(SQLHandler.deleteEntryCommand("Card", "PK_STACK", setID));
 				executeCommand(getLastSQLCommand());
-				// Do "DELETE FROM Kategorie WHERE Kategorie = '" + category + "';"
+				//debug.Debugger.out("DEL-STACK2:"+getLastSQLCommand());
+				// Do "DELETE FROM DOOR WHERE name = '" + category + "'"
 				setLastSQLCommand(SQLHandler.deleteEntryCommand(getMyTableName(), "PK_STACK", setID));
 				executeCommand(getLastSQLCommand());
+				//debug.Debugger.out("DEL-STACK3:"+getLastSQLCommand());
 				worked = true;
 			}
 			getLastResultSet().close();

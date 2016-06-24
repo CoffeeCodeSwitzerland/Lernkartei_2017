@@ -131,10 +131,11 @@ public class CardEntity extends Entity {
 	 * @return --> True: Funktionierte, False: Nicht geklappt
 	 */
 
-	public boolean editEntry(String id, String frontside, String backside) {
-
-		// Do "SELECT * FROM Stock WHERE PK_Stk = " + id
-		setLastSQLCommand(SQLHandler.selectCommand(getMyTableName(),null,"PK_CARD",id)); 
+	public boolean editEntry(String idname, String frontside, String backside) {
+		int PK_ID =0;
+		String pkStack ="";
+		// Do "SELECT * FROM Card WHERE PK_Card = " + idnema
+		setLastSQLCommand(SQLHandler.selectCommand(getMyTableName(),null,"PK_CARD",idname)); 
 		setLastResultSet(executeQuery(getLastSQLCommand()));
 		try {
 			if (!getLastResultSet().next()) {
@@ -142,11 +143,18 @@ public class CardEntity extends Entity {
 				return false;
 			}
 			else {
+				PK_ID = getLastResultSet().getInt("PK_CARD");
+				pkStack = getLastResultSet().getString("PK_STACK");
 				getLastResultSet().close();
 			}
-			// Do "UPDATE Stock SET Frontside = '" + frontside + "', Backside = '" + backside
-			//		+ "' WHERE PK_Stk = " + id;
-			// TODO kein Befehl hier, so gewollt?
+			// Do "UPDATE Card SET Frontside = '" + frontside + "', Backside = '" + backside
+			//		+ "' WHERE PK_Card = " + id;
+			myAttributes.seekKeyNamed("Frontside").setValue(frontside);
+			myAttributes.seekKeyNamed("Backside").setValue(backside);
+			myAttributes.seekKeyNamed("PK_STACK").setValue(pkStack);
+			Attribute key = new Attribute("PK_CARD",PK_ID);
+			setLastSQLCommand(SQLHandler.updateInTableCommand(getMyTableName(),myAttributes,key)); 
+			executeCommand(getLastSQLCommand());
 			return true;
 		}
 		catch (Exception e) {
@@ -165,8 +173,8 @@ public class CardEntity extends Entity {
 
 		Integer oldPrio = null;
 		String newPrio = "";
-		// Do "SELECT * FROM Stock WHERE PK_Stk = " + id;
-		setLastSQLCommand(SQLHandler.selectCommand(getMyTableName(),"Priority","PK_CARD", PK_ID.toString())); 
+		// Do "SELECT * FROM Card WHERE PK_Card = " + id;
+		setLastSQLCommand(SQLHandler.selectCommand(getMyTableName(),null,"PK_CARD", PK_ID.toString())); 
 		setLastResultSet(executeQuery(getLastSQLCommand()));
 		try {
 			if (!getLastResultSet().next()) { // Frage die Aktuelle Priorität ab
@@ -187,7 +195,7 @@ public class CardEntity extends Entity {
 			}
 			// Schreibt die Neue Priorität in die Datenbank
 			Attribute k = new Attribute("Priority",newPrio);
-			// Do "UPDATE Stock SET Priority = " + newPrio + " WHERE PK_Stk = " + PK_ID
+			// Do "UPDATE Card SET Priority = " + newPrio + " WHERE PK_Cadr = " + PK_ID
 			setLastSQLCommand(SQLHandler.updateInTableCommand(getMyTableName(),myAttributes,k)); 
 			executeCommand(getLastSQLCommand());
 		}

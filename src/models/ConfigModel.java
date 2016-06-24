@@ -16,6 +16,7 @@ public class ConfigModel extends Model
 			case SET:
 				if (param.length != 2) { return -2; }
 				LKDatabase.myConfig.setKeyValue(param[0],param[1]);
+				// TODO return von setKeyValue auswerten
 				return 1;
 
 			default:
@@ -31,5 +32,16 @@ public class ConfigModel extends Model
 		values.add(LKDatabase.myConfig.getValue(query));
 		return values;
 	}
-
+	
+	@Override
+	public String getString (String query)
+	{
+		String result = LKDatabase.myConfig.getValue(query);
+		if (result == null)
+		{
+			// save default
+		}
+		return result;
+	}
+	
 }

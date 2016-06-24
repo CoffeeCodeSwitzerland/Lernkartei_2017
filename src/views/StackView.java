@@ -130,7 +130,7 @@ public class StackView extends FXViewModel
 				boolean canDeleteStack = Alert.ok("Achtung", "Willst du den Stapel '" + db.getString() + "' wirklich endgültig löschen?");
 				if (canDeleteStack)
 				{
-					getFXController().getModel("stack").doAction(Command.DELETE, db.getString());
+					getFXController().getModel("stack").doAction(Command.DELETE, db.getString(), getData());
 					// TODO Feedback für den User (Fehlermeldungen)
 					boolean isLabel = options.getChildren().get(0).getTypeSelector().equals("Label");
 					if (isLabel)

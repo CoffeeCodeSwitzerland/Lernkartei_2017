@@ -9,7 +9,6 @@ import javafx.scene.control.Separator;
 import mvc.Model;
 import mvc.ModelInterface.Command;
 import mvc.fx.FXController;
-import mvc.fx.FXModel;
 
 /**
  * 

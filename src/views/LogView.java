@@ -8,6 +8,7 @@ import globals.Functions;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
@@ -55,6 +56,8 @@ public class LogView extends FXView
 			
 		AppButton backBtn = new AppButton("_Zurück");
 		backBtn.setOnAction(e -> getFXController().showMainView());
+		
+		Button deleteLog = new Button("Lösche Log");
 
 		BorderPane headLayout = new BorderPane(labelTitel);
 		headLayout.setPadding(new Insets(20));
@@ -68,7 +71,7 @@ public class LogView extends FXView
 			
 		HBox controlLayout = new HBox(20);
 		controlLayout.setAlignment(Pos.BOTTOM_CENTER);
-		controlLayout.getChildren().addAll(backBtn);
+		controlLayout.getChildren().addAll(backBtn, deleteLog);
 		controlLayout.setPadding(new Insets (10));
 
 		BorderPane mainLayout = new BorderPane();

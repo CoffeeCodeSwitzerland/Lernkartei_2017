@@ -3,6 +3,7 @@ package models;
 import java.util.ArrayList;
 
 import database.LKDatabase;
+import debug.Debugger;
 import globals.Globals;
 import mvc.Model;
 import quizlet.Quizlet;
@@ -21,6 +22,7 @@ public class QuizletModel extends Model {
 				
 				init();
 
+				Debugger.out("___" + param[0] + " " + param[1] + " " + param[2]);
 				cards = q.getSet(param[0]);
 				
 				

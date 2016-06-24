@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 public class lerndatenzuweisung {
 	public ArrayList<String[]> learnToday = new ArrayList<String[]>();
+	// hier muss aus der Datenbank genommen werden wann die karte zuletzt gelernt wurde  !!
 	public LocalDate Datum;
 
 	public lerndatenzuweisung(ArrayList<String[]> card) {

@@ -31,25 +31,13 @@ public class Printer extends JFrame {
 
 	public void druckeKartenset(String Stack) {
 		int kartenID = -1;
-		int anzKarten;
-		int anzDurchführungen;
+		double anzKarten;
+		long  anzDurchführungen;
 		ArrayList<String[]> cards = LKDatabase.myCards.pullFromStock(Stack);
-		
-		anzKarten = cards.size();		
-		anzDurchführungen = anzKarten / 8;
-		if(anzDurchführungen % 2 != 0)
-		{
-			anzDurchführungen++;
-		}
-		
+		anzKarten = cards.size();
+		anzDurchführungen = ((Math.round(anzKarten / 8 + 1)) >= Math.round(anzKarten / 8))? Math.round(anzKarten / 8) : Math.round(anzKarten / 8 + 1);
 
-		;
-		anzDurchführungen = 2;
-		for(int i = 0; i < anzDurchführungen;i++)
-		{
-			kartenID = i* 8 + 1;
 			printPage(Stack, kartenID);
-		}
 	}
 	private void printPage(String Stack, int kartenID)
 	{

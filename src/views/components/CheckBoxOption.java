@@ -1,5 +1,7 @@
 package views.components;
 
+import globals.ConfigDefaults;
+import globals.ConfigDefaults.Configurations;
 import javafx.scene.Node;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
@@ -19,7 +21,18 @@ public class CheckBoxOption
 	public CheckBox checkBox;
 	public boolean oldValue;
 	
+	public CheckBoxOption (Configurations c, FXController fxc)
+	{
+		String[] s = ConfigDefaults.getConfig(c);
+		CheckBoxOptionInit(c.toString(), s[1], s[0], s[2], fxc);
+	}
+	
 	public CheckBoxOption (String configKey, String description, String cbDescription, FXController controller)
+	{
+		CheckBoxOptionInit(configKey, description, cbDescription, null, controller);
+	}
+	
+	public void CheckBoxOptionInit (String configKey, String description, String cbDescription, String def, FXController controller)
 	{
 		this.description = new Label(description);
 		this.description.setWrapText(true);
@@ -42,9 +55,18 @@ public class CheckBoxOption
 		if (noEntry)
 		{
 			Model m = controller.getModel("config");
-			if (m!= null) {
-			m.doAction(Command.SET, configKey, "false");
-			} else {
+			if (m!= null) 
+			{
+				if (def != null)
+				{
+					m.doAction(Command.SET, configKey, "false");
+				}
+				else
+				{
+					m.doAction(Command.SET, configKey, def);
+				}
+			} else
+			{
 				debug.Debugger.out("Model config not found!");
 			}
 		}

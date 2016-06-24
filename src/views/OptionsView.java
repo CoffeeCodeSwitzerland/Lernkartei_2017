@@ -2,6 +2,8 @@ package views;
 
 import java.util.HashMap;
 
+import globals.ConfigDefaults;
+import globals.ConfigDefaults.Configurations;
 import globals.Globals;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -114,6 +116,13 @@ public class OptionsView extends FXView
 		for (ConfigKeys ck : ConfigKeys.values())
 		{
 			CheckBoxOption cbo = new CheckBoxOption(ck.toString(), checkboxDescriptions.get(ck), checkboxLabels.get(ck), getFXController());
+			optionsLay.getChildren().addAll(cbo.toNodesWithSepp());
+		}
+		
+		ConfigDefaults.ini();
+		for (Configurations c : Configurations.values())
+		{
+			CheckBoxOption cbo = new CheckBoxOption(c, getFXController());
 			optionsLay.getChildren().addAll(cbo.toNodesWithSepp());
 		}
 		

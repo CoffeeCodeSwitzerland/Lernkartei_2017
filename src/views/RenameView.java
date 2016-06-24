@@ -93,7 +93,7 @@ public class RenameView extends FXViewModel
 					int canCreate = getFXController().getModel(info[0]).doAction(Command.CAN_CREATE, field.getText());
 					if (canCreate == 1)
 					{
-						getFXController().getModel(info[0]).doAction(Command.UPDATE, oldValue, field.getText());
+						getFXController().getModel(info[0]).doAction(Command.UPDATE, oldValue, field.getText(), info[1]);
 					}
 					else if (canCreate == -1 && !field.getText().equals(oldValue))
 					{

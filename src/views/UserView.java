@@ -68,8 +68,8 @@ public class UserView extends FXView
 		uName = new ControlLayout();
 		uName.setPadding(new Insets(15));
 
-		username = new Label("Here's the name of the user");
-		username.setId("username");
+//		username = new Label("Here's the name of the user");
+//		username.setId("username");
 		changeName = new AppButton("Namen ändern");
 		changePasswort = new AppButton("Passwort ändern");
 		changeEmail = new AppButton("E-Mail ändern");
@@ -90,7 +90,7 @@ public class UserView extends FXView
 		left.getChildren().addAll(stacks, learn);
 		right.getChildren().addAll(hinweis);
 		
-		uName.getChildren().addAll(username);
+//		uName.getChildren().addAll(username);
 		changeButtons.getChildren().addAll(changeName, changeEmail, changePasswort);
 		
 		header.getChildren().addAll(uName, changeButtons);
@@ -108,7 +108,7 @@ public class UserView extends FXView
 	@Override
 	public void refreshView()
 	{
-		//username = new Label(getFXController().getFXModel("usersecuritymodel")));
+		username = new Label(getFXController().getFXModel("usersecuritymodel").getProperty("name"));
 
 	}
 

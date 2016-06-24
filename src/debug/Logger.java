@@ -153,6 +153,7 @@ public final class Logger {
 	}
 
 	public static void out(String debugText, int calls, String param1, String param2) {
+		if (debugText == null) debugText = ""; 
 		String debugPrefix ="";
 		for (int i=calls+1; i>=3; i--) {
 			if (i < calls+1) debugPrefix += "->"; 

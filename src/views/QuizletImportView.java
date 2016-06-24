@@ -48,11 +48,6 @@ public class QuizletImportView extends FXViewModel
 	int					cardNumber				= -1;
 	int					page					= 1;
 	int					pageCount				= 0;
-	float				alreadyDownloaded		= 0;
-	float				cardListSize			= 0;
-
-	boolean				isLoading				= false;
-	boolean				isLoadingACard			= false;
 
 	public QuizletImportView (String newName, FXController newController)
 	{
@@ -144,64 +139,19 @@ public class QuizletImportView extends FXViewModel
 
 		return maLay;
 	}
-
-	AnimationTimer loadingAnimation = new AnimationTimer() {
-		@Override
-		public void handle (long now)
-		{
-			if (!isLoadingACard)
-			{
-				if (cardNumber < searchResult.size())
-				{
-					isLoadingACard = true;
-					String s1 = searchResult.get(cardNumber);
-					cardNumber++;
-					String[] card = s1.split(Globals.SEPARATOR);
-					if (card.length != 3)
-					{
-						// s1 = Alert.simpleString("Achtung", "Ein ungültiger String wurde gefunden. Bitte passen sie den String an.", s1, 500);
-						// TODO // andere  // Lösung
-						loadingAnimation.stop();
-						
-						getFXController().getModel("stack").doAction(Command.DELETE, downloadStackName);
-						
-						Alert.simpleInfoBox("Fehler", "Der Download dieses Stapels ist fehlgeschlagen.");
-						
-						loading.setProgress(0);
-						
-						return;
-					}
-					loading.setProgress(cardNumber / cardListSize);
-
-					getFXController().getModel("cards").doAction(Command.NEW, card[1], card[2], downloadStackName);
-
-					isLoadingACard = false;
-				}
-				else
-				{
-					getWindow().getScene().widthProperty().removeListener(oldEvent -> loading.setMinWidth(getWindow().getScene().getWidth()));
-
-					downloadStackName = "";
-					cardNumber = -1;
-					alreadyDownloaded = 0;
-					cardListSize = 0;
-
-					isLoading = false;
-					loadingAnimation.stop();
-
-					loading.setProgress(0);
-					getFXController().showView("stack");
-				}
-			}
-		}
-	};
-
+	
+	boolean createtingCard = false;
+	
 	AnimationTimer newAnimation = new AnimationTimer()
 	{
 		@Override
 		public void handle (long now)
 		{
+			if (createtingCard) { return; }
+			createtingCard = true;
+			
 			int result = getFXController().getModel("quizlet").doAction(Command.UPDATE, downloadStackName);
+			Debugger.out(Integer.toString(result));
 			if (result == -7)
 			{
 				newAnimation.stop();
@@ -209,18 +159,15 @@ public class QuizletImportView extends FXViewModel
 
 				downloadStackName = "";
 				cardNumber = -1;
-				alreadyDownloaded = 0;
-				cardListSize = 0;
-
-				isLoading = false;
 
 				loading.setProgress(0);
 				getFXController().showView("stack");
 			}
 			else if (result != -1)
 			{
-				loading.setProgress((1000 - result) / 1000); 
+				loading.setProgress((double)result / 1000); 
 			}
+			createtingCard = false;
 		}
 	};
 	
@@ -348,7 +295,6 @@ public class QuizletImportView extends FXViewModel
 								downloadStackName = name;
 								loading.setProgress(-1);
 								cardNumber = 1;
-								cardListSize = Float.parseFloat(stackInfo[3]);
 								Debugger.out(getData());
 								int success = getFXController().getModel("quizlet").doAction(Command.NEW, stackInfo[0], name, getData());
 								if (success == 1)
@@ -374,14 +320,6 @@ public class QuizletImportView extends FXViewModel
 				}
 
 				listLayout.getChildren().addAll(quizletSets);
-			}
-		}
-		else
-		{
-			if (!isLoading)
-			{
-				isLoading = true;
-				loadingAnimation.start();
 			}
 		}
 	}

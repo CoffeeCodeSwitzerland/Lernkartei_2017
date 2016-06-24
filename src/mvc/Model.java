@@ -89,6 +89,6 @@ public class Model extends DataModel
 	@Override
 	public String getProperty(String property)
 	{
-		return "Property";
+		return property;
 	}
 }

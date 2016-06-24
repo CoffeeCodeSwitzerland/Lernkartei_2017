@@ -87,7 +87,19 @@ public class LoginView extends FXView
 	{
 		bp.setId("loginviewbg");
 
-		log.setOnAction(e -> getFXController().showView("userview"));
+		//Zuerst überprüfen ob Felder gefüllt
+		//Dann überprüfen ob Eingaben korrekt
+		//Als drittes überprüfen, ob der User existiert oder nicht
+		//Wenn alles klappt noch in die Datenbank speichern und zum Schluss in den UserView wechseln
+		if (!(txtName.equals(null) || txtName.equals("") || pwPassword.equals(null) || pwPassword.equals(""))) {
+			if (txtName.equals("mama")) {
+				
+			} else {
+				errorText = new Label("Die Eingaben entsprechen nicht unseren Richtlinien");
+			}
+		} else {
+			errorText = new Label("Sie müssen die Felder ausfüllen");
+		}
 		
 	}
 

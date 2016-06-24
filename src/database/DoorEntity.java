@@ -9,9 +9,6 @@ import debug.Logger;
 
 public class DoorEntity extends Entity {
 
-//	private static String sqlCreate = "CREATE TABLE IF NOT EXISTS Doors (" +
-//										myPrimaryKey+" INTEGER PRIMARY KEY AUTOINCREMENT," +
-//										mySeekAttribute+" TEXT NOT NULL)";
 	DoorEntity (String tabName) {
 		super(tabName, tabName+"_PK");
 		// set table attributes
@@ -32,21 +29,17 @@ public class DoorEntity extends Entity {
 	 */
 	public boolean newDoor (String eingabe) {
 		boolean worked = false;
+		// Do "SELECT Doorname FROM Doors WHERE Doorname = " + "'" + eingabe + "'"
+		setLastSQLCommand(SQLHandler.selectCommand(	this.getMyTableName(),"name","name",eingabe)); 
+		setLastResultSet(executeQuery(getLastSQLCommand()));
 		try {
-
-			// Überprüft, ob bereits ein Eintrag mit dem Selben Namen enthalten
-			// ist
-			
-			setLastSQLCommand(SQLHandler.selectCommand(	this.getMyTableName(),"name","name",eingabe)); 
-			setLastResultSet(executeQuery(getLastSQLCommand()));
-			// executeQuery("SELECT Doorname FROM Doors WHERE Doorname = " + "'" + eingabe + "'");
+			// Überprüft, ob bereits ein Eintrag mit dem Selben Namen enthalten ist
 			if (!getLastResultSet().next()) {
 				getLastResultSet().close();
 				// Einfügen des Datensatzes in Doors
 				myAttributes.seekKeyNamed("name").setValue(eingabe);
 				setLastSQLCommand(SQLHandler.insertIntoTableCommand(getMyTableName(), myAttributes)); 
-				//String insert = "INSERT INTO Doors (Doorname)" +
-				//		"VALUES ('" + eingabe + "')";
+				// Do "INSERT INTO Doors (Doorname)" + "VALUES ('" + eingabe + "')";
 				worked = (this.executeCommand(getLastSQLCommand()) >= 0) ? true:false;
 			}
 		}
@@ -62,8 +55,7 @@ public class DoorEntity extends Entity {
 	 * 
 	 * @return --> Retourniert die Liste mit allen Türennamen
 	 */
- 
-	public ArrayList<String> getDoors () {
+ 	public ArrayList<String> getDoors () {
 		ArrayList<String> data = new ArrayList<String>();
 		try {
 			setLastSQLCommand(SQLHandler.selectCommand(getMyTableName(), null)); 
@@ -98,11 +90,9 @@ public class DoorEntity extends Entity {
 				int doorID = getLastResultSet().getInt("PK_DOOR");
 				getLastResultSet().close();
 
+				// Do "SELECT * FROM Kategorie WHERE PK_Door = " + doorID
 				setLastSQLCommand(SQLHandler.selectCommand(	"STACK",null,"PK_DOOR",doorID)); 
 				setLastResultSet(executeQuery(getLastSQLCommand()));
-
-				//ResultSet getStacks = stmt.executeQuery("SELECT * FROM Kategorie WHERE PK_Door = " + doorID);
-				
 				while (getLastResultSet().next()) {
 					setsToDel.add(getLastResultSet().getString("name"));
 				}
@@ -112,11 +102,12 @@ public class DoorEntity extends Entity {
 				}
 				setLastSQLCommand(SQLHandler.deleteEntryCommand(getMyTableName(), "PK_DOOR", doorID)); 
 				executeCommand(getLastSQLCommand());
-				//String delDoor = "DELETE FROM Doors WHERE Doorname = '" + delName + "'";
+				// Do "DELETE FROM Doors WHERE Doorname = '" + delName + "'";
 				setLastSQLCommand(SQLHandler.deleteEntryCommand("STACK", "PK_DOOR", doorID)); 
 				executeCommand(getLastSQLCommand());
-				//String delSets = "DELETE FROM Kategorie WHERE FK_Door = " + doorID;
-// TODO Delete all cards of those stacks...
+				
+				// TODO Delete all cards of those stacks...
+				// Do "DELETE FROM Kategorie WHERE FK_Door = " + doorID;
 //				setLastSQLCommand(SQLHandler.deleteEntryCommand("STACK", "PK_DOOR", doorID)); 
 //				setLastResultSet(executeQuery(getLastSQLCommand()));
 				//String delSets = "DELETE FROM Kategorie WHERE FK_Door = " + doorID;
@@ -136,15 +127,14 @@ public class DoorEntity extends Entity {
 	public boolean update(String oldName, String newName) {
 		boolean worked = true;
 		try {
+			// Do "SELECT * FROM Doors WHERE Doorname = '" + oldName + "';"
 			setLastSQLCommand(SQLHandler.selectCommand(getMyTableName(),"name","name",oldName)); 
 			setLastResultSet(executeQuery(getLastSQLCommand()));
-			//ResultSet checkDoor = stmt.executeQuery("SELECT * FROM Doors WHERE Doorname = '" + oldName + "';");
 			if (getLastResultSet().next()) {
 				Attribute k = new Attribute("name",oldName);
+				// Do "UPDATE Doors SET Doorname = '" + newName + "' WHERE Doorname = '" + oldName + "';"
 				setLastSQLCommand(SQLHandler.updateInTableCommand(getMyTableName(),myAttributes,k)); 
 				executeCommand(getLastSQLCommand());
-				//String updateDoor = "UPDATE Doors SET Doorname = '" + newName + "' WHERE Doorname = '" + oldName + "';";
-				//stmt.executeUpdate(updateDoor);
 				worked = true;
 			} else {
 				worked = false;

@@ -1,8 +1,10 @@
 package database;
 
+import database.sql.Entity;
+
 public abstract class LKDatabase {
 	
-	public static final Config myConfig = new Config("config.db","config");
+	public static final Entity myConfig = new Entity("config.db","config","PK_config");
 	public static final UserEntity myUsers = new UserEntity("User");
 	public static final UserLogin myLogins = new UserLogin("Login");
 	public static final DoorEntity myDoors = new DoorEntity("Door");

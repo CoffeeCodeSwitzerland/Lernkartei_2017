@@ -1,7 +1,5 @@
 package views.components;
 
-import java.util.ArrayList;
-
 import javafx.scene.Node;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
@@ -30,18 +28,16 @@ public class CheckBoxOption
 		oldValue = false;
 		
 		boolean noEntry = false;
-		ArrayList<String> data = controller.getModel("config").getDataList(configKey);
-		if (data != null)
+
+		String dataValue = controller.getModel("config").getString(configKey);
+		if (dataValue != null)
 		{
-			String dataValue = data.get(0);
-			if (dataValue != null)
+			if (dataValue.equals("true"))
 			{
-				if (dataValue.equals("true"))
-				{
-					oldValue = true;
-				}
-			} else { noEntry = true; }
+				oldValue = true;
+			}
 		} else { noEntry = true; }
+
 		
 		if (noEntry)
 		{

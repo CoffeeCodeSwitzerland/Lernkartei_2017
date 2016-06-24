@@ -68,7 +68,7 @@ public class OptionsView extends FXView
 		
 		Label cardLimitDescription = new Label(descTxtCardLimit);
 
-		cardLearnLimit = new TextField(getFXController().getModel("config").getDataList("cardLimit").get(0)); // Achtung
+		cardLearnLimit = new TextField(getFXController().getModel("config").getString("cardLimit")); // Achtung
 
 		//lastValidCardLimit = cardLearnLimit.getText();
 

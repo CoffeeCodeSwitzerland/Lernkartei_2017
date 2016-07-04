@@ -23,8 +23,8 @@ import views.components.VerticalScroller;
 
 
 /**
- * Zeigt alle Türen an. Erlaubt die Erstellung und das Löschen von Türen. Eine
- * Tür entspricht einem Themenbereich.
+ * Zeigt alle Doors an. Erlaubt die Erstellung und das LÃ¶schen von Doors. Eine
+ * Door entspricht einem Themenbereich.
  * 
  * @author miro albrecht & hugo lucca
  *
@@ -39,14 +39,13 @@ public class DoorView extends FXView
 		construct(newName);
 	}
 
-	// Zeigt Türen dynamisch an (muss im construct und im refresh verfügbar
-	// sein)
+	// Zeigt Doors dynamisch an (muss im construct und im refresh verfÃ¼gbar sein)
 	VBox doorLayout;
 
 	@Override
 	public Parent constructContainer ()
 	{
-		// Initialisiere Layout für Türen
+		// Initialisiere Layout fÃ¼r Doors
 		doorLayout = new VBox(20);
 		doorLayout.setAlignment(Pos.CENTER);
 		
@@ -61,7 +60,7 @@ public class DoorView extends FXView
 		Image trashImg = new Image("views/pictures/Papierkorb.png");
 		ImageView trashImgView = new ImageView(trashImg);
 
-		// Layout für Controls (Hauptsteuerung)
+		// Layout fÃ¼r Controls (Hauptsteuerung)
 		ControlLayout conLay = new ControlLayout(homeBtn, newDoorBtn, renameBtn, trashImgView);
 
 		// Main Layout
@@ -75,7 +74,7 @@ public class DoorView extends FXView
 				int maxNameLength = Globals.maxNameLength;
 				while (doorName != null && doorName.length() > maxNameLength)
 				{
-					doorName = Alert.simpleString("Name zu lang", "Bitte wählen Sie einen kürzeren Namen. (max "+maxNameLength+" Zeichen)", doorName.substring(0, maxNameLength), 300);
+					doorName = Alert.simpleString("Name zu lang", "Bitte wÃ¤hlen Sie einen kÃ¼rzeren Namen. (max "+maxNameLength+" Zeichen)", doorName.substring(0, maxNameLength), 300);
 				}
 				if (doorName != null && !doorName.equals(""))
 				{
@@ -110,7 +109,7 @@ public class DoorView extends FXView
 			boolean success = false;
 			if (db.hasString())
 			{
-				if (Alert.ok("Achtung", "Willst du das Fach '" + db.getString() + "' wirklich löschen?"))
+				if (Alert.ok("Achtung", "Willst du das Fach '" + db.getString() + "' wirklich lÃ¶schen?"))
 				{
 					getFXController().getModel("door").doAction(Command.DELETE, db.getString());
 				}

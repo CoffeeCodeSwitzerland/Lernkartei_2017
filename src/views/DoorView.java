@@ -69,7 +69,7 @@ public class DoorView extends FXView
 
 		newDoorBtn.setOnAction(e ->
 		{
-			String doorName = Alert.simpleString("Neue Tür", "Wie soll die neue Tür heissen?");
+			String doorName = Alert.simpleString(txtNewTheme, "Wie soll das neue Fach heissen?");
 			if (doorName != null && !doorName.equals(""))
 			{
 				int maxNameLength = Globals.maxNameLength;
@@ -82,7 +82,7 @@ public class DoorView extends FXView
 					int succesful = getFXController().getModel("door").doAction(Command.NEW, doorName);
 					if (succesful == -1)
 					{
-						Alert.simpleInfoBox("Tür wurde nicht erstellt", "Dieser Name ist schon vergeben.");
+						Alert.simpleInfoBox("Fach wurde nicht erstellt", "Dieser Name ist schon vergeben.");
 					}
 				}
 			}
@@ -110,7 +110,7 @@ public class DoorView extends FXView
 			boolean success = false;
 			if (db.hasString())
 			{
-				if (Alert.ok("Achtung", "Willst du die Tür '" + db.getString() + "' wirklich löschen?"))
+				if (Alert.ok("Achtung", "Willst du das Fach '" + db.getString() + "' wirklich löschen?"))
 				{
 					getFXController().getModel("door").doAction(Command.DELETE, db.getString());
 				}

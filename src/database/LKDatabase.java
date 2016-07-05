@@ -1,16 +1,20 @@
 package database;
 
+import database.jdbc.DBDriver;
+import database.jdbc.SQLiteDriver;
 import database.sql.Entity;
 
 public abstract class LKDatabase {
+
+	private static final DBDriver myConfigDB = new SQLiteDriver("config.db"); 
+	private static final DBDriver myWLCDB = new SQLiteDriver(globals.Globals.db_name + ".db"); 
 	
-	public static final Entity myConfig = new Entity("config.db","config","PK_config");
-	public static final UserEntity myUsers = new UserEntity("User");
-	public static final UserLogin myLogins = new UserLogin("Login");
-	public static final DoorEntity myDoors = new DoorEntity("Door");
-	public static final CardEntity myCards = new CardEntity("Card");
-	public static final SideEntity mySides = new SideEntity("Side");
-	public static final StackEntity myStacks = new StackEntity("Stack");
-	public static final LearnEntity myLearns = new LearnEntity("Learn");
-	
+	public static final Entity myConfig = new Entity(myConfigDB,"config","PK_config",true);
+	public static final UserEntity myUsers = new UserEntity(myWLCDB,"User");
+	public static final UserLogin myLogins = new UserLogin(myWLCDB,"Login");
+	public static final DoorEntity myDoors = new DoorEntity(myWLCDB,"Door");
+	public static final CardEntity myCards = new CardEntity(myWLCDB,"Card");
+	public static final SideEntity mySides = new SideEntity(myWLCDB,"Side");
+	public static final StackEntity myStacks = new StackEntity(myWLCDB,"Stack");
+	public static final LearnEntity myLearns = new LearnEntity(myWLCDB,"Learn");
 }

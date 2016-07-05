@@ -1,7 +1,6 @@
 package learning;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import database.LKDatabase;
@@ -48,9 +47,9 @@ public class Bewertungsklasse {
 	{
 		int oldPriority = LKDatabase.myCards.getPriority(cardID);
 		
-		Logger.log("Call Upprio");
+		Logger.out("Call Upprio");
 		LKDatabase.myCards.upPrio(Integer.parseInt(cardID));
-		Logger.log("End Upprio");
+		Logger.out("End Upprio");
 		
 		// TODO: Datum updaten und Tabelle myLearn Datensatz einfügen
 		datumZuweisen(cardID);
@@ -67,9 +66,9 @@ public class Bewertungsklasse {
 	// Wenn Karte Falsch ist
 	public static int cardIsFalse(String cardID)
 	{
-		Logger.log("Call Resetprio");
+		Logger.out("Call Resetprio");
 		LKDatabase.myCards.resetPrio(Integer.parseInt(cardID));
-		Logger.log("End Resetprio");
+		Logger.out("End Resetprio");
 		
 		// TODO: Datum updaten und Tabelle myLearn Datensatz einfügen
 		datumZuweisen(cardID);
@@ -87,10 +86,10 @@ public class Bewertungsklasse {
 	public static void datumZuweisen(String cardID)
 	{
 		// hier wird dem kärtchen ein neues Datum Zugewiesen. e
-		LKDatabase.myLearns.getMyAttributes().seekKeyNamed("Date").setValue(LocalDate.now().format(globals.Globals.formatter));
+		LKDatabase.myLearns.getMyAttributes().getAttributeNamedAs("Date").setValue(LocalDate.now().format(globals.Globals.formatter));
 		Attribute k = new Attribute("PK_CARD",cardID);
 		String sql = SQLHandler.updateInTableCommand(LKDatabase.myLearns.getMyTableName(),LKDatabase.myLearns.getMyAttributes(),k); 
 		debug.Debugger.out("SQL: datumZuweisen(): " + sql);
-		LKDatabase.myLearns.executeCommand(sql);
+		LKDatabase.myLearns.getMyDBDriver().executeCommand(sql);
 	}
 }

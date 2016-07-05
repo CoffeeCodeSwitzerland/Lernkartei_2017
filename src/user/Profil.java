@@ -22,7 +22,7 @@ public class Profil
 
 	public Profil()
 	{
-		Stacks = stacks.getStacknames();
+		Stacks = stacks.getStacknames(null);
 	}
 
 	public ArrayList<String> getKarteien()

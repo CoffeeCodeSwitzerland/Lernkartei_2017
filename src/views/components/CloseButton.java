@@ -1,5 +1,6 @@
 package views.components;
 
+import debug.Logger;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import models.GameModel;
@@ -28,7 +29,7 @@ public class CloseButton extends AppButton {
 	        if (window instanceof Stage){
 	            ((Stage) window).close();
 	        } else {
-				debug.Logger.log("no stage found for closing button");
+				Logger.out("no stage found for closing button");
 	        }
 		});
 	}

@@ -1,10 +1,11 @@
 package multiuser;
 
+import database.LKDatabase;
 import database.UserEntity;
-import database.sql.Attribute;
-import database.sql.SQLHandler;
+import database.sql.AttributeInterface;
 import debug.Logger;
-import javafx.collections.*;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 public class User
 {
@@ -26,8 +27,8 @@ public class User
 	UserEntity ue;	
 	
 	//Constructor of User -> Loads the Hash and the salt of the User which name is given in the parameters
-	public User(Attribute attribut, String name) {
-		ue = new UserEntity("User");
+	public User(AttributeInterface attribut, String name) {
+		ue = LKDatabase.myUsers;
 		try {
 			loadSalz();
 			loadHash();
@@ -38,7 +39,7 @@ public class User
 	
 	//KONSTRUKTOR, Wenn 0 übergeben, werden alle Daten probiert zu Laden (aus DB) wenn 1 übergeben, 
 	public User(int loadVariation) {
-		ue = new UserEntity("User");
+		ue = LKDatabase.myUsers;
 		if (loadVariation == 0) {
 			loadHash();
 			loadName();
@@ -49,7 +50,7 @@ public class User
 	}
 	
 	public User() {
-		ue = new UserEntity("User");
+		ue = LKDatabase.myUsers;
 	}
 	
 	/**
@@ -148,7 +149,7 @@ public class User
 				return 1;
 			} catch (Exception e)
 			{
-				Logger.log(e.getMessage());
+				Logger.out(e.getMessage());
 				return -3;
 			}
 		} else

@@ -2,11 +2,11 @@ package multiuser;
 
 import java.util.ArrayList;
 
-import database.sql.Attribute;
+import database.sql.AttributeInterface;
 
 public class Student extends User
 {
-	public Student(Attribute attribute, String name)
+	public Student(AttributeInterface attribute, String name)
 	{
 		super(attribute,name);
 	}

@@ -2,6 +2,7 @@ package database;
 
 import java.sql.ResultSet;
 
+import database.jdbc.DBDriver;
 import database.sql.Attribute;
 import database.sql.Entity;
 import debug.Logger;
@@ -12,13 +13,13 @@ public class UserLogin extends Entity {
 	/**
 	 * @param tabName
 	 */
-	public UserLogin(String tabName) {
-		super(tabName, tabName+"_PK");
+	public UserLogin(DBDriver dbDriver, String tabName) {
+		super(dbDriver, tabName, "PK_"+tabName,false);
 		// set table attributes
 		Attribute a = new Attribute("Name");
-		myAttributes.add(a);
+		myAttributes.addUnique(a);
 		Attribute p = new Attribute("Password");
-		myAttributes.add(p);
+		myAttributes.addUnique(p);
 		createTableIfNotExists();
 	}
 
@@ -61,28 +62,28 @@ public class UserLogin extends Entity {
 				}
 			}
 			String usedb = "USE " + "userdb";
-			stmt.executeQuery(usedb);
+			myDBDriver.executeQuery(usedb);
 			String sql1 = "CREATE TABLE IF NOT EXISTS Teachers " +
 					"(PK_Teachers INT PRIMARY KEY AUTO_INCREMENT," +
 					" Username TEXT NOT NULL," +
 					" Email TEXT NOT NULL," +
 					" Password TEXT NOT NULL" + ")";
-			stmt.executeUpdate(sql1);
+			myDBDriver.executeCommand(sql1);
 			String sql2 = "CREATE TABLE IF NOT EXISTS Students " +
 					"(PK_Students INT PRIMARY KEY AUTO_INCREMENT," +
 					" Username TEXT NOT NULL," +
 					" Email TEXT NOT NULL," +
 					" Password TEXT NOT NULL" + ")";
-			stmt.executeUpdate(sql2);
+			myDBDriver.executeCommand(sql2);
 			if (teacher) {
 				String newTeach = "INSERT INTO Teachers (Username, Email, Password) VALUES (" + teachValues + ")";
-				stmt.executeUpdate(newTeach);
+				myDBDriver.executeCommand(newTeach);
 			}
 			else if (!teacher) {
 				String newStud = "INSERT INTO Students (Username, Email, Password) VALUES (" + studValues + ")";
-				stmt.executeUpdate(newStud);
+				myDBDriver.executeCommand(newStud);
 			}
-			stmt.close();
+			myDBDriver.closeDB();
 		}
 		catch (Exception e) {
 			Logger.out("Database.newUser(): " + e.getMessage());
@@ -110,36 +111,39 @@ public class UserLogin extends Entity {
 					" Username TEXT NOT NULL," +
 					" Email TEXT NOT NULL," +
 					" Password TEXT NOT NULL" + ")";
-			stmt.executeUpdate(sql1);
+			myDBDriver.executeCommand(sql1);
 			String sql2 = "CREATE TABLE IF NOT EXISTS Students " +
 					"(PK_Lehrer INT PRIMARY KEY AUTO_INCREMENT," +
 					" Username TEXT NOT NULL," +
 					" Email TEXT NOT NULL," +
 					" Password TEXT NOT NULL" + ")";
-			stmt.executeUpdate(sql2);
-			ResultSet rsUsern = stmt.executeQuery("SELECT Username FROM Teachers WHERE Username = " + "'" + values[0] + "'");
-			ResultSet rsEmail = stmt.executeQuery("SELECT Email FROM Teachers WHERE Email = " + "'" + values[1] + "'");
+			myDBDriver.executeCommand(sql2);
+			myDBDriver.executeQuery("SELECT Username FROM Teachers WHERE Username = " + "'" + values[0] + "'");
+			ResultSet rsUsern = myDBDriver.getLastResultSet();
+			myDBDriver.executeQuery("SELECT Email FROM Teachers WHERE Email = " + "'" + values[1] + "'");
+			ResultSet rsEmail = myDBDriver.getLastResultSet();		
 			if (rsUsern.next() || rsEmail.next()) {
 				noTeacher = false;
 			}
 			rsUsern.close();
 			rsEmail.close();
-			stmt.close();
+			myDBDriver.closeDB();
 		}
 		catch (Exception e) {
 			Logger.out("UserLogin.checkPossible(): " + e.getMessage());
 		}
 		// Überprüfen ob ein Schüler mit dem Username oder Email vorhanden ist
 		try {
-			ResultSet rsUsern = stmt
-					.executeQuery("SELECT Username FROM Students WHERE Username = " + "'" + values[0] + "'");
-			ResultSet rsEmail = stmt.executeQuery("SELECT Email FROM Students WHERE Email = " + "'" + values[1] + "'");
+			myDBDriver.executeQuery("SELECT Username FROM Students WHERE Username = " + "'" + values[0] + "'");
+			ResultSet rsUsern = myDBDriver.getLastResultSet();
+			myDBDriver.executeQuery("SELECT Email FROM Students WHERE Email = " + "'" + values[1] + "'");
+			ResultSet rsEmail = myDBDriver.getLastResultSet();
 			if (rsUsern.next() || rsEmail.next()) {
 				noStudent = false;
 			}
 			rsUsern.close();
 			rsEmail.close();
-			stmt.close();
+			myDBDriver.closeDB();
 		}
 		catch (Exception e) {
 			Logger.out("UserLogin.checkPossible(): " + e.getMessage());
@@ -168,16 +172,18 @@ public class UserLogin extends Entity {
 			String checkS = "SELECT * FROM Students WHERE Username = " + newName + ";";
 			String insertT ="INSERT INTO Teachers (Username) VALUES (" + newName + ") WHERE Username = " + oldName + ";";
 			String insertS ="INSERT INTO Students (Username) VALUES (" + newName + ") WHERE Username = " + oldName + ";";
-			ResultSet rsT = stmt.executeQuery(checkT);
-			ResultSet rsS = stmt.executeQuery(checkS);
+			myDBDriver.executeQuery(checkT);
+			ResultSet rsT = myDBDriver.getLastResultSet();
+			myDBDriver.executeQuery(checkS);
+			ResultSet rsS = myDBDriver.getLastResultSet();
 			if (rsT == null && rsS == null)
 			{
 				try
 				{
-					stmt.executeUpdate(insertT);
+					myDBDriver.executeCommand(insertT);
 				} catch (Exception e)
 				{
-					stmt.executeUpdate(insertS);
+					myDBDriver.executeCommand(insertS);
 				}
 				return true;
 			} else {
@@ -202,9 +208,9 @@ public class UserLogin extends Entity {
 		try {
 			String delStudent = "DELETE FROM Students WHERE Username = " + delName;
 			String delTeacher = "DELETE FROM Teachers WHERE Username = " + delName;
-			stmt.executeUpdate(delStudent);
-			stmt.executeUpdate(delTeacher);
-			stmt.close();
+			myDBDriver.executeCommand(delStudent);
+			myDBDriver.executeCommand(delTeacher);
+			myDBDriver.closeDB();
 		}
 		catch (Exception e) {
 			Logger.out("UserLogin.delUser(): " + e.getMessage());
@@ -222,11 +228,12 @@ public class UserLogin extends Entity {
 		boolean loggedIn = false;
 		String password = null;
 		try {
-			ResultSet rs = stmt.executeQuery("SELECT Password FROM Students WHERE Username = '" + userData[0] + "'");
+			myDBDriver.executeQuery("SELECT Password FROM Students WHERE Username = '" + userData[0] + "'");
+			ResultSet rs = myDBDriver.getLastResultSet();		
 			while (rs.next()) {
 				password = rs.getString("Password");
 			}
-			stmt.close();
+			myDBDriver.closeDB();
 		}
 		catch (Exception e) {
 			Logger.out("UserLogin.loginUser(): " + e.getMessage());

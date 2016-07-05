@@ -147,7 +147,7 @@ public class StatsView extends FXView
 					}
 				} else
 				{
-					Logger.log("Kein sm model!!!");
+					Logger.out("Kein sm model!!!");
 				}
 				rankings.getChildren().addAll(Ranks);
 
@@ -167,7 +167,7 @@ public class StatsView extends FXView
 				errorText.setText("Deine Statistik. Lerne weiterhin fleissig um 100% zu erhalten. Wähle Links die Kartei, die du gerne lernen möchtest");
 		} catch (Exception e)
 		{
-			Logger.log("StatsView Exception : " + e.fillInStackTrace());
+			Logger.out(e);
 		}
 
 		pane.setCenter(diagram);

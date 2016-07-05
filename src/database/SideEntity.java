@@ -1,5 +1,6 @@
 package database;
 
+import database.jdbc.DBDriver;
 import database.sql.Attribute;
 import database.sql.Entity;
 
@@ -8,17 +9,17 @@ public class SideEntity extends Entity {
 	/**
 	 * @param tabName
 	 */
-	public SideEntity(String tabName) {
-		super(tabName, tabName+"_PK");
+	public SideEntity(DBDriver dbDriver, String tabName) {
+		super(dbDriver, tabName, "PK_"+tabName,false);
 		// set table attributes
 		Attribute a = new Attribute("Link");
-		myAttributes.add(a);
+		myAttributes.addUnique(a);
 		a = new Attribute("BackgoundColor");
-		myAttributes.add(a);
+		myAttributes.addUnique(a);
 		a = new Attribute("Text");
-		myAttributes.add(a);
+		myAttributes.addUnique(a);
 		a = new Attribute("SideOrder",0);
-		myAttributes.add(a);
+		myAttributes.addUnique(a);
 		createTableIfNotExists();
 	}
 

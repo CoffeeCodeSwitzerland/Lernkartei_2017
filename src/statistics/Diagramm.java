@@ -18,7 +18,7 @@ public class Diagramm
 
 	private static ArrayList<String> getKarteien()
 	{
-			return Stacks = LKDatabase.myStacks.getStacknames();
+			return Stacks = LKDatabase.myStacks.getStacknames(null);
 	}
 
 	private static ArrayList<Double> getPunkte()
@@ -42,7 +42,7 @@ public class Diagramm
 				resetData();
 			} else
 			{
-				Logger.log("ObservableList Data in Diagramm is already empty");
+				Logger.out("ObservableList Data in Diagramm is already empty");
 			}
 
 			getKarteien();

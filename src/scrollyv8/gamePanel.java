@@ -185,7 +185,7 @@ public class gamePanel extends JPanel implements Runnable {
 			gameOverScreen = ImageIO.read(new File(screenPath + "GameOverMark1.png"));
 			youWinScreen = ImageIO.read(new File(screenPath + "YouWin.png"));
 		} catch (IOException e) {
-			Logger.log("Error loading screen images");
+			Logger.out("Error loading screen images");
 			e.printStackTrace();
 		}
 
@@ -967,7 +967,7 @@ public class gamePanel extends JPanel implements Runnable {
 	public boolean loadLayer(int index, String data, int nX, int nY, int tW, int tH) {
 		String[] tokens = data.split(",");
 		if (tokens.length != nX * nY) {
-			Logger.log("Error decoding file");
+			Logger.out("Error decoding file");
 			return false;
 		} else {
 			int cnt = 0;
@@ -1018,7 +1018,7 @@ public class gamePanel extends JPanel implements Runnable {
 		Debugger.out("Sprite GID = " + spriteGID);
 		String[] tokens = data.split(",");
 		if (tokens.length != nX * nY) {
-			Logger.log("Error decoding file");
+			Logger.out("Error decoding file");
 			return false;
 		} else {
 			int cnt = 0;

@@ -38,7 +38,7 @@ public class UserSecurityModel extends FXModel
 				return successb ? 1 : -1;
 			} catch (CannotPerformOperationException e)
 			{
-				Logger.log(e.getMessage());
+				Logger.out(e);
 			}
 		default:
 			int superIsSuccessful = super.doAction(command, param);

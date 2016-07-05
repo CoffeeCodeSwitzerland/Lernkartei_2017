@@ -76,13 +76,13 @@ public abstract class FXView extends View
 				debug.Debugger.out("Set scene("+getName()+")...");
 				stage.setScene(scene);
 			} else {
-				Logger.log("FXView("+getName()+").setVisible() has no scene!");
+				Logger.out("FXView("+getName()+").setVisible() has no scene!");
 			}
 			//Logger.log("stage show....");
 			debug.Debugger.out("Set stage("+getName()+")...");
 			stage.show();
 		} else {
-			Logger.log("FXView("+getName()+").setVisible() has no window!");
+			Logger.out("FXView("+getName()+").setVisible() has no window!");
 		}
 		this.refreshView();
 	}
@@ -95,7 +95,7 @@ public abstract class FXView extends View
 				scene.getStylesheets().add(getClass().getResource(stylePath).toExternalForm());
 				return  true;
 			} else {
-				Logger.log("FXView("+getName()+").setUpScene() no css-url found for "+stylePath);
+				Logger.out("FXView("+getName()+").setUpScene() no css-url found for "+stylePath);
 			}
 		} else {
 		 //  Debugger.out("FXView("+getName()+").setUpScene(): no css ressource found for "+stylePath);
@@ -129,7 +129,7 @@ public abstract class FXView extends View
 
 	public boolean isConstructed() {
 		if (constructed == false) {
-			Logger.log("FXView.isContructed(): the View constructor must call the construct() method!");
+			Logger.out("the View constructor must call the construct() method!");
 		}
 		return constructed;
 	}

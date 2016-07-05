@@ -21,7 +21,7 @@ public class Rangliste
 		ArrayList<String> testStacks = new ArrayList<String>();
 		ArrayList<Double> testPoints = new ArrayList<Double>();
 		
-		testStacks = LKDatabase.myStacks.getStacknames();
+		testStacks = LKDatabase.myStacks.getStacknames(null);
 		for (int i = 0; i < Stacks.size(); i++)
 		{
 			Double[] temp = LKDatabase.myCards.getScore(testStacks.get(i).toString());
@@ -63,7 +63,7 @@ public class Rangliste
 
 	public static void getKarteien()
 	{
-			Stacks = LKDatabase.myStacks.getStacknames();
+			Stacks = LKDatabase.myStacks.getStacknames(null);
 	}
 
 	private static void getPunkte()
@@ -132,9 +132,7 @@ public class Rangliste
 
 			} catch (Exception e)
 			{
-				Logger.log("Rangliste, sortKarteien meldet: " + e.getMessage());
-				Logger.log("Rangliste, sortKarteien meldet: " + e.fillInStackTrace());
-
+				Logger.out("Rangliste, sortKarteien meldet: " + e);
 			}
 	}
 

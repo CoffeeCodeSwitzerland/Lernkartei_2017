@@ -44,7 +44,7 @@ public final class Logger {
 				Files.createDirectories(myLogfile.getParent());			
 				Files.createFile(myLogfile);
 			} catch (Exception e) {
-				log("MyFile.init(): File creation problem!");
+				log("File creation problem!");
 			}
 			log("Start");
 		}
@@ -201,6 +201,10 @@ public final class Logger {
 
 	public static void out(String debugText) {
 		out (debugText, 2, null, null);
+	}
+	
+	public static void out(Exception e) {
+		out (e.getMessage(), 2, null, null);
 	}
 	
 	public static int printFullLog() {

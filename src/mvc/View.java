@@ -18,7 +18,7 @@ public abstract class View implements ViewInterface
 	 */
 	protected void setVisible()
 	{
-		Logger.log("view.setVisible() has no toolkit implementation!");
+		Logger.out("has no toolkit implementation!");
 	}
 	
 	protected Controller getMyController() {

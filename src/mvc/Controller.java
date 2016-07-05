@@ -97,7 +97,7 @@ public abstract class Controller implements ControllerInterface
 				}
 				v.setVisible();
 			} else {
-				Logger.log("Controller.showView(): no view("+withName+")!");
+				Logger.out("no view("+withName+")!");
 			}
 		}
 	}
@@ -124,10 +124,10 @@ public abstract class Controller implements ControllerInterface
 				models.put(name, newModel);
 				return true;
 			} else {
-				Logger.log("Controller.addUniqueModel: the model '"+name+"' already exists!");
+				Logger.out("the model '"+name+"' already exists!");
 			}
 		} else {
-			Logger.log("Controller.addUniqueModel: the model 'null' may not be added!");
+			Logger.out("the model 'null' may not be added!");
 		}
 		return false;
 	}
@@ -143,10 +143,10 @@ public abstract class Controller implements ControllerInterface
 				views.put(name, newView);
 				return true;
 			} else {
-				Logger.log("Controller.addUniqueView: the view '"+name+"' already exists!");
+				Logger.out("the view '"+name+"' already exists!");
 			}
 		} else {
-			Logger.log("AddUniqueView: the view 'null' may not be added!");
+			Logger.out("the view 'null' may not be added!");
 		}
 		return false;
 	}

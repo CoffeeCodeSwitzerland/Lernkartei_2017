@@ -10,7 +10,7 @@ import debug.Logger;
 public class LoggerTest {
 
 	public static void myTest() {
-		Logger.log("Testfehler 0");
+		Logger.out("Testfehler 0");
 		Logger.setFileLoggingActive(true);
 		assertEquals(true, Logger.isFileLoggingActive());
 		Logger.setFileLoggingActive(false);
@@ -22,8 +22,8 @@ public class LoggerTest {
 		// produce some logs in File and RAM
 		Logger.setFileLoggingActive(true);
 		Logger.setRamLoggingActive(true);
-		Logger.log("Testfehler 1");
-		Logger.log("Testfehler 2");
+		Logger.out("Testfehler 1");
+		Logger.out("Testfehler 2");
 		// Chekc if there are 2 RAM logs
 		assertEquals(2, Logger.printFullLog());
 		// check if file exists

@@ -1,5 +1,6 @@
 package database;
 
+import database.jdbc.DBDriver;
 import database.sql.Attribute;
 import database.sql.Entity;
 import database.sql.ForeignKey;
@@ -11,17 +12,17 @@ public class LearnEntity extends Entity {
 	 * @param tabName --> Name der Tabelle
 	 */
 	
-	public LearnEntity(String tabName) {
-		super(tabName,"PK_"+tabName);
+	public LearnEntity(DBDriver dbDriver, String tabName) {
+		super(dbDriver, tabName,"PK_"+tabName,false);
 		// set table attributes
 		Attribute a = new Attribute("WasCorrect",0);
-		myAttributes.add(a);
+		myAttributes.addUnique(a);
 		a = new Attribute("Date");
-		myAttributes.add(a);
+		myAttributes.addUnique(a);
 		ForeignKey f = new ForeignKey("PK_CARD");
-		myAttributes.add(f);
+		myAttributes.addUnique(f);
 		f = new ForeignKey("PK_USER");
-		myAttributes.add(f);
+		myAttributes.addUnique(f);
 		createTableIfNotExists();
 	}
 }

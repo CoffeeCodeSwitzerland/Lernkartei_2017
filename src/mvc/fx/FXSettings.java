@@ -1,8 +1,5 @@
 package mvc.fx;
 
-import javafx.scene.paint.Color;
-import javafx.stage.Stage;
-
 /**
  * Contains centralized GUI Settings (globals) that are used for this GUI  
  * 
@@ -18,11 +15,11 @@ public class FXSettings {
 //	private static double height = 570;
 //	private static Color backroundColor = new Color(1.0,1.0,1.0,0.5); 
 //
-	private Stage primaryStage = null;
+//	private Stage primaryStage = null;
 	private static double OPTIMAL_WIDTH  = 920;
 	private static double OPTIMAL_HEIGHT = 570;
-	private static Color preferredBackroundColor = new Color(1.0,1.0,1.0,0.5); 
-	private String stylePath = "style.css";
+//	private static Color preferredBackroundColor = new Color(1.0,1.0,1.0,0.5); 
+//	private String stylePath = "style.css";
 	
 //	public void setStylePath(String stylePath) {
 //		this.stylePath = stylePath;

@@ -1,28 +1,29 @@
 package database.sql;
 
-import java.sql.ResultSet;
 import java.util.ArrayList;
 
-import database.jdbc.SQLiteDriver;
-import database.sql.Attribute.Datatype;
+import database.jdbc.DBDriver;
+import database.sql.AttributeInterface.Datatype;
 import debug.Logger;
-import globals.Globals;
 
 /**
- * @author WISS
+ * Vorlage für eine Entität (instanzierbar): - besitzt automatisch und immer
+ * eine Primary Key - besitzt automatisch einen Index (für zum Bsp. config.db) -
+ * bietet Debug informationen, wie lastSQLCommand und lastResultSet an
+ * 
+ * @author hugo-lucca
  *
  */
-public class Entity extends SQLiteDriver {
+public class Entity {
 
 	final protected AttributeList myAttributes = new AttributeList();
-	private String myTableName;
-	private final static String KEY_NAME = "KEY_NAME";
-	private final static String VALUE = "VALUE";
-	
-	private String lastSQLCommand;
-	private ResultSet lastResultSet;
+	public final static String KEY_NAME = "KEY_NAME";
+	public final static String VALUE_NAME = "KEY_VALUE";
+
+	protected DBDriver myDBDriver; // should never be null
+	private String myTableName;  // should never be null
 	private boolean isCreated = false;
-	
+
 	/**
 	 * To create a DB table if it does not exist yet
 	 * 
@@ -31,77 +32,146 @@ public class Entity extends SQLiteDriver {
 	 * @return 0, row count or -1 for error
 	 */
 	public int createTableIfNotExists() {
-		if (setConnection()>=0) {
-			//main.debug.Debugger.out("create table...");
-			lastSQLCommand = SQLHandler.createTableIfNotExistsCommand(myTableName, myAttributes);
+		if (isCreated == true)
+			return 0;
+		int result = -2;
+		result = myDBDriver.executeCommand(SQLHandler.createTableIfNotExistsCommand(myTableName, myAttributes));
+		if (result >= 0) {
+			; // -1, 0, 1, 2
 			isCreated = true;
-			return executeCommand(lastSQLCommand); // -1, 0, 1, 2
 		}
-		return -2;
+		return result;
 	}
 
-	public String getMyTableName() {
-		return myTableName;
-	}
-
-	public void setMyTableName(String myTableName) {
-		this.myTableName = myTableName;
-	}
-
-//	private void myError(String error) {
-//		Logger.out(myTableName + ": " + error);
-//	}
-
-	private void myError(String error, String param) {
-		Logger.out(myTableName + ": " + error +", " + param);
-	}
-
-	private void myError(Exception e, String error) {
-		Logger.out(e.getMessage(), myTableName + ": " + error);
-	}
-
-	private void myError(Exception e, String error, String param) {
-		Logger.out(e.getMessage(), myTableName + ": " + error + ", " + param);
-	}
-
+	/**
+	 * To add basic attributes
+	 */
 	private void addBaseAttributes() {
 		KeyAttribute k = new KeyAttribute(KEY_NAME, "", Datatype.TEXT);
-		myAttributes.add(k);
-		Attribute a = new Attribute(VALUE, "");
-		myAttributes.add(a);
+		myAttributes.addUnique(k);
+		Attribute a = new Attribute(VALUE_NAME, "");
+		myAttributes.addUnique(a);
 	}
 
-	public void addAttributes(AttributeList aList) {
-		if (isCreated) myError("is crated, no more attributes may be added!", aList.getCommaSeparatedList(true));
-		else myAttributes.add(aList);
-	}
-
-	private void addPrimaryKey(String pkName) {
-		PrimaryKey pk = getMyAttributes().getPKey();
-		if (pk != null) pk.setValue(pkName);	
-		else {
-			pk = new PrimaryKey(pkName);
-			myAttributes.add(pk);
+	/*
+	 * To add a single attribute (only possible, if table is not created yet)
+	 */
+	public void addAttribute(Attribute a) {
+		if (isCreated) {
+			Logger.out("table is created yet, no more attributes may be added now", "attr: " + a.getName());
+		} else {
+			myAttributes.addUnique(a);
 		}
 	}
 
-	public Entity(String tabName) {
+	/**
+	 * To add a list of attributes (only possible, if table is not created yet)
+	 * 
+	 * @param aList
+	 */
+	public void addAttributes(AttributeList aList) {
+		if (isCreated) {
+			Logger.out("table is created yet, no more attributes may be added", aList.getCommaSeparatedList(true));
+		} else {
+			myAttributes.append(aList);
+		}
+	}
+
+	/**
+	 * To add the primary key
+	 * 
+	 * @param pkName
+	 */
+	private void addPrimaryKey(String pkName) {
+		PrimaryKey pk = getMyAttributes().getPrimaryKey();
+		if (pk != null)
+			pk.setValue(pkName);
+		else {
+			pk = new PrimaryKey(pkName);
+			myAttributes.addUnique(pk);
+		}
+	}
+
+//	public void setDriver(String newDBName) {
+//		if (newDBName != null) {
+//			if (newDBName.endsWith(".db")) {
+//				dbURL = newDBName;
+//			} else {
+//				dbURL = newDBName + ".db";
+//			}
+//		}
+//	}
+//
+	/**
+	 * Constructors
+	 */
+	public Entity(DBDriver newDBdriver, String tabName, boolean createIt) {
+		myDBDriver = newDBdriver;
 		isCreated = false;
 		myTableName = tabName;
 		addBaseAttributes();
-		setDriver(Globals.db_name); // set other DB name, than default
-		addPrimaryKey("PK_"+tabName);
+		//setDriver(Globals.db_name); // set other DB name, than default
+		addPrimaryKey("PK_" + tabName);
+		// table will not be created here!
+		if (createIt)
+			createTableIfNotExists();
 	}
 
-	public Entity(String tabName, String pkName) {
-		this(tabName);
-		if (pkName == null) addPrimaryKey("PK_"+tabName);
-		else addPrimaryKey(pkName);
+	public Entity(DBDriver newDBdriver, String tabName, String pkName, boolean createIt) {
+		this(newDBdriver, tabName, false);
+		if (pkName == null)
+			addPrimaryKey("PK_" + tabName);
+		else
+			addPrimaryKey(pkName);
+		// table will not be created here!
+		if (createIt)
+			createTableIfNotExists();
 	}
 
-	public Entity(String dbName, String tabName, String pkName) {
-		this(tabName,pkName);
-		setDriver(dbName); // set other DB name, than default
+	public Entity(DBDriver newDBdriver, String dbName, String tabName, String pkName, boolean createIt) {
+		this(newDBdriver, tabName, pkName, false);
+		//setDriver(dbName); // set other DB name, than default
+		// table will not be created here!
+		if (createIt)
+			createTableIfNotExists();
+	}
+
+	/**
+	 * To get the PK_ID of this table using a unique key to find the row
+	 * 
+	 * @param door
+	 * @return
+	 */
+	public int getEntityID(Attribute key) {
+		if (key != null) {
+			String pk_name = myAttributes.getPrimaryKey().getName();
+			String keyName = key.getName();
+			String cmd;
+			if (key.isTEXT()) {
+				cmd = SQLHandler.selectCommand(myTableName, pk_name, keyName, key.getValue());
+			} else {
+				cmd = SQLHandler.selectCommand(myTableName, pk_name, keyName, key.getIntValue());
+			}
+			debug.Debugger.out("Entity: '" + cmd);
+			// Do "SELECT "+key.name+" FROM myTableName WHERE "+key.name+" =
+			// " + key.value)
+			myDBDriver.executeQuery(cmd);
+			// assumed is only one key and only first returned (no check is
+			// done)
+			return myDBDriver.getResultPIntValueOf(pk_name);
+		}
+		Logger.out("invalid {null}-key for the SELECT PK_... command");
+		return -1;
+	}
+
+	public int getEntityID(String key, String value) {
+		Attribute a = new Attribute(key, value);
+		return getEntityID(a);
+	}
+
+	public int getEntityID(String key, int value) {
+		Attribute a = new Attribute(key, Integer.toString(value), Datatype.INT);
+		return getEntityID(a);
 	}
 
 	/**
@@ -111,16 +181,7 @@ public class Entity extends SQLiteDriver {
 	 * @return >0 for success, 0 for NOP or -1 for errors
 	 */
 	public int delKeyValue(String key, String value) {
-		lastSQLCommand = "Try delete...";
-		try {
-			//createTableIfNotExists();
-			debug.Debugger.out("DEBBBB");
-			lastSQLCommand = SQLHandler.deleteEntryCommand(myTableName, key, value);
-			return executeCommand(lastSQLCommand); // -1, 0, 1, 2
-		} catch (Exception e) {
-			myError(e,key,value);
-		}
-		return -1;
+		return myDBDriver.executeCommand(SQLHandler.deleteEntryCommand(myTableName, key, value)); // -1, 0, 1, 2
 	}
 
 	/**
@@ -130,7 +191,7 @@ public class Entity extends SQLiteDriver {
 	 * @return >0 for success, 0 for NOP or -1 for errors
 	 */
 	public int delValue(String value) {
-		return delKeyValue(VALUE, value);
+		return delKeyValue(VALUE_NAME, value);
 	}
 
 	/**
@@ -150,29 +211,24 @@ public class Entity extends SQLiteDriver {
 	 * @param value
 	 * @return
 	 */
-	protected ResultSet seekInTable(String pKey, String value) {
+	protected boolean seekInTable(String pKey, String value) {
 		// return seekSQL("SELECT " + attName + " FROM " + tabName + " WHERE " +
 		// pKey + " = '" + value + "'");
-		setConnection();
-		lastSQLCommand = SQLHandler.selectCommand(myTableName, pKey, value);
-		return executeQuery(lastSQLCommand);
+		return myDBDriver.executeQuery(SQLHandler.selectCommand(myTableName, pKey, value));
 	}
-	
+
 	public String seekInTable(String returnKey, String seekKey, String seekValue) {
-		// return seekSQL("SELECT " + returnKey + " FROM " + tabName + " WHERE " +
+		// return seekSQL("SELECT " + returnKey + " FROM " + tabName + " WHERE "
+		// +
 		// seekKey + " = '" + seekValue + "'");
-		setConnection();
-		lastSQLCommand = SQLHandler.selectCommand(myTableName, null, seekKey, seekValue);
-		ResultSet rs = executeQuery(lastSQLCommand);
+		myDBDriver.executeQuery(SQLHandler.selectCommand(myTableName, null, seekKey, seekValue));
 		try {
-			if (rs.next()) {
-				String s = rs.getString(returnKey);
-				rs.close();
-				return s;
+			if (myDBDriver.isThereAResult()) {
+				return myDBDriver.getResultValueOf(returnKey);
 			}
-			myError("no values found!", lastSQLCommand);
-		} catch(Exception e) {
-			myError(e, lastSQLCommand);
+			Logger.out("no values found!", myDBDriver.getLastSQLCommand());
+		} catch (Exception e) {
+			Logger.out("Resultset is corrupt", myDBDriver.getLastSQLCommand());
 		}
 		return null;
 	}
@@ -183,15 +239,8 @@ public class Entity extends SQLiteDriver {
 	 * @param value
 	 * @return ResultSet or null on errors
 	 */
-	public ResultSet seekAttribute(AttributeList attributes) {
-		try {
-			createTableIfNotExists();
-			lastSQLCommand = SQLHandler.selectCommand(myTableName, attributes);
-			return executeQuery(lastSQLCommand);
-		} catch (Exception e) {
-			myError(e,attributes.getCommaSeparatedList(true));
-		}
-		return null;
+	public boolean seekAttribute(AttributeList attributes) {
+		return myDBDriver.executeQuery(SQLHandler.selectCommand(myTableName, attributes));
 	}
 
 	/**
@@ -202,33 +251,37 @@ public class Entity extends SQLiteDriver {
 	 * @return
 	 */
 	public int setValue(String value) {
-		try {
-			setConnection();
-			AttributeList attributes = new AttributeList();
-			Attribute a = new Attribute(VALUE, value);
-			attributes.add(a);
-			lastResultSet = seekAttribute(attributes);
-			if (lastResultSet != null && !lastResultSet.next()) {
-				lastResultSet.close();
-				// Einfügen des Datensatze, wenn keins da
-				lastSQLCommand = SQLHandler.insertIntoTableCommand(myTableName, attributes);
-				return executeCommand(lastSQLCommand);
-			} else {
-				lastResultSet.close();
-			}
-		} catch (Exception e) {
-			myError(e,value);
+		AttributeList attributes = new AttributeList();
+		Attribute a = new Attribute(VALUE_NAME, value);
+		attributes.addUnique(a);
+		seekAttribute(attributes);
+		if (myDBDriver.isThereAResult()) {
+			// Einfügen des Datensatze, wenn keins da
+			return myDBDriver.executeCommand(SQLHandler.insertIntoTableCommand(myTableName, attributes));
 		}
 		return -1;
 	}
-	
+
+	/**
+	 * To set a single value using the index
+	 * 
+	 * @param value
+	 * @return
+	 */
 	public int setValue(int value) {
 		return setValue(Integer.toString(value));
 	}
-	
-	public String getValue (String query) {
-		return seekInTable(VALUE, KEY_NAME, query);
+
+	/**
+	 * To get a single value from the index
+	 * 
+	 * @param value
+	 * @return
+	 */
+	public String getValue(String query) {
+		return seekInTable(VALUE_NAME, KEY_NAME, query);
 	}
+
 	/**
 	 * set or update an new key with that value
 	 * 
@@ -236,114 +289,95 @@ public class Entity extends SQLiteDriver {
 	 * @param value
 	 * @return >0 for success, 0 for NOP or -1 for errors
 	 */
-	private int replaceOrInsertToken(	AttributeList aList, String kName, String key, 
-										String vName, String value) {
+	private int replaceOrInsertToken(AttributeList aList, String kName, String key, String vName, String value) {
 		KeyAttribute k = new KeyAttribute(kName, key, Datatype.TEXT);
 		Attribute a = new Attribute(vName, value);
-		Attribute s = aList.seekKeyNamed(kName);
-		if (s != null) s.setValue(key);
-		else aList.add(k);
-		Attribute sa = aList.seekKeyNamed(vName);
-		if (sa != null) sa.setValue(value);
-		else aList.add(a);
+		Attribute s = aList.getAttributeNamedAs(kName);
+		if (s != null)
+			s.setValue(key);
+		else
+			aList.addUnique(k);
+		Attribute sa = aList.getAttributeNamedAs(vName);
+		if (sa != null)
+			sa.setValue(value);
+		else
+			aList.addUnique(a);
 		// Überprüfen ob bereits ein Token vorhanden ist, wenn ja, überschreiben
-		lastSQLCommand = SQLHandler.selectCommand(myTableName, aList, k);
-		lastResultSet = executeQuery(lastSQLCommand);
-		try {
-			setConnection();
-			if (lastResultSet != null && lastResultSet.next()) {
-				// mindestens einen Eintrag gefunden:
-				// TODO prüfen, dass es nur einer ist (sollte eigentlich, wenn
-				// unique)...
-				//
-				// "UPDATE " + tabName + " SET " + vName + " = '" + value + "'"
-				// + " WHERE " + kName + " = '" + key + "'";
-				lastSQLCommand = SQLHandler.updateInTableCommand(myTableName,vName, value, kName, key);
-			} else {
-				// Kein Eintrag gefunden:
-				// "INSERT INTO " + tabName + " (" + kName + ", " + vName + ") "
-				// + "VALUES ('" + key
-				// + "','" + value + "')";
-				lastSQLCommand = SQLHandler.insertIntoTableCommand(myTableName,getMyAttributes(), kName, key, vName, value);
-			}
-			return executeCommand(lastSQLCommand);
-		} catch (Exception e) {
-			myError(e,"may not replaceOrInsert, problems with checking table!");
+		myDBDriver.executeQuery(SQLHandler.selectCommand(myTableName, aList, k, null));
+		String cmd;
+		if (myDBDriver.isThereAResult()) {
+			// mindestens einen Eintrag gefunden:
+			// TODO prüfen, dass es nur einer ist (sollte eigentlich, wenn
+			// unique)...
+			//
+			// "UPDATE " + tabName + " SET " + vName + " = '" + value + "'"
+			// + " WHERE " + kName + " = '" + key + "'";
+			cmd = SQLHandler.updateInTableCommand(myTableName, vName, value, kName, key);
+		} else {
+			// Kein Eintrag gefunden:
+			// "INSERT INTO " + tabName + " (" + kName + ", " + vName + ") "
+			// + "VALUES ('" + key
+			// + "','" + value + "')";
+			cmd = SQLHandler.insertIntoTableCommand(myTableName, getMyAttributes(), kName, key, vName, value);
 		}
-		return -1;
+		return myDBDriver.executeCommand(cmd);
 	}
 
 	/**
-	 * Get the value of a key
+	 * set the value of a key (column 1 and 2)
 	 * 
 	 * @param key
 	 *            --> the key name
 	 * @return the value of that key, or null on errors or if key name not found
 	 */
-	public int setKeyValue(String key, String value) {
-		try {
-			createTableIfNotExists();
-			return replaceOrInsertToken(getMyAttributes(), KEY_NAME, key, VALUE, value);
-		} catch (Exception e) {
-			myError(e, key, value);
-		}
-		return -1;
+	public int setKeyValue(String rowkey, String value) {
+		return replaceOrInsertToken(getMyAttributes(), KEY_NAME, rowkey, VALUE_NAME, value);
 	}
 
 	/**
-	 * To insert a list of values into a table
+	 * To get a list of values from a table or sql-view
 	 * 
-	 * @param tabName
-	 * @param attributlist
-	 * @param FK_ID
-	 * @param moreValues
-	 * @return 0, row count or -1 for error
+	 * @param sql-query
+	 * @return the list of values or null
 	 */
-//	protected int insertIntoTable(String attributList, String[] values) {
-//		AttributeList attributes = new AttributeList();
-//		String[] att = attributList.split(",");
-//		for (int i = 0; i < values.length; i++) {
-//			Attribute a = new Attribute(att[i], values[i]);
-//			attributes.add(a);
-//		}
-//		setConnection();
-//		lastSQLCommand = SQLHandler.insertIntoTableCommand(myTableName, attributes);
-//		return executeCommand(lastSQLCommand);
-//	}
-//
 	public ArrayList<String> getDataList(String query) {
 		ArrayList<String> values = new ArrayList<String>();
-		setConnection();
-		lastResultSet = this.executeQuery(query);
-		try {
-			while (lastResultSet.next()) {
-				values.add(lastResultSet.getString(0));
-			}
-			return values;
-		} catch (Exception e) {
-			myError(e, query);
+		myDBDriver.executeQuery(query);
+		while (myDBDriver.isThereAResult()) {
+			values.add(myDBDriver.getFirstResultValue());
 		}
-		return null;
+		return values;
 	}
 
+	/**
+	 * Methode, welche alle key.namen in einer Liste ausgibt
+	 * 
+	 * @return --> Retourniert die Liste mit allen key.namen werte
+	 */
+	public ArrayList<String> getDataList(Attribute key) {
+		return getDataList(SQLHandler.selectCommand(getMyTableName(), key.getName(), null, null));
+	}
+
+	/**
+	 * SETTERs and GETTERs
+	 */
 	public AttributeList getMyAttributes() {
 		return myAttributes;
 	}
 
-	public String getLastSQLCommand() {
-		return lastSQLCommand;
+	public String getMyTableName() {
+		return myTableName;
 	}
 
-	public ResultSet getLastResultSet() {
-		return lastResultSet;
+	public void setMyTableName(String myTableName) {
+		this.myTableName = myTableName;
 	}
 
-	public void setLastSQLCommand(String lastSQLCommand) {
-		this.lastSQLCommand = lastSQLCommand;
+	public PrimaryKey getPrimaryKey() {
+		return myAttributes.getPrimaryKey();
 	}
 
-	public void setLastResultSet(ResultSet lastResultSet) {
-		this.lastResultSet = lastResultSet;
+	public DBDriver getMyDBDriver() {
+		return myDBDriver;
 	}
-	
 }

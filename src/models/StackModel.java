@@ -34,11 +34,11 @@ public class StackModel extends Model
 				return newIsSuccessful;
 			case UPDATE:
 				if (param.length != 2) { return -2; }
-				boolean updateIsSuccessful = LKDatabase.myStacks.update(param[0], param[1]);
+				boolean updateIsSuccessful = LKDatabase.myStacks.update(param[0], param[1], param[2]);
 				return updateIsSuccessful ? 1 : -1;
 			case DELETE:
-				if (param.length != 1) { return -2; }
-				boolean successfulDelete = LKDatabase.myStacks.delStack(param[0]);
+				if (param.length != 2) { return -2; }
+				boolean successfulDelete = LKDatabase.myStacks.delStack(param[0], param[1]);
 				refreshViews(); // TODO überprüfen ob nötig oder ob view stack selbst löschen kann.
 				return successfulDelete ? 1 : -1;
 			case CAN_CREATE:

@@ -9,19 +9,23 @@ import debug.Logger;
  * 
  * @author hugo-lucca
  */
-public abstract class MYSQLDriver extends DBDriver {
+final public class MYSQLDriver extends DBDriver {
 
-	private static final String	sqlDriver	= "com.mysql.jdbc.Driver";
-	private static final String	dbDriverURL	= "jdbc:mariadb://192.168.3.150:3306/userdb";
+	private final static String sqlDriver = "com.mysql.jdbc.Driver"; 
+	private final String urlBase   = "jdbc:mariadb://192.168.3.150:3306/userdb";
 	private String	username;
 	private String	password;
 
-	MYSQLDriver () {
+	public MYSQLDriver (String dbName) {
+		super(sqlDriver);
+		setDbURL(urlBase + dbName);
 		username	= "root";
 		password	= "root";
 	}
 	
-	MYSQLDriver (String newUser, String newPassword) {
+	public MYSQLDriver (String dbName, String newUser, String newPassword) {
+		super(sqlDriver);
+		setDbURL(urlBase + dbName);
 		username	= newUser;
 		password	= newPassword;
 	}
@@ -29,12 +33,30 @@ public abstract class MYSQLDriver extends DBDriver {
 	public void setConnection(String dbURL) {
 		try {
 			Class.forName(sqlDriver);
-			connection = DriverManager.getConnection(dbDriverURL, username, password);
-			stmt = connection.createStatement();
+			this.setConnection(DriverManager.getConnection(urlBase, username, password));
+			
 		} catch (Exception e) {
 			if (dbURL == null) dbURL = "{null}";
 			Logger.out("MYSQLDriver.setConnection(URL: " + dbURL + "): " + e.getMessage());
 			closeDB();
 		}
+	}
+
+	/* (non-Javadoc)
+	 * @see database.jdbc.DBDriver#executeCommand(java.lang.String)
+	 */
+	@Override
+	public int executeCommand(String SQLcommand) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	/* (non-Javadoc)
+	 * @see database.jdbc.DBDriver#executeQuery(java.lang.String)
+	 */
+	@Override
+	public boolean executeQuery(String query) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }

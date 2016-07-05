@@ -5,84 +5,203 @@ import java.util.ArrayList;
 import debug.Logger;
 
 /**
+ * To handle the column list of a table with the content of one line for all
+ * purposes.
+ * 
+ * The restrictions are: - the first tree columns are reserved for own purposes
+ * (index an Primary key at third position) - the primary key's are always
+ * integer - the primary key must be auto incremented - only one primary key, is
+ * supported!
+ * 
  * @author WISS
  *
  */
 public class AttributeList {
 
 	final private ArrayList<Attribute> myAttributes = new ArrayList<>();
-	private int countPrimary = 0;
+	private int numberOfAttributes = -1; // -1 : not actual, >=0 actual
+											// (replaces myAttributes.size() for
+											// more performance)
+	private int countPrimary = 0; //
+	private PrimaryKey myPrimary = null;
+
+
+	public int getCountPrimary() { // for debug only
+		return countPrimary;
+	}
+
+	private void resetCounters() {
+		numberOfAttributes = -1;
+		countPrimary = 0;
+		myPrimary = null;
+	}
+
+	public AttributeList() {
+		resetCounters();
+	}
+
 	/**
-	 * To build a list of attributes
+	 * To handle the size of the list more efficiently
 	 * 
-	 * @return the attribute-list or "" for problems
+	 * @return
 	 */
-	public void add(Attribute a) {
-		// Add only new attributes
+	public int getSize() {
+		if (numberOfAttributes < 0) {
+			numberOfAttributes = myAttributes.size();
+		}
+		return numberOfAttributes;
+	}
+
+	/**
+	 * To faster handle the primary and key counter
+	 * 
+	 * @return
+	 */
+	public void incremetPrimaryCount(Attribute a) {
+		if (a.isPrimary()) {
+			countPrimary++;
+			if (countPrimary > 1) {
+				Logger.out("more than one primary kes is not supported yet");
+			}
+			if (myPrimary == null)
+				myPrimary = (PrimaryKey) a;
+		}
+	}
+
+	/**
+	 * To get my primary key (fast version)
+	 * 
+	 * @return primary key or null if no found
+	 */
+	public PrimaryKey getPrimaryKey() {
+		if (myPrimary == null) {
+			int size = getSize();
+			if (size >= 1) {
+				for (int i = 0; i < size; i++) {
+					if (myAttributes.get(i) != null) {
+						Attribute a = myAttributes.get(i);
+						if (a.isPrimary()) {
+							Logger.out("getting a pkey...");
+							myPrimary = (PrimaryKey) a;
+							return myPrimary;
+						}
+					}
+				}
+				if (size > 2) {
+					Logger.out("pimary key not found in list of "+size+" attributes / pcount:"+countPrimary);
+				}
+			} else {
+				Logger.out("list with "+size+" attributes -> pimary key not found / pcount:"+countPrimary);
+			}
+		}
+		return myPrimary;
+	}
+
+	/**
+	 * To add a new attribute to the list (column names are unique!)
+	 * 
+	 * @param a
+	 *            : the attribute to add
+	 */
+	public void addUnique(Attribute a) {
 		if (a != null) {
-			if (a.isPrimary()) countPrimary++;
-			if (myAttributes.size() == 0) {
+			incremetPrimaryCount(a);
+			if (getSize() == 0) {
+				numberOfAttributes = -1;
 				myAttributes.add(a);
 			} else {
+				// check if unique
+				String newName = a.getName();
 				boolean found = false;
-				for (int i = 0; i < myAttributes.size(); i++) {
-					if (myAttributes.get(i).getName().equals(a.getName())) {
+				for (int i = 0; i < getSize(); i++) {
+					if (myAttributes.get(i).getName().equals(newName)) {
 						found = true;
 						break;
 					}
 				}
-				if (!found)
+				if (!found) {
+					numberOfAttributes = -1;
 					myAttributes.add(a);
+				}
 			}
 		} else {
-			Logger.out("tried to add invalid null attribute");
+			Logger.out("tried to add an invalid null attribute");
 		}
 	}
 
-	public void add(AttributeList al) {
-		for (int i = 0; i < al.size(); i++) {
-			this.add(al.get(i));
+	/**
+	 * To append a list of new attributes
+	 * 
+	 * @param newAttributeList
+	 */
+	public void append(AttributeList newAttributeList) {
+		for (int i = 0; i < newAttributeList.getSize(); i++) {
+			addUnique(newAttributeList.get(i));
 		}
 	}
 
-	public int size() {
-		return myAttributes.size();
+	/**
+	 * To set all values of the columns following the primary key at third
+	 * position The new values must be in ordinal way compatible to the
+	 * instantiated order of that attributes.
+	 * 
+	 * @param values:
+	 *            the value list as strings, the data types will be converted
+	 *            according to the instantiated
+	 */
+	public void setValuesAfterPrimaryKey(String[] values) {
+		for (int i = 1; i < values.length; i++) {
+			myAttributes.get(i + 3).setValue(values[i]);
+		}
 	}
 
-	public Attribute get(int i) {
-		return myAttributes.get(i);
+	/**
+	 * To get a specific attribute with the ordinal way of an index
+	 * 
+	 * @param i
+	 *            the index (starts with 0)
+	 * @return the attribute at i or null
+	 */
+	private Attribute get(int i) {
+		if (i < getSize())
+			return myAttributes.get(i);
+		return null;
 	}
 
+	/**
+	 * To a comma separated list of the attributes for INSERT etc.
+	 * 
+	 * @param addPrimary
+	 * @return the CS list or ""
+	 */
 	public String getCommaSeparatedList(boolean addPrimary) {
-		int size = myAttributes.size();
-		int commas =0;
+		int size = getSize();
+		int commas = 0;
 		if (size >= 1) {
 			String attributeList = "";
 			for (int i = 0; i < size; i++) {
-				if (myAttributes.get(i) != null) {
-					Attribute a = myAttributes.get(i);
-					int o;
-					switch (a.getType()) {
-					case INT:
-						o = Attribute.Datatype.INT.ordinal();
-						break;
-					case FKEY:
-						o = Attribute.Datatype.FKEY.ordinal();
-						break;
-					case PKEY:
-						o = Attribute.Datatype.PKEY.ordinal();
-						break;
-					case TEXT:
-					default:
-						o = Attribute.Datatype.TEXT.ordinal();
-						break;
-					}
-					if (!(a.isPrimary() && addPrimary==false)) {
-						attributeList += a.getName() + " " + Attribute.SQLDataTypes[o];
-						if (commas < size - 1 - ((addPrimary==true) ? 0:countPrimary) ) {
-							attributeList += ",";
-							commas++;
-						}
+				Attribute a = myAttributes.get(i);
+				int o;
+				switch (a.getType()) {
+				case INT:
+					o = AttributeInterface.Datatype.INT.ordinal();
+					break;
+				case FKEY:
+					o = AttributeInterface.Datatype.FKEY.ordinal();
+					break;
+				case PKEY:
+					o = AttributeInterface.Datatype.PKEY.ordinal();
+					break;
+				case TEXT:
+				default:
+					o = AttributeInterface.Datatype.TEXT.ordinal();
+					break;
+				}
+				if (!(a.isPrimary() && addPrimary == false)) {
+					attributeList += a.getName() + " " + Attribute.SQLDataTypes[o];
+					if (commas < size - 1 - ((addPrimary == true) ? 0 : countPrimary)) {
+						attributeList += ",";
+						commas++;
 					}
 				}
 			}
@@ -93,8 +212,13 @@ public class AttributeList {
 		return "";
 	}
 
-	protected String getSeekedKeys() {
-		int size = myAttributes.size();
+	/**
+	 * To build a comma separated key list: for "SELECT " + keyList + ...
+	 * 
+	 * @return the comma separates list or "*"
+	 */
+	protected String getCSResultAttributeList() {
+		int size = getSize();
 		if (size >= 1) {
 			String attributeList = "";
 			for (int i = 0; i < size; i++) {
@@ -102,21 +226,20 @@ public class AttributeList {
 					Attribute a = myAttributes.get(i);
 					if (a.isKey()) {
 						attributeList += a.getName();
-
 						int o;
 						switch (a.getType()) {
 						case INT:
-							o = Attribute.Datatype.INT.ordinal();
+							o = AttributeInterface.Datatype.INT.ordinal();
 							break;
 						case FKEY:
-							o = Attribute.Datatype.FKEY.ordinal();
+							o = AttributeInterface.Datatype.FKEY.ordinal();
 							break;
 						case PKEY:
-							o = Attribute.Datatype.PKEY.ordinal();
+							o = AttributeInterface.Datatype.PKEY.ordinal();
 							break;
 						case TEXT:
 						default:
-							o = Attribute.Datatype.TEXT.ordinal();
+							o = AttributeInterface.Datatype.TEXT.ordinal();
 							break;
 						}
 						attributeList += Attribute.SQLDataTypes[o];
@@ -126,91 +249,72 @@ public class AttributeList {
 					}
 				}
 			}
-			return attributeList;
-		} else
-
-		{
-			Logger.out("invalid data to build a list of key attributes!");
-		}
-		return "";
-	}
-
-	public String getKeyName() {
-		int size = myAttributes.size();
-		if (size >= 1) {
-			for (int i = 0; i < size; i++) {
-				if (myAttributes.get(i) != null) {
-					Attribute a = myAttributes.get(i);
-					if (a.isKey()) {
-						return a.getName();
-					}
-				}
-			}
+			if (!attributeList.equals(""))
+				return attributeList;
 		} else {
-			Logger.out("key name not found!");
+			Logger.out("invalid data to build a CS list of seeked attributes");
 		}
-		return "";
+		return "*";
 	}
 
-	public Attribute seekKeyNamed(String seekName) {
-		int size = myAttributes.size();
-		if (size >= 1) {
+	/**
+	 * To seek an attribute name (sql column name)
+	 * 
+	 * @param seekName
+	 * @return the name or null if not found
+	 */
+	public Attribute getAttributeNamedAs(String seekName) {
+		int size = getSize();
+		if (size >= 1 && seekName != null) {
+			String seekS = seekName.toLowerCase();
 			for (int i = 0; i < size; i++) {
 				if (myAttributes.get(i) != null) {
 					Attribute a = myAttributes.get(i);
-//					debug.Debugger.out("ATT("+a.getName().toLowerCase()+") ?= '"+seekName.toLowerCase()+"'");
-					if (a.getName().toLowerCase().equals(seekName.toLowerCase())) {
+					// debug.Debugger.out("ATT("+a.getName().toLowerCase()+") ?=
+					// '"+seekName.toLowerCase()+"'");
+					if (a.getName().toLowerCase().equals(seekS)) {
 						return a;
 					}
 				}
 			}
-			Logger.out("key not found in list of ("+size+")!", seekName);
+			Logger.out("key not found in list of (" + size + ")!", seekName);
 		} else {
 			Logger.out("list is empty, key not found!", seekName);
 		}
 		return null;
 	}
 
-	public PrimaryKey getPKey() {
-		int size = myAttributes.size();
-		if (size >= 1) {
-			for (int i = 0; i < size; i++) {
-				if (myAttributes.get(i) != null) {
-					Attribute a = myAttributes.get(i);
-					if (a.isPrimary()) {
-						return (PrimaryKey) a;
-					}
-				}
-			}
-		} else {
-			Logger.out("pimary key not found!");
-		}
-		return null;
-	}
-
+	/**
+	 * To build a comma separated list of keys without data types
+	 * 
+	 * @param addPK:
+	 *            if true the primary key id added else omitted (if found)
+	 * @return the CS list or ""
+	 */
 	public String toKeyList(boolean addPK) {
-		int size = myAttributes.size();
+		int size = getSize();
 		if (size >= 1) {
 			String keyList = "";
-			int commas =0;
+			int commas = 0;
 			for (int i = 0; i < size; i++) {
 				if (myAttributes.get(i) != null) {
 					Attribute a = myAttributes.get(i);
 					if (a != null) {
 						if (!(addPK == false && a.isPrimary())) {
 							keyList += a.getName();
-							if (commas < size - 1 -((addPK==true)?0:countPrimary)) {
-								keyList += ", "; 
+							if (commas < size - 1 - ((addPK == true) ? 0 : countPrimary)) {
+								keyList += ", ";
 								commas++;
 							}
-//							debug.Debugger.out("KLIST:",a.getName()+" P:"+a.isPrimary());
+							// debug.Debugger.out("KLIST:",a.getName()+"
+							// P:"+a.isPrimary());
 						}
 					}
 				}
 			}
 			return keyList;
 		} else {
-			Logger.out("invalid data to build a list of keys!");
+			Logger.out("invalid data to build a list of keys");
 		}
 		return "";
 	}
@@ -222,14 +326,14 @@ public class AttributeList {
 	 * @return list of values or "" for problems
 	 */
 	public String toValueList(boolean addPrimary) {
-		int size = myAttributes.size();
+		int size = getSize();
 		if (size >= 1) {
 			String valueList = "";
-			int commas=0;
+			int commas = 0;
 			for (int i = 0; i < size; i++) {
 				Attribute a = myAttributes.get(i);
 				if (a != null) {
-					if (!(addPrimary==false && a.isPrimary())) {
+					if (!(addPrimary == false && a.isPrimary())) {
 						String value = a.getValue();
 						if (a.isValue() == false) {
 							if (value == null)
@@ -240,18 +344,18 @@ public class AttributeList {
 								value = "0";
 							valueList += value;
 						}
-						if (commas < (size - 1 - ((addPrimary==true)?0:countPrimary))) {
-//							debug.Debugger.out("VAL:"+value+":"+i+"/"+size+"/"+addPrimary+"/V:"+a.isValue());
+						if (commas < (size - 1 - ((addPrimary == true) ? 0 : countPrimary))) {
+							// debug.Debugger.out("VAL:"+value+":"+i+"/"+size+"/"+addPrimary+"/V:"+a.isValue());
 							valueList += ",";
 							commas++;
 						}
-						//debug.Debugger.out("("+i+")");
+						// debug.Debugger.out("("+i+")");
 					}
 				}
 			}
 			return valueList;
 		} else {
-			Logger.out("invalid data to build a list of values!");
+			Logger.out("invalid data to build a list of values");
 		}
 		return "";
 	}
@@ -259,33 +363,41 @@ public class AttributeList {
 	/**
 	 * To build a clause sequence from data
 	 * 
-	 * @param sep
-	 * @return
+	 * @param sep:
+	 *            the separator (must be AND or OR)
+	 * @return the clause or ""
 	 */
 	public String toClause(String sep) {
-		int size = myAttributes.size();
-		if (size >= 1 && sep != null && !sep.equals("")) {
-			String clause = "";
-			for (int i = 0; i < size; i++) {
-				if (myAttributes.get(i) != null) {
-					Attribute a = myAttributes.get(i);
-					String value = a.getValue();
-					if (!clause.equals(""))
-						clause += sep + " ";
-					if (a.isValue() == false) {
-						if (value == null)
-							value = "";
-						clause += a.getName() + " = '" + a.getValue() + "' ";
-					} else {
-						if (value == null)
-							value = "0";
-						clause += a.getName() + " = " + a.getValue() + " ";
+		int size = getSize();
+		if (size >= 1 && sep != null) {
+			String separator = sep.toUpperCase();
+			if (separator.equals("AND") || separator.equals("OR") || separator.equals(",")) {
+				String clause = "";
+				for (int i = 0; i < size; i++) {
+					if (myAttributes.get(i) != null) {
+						Attribute a = myAttributes.get(i);
+						String value = a.getValue();
+						String name = a.getName();
+						if (i > 0) {
+							clause += separator + " ";
+						}
+						if (a.isValue() == false) {
+							if (value == null)
+								value = "";
+							clause += name + " = '" + value + "' ";
+						} else {
+							if (value == null)
+								value = "0";
+							clause += name + " = " + value + " ";
+						}
 					}
 				}
+				return clause;
+			} else {
+				Logger.out("invalid separator "+separator+" to build a clause");
 			}
-			return clause;
 		} else {
-			Logger.out("invalid data to build a clause!");
+			Logger.out("invalid data to build a clause");
 		}
 		return "";
 	}
@@ -309,4 +421,25 @@ public class AttributeList {
 	// Logger.out("invalid data to build a flag list!");
 	// return null;
 	// }
+	/**
+	 * 
+	 * @return
+	 */
+	// private String getKeyName() {
+	// int size = myAttributes.size();
+	// if (size >= 1) {
+	// for (int i = 0; i < size; i++) {
+	// if (myAttributes.get(i) != null) {
+	// Attribute a = myAttributes.get(i);
+	// if (a.isKey()) {
+	// return a.getName();
+	// }
+	// }
+	// }
+	// } else {
+	// Logger.out("key name not found!");
+	// }
+	// return "";
+	// }
+
 }

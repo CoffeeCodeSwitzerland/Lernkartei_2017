@@ -2,7 +2,6 @@ package learning;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 
 import database.LKDatabase;
 
@@ -11,7 +10,7 @@ public class lerndatenzuweisung {
 	// hier muss aus der Datenbank genommen werden wann die karte zuletzt gelernt wurde  !!
 	public LocalDate Datum = LocalDate.now();
 	
-	public String KartenDatum = LKDatabase.myLearns.getMyAttributes().seekKeyNamed("Date").getValue();
+	public String KartenDatum = LKDatabase.myLearns.getMyAttributes().getAttributeNamedAs("Date").getValue();
 	public LocalDate CardDate =  LocalDate.parse(KartenDatum, globals.Globals.formatter);
  	
 

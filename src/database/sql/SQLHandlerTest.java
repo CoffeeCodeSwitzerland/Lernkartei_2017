@@ -5,7 +5,9 @@ import static org.junit.Assert.assertNotEquals;
 
 import org.junit.Test;
 
-import database.sql.Attribute.Datatype;
+import database.jdbc.DBDriver;
+import database.jdbc.SQLiteDriver;
+import database.sql.AttributeInterface.Datatype;
 
 /**
  * @author WISS
@@ -14,55 +16,79 @@ import database.sql.Attribute.Datatype;
 public class SQLHandlerTest {
 	
 	public static void myTest() {
-		AttributeList atts = new AttributeList();
-		Attribute a0 = new Attribute("Name","aaa");
-		Attribute a1 = new Attribute("Name","xxx");
-		Attribute a2 = new Attribute("Age",11);
-		atts.add(a0);
-		atts.add(a1);
-		atts.add(a2);
+		debug.Debugger.out("Test Entity...");
 
-		debug.Debugger.out("Test ENTITY...");
+		DBDriver myTestDB = new SQLiteDriver("test.db"); 
 
-		Entity e = new Entity("test.db","TESTTAB","TEST_PK");
+		Entity e = new Entity(myTestDB,"TESTTAB","TEST_PK",false);
 
 		AttributeList eaL = e.getMyAttributes();
-		assertEquals(3, eaL.size());
+		assertEquals(3, eaL.getSize());
 		String ea = eaL.getCommaSeparatedList(true);
-		debug.Debugger.out("ATTR: {"+ea+"}");
-		assertEquals("KEY_NAME TEXT,VALUE TEXT,PK_TESTTAB INTEGER PRIMARY KEY AUTOINCREMENT", ea);
+		debug.Debugger.out("Entity: {"+ea+"}");
+		assertEquals("KEY_NAME TEXT,KEY_VALUE TEXT,PK_TESTTAB INTEGER PRIMARY KEY AUTOINCREMENT", ea);
 
 		debug.Debugger.out("Test Attributes...");
+		AttributeList atts = new AttributeList();
+		Attribute a0 = new Attribute("Name","aaa");
+		Attribute a1 = new Attribute("Name","xxx"); // duplicate are ignored
+		Attribute a2 = new Attribute("Age",11);
+		Attribute a3 = new Attribute("Age","Age"); // duplicate are ignored
+		atts.addUnique(a0);
+		atts.addUnique(a1);
+		atts.addUnique(a2);
+		atts.addUnique(a3);
+		assertEquals(2, atts.getSize());
+
 		String k = e.getMyAttributes().toKeyList(true);
-		debug.Debugger.out("ATTR: {"+k+"}");
-		assertEquals("KEY_NAME, VALUE, PK_TESTTAB", k);
+		debug.Debugger.out("Attr.: {"+k+"}");
+		assertEquals("KEY_NAME, KEY_VALUE, PK_TESTTAB", k);
 
 		String k0 = e.getMyAttributes().toKeyList(true);
-		debug.Debugger.out("ATTR: {"+k0+"}");
-		assertEquals("KEY_NAME, VALUE, PK_TESTTAB", k0);
+		debug.Debugger.out("Attr.: {"+k0+"}");
+		assertEquals("KEY_NAME, KEY_VALUE, PK_TESTTAB", k0);
 
 		e.addAttributes(atts);
 		AttributeList eaL2 = e.getMyAttributes();
-		assertEquals(5, eaL2.size());
+		assertEquals(5, eaL2.getSize());
+		
+		int result = e.createTableIfNotExists();
+		assertEquals(0, result);
+
+		Attribute a4 = new Attribute("Invalid","0"); // table is yet created
+		e.addAttribute(a4);
+		eaL2 = e.getMyAttributes();
+		assertEquals(5, eaL2.getSize());
 		
 		String ea2 = eaL2.getCommaSeparatedList(false);
-		debug.Debugger.out("ATTR: {"+ea2+"}");
-		assertEquals("KEY_NAME TEXT,VALUE TEXT,Name TEXT,Age INTEGER", ea2);
+		debug.Debugger.out("Attr.: {"+ea2+"}");
+		assertEquals("KEY_NAME TEXT,KEY_VALUE TEXT,Name TEXT,Age INTEGER", ea2);
 
 		assertNotEquals(null, e.createTableIfNotExists());
 		e.addAttributes(atts);
 		
 		String cl = atts.toClause("AND");
-		debug.Debugger.out("ATTR: {"+cl+"}");
+		debug.Debugger.out("Attr.: {"+cl+"}");
 		assertEquals("Name = 'aaa' AND Age = 11 ", cl);
-		
-		String v = atts.toValueList(false);
-		debug.Debugger.out("ATTR: {"+v+"}");
-		assertEquals("'aaa',11", v);
 		
 		String kl = atts.toKeyList(true);
 		debug.Debugger.out("ATTR: {"+kl+"}");
 		assertEquals("Name, Age", kl);
+		
+		int pc = atts.getCountPrimary();
+		assertEquals(0, pc);
+
+		kl = atts.toKeyList(false);
+		debug.Debugger.out("ATTR: {"+kl+"}");
+		assertEquals("Name, Age", kl);
+		
+		String v = atts.toValueList(true);
+		debug.Debugger.out("ATTR: {"+v+"}");
+		assertEquals("'aaa',11", v);
+		
+		v = atts.toValueList(false);
+		debug.Debugger.out("ATTR: {"+v+"}");
+		assertEquals("'aaa',11", v);
 		
 		String aa = atts.getCommaSeparatedList(false);
 		debug.Debugger.out("ATTR: {"+aa+"}");
@@ -75,18 +101,19 @@ public class SQLHandlerTest {
 
 		debug.Debugger.out("Test DELETE...");
 		e.delKeyValue(null, null);
-		debug.Debugger.out("SQL: {"+e.getLastSQLCommand()+"}");
-		assertEquals("DELETE FROM TESTTAB",e.getLastSQLCommand());
+		debug.Debugger.out("SQL: {"+e.myDBDriver.getLastSQLCommand()+"}");
+		assertEquals("DELETE FROM TESTTAB",e.myDBDriver.getLastSQLCommand());
 
 		debug.Debugger.out("Test CREATE...");
 		String d = SQLHandler.createTableIfNotExistsCommand(e.getMyTableName(), e.getMyAttributes());
 		debug.Debugger.out("SQL: {"+d+"}");
-		assertEquals("CREATE TABLE IF NOT EXISTS TESTTAB (KEY_NAME TEXT,VALUE TEXT,PK_TESTTAB INTEGER PRIMARY KEY AUTOINCREMENT,Name TEXT,Age INTEGER)", d);
+		assertEquals("CREATE TABLE IF NOT EXISTS TESTTAB (KEY_NAME TEXT,KEY_VALUE TEXT,PK_TESTTAB INTEGER PRIMARY KEY AUTOINCREMENT,Name TEXT,Age INTEGER)", d);
 		int r = e.createTableIfNotExists();
-		String last = e.getLastSQLCommand();
+
+		String last = e.myDBDriver.getLastSQLCommand();
 		debug.Debugger.out("SQL("+r+"): {"+last+"}");
 		assertEquals(0, r);
-		assertEquals("CREATE TABLE IF NOT EXISTS TESTTAB (KEY_NAME TEXT,VALUE TEXT,PK_TESTTAB INTEGER PRIMARY KEY AUTOINCREMENT,Name TEXT,Age INTEGER)", last);
+		assertEquals("DELETE FROM TESTTAB", last);
 		e.addAttributes(atts);
 
 		debug.Debugger.out("Test SELECT...");
@@ -95,13 +122,13 @@ public class SQLHandlerTest {
 		assertEquals("SELECT * FROM TESTTAB WHERE Name = 'aaa' ", cmd);
 		
 		debug.Debugger.out("Test PKey in List...");
-		PrimaryKey p = e.getMyAttributes().getPKey();
+		PrimaryKey p = e.getMyAttributes().getPrimaryKey();
 		assertEquals("PK_TESTTAB", p.getName());
 		AttributeList pkList2 = new AttributeList();
 		Attribute ra2 = new Attribute (p.getName());
-		pkList2.add(ra2);
+		pkList2.addUnique(ra2);
 		KeyAttribute a = new KeyAttribute("Name", "aaa", Datatype.TEXT);
-		String sc = SQLHandler.selectCommand(e.getMyTableName(), pkList2, a);
+		String sc = SQLHandler.selectCommand(e.getMyTableName(), pkList2, a, null);
 		debug.Debugger.out("SQL: {"+sc+"}");
 		assertEquals("SELECT PK_TESTTAB FROM TESTTAB WHERE Name = 'aaa' ", sc);
 		
@@ -116,19 +143,19 @@ public class SQLHandlerTest {
 		debug.Debugger.out("Test INSERT...");
 		String k2 = e.getMyAttributes().toKeyList(false);
 		debug.Debugger.out("ATTR: {"+k2+"}");
-		assertEquals("KEY_NAME, VALUE, Name, Age", k2);
+		assertEquals("KEY_NAME, KEY_VALUE, Name, Age", k2);
 		String i = SQLHandler.insertIntoTableCommand(e.getMyTableName(), atts);
 		debug.Debugger.out("SQL: {"+i+"}");
 		assertEquals("INSERT INTO TESTTAB (Name, Age) VALUES ('aaa',11)", i);
 		
 		debug.Debugger.out("Test set keys (INSERT)...");
 		e.setKeyValue("hallo", "220");
-		debug.Debugger.out("SQL("+r+"): {"+e.getLastSQLCommand()+"}");
-		assertEquals("INSERT INTO TESTTAB (KEY_NAME, VALUE, Name, Age) VALUES ('hallo','220','aaa',11)",e.getLastSQLCommand());
+		debug.Debugger.out("SQL("+r+"): {"+e.myDBDriver.getLastSQLCommand()+"}");
+		assertEquals("INSERT INTO TESTTAB (KEY_NAME, KEY_VALUE, Name, Age) VALUES ('hallo','220','aaa',11)",e.myDBDriver.getLastSQLCommand());
 
 		AttributeList aList = new AttributeList();
 		Attribute ra = new Attribute ("PK_TESTTAB");
-		aList.add(ra);
+		aList.addUnique(ra);
 	//	String attList = aList.toKeyList(true);
 
 		debug.Debugger.out("Test seek in Table...");
@@ -142,12 +169,22 @@ public class SQLHandlerTest {
 		// TODO test line count should be 1 PKey changes for each deleted before
 		
 		debug.Debugger.out("Test UPDATE...");
-		p.setValue(s);
-		atts.seekKeyNamed("Age").setValue("10");
-		String u = SQLHandler.updateInTableCommand(e.getMyTableName(), atts, p);
-		debug.Debugger.out("SQL: {"+u+"}");
-		assertEquals("UPDATE TESTTAB SET Name = 'aaa' , Age = 10 WHERE PK_TESTTAB = "+s+" ", u);
+		Attribute key = new Attribute("name","aaa");
+		int id = e.getEntityID(key);
+		debug.Debugger.out("SQL: {"+e.myDBDriver.getLastSQLCommand()+"}");
+		assertEquals("SELECT PK_TESTTAB FROM TESTTAB WHERE name = 'aaa' ",e.myDBDriver.getLastSQLCommand());
+		debug.Debugger.out("SQL: ("+id+")");
+		assertEquals(1, id);
 		
+		atts.getAttributeNamedAs("Age").setValue("10");
+		String u = SQLHandler.updateInTableCommand(e.getMyTableName(), atts, key);
+		debug.Debugger.out("SQL: {"+u+"}");
+		assertEquals("UPDATE TESTTAB SET Name = 'aaa' , Age = 10 WHERE name = 'aaa' ", u);
+		PrimaryKey pk = new PrimaryKey("PK_TESTTAB","1");
+		atts.getAttributeNamedAs("Age").setValue("22");
+		u = SQLHandler.updateInTableCommand(e.getMyTableName(), atts, pk);
+		debug.Debugger.out("SQL: {"+u+"}");
+		assertEquals("UPDATE TESTTAB SET Name = 'aaa' , Age = 22 WHERE PK_TESTTAB = 1 ", u);
 	}
 
 	@Test

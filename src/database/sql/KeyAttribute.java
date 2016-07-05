@@ -33,9 +33,9 @@ public class KeyAttribute extends Attribute {
 	public String getAttributeDefinition () {
 		String def = getName() + " ";
 		if (getType() == Datatype.INT) {
-			def += SQLDataTypes[Datatype.INT.ordinal()];
+			def += SQLDataTypes[Datatype.UINT.ordinal()];
 		} else {
-			def += SQLDataTypes[Datatype.TEXT.ordinal()];
+			def += SQLDataTypes[Datatype.UTEXT.ordinal()];
 		}
 		def += " NOT NULL";
 		if (getDefaultValue() != null) def += " DEFAULT " + getDefaultValue();

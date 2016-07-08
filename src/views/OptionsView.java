@@ -1,7 +1,5 @@
 package views;
 
-import java.util.HashMap;
-
 import globals.ConfigDefaults;
 import globals.ConfigDefaults.Configurations;
 import globals.Globals;
@@ -37,20 +35,10 @@ public class OptionsView extends FXView
 		construct(newName);
 	}
 	
-	enum ConfigKeys
-	{
-		withState,
-		hideImageStacks,
-		tooltipp
-	}
-	
 	boolean		isChangeingCardLimitValue	= false;
 	
 	String		lastValidCardLimit;
 	TextField	cardLearnLimit;
-
-	HashMap<ConfigKeys, String> checkboxDescriptions = new HashMap<>();
-	HashMap<ConfigKeys, String> checkboxLabels = new HashMap<>();
 
 	String		descTxtCardLimit			= "Anzahl Karten, die auf einmal gelernt werden, limitieren.";
 
@@ -59,14 +47,6 @@ public class OptionsView extends FXView
 	@Override
 	public Parent constructContainer ()
 	{
-		// TODO : may put the strings in a file
-		checkboxDescriptions.put(ConfigKeys.withState, "Wenn aktiviert, werden alle Buttons dem Grössten angepasst. Sonst orientiert sich die Grösse jeweils am Namen des Buttons.");
-		checkboxDescriptions.put(ConfigKeys.hideImageStacks, "Zeige nur Stapel, die keine Bilder enthalten");
-		checkboxDescriptions.put(ConfigKeys.tooltipp, "Deaktiviere Tooltipps. Wenn diese Option aktiviert ist, werden keine Tooltipps angezeigt.");
-
-		checkboxLabels.put(ConfigKeys.withState, "Grösse Anpassen");
-		checkboxLabels.put(ConfigKeys.hideImageStacks, "Nur Stapel ohne Bilder");
-		checkboxLabels.put(ConfigKeys.tooltipp, "Tooltipps deaktivieren");
 		
 		Label cardLimitDescription = new Label(descTxtCardLimit);
 
@@ -106,32 +86,26 @@ public class OptionsView extends FXView
 			}
 		});
 		
-		VBox optionsLay = new VBox(20);
+		VBox optiLay = new VBox(20);
 
-		optionsLay.setPadding(new Insets(30));
-		optionsLay.setAlignment(Pos.CENTER);
+		optiLay.setPadding(new Insets(30));
+		optiLay.setAlignment(Pos.CENTER);
 
-		optionsLay.getChildren().addAll(cardLimitDescription, cardLearnLimit, new Separator());
-		
-		for (ConfigKeys ck : ConfigKeys.values())
-		{
-			CheckBoxOption cbo = new CheckBoxOption(ck.toString(), checkboxDescriptions.get(ck), checkboxLabels.get(ck), getFXController());
-			optionsLay.getChildren().addAll(cbo.toNodesWithSepp());
-		}
+		optiLay.getChildren().addAll(cardLimitDescription, cardLearnLimit, new Separator());
 		
 		ConfigDefaults.ini();
 		for (Configurations c : Configurations.values())
 		{
 			CheckBoxOption cbo = new CheckBoxOption(c, getFXController());
-			optionsLay.getChildren().addAll(cbo.toNodesWithSepp());
+			optiLay.getChildren().addAll(cbo.toNodesWithSepp());
 		}
 		
 		// Remove the last separator
-		optionsLay.getChildren().remove(optionsLay.getChildren().size() - 1);
+		optiLay.getChildren().remove(optiLay.getChildren().size() - 1);
 		
-		VerticalScroller scroLay = new VerticalScroller(optionsLay);
-		ControlLayout conLay = new ControlLayout(backBtn);
-		MainLayout mainLay = new MainLayout(scroLay, conLay);
+		VerticalScroller scroLay = new VerticalScroller(optiLay);
+		ControlLayout contLay = new ControlLayout(backBtn);
+		MainLayout mainLay = new MainLayout(scroLay, contLay);
 
 		getFXController().getModel("config").registerView(this);
 

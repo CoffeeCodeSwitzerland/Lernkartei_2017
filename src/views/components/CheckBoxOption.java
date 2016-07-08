@@ -15,7 +15,7 @@ import mvc.fx.FXController;
  * @author miro albrecht
  *
  */
-public class CheckBoxOption
+public class CheckBoxOption implements OptionInterface
 {
 	public Label description;
 	public CheckBox checkBox;
@@ -57,13 +57,14 @@ public class CheckBoxOption
 			Model m = controller.getModel("config");
 			if (m!= null) 
 			{
-				if (def != null)
+				if (def == null)
 				{
 					m.doAction(Command.SET, configKey, "false");
 				}
 				else
 				{
 					m.doAction(Command.SET, configKey, def);
+					oldValue = def.equals("true") ? true : false;
 				}
 			} else
 			{

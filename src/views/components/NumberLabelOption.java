@@ -12,7 +12,6 @@ public class NumberLabelOption extends LabelOption
 	{
 		super(configKey, description, Integer.toString(def), controller);
 		updateListener(configKey, def, max, min, controller);
-		
 	}
 	
 	public NumberLabelOption (String configKey, String description, String def, int max, int min, FXController controller)

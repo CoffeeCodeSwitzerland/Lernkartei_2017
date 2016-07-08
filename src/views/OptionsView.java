@@ -1,12 +1,13 @@
 package views;
 
+import java.util.ArrayList;
+
 import globals.ConfigDefaults;
 import globals.ConfigDefaults.Configurations;
 import globals.Globals;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import mvc.fx.FXController;
 import mvc.fx.FXView;
@@ -15,6 +16,7 @@ import views.components.CheckBoxOption;
 import views.components.ControlLayout;
 import views.components.MainLayout;
 import views.components.NumberLabelOption;
+import views.components.OptionInterface;
 import views.components.VerticalScroller;
 
 
@@ -31,40 +33,41 @@ public class OptionsView extends FXView
 		super(newController);
 		construct(newName);
 	}
-	
-	boolean		isChangeingCardLimitValue	= false;
-	
-	String		lastValidCardLimit;
-	TextField	cardLearnLimit;
 
-	String		descTxtCardLimit			= "Anzahl Karten, die auf einmal gelernt werden, limitieren.";
-
-	BackButton	backBtn						= new BackButton(getFXController());
+	ArrayList<OptionInterface>	optionEntries				= new ArrayList<>();
+	BackButton					backBtn						= new BackButton(getFXController());
 
 	@Override
 	public Parent constructContainer ()
 	{
-		NumberLabelOption nlo = new NumberLabelOption("cardLimit", descTxtCardLimit,
-				Globals.defaultStackPartSize, Globals.maxStackPartSize, Globals.minStackPartSize,
-				getFXController());
-		
+		optionEntries.add(
+				new NumberLabelOption(
+						"cardLimit",
+						"Anzahl Karten, die auf einmal gelernt werden, limitieren.",
+						Globals.defaultStackPartSize,
+						Globals.maxStackPartSize,
+						Globals.minStackPartSize,
+						getFXController()));
+
+		ConfigDefaults.ini();
+		for (Configurations c : Configurations.values())
+		{
+			optionEntries.add(new CheckBoxOption(c, getFXController()));
+		}
+
 		VBox optiLay = new VBox(20);
 
 		optiLay.setPadding(new Insets(30));
 		optiLay.setAlignment(Pos.CENTER);
-		
-		optiLay.getChildren().addAll(nlo.toNodesWithSepp());
-		
-		ConfigDefaults.ini();
-		for (Configurations c : Configurations.values())
+
+		for (OptionInterface oi : optionEntries)
 		{
-			CheckBoxOption cbo = new CheckBoxOption(c, getFXController());
-			optiLay.getChildren().addAll(cbo.toNodesWithSepp());
+			optiLay.getChildren().addAll(oi.toNodesWithSepp());
 		}
-		
+
 		// Remove the last separator
 		optiLay.getChildren().remove(optiLay.getChildren().size() - 1);
-		
+
 		VerticalScroller scroLay = new VerticalScroller(optiLay);
 		ControlLayout contLay = new ControlLayout(backBtn);
 		MainLayout mainLay = new MainLayout(scroLay, contLay);

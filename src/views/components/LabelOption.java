@@ -69,7 +69,6 @@ public class LabelOption implements OptionInterface
 		textField.setText(oldValue);
 		listener = new InvalidationListener()
 		{
-
 			@Override
 			public void invalidated (Observable observable)
 			{

@@ -1,5 +1,7 @@
 package views.components;
 
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
@@ -10,9 +12,11 @@ import mvc.fx.FXController;
 
 public class LabelOption implements OptionInterface
 {
-	Label description;
-	TextField textField;
-	String oldValue;
+	protected Label description;
+	protected TextField textField;
+	protected String oldValue;
+	
+	protected InvalidationListener listener;
 	
 	public LabelOption (String configKey, String description, String def, FXController controller)
 	{
@@ -63,13 +67,18 @@ public class LabelOption implements OptionInterface
 		}
 		
 		textField.setText(oldValue);
-		
-		textField.textProperty().addListener(e ->
+		listener = new InvalidationListener()
 		{
-			String value = textField.getText();
-			debug.Debugger.out(configKey + " property has changed to " + value);
-			controller.getModel("config").doAction(Command.SET, configKey, value);
-		});
+
+			@Override
+			public void invalidated (Observable observable)
+			{
+				String value = textField.getText();
+				debug.Debugger.out(configKey + " property has changed to " + value);
+				controller.getModel("config").doAction(Command.SET, configKey, value);
+			}
+		};
+		textField.textProperty().addListener(listener);
 	}
 	
 	public Node[] toNodes ()

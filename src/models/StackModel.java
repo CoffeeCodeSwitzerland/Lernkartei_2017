@@ -33,7 +33,7 @@ public class StackModel extends Model
 				refreshViews(); // TODO siehe kommentar von 'case DELETE'
 				return newIsSuccessful;
 			case UPDATE:
-				if (param.length != 2) { return -2; }
+				if (param.length != 3) { return -2; }
 				boolean updateIsSuccessful = LKDatabase.myStacks.update(param[0], param[1], param[2]);
 				return updateIsSuccessful ? 1 : -1;
 			case DELETE:

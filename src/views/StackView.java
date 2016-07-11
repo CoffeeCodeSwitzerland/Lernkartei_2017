@@ -85,7 +85,7 @@ public class StackView extends FXViewModel
 			{
 				case 0:
 					String stackName = Alert.simpleString("Neuer Stapel", "Wie soll der neue Stapel heissen?");
-					if (/* this.getName() != null && */ stackName != null)
+					if (/* this.getName() != null && */ stackName != null && !stackName.equals(""))
 					{
 						while (stackName.length() > Globals.maxNameLength)
 						{

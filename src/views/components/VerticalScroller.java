@@ -16,23 +16,26 @@ public class VerticalScroller extends ScrollPane
 	public VerticalScroller (Node node, double padding)
 	{
 		super(node);
+		initialize(padding);
+	}
+
+	public VerticalScroller (Node node)
+	{
+		super(node);
+		initialize(0);
+	}
+
+	private void initialize (double padding)
+	{
 		setHbarPolicy(ScrollBarPolicy.NEVER);
 		setMaxWidth(Globals.defaultScrollerWidth);
 		setFitToWidth(true);
 		setPadding(new Insets(padding));
 	}
 
-	public VerticalScroller (Node node)
-	{
-		super(node);
-		setHbarPolicy(ScrollBarPolicy.NEVER);
-		setMaxWidth(Globals.defaultScrollerWidth);
-		setFitToWidth(true);
-		setPadding(new Insets(0));
-	}
-
 	@Override
 	public void requestFocus ()
 	{
+		// do nothing. prevents focus on this scroll pane
 	}
 }

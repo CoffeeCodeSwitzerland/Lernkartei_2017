@@ -5,10 +5,7 @@ import java.util.ArrayList;
 import globals.ConfigDefaults;
 import globals.ConfigDefaults.Configurations;
 import globals.Globals;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Parent;
-import javafx.scene.layout.VBox;
 import mvc.fx.FXController;
 import mvc.fx.FXView;
 import views.components.BackButton;
@@ -17,6 +14,7 @@ import views.components.ControlLayout;
 import views.components.MainLayout;
 import views.components.NumberLabelOption;
 import views.components.OptionInterface;
+import views.components.StandardVBox;
 import views.components.VerticalScroller;
 
 
@@ -34,20 +32,22 @@ public class OptionsView extends FXView
 		construct(newName);
 	}
 
-	ArrayList<OptionInterface>	optionEntries				= new ArrayList<>();
-	BackButton					backBtn						= new BackButton(getFXController());
+	private BackButton backBtn = new BackButton(getFXController());
 
 	@Override
 	public Parent constructContainer ()
 	{
-		optionEntries.add(
-				new NumberLabelOption(
-						"cardLimit",
-						"Anzahl Karten, die auf einmal gelernt werden, limitieren.",
-						Globals.defaultStackPartSize,
-						Globals.maxStackPartSize,
-						Globals.minStackPartSize,
-						getFXController()));
+		ArrayList<OptionInterface> optionEntries = new ArrayList<>();
+
+		NumberLabelOption stackPartSize = new NumberLabelOption(
+				"cardLimit",
+				"Anzahl Karten, die auf einmal gelernt werden, limitieren.",
+				Globals.defaultStackPartSize,
+				Globals.maxStackPartSize,
+				Globals.minStackPartSize,
+				getFXController());
+		
+		optionEntries.add(stackPartSize);
 
 		ConfigDefaults.ini();
 		for (Configurations c : Configurations.values())
@@ -55,14 +55,11 @@ public class OptionsView extends FXView
 			optionEntries.add(new CheckBoxOption(c, getFXController()));
 		}
 
-		VBox optiLay = new VBox(20);
-
-		optiLay.setPadding(new Insets(30));
-		optiLay.setAlignment(Pos.CENTER);
+		StandardVBox optiLay = new StandardVBox();
 
 		for (OptionInterface oi : optionEntries)
 		{
-			optiLay.getChildren().addAll(oi.toNodesWithSepp());
+			optiLay.add(oi.toNodesWithSeparator());
 		}
 
 		// Remove the last separator

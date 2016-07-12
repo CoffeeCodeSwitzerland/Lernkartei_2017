@@ -10,6 +10,7 @@ import mvc.Model;
 import mvc.ModelInterface.Command;
 import mvc.fx.FXController;
 
+
 /**
  * 
  * @author miro albrecht
@@ -17,29 +18,30 @@ import mvc.fx.FXController;
  */
 public class CheckBoxOption implements OptionInterface
 {
-	public Label description;
-	public CheckBox checkBox;
-	public boolean oldValue;
-	
+	public Label	description;
+	public CheckBox	checkBox;
+	public boolean	oldValue;
+
 	public CheckBoxOption (Configurations c, FXController fxc)
 	{
 		String[] s = ConfigDefaults.getConfig(c);
 		CheckBoxOptionInit(c.toString(), s[1], s[0], s[2], fxc);
 	}
-	
+
 	public CheckBoxOption (String configKey, String description, String cbDescription, FXController controller)
 	{
 		CheckBoxOptionInit(configKey, description, cbDescription, null, controller);
 	}
-	
-	public void CheckBoxOptionInit (String configKey, String description, String cbDescription, String def, FXController controller)
+
+	public void CheckBoxOptionInit (String configKey, String description, String cbDescription, String def,
+			FXController controller)
 	{
 		this.description = new Label(description);
 		this.description.setWrapText(true);
 		checkBox = new CheckBox(cbDescription);
-		
+
 		oldValue = false;
-		
+
 		boolean noEntry = false;
 
 		String dataValue = controller.getModel("config").getString(configKey);
@@ -49,13 +51,16 @@ public class CheckBoxOption implements OptionInterface
 			{
 				oldValue = true;
 			}
-		} else { noEntry = true; }
+		}
+		else
+		{
+			noEntry = true;
+		}
 
-		
 		if (noEntry)
 		{
 			Model m = controller.getModel("config");
-			if (m!= null) 
+			if (m != null)
 			{
 				if (def == null)
 				{
@@ -66,14 +71,15 @@ public class CheckBoxOption implements OptionInterface
 					m.doAction(Command.SET, configKey, def);
 					oldValue = def.equals("true") ? true : false;
 				}
-			} else
+			}
+			else
 			{
 				debug.Debugger.out("Model config not found!");
 			}
 		}
-		
+
 		checkBox.setSelected(oldValue);
-		
+
 		checkBox.selectedProperty().addListener(e ->
 		{
 			debug.Debugger.out(configKey + " property has changed");
@@ -81,14 +87,14 @@ public class CheckBoxOption implements OptionInterface
 			controller.getModel("config").doAction(Command.SET, configKey, value);
 		});
 	}
-	
+
 	public Node[] toNodes ()
 	{
-		return new Node[]{ description, checkBox };
+		return new Node[] { description, checkBox };
 	}
-	
-	public Node[] toNodesWithSepp ()
+
+	public Node[] toNodesWithSeparator ()
 	{
-		return new Node[]{ description, checkBox, new Separator() };
+		return new Node[] { description, checkBox, new Separator() };
 	}
 }

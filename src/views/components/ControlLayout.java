@@ -7,15 +7,15 @@ import javafx.scene.layout.HBox;
 
 
 /**
- * Layout für control buttons. Übernimmt das Setzten von Defaulteinstellungen.
+ * Layout für control-Buttons. Übernimmt das Setzten von Default-Einstellungen.
  * 
  * @author miro albrecht
  *
  */
 public class ControlLayout extends HBox
 {
-	private static Insets padding = new Insets(20, 0, 0, 0);
-	
+	private static final Insets padding = new Insets(20, 0, 0, 0);
+
 	public ControlLayout (Node... nodes)
 	{
 		setAlignment(Pos.CENTER);

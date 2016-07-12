@@ -10,7 +10,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
-import javafx.scene.layout.VBox;
 import mvc.ModelInterface.Command;
 import mvc.fx.FXController;
 import mvc.fx.FXView;
@@ -19,11 +18,12 @@ import views.components.AppButton;
 import views.components.ControlLayout;
 import views.components.HomeButton;
 import views.components.MainLayout;
+import views.components.StandardVBox;
 import views.components.VerticalScroller;
 
 
 /**
- * Zeigt alle Doors an. Erlaubt die Erstellung und das LÃ¶schen von Doors. Eine
+ * Zeigt alle Doors an. Erlaubt die Erstellung und das Löschen von Doors. Eine
  * Door entspricht einem Themenbereich.
  * 
  * @author miro albrecht & hugo lucca
@@ -39,52 +39,29 @@ public class DoorView extends FXView
 		construct(newName);
 	}
 
-	// Zeigt Doors dynamisch an (muss im construct und im refresh verfÃ¼gbar sein)
-	VBox doorLayout;
+	// Zeigt Doors dynamisch an (muss im constructContainer und im refresh verfügbar sein)
+	StandardVBox doorLayout;
 
 	@Override
 	public Parent constructContainer ()
 	{
-		// Initialisiere Layout fÃ¼r Doors
-		doorLayout = new VBox(20);
-		doorLayout.setAlignment(Pos.CENTER);
-		
-		VerticalScroller scroLay = new VerticalScroller(doorLayout, 25);
+		doorLayout = new StandardVBox();
+		VerticalScroller scroLay = new VerticalScroller(doorLayout);
 
-		// Buttons
 		HomeButton homeBtn = new HomeButton(getFXController());
 		AppButton newDoorBtn = new AppButton(txtNewTheme);
 		AppButton renameBtn = new AppButton("Umbennen");
 
-		// Trash Image
 		Image trashImg = new Image("views/pictures/Papierkorb.png");
 		ImageView trashImgView = new ImageView(trashImg);
 
-		// Layout fÃ¼r Controls (Hauptsteuerung)
 		ControlLayout conLay = new ControlLayout(homeBtn, newDoorBtn, renameBtn, trashImgView);
 
-		// Main Layout
 		MainLayout maLay = new MainLayout(scroLay, conLay);
 
 		newDoorBtn.setOnAction(e ->
 		{
-			String doorName = Alert.simpleString(txtNewTheme, "Wie soll das neue Fach heissen?");
-			if (doorName != null && !doorName.equals(""))
-			{
-				int maxNameLength = Globals.maxNameLength;
-				while (doorName != null && doorName.length() > maxNameLength)
-				{
-					doorName = Alert.simpleString("Name zu lang", "Bitte wÃ¤hlen Sie einen kÃ¼rzeren Namen. (max "+maxNameLength+" Zeichen)", doorName.substring(0, maxNameLength), 300);
-				}
-				if (doorName != null && !doorName.equals(""))
-				{
-					int succesful = getFXController().getModel("door").doAction(Command.NEW, doorName);
-					if (succesful == -1)
-					{
-						Alert.simpleInfoBox("Fach wurde nicht erstellt", "Dieser Name ist schon vergeben.");
-					}
-				}
-			}
+			newDoor();
 		});
 
 		renameBtn.setOnAction(e ->
@@ -93,14 +70,14 @@ public class DoorView extends FXView
 			getFXController().showView("rename");
 		});
 
-		trashImgView.setOnDragOver(e ->
+		trashImgView.setOnDragOver(event ->
 		{
-			if (e.getGestureSource() != trashImgView && e.getDragboard().hasString())
+			if (event.getGestureSource() != trashImgView && event.getDragboard().hasString())
 			{
-				e.acceptTransferModes(TransferMode.COPY_OR_MOVE);
+				event.acceptTransferModes(TransferMode.COPY_OR_MOVE);
 			}
 
-			e.consume();
+			event.consume();
 		});
 		
 		trashImgView.setOnDragDropped(event ->
@@ -109,11 +86,7 @@ public class DoorView extends FXView
 			boolean success = false;
 			if (db.hasString())
 			{
-				if (Alert.ok("Achtung", "Willst du das Fach '" + db.getString() + "' wirklich lÃ¶schen?"))
-				{
-					getFXController().getModel("door").doAction(Command.DELETE, db.getString());
-				}
-				success = true;
+				success = deleteDoor(db.getString());
 			}
 
 			event.setDropCompleted(success);
@@ -173,5 +146,35 @@ public class DoorView extends FXView
 		doorLayout.getChildren().addAll(doors);
 
 		doorLayout.setAlignment(Pos.CENTER);
+	}
+	
+	private void newDoor ()
+	{
+		String doorName = Alert.simpleString(txtNewTheme, "Wie soll das neue Fach heissen?");
+		if (doorName != null && !doorName.equals(""))
+		{
+			int maxNameLength = Globals.maxNameLength;
+			while (doorName != null && doorName.length() > maxNameLength)
+			{
+				doorName = Alert.simpleString("Name zu lang", "Bitte wählen Sie einen kürzeren Namen. (max "+maxNameLength+" Zeichen)", doorName.substring(0, maxNameLength), 300);
+			}
+			if (doorName != null && !doorName.equals(""))
+			{
+				int succesful = getFXController().getModel("door").doAction(Command.NEW, doorName);
+				if (succesful == -1)
+				{
+					Alert.simpleInfoBox("Fach wurde nicht erstellt", "Dieser Name ist schon vergeben.");
+				}
+			}
+		}
+	}
+	
+	private boolean deleteDoor (String door)
+	{
+		if (Alert.ok("Achtung", "Willst du das Fach '" + door + "' wirklich löschen?"))
+		{
+			getFXController().getModel("door").doAction(Command.DELETE, door);
+		}
+		return true;
 	}
 }

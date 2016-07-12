@@ -85,7 +85,7 @@ public class LabelOption implements OptionInterface
 		return new Node[]{description, textField};
 	}
 
-	public Node[] toNodesWithSepp ()
+	public Node[] toNodesWithSeparator ()
 	{
 		return new Node[]{description, textField, new Separator()};
 	}

@@ -10,7 +10,7 @@
 - man benötigt die Installation von 2 Plug-Ins aus:
    Eclipse EGit Mylyn EGit Repository - http://download.eclipse.org/egit/updates
    Eclipse EGit Mylyn GitHub Repository - http://download.eclipse.org/egit/github/updates
-- Show View ->Git Stageing  aktivieren
+- Window->Show View ->Git Stageing  aktivieren
 - Am einfachsten: Import Project from Gihub (Github) auf ein lokales Verzeichnis (lokales Git-Verz.), 
   dann neues Projekt erstellen und in Eclips importen
 

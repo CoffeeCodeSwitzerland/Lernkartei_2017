@@ -77,6 +77,7 @@ public class GameView extends FXView {
 			grund.setText("Sie müssen zuerst Lernen!");
 			lifes.setText("Lifes: " + LKDatabase.myUsers.getLifecount());
 		} else { 
+			grund.setText("");
 			btn.setDisable(false); 
 			lifes.setText("Lifes: " + LKDatabase.myUsers.getLifecount()); 
 		}

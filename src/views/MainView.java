@@ -1,5 +1,6 @@
 package views;
 
+import database.LKDatabase;
 import globals.Globals;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
@@ -73,6 +74,8 @@ public class MainView extends FXView
 			debug.Debugger.out("closing button");
 			GameModel gm = (GameModel) getFXController().getModel("game");
 			if (gm != null) gm.dispose();
+			LKDatabase.myConfigDB.closeDB();
+			LKDatabase.myWLCDB.closeDB();
 			getWindow().close();
 		});		
 		// doeas the same as the close button, when closing window on x

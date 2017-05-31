@@ -11,6 +11,7 @@ import mvc.fx.FXView;
 import views.components.BackButton;
 import views.components.CheckBoxOption;
 import views.components.ControlLayout;
+import views.components.DelDBButton;
 import views.components.MainLayout;
 import views.components.NumberLabelOption;
 import views.components.OptionInterface;
@@ -33,6 +34,7 @@ public class OptionsView extends FXView
 	}
 
 	private BackButton backBtn = new BackButton(getFXController());
+	private DelDBButton delBtn = new DelDBButton("Daten löschen");
 
 	@Override
 	public Parent constructContainer ()
@@ -66,7 +68,7 @@ public class OptionsView extends FXView
 		optiLay.getChildren().remove(optiLay.getChildren().size() - 1);
 
 		VerticalScroller scroLay = new VerticalScroller(optiLay);
-		ControlLayout contLay = new ControlLayout(backBtn);
+		ControlLayout contLay = new ControlLayout(backBtn, delBtn);
 		MainLayout mainLay = new MainLayout(scroLay, contLay);
 
 		getFXController().getModel("config").registerView(this);

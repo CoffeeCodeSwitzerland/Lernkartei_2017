@@ -6,8 +6,8 @@ import database.sql.Entity;
 
 public abstract class LKDatabase {
 
-	private static final DBDriver myConfigDB = new SQLiteDriver("config.db"); 
-	private static final DBDriver myWLCDB = new SQLiteDriver(globals.Globals.db_name + ".db"); 
+	public static final DBDriver myConfigDB = new SQLiteDriver("config.db"); 
+	public static final DBDriver myWLCDB = new SQLiteDriver(globals.Globals.db_name + ".db"); 
 	
 	public static final Entity myConfig = new Entity(myConfigDB,"config","PK_config",true);
 	public static final UserEntity myUsers = new UserEntity(myWLCDB,"User");

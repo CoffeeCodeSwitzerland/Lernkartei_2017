@@ -29,6 +29,15 @@ public class MainLayout extends BorderPane
 		setBottom(bottom);
 		setPadding(new Insets(30));
 	}
+	
+	public MainLayout (Node center, Node top, Node bottom, Node left)
+	{
+		super(center);
+		setTop(top);
+		setBottom(bottom);
+		setLeft(left);
+		setPadding(new Insets(30));
+	}
 
 	public MainLayout (Node center, Node bottom)
 	{

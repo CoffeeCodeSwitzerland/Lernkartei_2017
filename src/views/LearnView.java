@@ -1,5 +1,6 @@
 package views;
 
+import java.awt.Color;
 import java.util.ArrayList;
 
 import debug.Debugger;
@@ -10,6 +11,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
+import javafx.scene.layout.Background;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -42,6 +44,10 @@ public class LearnView extends FXViewModel
 	Button	wrongBtn			= new Button("X");
 	Label		headLbl			= new Label("");
 	Label		cardNrLbl		= new Label("");
+	Label		countSuccess	= new Label("0");
+	Label		lblSuccess		= new Label("Anzahl richtige Antworten: ");
+	Label		lblWrong		= new Label("Anzahl falsche Antworten: ");
+	Label		countWrong		= new Label("0");
 	WebView		card			= new WebView();
 	WebEngine	engine			= card.getEngine();
 
@@ -109,6 +115,7 @@ public class LearnView extends FXViewModel
 			counter++;
 			refreshView();
 		});
+		
 		//Hier wird nur bestätigt ob richtig oder falsch
 		HBox zweiteReihe = new HBox(20);
 		zweiteReihe.setAlignment(Pos.CENTER);
@@ -118,6 +125,10 @@ public class LearnView extends FXViewModel
 		HBox ersteReihe = new HBox(40);
 		ersteReihe.setAlignment(Pos.CENTER);
 		ersteReihe.getChildren().addAll(preCard, turnCard, nextCard);
+		
+		VBox countLayout = new VBox(20);
+		countLayout.setAlignment(Pos.TOP_LEFT);
+		countLayout.getChildren().addAll(lblSuccess, countSuccess, lblWrong, countWrong);
 				
 		VBox cardLayout = new VBox(20);
 		cardLayout.setAlignment(Pos.CENTER);
@@ -147,7 +158,7 @@ public class LearnView extends FXViewModel
 		
 		BorderPane headLayout = new BorderPane(headLbl);
 		
-		MainLayout mainLayout = new MainLayout(cardLayout, headLayout, controlLayout);
+		MainLayout mainLayout = new MainLayout(cardLayout, headLayout, controlLayout, countLayout);
 
 		mainLayout.setOnKeyReleased(e ->
 		{
@@ -271,6 +282,12 @@ public class LearnView extends FXViewModel
 	private int changeCardPriority (Command command)
 	{
 		counter++;
+		switch(command)
+		{
+			case TRUE: countSuccess.setText(Integer.toString(Integer.parseInt(countSuccess.getText())+1)); break;
+			case FALSE: countWrong.setText(Integer.toString(Integer.parseInt(countWrong.getText())+1)); break;
+			default: break;
+		}
 		return getFXController().getModel("learn").doAction(command, cardData[0]);
 	}
 

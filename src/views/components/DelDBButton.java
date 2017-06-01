@@ -17,6 +17,7 @@ public class DelDBButton extends AppButton
 			if(Alert.ok("Löschvorgang bestätigen", "Wollen Sie die Programm-Daten wirklich unwiederruflich löschen?"))
 			{
 				deleteFile(new File("C:/Users/"+Environment.getUserName()+"/AppData/Roaming/"+Globals.db_Path));
+				Alert.ok("Daten gelöscht", "Ihre Daten werden beim nächsten Beenden des Programms gelöscht.");
 			}
 		});
 		
@@ -29,11 +30,11 @@ public class DelDBButton extends AppButton
 	    if (file.isDirectory())
 	        for (File f : file.listFiles())
 	        {
-	            f.delete();
+	            f.deleteOnExit();
 	        }
 	    else
 	    {
-	        file.delete();
+	        file.deleteOnExit();
 	    }
 	}
 

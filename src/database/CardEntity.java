@@ -145,7 +145,9 @@ public class CardEntity extends Entity {
 		int newPrio = 0;
 		// Do "SELECT * FROM Card WHERE PK_Card = " + id;
 		myDBDriver.executeQuery(SQLHandler.selectCommand(getMyTableName(), null, "PK_CARD", PK_ID.toString()));
-		if (!myDBDriver.isThereAResult()) { // Frage die Aktuelle Priorität ab
+		/* Changed from negation to approval because like this it doesn't change the value of each card to the same value.
+		 * Philippe Krüttli - 01.06.2017 */
+		if (myDBDriver.isThereAResult()) { // Frage die Aktuelle Priorität ab
 			oldPrio = myDBDriver.getResultPIntValueOf("PK_CARD");
 		} else {
 			debug.Debugger.out("No Card with PK_CARD='" + PK_ID.toString() + "' exists.");

@@ -24,17 +24,19 @@ public class HelpView extends FXView
 		construct(newName);
 	}
 
+	final   VBox tempVBox = new VBox();
+	final 	AppButton impressumBtn = new AppButton  ("_Impressum");
+	final 	AppButton quizletBtn   = new AppButton  ("_Quizlet");
+	final 	AppButton anleitungBtn = new AppButton  ("_Anleitung");
+	final 	AppButton indexBtn     = new AppButton  ("_Trouble Shoot");
+	final 	AppButton logBtn       = new AppButton  ("_Logger");
+	final 	CloseButton closeBtn   = new CloseButton("Hilfe _Beenden");
+
 	public Parent constructContainer () {
 		
 		this.getWindow().setTitle(Globals.appTitle+"Hilfe"+Globals.appVersion);
 		this.getWindow().setResizable(false);
 
-		AppButton impressumBtn = new AppButton  ("_Impressum");
-		AppButton quizletBtn   = new AppButton  ("_Quizlet");
-		AppButton anleitungBtn = new AppButton  ("_Anleitung");
-		AppButton indexBtn     = new AppButton  ("_Trouble Shoot");
-		AppButton logBtn       = new AppButton  ("_Logger");
-		CloseButton closeBtn   = new CloseButton("Hilfe _Beenden");
 		
 		impressumBtn.setOnAction(e -> getFXController().showView("impressumview"));
 		quizletBtn.setOnAction(e -> getFXController().showView("quizletview"));
@@ -42,13 +44,13 @@ public class HelpView extends FXView
 		indexBtn.setOnAction(e -> getFXController().showView("troubleshootview"));
 		logBtn.setOnAction(e -> getFXController().showView("logview"));
 
-		VBox tempVBox = new VBox();
+		tempVBox.setId("helpbox");
 		tempVBox.setPadding(new Insets(10));
-		tempVBox.setSpacing(10);
+		tempVBox.setSpacing(5);
 		tempVBox.setAlignment(Pos.CENTER);
 		tempVBox.getChildren().addAll(impressumBtn, quizletBtn, anleitungBtn, indexBtn, logBtn, closeBtn);
+		VBox.setMargin(impressumBtn, new Insets(50,0,0,0));
 
-		tempVBox.setId("help");
 		return tempVBox;
 	}
 

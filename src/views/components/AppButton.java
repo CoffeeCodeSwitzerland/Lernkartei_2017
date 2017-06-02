@@ -19,7 +19,7 @@ public class AppButton extends Button {
 		super(value);
 		setMinWidth(DEFAULT_BUTTON_MIN_WIDTH);
 		setMaxWidth(DEFAULT_BUTTON_WIDTH);
-
+		this.setId("appbtn");
 		this.setOnKeyReleased(e -> {
 			if (e.getCode() == KeyCode.ENTER)
 				this.fire();

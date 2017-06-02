@@ -1,3 +1,11 @@
+#helpbox { /* geht nicht... ToDO: kann man eine VBox darstellen? */
+	-fx-padding: 30.0px;
+}
+
+#appbtn, #backbtn, #homebtn, #closebtn {
+	-fx-text-fill: black;
+}
+
 #impressumtext {
 	-fx-font-family: "Segoe UI Semibold";
 	-fx-background-color: white;
@@ -5,11 +13,8 @@
 	-fx-padding: 10.0px;
 }
 
-#helpview {
-	-fx-background-color: #cef0ffff;
-}
-
 #helpview{
+	-fx-background-color: #cef0ffff;
 	-fx-background-image: url("pictures/viewbackground.png"),url("pictures/WISSWerbung.png");
 	-fx-background-repeat: stretch , stretch;   
     -fx-background-size: stretch, stretch;

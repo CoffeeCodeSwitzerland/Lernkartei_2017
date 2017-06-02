@@ -1,9 +1,9 @@
 ﻿#   Short info WISSLearnCards 2016/17
-Developed in order of WISS Bern in Ostermundigen, Switzerland.
+Developed in order of WISS Bern in Ostermundigen, Switzerland.    
 Contact: André Flury
 
 ## Product description
-This application should essentially facilitate the learning of the WISS students.
+This application should essentially facilitate the learning of the WISS students.    
 At the same time the WISS students should also be motivated to work with this program.
 
 ## Developer Team

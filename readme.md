@@ -21,7 +21,7 @@ At the same time the WISS students should also be motivated to work with this pr
 - Javier Martinez Alvarez								(issues)
 - Philippe Krüttli 								(issues)
 
-## Summary User-Stories (Teil 1)
+## Summary User-Stories (Part 1)
 The User should be able to create cards easily and learn them in stacks.    
 The Flashcard should offer its cards and learning stages using the newest psychological methods of learning.    
 A Stack should also be downloadable from the Internet (Quizlet).    

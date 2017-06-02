@@ -15,7 +15,7 @@ At the same time the WISS students should also be motivated to work with this pr
 - Roger	Schneiter							(database and files)
 - David	Schor								(card editor)
 - Yanis	Weibel								(learning)
-
+    
 - Irina Deck								(issues)
 - Frithjof Hoppe								(issues)
 - Javier Martinez Alvarez								(issues)
@@ -30,5 +30,5 @@ game for a while.
 The learning and the learning success should be documented and can be viewed in a statistic.
 
 ## Releases
-25.05.2016			V0.1	First Release (part 1 of user stories solved)
+25.05.2016			V0.1	First Release (part 1 of user stories solved)    
 31.05.2017      V0.2  Enhanced First Release (first issue solved)

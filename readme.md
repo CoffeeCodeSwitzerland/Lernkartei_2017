@@ -22,12 +22,12 @@ At the same time the WISS students should also be motivated to work with this pr
 - Philippe Krüttli 								(issues)
 
 ## Summary User-Stories (Teil 1)
-The User should be able to create cards easily and learn them in stacks.
-The Flashcard should offer its cards and learning stages using the newest psychological methods of learning.
-A Stack should also be downloadable from the Internet (Quizlet).
+The User should be able to create cards easily and learn them in stacks.    
+The Flashcard should offer its cards and learning stages using the newest psychological methods of learning.    
+A Stack should also be downloadable from the Internet (Quizlet).    
 The learning gets rewarded with points and the user can use these points to play the integrated
-game for a while.
-The learning and the learning success should be documented and can be viewed in a statistic.
+game for a while.    
+The learning and the learning success should be documented and can be viewed in a statistic.    
 
 ## Releases
 25.05.2016			V0.1	First Release (part 1 of user stories solved)    

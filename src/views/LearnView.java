@@ -148,6 +148,10 @@ public class LearnView extends FXViewModel
 		nextCard.setId("nextCard");
 		successfulBtn.setId("zweiteReihe");
 		wrongBtn.setId("zweiteReihe");
+		countSuccess.setId("countSuccess");
+		lblSuccess.setId("lblSuccess");
+		countWrong.setId("countWrong");
+		lblWrong.setId("lblWrong");
 		
 		//Hab hier die Grössen festgelegt da es das Padding im CSS ignoriert.
 		turnCard.setMinWidth(100);

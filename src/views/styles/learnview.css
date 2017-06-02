@@ -27,5 +27,18 @@
 	-fx-font-weight: bold;
 	-fx-font-size: 1.2em;
 	-fx-padding: 20,10,20,10;
-	
+}
+#countSuccess{
+	-fx-font-size: 3em;
+	-fx-text-fill: #027a04;
+}
+#countWrong{
+	-fx-font-size: 3em;
+	-fx-text-fill: #d80d0d;
+}
+#lblSuccess{
+	-fx-font-size: 1.4em;
+}
+#lblWrong{
+	-fx-font-size: 1.4em;
 }

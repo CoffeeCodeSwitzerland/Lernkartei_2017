@@ -30,8 +30,8 @@ public class RenameView extends FXViewModel
 
 	VBox		elements	= new VBox(20);
 	String		oldValue	= "";
-	AppButton backBtn = new AppButton("Zurück");
-	Label headLabel = new Label("Umbenennen");
+	AppButton 	backBtn 	= new AppButton("Zurück");
+	Label 		headLabel 	= new Label("Umbenennen");
 
 	public RenameView (String setName, FXController newController)
 	{
@@ -44,6 +44,7 @@ public class RenameView extends FXViewModel
 	{
 		backBtn.setOnAction(e ->
 		{
+			setData(getMyModel().getString(null));
 			getWindow().getScene().widthProperty().removeListener(event ->
 			{
 				elements.setMinWidth(getWindow().getScene().getWidth() - 80);
@@ -57,6 +58,12 @@ public class RenameView extends FXViewModel
 		VerticalScroller scroLay = new VerticalScroller(elements, 1);
 
 		headLabel.setId("bold");
+/*
+		backBtn.setOnAction(e ->
+		{
+			setData();
+		});
+		*/
 		BorderPane headLayout = new BorderPane(headLabel);
 		headLayout.setPadding(new Insets(0, 0, 25, 0));
 		
@@ -70,6 +77,7 @@ public class RenameView extends FXViewModel
 	{
 		// info[0] = stack OR door (model)
 		// info[1] = doors OR stacks of which door (getDataList command)
+//		getFXController().getModel("door").doAction(Command.UPDATE, "name" ,  getFXController().getViewData("rename"); );
 
 		String[] info = getData().split(Globals.SEPARATOR);
 		ArrayList<String> list = getFXController().getModel(info[0]).getDataList(info[1]);

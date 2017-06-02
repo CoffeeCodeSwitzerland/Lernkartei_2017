@@ -20,7 +20,7 @@ public abstract class FXViewModel extends FXView
 	public FXViewModel(FXController newController) {
 		super(newController);
 		myModel = new Model();
-		myModel.registerView(this);
+		myModel.registerView(this); // VM only: the View register himself to his single Model 
 	}
 
 	/**

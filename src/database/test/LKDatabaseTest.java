@@ -1,14 +1,13 @@
-package database;
+package database.test;
 
 import static org.junit.Assert.assertEquals;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 import org.junit.Test;
 
-import database.sql.Attribute;
+import database.DoorEntity;
+import database.LKDatabase;
 import database.sql.Entity;
 import database.sql.SQLHandler;
 

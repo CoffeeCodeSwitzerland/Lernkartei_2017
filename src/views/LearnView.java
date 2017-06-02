@@ -301,5 +301,7 @@ public class LearnView extends FXViewModel
 		counter = 0;
 		counterBase = 0;
 		getMyModel().setString(data);
+		countSuccess.setText("0");
+		countWrong.setText("0");
 	}
 }

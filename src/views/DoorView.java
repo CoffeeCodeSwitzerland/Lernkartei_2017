@@ -2,114 +2,101 @@ package views;
 
 import java.util.ArrayList;
 
+import debug.Debugger;
 import globals.Globals;
+import javafx.animation.AnimationTimer;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+import javafx.scene.control.Button;
+import javafx.scene.control.ContentDisplay;
+import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Dragboard;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.TransferMode;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import mvc.ModelInterface.Command;
 import mvc.fx.FXController;
-import mvc.fx.FXView;
-import views.components.Alert;
+import mvc.fx.FXViewModel;
 import views.components.AppButton;
 import views.components.ControlLayout;
 import views.components.HomeButton;
 import views.components.MainLayout;
-import views.components.StandardVBox;
-import views.components.VerticalScroller;
 
+public class DoorView extends FXViewModel {
+	// ArrayList<VBox> cards;
 
-/**
- * Zeigt alle Doors an. Erlaubt die Erstellung und das Löschen von Doors. Eine
- * Door entspricht einem Themenbereich.
- * 
- * @author miro albrecht & hugo lucca
- *
- */
-public class DoorView extends FXView
-{
-	private String txtNewTheme = "Neues Fach";
-
-	public DoorView (String newName, FXController newController)
-	{
+	public DoorView(String newName, FXController newController) {
+		// this constructor is the same for all view's
 		super(newController);
 		construct(newName);
 	}
 
-	// Zeigt Doors dynamisch an (muss im constructContainer und im refresh verfügbar sein)
-	StandardVBox doorLayout;
+	VBox doorLayout = new VBox(10);
+	Label headLbl;
+	ScrollPane scroller = new ScrollPane() {
+		public void requestFocus() {
+		}
+	};
+
+	boolean justCreatedCard = false;
 
 	@Override
-	public Parent constructContainer ()
-	{
-		doorLayout = new StandardVBox();
-		VerticalScroller scroLay = new VerticalScroller(doorLayout);
+	public Parent constructContainer() {
+		headLbl = new Label("");
+		headLbl.setId("bold");
 
-		HomeButton homeBtn = new HomeButton(getFXController());
-		AppButton newDoorBtn = new AppButton(txtNewTheme);
-		AppButton renameBtn = new AppButton("Umbennen");
+		HomeButton backBtn = new HomeButton(getFXController(), "_Zurück");
 
-		Image trashImg = new Image("views/pictures/Papierkorb.png");
-		ImageView trashImgView = new ImageView(trashImg);
+		BorderPane headLayout = new BorderPane(headLbl);
+		headLayout.setPadding(new Insets(0, 0, 25, 0));
 
-		ControlLayout conLay = new ControlLayout(homeBtn, newDoorBtn, renameBtn, trashImgView);
+		doorLayout.setPadding(new Insets(10));
+		doorLayout.setAlignment(Pos.TOP_CENTER);
 
-		MainLayout maLay = new MainLayout(scroLay, conLay);
+		scroller.setMaxWidth(600);
+		scroller.setFitToWidth(true);
+		scroller.setPadding(new Insets(25));
 
-		newDoorBtn.setOnAction(e ->
-		{
-			newDoor();
-		});
-
-		renameBtn.setOnAction(e ->
-		{
-			getFXController().setViewData("rename", "door" + Globals.SEPARATOR + "doors");
-			getFXController().showView("rename");
-		});
-
-		trashImgView.setOnDragOver(event ->
-		{
-			if (event.getGestureSource() != trashImgView && event.getDragboard().hasString())
-			{
-				event.acceptTransferModes(TransferMode.COPY_OR_MOVE);
-			}
-
-			event.consume();
-		});
-		
-		trashImgView.setOnDragDropped(event ->
-		{
-			Dragboard db = event.getDragboard();
-			boolean success = false;
-			if (db.hasString())
-			{
-				success = deleteDoor(db.getString());
-			}
-
-			event.setDropCompleted(success);
-			event.consume();
-		});
-
-		getFXController().getModel("door").registerView(this);
+		MainLayout maLay = new MainLayout(scroller, headLayout, new ControlLayout(backBtn));
+		getFXController().getModel("cards").registerView(this);
 		return maLay;
 	}
 
 	@Override
-	public void refreshView ()
-	{
+	public void refreshView() {
+		
 		doorLayout.getChildren().clear();
-
+	
 		ArrayList<String> doorNames = getFXController().getModel("door").getDataList("doors");
 		ArrayList<AppButton> doors = new ArrayList<>();
+		ArrayList<AppButton> pencils = new ArrayList<>();
 
 		if (doorNames != null)
 		{
 			for (String s : doorNames)
 			{
-				doors.add(new AppButton(s));
+				doors.add(new AppButton(s));	
+				
+				AppButton p = new AppButton("\u270E");
+				
+				p.setId("small");
+				
+				p.setOnAction(e -> {
+				getFXController().setViewData("rename",s);
+				getFXController().showView("rename");
+				});
+				p.setOnKeyReleased(e -> {
+				if (e.getCode() == KeyCode.ENTER)
+				p.fire();
+				});
+				
+				pencils.add((AppButton) p);
 			}
 		}
 
@@ -142,39 +129,12 @@ public class DoorView extends FXView
 				event.consume();
 			});
 		}
-
+		
 		doorLayout.getChildren().addAll(doors);
-
+		doorLayout.getChildren().addAll(pencils);
+		
 		doorLayout.setAlignment(Pos.CENTER);
-	}
-	
-	private void newDoor ()
-	{
-		String doorName = Alert.simpleString(txtNewTheme, "Wie soll das neue Fach heissen?");
-		if (doorName != null && !doorName.equals(""))
-		{
-			int maxNameLength = Globals.maxNameLength;
-			while (doorName != null && doorName.length() > maxNameLength)
-			{
-				doorName = Alert.simpleString("Name zu lang", "Bitte wählen Sie einen kürzeren Namen. (max "+maxNameLength+" Zeichen)", doorName.substring(0, maxNameLength), 300);
-			}
-			if (doorName != null && !doorName.equals(""))
-			{
-				int succesful = getFXController().getModel("door").doAction(Command.NEW, doorName);
-				if (succesful == -1)
-				{
-					Alert.simpleInfoBox("Fach wurde nicht erstellt", "Dieser Name ist schon vergeben.");
-				}
-			}
-		}
-	}
-	
-	private boolean deleteDoor (String door)
-	{
-		if (Alert.ok("Achtung", "Willst du das Fach '" + door + "' wirklich löschen?"))
-		{
-			getFXController().getModel("door").doAction(Command.DELETE, door);
-		}
-		return true;
+
+		scroller.setContent(doorLayout); 
 	}
 }

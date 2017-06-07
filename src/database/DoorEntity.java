@@ -101,6 +101,8 @@ public class DoorEntity extends Entity {
 			Attribute k = new Attribute("name", oldName);
 			// Do "UPDATE Doors SET Doorname = '" + newName + "' WHERE
 			// Doorname = '" + oldName + "';"
+			myAttributes.getAttributeNamedAs("name").setValue(newName);
+			System.out.println(">>> SQL Statement: " + SQLHandler.updateInTableCommand(getMyTableName(), myAttributes, k));
 			myDBDriver.executeCommand(SQLHandler.updateInTableCommand(getMyTableName(), myAttributes, k));
 			worked = true;
 		} else {

@@ -1,119 +1,132 @@
 package views;
 
+import java.io.File;
 import java.util.ArrayList;
 
+import debug.Debugger;
+import globals.Functions;
 import globals.Globals;
+import javafx.animation.AnimationTimer;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
+import javafx.stage.FileChooser;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import mvc.ModelInterface.Command;
 import mvc.fx.FXController;
 import mvc.fx.FXViewModel;
 import views.components.AppButton;
 import views.components.ControlLayout;
 import views.components.MainLayout;
-import views.components.VerticalScroller;
 
-
-/**
- * Flexible View, die das Umbenennen von Doors und Stacks erlaubt.
- * 
- * @author miro albrecht
- *
- */
-public class RenameView extends FXViewModel
-{
-
-	VBox		elements	= new VBox(20);
-	String		oldValue	= "";
-	AppButton 	backBtn 	= new AppButton("Zurück");
-	Label 		headLabel 	= new Label("Umbenennen");
-
-	public RenameView (String setName, FXController newController)
+public class RenameView extends FXViewModel {
+	// ArrayList<VBox> cards;
+	
+	String oldValue;
+	
+	public RenameView (String newName, FXController newController)
 	{
+		// this constructor is the same for all view's
 		super(newController);
-		construct(setName);
+		construct(newName);
 	}
 
+	VBox	renameLayout	= new VBox(10);
+	Label	headLbl;
+	ScrollPane scroller = new ScrollPane(){
+		public void requestFocus(){}
+	};
+	
 	@Override
 	public Parent constructContainer ()
 	{
-		backBtn.setOnAction(e ->
-		{
-			setData(getMyModel().getString(null));
-			getWindow().getScene().widthProperty().removeListener(event ->
-			{
-				elements.setMinWidth(getWindow().getScene().getWidth() - 80);
-			});
-			getFXController().showLastView();
-		});
+		headLbl = new Label("Umbenennen");
+		headLbl.setId("bold");
 
-		elements.setPadding(new Insets(30));
-		elements.setAlignment(Pos.TOP_CENTER);
+		AppButton backBtn = new AppButton("_Zurück");
+		backBtn.setOnAction(e -> getFXController().showView("doorview"));
 
-		VerticalScroller scroLay = new VerticalScroller(elements, 1);
-
-		headLabel.setId("bold");
-/*
-		backBtn.setOnAction(e ->
-		{
-			setData();
-		});
-		*/
-		BorderPane headLayout = new BorderPane(headLabel);
+		BorderPane headLayout = new BorderPane(headLbl);
 		headLayout.setPadding(new Insets(0, 0, 25, 0));
-		
-		MainLayout maLay = new MainLayout(scroLay, headLayout, new ControlLayout(backBtn));
 
+		renameLayout.setPadding(new Insets(10));
+		renameLayout.setAlignment(Pos.TOP_CENTER);
+		
+		scroller.setMaxWidth(600);
+		scroller.setFitToWidth(true);
+		scroller.setPadding(new Insets(25));
+
+		MainLayout maLay = new MainLayout(scroller, headLayout, new ControlLayout(backBtn));
+		getFXController().getModel("stack").registerView(this);
 		return maLay;
 	}
+	
 
 	@Override
 	public void refreshView ()
 	{
-		// info[0] = stack OR door (model)
-		// info[1] = doors OR stacks of which door (getDataList command)
-//		getFXController().getModel("door").doAction(Command.UPDATE, "name" ,  getFXController().getViewData("rename"); );
-
-		String[] info = getData().split(Globals.SEPARATOR);
-		ArrayList<String> list = getFXController().getModel(info[0]).getDataList(info[1]);
-
-		headLabel.setText(info[1].equals("doors") ? "Fächer umbenennen" : "Stapel im Fach " + info[1] + " umbenennen");
+		renameLayout.getChildren().clear();
 		
-		elements.getChildren().clear();
+			oldValue = getMyModel().getString("");
+			TextField front = new TextField(getMyModel().getString(""));
+			front.setPromptText("Eingabe erforderlich");
 
-		for (String s : list)
-		{
-			TextField field = new TextField(s);
-			field.focusedProperty().addListener(event ->
+			Button saveBtn = new Button("Speichern"); // \u270d \u2055 \u2699 \u270E
+			saveBtn.setId("small");
+			saveBtn.setOnAction(e ->
+			{		
+				saveNameAndExit(front.getText());
+			});
+			saveBtn.setOnKeyReleased(e ->
 			{
-				
-				if (field.isFocused())
+				if (e.getCode() == KeyCode.ENTER)
+					saveNameAndExit(front.getText());
+			});
+			
+			front.setOnKeyReleased(e ->
+			{
+				if (e.getCode() == KeyCode.ENTER)
 				{
-					oldValue = field.getText();
-				}
-				else
-				{
-					int canCreate = getFXController().getModel(info[0]).doAction(Command.CAN_CREATE, field.getText());
-					if (canCreate == 1)
-					{
-						getFXController().getModel(info[0]).doAction(Command.UPDATE, oldValue, field.getText(), info[1]);
-					}
-					else if (canCreate == -1 && !field.getText().equals(oldValue))
-					{
-						field.setText(oldValue);
-					}
-				}
+					saveNameAndExit(front.getText());
+				}		
 			});
 
-			elements.getChildren().add(field);
-		}
+			renameLayout.getChildren().addAll(front, saveBtn);
 		
-		backBtn.requestFocus();
+		scroller.setContent(renameLayout);
 	}
-
+	
+	public void saveNameAndExit(String newName, String... param)
+	{
+		if(getFXController().getViewData("stack") == newName)
+		{
+			int canCreate = getFXController().getModel("stack").doAction(Command.CAN_CREATE, newName);
+			if (canCreate == 1)
+			{
+				getFXController().getModel("stack").doAction(Command.UPDATE, oldValue, newName, param[0]);
+			}
+			getFXController().showLastView();
+		} else
+		{
+			int canCreate = getFXController().getModel("door").doAction(Command.CAN_CREATE, newName);
+			if (canCreate == 1)
+			{
+				getFXController().getModel("door").doAction(Command.UPDATE, oldValue, newName);
+			}
+			getFXController().showLastView();
+		}
+	}
 }

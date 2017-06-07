@@ -10,6 +10,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Dragboard;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.VBox;
 import mvc.ModelInterface.Command;
@@ -61,7 +62,6 @@ public class StackView extends FXViewModel
 		// Buttons
 		AppButton backBtn = new AppButton("Zurück");
 		AppButton newStackBtn = new AppButton("Neuer Stapel");
-		AppButton renameBtn = new AppButton("Umbennen");
 		
 		printBtn.setOnAction(e ->  getFXController().getModel("drucken").doAction(Command.NEW));
 		
@@ -69,7 +69,7 @@ public class StackView extends FXViewModel
 		Image trashImg = new Image("views/pictures/Papierkorb.png");
 		ImageView trashImgView = new ImageView(trashImg);
 
-		ControlLayout conLay = new ControlLayout(backBtn, newStackBtn, renameBtn, trashImgView);
+		ControlLayout conLay = new ControlLayout(backBtn, newStackBtn, trashImgView);
 
 		// Layout für die Scene
 		MainLayout maLay = new MainLayout(scroLay, null, placeholder, conLay, options);
@@ -103,12 +103,6 @@ public class StackView extends FXViewModel
 					break;
 			}
 
-		});
-
-		renameBtn.setOnAction(e ->
-		{
-			getFXController().setViewData("rename", "stack" + Globals.SEPARATOR + getData());
-			getFXController().showView("rename");
 		});
 
 		trashImgView.setOnDragOver(e ->
@@ -155,6 +149,9 @@ public class StackView extends FXViewModel
 	@Override
 	public void refreshView ()
 	{
+		Label headLbl = new Label(getData().toString());
+		headLbl.setId("bold");
+		
 		boxLayout.getChildren().clear();
 		options.getChildren().clear();
 		options.setMaxWidth(options.getWidth());
@@ -165,6 +162,7 @@ public class StackView extends FXViewModel
 		{
 			ArrayList<String> setData = getFXController().getModel("stack").getDataList(localdata);
 			ArrayList<AppButton> sets = new ArrayList<AppButton>();
+			ArrayList<AppButton> pencils = new ArrayList<>();
 
 			boolean allButtonsSameSize = false;
 			if (getFXController().getModel("config").getDataList("widthState") != null && getFXController().getModel("config").getDataList("widthState").get(0) != null && getFXController().getModel("config").getDataList("widthState").get(0).equals("true"))
@@ -176,6 +174,22 @@ public class StackView extends FXViewModel
 			for (String s : setData)
 			{
 				AppButton a = new AppButton(s);
+				
+				AppButton p = new AppButton("\u270E");
+				
+				p.setId("small");
+				
+				p.setOnAction(e -> {
+				getFXController().setViewData("stack", s);
+				getFXController().showView("rename");
+				});
+				p.setOnKeyReleased(e -> {
+				if (e.getCode() == KeyCode.ENTER)
+				p.fire();
+				});
+				
+				pencils.add((AppButton) p);
+				
 				if (allButtonsSameSize)
 				{
 					bigButton = bigButton >= a.getText().length() * 6 + 150 ? bigButton : a.getText().length() * 6 + 150;
@@ -221,7 +235,9 @@ public class StackView extends FXViewModel
 				});
 			}
 
+			boxLayout.getChildren().addAll(headLbl);
 			boxLayout.getChildren().addAll(sets);
+			boxLayout.getChildren().addAll(pencils);
 		}
 	}
 

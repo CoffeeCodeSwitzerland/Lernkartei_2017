@@ -36,7 +36,7 @@ public class Printer {
 	public static ArrayList<String[]> content = new ArrayList<String[]>();
 	public static ArrayList<String[]> cacheSpezific = new ArrayList<String[]>();
 	public static ArrayList<String[]> cacheAll = new ArrayList<String[]>();
-	public static String fileName = "D:/Karteikarten.pdf"; // name of our file
+	public static String fileName = "Karteikarten.pdf"; // name of our file
 	public static int pages = 0;
 	public static int lastPage = 0;
 	public static int actualPage = 0;
@@ -94,7 +94,7 @@ public class Printer {
 	
 	public static void deleteFile()
 	{
-		File file = new File("d:\\Karteikarten.pdf");
+		File file = new File("Karteikarten.pdf");
 		
 		try
 		{
@@ -112,7 +112,7 @@ public class Printer {
 		PrintRequestAttributeSet pras = new HashPrintRequestAttributeSet();
 	
 	    pras.add(Sides.DUPLEX.TWO_SIDED_SHORT_EDGE);
-		PDDocument input = PDDocument.load(new File("D://Karteikarten.pdf"));
+		PDDocument input = PDDocument.load(new File("Karteikarten.pdf"));
 		
 		PrinterJob job = PrinterJob.getPrinterJob();
 		job.setPageable(new PDFPageable(input));

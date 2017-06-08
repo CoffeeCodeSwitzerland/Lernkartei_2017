@@ -180,7 +180,11 @@ public class StackView extends FXViewModel
 				p.setId("small");
 				
 				p.setOnAction(e -> {
-				getFXController().setViewData("stack", s);
+				ArrayList<String> data = new ArrayList<>();
+				data.add(s);
+				data.add(headLbl.getText());
+				getFXController().addViewData("rename", data);
+				getFXController().setViewData("rename", s);
 				getFXController().showView("rename");
 				});
 				p.setOnKeyReleased(e -> {

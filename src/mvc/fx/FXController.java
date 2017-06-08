@@ -1,5 +1,7 @@
 package mvc.fx;
 
+import java.util.ArrayList;
+
 import debug.Debugger;
 import mvc.Controller;
 /**
@@ -124,6 +126,21 @@ public abstract class FXController extends Controller
 				Debugger.out("FXController.setViewData("+withName+") is not a FXViewModel ("+seekView(withName).getClass().getGenericSuperclass()+")!");
 			} else {
 				((FXViewModel)seekView(withName)).setData(data); // not found
+			}
+		}
+	}
+	
+	public void addViewData (String withName, ArrayList<String> data)
+	{
+		if (seekView(withName) == null) {
+			Debugger.out("FXController.setViewData("+withName+") no FXView or FXViewModel found!");
+		} else {
+			// assert the model is not a View or FXView (must be FXViewModel) before casting:
+			if (   seekView(withName).getClass().getGenericSuperclass().toString().endsWith(".View")
+				|| seekView(withName).getClass().getGenericSuperclass().toString().endsWith(".FXView") ) {
+				Debugger.out("FXController.setViewData("+withName+") is not a FXViewModel ("+seekView(withName).getClass().getGenericSuperclass()+")!");
+			} else {
+				((FXViewModel)seekView(withName)).addData(data); // not found
 			}
 		}
 	}

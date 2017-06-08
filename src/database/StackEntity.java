@@ -150,6 +150,9 @@ public class StackEntity extends Entity {
 			Attribute k = new Attribute("name", oldName);
 			// Do "UPDATE Stack SET name = '" + newName + "' WHERE name = '"
 			// + oldName + "';";
+			System.out.println("$$$ SQL: "+SQLHandler.updateInTableCommand(getMyTableName(), myAttributes, k));
+			myAttributes.getAttributeNamedAs("name").setValue(newName);
+			System.out.println("$$$ SQL: "+SQLHandler.updateInTableCommand(getMyTableName(), myAttributes, k));
 			myDBDriver.executeCommand(SQLHandler.updateInTableCommand(getMyTableName(), myAttributes, k));
 			worked = true;
 		} else {

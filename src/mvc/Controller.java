@@ -78,6 +78,15 @@ public abstract class Controller implements ControllerInterface
 			thisView=lastView;
 		}
 	}
+	
+	public String getLastViewName ()
+	{
+		if (lastView == null) {
+			return getMainViewName();
+		} else {
+			return lastView.toString();
+		}
+	}
 
 	/**
 	 * To navigate to the next view:

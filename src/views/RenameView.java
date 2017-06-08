@@ -36,6 +36,7 @@ public class RenameView extends FXViewModel {
 	// ArrayList<VBox> cards;
 	
 	String oldValue;
+	String doorname;
 	
 	public RenameView (String newName, FXController newController)
 	{
@@ -79,6 +80,11 @@ public class RenameView extends FXViewModel {
 	public void refreshView ()
 	{
 		renameLayout.getChildren().clear();
+		doorname="";
+		if(getFXController().getLastViewName().matches("views.StackView.*"))
+		{
+			doorname = getMyModel().getDataList("").get(getMyModel().getDataList("").size()-1);
+		}
 		
 			oldValue = getMyModel().getString("");
 			TextField front = new TextField(getMyModel().getString(""));
@@ -88,19 +94,19 @@ public class RenameView extends FXViewModel {
 			saveBtn.setId("small");
 			saveBtn.setOnAction(e ->
 			{		
-				saveNameAndExit(front.getText());
+				saveNameAndExit(oldValue, front.getText(), doorname);
 			});
 			saveBtn.setOnKeyReleased(e ->
 			{
 				if (e.getCode() == KeyCode.ENTER)
-					saveNameAndExit(front.getText());
+					saveNameAndExit(oldValue, front.getText(), doorname);
 			});
 			
 			front.setOnKeyReleased(e ->
 			{
 				if (e.getCode() == KeyCode.ENTER)
 				{
-					saveNameAndExit(front.getText());
+					saveNameAndExit(oldValue, front.getText(), doorname);
 				}		
 			});
 
@@ -109,14 +115,17 @@ public class RenameView extends FXViewModel {
 		scroller.setContent(renameLayout);
 	}
 	
-	public void saveNameAndExit(String newName, String... param)
+	public void saveNameAndExit(String oldName, String newName, String doorname)
 	{
-		if(getFXController().getViewData("stack") == newName)
+		System.out.println("Doorname= " +doorname);
+		if(doorname != "")
 		{
 			int canCreate = getFXController().getModel("stack").doAction(Command.CAN_CREATE, newName);
 			if (canCreate == 1)
 			{
-				getFXController().getModel("stack").doAction(Command.UPDATE, oldValue, newName, param[0]);
+				System.out.println("<><> oldValue: "+oldValue+ " newName "+newName+" doorname: "+doorname);
+				//System.out.println(getFXController().getModel("stack").doAction(Command.UPDATE, oldValue, newName, doorname));
+				getFXController().getModel("stack").doAction(Command.UPDATE, oldValue, newName, doorname);
 			}
 			getFXController().showLastView();
 		} else

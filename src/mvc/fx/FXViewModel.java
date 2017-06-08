@@ -1,5 +1,7 @@
 package mvc.fx;
 
+import java.util.ArrayList;
+
 import mvc.DataModel;
 import mvc.Model;
 
@@ -40,6 +42,14 @@ public abstract class FXViewModel extends FXView
 	public void setData (String data)
 	{
 		getMyModel().setString(data);
+	}
+	
+	public void addData(ArrayList<String> data)
+	{
+		for(String d: data)
+		{
+			getMyModel().add(d);
+		}
 	}
 	
 	/**

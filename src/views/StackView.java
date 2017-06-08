@@ -163,6 +163,7 @@ public class StackView extends FXViewModel
 			ArrayList<String> setData = getFXController().getModel("stack").getDataList(localdata);
 			ArrayList<AppButton> sets = new ArrayList<AppButton>();
 			ArrayList<AppButton> pencils = new ArrayList<>();
+			ControlLayout setsAndPencils = new ControlLayout();
 
 			boolean allButtonsSameSize = false;
 			if (getFXController().getModel("config").getDataList("widthState") != null && getFXController().getModel("config").getDataList("widthState").get(0) != null && getFXController().getModel("config").getDataList("widthState").get(0).equals("true"))
@@ -204,6 +205,8 @@ public class StackView extends FXViewModel
 				}
 
 				sets.add(a);
+				setsAndPencils.add(a);
+				setsAndPencils.add((AppButton) p);
 			}
 
 			for (AppButton a : sets)
@@ -240,8 +243,7 @@ public class StackView extends FXViewModel
 			}
 
 			boxLayout.getChildren().addAll(headLbl);
-			boxLayout.getChildren().addAll(sets);
-			boxLayout.getChildren().addAll(pencils);
+			boxLayout.getChildren().addAll(setsAndPencils);
 		}
 	}
 

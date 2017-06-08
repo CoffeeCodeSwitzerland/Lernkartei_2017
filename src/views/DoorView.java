@@ -76,6 +76,7 @@ public class DoorView extends FXViewModel {
 		ArrayList<String> doorNames = getFXController().getModel("door").getDataList("doors");
 		ArrayList<AppButton> doors = new ArrayList<>();
 		ArrayList<AppButton> pencils = new ArrayList<>();
+		ControlLayout doorsAndPencils = new ControlLayout();
 
 		if (doorNames != null)
 		{
@@ -128,10 +129,16 @@ public class DoorView extends FXViewModel {
 				}
 				event.consume();
 			});
+			
+			doorsAndPencils.add(a);
 		}
 		
-		doorLayout.getChildren().addAll(doors);
-		doorLayout.getChildren().addAll(pencils);
+		for(AppButton p: pencils)
+		{
+			doorsAndPencils.add(p);
+		}
+		
+		doorLayout.getChildren().addAll(doorsAndPencils);
 		
 		doorLayout.setAlignment(Pos.CENTER);
 

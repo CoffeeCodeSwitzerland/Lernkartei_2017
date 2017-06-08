@@ -38,47 +38,78 @@ public class StackView extends FXViewModel
 		construct(newName);
 	}
 
-	VBox	boxLayout;
-	VBox	options;
-	
-	AppButton printBtn = new AppButton("Drucken");
+	// Layouts for dynamic content:
+	final VBox	mainScrollBox = new VBox(20); // main pane
+	final VBox	optionsLayout = new VBox(20); // lateral pane
 
+	// Layout eLements:
+	final VBox  placeholder   = new VBox();
+
+	// Bottom buttons:
+	final AppButton printBtn  = new AppButton("Drucken");
+	final AppButton backBtn   = new AppButton("Zurück");
+	final AppButton newStackBtn = new AppButton("Neuer Stapel");
+
+	// Lateral buttons:
+	final Label stackTitle = new Label();
+	final AppButton lernen = new AppButton("Lernen");
+	final AppButton edit   = new AppButton("Bearbeiten");
+
+	// Icons:
+	final Image     trashImg = new Image("views/pictures/Papierkorb.png");
+	final ImageView trashImgView = new ImageView(trashImg);
+
+	// Local Data:
+	private String selection = null;
+	
+	// set new selection:
+	private void setSelection (String value)
+	{
+		selection = value;
+		stackTitle.setText(selection);
+		getFXController().getModel("drucken").setString(selection);
+	}
+	
+	// show next view if data is ok:
+	private void tryToswitchToNexctView (String viewName)
+	{
+		if (selection != null && viewName != null) {
+			getFXController().setViewData(viewName, selection);
+			getFXController().showView(viewName);
+		}
+	}
+	
+	// fill lateral pane with option buttons:
+	private void setUpOptionButtons ()
+		{
+		optionsLayout.getChildren().clear();
+		optionsLayout.setMaxWidth(optionsLayout.getWidth());
+		stackTitle.setId("bold");
+		stackTitle.setWrapText(true);
+		lernen.setOnAction(e -> tryToswitchToNexctView ("prelearn"));
+		edit.setOnAction(e -> tryToswitchToNexctView ("simpleeditorview"));
+		optionsLayout.getChildren().addAll(stackTitle, lernen, edit, printBtn);
+	}
+	
 	@Override
 	public Parent constructContainer ()
 	{
-		// Layouts für dynamische Inhalte
-		boxLayout = new VBox(20);
-		boxLayout.setAlignment(Pos.CENTER);
-		
-		VerticalScroller scroLay = new VerticalScroller(boxLayout, 25);
-
-		options = new VBox(20);
-		options.setAlignment(Pos.CENTER);
-		options.setMinWidth(200);
-
-		VBox placeholder = new VBox();
+		// Settings for Layouts and elements:
+		mainScrollBox.setAlignment(Pos.CENTER);
+		optionsLayout.setAlignment(Pos.CENTER);
+		optionsLayout.setMinWidth(200);
 		placeholder.setMinWidth(200);
 
-		// Buttons
-		AppButton backBtn = new AppButton("Zurück");
-		AppButton newStackBtn = new AppButton("Neuer Stapel");
-		
-		printBtn.setOnAction(e ->  getFXController().getModel("drucken").doAction(Command.NEW));
-		
-
-		Image trashImg = new Image("views/pictures/Papierkorb.png");
-		ImageView trashImgView = new ImageView(trashImg);
-
+		// Setup scene layout:
 		ControlLayout conLay = new ControlLayout(backBtn, newStackBtn, trashImgView);
-
-		// Layout für die Scene
-		MainLayout maLay = new MainLayout(scroLay, null, placeholder, conLay, options);
-
-		// Behaviour
-		backBtn.setOnAction(event -> getFXController().showView("doorview"));
-
+		MainLayout maLay = new MainLayout(new VerticalScroller(mainScrollBox, 25), null, placeholder, conLay, optionsLayout);
+		setUpOptionButtons();
+		
+		// register button listeners / setup behavior:
+		printBtn.setOnAction(e ->  getFXController().getModel("drucken").doAction(Command.NEW));
+		backBtn.setOnAction(e -> getFXController().showView("doorview"));
 		newStackBtn.setOnAction(e ->
-		{
+		  {
 			final int choice = Alert.complexChoiceBox("Neuer Stapel", "Was für einen Stapel willst du erstellen?", "Leerer Stapel", "Quizlet");
 
 			switch (choice)
@@ -103,8 +134,9 @@ public class StackView extends FXViewModel
 					break;
 			}
 
-		});
+		  });
 
+		// behavior in main pane
 		trashImgView.setOnDragOver(e ->
 		{
 			if (e.getGestureSource() != trashImgView && e.getDragboard().hasString())
@@ -115,9 +147,9 @@ public class StackView extends FXViewModel
 			e.consume();
 		});
 
-		trashImgView.setOnDragDropped(event ->
-		{
-			Dragboard db = event.getDragboard();
+		trashImgView.setOnDragDropped(e ->
+		  {
+			Dragboard db = e.getDragboard();
 			boolean success = false;
 			if (db.hasString())
 			{
@@ -126,38 +158,35 @@ public class StackView extends FXViewModel
 				{
 					getFXController().getModel("stack").doAction(Command.DELETE, db.getString(), getData());
 					// TODO Feedback für den User (Fehlermeldungen)
-					boolean isLabel = options.getChildren().get(0).getTypeSelector().equals("Label");
+					boolean isLabel = optionsLayout.getChildren().get(0).getTypeSelector().equals("Label");
 					if (isLabel)
 					{
-						Label temp = (Label) options.getChildren().get(0);
+						Label temp = (Label) optionsLayout.getChildren().get(0);
 						if (temp.getText().equals(db.getString()))
 						{
-							options.getChildren().clear();
+							optionsLayout.getChildren().clear();
 						}
 					}
 				}
 				success = true;
 			}
 
-			event.setDropCompleted(success);
-			event.consume();
-		});
+			e.setDropCompleted(success);
+			e.consume();
+		  });
+		
+		// register view for notifying:
 		getFXController().getModel("stack").registerView(this);
 		return maLay;
 	}
 
 	@Override
-	public void refreshView ()
+	public void refreshView () // notify...
 	{
 		Label headLbl = new Label(getData().toString());
-		headLbl.setId("bold");
-		
-		boxLayout.getChildren().clear();
-		options.getChildren().clear();
-		options.setMaxWidth(options.getWidth());
-
+		headLbl.setId("bold"); // css class
 		String localdata = getData();
-
+		mainScrollBox.getChildren().clear();
 		if (localdata != null)
 		{
 			ArrayList<String> setData = getFXController().getModel("stack").getDataList(localdata);
@@ -174,112 +203,61 @@ public class StackView extends FXViewModel
 			for (String s : setData)
 			{
 				AppButton a = new AppButton(s);
-				
-				AppButton p = new AppButton("\u270E");
-				
-				p.setId("small");
+				AppButton p = new AppButton("\u270E"); // unicode for lower right pencil
+				p.setId("small"); // css class
 				
 				p.setOnAction(e -> {
-				ArrayList<String> data = new ArrayList<>();
-				data.add(s);
-				data.add(headLbl.getText());
-				getFXController().addViewData("rename", data);
-				getFXController().setViewData("rename", s);
-				getFXController().showView("rename");
-				});
+						ArrayList<String> data = new ArrayList<>();
+						data.add(s);
+						data.add(headLbl.getText());
+						getFXController().addViewData("rename", data);
+						getFXController().setViewData("rename", s);
+						getFXController().showView("rename");
+					});
+				
 				p.setOnKeyReleased(e -> {
-				if (e.getCode() == KeyCode.ENTER)
-				p.fire();
-				});
+						if (e.getCode() == KeyCode.ENTER)
+						p.fire();
+					});
 				
 				pencils.add((AppButton) p);
 				
 				if (allButtonsSameSize)
 				{
 					bigButton = bigButton >= a.getText().length() * 6 + 150 ? bigButton : a.getText().length() * 6 + 150;
-				}
-				else
-				{
+				} else {
 					a.setMinWidth(a.getText().length() * 6 + 150);
 				}
-
 				sets.add(a);
+				if (selection == null) setSelection(a.getText());
 			}
 
 			for (AppButton a : sets)
 			{
-				if (allButtonsSameSize)
-				{
-					a.setMinWidth(bigButton);
-				}
-
-				a.setId("BoxButtons");
-				a.setOnAction(e ->
-				{
-					setOptions(a.getText());
-				});
-				
-				a.setOnDragDetected(e ->
-				{
-					Dragboard db = a.startDragAndDrop(TransferMode.MOVE);
-
-					ClipboardContent content = new ClipboardContent();
-					content.putString(a.getText());
-					db.setContent(content);
-
-					e.consume();
-				});
-				a.setOnDragDone(event ->
-				{
-					if (event.getTransferMode() == TransferMode.MOVE)
-					{
-						sets.remove(a);
-					}
-					event.consume();
-				});
+				if (allButtonsSameSize) a.setMinWidth(bigButton);
+				a.setId("BoxButtons"); // css calss
+				a.setOnAction(e -> setSelection(a.getText()));
+					
+				a.setOnDragDetected(e -> {
+						Dragboard db = a.startDragAndDrop(TransferMode.MOVE);
+	
+						ClipboardContent content = new ClipboardContent();
+						content.putString(a.getText());
+						db.setContent(content);
+	
+						e.consume();
+					});
+				a.setOnDragDone(event -> {
+						if (event.getTransferMode() == TransferMode.MOVE)
+						{
+							sets.remove(a);
+						}
+						event.consume();
+					});
 			}
-
-			boxLayout.getChildren().addAll(headLbl);
-			boxLayout.getChildren().addAll(sets);
-			boxLayout.getChildren().addAll(pencils);
+			mainScrollBox.getChildren().addAll(headLbl);
+			mainScrollBox.getChildren().addAll(sets);
+			mainScrollBox.getChildren().addAll(pencils);
 		}
-	}
-
-	// Füllt Pane mit den Stapeloptionen
-	private void setOptions (String stack)
-	{
-		options.getChildren().clear();
-
-		Label stackTitle = new Label(stack);
-		AppButton lernen = new AppButton("Lernen");
-		AppButton edit = new AppButton("Bearbeiten");
-		// CheckBox switcher = new CheckBox("Seite 2 zuerst");
-
-		stackTitle.setId("bold");
-		stackTitle.setWrapText(true);
-		lernen.setOnAction(e ->
-		{
-			getFXController().setViewData("prelearn", stack);
-			getFXController().showView("prelearn");
-		});
-		edit.setOnAction(e ->
-		{
-			getFXController().setViewData("simpleeditorview", stack);
-			getFXController().showView("simpleeditorview");
-		});
-		
-		/*
-		 * switcher.setSelected(getFXController().getModel("switcher").doAction(
-		 * "check", stack) == 1 ? true : false);
-		 * switcher.selectedProperty().addListener(event -> { if
-		 * (switcher.isSelected()) {
-		 * getFXController().getModel("switcher").doAction("new", stack); } else
-		 * { getFXController().getModel("switcher").doAction("delete", stack); }
-		 * });
-		 */
-									//setString übergibt string und kann durch getString wieder geholt werden
-		getFXController().getModel("drucken").setString(stack);
-		
-		options.getChildren().addAll(stackTitle, lernen, edit, printBtn/* , switcher */);
 	}
 }

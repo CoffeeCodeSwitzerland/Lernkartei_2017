@@ -7,19 +7,19 @@ This application should essentially facilitate the learning of the WISS students
 At the same time the WISS students should also be motivated to work with this program.
 
 ## Developer Team
-- Miro	Abrecht								(quizlet)
-- Nina	Egger								(design and graphics)
-- Joel	Häberli								(stats and users)
-- Tim	Leibacher							(game)
-- Hugo	Lucca			hlucca@gmx.net		(fx, mvc and debug)
-- Roger	Schneiter							(database and files)
-- David	Schor								(card editor)
-- Yanis	Weibel								(learning)
+- [Miro	Abrecht](https://github.com/miro-albrecht)								(quizlet)
+- [Nina	Egger](https://github.com/Nina-Egger)								(design and graphics)
+- [Joel	Häberli](https://github.com/Joel-Haeberli)								(stats and users)
+- [Tim	Leibacher](https://github.com/Tim-Leibacher)							(game)
+- [Hugo	Lucca](https://github.com/hlucca)			hlucca@gmx.net		(fx, mvc and debug)
+- [Roger	Schneiter](https://github.com/rogerschneiter)							(database and files)
+- [David	Schor](https://github.com/david-schor)								(card editor)
+- [Yanis	Weibel](https://github.com/Yanis-Weibel)								(learning)
     
-- Irina Deck								(issues)
-- Frithjof Hoppe								(issues)
-- Javier Martinez Alvarez								(issues)
-- Philippe Krüttli 								(issues)
+- [Irina Deck](https://github.com/princess3112)								(issues)
+- [Frithjof Hoppe](https://github.com/frithjofhoppe)								(issues)
+- [Javier Martinez Alvarez](https://github.com/javi36)								(issues)
+- [Philippe Krüttli](https://github.com/kruettlip) 								(issues)
 
 ## Summary User-Stories (Part 1)
 The User should be able to create cards easily and learn them in stacks.    

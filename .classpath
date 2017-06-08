@@ -13,5 +13,6 @@
 	<classpathentry kind="lib" path="src/printing/pdfbox-tools-2.0.6.jar"/>
 	<classpathentry kind="lib" path="src/printing/preflight-2.0.6.jar"/>
 	<classpathentry kind="lib" path="src/printing/xmpbox-2.0.6.jar"/>
+	<classpathentry kind="lib" path="src/printing/fontbox-2.0.6.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

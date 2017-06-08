@@ -114,7 +114,6 @@ public class DoorView extends FXViewModel {
 	
 		ArrayList<String> doorNames = getFXController().getModel("door").getDataList("doors");
 		ArrayList<AppButton> doors = new ArrayList<>();
-		ArrayList<AppButton> pencils = new ArrayList<>();
 		ArrayList<HBox> zeilen = new ArrayList<>();
 		
 		

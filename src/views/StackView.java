@@ -12,6 +12,7 @@ import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.TransferMode;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import mvc.ModelInterface.Command;
 import mvc.fx.FXController;
@@ -192,6 +193,7 @@ public class StackView extends FXViewModel
 			ArrayList<String> setData = getFXController().getModel("stack").getDataList(localdata);
 			ArrayList<AppButton> sets = new ArrayList<AppButton>();
 			ArrayList<AppButton> pencils = new ArrayList<>();
+			ArrayList<HBox> zeilen = new ArrayList<HBox>();
 
 			boolean allButtonsSameSize = false;
 			if (getFXController().getModel("config").getDataList("widthState") != null && getFXController().getModel("config").getDataList("widthState").get(0) != null && getFXController().getModel("config").getDataList("widthState").get(0).equals("true"))
@@ -203,37 +205,6 @@ public class StackView extends FXViewModel
 			for (String s : setData)
 			{
 				AppButton a = new AppButton(s);
-				AppButton p = new AppButton("\u270E"); // unicode for lower right pencil
-				p.setId("small"); // css class
-				
-				p.setOnAction(e -> {
-						ArrayList<String> data = new ArrayList<>();
-						data.add(s);
-						data.add(headLbl.getText());
-						getFXController().addViewData("rename", data);
-						getFXController().setViewData("rename", s);
-						getFXController().showView("rename");
-					});
-				
-				p.setOnKeyReleased(e -> {
-						if (e.getCode() == KeyCode.ENTER)
-						p.fire();
-					});
-				
-				pencils.add((AppButton) p);
-				
-				if (allButtonsSameSize)
-				{
-					bigButton = bigButton >= a.getText().length() * 6 + 150 ? bigButton : a.getText().length() * 6 + 150;
-				} else {
-					a.setMinWidth(a.getText().length() * 6 + 150);
-				}
-				sets.add(a);
-				if (selection == null) setSelection(a.getText());
-			}
-
-			for (AppButton a : sets)
-			{
 				if (allButtonsSameSize) a.setMinWidth(bigButton);
 				a.setId("BoxButtons"); // css calss
 				a.setOnAction(e -> setSelection(a.getText()));
@@ -254,10 +225,41 @@ public class StackView extends FXViewModel
 						}
 						event.consume();
 					});
+				AppButton p = new AppButton("\u270E"); // unicode for lower right pencil
+				p.setId("small"); // css class
+				
+				p.setOnAction(e -> {
+						ArrayList<String> data = new ArrayList<>();
+						data.add(s);
+						data.add(headLbl.getText());
+						getFXController().addViewData("rename", data);
+						getFXController().setViewData("rename", s);
+						getFXController().showView("rename");
+					});
+				
+				p.setOnKeyReleased(e -> {
+						if (e.getCode() == KeyCode.ENTER)
+						p.fire();
+					});
+								
+				if (allButtonsSameSize)
+				{
+					bigButton = bigButton >= a.getText().length() * 6 + 150 ? bigButton : a.getText().length() * 6 + 150;
+				} else {
+					a.setMinWidth(a.getText().length() * 6 + 150);
+				}
+				if (selection == null) setSelection(a.getText());
+				
+				HBox hB = new HBox(10);
+				hB.setAlignment(Pos.CENTER);
+				hB.getChildren().addAll((AppButton) a, (AppButton) p);
+				
+				zeilen.add(hB);
+				
 			}
+
 			mainScrollBox.getChildren().addAll(headLbl);
-			mainScrollBox.getChildren().addAll(sets);
-			mainScrollBox.getChildren().addAll(pencils);
+			mainScrollBox.getChildren().addAll(zeilen);
 		}
 	}
 }

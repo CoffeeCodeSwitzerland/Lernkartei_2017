@@ -11,15 +11,15 @@ At the same time the WISS students should also be motivated to work with this pr
 - [Nina	Egger](https://github.com/Nina-Egger)								(design and graphics)
 - [Joel	Häberli](https://github.com/Joel-Haeberli)								(stats and users)
 - [Tim	Leibacher](https://github.com/Tim-Leibacher)							(game)
-- [Hugo	Lucca](https://github.com/hlucca)			hlucca@gmx.net		(fx, mvc and debug)
+- [Hugo	Lucca](https://github.com/hlucca)					(fx, mvc and debug) hlucca@gmx.net
 - [Roger	Schneiter](https://github.com/rogerschneiter)							(database and files)
 - [David	Schor](https://github.com/david-schor)								(card editor)
 - [Yanis	Weibel](https://github.com/Yanis-Weibel)								(learning)
     
-- [Irina Deck](https://github.com/princess3112)								(issues)
-- [Frithjof Hoppe](https://github.com/frithjofhoppe)								(issues)
-- [Javier Martinez Alvarez](https://github.com/javi36)								(issues)
-- [Philippe Krüttli](https://github.com/kruettlip) 								(issues)
+- [Irina Deck](https://github.com/princess3112)								(issues) irina.deck3112@gmail.com
+- [Frithjof Hoppe](https://github.com/frithjofhoppe)								(issues) frithjof.hoppe@icloud.com
+- [Javier Martinez Alvarez](https://github.com/javi36)								(issues) jmartinezalvarez0@gmail.com
+- [Philippe Krüttli](https://github.com/kruettlip) 								(issues) philippe.kruettli@gmx.ch
 
 ## Summary User-Stories (Part 1)
 The User should be able to create cards easily and learn them in stacks.    

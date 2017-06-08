@@ -7,7 +7,6 @@
 	-fx-background-image: url("pictures/DoorIcon.png");
 	-fx-background-repeat: no-repeat;
 	-fx-padding: 22.0 21.0 22.0 21.0;
-	-fx-label-padding: 0 150 0 30;
 	}
     
 #DoorScrollPane > .viewport {

@@ -13,6 +13,8 @@ import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.KeyCode;
@@ -56,6 +58,9 @@ public class DoorView extends FXViewModel {
 
 		HomeButton backBtn = new HomeButton(getFXController(), "_Zurück");
 		AppButton newDoorBtn = new AppButton(txtNewTheme);
+		
+		Image trashImg = new Image("views/pictures/Papierkorb.png");
+		ImageView trashImgView = new ImageView(trashImg);
 
 		BorderPane headLayout = new BorderPane(headLbl);
 		headLayout.setPadding(new Insets(0, 0, 25, 0));
@@ -67,12 +72,35 @@ public class DoorView extends FXViewModel {
 		scroller.setFitToWidth(true);
 		scroller.setPadding(new Insets(25));
 		
-		ControlLayout conLay = new ControlLayout(backBtn, newDoorBtn);
+		ControlLayout conLay = new ControlLayout(backBtn, newDoorBtn, trashImgView);
 		MainLayout maLay = new MainLayout(scroller, headLayout, conLay);
 		
 		newDoorBtn.setOnAction(e ->
 		{
 			newDoor();
+		});
+		
+		trashImgView.setOnDragOver(event ->
+		{
+			if (event.getGestureSource() != trashImgView && event.getDragboard().hasString())
+			{
+				event.acceptTransferModes(TransferMode.COPY_OR_MOVE);
+			}
+
+			event.consume();
+		});
+		
+		trashImgView.setOnDragDropped(event ->
+		{
+			Dragboard db = event.getDragboard();
+			boolean success = false;
+			if (db.hasString())
+			{
+				success = deleteDoor(db.getString());
+			}
+
+			event.setDropCompleted(success);
+			event.consume();
 		});
 		
 		getFXController().getModel("cards").registerView(this);
@@ -174,5 +202,15 @@ public class DoorView extends FXViewModel {
 				}
 			}
 		}
+	}
+	
+	private boolean deleteDoor (String door)
+	{
+		if (Alert.ok("Achtung", "Willst du das Fach '" + door + "' wirklich löschen?"))
+		{
+			getFXController().getModel("door").doAction(Command.DELETE, door);
+			refreshView();
+		}
+		return true;
 	}
 }

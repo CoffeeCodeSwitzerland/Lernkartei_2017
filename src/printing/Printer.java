@@ -23,6 +23,11 @@ import org.apache.pdfbox.printing.PDFPageable;
 
 import database.LKDatabase;
 
+/**
+ * 
+ * @author Frithjof Hoppe
+ *
+ */
 
 public class Printer {
 

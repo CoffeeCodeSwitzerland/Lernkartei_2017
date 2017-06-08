@@ -22,7 +22,13 @@ public class DruckModel extends FXModel
 				//Erstellt "Haus(Klasse)" in diesem "Haus(Klasse)" sind "Objekte(Methoden)" 
 				Printer p = new Printer();
 				//Zugriff auf "Objekte im Haus"(Methoden)
-				p.printer(param);				
+				try {
+					p.giveToPrint(param);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			
 			}
 		});
 	}

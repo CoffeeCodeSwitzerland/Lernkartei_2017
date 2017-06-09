@@ -59,4 +59,9 @@ public class StackModel extends Model
 
 		return LKDatabase.myStacks.getKategorien(query);
 	}
+	
+	public int getDataListCount(String query)
+	{
+		return getDataList(query).size();
+	}
 }

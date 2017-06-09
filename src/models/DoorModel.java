@@ -65,4 +65,9 @@ public class DoorModel extends Model
 		}
 		return null;
 	}
+	
+	public int getDataListCount(String query)
+	{
+		return getDataList(query).size();
+	}
 }

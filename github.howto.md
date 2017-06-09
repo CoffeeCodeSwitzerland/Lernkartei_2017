@@ -1,8 +1,8 @@
-# ===============================================
-#   Installationsanweisungen und Nutzung von GitHub unter Eclipse
-# ===============================================
+# ====================================
+#  How to install and use GitHub under Eclipse
+# ====================================
 >	@AUTHOR hugo-lucca
-	@DATE	16. June 2016
+	@DATE	8. June 2017
 
 ### =========================
 ### GitHub für Eclipse installieren

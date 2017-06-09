@@ -1,27 +1,32 @@
 # ======================================== #
-#   Installationsanweisungen für Eclipse   #
+#   Installation Hints for Eclipse Neon    #
 # ======================================== #
 >	@AUTHOR hugo-lucca
-	@DATE	29. Mai 2016
+	@DATE	08. june 2017
 
 ### ============ ###
-###  Zu Java FX  ###
+###  To Java FX  ###
 ### ============ ###
-- ab Java V1.6 sind alle Java-Lib's dafür dabei
-- viel bessere Darstellungsmöglichkeiten, wegen CSS Unterstützung
-- aber nicht geeignet für multi-threading view-applications
-- ...dennoch benötigt man ein Eclipse-Plugin dazu:
-	Help->New SW->Work with: Mars - http://download.eclipse.org/releases/mars/201602261000
-	-> general Purpose -> e(fx)clipse - IDE ->Next->Finish
-- Falls mit FXML gearbeitet werden soll, statt nur mit dem FX Toolkit und CSS-Datei (swing like + CSS!)
-  dann Scene Builder installieren (das Ganze um die FXML ist jedoch nicht einfach zu beherrschen)
-- Neues Projekt direkt auch mit New Java FX Project (fügt alle benötigten Jar's und Dateien gleich richtig dazu)
+- FX advantages: simpler to program than Swing and you may use CSS like functionality
+- FX disadvantage: not compatible with multi-threading viewing applications
+- only one additional installation is needed:
+	Help -> New SW -> add Work with Neon: - http://download.eclipse.org/releases/neon
+	Select General Purpose -> e(fx)clipse - IDE -> Next -> Finish
+- build a new FX project with: New -> Java FX Project (adds all needed JAR's and files)
+- if you want to use the FXML (you have to install the scene builder), but not recommended for this project
 
-### ========== ###
-###  Zu JUnit  ###
-### ========== ###
-- auch schon in Eclipse Mars und Java 1.8 integriert
-- einfach rechts-klick auf zu testende Klasse und New->New JUnit testCase
-- dann Testprozeduren wie assertEquals()-Methode hinzuprogrammieren
-- um Integrationstests oder Gesamttests (wie zum Bsp. TestAll()) durchführen zu können, sollten Testsequenzen 
-  in einer statischen Methode (siehe Bsp. myTest()) ausgelagert werden, damit man sie von TestAll() aufrufen kann.
+### ======================== ###
+###  To reference a new JAR  ###
+### ======================== ###
+- copy the JAR file in a corresponding source directory
+- goto Java Build Path -> Library
+- select Add JARs button and then the copied file within the src tree
+
+### ============== ###
+###  To use JUnit  ###
+### ============== ###
+- no additional installation needed
+- right-click on the class you want to test and then select New->New JUnit testCase from the context menu
+- add test methods and calls like assertEquals()
+- to perform integration tests or full testing procedures (for ex. TestAll()), 
+  place test sub-sequences in a static method (see ex. myTest()) to be called from TestAll().

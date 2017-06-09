@@ -1,12 +1,12 @@
-# ===================================================== #
-#   Installationsanweisungen und Nutzung von GitHub unter Eclipse   #
-# ===================================================== #
+# ===============================================
+#   Installationsanweisungen und Nutzung von GitHub unter Eclipse
+# ===============================================
 >	@AUTHOR hugo-lucca
 	@DATE	16. June 2016
 
-### ================================= ###
-### GitHub für Eclipse installieren   ###
-### ================================= ###
+### =========================
+### GitHub für Eclipse installieren
+### =========================
 - man benötigt die Installation von 2 Plug-Ins aus:
    Eclipse EGit Mylyn EGit Repository - http://download.eclipse.org/egit/updates
    Eclipse EGit Mylyn GitHub Repository - http://download.eclipse.org/egit/github/updates
@@ -14,9 +14,9 @@
 - Am einfachsten: Import Project from Gihub (Github) auf ein lokales Verzeichnis (lokales Git-Verz.), 
   dann neues Projekt erstellen und in Eclips importen
 
-### ======================= ###
-###   Mit GitHub arbeiten   ###
-### ======================= ###
+### ================
+###   Mit GitHub arbeiten
+### ================
 - Modifikationen in diesem Projekt werden autom. in "unstaged/staged changes" gelistet
 - Vor dem Commit:
 	- Alle Unstaged element Drag&Drop to Staged Changes
@@ -41,9 +41,9 @@
 	     g. dann Pusch to Upstream und schliesslich evtl. noch  ein Commit, wenn Dateien im Staged changes
 	- am Schluss darf nur noch [master] ohne Pfeile im Titel stehen und keine Datein im GitStage
 	     
-### ================= ###
-### Zum GitHub Konto  ###
-### ================= ###
+### ===============
+### Zum GitHub Konto
+### ===============
 Schritte:
 - Konto erstellen
 - Zugang zum Projekt bekommen

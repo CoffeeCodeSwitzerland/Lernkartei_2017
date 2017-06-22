@@ -2,9 +2,9 @@ package tutto;
 import processing.core.PApplet;
 
 public class Spielplan extends WuerfelRahmen {
+	
 	public Spielplan(PApplet p) {
 		super(p);
-
 		mySpielerverwalter = new Spielerverwalter(parent);
 		mySpielzustand = new Spielzustand(parent);
 	}
@@ -12,7 +12,6 @@ public class Spielplan extends WuerfelRahmen {
 	/**
 	 * Ein Spielplan koordiniert ein Spielerverwalter und ein Spielzustand.
 	 */
-
 	// Weitere Elemente des Spielplans:
 	Spielzustand mySpielzustand;
 	Spielerverwalter mySpielerverwalter;

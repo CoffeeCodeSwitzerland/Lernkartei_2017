@@ -16,9 +16,6 @@ public class GameModel extends Model
 	private ScrollyV8			mf;
 
 	public static Controller	gameController;
-	// public GameModel(String myName) {
-	// super(myName);
-	// }
 
 	public void init ()
 	{
@@ -41,6 +38,9 @@ public class GameModel extends Model
 		});
 	}
 
+	/**
+	 * Called when closing MainView
+	 */
 	public void dispose ()
 	{
 		debug.Debugger.out("Game model: disposing game...");
@@ -51,7 +51,6 @@ public class GameModel extends Model
 			mf = null;
 			System.exit(0);
 		}
-
 	}
 
 	public void registerView (View theView, Controller c)

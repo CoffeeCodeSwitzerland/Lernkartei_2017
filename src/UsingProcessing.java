@@ -1,18 +1,37 @@
 /*
- * This File must be in the default Package!!!
+ * This Class must be in the default Package and remain static !!!
  */
 
+import models.*;
 import processing.core.PApplet;
 import tutto.Spielplan;
 
-public class UsingProcessing extends PApplet {
+public class UsingProcessing extends PApplet implements Terminator {
 
-	Spielplan spielplan;
-
-	public static void main(String[] args) {
-		PApplet.main("UsingProcessing");
+	private Spielplan spielplan = null;
+	private static boolean terminated = false;
+	
+	@Override
+	public void terminate () {
+		terminated = true;
 	}
-
+	
+	/**
+	 * Called by this class when closing it
+	 */
+	public void dispose ()
+	{
+		debug.Debugger.out("UsingProcessing: terminating game...");
+		try {
+			while (!terminated) {
+				Thread.sleep(1000); // do not remove this, else terminating will not work correctly!
+			}
+			debug.Debugger.out("UsingProcessing: all threads disposed...");
+		} catch (Exception e1) {
+			//e1.printStackTrace();
+		}
+	}
+	
 	public void settings() {
 		size(600, 800);
 	}
@@ -59,4 +78,11 @@ public class UsingProcessing extends PApplet {
 	public void mousePressed() {
 		spielplan.checkSelected(mouseX, mouseY);
 	}
+
+	/* for stand alone testing only
+	 
+	public static void main(String[] args) {
+		PApplet.main("UsingProcessing");
+	}
+	 */
 }

@@ -7,6 +7,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import models.GameModel;
+import models.TuttoModel;
 import mvc.fx.FXController;
 import mvc.fx.FXSettings;
 import mvc.fx.FXView;
@@ -38,6 +39,20 @@ public class MainView extends FXView
 	// FX needs 2 empty components filling the Gridpane as we need it:
 	Label lueckenfueller1 = new Label("");
 	Label lueckenfueller2 = new Label("");
+
+	/**
+	 * Close all Threads, DB Connections and remaining Windows
+	 */
+	private void closeAll() {
+		debug.Debugger.out("closing main view...");
+		GameModel gm = (GameModel) getFXController().getModel("game");
+		if (gm != null) gm.dispose();
+		TuttoModel tm = (TuttoModel) getFXController().getModel("tutto");
+		if (tm != null) tm.dispose();
+		LKDatabase.myConfigDB.closeDB();
+		LKDatabase.myWLCDB.closeDB();
+		getWindow().close();
+	}
 
 	@Override
 	public Parent constructContainer() {
@@ -72,19 +87,13 @@ public class MainView extends FXView
 		quitBtn.setOnMouseClicked(e ->
 		{
 			debug.Debugger.out("closing button");
-			GameModel gm = (GameModel) getFXController().getModel("game");
-			if (gm != null) gm.dispose();
-			LKDatabase.myConfigDB.closeDB();
-			LKDatabase.myWLCDB.closeDB();
-			getWindow().close();
+			this.closeAll();
 		});		
-		// doeas the same as the close button, when closing window on x
+		// does the same as the close button, when closing window on x
 		getWindow().setOnCloseRequest(e ->
 		{
 			debug.Debugger.out("closing window");
-			GameModel gm = (GameModel) getFXController().getModel("game");
-			if (gm != null) gm.dispose();
-			getWindow().close();
+			this.closeAll();
 		});
 		
 		//debug.Debugger.out("Set impressum...");

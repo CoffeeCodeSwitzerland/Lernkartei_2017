@@ -3,6 +3,7 @@ package views;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import database.LKDatabase;
@@ -32,11 +33,17 @@ public class GameView extends FXView {
 	Text text;
 
 	public static Text lifes = new Text("");
-	public static AppButton btn = new AppButton("Spiel starten");
-	VBox menuLayout = new VBox();
-	AppButton btnInfo = new AppButton("Info");
+	public static AppButton btn = new AppButton("Jump 'n Run");
+	public static AppButton btnTutto = new AppButton("Tutto");
+	VBox tutto = new VBox();
+	VBox JumpNRun = new VBox();
+	VBox life = new VBox();
+	GridPane gridpane = new GridPane();
+	AppButton btnInfoJump = new AppButton("Spielanleitung");
+	AppButton btnInfoTutto = new AppButton("Spielanleitung");
 	AppButton btnBacktoKartei = new AppButton("Zurück");
 	public static Text grund = new Text("");
+	
 
 	@Override
 	public Parent constructContainer() {
@@ -48,18 +55,38 @@ public class GameView extends FXView {
 
 		btn.setOnAction(e -> getFXController().getModel("game").doAction(Command.NEW)); 
 
-		btnInfo.setOnAction(e -> getFXController().showView("gameoptionview")); 
+		btnInfoJump.setOnAction(e -> getFXController().showView("gameoptionview")); 
 
 		btnBacktoKartei.setOnAction(e -> getFXController().showMainView()); 
 
 		// Erstellt VBox Layout für beide obige Elemente:
-		menuLayout.getChildren().addAll(grund, btn, btnInfo, btnBacktoKartei); 
-
-		menuLayout.setPadding(new Insets(10)); 
-		menuLayout.setSpacing(10);
-		menuLayout.setAlignment(Pos.CENTER);
+		JumpNRun.getChildren().addAll( btn, btnInfoJump);
 		
-		MainLayout maLay = new MainLayout(menuLayout, lifes, null);
+
+		JumpNRun.setPadding(new Insets(10)); 
+		JumpNRun.setSpacing(15);
+		JumpNRun.setAlignment(Pos.CENTER_LEFT);
+		
+		btnTutto.setOnAction(e -> getFXController().getModel("tutto").doAction(Command.NEW));
+		btnInfoTutto.setOnAction(e -> getFXController().showView("tuttohelpview"));
+		
+		tutto.getChildren().addAll( btnTutto, btnInfoTutto);
+		tutto.setPadding(new Insets(10)); 
+		tutto.setSpacing(15);
+		tutto.setAlignment(Pos.CENTER_LEFT);
+		
+		life.getChildren().addAll(lifes);
+		life.setAlignment(Pos.CENTER);
+		
+		 
+		gridpane.setAlignment(Pos.CENTER);
+		gridpane.add(tutto, 90, 2);
+		gridpane.add(JumpNRun, 30, 2);
+		gridpane.add(grund,35,1);
+		gridpane.add( btnBacktoKartei,35,25);
+		gridpane.add(life,35,2);
+		
+		MainLayout maLay = new MainLayout(gridpane,null);
 		
 		((GameModel) getFXController().getModel("game")).registerView(this, getFXController());
 		return maLay;
@@ -67,18 +94,22 @@ public class GameView extends FXView {
 		// VBox in neuem Borderpane einfügen, zwingend wenn Hintergrund neu sein
 		// soll
 		// CSS liefert neue Darstellung:
-
+		
+		
 	}
-
+	
+	
 	public void refreshView() {
 
 		if (LKDatabase.myUsers.getLifecount() == 0) {
-			btn.setDisable(true);  
-			grund.setText("Sie müssen zuerst Lernen!");
+			btn.setDisable(true); 
+			btnTutto.setDisable(true);
+			grund.setText("Sie müssen zuerst Lernen");
 			lifes.setText("Lifes: " + LKDatabase.myUsers.getLifecount());
 		} else { 
 			grund.setText("");
 			btn.setDisable(false); 
+			btnTutto.setDisable(false);
 			lifes.setText("Lifes: " + LKDatabase.myUsers.getLifecount()); 
 		}
 

@@ -59,7 +59,7 @@ public class Bewertungsklasse {
 		}
 		else
 		{
-			return -1;
+			return 0;
 		}
 	}
 

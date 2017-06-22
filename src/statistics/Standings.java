@@ -19,7 +19,7 @@ public class Standings
 		start.add(dbl[0]);
 		return start;
 	}
-	
+
 	public ArrayList<Double> getStart(String Stackname) {
 		ArrayList<Double> start = new ArrayList<Double>();
 		Double[] dbl = LKDatabase.myCards.getScore(Stackname);

@@ -25,6 +25,7 @@ public class MainController extends FXController
 		Logger.log("MainController.initMyModels: Instanziere Models....");
 		debug.Debugger.out("MainController.initMyModels: Instanziere Models....");
 		this.addUniqueModel(new GameModel(),"game");
+		this.addUniqueModel(new TuttoModel(),"tutto");
 		this.addUniqueModel(new DoorModel(),"door");
 		this.addUniqueModel(new DruckModel(),"drucken");
 		this.addUniqueModel(new StackModel(),"stack");
@@ -48,6 +49,7 @@ public class MainController extends FXController
 		addUniqueView(new OptionsView("optionsview", this));
 		this.addViewOnNewStage(new HelpView("helpview", new HelpController())); // on new stage
 		this.addUniqueView(new GameOptionView("gameoptionview", this));
+		this.addUniqueView(new GameOptionView("tuttohelpview", this));
 		this.addUniqueView(new GameView("gameview", this));
 		this.addUniqueView(new QuizletImportView("quizlet", this));
 		this.addUniqueView(new SimpleEditorView("simpleeditorview", this));

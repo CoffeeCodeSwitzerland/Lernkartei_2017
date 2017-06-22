@@ -8,16 +8,8 @@ import mvc.fx.FXView;
 import views.components.AppButton;
 import views.components.MainLayout;
 
-
-/**
- * Zeigt die Steuerung für das Spiel an
- * 
- * @author miro albrecht
- *
- */
-public class GameOptionView extends FXView
-{
-	public GameOptionView (String newName, FXController newController)
+public class TuttoHelpView  extends FXView{
+	public TuttoHelpView (String newName, FXController newController)
 	{
 		super(newController);
 		construct(newName);
@@ -44,5 +36,5 @@ public class GameOptionView extends FXView
 	{
 		// Does nothing
 	}
-
+	
 }

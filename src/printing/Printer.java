@@ -111,7 +111,7 @@ public class Printer {
 		
 		PrintRequestAttributeSet pras = new HashPrintRequestAttributeSet();
 	
-	    pras.add(Sides.DUPLEX.TWO_SIDED_SHORT_EDGE);
+	    pras.add(Sides.TWO_SIDED_SHORT_EDGE);
 		PDDocument input = PDDocument.load(new File("Karteikarten.pdf"));
 		
 		PrinterJob job = PrinterJob.getPrinterJob();

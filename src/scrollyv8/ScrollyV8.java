@@ -43,11 +43,11 @@ public class ScrollyV8 extends JFrame implements KeyListener, WindowListener, Ac
 				Debugger.out("Exiting Game");
 				
 				if (LKDatabase.myUsers.getLifecount() == 0) {
-					GameView.btn.setDisable(true);  
+					GameView.btnJumNRun.setDisable(true);  
 					GameView.grund.setText("Sie müssen zuerst Lernen!");
 					GameView.lifes.setText("Lifes: " + LKDatabase.myUsers.getLifecount());
 				} else { 
-					GameView.btn.setDisable(false); 
+					GameView.btnJumNRun.setDisable(false); 
 					GameView.lifes.setText("Lifes: " + LKDatabase.myUsers.getLifecount()); 
 				}
 				

@@ -2,35 +2,32 @@ package models;
 
 import javax.swing.SwingUtilities;
 
-import Tutto.UsingProcessing;
 import javafx.embed.swing.SwingNode;
-import mvc.Controller;
 import mvc.Model;
-import scrollyv8.gamePanel;
-
-
+import tutto.UsingProcessing;
 
 public class TuttoModel extends Model
 {
 
-	private UsingProcessing			tutto;
+	private String [] args={""};
+	//private UsingProcessing			tutto;
 
-	public static Controller	gameController;
+//	public static Controller	gameController;
 	// public GameModel(String myName) {
 	// super(myName);
 	// }
 
 	public void init ()
 	{
-		debug.Debugger.out("Game model: starting game...");
-		tutto = new UsingProcessing(); // build game
+		debug.Debugger.out("Game model: starting TUTTO game...");
+		//tutto = new UsingProcessing(); // build game
+		/*
 		tutto.setup();
 		tutto.draw();
 		tutto.initNeuerSpielplan();
 		tutto.keyPressed();
 		tutto.mousePressed();
-		
-		
+		*/
 		
 	}
 
@@ -40,8 +37,9 @@ public class TuttoModel extends Model
 			@Override
 			public void run ()
 			{
-				debug.Debugger.out("Game model: starting swing thread...");
-				gamePanel.first = true;
+				debug.Debugger.out("Game model: starting Tutto Swing thread...");
+				UsingProcessing.main(args);
+				//gamePanel.first = true;
 			}
 		});
 	}
@@ -49,11 +47,11 @@ public class TuttoModel extends Model
 	public void dispose ()
 	{
 		debug.Debugger.out("Game model: disposing game...");
-		if (tutto != null)
-		{
+//		if (tutto != null)
+//		{
 
 			System.exit(0);
-		}
+//		}
 
 	}
 

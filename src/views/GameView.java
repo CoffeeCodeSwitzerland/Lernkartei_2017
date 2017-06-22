@@ -33,7 +33,7 @@ public class GameView extends FXView {
 	Text text;
 
 	public static Text lifes = new Text("");
-	public static AppButton btn = new AppButton("Jump 'n Run");
+	public static AppButton btnJumNRun = new AppButton("Jump 'n Run");
 	public static AppButton btnTutto = new AppButton("Tutto");
 	VBox tutto = new VBox();
 	VBox JumpNRun = new VBox();
@@ -51,24 +51,22 @@ public class GameView extends FXView {
 		text.setId("fancytext"); // CSS formatierte Meldung auf BS bringen (mit
 									// div. Schrifteffekten)
 
-		// Button für Zurück zum Hauptmenue:
-
-		btn.setOnAction(e -> getFXController().getModel("game").doAction(Command.NEW)); 
-
-		btnInfoJump.setOnAction(e -> getFXController().showView("gameoptionview")); 
-
+		// Button for back to main:
 		btnBacktoKartei.setOnAction(e -> getFXController().showMainView()); 
 
-		// Erstellt VBox Layout für beide obige Elemente:
-		JumpNRun.getChildren().addAll( btn, btnInfoJump);
-		
+		// Other buttons:
+		btnJumNRun.setOnAction(e -> getFXController().getModel("game").doAction(Command.NEW)); 
+		btnInfoJump.setOnAction(e -> getFXController().showView("gameoptionview")); 
+		btnTutto.setOnAction(e -> getFXController().getModel("tutto").doAction(Command.NEW));
+		btnInfoTutto.setOnAction(e -> getFXController().showView("tuttohelpview"));
 
+		// Erstellt VBox Layout für beide obige Elemente:
+		JumpNRun.getChildren().addAll( btnJumNRun, btnInfoJump);
+		
 		JumpNRun.setPadding(new Insets(10)); 
 		JumpNRun.setSpacing(15);
 		JumpNRun.setAlignment(Pos.CENTER_LEFT);
 		
-		btnTutto.setOnAction(e -> getFXController().getModel("tutto").doAction(Command.NEW));
-		btnInfoTutto.setOnAction(e -> getFXController().showView("tuttohelpview"));
 		
 		tutto.getChildren().addAll( btnTutto, btnInfoTutto);
 		tutto.setPadding(new Insets(10)); 
@@ -77,7 +75,6 @@ public class GameView extends FXView {
 		
 		life.getChildren().addAll(lifes);
 		life.setAlignment(Pos.CENTER);
-		
 		 
 		gridpane.setAlignment(Pos.CENTER);
 		gridpane.add(tutto, 90, 2);
@@ -100,18 +97,19 @@ public class GameView extends FXView {
 	
 	
 	public void refreshView() {
-
+/*
 		if (LKDatabase.myUsers.getLifecount() == 0) {
 			btn.setDisable(true); 
 			btnTutto.setDisable(true);
 			grund.setText("Sie müssen zuerst Lernen");
 			lifes.setText("Lifes: " + LKDatabase.myUsers.getLifecount());
 		} else { 
+*/
 			grund.setText("");
-			btn.setDisable(false); 
+			btnJumNRun.setDisable(false); 
 			btnTutto.setDisable(false);
 			lifes.setText("Lifes: " + LKDatabase.myUsers.getLifecount()); 
-		}
+//		}
 
 	}
 }

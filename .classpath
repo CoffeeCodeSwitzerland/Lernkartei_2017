@@ -14,6 +14,6 @@
 	<classpathentry kind="lib" path="src/printing/preflight-2.0.6.jar"/>
 	<classpathentry kind="lib" path="src/printing/xmpbox-2.0.6.jar"/>
 	<classpathentry kind="lib" path="src/printing/fontbox-2.0.6.jar"/>
-	<classpathentry kind="lib" path="core.jar"/>
+	<classpathentry kind="lib" path="src/tutto/core.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -1,4 +1,4 @@
-package Tutto;
+package tutto;
 import processing.core.PApplet;
 
 class Spielzustand {

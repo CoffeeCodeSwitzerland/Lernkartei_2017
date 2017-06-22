@@ -1,8 +1,8 @@
-package Tutto;
+package tutto;
 import processing.core.PApplet;
 
 public class Spielplan extends WuerfelRahmen {
-	Spielplan(PApplet p) {
+	public Spielplan(PApplet p) {
 		super(p);
 
 		mySpielerverwalter = new Spielerverwalter(parent);
@@ -20,7 +20,7 @@ public class Spielplan extends WuerfelRahmen {
 	/**
 	 * führt den Würfel befehl aus.
 	 */
-	void naechsterSpielzug(boolean cheat) {
+	public void naechsterSpielzug(boolean cheat) {
 		if (mySpielzustand.istGewonnen())
 			return;
 		if (getAnzahlMoeglicheAuswahl() == 0) {
@@ -40,7 +40,7 @@ public class Spielplan extends WuerfelRahmen {
 	/**
 	 * zeichnet den gesamten Spielplan.
 	 */
-	void myDraw() {
+	public void myDraw() {
 		parent.background(255);
 		mySpielerverwalter.drawAllSpielerUndKarte();
 		drawAllWuerfel();
@@ -65,7 +65,7 @@ public class Spielplan extends WuerfelRahmen {
 	/**
 	 * rechnet die aktuelle Punkte mit der Spilerpunktzahl zusammen.
 	 */
-	void sumPunkteToPlayer() {
+	public void sumPunkteToPlayer() {
 		if (mySpielzustand.istGewonnen())
 			return;
 		wuerfelPunkteZaehlen();
@@ -101,7 +101,7 @@ public class Spielplan extends WuerfelRahmen {
 	/**
 	 * Verweisst zum Spielzustand zur toggleHelp Methode.
 	 */
-	void toggleHelp() {
+	public void toggleHelp() {
 		mySpielzustand.toggleHelp();
 	}
 

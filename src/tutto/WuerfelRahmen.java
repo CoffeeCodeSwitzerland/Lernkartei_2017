@@ -1,4 +1,4 @@
-package Tutto;
+package tutto;
 import java.util.ArrayList;
 
 import processing.core.PApplet;
@@ -94,7 +94,7 @@ class WuerfelRahmen {
 	 * @param mx,
 	 *            my: die mMaus positionen.
 	 */
-	void checkSelected(int mouseXPos, int mouseYPos) {
+	public void checkSelected(int mouseXPos, int mouseYPos) {
 		for (Wuerfel w : wuerfelListe) {
 			w.checkSelected(this, mouseXPos, mouseYPos);
 		}

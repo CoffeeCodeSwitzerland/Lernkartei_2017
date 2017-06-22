@@ -225,10 +225,10 @@ public class CardEntity extends Entity {
 		// speichern
 		if (myDBDriver.isThereAResult()) {
 			maxPoints += 4.0;
-			reachedPoints += myDBDriver.getResultPIntValueOf("Priority") - 1.0;
+			reachedPoints += myDBDriver.getResultPIntValueOf("Priority");
 			while (myDBDriver.isThereAResult()) {
 				maxPoints += 4.0;
-				reachedPoints += myDBDriver.getResultPIntValueOf("Priority") - 1.0;
+				reachedPoints += myDBDriver.getResultPIntValueOf("Priority");
 			}
 		} else {
 			return null;

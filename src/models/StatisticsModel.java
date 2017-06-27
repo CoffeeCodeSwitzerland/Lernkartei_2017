@@ -13,7 +13,7 @@ import mvc.fx.FXModel;
 import statistics.Diagramm;
 import statistics.Rangliste;
 
-
+//
 public class StatisticsModel extends FXModel
 {
 
@@ -51,8 +51,11 @@ public class StatisticsModel extends FXModel
 		}
 	}
 
-	ArrayList<Double>	temp		= new ArrayList<>();
-	Double				tempStart	= 0.0;
+	ArrayList<Double>	temp			= new ArrayList<>();
+	Double				tempStart		= 0.0;
+	Double 				tempDifference 	= 0.0;
+	int 				durchlauf		= 0;
+	Double 				anzahlDurchlaeufe = 0.0;
 
 	// Diese Methode ist dafür da um den Fortschritt
 	// CombinedString --> STACKNAME + Globals.SEPARATOR + ANWEISUNG(end,
@@ -60,26 +63,35 @@ public class StatisticsModel extends FXModel
 	public ArrayList<Double> getDoubleList (String CombinedString)
 	{
 		String[] Decision = CombinedString.split(Globals.SEPARATOR);
-		if (Decision[1].equals("end"))
+		
+		if (Decision[1].equals("difference"))
 		{
 			Double[] doubleArray = LKDatabase.myCards.getScore(Decision[0]);
+			tempDifference = 100 / doubleArray[0]    * doubleArray[1];
 			temp.clear();
 			temp.add(100 / doubleArray[0] * doubleArray[1]);
+			durchlauf ++;
 			return temp;
+			
+			
 		}
-		else if (Decision[1].equals("difference"))
+		else if (Decision[1].equals("end"))
 		{
+			
 			Double[] doubleArray = LKDatabase.myCards.getScore(Decision[0]);
+			
 			temp.clear();
-			temp.add((100 / doubleArray[0] * doubleArray[1]) - tempStart);
+			temp.add(100 / doubleArray[0] * doubleArray[1] + (tempDifference*(durchlauf/2)));
 			return temp;
+			
 		}
 		else if (Decision[1].equals("start"))
 		{
 			Double[] doubleArray = LKDatabase.myCards.getScore(Decision[0]);
 			if (doubleArray != null)
 			{
-				tempStart = 100 / doubleArray[0] * doubleArray[1];
+				
+				tempStart  = 0.0;
 				temp.clear();
 				temp.add(tempStart);
 				return temp;

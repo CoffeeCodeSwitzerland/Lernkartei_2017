@@ -50,7 +50,7 @@ public class Karte {
 	 */
 	void anzeigen() {
 		parent.fill(255, 204, 229);
-		parent.textSize(30);
+		parent.textSize(28);
 		switch (typ) {
 		case BONUS:
 			parent.text("Aktuelle Karte: " + typ + " " + wert, anzeigeXPos, anzeigeYPos);

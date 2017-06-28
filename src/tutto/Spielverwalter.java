@@ -26,7 +26,6 @@ class Spielerverwalter {
 		actSpieler = new Spieler(1, p);
 		actSpielerNr = 1;
 		spielerListe.add(actSpieler);
-		spielerListe.add(new Spieler(2, p));
 		karte.ziehen();
 	}
 

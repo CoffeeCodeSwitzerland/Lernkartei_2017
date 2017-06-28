@@ -40,12 +40,12 @@ public class Spielplan extends WuerfelRahmen {
 	 * zeichnet den gesamten Spielplan.
 	 */
 	public void myDraw() {
-		parent.background(255);
+		parent.background(0);
 		mySpielerverwalter.drawAllSpielerUndKarte();
 		drawAllWuerfel();
 		zeigeAnleitung();
 		if (mySpielzustand.istGewonnen()) {
-			parent.background(255);
+			parent.background(0);
 			mySpielerverwalter.drawEnde();
 		}
 	}
@@ -93,6 +93,7 @@ public class Spielplan extends WuerfelRahmen {
 	 */
 	void zeigeAnleitung() {
 		parent.textSize(15);
+		parent.fill(255,204,229);
 		parent.text("h = hilfe", 50, 750);
 		mySpielzustand.hilfeAnzeigen();
 	}

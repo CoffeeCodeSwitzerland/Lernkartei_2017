@@ -34,13 +34,14 @@ class Wuerfel {
 	 */
 	void myDraw() {
 		if (istBlockiert == true) {
-			parent.fill(0);
-		} else {
 			parent.fill(255);
+		} else {
+			parent.fill(0);
+			parent.stroke(255);
 		}
 		parent.rect(xposRec, yposRec, hoeheRec, breiteRec);
 
-		parent.fill(255, 204, 229);
+		parent.fill(parent.color(parent.random(256),parent.random(256),parent.random(256)));
 
 		if (augenAnzahl == 1 || augenAnzahl == 5 || augenAnzahl == 3) {
 			parent.ellipse(xposRec + breiteRec / 2, yposRec + hoeheRec / 2, r, r);

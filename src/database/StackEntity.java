@@ -152,6 +152,8 @@ public class StackEntity extends Entity {
 			// + oldName + "';";
 			System.out.println("$$$ SQL: "+SQLHandler.updateInTableCommand(getMyTableName(), myAttributes, k));
 			myAttributes.getAttributeNamedAs("name").setValue(newName);
+			myAttributes.getAttributeNamedAs("PK_DOOR").setValue(FK_ID);
+			myAttributes.getAttributeNamedAs("PK_USER").setValue(1);
 			System.out.println("$$$ SQL: "+SQLHandler.updateInTableCommand(getMyTableName(), myAttributes, k));
 			myDBDriver.executeCommand(SQLHandler.updateInTableCommand(getMyTableName(), myAttributes, k));
 			worked = true;

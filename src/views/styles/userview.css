@@ -9,4 +9,16 @@
 	-fx-font-family: Arial;
 	
 }
+
+#Top{
+	-fx-padding: 0px 0.0px 20px 0px;
+}
+
+#Bottom{
+	-fx-padding: 20px 0.0px 0px 0px;
+}
+
+#AllFields{
+	-fx-padding: 80px 0.0px 100px 100px;
+}
 	

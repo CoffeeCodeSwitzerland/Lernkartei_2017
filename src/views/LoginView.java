@@ -77,7 +77,8 @@ public class LoginView extends FXView
 		bp.setCenter(AllFields);
 		bp.setBottom(Controls);
 		
-		reg.setOnAction(e -> getFXController().showView("registerview"));		
+		reg.setOnAction(e -> getFXController().showView("registerview"));
+		log.setOnAction(e -> getFXController().showView("managementselectionview"));
 		
 		return bp;
 	}
@@ -91,9 +92,9 @@ public class LoginView extends FXView
 		//Dann überprüfen ob Eingaben korrekt
 		//Als drittes überprüfen, ob der User existiert oder nicht
 		//Wenn alles klappt noch in die Datenbank speichern und zum Schluss in den UserView wechseln
-		if (!(txtName.equals(null) || txtName.equals("") || pwPassword.equals(null) || pwPassword.equals(""))) {
+		if (!(txtName.equals(null) && txtName.equals("") && pwPassword.equals(null) && pwPassword.equals(""))) {
 			if (txtName.equals("mama")) {
-				
+				getFXController().showView("userview");
 			} else {
 				errorText = new Label("Die Eingaben entsprechen nicht unseren Richtlinien");
 			}

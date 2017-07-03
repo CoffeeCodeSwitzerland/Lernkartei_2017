@@ -11,6 +11,7 @@ import javafx.scene.layout.VBox;
 import mvc.fx.FXController;
 import mvc.fx.FXView;
 import views.components.AppButton;
+import views.components.BackButton;
 import views.components.HomeButton;
 
 public class RegisterView extends FXView
@@ -33,6 +34,7 @@ public class RegisterView extends FXView
 	TextField txtMail;
 	
 	HomeButton home;
+	BackButton back;
 	AppButton reg;
 	
 	@Override
@@ -60,9 +62,10 @@ public class RegisterView extends FXView
 		
 		reg = new AppButton("Registrieren");
 		home = new HomeButton(getFXController());
+		back = new BackButton(getFXController(), "Zurück");
 		
 		AllFields.getChildren().addAll(txtName, pwPassword, pwToCheck, txtMail, reg);
-		Controls.getChildren().addAll(home);
+		Controls.getChildren().addAll(back, home);
 		
 		bp.setBottom(Controls);
 		bp.setCenter(AllFields);

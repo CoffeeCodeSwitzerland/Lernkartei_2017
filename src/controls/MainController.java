@@ -22,11 +22,13 @@ import views.DoorView;
 import views.EditorView;
 import views.GameOptionView;
 import views.GameView;
+import views.GroupView;
 import views.HelpView;
 import views.ImpressumView;
 import views.LearnView;
 import views.LoginView;
 import views.MainView;
+import views.ManagementSelectionView;
 import views.OptionsView;
 import views.PostLearnView;
 import views.PreLearnView;
@@ -95,6 +97,8 @@ public class MainController extends FXController
 		this.addUniqueView(new LoginView("loginview", this));
 		this.addUniqueView(new RegisterView("registerview", this));
 		this.addUniqueView(new UserView("userview", this));
+		this.addUniqueView(new GroupView("groupview", this));
+		this.addUniqueView(new ManagementSelectionView("managementselectionview", this));
 		
 		this.addUniqueView(new PreLearnView("prelearn", this));
 		this.addUniqueView(new LearnView("learnview", this));

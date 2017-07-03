@@ -1,15 +1,15 @@
 package views;
 
-import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
+import javafx.scene.control.PasswordField;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import mvc.fx.FXController;
 import mvc.fx.FXView;
 import views.components.AppButton;
-import views.components.ContainerLayout;
-import views.components.ControlLayout;
+import views.components.BackButton;
 
 public class UserView extends FXView
 {
@@ -22,37 +22,21 @@ public class UserView extends FXView
 	
 	BorderPane bp;
 
-	// Der Header Bereich setzt sich aus den Buttons zum ändern der
-	// Benutzerdaten und dem Username zusammen.
-	ContainerLayout header;
-	ControlLayout changeButtons;
-	ControlLayout uName;
-
 	Label username;
-	AppButton changeName;
-	AppButton changePasswort;
-	AppButton changeEmail;
-
-	// Der Body setzte sich aus zwei ContainerLAyouts zusammen (Links und
-	// Rechts) darin sind dann nochmals mehrere Elemente vorhanden. Vorgesehen
-	// ist eine Statistik und eine Auflistung aller bereits gelernten Karteien
+	Label nachfolger;
+	Label passwordText;
+	AppButton changeNachfolger;
+	AppButton deleteAccount;
+	PasswordField password; 
 	
-	//Rechts
-	ContainerLayout right;
-
-	Label hinweis;
+	VBox AllFields;
+	HBox Top;
+	HBox Bottom;
+	VBox TopRight;
+	VBox BottomRight;
 	
-	//Links
-	ContainerLayout left;
-	
-	ListView<String> stacks;
-	AppButton learn;
 
-	// Der Footer enthält die Buttons, um ins Hauptmenü zurück zu gelangen oder
-	// andere Aktionen durchzuführen. Er entspricht der Hbox "Controls"
-	ControlLayout footer;
-
-	AppButton back;
+	BackButton back;
 
 	@Override
 	public Parent constructContainer()
@@ -60,48 +44,40 @@ public class UserView extends FXView
 		bp = new BorderPane();
 		bp.setId("userviewbg");
 		
-		header = new ContainerLayout();
+		AllFields = new VBox(50);
+		Top = new HBox(50);
+		Bottom = new HBox(50);
+		TopRight = new VBox(50);
+		BottomRight = new VBox(50);
 		
-		changeButtons = new ControlLayout();
-		changeButtons.setPadding(new Insets(5));
+		Top.setId("Top");
+		Bottom.setId("Bottom");
+		AllFields.setId("AllFields");
 		
-		uName = new ControlLayout();
-		uName.setPadding(new Insets(15));
-
 //		username = new Label("Here's the name of the user");
 //		username.setId("username");
-		changeName = new AppButton("Namen ändern");
-		changePasswort = new AppButton("Passwort ändern");
-		changeEmail = new AppButton("E-Mail ändern");
-
-		right = new ContainerLayout();
-		hinweis = new Label("Hinweis : Hier wird später eine Statistik angezeigt");
+		changeNachfolger = new AppButton("Nachfolger ändern");
+		deleteAccount = new AppButton("Konto entfernen");
 		
-		left = new ContainerLayout();
-		stacks = new ListView<String>();
-		learn = new AppButton("lernen");
-
-		footer = new ControlLayout();
-		footer.setPadding(new Insets(15));
-
-		back = new AppButton("Zurück");
+		username = new Label("{dein Nachfolger}");
+		nachfolger = new Label("Nachfolger für das DMO:");
+		passwordText = new Label("Passwort bestätigen:");
 		
-		footer.getChildren().addAll(back);
-		left.getChildren().addAll(stacks, learn);
-		right.getChildren().addAll(hinweis);
+		password = new PasswordField();
+		password.setPromptText("Passwort eingeben...");
 		
-//		uName.getChildren().addAll(username);
-		changeButtons.getChildren().addAll(changeName, changeEmail, changePasswort);
+
+		back = new BackButton(getFXController(), "Zurück");
+
+		TopRight.getChildren().addAll(username, changeNachfolger);
+		BottomRight.getChildren().addAll(password, deleteAccount, back);
+		Top.getChildren().addAll(nachfolger, TopRight);
+		Bottom.getChildren().addAll(passwordText, BottomRight);
 		
-		header.getChildren().addAll(uName, changeButtons);
-
-		bp.setBottom(footer);
-		bp.setLeft(left);
-		bp.setRight(right);
-		bp.setTop(header);
-
-		back.setOnAction(e -> getFXController().showMainView());
-
+		AllFields.getChildren().addAll(Top, Bottom);
+		
+		bp.setCenter(AllFields);
+		
 		return bp;
 	}
 

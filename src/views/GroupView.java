@@ -75,7 +75,7 @@ public class GroupView extends FXView
 	    tabForeign.setContent(hbox2);
 	         
 	    tabPane.getTabs().addAll(tabPersonal, tabForeign);
-	    tabPane.getSelectionModel().getSelectedItem().setStyle("-fx-background-color:#ed7676");
+	    tabPane.getSelectionModel().getSelectedItem().setStyle("-fx-background-color:#a3a4a8");
 	    
 	         
 	    list = new ListView<String>();
@@ -94,7 +94,7 @@ public class GroupView extends FXView
 			{
 				actTab.setStyle("-fx-background-color:#f0f0f0");
 			}
-			tabPane.getSelectionModel().getSelectedItem().setStyle("-fx-background-color:#ed7676");
+			tabPane.getSelectionModel().getSelectedItem().setStyle("-fx-background-color:#a3a4a8");
 		});
 		
 		// Make sure user wants to delete member

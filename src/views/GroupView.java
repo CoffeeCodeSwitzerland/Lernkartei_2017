@@ -82,6 +82,7 @@ public class GroupView extends FXView
 		
 		createGroup.setOnAction(e -> getFXController().showView("groupcreateview"));
 
+		//Doesn't need any onClick-Listener, because it's default
 		back = new BackButton(getFXController(), "Zurück");
 		
 		HBox bottom = new HBox(50);

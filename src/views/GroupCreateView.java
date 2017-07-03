@@ -89,8 +89,6 @@ public class GroupCreateView extends FXView
 		bp.setCenter(AllFields);
 		
 		btnAdd.setOnAction(e -> getFXController().showView("userlist"));
-		btnRemove.setOnAction(e -> getFXController().showView("groupview"));
-		back.setOnAction(e -> getFXController().showView("groupview"));
 		btnCheck.setOnAction(e -> getFXController().showView(""));
 		
 		return bp;

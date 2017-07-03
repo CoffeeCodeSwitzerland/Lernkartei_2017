@@ -98,7 +98,12 @@ public class GroupView extends FXView
 		if (result.get() == ButtonType.OK){
 		    // ... user chose OK
 		} else {
-		    // ... user chose CANCEL or closed the dialog
+			Alert noDeletion = new Alert(AlertType.INFORMATION);
+			noDeletion.setTitle("Löschvorgang abgebrochen");
+			noDeletion.setHeaderText("Gruppe nicht gelöscht");
+			noDeletion.setContentText("Der Löschvorgang wurde abgebrochen.");
+			noDeletion.showAndWait();
+		    alert.close();
 		}});
 		
 

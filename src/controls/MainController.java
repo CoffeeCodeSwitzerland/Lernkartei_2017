@@ -28,6 +28,7 @@ import views.GroupView;
 import views.HelpView;
 import views.ImpressumView;
 import views.LearnView;
+import views.LernenSelectionView;
 import views.LoginView;
 import views.MainView;
 import views.ManagementSelectionView;
@@ -37,6 +38,7 @@ import views.PreLearnView;
 import views.QuizletImportView;
 import views.RegisterView;
 import views.RenameView;
+import views.ServerDoorView;
 import views.SimpleEditorView;
 import views.StackView;
 import views.StatsView;
@@ -105,11 +107,13 @@ public class MainController extends FXController
 		this.addUniqueView(new GroupCreateView("groupcreateview", this));
 		this.addUniqueView(new GroupMemberView("groupmemberview", this));
 		this.addUniqueView(new UserListView("userlistview", this));
+		this.addUniqueView(new ServerDoorView("serverdoorview", this));
 		
 		
 		this.addUniqueView(new PreLearnView("prelearn", this));
 		this.addUniqueView(new LearnView("learnview", this));
 		this.addUniqueView(new PostLearnView("postlearn", this));
+		this.addUniqueView(new LernenSelectionView("lernenselectionview", this));
 
 		
 		this.addUniqueView(new ImpressumView("impressumview", this));

@@ -34,6 +34,7 @@ public class GroupView extends FXView
 
 	Button createGroup;
 	Button deleteGroup;
+	Button modifyGroup;
 
 	BackButton back;
 	TabPane tabPane;
@@ -75,15 +76,15 @@ public class GroupView extends FXView
 	        "Gruppe1", "Gruppe2", "Gruppe3", "Gruppe4");
 	    list.setItems(items);   
 	    
-		
+		modifyGroup = new Button("Gruppen-Mitglieder bearbeiten");
 		createGroup = new Button("+");
 		deleteGroup = new Button("-");
 
 		back = new BackButton(getFXController(), "Zurück");
 		
 		HBox bottom = new HBox(50);
-		bottom.getChildren().addAll(createGroup, deleteGroup);
-		bottom.setPadding(new Insets(0,0,20,750));
+		bottom.getChildren().addAll(modifyGroup, createGroup, deleteGroup);
+		bottom.setPadding(new Insets(0,0,20,450));
 		
 		bp.setTop(tabPane);
 		bp.setCenter(list);

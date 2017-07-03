@@ -76,6 +76,8 @@ public class UserView extends FXView
 		
 		AllFields.getChildren().addAll(Top, Bottom);
 		
+		changeNachfolger.setOnAction(e -> getFXController().showView("userlistview"));
+		
 		bp.setCenter(AllFields);
 		
 		return bp;

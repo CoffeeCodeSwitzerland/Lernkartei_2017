@@ -18,10 +18,10 @@ import views.components.AppButton;
 import views.components.BackButton;
 import views.components.HomeButton;
 
-public class GroupCreateView extends FXView
+public class UserListView extends FXView
 {
 
-	public GroupCreateView(String newName, FXController newController)
+	public UserListView(String newName, FXController newController)
 	{
 		super(newController);
 		construct(newName);
@@ -30,28 +30,23 @@ public class GroupCreateView extends FXView
 	BorderPane bp = new BorderPane();
 
 	VBox AllFields;
-	HBox CheckGroup;
-	HBox ShowStatus;
-	HBox Option;
-	
-	AppButton btnCheck;
-	AppButton btnAdd;
-	AppButton btnRemove;
-	
-	BackButton back;
-	
-	Label name;
-	Label status;
-	Label statusValue;
-	
-	TextField txtGroupName;
+	HBox SearchUser;
+	HBox Bottom;
+
+	TextField txtUserName;
 	
 	ListView<String> list;
 	ObservableList<String> items;
 	
+	AppButton btnSearch;
+	AppButton btnAdd;
+	BackButton back;
+	
+	
 	@Override
 	public Parent constructContainer()
 	{
+		
 		bp.setId("loginviewbg");
 		
 		list = new ListView<String>();
@@ -63,33 +58,26 @@ public class GroupCreateView extends FXView
 		AllFields.setMaxWidth(300);
 		AllFields.setPadding(new Insets(20));
 		
-		CheckGroup = new HBox(50);
-		ShowStatus = new HBox(50);
-		Option = new HBox(50);
+		SearchUser = new HBox();
+		Bottom = new HBox();
 		
-		txtGroupName = new TextField();
-		txtGroupName.setPromptText("Gruppenname");
+		txtUserName = new TextField();
+		txtUserName.setMinHeight(50);
+		txtUserName.setMinWidth(700);
+		txtUserName.setPromptText("Email-Adresse des Benutzers");
 		
-		name = new Label("Name:");
-		status = new Label("Status");
-		statusValue = new Label("{Verfügbarkeitsstatus}");
-		
-		btnCheck = new AppButton("Prüfen");
+		btnSearch = new AppButton("Suchen");
 		btnAdd = new AppButton("Hinzufügen");
-		btnRemove = new AppButton("Entfernen");
 		back = new BackButton(getFXController(),"Zurück");
 		
-		AllFields.getChildren().addAll(CheckGroup,ShowStatus,Option,list);
+		SearchUser.getChildren().addAll(txtUserName,btnSearch);
+		Bottom.getChildren().addAll(back,btnAdd);
+		AllFields.getChildren().addAll(SearchUser,list,Bottom);
 		
-		CheckGroup.getChildren().addAll(name,txtGroupName,btnCheck);
-		ShowStatus.getChildren().addAll(status,statusValue);
-		Option.getChildren().addAll(back,btnAdd,btnRemove);
+		bp.setLeft(AllFields);
 		
+		//btnSearch.setOnAction(e -> getFXController().showView("userlist"));
 		
-		bp.setCenter(AllFields);
-		
-		btnAdd.setOnAction(e -> getFXController().showView("userlistview"));
-		btnCheck.setOnAction(e -> getFXController().showView(""));
 		
 		return bp;
 	}

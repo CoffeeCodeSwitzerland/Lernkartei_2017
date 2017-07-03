@@ -40,6 +40,7 @@ import views.RenameView;
 import views.SimpleEditorView;
 import views.StackView;
 import views.StatsView;
+import views.UserListView;
 import views.UserView;
 import views.components.MainViewSettings;
 /**
@@ -103,6 +104,7 @@ public class MainController extends FXController
 		this.addUniqueView(new ManagementSelectionView("managementselectionview", this));
 		this.addUniqueView(new GroupCreateView("groupcreateview", this));
 		this.addUniqueView(new GroupMemberView("groupmemberview", this));
+		this.addUniqueView(new UserListView("userlistview", this));
 		
 		
 		this.addUniqueView(new PreLearnView("prelearn", this));

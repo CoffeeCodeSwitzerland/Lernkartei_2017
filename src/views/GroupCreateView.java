@@ -18,10 +18,10 @@ import views.components.AppButton;
 import views.components.BackButton;
 import views.components.HomeButton;
 
-public class GroupMemberView extends FXView
+public class GroupCreateView extends FXView
 {
 
-	public GroupMemberView(String newName, FXController newController)
+	public GroupCreateView(String newName, FXController newController)
 	{
 		super(newController);
 		construct(newName);

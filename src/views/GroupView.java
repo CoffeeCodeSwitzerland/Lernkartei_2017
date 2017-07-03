@@ -79,6 +79,8 @@ public class GroupView extends FXView
 		modifyGroup = new Button("Gruppen-Mitglieder bearbeiten");
 		createGroup = new Button("+");
 		deleteGroup = new Button("-");
+		
+		createGroup.setOnAction(e -> getFXController().showView("groupcreateview"));
 
 		back = new BackButton(getFXController(), "Zurück");
 		

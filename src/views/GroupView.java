@@ -74,7 +74,9 @@ public class GroupView extends FXView
 	    hbox2.setAlignment(Pos.CENTER);
 	    tabForeign.setContent(hbox2);
 	         
-	    tabPane.getTabs().addAll(tabPersonal, tabForeign); 
+	    tabPane.getTabs().addAll(tabPersonal, tabForeign);
+	    tabPane.getSelectionModel().getSelectedItem().setStyle("-fx-background-color:#ed7676");
+	    
 	         
 	    list = new ListView<String>();
 	    items =FXCollections.observableArrayList (
@@ -87,6 +89,13 @@ public class GroupView extends FXView
 		
 		createGroup.setOnAction(e -> getFXController().showView("groupcreateview"));
 		modifyGroup.setOnAction(e -> getFXController().showView("groupmemberview"));
+		tabPane.setOnMouseClicked(e -> {
+			for(Tab actTab:tabPane.getTabs())
+			{
+				actTab.setStyle("-fx-background-color:#f0f0f0");
+			}
+			tabPane.getSelectionModel().getSelectedItem().setStyle("-fx-background-color:#ed7676");
+		});
 		
 		// Make sure user wants to delete member
 		deleteGroup.setOnAction(e -> {

@@ -23,6 +23,7 @@ import views.EditorView;
 import views.GameOptionView;
 import views.GameView;
 import views.GroupCreateView;
+import views.GroupMemberView;
 import views.GroupView;
 import views.HelpView;
 import views.ImpressumView;
@@ -101,6 +102,7 @@ public class MainController extends FXController
 		this.addUniqueView(new GroupView("groupview", this));
 		this.addUniqueView(new ManagementSelectionView("managementselectionview", this));
 		this.addUniqueView(new GroupCreateView("groupcreateview", this));
+		this.addUniqueView(new GroupMemberView("groupmemberview", this));
 		
 		
 		this.addUniqueView(new PreLearnView("prelearn", this));

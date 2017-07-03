@@ -1,11 +1,16 @@
 package views;
 
+import java.util.Optional;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Tab;
@@ -81,6 +86,20 @@ public class GroupView extends FXView
 		deleteGroup = new Button("-");
 		
 		createGroup.setOnAction(e -> getFXController().showView("groupcreateview"));
+		modifyGroup.setOnAction(e -> getFXController().showView("groupmemberview"));
+		
+		deleteGroup.setOnAction(e -> {
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setTitle("Mitglied löschen");
+		alert.setHeaderText("Sie sind gerade dabei ein Mitglied aus der Gruppe zu entfernen.");
+		alert.setContentText("Sind Sie sich sicher, dass sie das tun wollen?");
+		Optional<ButtonType> result = alert.showAndWait();
+		if (result.get() == ButtonType.OK){
+		    // ... user chose OK
+		} else {
+		    // ... user chose CANCEL or closed the dialog
+		}});
+		
 
 		//Doesn't need any onClick-Listener, because it's default
 		back = new BackButton(getFXController(), "Zurück");

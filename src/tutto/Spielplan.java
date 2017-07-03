@@ -1,12 +1,18 @@
 package tutto;
+
+
 import processing.core.PApplet;
 
 public class Spielplan extends WuerfelRahmen {
+	
+	
 	
 	public Spielplan(PApplet p) {
 		super(p);
 		mySpielerverwalter = new Spielerverwalter(parent);
 		mySpielzustand = new Spielzustand(parent);
+		controlButtons = new Button(parent);
+		
 	}
 
 	/**
@@ -15,6 +21,7 @@ public class Spielplan extends WuerfelRahmen {
 	// Weitere Elemente des Spielplans:
 	Spielzustand mySpielzustand;
 	Spielerverwalter mySpielerverwalter;
+	Button controlButtons;
 
 	/**
 	 * führt den Würfel befehl aus.
@@ -42,12 +49,14 @@ public class Spielplan extends WuerfelRahmen {
 	public void myDraw() {
 		parent.background(0);
 		mySpielerverwalter.drawAllSpielerUndKarte();
+		controlButtons.myDrawButton();
 		drawAllWuerfel();
 		zeigeAnleitung();
 		if (mySpielzustand.istGewonnen()) {
 			parent.background(0);
 			mySpielerverwalter.drawEnde();
 		}
+		
 	}
 
 	/**
@@ -105,4 +114,20 @@ public class Spielplan extends WuerfelRahmen {
 		mySpielzustand.toggleHelp();
 	}
 
+	public void buttonUpdate(int mouseX, int mouseY) {
+		controlButtons.buttonUpdate(mouseX, mouseY);
+	}
+
+	public void buttonPressed(int mouseX, int mouseY) {
+		if (controlButtons.rectOver1==true ){
+			naechsterSpielzug(false);
+		}
+		if (controlButtons.rectOver2==true ){
+			toggleHelp();
+			}
+		if (controlButtons.rectOver3==true ){
+			sumPunkteToPlayer();
+			}
+	}
+	
 }

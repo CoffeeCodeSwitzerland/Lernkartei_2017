@@ -43,6 +43,7 @@ public class UsingProcessing extends PApplet implements Terminator {
 
 	public void draw() {
 		spielplan.myDraw();
+		spielplan.buttonUpdate(mouseX, mouseY);
 	}
 
 	public void initNeuerSpielplan() {
@@ -77,6 +78,9 @@ public class UsingProcessing extends PApplet implements Terminator {
 	 */
 	public void mousePressed() {
 		spielplan.checkSelected(mouseX, mouseY);
+		
+		spielplan.buttonPressed(mouseX, mouseY);
+		
 	}
 
 	/* for stand alone testing only

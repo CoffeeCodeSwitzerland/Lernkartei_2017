@@ -1,8 +1,11 @@
 package views;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Tab;
@@ -29,38 +32,15 @@ public class GroupView extends FXView
 	
 	BorderPane bp;
 
-	// Der Header Bereich setzt sich aus den Buttons zum ändern der
-	// Benutzerdaten und dem Username zusammen.
-	ContainerLayout header;
-	ControlLayout changeButtons;
-	ControlLayout uName;
-
-	Label username;
-	AppButton changeName;
-	AppButton changePasswort;
-	AppButton changeEmail;
-
-	// Der Body setzte sich aus zwei ContainerLAyouts zusammen (Links und
-	// Rechts) darin sind dann nochmals mehrere Elemente vorhanden. Vorgesehen
-	// ist eine Statistik und eine Auflistung aller bereits gelernten Karteien
-	
-	//Rechts
-	ContainerLayout right;
-
-	Label hinweis;
-	
-	//Links
-	ContainerLayout left;
-	
-	ListView<String> stacks;
-	AppButton learn;
-
-	// Der Footer enthält die Buttons, um ins Hauptmenü zurück zu gelangen oder
-	// andere Aktionen durchzuführen. Er entspricht der Hbox "Controls"
-	ControlLayout footer;
+	Button createGroup;
+	Button deleteGroup;
+	Button modifyGroup;
 
 	BackButton back;
 	TabPane tabPane;
+	
+	ListView<String> list;
+	ObservableList<String> items;
 
 	@Override
 	public Parent constructContainer()
@@ -71,65 +51,44 @@ public class GroupView extends FXView
 		tabPane = new TabPane();
 		tabPane.setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);
 		 
-	         Tab tabPersonal = new Tab();
-	         tabPersonal.setText("Persönlich");
-	         HBox hbox = new HBox();
-	         hbox.setPadding(new Insets(20, 0, 0, 0));
-	         hbox.setStyle("-fx-font: 24 'System Regular'");
-	         hbox.getChildren().add(new Label(tabPersonal.getText()));
-	         hbox.setAlignment(Pos.CENTER);
-	         tabPersonal.setContent(hbox);
+	    Tab tabPersonal = new Tab();
+	    tabPersonal.setText("Persönlich");
+	    HBox hbox = new HBox();
+	    hbox.setPadding(new Insets(20, 0, 0, 0));
+	    hbox.setStyle("-fx-font: 24 'System Regular'");
+	    hbox.getChildren().add(new Label(tabPersonal.getText()));
+	    hbox.setAlignment(Pos.CENTER);
+	    tabPersonal.setContent(hbox);
 	         
-	         Tab tabForeign = new Tab();
-	         tabForeign.setText("Fremd");
-	         HBox hbox2 = new HBox();
-	         hbox2.setPadding(new Insets(20, 0, 0, 0));
-	         hbox2.setStyle("-fx-font: 24 'System Regular'");
-	         hbox2.getChildren().add(new Label(tabForeign.getText()));
-	         hbox2.setAlignment(Pos.CENTER);
-	         tabForeign.setContent(hbox2);
+	    Tab tabForeign = new Tab();
+	    tabForeign.setText("Fremd");
+	    HBox hbox2 = new HBox();
+	    hbox2.setPadding(new Insets(20, 0, 0, 0));
+	    hbox2.setStyle("-fx-font: 24 'System Regular'");
+	    hbox2.getChildren().add(new Label(tabForeign.getText()));
+	    hbox2.setAlignment(Pos.CENTER);
+	    tabForeign.setContent(hbox2);
 	         
-	         tabPane.getTabs().addAll(tabPersonal, tabForeign); 
-		
-		header = new ContainerLayout();
-		
-		changeButtons = new ControlLayout();
-		changeButtons.setPadding(new Insets(5));
-		
-		uName = new ControlLayout();
-		uName.setPadding(new Insets(15));
-
-//		username = new Label("Here's the name of the user");
-//		username.setId("username");
-		changeName = new AppButton("Namen ändern");
-		changePasswort = new AppButton("Passwort ändern");
-		changeEmail = new AppButton("E-Mail ändern");
-
-		right = new ContainerLayout();
-		hinweis = new Label("Hinweis : Hier wird später eine Statistik angezeigt");
-		
-		left = new ContainerLayout();
-		stacks = new ListView<String>();
-		learn = new AppButton("lernen");
-
-		footer = new ControlLayout();
-		footer.setPadding(new Insets(15));
+	    tabPane.getTabs().addAll(tabPersonal, tabForeign); 
+	         
+	    list = new ListView<String>();
+	    items =FXCollections.observableArrayList (
+	        "Gruppe1", "Gruppe2", "Gruppe3", "Gruppe4");
+	    list.setItems(items);   
+	    
+		modifyGroup = new Button("Gruppen-Mitglieder bearbeiten");
+		createGroup = new Button("+");
+		deleteGroup = new Button("-");
 
 		back = new BackButton(getFXController(), "Zurück");
 		
-		footer.getChildren().addAll(back);
-		left.getChildren().addAll(stacks, learn);
-		right.getChildren().addAll(hinweis);
+		HBox bottom = new HBox(50);
+		bottom.getChildren().addAll(modifyGroup, createGroup, deleteGroup);
+		bottom.setPadding(new Insets(0,0,20,450));
 		
-//		uName.getChildren().addAll(username);
-		changeButtons.getChildren().addAll(changeName, changeEmail, changePasswort);
-		
-		header.getChildren().addAll(uName, changeButtons);
-
-		bp.setBottom(footer);
-		bp.setLeft(left);
-		bp.setRight(right);
 		bp.setTop(tabPane);
+		bp.setCenter(list);
+		bp.setBottom(bottom);
 
 		return bp;
 	}
@@ -137,7 +96,6 @@ public class GroupView extends FXView
 	@Override
 	public void refreshView()
 	{
-		username = new Label(getFXController().getFXModel("usersecuritymodel").getProperty("name"));
 
 	}
 

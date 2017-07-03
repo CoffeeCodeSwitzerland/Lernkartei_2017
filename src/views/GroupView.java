@@ -88,6 +88,7 @@ public class GroupView extends FXView
 		createGroup.setOnAction(e -> getFXController().showView("groupcreateview"));
 		modifyGroup.setOnAction(e -> getFXController().showView("groupmemberview"));
 		
+		// Make sure user wants to delete member
 		deleteGroup.setOnAction(e -> {
 		Alert alert = new Alert(AlertType.CONFIRMATION);
 		alert.setTitle("Mitglied löschen");

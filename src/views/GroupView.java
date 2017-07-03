@@ -107,12 +107,13 @@ public class GroupView extends FXView
 		}});
 		
 
-		//Doesn't need any onClick-Listener, because it's default
 		back = new BackButton(getFXController(), "Zurück");
+		back.setOnAction(e -> getFXController().showView("managementselectionview"));
+		back.setPadding(new Insets(0,100,0,0));
 		
 		HBox bottom = new HBox(50);
-		bottom.getChildren().addAll(modifyGroup, createGroup, deleteGroup);
-		bottom.setPadding(new Insets(0,0,20,450));
+		bottom.getChildren().addAll(back, modifyGroup, createGroup, deleteGroup);
+		bottom.setPadding(new Insets(0,0,20,250));
 		
 		bp.setTop(tabPane);
 		bp.setCenter(list);

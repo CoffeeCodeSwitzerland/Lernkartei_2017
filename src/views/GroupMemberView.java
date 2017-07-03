@@ -83,7 +83,9 @@ public class GroupMemberView extends FXView
 		
 		bp.setCenter(AllFields);
 		
+		back.setOnAction(e -> getFXController().showView("groupview"));
 		btnAdd.setOnAction(e -> getFXController().showView("userlistview"));
+		
 		btnRemove.setOnAction(e -> {
 		Alert alert = new Alert(AlertType.CONFIRMATION);
 		alert.setTitle("Mitglied löschen");

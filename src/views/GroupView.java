@@ -91,8 +91,8 @@ public class GroupView extends FXView
 		// Make sure user wants to delete member
 		deleteGroup.setOnAction(e -> {
 		Alert alert = new Alert(AlertType.CONFIRMATION);
-		alert.setTitle("Mitglied löschen");
-		alert.setHeaderText("Sie sind gerade dabei ein Mitglied aus der Gruppe zu entfernen.");
+		alert.setTitle("Gruppe löschen");
+		alert.setHeaderText("Sie sind gerade dabei eine Gruppe zu entfernen.");
 		alert.setContentText("Sind Sie sich sicher, dass sie das tun wollen?");
 		Optional<ButtonType> result = alert.showAndWait();
 		if (result.get() == ButtonType.OK){

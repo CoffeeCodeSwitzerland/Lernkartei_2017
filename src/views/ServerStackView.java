@@ -32,10 +32,10 @@ import views.components.BackButton;
 import views.components.ContainerLayout;
 import views.components.ControlLayout;
 
-public class ServerDoorView extends FXView
+public class ServerStackView extends FXView
 {
 
-	public ServerDoorView(String newName, FXController newController)
+	public ServerStackView(String newName, FXController newController)
 	{
 		super(newController);
 		construct(newName);
@@ -92,14 +92,14 @@ public class ServerDoorView extends FXView
 			}
 			tabPane.getSelectionModel().getSelectedItem().setStyle("-fx-background-color:#a3a4a8");
 		});
-	    	    
+	       
 	    Center = new VBox();
 	    Search = new HBox();
 	    
 	    
 	    
 	    txtSearch = new TextField();
-	    txtSearch.setPromptText("Suche nach Doors");
+	    txtSearch.setPromptText("Suche nach Stacks");
 	    txtSearch.setMinWidth(740);
 	    txtSearch.setMinHeight(50);
 	    btnSearch = new AppButton("Suchen");
@@ -172,28 +172,23 @@ public class ServerDoorView extends FXView
 			names.clear();
 	
 		//ArrayList<AppButton> btnList = new ArrayList<AppButton>();
-			names.add("first Doorlocal");
-			names.add("second Doorlocal");
-			names.add("third Doorlocal");
-			names.add("fourth Doorlocal");
+			names.add("first Stacklocal");
+			names.add("second Stacklocal");
+			names.add("third Stacklocal");
+			names.add("fourth Stacklocal");
 		
 		
 		for(int i = 0; i < dataLength; i++)
 		{
 			HBox entry = new HBox();
-			AppButton btnServerDoor = new AppButton(names.get(i));
-			btnServerDoor.setMinWidth(590);
+			Label lblServerStack = new Label(names.get(i));
+			lblServerStack.setMinWidth(590);
+			lblServerStack.setPadding(new Insets(15,0,0,250));
 			AppButton btnDownload = new AppButton("Hochladen");
 			AppButton btnInformation = new AppButton("i");
-			int counter = i;
-			btnServerDoor.setOnAction(e -> {
-				getFXController().setViewData("serverstackview",names.get(counter));
-				getFXController().showView("serverstackview");
-			}
-					);
 			btnInformation.setOnAction(e -> getFXController().showView("doorstackinformationview"));
 			
-			entry.getChildren().addAll(btnServerDoor,btnDownload,btnInformation);
+			entry.getChildren().addAll(lblServerStack,btnDownload,btnInformation);
 			lines.add(entry);
 		}
 		}
@@ -201,10 +196,10 @@ public class ServerDoorView extends FXView
 		{
 			names.clear();
 			
-			names.add("first Doorserver");
-			names.add("second Doorserver");
-			names.add("third Doorserver");
-			names.add("fourth Doorserver");
+			names.add("first Stackserver");
+			names.add("second Stackserver");
+			names.add("third Stackserver");
+			names.add("fourth Stackserver");
 			
 			//ArrayList<AppButton> btnList = new ArrayList<AppButton>();
 			
@@ -213,16 +208,13 @@ public class ServerDoorView extends FXView
 			for(int i = 0; i < dataLength; i++)
 			{
 				HBox entry = new HBox();
-				AppButton btnServerDoor = new AppButton(names.get(i));
-				btnServerDoor.setMinWidth(590);
+				Label lblServerStack = new Label(names.get(i));
+				lblServerStack.setMinWidth(590);
+				lblServerStack.setPadding(new Insets(15,0,0,250));
 				AppButton btnDownload = new AppButton("Herunterladen");
 				AppButton btnInformation = new AppButton("i");
-				int counter = i;
-				btnServerDoor.setOnAction(e -> {
-					getFXController().setViewData("serverstackview",names.get(counter));
-					getFXController().showView("serverstackview");
-				});
-				entry.getChildren().addAll(btnServerDoor,btnDownload,btnInformation);
+				
+				entry.getChildren().addAll(lblServerStack,btnDownload,btnInformation);
 				lines.add(entry);
 			}
 		}

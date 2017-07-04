@@ -187,7 +187,10 @@ public class ServerDoorView extends FXView
 			AppButton btnInformation = new AppButton("i");
 			int counter = i;
 			btnServerDoor.setOnAction(e -> {
-				getFXController().setViewData("serverstackview",names.get(counter));
+				ArrayList<String> giveData = new ArrayList<String>();
+				giveData.add(names.get(counter));
+				giveData.add(Integer.toString(0));
+				getFXController().addViewData("serverstackview",giveData);
 				getFXController().showView("serverstackview");
 			}
 					);
@@ -219,7 +222,10 @@ public class ServerDoorView extends FXView
 				AppButton btnInformation = new AppButton("i");
 				int counter = i;
 				btnServerDoor.setOnAction(e -> {
-					getFXController().setViewData("serverstackview",names.get(counter));
+					ArrayList<String> giveData = new ArrayList<String>();
+					giveData.add(names.get(counter));
+					giveData.add(Integer.toString(1));
+					getFXController().addViewData("serverstackview",giveData);
 					getFXController().showView("serverstackview");
 				});
 				entry.getChildren().addAll(btnServerDoor,btnDownload,btnInformation);

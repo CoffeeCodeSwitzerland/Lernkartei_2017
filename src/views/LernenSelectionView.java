@@ -58,7 +58,7 @@ public class LernenSelectionView extends FXView
 		bp.setCenter(AllFields);
 		
 		btnDataMgmt.setOnAction(e -> getFXController().showView("serverdoorview"));
-		btnDmoMgmt.setOnAction(e -> getFXController().showView("teamworkserverdoorview"));
+		btnDmoMgmt.setOnAction(e -> getFXController().showView("savepathselectionview"));
 		btnLearning.setOnAction(e -> getFXController().showView("doorview"));
 		
 		return bp;

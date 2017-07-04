@@ -16,6 +16,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TabPane.TabClosingPolicy;
@@ -57,6 +58,8 @@ public class ServerDoorView extends FXView
 	
 	TabPane tabPane;
 	
+	ScrollPane sMain;
+	
 	ListView<String> list;
 	ObservableList<String> items;
 
@@ -89,7 +92,7 @@ public class ServerDoorView extends FXView
 	    Center = new VBox();
 	    Search = new HBox();
 	    
-	    
+	    sMain = new ScrollPane();
 	    
 	    txtSearch = new TextField();
 	    txtSearch.setPromptText("Suche nach Doors");
@@ -100,8 +103,9 @@ public class ServerDoorView extends FXView
 	    StackShowList.setSpacing(20);
 	    Center.setSpacing(20);
 	    
+	    sMain.setContent(StackShowList);
 	    Search.getChildren().addAll(txtSearch,btnSearch);
-	    Center.getChildren().addAll(Search,StackShowList);
+	    Center.getChildren().addAll(Search,sMain);
 	    
 	    
 	    tabPersonal.setContent(hbox);
@@ -170,7 +174,7 @@ public class ServerDoorView extends FXView
 		StackShowList.getChildren().clear();
 		tabPane.getSelectionModel().getSelectedItem().setStyle("-fx-backgound-color:#800000");
 		ArrayList<String> names = new ArrayList<String>();
-		int dataLength = 4;
+		int dataLength = 8;
 		
 		if(tabPane.getSelectionModel().getSelectedIndex() == 0)
 		{
@@ -179,6 +183,10 @@ public class ServerDoorView extends FXView
 			names.clear();
 	
 		//ArrayList<AppButton> btnList = new ArrayList<AppButton>();
+			names.add("first Doorlocal");
+			names.add("second Doorlocal");
+			names.add("third Doorlocal");
+			names.add("fourth Doorlocal");
 			names.add("first Doorlocal");
 			names.add("second Doorlocal");
 			names.add("third Doorlocal");
@@ -218,10 +226,14 @@ public class ServerDoorView extends FXView
 		{
 			names.clear();
 			
-			names.add("first Doorserver");
-			names.add("second Doorserver");
-			names.add("third Doorserver");
-			names.add("fourth Doorserver");
+			names.add("first Doorlocal");
+			names.add("second Doorlocal");
+			names.add("third Doorlocal");
+			names.add("fourth Doorlocal");
+			names.add("first Doorlocal");
+			names.add("second Doorlocal");
+			names.add("third Doorlocal");
+			names.add("fourth Doorlocal");
 			
 			//ArrayList<AppButton> btnList = new ArrayList<AppButton>();
 			

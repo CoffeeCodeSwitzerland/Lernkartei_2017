@@ -16,6 +16,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TabPane.TabClosingPolicy;
@@ -42,6 +43,7 @@ public class ServerStackView extends FXView
 	}
 	
 	BorderPane bp;
+	ScrollPane sMain;
 
 	AppButton btnSearch;
 	
@@ -95,8 +97,7 @@ public class ServerStackView extends FXView
 	       
 	    Center = new VBox();
 	    Search = new HBox();
-	    
-	    
+	    sMain = new ScrollPane();
 	    
 	    txtSearch = new TextField();
 	    txtSearch.setPromptText("Suche nach Stacks");
@@ -107,8 +108,9 @@ public class ServerStackView extends FXView
 	    StackShowList.setSpacing(20);
 	    Center.setSpacing(20);
 	    
+	    sMain.setContent(StackShowList);
 	    Search.getChildren().addAll(txtSearch,btnSearch);
-	    Center.getChildren().addAll(Search,StackShowList);
+	    Center.getChildren().addAll(Search,sMain);
 	    
 	    
 	    tabPersonal.setContent(hbox);

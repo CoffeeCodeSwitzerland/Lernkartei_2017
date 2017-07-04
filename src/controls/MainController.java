@@ -20,6 +20,7 @@ import models.UserSecurityModel;
 import mvc.fx.FXController;
 // Nicht ändern
 import views.BBCodeInfoView;
+import views.CreateDoorView;
 import views.DoorStackInformationView;
 import views.DoorView;
 import views.EditorView;
@@ -41,7 +42,9 @@ import views.PreLearnView;
 import views.QuizletImportView;
 import views.RegisterView;
 import views.RenameView;
+import views.SaveDownloadstackForeignDMOView;
 import views.SaveDownloadstackOnServerDialogView;
+import views.SaveDownloadstackOwnDMOView;
 import views.SavepathSelectionView;
 import views.ServerDoorView;
 import views.ServerStackView;
@@ -122,8 +125,10 @@ public class MainController extends FXController
 		this.addUniqueView(new SaveDownloadstackOnServerDialogView("savedownloadstackonserverdialogview", this));
 		this.addUniqueView(new SavepathSelectionView("savepathselectionview", this));
 		this.addUniqueView(new TeamworkServerDoorView("teamworkserverdoorview", this));
+		this.addUniqueView(new CreateDoorView("createdoorview", this));
+		this.addUniqueView(new SaveDownloadstackOwnDMOView("savedownloadstackowndmoview", this));
 		//this.addUniqueView(new SaveDownloadstackOwnDMOView("savedownloadstackowndmoview", this));
-		//this.addUniqueView(new SaveDownloadstackForeignDMOView("savedownloadstackforeigndmoview", this));
+		this.addUniqueView(new SaveDownloadstackForeignDMOView("savedownloadstackforeigndmoview", this));
 		//this.addUniqueView(new DeriveServerDoorView("deriveserverdoorview", this));
 		
 		this.addUniqueView(new PreLearnView("prelearn", this));

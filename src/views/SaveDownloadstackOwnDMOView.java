@@ -37,10 +37,10 @@ import views.components.ContainerLayout;
 import views.components.ControlLayout;
 import views.components.VerticalScroller;
 
-public class TeamworkServerDoorView extends FXView
+public class SaveDownloadstackOwnDMOView extends FXView
 {
 
-	public TeamworkServerDoorView(String newName, FXController newController)
+	public SaveDownloadstackOwnDMOView(String newName, FXController newController)
 	{
 		super(newController);
 		construct(newName); 
@@ -165,7 +165,7 @@ public class TeamworkServerDoorView extends FXView
 			Label lblServerDoor = new Label(names.get(i));
 			lblServerDoor.setPadding(new Insets(15,0,0,250));
 			lblServerDoor.setMinWidth(590);
-			AppButton btnMerge = new AppButton("Merge");
+			AppButton btnMerge = new AppButton("Overwrite");
 			AppButton btnInformation = new AppButton("i");
 			btnInformation.setOnAction(e ->
 			{

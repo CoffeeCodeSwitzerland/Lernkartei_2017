@@ -123,6 +123,15 @@ public class ServerStackView extends FXView
 	    tabForeign.setContent(hbox2); 
 	         
 	    tabPane.getTabs().addAll(tabPersonal, tabForeign); 
+	    
+	    tabPane.setOnMouseClicked(e -> {
+			for(Tab actTab:tabPane.getTabs())
+			{
+				actTab.setStyle("-fx-background-color:#f0f0f0");
+			}
+			tabPane.getSelectionModel().getSelectedItem().setStyle("-fx-background-color:#a3a4a8");
+		});
+	    tabPane.getSelectionModel().getSelectedItem().setStyle("-fx-background-color:#a3a4a8");
 	         
 	    /*list = new ListView<String>();
 	    items =FXCollections.observableArrayList (

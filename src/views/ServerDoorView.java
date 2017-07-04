@@ -85,13 +85,6 @@ public class ServerDoorView extends FXView
 	    hbox.getChildren().add(new Label(tabPersonal.getText()));
 	    hbox.setAlignment(Pos.CENTER);
 	    
-	    tabPane.setOnMouseClicked(e -> {
-			for(Tab actTab:tabPane.getTabs())
-			{
-				actTab.setStyle("-fx-background-color:#f0f0f0");
-			}
-			tabPane.getSelectionModel().getSelectedItem().setStyle("-fx-background-color:#a3a4a8");
-		});
 	    	    
 	    Center = new VBox();
 	    Search = new HBox();
@@ -123,6 +116,17 @@ public class ServerDoorView extends FXView
 	    tabForeign.setContent(hbox2); 
 	         
 	    tabPane.getTabs().addAll(tabPersonal, tabForeign); 
+	    
+	    tabPane.setOnMouseClicked(e -> {
+			for(Tab actTab:tabPane.getTabs())
+			{
+				actTab.setStyle("-fx-background-color:#f0f0f0");
+			}
+			tabPane.getSelectionModel().getSelectedItem().setStyle("-fx-background-color:#a3a4a8");
+		});
+	    
+	    tabPane.getSelectionModel().getSelectedItem().setStyle("-fx-background-color:#a3a4a8");
+	    
 	         
 	    /*list = new ListView<String>();
 	    items =FXCollections.observableArrayList (
@@ -138,8 +142,9 @@ public class ServerDoorView extends FXView
 		
 		
 
-		//Doesn't need any onClick-Listener, because it's default
 		back = new BackButton(getFXController(), "Zurück");
+		
+		back.setOnAction(e -> getFXController().showView("lernenselectionview"));
 		
 		
 		HBox bottom = new HBox(50);

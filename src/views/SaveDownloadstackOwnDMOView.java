@@ -113,7 +113,7 @@ public class SaveDownloadstackOwnDMOView extends FXView
 	    Center.getChildren().addAll(StackShowList,btnCreate);
 	    
 		back = new AppButton("Zurück");
-		back.setOnAction(e-> getFXController().showView("lernenselectionview"));
+		back.setOnAction(e-> getFXController().showView("savedownloadstackonserverdialogview"));
 		
 		
 		Bottom = new VBox();

@@ -13,6 +13,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TabPane.TabClosingPolicy;
@@ -36,7 +37,7 @@ public class GroupView extends FXView
 	}
 	
 	BorderPane bp;
-
+	
 	Button createGroup;
 	Button deleteGroup;
 	Button modifyGroup;
@@ -55,7 +56,7 @@ public class GroupView extends FXView
 		
 		tabPane = new TabPane();
 		tabPane.setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);
-		 
+		
 	    Tab tabPersonal = new Tab();
 	    tabPersonal.setText("Persönlich");
 	    HBox hbox = new HBox();
@@ -77,11 +78,17 @@ public class GroupView extends FXView
 	    tabPane.getTabs().addAll(tabPersonal, tabForeign);
 	    tabPane.getSelectionModel().getSelectedItem().setStyle("-fx-background-color:#a3a4a8");
 	    
-	         
+	      
 	    list = new ListView<String>();
 	    items =FXCollections.observableArrayList (
-	        "Gruppe1", "Gruppe2", "Gruppe3", "Gruppe4");
+	        "Gruppe1", "Gruppe2", "Gruppe3", "Gruppe4","Gruppe1",
+	        "Gruppe2", "Gruppe3", "Gruppe4","Gruppe1", "Gruppe2",
+	        "Gruppe3", "Gruppe4","Gruppe1", "Gruppe2", "Gruppe3", 
+	        "Gruppe4","Gruppe1", "Gruppe2", "Gruppe3", "Gruppe4");
 	    list.setItems(items);   
+	    list.setMinWidth(900);
+	    
+	
 	    
 		modifyGroup = new Button("Gruppen-Mitglieder bearbeiten");
 		createGroup = new Button("+");

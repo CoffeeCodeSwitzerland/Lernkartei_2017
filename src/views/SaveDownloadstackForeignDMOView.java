@@ -119,8 +119,8 @@ public class SaveDownloadstackForeignDMOView extends FXView
 		Bottom.getChildren().addAll(back, btnContinue);
 		AllFields.getChildren().addAll(SearchDMO,list,Bottom);
 		
-		bp.setLeft(AllFields);
-		bp.setCenter(tabPane);
+		bp.setTop(tabPane);
+		bp.setCenter(AllFields);
 		bp.setBottom(Bottom);
 			
 		

@@ -147,8 +147,8 @@ public class ServerStackView extends FXView
 		
 		
 
-		//Doesn't need any onClick-Listener, because it's default
 		back = new BackButton(getFXController(), "Zurück");
+		back.setOnAction(e -> getFXController().showView("serverdoorview"));
 		
 		
 		HBox bottom = new HBox(50);

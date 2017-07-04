@@ -99,7 +99,7 @@ public class SaveDownloadstackForeignDMOView extends FXView
 				btnContinue.setOnAction(ev -> getFXController().showView("deriveserverdoorview"));
 			} else
 			{
-				btnContinue.setOnAction(eve -> getFXController().showView("teamworkserverdoorview"));
+				btnContinue.setOnAction(ev -> getFXController().showView("teamworkserverdoorview"));
 			}
 		});
 		

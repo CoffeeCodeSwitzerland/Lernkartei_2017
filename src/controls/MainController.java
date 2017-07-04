@@ -48,6 +48,7 @@ import views.ServerStackView;
 import views.SimpleEditorView;
 import views.StackView;
 import views.StatsView;
+import views.TeamworkServerDoorView;
 import views.UserListView;
 import views.UserView;
 import views.components.MainViewSettings;
@@ -120,6 +121,7 @@ public class MainController extends FXController
 		this.addUniqueView(new DoorStackInformationView("doorstackinformationview", this));
 		this.addUniqueView(new SaveDownloadstackOnServerDialogView("savedownloadstackonserverdialogview", this));
 		this.addUniqueView(new SavepathSelectionView("savepathselectionview", this));
+		this.addUniqueView(new TeamworkServerDoorView("teamworkserverdoorview", this));
 		
 		
 		this.addUniqueView(new PreLearnView("prelearn", this));

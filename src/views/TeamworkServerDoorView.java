@@ -38,7 +38,7 @@ public class TeamworkServerDoorView extends FXView
 	public TeamworkServerDoorView(String newName, FXController newController)
 	{
 		super(newController);
-		construct(newName);
+		construct(newName); 
 	}
 	
 	BorderPane bp;

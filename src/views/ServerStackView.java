@@ -73,7 +73,7 @@ public class ServerStackView extends FXView
 		tabPane.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Tab>() {
 			   @Override
 			   public void changed(ObservableValue<? extends Tab> ov, Tab tabOld, Tab tabNew) {
-			      refreshView();
+			      tabAuswaehlen();
 			   }
 			});
 		 
@@ -153,17 +153,29 @@ public class ServerStackView extends FXView
 		bp.setCenter(Center);
 		bp.setBottom(bottom);
 
+		getFXController().getModel("serverstack").registerView(this);
+		
 		return bp;
 	}
 
 	@Override
 	public void refreshView()
 	{
+		ArrayList<String> givenData = getFXController().getModel("serverstack").getDataList("");
+		
+		int selected = Integer.parseInt(givenData.get(1));
+		tabPane.getSelectionModel().select(selected);
+		
+	}
+	
+	public void tabAuswaehlen()
+	{
 		lines.clear();
 		StackShowList.getChildren().clear();
 		tabPane.getSelectionModel().getSelectedItem().setStyle("-fx-backgound-color:#800000");
 		ArrayList<String> names = new ArrayList<String>();
 		int dataLength = 4;
+				
 		
 		
 		if(tabPane.getSelectionModel().getSelectedIndex() == 0)
@@ -223,6 +235,5 @@ public class ServerStackView extends FXView
 		{
 			StackShowList.getChildren().add(l);
 		}
-		
 	}
 }

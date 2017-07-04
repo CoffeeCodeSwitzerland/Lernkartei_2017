@@ -11,6 +11,7 @@ import models.GameModel;
 import models.LearnModel;
 import models.ProfilModel;
 import models.QuizletModel;
+import models.ServerStackModel;
 import models.StackModel;
 import models.StatisticsModel;
 import models.TuttoModel;
@@ -76,6 +77,7 @@ public class MainController extends FXController
 		this.addUniqueModel(new ConfigModel(),"config");
 		this.addUniqueModel(new StatisticsModel(),"statistics");
 		this.addUniqueModel(new UserSecurityModel(), "usersecuritymodel");
+		this.addUniqueModel(new ServerStackModel(), "serverstack");
 	}
 
 	@Override

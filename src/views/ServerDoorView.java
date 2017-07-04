@@ -152,7 +152,10 @@ public class ServerDoorView extends FXView
 		bp.setTop(tabPane);
 		bp.setCenter(Center);
 		bp.setBottom(bottom);
-
+		
+		getFXController().getModel("serverstack").registerView(this);
+	/*	getFXController().getModel("doorstackinformation").registerView(this);*/
+		
 		return bp;
 	}
 
@@ -190,7 +193,7 @@ public class ServerDoorView extends FXView
 				ArrayList<String> giveData = new ArrayList<String>();
 				giveData.add(names.get(counter));
 				giveData.add(Integer.toString(0));
-				getFXController().addViewData("serverstackview",giveData);
+				getFXController().getModel("serverstack").setDataList(giveData);
 				getFXController().showView("serverstackview");
 			}
 					);
@@ -225,7 +228,7 @@ public class ServerDoorView extends FXView
 					ArrayList<String> giveData = new ArrayList<String>();
 					giveData.add(names.get(counter));
 					giveData.add(Integer.toString(1));
-					getFXController().addViewData("serverstackview",giveData);
+					getFXController().getModel("serverstack").setDataList(giveData);
 					getFXController().showView("serverstackview");
 				});
 				entry.getChildren().addAll(btnServerDoor,btnDownload,btnInformation);

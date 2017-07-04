@@ -154,7 +154,6 @@ public class ServerDoorView extends FXView
 		bp.setBottom(bottom);
 		
 		getFXController().getModel("serverstack").registerView(this);
-	/*	getFXController().getModel("doorstackinformation").registerView(this);*/
 		
 		return bp;
 	}
@@ -168,9 +167,9 @@ public class ServerDoorView extends FXView
 		ArrayList<String> names = new ArrayList<String>();
 		int dataLength = 4;
 		
-		
 		if(tabPane.getSelectionModel().getSelectedIndex() == 0)
 		{
+
 			
 			names.clear();
 	
@@ -183,12 +182,20 @@ public class ServerDoorView extends FXView
 		
 		for(int i = 0; i < dataLength; i++)
 		{
+			int counter = i;
 			HBox entry = new HBox();
 			AppButton btnServerDoor = new AppButton(names.get(i));
 			btnServerDoor.setMinWidth(590);
 			AppButton btnDownload = new AppButton("Hochladen");
 			AppButton btnInformation = new AppButton("i");
-			int counter = i;
+			btnInformation.setOnAction(e ->
+			{
+				ArrayList<String> list = new ArrayList<String>();
+				list.add(names.get(counter));
+				getFXController().getModel("doorstackinformationmodel").setDataList(list);				
+				getFXController().showView("doorstackinformationview");
+			}
+			);
 			btnServerDoor.setOnAction(e -> {
 				ArrayList<String> giveData = new ArrayList<String>();
 				giveData.add(names.get(counter));
@@ -196,9 +203,8 @@ public class ServerDoorView extends FXView
 				getFXController().getModel("serverstack").setDataList(giveData);
 				getFXController().showView("serverstackview");
 			}
-					);
-			btnInformation.setOnAction(e -> getFXController().showView("doorstackinformationview"));
-			
+			);
+
 			entry.getChildren().addAll(btnServerDoor,btnDownload,btnInformation);
 			lines.add(entry);
 		}
@@ -214,16 +220,22 @@ public class ServerDoorView extends FXView
 			
 			//ArrayList<AppButton> btnList = new ArrayList<AppButton>();
 			
-			
-			
 			for(int i = 0; i < dataLength; i++)
 			{
+				int counter = i;
 				HBox entry = new HBox();
 				AppButton btnServerDoor = new AppButton(names.get(i));
 				btnServerDoor.setMinWidth(590);
 				AppButton btnDownload = new AppButton("Herunterladen");
 				AppButton btnInformation = new AppButton("i");
-				int counter = i;
+				btnInformation.setOnAction(e ->
+				{
+					ArrayList<String> list = new ArrayList<String>();
+					list.add(names.get(counter));
+					getFXController().getModel("doorstackinformationmodel").setDataList(list);			
+					getFXController().showView("doorstackinformationview");
+				}
+				);
 				btnServerDoor.setOnAction(e -> {
 					ArrayList<String> giveData = new ArrayList<String>();
 					giveData.add(names.get(counter));

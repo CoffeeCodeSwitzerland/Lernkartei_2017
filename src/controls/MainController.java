@@ -6,6 +6,7 @@ import javafx.stage.Stage;
 import models.CardModel;
 import models.ConfigModel;
 import models.DoorModel;
+import models.DoorStackInformationModel;
 import models.DruckModel;
 import models.GameModel;
 import models.LearnModel;
@@ -19,6 +20,7 @@ import models.UserSecurityModel;
 import mvc.fx.FXController;
 // Nicht ändern
 import views.BBCodeInfoView;
+import views.DoorStackInformationView;
 import views.DoorView;
 import views.EditorView;
 import views.GameOptionView;
@@ -78,6 +80,7 @@ public class MainController extends FXController
 		this.addUniqueModel(new StatisticsModel(),"statistics");
 		this.addUniqueModel(new UserSecurityModel(), "usersecuritymodel");
 		this.addUniqueModel(new ServerStackModel(), "serverstack");
+		this.addUniqueModel(new DoorStackInformationModel(), "doorstackinformationmodel");
 	}
 
 	@Override
@@ -112,6 +115,7 @@ public class MainController extends FXController
 		this.addUniqueView(new UserListView("userlistview", this));
 		this.addUniqueView(new ServerDoorView("serverdoorview", this));
 		this.addUniqueView(new ServerStackView("serverstackview", this));
+		this.addUniqueView(new DoorStackInformationView("doorstackinformationview", this));
 		
 		
 		this.addUniqueView(new PreLearnView("prelearn", this));

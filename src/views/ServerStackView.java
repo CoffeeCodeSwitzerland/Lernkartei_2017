@@ -123,6 +123,15 @@ public class ServerStackView extends FXView
 	    tabForeign.setContent(hbox2); 
 	         
 	    tabPane.getTabs().addAll(tabPersonal, tabForeign); 
+	    
+	    tabPane.setOnMouseClicked(e -> {
+			for(Tab actTab:tabPane.getTabs())
+			{
+				actTab.setStyle("-fx-background-color:#f0f0f0");
+			}
+			tabPane.getSelectionModel().getSelectedItem().setStyle("-fx-background-color:#a3a4a8");
+		});
+	    tabPane.getSelectionModel().getSelectedItem().setStyle("-fx-background-color:#a3a4a8");
 	         
 	    /*list = new ListView<String>();
 	    items =FXCollections.observableArrayList (
@@ -138,8 +147,8 @@ public class ServerStackView extends FXView
 		
 		
 
-		//Doesn't need any onClick-Listener, because it's default
 		back = new BackButton(getFXController(), "Zurück");
+		back.setOnAction(e -> getFXController().showView("serverdoorview"));
 		
 		
 		HBox bottom = new HBox(50);
@@ -199,6 +208,7 @@ public class ServerStackView extends FXView
 			AppButton btnDownload = new AppButton("Hochladen");
 			AppButton btnInformation = new AppButton("i");
 			btnInformation.setOnAction(e -> getFXController().showView("doorstackinformationview"));
+			btnDownload.setOnAction(e -> getFXController().showView("savepathselectionview"));
 			
 			entry.getChildren().addAll(lblServerStack,btnDownload,btnInformation);
 			lines.add(entry);
@@ -225,6 +235,8 @@ public class ServerStackView extends FXView
 				lblServerStack.setPadding(new Insets(15,0,0,250));
 				AppButton btnDownload = new AppButton("Herunterladen");
 				AppButton btnInformation = new AppButton("i");
+				btnInformation.setOnAction(e -> getFXController().showView("doorstackinformationview"));
+				btnDownload.setOnAction(e -> getFXController().showView("savepathselectionview"));
 				
 				entry.getChildren().addAll(lblServerStack,btnDownload,btnInformation);
 				lines.add(entry);

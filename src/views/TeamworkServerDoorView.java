@@ -8,7 +8,9 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
+import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
+import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -16,6 +18,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.ScrollBar;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TabPane.TabClosingPolicy;
@@ -31,6 +35,7 @@ import views.components.AppButton;
 import views.components.BackButton;
 import views.components.ContainerLayout;
 import views.components.ControlLayout;
+import views.components.VerticalScroller;
 
 public class TeamworkServerDoorView extends FXView
 {
@@ -49,11 +54,14 @@ public class TeamworkServerDoorView extends FXView
 	
 	TextField txtSearch;
 	
+	ScrollPane sMain;
+	Group MainGroup;
 	
 	VBox StackShowList = new VBox();
 	HBox Search;
 	VBox Bottom;
 	VBox Center;
+	VBox Top;
 	
 	ArrayList<HBox> lines = new ArrayList<HBox>();
 	
@@ -97,7 +105,7 @@ public class TeamworkServerDoorView extends FXView
 	    	    
 	    Center = new VBox();
 	    Search = new HBox();
-	    
+	    Top = new VBox();
 	    
 	    
 	    txtSearch = new TextField();
@@ -106,55 +114,29 @@ public class TeamworkServerDoorView extends FXView
 	    txtSearch.setMinHeight(50);;
 	    btnSearch = new AppButton("Suchen");
 	    btnCreate = new AppButton("++Erstellen++");
+	    btnCreate.setMinWidth(590);
+	    
 	    
 	    StackShowList.setSpacing(20);
 	    Center.setSpacing(20);
 	    
+	    
+	    sMain = new ScrollPane();
+	    sMain.setContent(Center);
+	    
 	    Search.getChildren().addAll(txtSearch,btnSearch);
-	    Center.getChildren().addAll(Search,StackShowList);
+	    Center.getChildren().addAll(StackShowList,btnCreate);
 	    
-	    
-	  /*  tabPersonal.setContent(hbox);
-	         
-	    Tab tabForeign = new Tab();
-	    tabForeign.setText("Server");
-	    HBox hbox2 = new HBox();
-	    hbox2.setPadding(new Insets(20, 0, 0, 0));
-	    hbox2.setStyle("-fx-font: 24 'System Regular'");
-	    hbox2.getChildren().add(new Label(tabForeign.getText()));
-	    hbox2.setAlignment(Pos.CENTER);
-	    tabForeign.setContent(hbox2); 
-	         
-	    tabPane.getTabs().addAll(tabPersonal, tabForeign); */
-	         
-	    /*list = new ListView<String>();
-	    items =FXCollections.observableArrayList (
-	        "Gruppe1", "Gruppe2", "Gruppe3", "Gruppe4");
-	    list.setItems(items);   */
-	    
-		
-		
-		/*createGroup.setOnAction(e -> getFXController().showView("groupcreateview"));
-		modifyGroup.setOnAction(e -> geytFXController().showView("groupmemberview"));*/
-		
-		// Make sure user wants to delete member
-		
-		
-
-		//Doesn't need any onClick-Listener, because it's default
 		back = new AppButton("Zurück");
-		back.setOnAction(e-> getFXController().showView(" "));
+		back.setOnAction(e-> getFXController().showView("lernenselectionview"));
 		
 		Bottom = new VBox();
-		//HBox bottom = new HBox(50);
-		//bottom.getChildren().addAll(modifyGroup, createGroup, deleteGroup);
-		//bottom.setPadding(new Insets(0,0,20,450));
-		//bottom.getChildren().add(back);
-		Bottom.getChildren().addAll(btnCreate,back);
+	
+		Bottom.getChildren().addAll(back);
+		Top.getChildren().addAll(Search,tabPane);
 		
-		
-		bp.setTop(tabPane);
-		bp.setCenter(Center);
+		bp.setTop(Top);
+		bp.setCenter(sMain);
 		bp.setBottom(Bottom);
 		
 		getFXController().getModel("serverstack").registerView(this);
@@ -168,7 +150,7 @@ public class TeamworkServerDoorView extends FXView
 		lines.clear();
 		StackShowList.getChildren().clear();
 		ArrayList<String> names = new ArrayList<String>();
-		int dataLength = 4;
+		int dataLength = 8;
 		
 		//if(tabPane.getSelectionModel().getSelectedIndex() == 0)
 	
@@ -177,6 +159,18 @@ public class TeamworkServerDoorView extends FXView
 			names.clear();
 	
 		//ArrayList<AppButton> btnList = new ArrayList<AppButton>();
+			names.add("first Doorlocal");
+			names.add("second Doorlocal");
+			names.add("third Doorlocal");
+			names.add("fourth Doorlocal");
+			names.add("first Doorlocal");
+			names.add("second Doorlocal");
+			names.add("third Doorlocal");
+			names.add("fourth Doorlocal");
+			names.add("first Doorlocal");
+			names.add("second Doorlocal");
+			names.add("third Doorlocal");
+			names.add("fourth Doorlocal");
 			names.add("first Doorlocal");
 			names.add("second Doorlocal");
 			names.add("third Doorlocal");
@@ -201,57 +195,10 @@ public class TeamworkServerDoorView extends FXView
 			}
 			);
 			
-		/*	btnInformation.setOnAction(e -> {
-				ArrayList<String> giveData = new ArrayList<String>();
-				giveData.add(names.get(counter));
-				giveData.add(Integer.toString(0));
-				getFXController().getModel("serverstack").setDataList(giveData);
-				getFXController().showView("serverstackview");
-			}
-			);*/
 
 			entry.getChildren().addAll(lblServerDoor,btnInformation,btnMerge);
 			lines.add(entry);
 		}
-		//}
-	/*	else
-		{
-			names.clear();
-			
-			names.add("first Doorserver");
-			names.add("second Doorserver");
-			names.add("third Doorserver");
-			names.add("fourth Doorserver");
-			
-			//ArrayList<AppButton> btnList = new ArrayList<AppButton>();
-			
-			for(int i = 0; i < dataLength; i++)
-			{
-				int counter = i;
-				HBox entry = new HBox();
-				AppButton btnServerDoor = new AppButton(names.get(i));
-				btnServerDoor.setMinWidth(590);
-				AppButton btnDownload = new AppButton("Herunterladen");
-				AppButton btnInformation = new AppButton("i");
-				btnInformation.setOnAction(e ->
-				{
-					ArrayList<String> list = new ArrayList<String>();
-					list.add(names.get(counter));
-					getFXController().getModel("doorstackinformationmodel").setDataList(list);			
-					getFXController().showView("doorstackinformationview");
-				}
-				);
-				btnServerDoor.setOnAction(e -> {
-					ArrayList<String> giveData = new ArrayList<String>();
-					giveData.add(names.get(counter));
-					giveData.add(Integer.toString(1));
-					getFXController().getModel("serverstack").setDataList(giveData);
-					getFXController().showView("serverstackview");
-				});
-				entry.getChildren().addAll(btnServerDoor,btnDownload,btnInformation);
-				lines.add(entry);
-			}
-		}*/
 		
 		for(HBox l : lines)
 		{

@@ -122,7 +122,9 @@ public class MainController extends FXController
 		this.addUniqueView(new SaveDownloadstackOnServerDialogView("savedownloadstackonserverdialogview", this));
 		this.addUniqueView(new SavepathSelectionView("savepathselectionview", this));
 		this.addUniqueView(new TeamworkServerDoorView("teamworkserverdoorview", this));
-		
+		this.addUniqueView(new SaveDownloadstackOwnDMOView("savedownloadstackowndmoview", this));
+		this.addUniqueView(new SaveDownloadstackForeignDMOView("savedownloadstackforeigndmoview", this));
+		this.addUniqueView(new DeriveServerDoorView("deriveserverdoorview", this));
 		
 		this.addUniqueView(new PreLearnView("prelearn", this));
 		this.addUniqueView(new LearnView("learnview", this));

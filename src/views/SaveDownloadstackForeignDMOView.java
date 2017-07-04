@@ -93,6 +93,14 @@ public class SaveDownloadstackForeignDMOView extends FXView
 				actTab.setStyle("-fx-background-color:#f0f0f0");
 			}
 			tabPane.getSelectionModel().getSelectedItem().setStyle("-fx-background-color:#a3a4a8");
+			
+			if(tabPane.getSelectionModel().getSelectedIndex()== 0)
+			{
+				btnContinue.setOnAction(ev -> getFXController().showView("deriveserverdoorview"));
+			} else
+			{
+				btnContinue.setOnAction(eve -> getFXController().showView("teamworkserverdoorview"));
+			}
 		});
 		
 		SearchDMO = new HBox();
@@ -106,7 +114,7 @@ public class SaveDownloadstackForeignDMOView extends FXView
 		btnSearch = new AppButton("Suchen");
 		btnContinue = new AppButton("Weiter zum DMO");
 		back = new BackButton(getFXController(),"Zurück");
-		
+			
 		SearchDMO.getChildren().addAll(txtDMO,btnSearch);
 		Bottom.getChildren().addAll(back, btnContinue);
 		AllFields.getChildren().addAll(SearchDMO,list,Bottom);

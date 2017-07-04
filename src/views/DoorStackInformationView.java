@@ -51,6 +51,7 @@ public class DoorStackInformationView extends FXView
 	HomeButton home;
 	
 	ArrayList<String> nameOfObject;
+	ArrayList<Label> labelLeft = new ArrayList<Label>();
 	
 	@Override
 	public Parent constructContainer()
@@ -61,14 +62,20 @@ public class DoorStackInformationView extends FXView
 		AllFields = new VBox(50);
 		AllFields.setAlignment(Pos.CENTER);
 		AllFields.setMaxWidth(300);
-		AllFields.setPadding(new Insets(20));
+		AllFields.setSpacing(50);
+
 
 		top = new HBox();
+		top.setStyle("-fx-font: 24 'System Regular'");
+		
 		ownerInformation = new HBox();
+		
+		
 		lastChangeInformation = new HBox();
 		deriveInformation = new HBox();
 		teamworkInformation = new HBox();
 		AllFields = new VBox();
+		
 		Bottom = new VBox();
 		
 		back = new BackButton(getFXController(),"Zurück");
@@ -91,10 +98,11 @@ public class DoorStackInformationView extends FXView
 		lastChangeInformation.getChildren().addAll(lastChange,lastChangeValue);
 		deriveInformation.getChildren().addAll(derive,deriveValue);
 		teamworkInformation.getChildren().addAll(teamwork,teamworkValue);
-		Bottom.getChildren().addAll(ownerInformation,lastChangeInformation,deriveInformation,teamworkInformation,back);
+		Bottom.getChildren().addAll(ownerInformation,lastChangeInformation,deriveInformation,teamworkInformation);
 		
-		AllFields.getChildren().addAll(top,Bottom);
+		AllFields.getChildren().addAll(top,Bottom,back);
 		
+		bp.setPadding(new Insets(180,0,0,310));
 		bp.setCenter(AllFields);
 		
 		//getFXController().getModel("doorstackinfomrationmodel").registerView(this);

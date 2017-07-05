@@ -37,10 +37,10 @@ import views.components.ContainerLayout;
 import views.components.ControlLayout;
 import views.components.VerticalScroller;
 
-public class SaveDownloadstackOwnDMOView extends FXView
+public class SaveDownloadstackLocalView extends FXView
 {
 
-	public SaveDownloadstackOwnDMOView(String newName, FXController newController)
+	public SaveDownloadstackLocalView(String newName, FXController newController)
 	{
 		super(newController);
 		construct(newName); 
@@ -113,7 +113,7 @@ public class SaveDownloadstackOwnDMOView extends FXView
 	    Center.getChildren().addAll(StackShowList,btnCreate);
 	    
 		back = new AppButton("Zurück");
-		back.setOnAction(e-> getFXController().showView("savedownloaddooronserverdialogview"));
+		back.setOnAction(e-> getFXController().showView("doorsavepathselectionview"));
 		
 		
 		Bottom = new VBox();

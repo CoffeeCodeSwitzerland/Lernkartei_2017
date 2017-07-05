@@ -15,10 +15,10 @@ import views.components.AppButton;
 import views.components.BackButton;
 import views.components.HomeButton;
 
-public class SavepathSelectionView extends FXView
+public class DoorSavepathSelectionView extends FXView
 {
 
-	public SavepathSelectionView(String newName, FXController newController)
+	public DoorSavepathSelectionView(String newName, FXController newController)
 	{
 		super(newController);
 		construct(newName);
@@ -66,8 +66,8 @@ public class SavepathSelectionView extends FXView
 		bp.setCenter(AllFields);
 		bp.setBottom(bottom);
 		
-		btnLocal.setOnAction(e -> getFXController().showView("savedownloadstacklocaldialogview"));
-		btnServer.setOnAction(e -> getFXController().showView("savedownloadstackonserverdialogview"));
+		btnLocal.setOnAction(e -> getFXController().showView("savedownloadstacklocalview"));
+		btnServer.setOnAction(e -> getFXController().showView("savedownloaddooronserverdialogview"));
 		back.setOnAction(e -> getFXController().showView("serverdoorview"));
 		
 		return bp;

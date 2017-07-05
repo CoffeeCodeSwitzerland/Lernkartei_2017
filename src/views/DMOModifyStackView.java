@@ -89,7 +89,7 @@ public class DMOModifyStackView extends FXView
 		Buttons.getChildren().addAll(btnModify,btnRemoveDoor,back);
 		AllFields.getChildren().addAll(Value,Buttons);
 		
-		/*inside.setLeft(AllFields);
+		/*inside.setLeft(AllFields); 
 		inside.setRight(Buttons);*/
 		
 		bp.setCenter(AllFields);

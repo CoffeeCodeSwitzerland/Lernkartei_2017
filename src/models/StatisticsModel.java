@@ -72,7 +72,7 @@ public class StatisticsModel extends FXModel
 			ArrayList<String> myStacks = LKDatabase.myStacks.getKategorien("ghgh");
 			Double[] doubleArray = LKDatabase.myCards.getScore(Decision[0]);
 			tempDifference = (double) (( myStacks.size() ));//* Bewertungsklasse.anzahlRichtige);
-			temp.clear();
+			temp.clear(); //...
 			temp.add (tempDifference);
 			return temp;
 			

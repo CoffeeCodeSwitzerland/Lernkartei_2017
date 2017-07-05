@@ -17,7 +17,7 @@ import views.components.HomeButton;
 
 public class SaveDownloaddoorOnServerDialogView extends FXView
 {
-//made little change
+
 	public SaveDownloaddoorOnServerDialogView(String newName, FXController newController)
 	{
 		super(newController);

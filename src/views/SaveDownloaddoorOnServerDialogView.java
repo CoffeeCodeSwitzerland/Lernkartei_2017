@@ -66,7 +66,7 @@ public class SaveDownloaddoorOnServerDialogView extends FXView
 		
 		btnOwnDMO.setOnAction(e -> getFXController().showView("savedownloadstackowndmoview"));
 		btnForeignDMO.setOnAction(e -> getFXController().showView("savedownloadstackforeigndmoview"));
-		back.setOnAction(e -> getFXController().showView("savepathselectionview"));
+		back.setOnAction(e -> getFXController().showView("doorsavepathselectionview"));
 		
 		return bp;
 	}

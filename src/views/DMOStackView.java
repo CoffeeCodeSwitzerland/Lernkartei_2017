@@ -37,10 +37,10 @@ import views.components.ContainerLayout;
 import views.components.ControlLayout;
 import views.components.VerticalScroller;
 
-public class DMODoorView extends FXView
+public class DMOStackView extends FXView
 {
 
-	public DMODoorView(String newName, FXController newController)
+	public DMOStackView(String newName, FXController newController)
 	{
 		super(newController);
 		construct(newName); 
@@ -114,7 +114,7 @@ public class DMODoorView extends FXView
 	    Center.getChildren().addAll(StackShowList,btnCreate);
 	    
 		back = new AppButton("Zurück");
-		back.setOnAction(e-> getFXController().showView("lernenselectionview"));
+		back.setOnAction(e-> getFXController().showView("DMODoorView"));
 		
 		
 		Bottom = new VBox();
@@ -163,9 +163,9 @@ public class DMODoorView extends FXView
 		{
 			int counter = i;
 			HBox entry = new HBox();
-			AppButton btnServerDoor = new AppButton(names.get(i));
-			btnServerDoor.setPadding(new Insets(15,0,0,250));
-			btnServerDoor.setMinWidth(740);
+			Label lblServerDoor = new Label(names.get(i));
+			lblServerDoor.setPadding(new Insets(15,0,0,250));
+			lblServerDoor.setMinWidth(740);
 			//AppButton btnMerge = new AppButton("Bearbeiten");
 			AppButton btnModify = new AppButton("Bearbeiten");
 			btnModify.setOnAction(e ->
@@ -174,12 +174,11 @@ public class DMODoorView extends FXView
 				list.add(names.get(counter));
 				getFXController().getModel("dmomodifydoormodel").setDataList(list);				
 				getFXController().showView("dmomodifydoorview");
-			});
-			
-			btnServerDoor.setOnAction(e -> getFXController().showView("dmostackview"));
+			}
+			);
 			
 
-			entry.getChildren().addAll(btnServerDoor,btnModify);
+			entry.getChildren().addAll(lblServerDoor,btnModify);
 			lines.add(entry);
 		}
 		

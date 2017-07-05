@@ -24,6 +24,7 @@ import views.BBCodeInfoView;
 import views.CreateDoorView;
 import views.DMODoorView;
 import views.DMOModifyDoorView;
+import views.DMOStackView;
 import views.DoorStackInformationView;
 import views.DoorView;
 import views.EditorView;
@@ -144,6 +145,7 @@ public class MainController extends FXController
 		this.addUniqueView(new SaveDownloaddoorOnServerDialogView("savedownloaddooronserverdialogview",this));
 		this.addUniqueView(new DMOModifyDoorView("dmomodifydoorview",this));
 		this.addUniqueView(new DMODoorView("dmodoorview",this));
+		this.addUniqueView(new DMOStackView("dmostackview",this));
 		
 		
 		this.addUniqueView(new PreLearnView("prelearn", this));

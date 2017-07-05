@@ -114,7 +114,7 @@ public class DMOStackView extends FXView
 	    Center.getChildren().addAll(StackShowList,btnCreate);
 	    
 		back = new AppButton("Zurück");
-		back.setOnAction(e-> getFXController().showView("DMODoorView"));
+		back.setOnAction(e-> getFXController().showView("dmodoorview"));
 		
 		
 		Bottom = new VBox();
@@ -172,8 +172,8 @@ public class DMOStackView extends FXView
 			{
 				ArrayList<String> list = new ArrayList<String>();
 				list.add(names.get(counter));
-				getFXController().getModel("dmomodifydoormodel").setDataList(list);				
-				getFXController().showView("dmomodifydoorview");
+				getFXController().getModel("dmomodifystackmodel").setDataList(list);				
+				getFXController().showView("dmomodifystackview");
 			}
 			);
 			

@@ -6,6 +6,7 @@ import javafx.stage.Stage;
 import models.CardModel;
 import models.ConfigModel;
 import models.DMOModifyDoorModel;
+import models.DMOModifyStackModel;
 import models.DoorModel;
 import models.DoorStackInformationModel;
 import models.DruckModel;
@@ -24,6 +25,7 @@ import views.BBCodeInfoView;
 import views.CreateDoorView;
 import views.DMODoorView;
 import views.DMOModifyDoorView;
+import views.DMOModifyStackView;
 import views.DMOStackView;
 import views.DoorStackInformationView;
 import views.DoorView;
@@ -96,6 +98,7 @@ public class MainController extends FXController
 		this.addUniqueModel(new ServerStackModel(), "serverstack");
 		this.addUniqueModel(new DoorStackInformationModel(), "doorstackinformationmodel");
 		this.addUniqueModel(new DMOModifyDoorModel(), "dmomodifydoormodel");
+		this.addUniqueModel(new DMOModifyStackModel(), "dmomodifystackmodel");
 	}
 
 	@Override
@@ -144,6 +147,7 @@ public class MainController extends FXController
 		this.addUniqueView(new StackSavepathSelectionView("stacksavepathselectionview",this));
 		this.addUniqueView(new SaveDownloaddoorOnServerDialogView("savedownloaddooronserverdialogview",this));
 		this.addUniqueView(new DMOModifyDoorView("dmomodifydoorview",this));
+		this.addUniqueView(new DMOModifyStackView("dmomodifystackview",this));
 		this.addUniqueView(new DMODoorView("dmodoorview",this));
 		this.addUniqueView(new DMOStackView("dmostackview",this));
 		

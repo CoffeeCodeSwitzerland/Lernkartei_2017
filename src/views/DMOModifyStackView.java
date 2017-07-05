@@ -18,10 +18,10 @@ import views.components.AppButton;
 import views.components.BackButton;
 import views.components.HomeButton;
 
-public class DMOModifyDoorView extends FXView
+public class DMOModifyStackView extends FXView
 {
 
-	public DMOModifyDoorView(String newName, FXController newController)
+	public DMOModifyStackView(String newName, FXController newController)
 	{
 		super(newController);
 		construct(newName);
@@ -75,19 +75,18 @@ public class DMOModifyDoorView extends FXView
 		inputName.setMinWidth(50);
 		
 		name = new Label("Name");
-		removeDoor = new Label("Door löschen");
-		removeStacks = new Label("Enfert den/die Stack/s der Door");
+		removeDoor = new Label("Stack löschen");
 		titel = new Label("Bearbeiten");
 
 		btnRemoveDoor = new AppButton("Entfernen");
-		btnRemoveStack = new AppButton("Löschen");
+		btnRemoveStack = new AppButton("Entfernen");
 		btnModify = new AppButton("Ändern");
 		back = new BackButton(getFXController(),"Abbrechen");
 		
 		//Buttons.getChildren().addAll(,,btnRemoveStack,back);
 		Name.getChildren().addAll(name,inputName);
-		Value.getChildren().addAll(Name,removeDoor,removeStacks);
-		Buttons.getChildren().addAll(btnModify,btnRemoveStack,btnRemoveDoor,back);
+		Value.getChildren().addAll(Name,removeDoor);
+		Buttons.getChildren().addAll(btnModify,btnRemoveDoor,back);
 		AllFields.getChildren().addAll(Value,Buttons);
 		
 		/*inside.setLeft(AllFields);
@@ -108,7 +107,7 @@ public class DMOModifyDoorView extends FXView
 	public void refreshView()
 	{
 		bp.setId("loginviewbg");
-		actualDoorName = getFXController().getModel("dmomodifydoormodel").getDataList("");
+		actualDoorName = getFXController().getModel("dmomodifystackmodel").getDataList("");
 		inputName.setText(actualDoorName.get(0));
 		
 	}

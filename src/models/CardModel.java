@@ -45,7 +45,7 @@ public class CardModel extends Model
 				{
 					refreshViews();
 					return 1;
-				}
+				} 
 				return -1;
 
 			case UPDATE:

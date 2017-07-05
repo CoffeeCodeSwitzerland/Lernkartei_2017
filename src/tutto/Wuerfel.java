@@ -17,7 +17,8 @@ class Wuerfel {
 	int augenAnzahl = 0;
 	boolean istBlockiert = false;
 	boolean istGezaehlt = false;
-
+	
+	
 	Wuerfel(int x, int y, int s, PApplet p) {
 		hoeheRec = s;
 		breiteRec = s;
@@ -89,12 +90,22 @@ class Wuerfel {
 			int anz = callingFrame.getAnzahlNochNichtGezaehltenWuerfeln(augenAnzahl);
 			if (callingFrame.getAnzahlMarkierteWuerfel(augenAnzahl) >= 3 && callingFrame.istAuswahlGueltig(augenAnzahl))
 				anz = 0;
-			if (augenAnzahl == 1 || augenAnzahl == 5 || anz >= 3) {
-				istBlockiert = true;
-			}
+			if (augenAnzahl == 1 || augenAnzahl == 5 || anz >= 3){
+				toggleWuerfel();		
+			} 
+			
 		}
 	}
-
+	/**
+	 * wenn noch nicht gewürfelt wurde, kann der Würfel noch abgewählt werden.
+	 */
+	void toggleWuerfel() {
+		if (istBlockiert == true&& istGezaehlt == false) {
+			istBlockiert = false;
+		} else {
+			istBlockiert = true;
+		}
+	}
 	/**
 	 * definiert einen Würfel als gültig, wenn er markiert aber noch nicht
 	 * gezählt wurde.

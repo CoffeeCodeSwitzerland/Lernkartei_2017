@@ -206,7 +206,7 @@ public class ServerStackView extends FXView
 			AppButton btnDownload = new AppButton("Hochladen");
 			AppButton btnInformation = new AppButton("i");
 			btnInformation.setOnAction(e -> getFXController().showView("doorstackinformationview"));
-			btnDownload.setOnAction(e -> getFXController().showView("savepathselectionview"));
+			btnDownload.setOnAction(e -> getFXController().showView("saveuploadstackonserverdialogview"));
 			
 			entry.getChildren().addAll(lblServerStack,btnDownload,btnInformation);
 			lines.add(entry);
@@ -233,8 +233,8 @@ public class ServerStackView extends FXView
 				lblServerStack.setPadding(new Insets(15,0,0,250));
 				AppButton btnDownload = new AppButton("Herunterladen");
 				AppButton btnInformation = new AppButton("i");
-				btnInformation.setOnAction(e -> getFXController().showView("doorstackinformationview"));
-				btnDownload.setOnAction(e -> getFXController().showView("savepathselectionview"));
+				btnInformation.setOnAction(e -> getFXController().showView("serverdoorstackinformationview"));
+				btnDownload.setOnAction(e -> getFXController().showView("stacksavepathselectionview"));
 				
 				entry.getChildren().addAll(lblServerStack,btnDownload,btnInformation);
 				lines.add(entry);

@@ -96,6 +96,9 @@ class Wuerfel {
 			
 		}
 	}
+	/**
+	 * wenn noch nicht gewürfelt wurde, kann der Würfel noch abgewählt werden.
+	 */
 	void toggleWuerfel() {
 		if (istBlockiert == true&& istGezaehlt == false) {
 			istBlockiert = false;

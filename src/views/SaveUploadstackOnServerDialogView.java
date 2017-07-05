@@ -64,7 +64,7 @@ public class SaveUploadstackOnServerDialogView extends FXView
 		bp.setCenter(AllFields);
 		bp.setBottom(bottom);
 		
-		btnOwnDMO.setOnAction(e -> getFXController().showView("savedownloadstackowndmoview"));
+		btnOwnDMO.setOnAction(e -> getFXController().showView("savedownloadstackowndmodoorselectionview"));
 		btnForeignDMO.setOnAction(e -> getFXController().showView("savedownloadstackforeigndmoview"));
 		back.setOnAction(e -> getFXController().showView("serverstackview"));
 		

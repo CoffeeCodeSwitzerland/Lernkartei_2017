@@ -37,10 +37,10 @@ import views.components.ContainerLayout;
 import views.components.ControlLayout;
 import views.components.VerticalScroller;
 
-public class SaveDownloadstackOwnDMOView extends FXView
+public class SaveDownloadstackOwnDMODoorSelectionView extends FXView
 {
 
-	public SaveDownloadstackOwnDMOView(String newName, FXController newController)
+	public SaveDownloadstackOwnDMODoorSelectionView(String newName, FXController newController)
 	{
 		super(newController);
 		construct(newName); 
@@ -113,13 +113,13 @@ public class SaveDownloadstackOwnDMOView extends FXView
 	    Center.getChildren().addAll(StackShowList,btnCreate);
 	    
 		back = new AppButton("Zurück");
-		back.setOnAction(e-> getFXController().showView("savedownloadstackowndmodoorselectionview"));
+		back.setOnAction(e-> getFXController().showView("saveuploadstackonserverdialogview"));
 		
 		
 		Bottom = new VBox();
 	
 		Bottom.getChildren().addAll(back);
-		Top.getChildren().addAll(Search,tabPane);
+		Top.getChildren().addAll(Search,tabPane); 
 		
 		bp.setTop(Top);
 		bp.setCenter(sMain);
@@ -140,32 +140,31 @@ public class SaveDownloadstackOwnDMOView extends FXView
 		
 			names.clear();
 
-			names.add("first StackOwnDMO");
-			names.add("second StackOwnDMO");
-			names.add("third StackOwnDMO");
-			names.add("fourth StackOwnDMO");
-			names.add("first StackOwnDMO");
-			names.add("second StackOwnDMO");
-			names.add("third StackOwnDMO");
-			names.add("fourth StackOwnDMO");
-			names.add("first StackOwnDMO");
-			names.add("second StackOwnDMO");
-			names.add("third StackOwnDMO");
-			names.add("fourth StackOwnDMO");
-			names.add("first StackOwnDMO");
-			names.add("second StackOwnDMO");
-			names.add("third StackOwnDMO");
-			names.add("fourth StackOwnDMO");
+			names.add("first DoorOwnDMO");
+			names.add("second DoorOwnDMO");
+			names.add("third DoorOwnDMO");
+			names.add("fourth DoorOwnDMO");
+			names.add("first DoorOwnDMO");
+			names.add("second DoorOwnDMO");
+			names.add("third DoorOwnDMO");
+			names.add("fourth DoorOwnDMO");
+			names.add("first DoorOwnDMO");
+			names.add("second DoorOwnDMO");
+			names.add("third DoorOwnDMO");
+			names.add("fourth DoorOwnDMO");
+			names.add("first DoorOwnDMO");
+			names.add("second DoorOwnDMO");
+			names.add("third DoorOwnDMO");
+			names.add("fourth DoorOwnDMO");
 		
 		
 		for(int i = 0; i < dataLength; i++)
 		{
 			int counter = i;
 			HBox entry = new HBox();
-			Label lblServerDoor = new Label(names.get(i));
-			lblServerDoor.setPadding(new Insets(15,0,0,250));
-			lblServerDoor.setMinWidth(590);
-			AppButton btnMerge = new AppButton("Overwrite");
+			AppButton btnServerDoor = new AppButton(names.get(i));
+			btnServerDoor.setPadding(new Insets(15,0,0,250));
+			btnServerDoor.setMinWidth(590);
 			AppButton btnInformation = new AppButton("i");
 			btnInformation.setOnAction(e ->
 			{
@@ -175,9 +174,10 @@ public class SaveDownloadstackOwnDMOView extends FXView
 				getFXController().showView("doorstackinformationview");
 			}
 			);
+			btnServerDoor.setOnAction(e -> getFXController().showView("savedownloadstackowndmoview"));
 			
 
-			entry.getChildren().addAll(lblServerDoor,btnInformation,btnMerge);
+			entry.getChildren().addAll(btnServerDoor,btnInformation);
 			lines.add(entry);
 		}
 		

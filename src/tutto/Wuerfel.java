@@ -88,8 +88,8 @@ class Wuerfel {
 	void checkSelected(WuerfelRahmen callingFrame, int mxPos, int myPos) {
 		if (mxPos >= xposRec && mxPos <= xposRec + breiteRec && myPos >= yposRec && myPos <= yposRec + hoeheRec) {
 			int anz = callingFrame.getAnzahlNochNichtGezaehltenWuerfeln(augenAnzahl);
-			if (callingFrame.getAnzahlMarkierteWuerfel(augenAnzahl) >= 3 && callingFrame.istAuswahlGueltig(augenAnzahl))
-				anz = 0;
+			/*if (callingFrame.getAnzahlMarkierteWuerfel(augenAnzahl) >= 3 && callingFrame.istAuswahlGueltig(augenAnzahl))
+				anz = 0;*/
 			if (augenAnzahl == 1 || augenAnzahl == 5 || anz >= 3){
 				toggleWuerfel();		
 			} 

@@ -37,10 +37,10 @@ import views.components.ContainerLayout;
 import views.components.ControlLayout;
 import views.components.VerticalScroller;
 
-public class SaveDownloadstackOwnDMOView extends FXView
+public class SaveDownloaddoorOwnDMOView extends FXView
 {
 
-	public SaveDownloadstackOwnDMOView(String newName, FXController newController)
+	public SaveDownloaddoorOwnDMOView(String newName, FXController newController)
 	{
 		super(newController);
 		construct(newName); 
@@ -113,7 +113,7 @@ public class SaveDownloadstackOwnDMOView extends FXView
 	    Center.getChildren().addAll(StackShowList,btnCreate);
 	    
 		back = new AppButton("Zurück");
-		back.setOnAction(e-> getFXController().showView("savedownloadstackowndmodoorselectionview"));
+		back.setOnAction(e-> getFXController().showView("savedownloaddooronserverdialogview"));
 		
 		
 		Bottom = new VBox();
@@ -140,22 +140,22 @@ public class SaveDownloadstackOwnDMOView extends FXView
 		
 			names.clear();
 
-			names.add("first StackOwnDMO");
-			names.add("second StackOwnDMO");
-			names.add("third StackOwnDMO");
-			names.add("fourth StackOwnDMO");
-			names.add("first StackOwnDMO");
-			names.add("second StackOwnDMO");
-			names.add("third StackOwnDMO");
-			names.add("fourth StackOwnDMO");
-			names.add("first StackOwnDMO");
-			names.add("second StackOwnDMO");
-			names.add("third StackOwnDMO");
-			names.add("fourth StackOwnDMO");
-			names.add("first StackOwnDMO");
-			names.add("second StackOwnDMO");
-			names.add("third StackOwnDMO");
-			names.add("fourth StackOwnDMO");
+			names.add("first Doorlocal");
+			names.add("second Doorlocal");
+			names.add("third Doorlocal");
+			names.add("fourth Doorlocal");
+			names.add("first Doorlocal");
+			names.add("second Doorlocal");
+			names.add("third Doorlocal");
+			names.add("fourth Doorlocal");
+			names.add("first Doorlocal");
+			names.add("second Doorlocal");
+			names.add("third Doorlocal");
+			names.add("fourth Doorlocal");
+			names.add("first Doorlocal");
+			names.add("second Doorlocal");
+			names.add("third Doorlocal");
+			names.add("fourth Doorlocal");
 		
 		
 		for(int i = 0; i < dataLength; i++)

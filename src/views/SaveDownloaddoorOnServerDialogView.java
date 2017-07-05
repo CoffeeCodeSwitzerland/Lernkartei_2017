@@ -54,7 +54,7 @@ public class SaveDownloaddoorOnServerDialogView extends FXView
 
 		btnOwnDMO = new AppButton("Eigenes DMO");
 		btnForeignDMO = new AppButton("Fremdes DMO");
-		back = new BackButton(getFXController(), "Zurï¿½ck");
+		back = new BackButton(getFXController(), "Zurück");
 
 		home = new HomeButton(getFXController());
 
@@ -64,9 +64,9 @@ public class SaveDownloaddoorOnServerDialogView extends FXView
 		bp.setCenter(AllFields);
 		bp.setBottom(bottom);
 
-		btnOwnDMO.setOnAction(e -> getFXController().showView("savedownloadstackowndmoview"));
+		btnOwnDMO.setOnAction(e -> getFXController().showView("savedownloaddoorowndmoview"));
 		btnForeignDMO.setOnAction(e -> getFXController().showView("savedownloadstackforeigndmoview"));
-		back.setOnAction(e -> getFXController().showView("doorsavepathselectionview"));
+		back.setOnAction(e -> getFXController().showView("serverdoorview"));
 
 		return bp;
 	}

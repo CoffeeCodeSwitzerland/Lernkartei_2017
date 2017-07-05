@@ -137,6 +137,7 @@ class Spielerverwalter {
 	 * @param: ???
 	 */
 	void berechneActPunkte(int augenZahl, int anzNeuAngewaehlt) {
+		
 		switch (anzNeuAngewaehlt) {
 		case 3:
 			addActPunkte(100 * augenZahl);

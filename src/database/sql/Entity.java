@@ -24,6 +24,11 @@ public class Entity {
 	private String myTableName;  // should never be null
 	private boolean isCreated = false;
 
+	/*
+	 * TODO add a getSize() method... 
+	 *      is needed in many cases, this is now performed in a more complicated way!
+	 */
+	
 	/**
 	 * To create a DB table if it does not exist yet
 	 * 
@@ -307,8 +312,7 @@ public class Entity {
 		String cmd;
 		if (myDBDriver.isThereAResult()) {
 			// mindestens einen Eintrag gefunden:
-			// TODO prüfen, dass es nur einer ist (sollte eigentlich, wenn
-			// unique)...
+			// TODO prüfen, dass es nur einer ist (sollte eigentlich, wenn unique)...
 			//
 			// "UPDATE " + tabName + " SET " + vName + " = '" + value + "'"
 			// + " WHERE " + kName + " = '" + key + "'";

@@ -9,9 +9,10 @@ import javafx.collections.ObservableList;
 
 public class Rangliste
 {
+	
 	private static ArrayList<String> NamesAndPoints = new ArrayList<String>();
 	private static ArrayList<Double> Punkte = new ArrayList<Double>();
-	private static ArrayList<String> Stacks = new ArrayList<String>();
+	public static ArrayList<String> Stacks = new ArrayList<String>();
 
 	private static boolean isFilled = false;
 
@@ -49,6 +50,7 @@ public class Rangliste
 	}
 
 	static ObservableList<String> Ranking = FXCollections.observableArrayList();
+	
 
 	public static ObservableList<String> getRangliste()
 	{

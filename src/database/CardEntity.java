@@ -9,6 +9,7 @@ import database.sql.ForeignKey;
 import database.sql.KeyAttribute;
 import database.sql.SQLHandler;
 import debug.Logger;
+import learning.Bewertungsklasse;
 
 public class CardEntity extends Entity {
 
@@ -212,7 +213,7 @@ public class CardEntity extends Entity {
 		Double maxPoints = 0.0;
 		Double reachedPoints = 0.0;
 		Double[] score = new Double[2];
-		// Alle Prioritäten aus Tabelle hlen, welche als Set das mitgegebene
+		// Alle Prioritäten aus Tabelle holen, welche als Set das mitgegebene
 		// haben.
 		// setLastSQLCommand(SQLHandler.selectCommand("STACK","Priority","PK_STACK",
 		// ID_Card));
@@ -224,11 +225,11 @@ public class CardEntity extends Entity {
 		// Durch loopen und die Maximale sowie die Erreichte Punktzahl
 		// speichern
 		if (myDBDriver.isThereAResult()) {
-			maxPoints += 5.0;
-			reachedPoints += myDBDriver.getResultPIntValueOf("Priority");
+			maxPoints = (double) (Bewertungsklasse.anzahlFalsche + Bewertungsklasse.anzahlRichtige);
+			reachedPoints = (double) Bewertungsklasse.anzahlRichtige;
 			while (myDBDriver.isThereAResult()) {
-				maxPoints += 5.0;
-				reachedPoints += myDBDriver.getResultPIntValueOf("Priority");
+				maxPoints = (double) (Bewertungsklasse.anzahlFalsche + Bewertungsklasse.anzahlRichtige);
+				reachedPoints = (double) Bewertungsklasse.anzahlRichtige;
 			}
 		} else {
 			return null;

@@ -56,6 +56,9 @@ public class StackView extends FXViewModel
 	final AppButton lernen = new AppButton("Lernen");
 	final AppButton edit   = new AppButton("Bearbeiten");
 
+	// Main title:
+	private Label headLbl = null;
+
 	// Icons:
 	final Image     trashImg = new Image("views/pictures/Papierkorb.png");
 	final ImageView trashImgView = new ImageView(trashImg);
@@ -66,6 +69,7 @@ public class StackView extends FXViewModel
 	// set new selection:
 	private void setSelection (String value)
 	{
+		if (value == null) value="";
 		selection = value;
 		stackTitle.setText(selection);
 		getFXController().getModel("drucken").setString(selection);
@@ -74,9 +78,17 @@ public class StackView extends FXViewModel
 	// show next view if data is ok:
 	private void tryToswitchToNexctView (String viewName)
 	{
-		if (selection != null && viewName != null) {
+		if (selection != null && viewName != null && !selection.equals("")) {
 			getFXController().setViewData(viewName, selection);
 			getFXController().showView(viewName);
+		}
+	}
+	
+	// show next print-view if data is ok:
+	private void tryToPrint ()
+	{
+		if (selection != null && !selection.equals("")) {
+			getFXController().getModel("drucken").doAction(Command.NEW);
 		}
 	}
 	
@@ -89,12 +101,14 @@ public class StackView extends FXViewModel
 		stackTitle.setWrapText(true);
 		lernen.setOnAction(e -> tryToswitchToNexctView ("prelearn"));
 		edit.setOnAction(e -> tryToswitchToNexctView ("simpleeditorview"));
+		printBtn.setOnAction(e -> tryToPrint() );
 		optionsLayout.getChildren().addAll(stackTitle, lernen, edit, printBtn);
 	}
 	
 	@Override
 	public Parent constructContainer ()
 	{
+		
 		// Settings for Layouts and elements:
 		mainScrollBox.setAlignment(Pos.CENTER);
 		optionsLayout.setAlignment(Pos.CENTER);
@@ -107,7 +121,6 @@ public class StackView extends FXViewModel
 		setUpOptionButtons();
 		
 		// register button listeners / setup behavior:
-		printBtn.setOnAction(e ->  getFXController().getModel("drucken").doAction(Command.NEW));
 		backBtn.setOnAction(e -> getFXController().showView("doorview"));
 		newStackBtn.setOnAction(e ->
 		  {
@@ -184,15 +197,21 @@ public class StackView extends FXViewModel
 	@Override
 	public void refreshView () // notify...
 	{
-		Label headLbl = new Label(getData().toString());
-		headLbl.setId("bold"); // css class
+		if (headLbl == null) {
+			headLbl = new Label(getData().toString());
+			headLbl.setId("bold"); // css class
+			setSelection(null);
+		} else if (!getData().toString().equals(selection))  {
+			headLbl.setText(getData().toString());
+			setSelection(null);
+		}
 		String localdata = getData();
 		mainScrollBox.getChildren().clear();
 		if (localdata != null)
 		{
 			ArrayList<String> setData = getFXController().getModel("stack").getDataList(localdata);
 			ArrayList<AppButton> sets = new ArrayList<AppButton>();
-			ArrayList<AppButton> pencils = new ArrayList<>();
+			//ArrayList<AppButton> pencils = new ArrayList<>();
 			ArrayList<HBox> zeilen = new ArrayList<HBox>();
 
 			boolean allButtonsSameSize = false;

@@ -2,6 +2,8 @@ package models;
 
 import java.util.ArrayList;
 
+import javax.swing.text.html.parser.AttributeList;
+
 import database.LKDatabase;
 import debug.Debugger;
 import debug.Supervisor;
@@ -9,6 +11,7 @@ import globals.Globals;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.chart.XYChart;
+import learning.Bewertungsklasse;
 import mvc.fx.FXModel;
 import statistics.Diagramm;
 import statistics.Rangliste;
@@ -24,7 +27,7 @@ public class StatisticsModel extends FXModel
 
 	// ROL --> RanglisteObversableList
 	ObservableList<String> rol = FXCollections.observableArrayList();
-
+	public int anzahlKartenImStapel;
 	public ObservableList<String> getObservableDataList (String query)
 	{
 		if (query.equals("Rangliste"))
@@ -51,26 +54,26 @@ public class StatisticsModel extends FXModel
 		}
 	}
 
-	ArrayList<Double>	temp			= new ArrayList<>();
-	Double				tempStart		= 0.0;
-	Double 				tempDifference 	= 0.0;
-	int 				durchlauf		= 0;
-	Double 				anzahlDurchlaeufe = 0.0;
+	
+	
 
 	// Diese Methode ist dafür da um den Fortschritt
 	// CombinedString --> STACKNAME + Globals.SEPARATOR + ANWEISUNG(end,
 	// difference oder start)
 	public ArrayList<Double> getDoubleList (String CombinedString)
 	{
+		ArrayList<Double>	temp			= new ArrayList<>();
+		Double				tempStart		= 0.0;
+		Double 				tempDifference 	= 0.0;
 		String[] Decision = CombinedString.split(Globals.SEPARATOR);
 		
 		if (Decision[1].equals("difference"))
 		{
+			ArrayList<String> myStacks = LKDatabase.myStacks.getKategorien("ghgh");
 			Double[] doubleArray = LKDatabase.myCards.getScore(Decision[0]);
-			tempDifference = 100 / doubleArray[0]    * doubleArray[1];
-			temp.clear();
-			temp.add(100 / doubleArray[0] * doubleArray[1]);
-			durchlauf ++;
+			tempDifference = (double) (( myStacks.size() ));//* Bewertungsklasse.anzahlRichtige);
+			temp.clear(); 
+			temp.add (tempDifference);
 			return temp;
 			
 			
@@ -81,9 +84,8 @@ public class StatisticsModel extends FXModel
 			Double[] doubleArray = LKDatabase.myCards.getScore(Decision[0]);
 			
 			temp.clear();
-			temp.add(100 / doubleArray[0] * doubleArray[1] + (tempDifference*(durchlauf/2)));
+			temp.add(100 / doubleArray[0] * doubleArray[1] + (tempDifference));
 			return temp;
-			
 		}
 		else if (Decision[1].equals("start"))
 		{
@@ -133,5 +135,7 @@ public class StatisticsModel extends FXModel
 				return super.doAction(command, param);
 		}
 	}
-
+	
+	
+	
 }

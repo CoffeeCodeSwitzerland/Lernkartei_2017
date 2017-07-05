@@ -86,8 +86,7 @@ public class StatisticsView extends FXView
         
         //Titel und Label setzen
         bc.setTitle("Country Summary");
-        xAxis.setLabel("Country");       
-        yAxis.setLabel("Value");
+        xAxis.setLabel("Country");
  
         
         //Für die erste Balken Serie die Werte setzen

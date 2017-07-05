@@ -145,10 +145,6 @@ public class ServerStackView extends FXView
 		/*createGroup.setOnAction(e -> getFXController().showView("groupcreateview"));
 		modifyGroup.setOnAction(e -> geytFXController().showView("groupmemberview"));*/
 		
-		// Make sure user wants to delete member
-		
-		
-
 		back = new BackButton(getFXController(), "Zurück");
 		back.setOnAction(e -> getFXController().showView("serverdoorview"));
 		

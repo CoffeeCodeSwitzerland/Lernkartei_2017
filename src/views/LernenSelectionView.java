@@ -25,6 +25,7 @@ public class LernenSelectionView extends FXView
 	
 	BorderPane bp = new BorderPane();
 
+
 	VBox AllFields;
 
 
@@ -58,7 +59,7 @@ public class LernenSelectionView extends FXView
 		bp.setCenter(AllFields);
 		
 		btnDataMgmt.setOnAction(e -> getFXController().showView("serverdoorview"));
-		btnDmoMgmt.setOnAction(e -> getFXController().showView("savepathselectionview"));
+		btnDmoMgmt.setOnAction(e -> getFXController().showView("dmodoorview"));
 		btnLearning.setOnAction(e -> getFXController().showView("doorview"));
 		
 		return bp;

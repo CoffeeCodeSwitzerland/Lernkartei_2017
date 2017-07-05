@@ -15,23 +15,23 @@ import views.components.AppButton;
 import views.components.BackButton;
 import views.components.HomeButton;
 
-public class SaveDownloadstackLocalDialogView extends FXView
+public class DoorSavepathSelectionView extends FXView
 {
 
-	public SaveDownloadstackLocalDialogView(String newName, FXController newController)
+	public DoorSavepathSelectionView(String newName, FXController newController)
 	{
 		super(newController);
 		construct(newName);
 	}
 	
 	BorderPane bp = new BorderPane();
-
-	VBox AllFields;
+	
 	HBox bottom;
+	VBox AllFields;
 
 
-	AppButton btnOwnDMO;
-	AppButton btnForeignDMO;
+	AppButton btnLocal;
+	AppButton btnServer;
 	BackButton back;
 	
 	HomeButton home;
@@ -52,21 +52,23 @@ public class SaveDownloadstackLocalDialogView extends FXView
 		AllFields.setPadding(new Insets(100,20,20,20));
 
 		
-		btnOwnDMO = new AppButton("Eigenes DMO");
-		btnForeignDMO = new AppButton("Fremdes DMO");
+		btnLocal = new AppButton("lokal speichern");
+		btnServer = new AppButton("auf dem Server speichern");
 		back = new BackButton(getFXController(), "Zurück");
 		
 		home = new HomeButton(getFXController());
 		
-		AllFields.getChildren().addAll(btnOwnDMO, btnForeignDMO, back, home);
+		
+		
+		AllFields.getChildren().addAll(btnLocal, btnServer);
 		bottom.getChildren().addAll(back, home);
 		
 		bp.setCenter(AllFields);
 		bp.setBottom(bottom);
 		
-		btnOwnDMO.setOnAction(e -> getFXController().showView("savedownloadstackowndmoview"));
-		btnForeignDMO.setOnAction(e -> getFXController().showView("savedownloadstackforeigndmoview"));
-		back.setOnAction(e -> getFXController().showView("savepathselectionview"));
+		btnLocal.setOnAction(e -> getFXController().showView("savedownloadstacklocalview"));
+		btnServer.setOnAction(e -> getFXController().showView("savedownloaddooronserverdialogview"));
+		back.setOnAction(e -> getFXController().showView("serverdoorview"));
 		
 		return bp;
 	}

@@ -119,7 +119,7 @@ public class SaveDownloadstackOwnDMODoorSelectionView extends FXView
 		Bottom = new VBox();
 	
 		Bottom.getChildren().addAll(back);
-		Top.getChildren().addAll(Search,tabPane);
+		Top.getChildren().addAll(Search,tabPane); 
 		
 		bp.setTop(Top);
 		bp.setCenter(sMain);

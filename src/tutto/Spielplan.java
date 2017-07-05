@@ -103,7 +103,7 @@ public class Spielplan extends WuerfelRahmen {
 	void zeigeAnleitung() {
 		parent.textSize(15);
 		parent.fill(255,204,229);
-		parent.text("h = hilfe", 50, 750);
+		
 		mySpielzustand.hilfeAnzeigen();
 	}
 

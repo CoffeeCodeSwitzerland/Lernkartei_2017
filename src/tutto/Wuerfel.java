@@ -65,6 +65,7 @@ class Wuerfel {
 	 */
 	int wuerfle(boolean cheat) {
 		if (istBlockiert == false) {
+			
 			augenAnzahl = (int) parent.random(6) + 1;
 			if (cheat) {
 				augenAnzahl = 1;

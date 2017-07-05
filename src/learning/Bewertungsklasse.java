@@ -11,7 +11,8 @@ import globals.Globals;
 
 public class Bewertungsklasse {
 	
-
+	public static int anzahlRichtige = 0;
+	public static int anzahlFalsche = 0;
 	public static ArrayList<String> getShuffledCards(String query) {
 		ArrayList<String> result = new ArrayList<>();
 		ArrayList<Integer> zufallsZahlen = new ArrayList<>();
@@ -55,6 +56,7 @@ public class Bewertungsklasse {
 		datumZuweisen(cardID);
 		if (oldPriority <= LKDatabase.myCards.getPriority(cardID))
 		{
+			anzahlRichtige++;
 			return 1;
 		}
 		else
@@ -75,10 +77,12 @@ public class Bewertungsklasse {
 		
 		if (LKDatabase.myCards.getPriority(cardID) == 1)
 		{
+			
 			return 1;
 		}
 		else
 		{
+			anzahlFalsche++;
 			return -1;
 		}
 	}

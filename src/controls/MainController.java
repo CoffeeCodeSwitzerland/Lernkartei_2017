@@ -43,8 +43,10 @@ import views.QuizletImportView;
 import views.RegisterView;
 import views.RenameView;
 import views.SaveDownloadstackForeignDMOView;
+import views.SaveDownloadstackLocalDialogView;
 import views.SaveDownloadstackOnServerDialogView;
 import views.SaveDownloadstackOwnDMOView;
+import views.SaveUploadstackOnServerDialogView;
 import views.SavepathSelectionView;
 import views.ServerDoorView;
 import views.ServerStackView;
@@ -129,6 +131,8 @@ public class MainController extends FXController
 		this.addUniqueView(new SaveDownloadstackOwnDMOView("savedownloadstackowndmoview", this));
 		//this.addUniqueView(new SaveDownloadstackOwnDMOView("savedownloadstackowndmoview", this));
 		this.addUniqueView(new SaveDownloadstackForeignDMOView("savedownloadstackforeigndmoview", this));
+		this.addUniqueView(new SaveUploadstackOnServerDialogView("saveuploadstackonserverdialogview", this));
+		this.addUniqueView(new SaveDownloadstackLocalDialogView("savedownloadstacklocaldialogview", this));
 		//this.addUniqueView(new DeriveServerDoorView("deriveserverdoorview", this));
 		
 		this.addUniqueView(new PreLearnView("prelearn", this));

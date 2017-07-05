@@ -217,6 +217,7 @@ public class ServerDoorView extends FXView
 				getFXController().showView("serverstackview");
 			}
 			);
+			btnDownload.setOnAction(e -> getFXController().showView("saveuploadstackonserverdialogview"));
 
 			entry.getChildren().addAll(btnServerDoor,btnDownload,btnInformation);
 			lines.add(entry);
@@ -260,6 +261,8 @@ public class ServerDoorView extends FXView
 					getFXController().getModel("serverstack").setDataList(giveData);
 					getFXController().showView("serverstackview");
 				});
+				btnDownload.setOnAction(e -> getFXController().showView("savepathselectionview"));
+				
 				entry.getChildren().addAll(btnServerDoor,btnDownload,btnInformation);
 				lines.add(entry);
 			}

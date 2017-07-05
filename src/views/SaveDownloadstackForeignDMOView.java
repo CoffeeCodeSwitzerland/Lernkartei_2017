@@ -76,7 +76,7 @@ public class SaveDownloadstackForeignDMOView extends FXView
 	    tabDerive.setContent(hbox);
 	         
 	    Tab tabTeamwork = new Tab();
-	    tabTeamwork.setText("Fremd");
+	    tabTeamwork.setText("Teamwork");
 	    HBox hbox2 = new HBox();
 	    hbox2.setPadding(new Insets(20, 0, 0, 0));
 	    hbox2.setStyle("-fx-font: 24 'System Regular'");

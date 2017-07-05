@@ -22,6 +22,7 @@ import mvc.fx.FXController;
 import mvc.fx.FXViewModel;
 import views.components.Alert;
 import views.components.AppButton;
+import views.components.BackButton;
 import views.components.ControlLayout;
 import views.components.HomeButton;
 import views.components.MainLayout;
@@ -51,7 +52,7 @@ public class DoorView extends FXViewModel {
 		headLbl = new Label("");
 		headLbl.setId("bold");
 
-		HomeButton backBtn = new HomeButton(getFXController(), "_Zurück");
+		AppButton backBtn =  new BackButton(getFXController(),"Zurück");
 		AppButton newDoorBtn = new AppButton(txtNewTheme);
 		
 		Image trashImg = new Image("views/pictures/Papierkorb.png");
@@ -75,6 +76,7 @@ public class DoorView extends FXViewModel {
 			newDoor();
 		});
 		
+		backBtn.setOnAction(e -> getFXController().showView("lernenselectionview"));		
 		trashImgView.setOnDragOver(event ->
 		{
 			if (event.getGestureSource() != trashImgView && event.getDragboard().hasString())

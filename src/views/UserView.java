@@ -1,8 +1,13 @@
 package views;
 
+import java.util.Optional;
+
 import javafx.scene.Parent;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -67,7 +72,7 @@ public class UserView extends FXView
 		password.setPromptText("Passwort eingeben...");
 		
 
-		back = new BackButton(getFXController(), "Zurück");
+		back = new BackButton(getFXController(),"Zurück");
 
 		TopRight.getChildren().addAll(username, changeNachfolger);
 		BottomRight.getChildren().addAll(password, deleteAccount, back);
@@ -75,6 +80,26 @@ public class UserView extends FXView
 		Bottom.getChildren().addAll(passwordText, BottomRight);
 		
 		AllFields.getChildren().addAll(Top, Bottom);
+		
+		changeNachfolger.setOnAction(e -> getFXController().showView("userlistview"));
+		back.setOnAction(e -> getFXController().showView("managementselectionview"));
+		
+		deleteAccount.setOnAction(e -> {
+			Alert alert = new Alert(AlertType.CONFIRMATION);
+			alert.setTitle("Account löschen");
+			alert.setHeaderText("Sie sind gerade dabei Ihren Account zu löschen.");
+			alert.setContentText("Sind Sie sich sicher, dass sie das tun wollen? \nDieser Schritt ist unwiderruflich!");
+			Optional<ButtonType> result = alert.showAndWait();
+			if (result.get() == ButtonType.OK){
+			    // ... user chose OK
+			} else {
+				Alert noDeletion = new Alert(AlertType.INFORMATION);
+				noDeletion.setTitle("Löschvorgang abgebrochen");
+				noDeletion.setHeaderText("Account nicht gelöscht");
+				noDeletion.setContentText("Der Löschvorgang wurde abgebrochen.");
+				noDeletion.showAndWait();
+			    alert.close();
+			}});
 		
 		bp.setCenter(AllFields);
 		

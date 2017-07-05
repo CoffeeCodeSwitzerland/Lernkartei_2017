@@ -1,13 +1,19 @@
 package views;
 
+import java.util.Optional;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TabPane.TabClosingPolicy;
@@ -31,7 +37,7 @@ public class GroupView extends FXView
 	}
 	
 	BorderPane bp;
-
+	
 	Button createGroup;
 	Button deleteGroup;
 	Button modifyGroup;
@@ -50,7 +56,7 @@ public class GroupView extends FXView
 		
 		tabPane = new TabPane();
 		tabPane.setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);
-		 
+		
 	    Tab tabPersonal = new Tab();
 	    tabPersonal.setText("Persönlich");
 	    HBox hbox = new HBox();
@@ -69,25 +75,61 @@ public class GroupView extends FXView
 	    hbox2.setAlignment(Pos.CENTER);
 	    tabForeign.setContent(hbox2);
 	         
-	    tabPane.getTabs().addAll(tabPersonal, tabForeign); 
-	         
+	    tabPane.getTabs().addAll(tabPersonal, tabForeign);
+	    tabPane.getSelectionModel().getSelectedItem().setStyle("-fx-background-color:#a3a4a8");
+	    
+	      
 	    list = new ListView<String>();
 	    items =FXCollections.observableArrayList (
-	        "Gruppe1", "Gruppe2", "Gruppe3", "Gruppe4");
+	        "Gruppe1", "Gruppe2", "Gruppe3", "Gruppe4","Gruppe1",
+	        "Gruppe2", "Gruppe3", "Gruppe4","Gruppe1", "Gruppe2",
+	        "Gruppe3", "Gruppe4","Gruppe1", "Gruppe2", "Gruppe3", 
+	        "Gruppe4","Gruppe1", "Gruppe2", "Gruppe3", "Gruppe4");
 	    list.setItems(items);   
+	    list.setMinWidth(900);
+	    
+	
 	    
 		modifyGroup = new Button("Gruppen-Mitglieder bearbeiten");
 		createGroup = new Button("+");
 		deleteGroup = new Button("-");
 		
 		createGroup.setOnAction(e -> getFXController().showView("groupcreateview"));
+		modifyGroup.setOnAction(e -> getFXController().showView("groupmemberview"));
+		tabPane.setOnMouseClicked(e -> {
+			for(Tab actTab:tabPane.getTabs())
+			{
+				actTab.setStyle("-fx-background-color:#f0f0f0");
+			}
+			tabPane.getSelectionModel().getSelectedItem().setStyle("-fx-background-color:#a3a4a8");
+		});
+		
+		// Make sure user wants to delete member
+		deleteGroup.setOnAction(e -> {
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setTitle("Gruppe löschen");
+		alert.setHeaderText("Sie sind gerade dabei eine Gruppe zu entfernen.");
+		alert.setContentText("Sind Sie sich sicher, dass sie das tun wollen?");
+		Optional<ButtonType> result = alert.showAndWait();
+		if (result.get() == ButtonType.OK){
+		    // ... user chose OK
+		} else {
+			Alert noDeletion = new Alert(AlertType.INFORMATION);
+			noDeletion.setTitle("Löschvorgang abgebrochen");
+			noDeletion.setHeaderText("Gruppe nicht gelöscht");
+			noDeletion.setContentText("Der Löschvorgang wurde abgebrochen.");
+			noDeletion.showAndWait();
+		    alert.close();
+		}});
+		
 
-		//Doesn't need any onClick-Listener, because it's default
 		back = new BackButton(getFXController(), "Zurück");
+		back.setOnAction(e -> getFXController().showView("managementselectionview"));
+		back.setPadding(new Insets(0,100,0,0));
 		
 		HBox bottom = new HBox(50);
-		bottom.getChildren().addAll(modifyGroup, createGroup, deleteGroup);
-		bottom.setPadding(new Insets(0,0,20,450));
+		bottom.getChildren().addAll(back, modifyGroup, createGroup, deleteGroup);
+		bottom.setPadding(new Insets(0,0,20,250));
 		
 		bp.setTop(tabPane);
 		bp.setCenter(list);

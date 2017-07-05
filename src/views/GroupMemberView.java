@@ -1,14 +1,19 @@
 package views;
 
+import java.util.Optional;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -18,10 +23,10 @@ import views.components.AppButton;
 import views.components.BackButton;
 import views.components.HomeButton;
 
-public class GroupCreateView extends FXView
+public class GroupMemberView extends FXView
 {
 
-	public GroupCreateView(String newName, FXController newController)
+	public GroupMemberView(String newName, FXController newController)
 	{
 		super(newController);
 		construct(newName);
@@ -30,21 +35,16 @@ public class GroupCreateView extends FXView
 	BorderPane bp = new BorderPane();
 
 	VBox AllFields;
-	HBox CheckGroup;
-	HBox ShowStatus;
+	HBox GroupName;
 	HBox Option;
 	
-	AppButton btnCheck;
 	AppButton btnAdd;
 	AppButton btnRemove;
 	
 	BackButton back;
 	
 	Label name;
-	Label status;
-	Label statusValue;
-	
-	TextField txtGroupName;
+	Label groupname;
 	
 	ListView<String> list;
 	ObservableList<String> items;
@@ -63,36 +63,46 @@ public class GroupCreateView extends FXView
 		AllFields.setMaxWidth(300);
 		AllFields.setPadding(new Insets(20));
 		
-		CheckGroup = new HBox(50);
-		ShowStatus = new HBox(50);
+		GroupName = new HBox(50);
 		Option = new HBox(50);
 		
-		txtGroupName = new TextField();
-		txtGroupName.setPromptText("Gruppenname");
-		
 		name = new Label("Name:");
-		status = new Label("Status");
-		statusValue = new Label("{Verfügbarkeitsstatus}");
+		groupname = new Label("{Gruppenname}");
 		
-		btnCheck = new AppButton("Prüfen");
 		btnAdd = new AppButton("Hinzufügen");
 		btnRemove = new AppButton("Entfernen");
 		back = new BackButton(getFXController(),"Zurück");
 		
-		AllFields.getChildren().addAll(CheckGroup,ShowStatus,Option,list);
 		
-		CheckGroup.getChildren().addAll(name,txtGroupName,btnCheck);
-		ShowStatus.getChildren().addAll(status,statusValue);
+		
+		GroupName.getChildren().addAll(name,groupname);
 		Option.getChildren().addAll(back,btnAdd,btnRemove);
+		
+		AllFields.getChildren().addAll(GroupName,Option,list);
+		
 		
 		bp.setCenter(AllFields);
 		
-		btnAdd.setOnAction(e -> getFXController().showView("userlistview"));
 		back.setOnAction(e -> getFXController().showView("groupview"));
+		btnAdd.setOnAction(e -> getFXController().showView("userlistview"));
 		
-		/*Has to check if name of group already exists*/
-		btnCheck.setOnAction(e -> getFXController().showView(""));
-				
+		btnRemove.setOnAction(e -> {
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setTitle("Mitglied löschen");
+		alert.setHeaderText("Sie sind gerade dabei ein Mitglied aus der Gruppe zu entfernen.");
+		alert.setContentText("Sind Sie sich sicher, dass sie das tun wollen?");
+		Optional<ButtonType> result = alert.showAndWait();
+		if (result.get() == ButtonType.OK){
+		    // ... user chose OK
+		} else {
+			Alert noDeletion = new Alert(AlertType.INFORMATION);
+			noDeletion.setTitle("Löschvorgang abgebrochen");
+			noDeletion.setHeaderText("Mitglied nicht gelöscht");
+			noDeletion.setContentText("Der Löschvorgang wurde abgebrochen.");
+			noDeletion.showAndWait();
+		    alert.close();
+		}});
+		
 		return bp;
 	}
 

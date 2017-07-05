@@ -91,4 +91,19 @@ public class Model extends DataModel
 	{
 		return property;
 	}
+	
+	public void setDataList (ArrayList<String> dataList)
+	{
+		
+	}
+	
+	public void addDataList (ArrayList<String> dataList)
+	{
+		
+	}
+	
+	public void addData (String dataString)
+	{
+		
+	}
 }

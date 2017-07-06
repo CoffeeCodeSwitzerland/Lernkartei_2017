@@ -1,6 +1,9 @@
 package database.jdbc;
 
+import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
 
 import debug.Logger;
 
@@ -12,16 +15,17 @@ import debug.Logger;
 final public class MYSQLDriver extends DBDriver {
 
 	private final static String sqlDriver = "com.mysql.jdbc.Driver"; 
-	private final String urlBase   = "jdbc:mariadb://192.168.3.150:3306/userdb";
+	private final String urlBase   = "jdbc:mysql://192.168.2.2:3306/wisslearncards";
 	private String	username;
 	private String	password;
 
-	public MYSQLDriver (String dbName) {
+	public MYSQLDriver () {
 		super(sqlDriver);
-		setDbURL(urlBase + dbName);
-		username	= "root";
-		password	= "root";
+		setDbURL(urlBase);
+		username	= "wisslearncards";
+		password	= "wisslearncards";
 	}
+	
 	
 	public MYSQLDriver (String dbName, String newUser, String newPassword) {
 		super(sqlDriver);
@@ -29,6 +33,7 @@ final public class MYSQLDriver extends DBDriver {
 		username	= newUser;
 		password	= newPassword;
 	}
+	
 	
 	public void setConnection(String dbURL) {
 		try {
@@ -47,7 +52,23 @@ final public class MYSQLDriver extends DBDriver {
 	 */
 	@Override
 	public int executeCommand(String SQLcommand) {
-		// TODO Auto-generated method stub
+		 try {
+			 	Class.forName("com.mysql.jdbc.Driver");  
+	            Connection conn = DriverManager.getConnection(urlBase, username, password);
+	            Statement stmt = conn.createStatement();
+	            ResultSet rs;
+	 
+	            rs = stmt.executeQuery("CREATE TABLE test (ID INT AUTO_INCREMENT,Name TEXT,PRIMARY KEY(ID))");
+	          /*  while ( rs.next() ) {
+	                String lastName = rs.getString("Lname");
+	                System.out.println(lastName);
+	            }*/
+	            System.out.println("Tabelle wurde erstellt");
+	            conn.close();
+	        } catch (Exception e) {
+	            System.err.println("Got an exception! ");
+	            System.err.println(e.getMessage());
+	        }
 		return 0;
 	}
 

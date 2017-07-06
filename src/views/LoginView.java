@@ -1,5 +1,6 @@
 package views;
 
+import database.jdbc.MYSQLDriver;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
@@ -78,7 +79,13 @@ public class LoginView extends FXView
 		bp.setBottom(Controls);
 		
 		reg.setOnAction(e -> getFXController().showView("registerview"));
-		log.setOnAction(e -> getFXController().showView("managementselectionview"));
+		log.setOnAction(e -> {
+			
+		getFXController().showView("managementselectionview");
+		MYSQLDriver driver = new MYSQLDriver();
+		driver.setConnection();
+		driver.executeCommand("");
+		});
 		
 		return bp;
 	}

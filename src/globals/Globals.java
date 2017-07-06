@@ -41,6 +41,14 @@ public abstract class Globals
 	public static loginState loginStatus = loginState.LOGGEDOUT;
 	//Example for change the status in a other class => Globals.loginStatus = loginState.LOGGEDOUT;
 
+	/*--- globals for the MYSQL-Driver*/
+	public static String mysqldirver = "com.mysql.jdbc.Driver";
+	public static String mysqlpath = "jdbc:mysql://192.168.2.2/wisslearncards";
+	public static String mysqluser = "wisslearncards";
+	public static String mysqlpaswort = "wisslearncards";
+	public static String user_DB = "user";
+	/*--- globals for the MYSQL-Driver*/
+	
 	public static final int defaultScrollerWidth = 400;
 	
 	public static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");

@@ -68,7 +68,7 @@ public class LernenSelectionView extends FXView
 	@Override
 	public void refreshView()
 	{
-		bp.setId("loginviewbg");
+		bp.setId("lernenselectionview");
 	}
 
 }

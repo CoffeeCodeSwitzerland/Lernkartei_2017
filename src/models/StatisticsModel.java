@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import javax.swing.text.html.parser.AttributeList;
 
 import database.LKDatabase;
+import database.jdbc.DBDriver;
+import database.sql.Attribute;
 import debug.Debugger;
 import debug.Supervisor;
 import globals.Globals;
@@ -62,6 +64,7 @@ public class StatisticsModel extends FXModel
 	// difference oder start)
 	public ArrayList<Double> getDoubleList (String CombinedString)
 	{
+		
 		ArrayList<Double>	temp			= new ArrayList<>();
 		Double				tempStart		= 0.0;
 		Double 				tempDifference 	= 0.0;
@@ -69,10 +72,15 @@ public class StatisticsModel extends FXModel
 		
 		if (Decision[1].equals("difference"))
 		{
-			ArrayList<String> myStacks = LKDatabase.myStacks.getKategorien("ghgh");
-			Double[] doubleArray = LKDatabase.myCards.getScore(Decision[0]);
-			tempDifference = (double) (( myStacks.size() ));//* Bewertungsklasse.anzahlRichtige);
-			temp.clear(); 
+			ArrayList<String[]> myCards = LKDatabase.myCards.pullFromStock(Decision[0]);
+			tempDifference = ((100/ myCards.size() )* Bewertungsklasse.anzahlRichtige);
+			
+			
+			if (tempDifference > 100) {
+				
+				tempDifference = ((100/ myCards.size() )* Bewertungsklasse.anzahlRichtige);
+				temp.clear();
+			}
 			temp.add (tempDifference);
 			return temp;
 			
@@ -92,7 +100,8 @@ public class StatisticsModel extends FXModel
 			Double[] doubleArray = LKDatabase.myCards.getScore(Decision[0]);
 			if (doubleArray != null)
 			{
-				
+				Bewertungsklasse.anzahlRichtige = 0;
+				Bewertungsklasse.anzahlFalsche = 0;
 				tempStart  = 0.0;
 				temp.clear();
 				temp.add(tempStart);

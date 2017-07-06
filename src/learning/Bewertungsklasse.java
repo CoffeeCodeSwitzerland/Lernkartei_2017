@@ -11,8 +11,8 @@ import globals.Globals;
 
 public class Bewertungsklasse {
 	
-	public static int anzahlRichtige = 0;
-	public static int anzahlFalsche = 0;
+	public static double anzahlRichtige = 0.0;
+	public static double anzahlFalsche = 0.0;
 	public static ArrayList<String> getShuffledCards(String query) {
 		ArrayList<String> result = new ArrayList<>();
 		ArrayList<Integer> zufallsZahlen = new ArrayList<>();
@@ -61,6 +61,7 @@ public class Bewertungsklasse {
 		}
 		else
 		{
+			
 			return 0;
 		}
 	}

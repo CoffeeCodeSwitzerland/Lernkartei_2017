@@ -15,5 +15,6 @@
 	<classpathentry kind="lib" path="src/printing/xmpbox-2.0.6.jar"/>
 	<classpathentry kind="lib" path="src/printing/fontbox-2.0.6.jar"/>
 	<classpathentry kind="lib" path="src/tutto/core.jar"/>
+	<classpathentry kind="lib" path="C:/Users/177751/Downloads/mysql-connector-java-5.1.42/mysql-connector-java-5.1.42/mysql-connector-java-5.1.42-bin.jar" sourcepath=""/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

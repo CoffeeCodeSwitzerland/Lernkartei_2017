@@ -4,8 +4,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
-
 import debug.Logger;
+import com.mysql.*;
 
 /**
  * Abstract class MYSQL Driver
@@ -25,6 +25,7 @@ final public class MYSQLDriver extends DBDriver {
 		username	= "wisslearncards";
 		password	= "wisslearncards";
 	}
+	
 	
 	
 	public MYSQLDriver (String dbName, String newUser, String newPassword) {
@@ -57,13 +58,15 @@ final public class MYSQLDriver extends DBDriver {
 	            Connection conn = DriverManager.getConnection(urlBase, username, password);
 	            Statement stmt = conn.createStatement();
 	            ResultSet rs;
-	 
-	            rs = stmt.executeQuery("CREATE TABLE test (ID INT AUTO_INCREMENT,Name TEXT,PRIMARY KEY(ID))");
+	            if(stmt.execute("CREATE TABLE test (ID INT AUTO_INCREMENT,Name TEXT,PRIMARY KEY(ID))"))
+	            {
+	            	 System.out.println("Tabelle wurde erstellt");
+	            }
 	          /*  while ( rs.next() ) {
 	                String lastName = rs.getString("Lname");
 	                System.out.println(lastName);
 	            }*/
-	            System.out.println("Tabelle wurde erstellt");
+	           
 	            conn.close();
 	        } catch (Exception e) {
 	            System.err.println("Got an exception! ");

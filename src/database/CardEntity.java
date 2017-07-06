@@ -232,6 +232,7 @@ public class CardEntity extends Entity {
 				reachedPoints = (double) Bewertungsklasse.anzahlRichtige;
 			}
 		} else {
+			
 			return null;
 		}
 		// Erreichte Punktzahl zurückgeben

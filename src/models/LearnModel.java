@@ -24,7 +24,7 @@ public class LearnModel extends Model
 	public int doAction (Command command, String... param)
 	{
 		int newPriorityIsValid = 0;
-
+		
 		switch (command)
 		{
 			case TRUE:
@@ -35,7 +35,7 @@ public class LearnModel extends Model
 
 				LKDatabase.myUsers.correctCard();
 				refreshViews();
-
+				
 				return newPriorityIsValid;
 
 			case FALSE:
@@ -71,7 +71,7 @@ public class LearnModel extends Model
 			}
 			setString(query);
 		}
-
+		
 		return memoList;
 	}
 

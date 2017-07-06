@@ -21,6 +21,7 @@ public class lerndatenzuweisung {
 		if(card.get(0)[3].equals("1"))
 		{
 			learnToday.add(card.get(0));
+			
 		}
 
 		// Wenn seit letztem lernen 2 Tage vergangen sind tu Sie in die ArrayList LearnToday.
@@ -61,6 +62,7 @@ public class lerndatenzuweisung {
 		}
 		
 		card = learnToday;
+		
 	}
 	
 }

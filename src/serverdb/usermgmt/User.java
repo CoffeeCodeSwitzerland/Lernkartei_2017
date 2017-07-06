@@ -2,12 +2,13 @@ package serverdb.usermgmt;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import serverdb.sql.*;
 import globals.Globals;
 import globals.Globals.loginState;
 
 public class User 
 {
+	
 	public boolean validateLoginParams(String password, String... username)
 	{
 		return false;
@@ -49,9 +50,19 @@ public class User
 		
 	}
 	
-	public void registerUser(String firstName,String lastName,String passwort,String... username)
+	public void registerUser(String firstName,String lastName,String password,String... username)
 	{
+		ArrayList<String>send = new ArrayList<String>();
+		send.add(firstName);
+		send.add(lastName);
+		send.add(password);
 		
+		if(username[0] != "")
+		{
+			send.add(username[0]);
+		}
+		
+		Query.registerUser(send);
 	}
 	
 	public boolean isUsernameTaken(String... username)

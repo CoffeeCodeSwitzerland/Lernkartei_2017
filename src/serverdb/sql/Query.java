@@ -25,10 +25,10 @@ public abstract class Query
 	}
 	
 	
-	public static void registerUser(ArrayList<String> attr)
+	/*public static void registerUser(ArrayList<String> attr)
 	{
 		Value user = new Value(attr);
-		
+		Attribute attr = new Attribute(user_DB,)
 		Insert i = new Insert(user_DB,user.getAttributes());
-	}
+	}*/
 }

@@ -62,7 +62,7 @@ public class User
 			send.add(username[0]);
 		}
 		
-		Query.registerUser(send);
+		//Query.registerUser(send);
 	}
 	
 	public boolean isUsernameTaken(String... username)

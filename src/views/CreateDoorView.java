@@ -1,5 +1,7 @@
 package views;
 
+import globals.Globals;
+import globals.Globals.loginState;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
@@ -51,6 +53,7 @@ public class CreateDoorView extends FXView
 		AllFields.setAlignment(Pos.CENTER);
 		AllFields.setMaxWidth(300);
 		AllFields.setPadding(new Insets(20));
+		
 		
 		
 		Identifier = new HBox();

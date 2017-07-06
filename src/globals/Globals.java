@@ -2,6 +2,8 @@ package globals;
 
 import java.time.format.DateTimeFormatter;
 
+import globals.Globals.loginState;
+
 /**
  * Contains centralized Globals that are used for this application 
  * 
@@ -34,7 +36,11 @@ public abstract class Globals
 	public static final int minStackPartSize = 5;
 	public static final int maxStackPartSize = 1000;
 	
-	
+	public static String username = "";
+	public static enum loginState  {LOGGEDIN,LOGGEDOUT};
+	public static loginState loginStatus = loginState.LOGGEDOUT;
+	//Example for change the status in a other class => Globals.loginStatus = loginState.LOGGEDOUT;
+
 	public static final int defaultScrollerWidth = 400;
 	
 	public static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");

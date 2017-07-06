@@ -6,6 +6,7 @@ import database.jdbc.DBDriver;
 import database.sql.Attribute;
 import database.sql.Entity;
 import database.sql.SQLHandler;
+import globals.Globals;
 
 public class DoorEntity extends Entity {
 
@@ -39,7 +40,7 @@ public class DoorEntity extends Entity {
 			// Do "INSERT INTO Doors (Doorname)" + "VALUES ('" + eingabe + "')";
 			worked = (myDBDriver.executeCommand(SQLHandler.insertIntoTableCommand(getMyTableName(), myAttributes)) >= 0) ? true : false;
 		}
-		return worked;
+		return worked; 
 	}
 
 	/**

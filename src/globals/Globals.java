@@ -60,6 +60,8 @@ public abstract class Globals
 	public static String user_Table_wiss = "dbuser";
 	/*--- globals for the MYSQL-Driver_WISS*/
 	
+	public static boolean firstOpen = true;
+	
 	public static final int defaultScrollerWidth = 400;
 	
 	public static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");

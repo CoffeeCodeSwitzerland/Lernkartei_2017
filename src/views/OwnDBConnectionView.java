@@ -14,6 +14,7 @@ import javafx.scene.layout.VBox;
 import mvc.fx.FXController;
 import mvc.fx.FXView;
 import views.components.AppButton;
+import views.components.BackButton;
 
 
 public class OwnDBConnectionView extends FXView
@@ -38,6 +39,7 @@ public class OwnDBConnectionView extends FXView
 	TextField txtUserTable;
 	
 	AppButton save;
+	BackButton back;
 	
 	@Override
 	public Parent constructContainer()
@@ -65,12 +67,13 @@ public class OwnDBConnectionView extends FXView
 		txtUserTable.setPromptText("Benutzertabellen-Name");
 		
 		save = new AppButton("Abspeichern");
+		back = new BackButton(getFXController(), "Zurück");
 		
 		save.setOnAction(e -> {
 			if(pwPassword.getText().equals(pwToCheck.getText()))
 			{
 				Globals.mysqldriver = txtDriver.getText();
-				Globals.mysqlpath = txtPath.getText();
+				Globals.mysqlpath += txtPath.getText();
 				Globals.mysqluser = txtUser.getText();
 				Globals.mysqlpassword = pwPassword.getText();
 				Globals.mysqldb = txtDB.getText();
@@ -100,6 +103,8 @@ public class OwnDBConnectionView extends FXView
 				alert.showAndWait();
 			}
 		});
+		
+		back.setOnAction(e -> getFXController().showView("databaseselectionview"));
 		
 		AllFields.getChildren().addAll(txtPath, txtDB, txtDriver, txtUserTable, txtUser, pwPassword, pwToCheck, save);
 		

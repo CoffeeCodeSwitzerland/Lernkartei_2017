@@ -101,5 +101,11 @@ public class MainView extends FXView
 	}
 
 	@Override
-	public void refreshView () { }
+	public void refreshView () {
+		if(Globals.firstOpen)
+		{
+			getFXController().showView("databaseselectionview");
+			Globals.firstOpen = false;
+		}
+	}
 }

@@ -20,6 +20,7 @@ public class QueryExecuter extends Query
 	String user_DB = globals.Globals.mysqluser;
 	String mysqldriver = globals.Globals.mysqldriver;
 	String query = "";
+	ArrayList<String> queries = new ArrayList<String>();
 	Connection conn;
 	Statement stmt;
 	ResultSet rs;
@@ -27,6 +28,11 @@ public class QueryExecuter extends Query
 	public QueryExecuter(String query)
 	{
 		this.query = query;
+	}
+
+	public QueryExecuter(ArrayList<String> queries)
+	{
+		this.queries = queries;
 	}
 
 	public ArrayList<String> executeAttributeQuery()
@@ -112,6 +118,30 @@ public class QueryExecuter extends Query
 		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}
+
+		return result;
+	}
+
+	public boolean executeQueriesWithoutResult()
+	{
+		boolean result = false;
+
+		for (
+			String s : queries
+		)
+		{
+			try
+			{
+				Class.forName(mysqldriver).newInstance();
+				conn = DriverManager.getConnection(mysqlpath, mysqluser, mysqlpasswort);
+				stmt = conn.createStatement();
+				boolean rs = stmt.execute(s);
+			} catch (SQLException | InstantiationException | IllegalAccessException | ClassNotFoundException e)
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 
 		return result;

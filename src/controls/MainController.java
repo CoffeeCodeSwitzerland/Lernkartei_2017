@@ -7,6 +7,7 @@ import models.CardModel;
 import models.ConfigModel;
 import models.DMOModifyDoorModel;
 import models.DMOModifyStackModel;
+import models.DatabaseSelectionModel;
 import models.DoorModel;
 import models.DoorStackInformationModel;
 import models.DruckModel;
@@ -83,6 +84,7 @@ public class MainController extends FXController
 	public void initMyModels() {
 		Logger.log("MainController.initMyModels: Instanziere Models....");
 		debug.Debugger.out("MainController.initMyModels: Instanziere Models....");
+		this.addUniqueModel(new DatabaseSelectionModel(), "databaseselectionmodel");
 		this.addUniqueModel(new GameModel(),"game");
 		this.addUniqueModel(new TuttoModel(),"tutto");
 		this.addUniqueModel(new DoorModel(),"door");

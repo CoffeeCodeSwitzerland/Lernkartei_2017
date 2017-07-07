@@ -9,24 +9,24 @@ public class ServerTable
 {
 	String table = "";
 	ArrayList<ArrayList<String[]>> attributes = new ArrayList<ArrayList<String[]>>();
-	
-	
-	ServerTable(String table, ArrayList<ArrayList<String[]>> attributes)
+
+	public ServerTable(ArrayList<ArrayList<String[]>> tables)
 	{
-		this.table = table;
-		this.attributes = attributes;
+		this.attributes = tables;
 	}
-	
+
 	public void createTables()
 	{
 		ArrayList<String> executeStatements = new ArrayList<String>();
 		
-		for(ArrayList<String[]> sa:attributes)
+		for(ArrayList<String[]> as: attributes)
 		{
-			Table t = new Table(table,sa);
+			String[] temp = as.get(0);
+			Table t = new Table(temp[0].toString(),as);
 			executeStatements.add(t.createTable());
+			System.out.print("--- create table =>"+t.createTable());
 		}
-		
+	
 		QueryExecuter q = new QueryExecuter(executeStatements);
 		q.executeQueriesWithoutResult();
 	}

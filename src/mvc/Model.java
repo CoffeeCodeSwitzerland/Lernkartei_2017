@@ -106,4 +106,10 @@ public class Model extends DataModel
 	{
 		
 	}
+	
+	public void buildWissDatabase()
+	{
+		
+	
+	}
 }

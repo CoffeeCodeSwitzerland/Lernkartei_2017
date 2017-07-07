@@ -24,7 +24,7 @@ public class ServerTable
 			String[] temp = as.get(0);
 			Table t = new Table(temp[0].toString(),as);
 			executeStatements.add(t.createTable());
-			System.out.print("--- create table =>"+t.createTable());
+			System.out.print("--- create table =>"+t.createTable()+"\r\n");
 		}
 	
 		QueryExecuter q = new QueryExecuter(executeStatements);

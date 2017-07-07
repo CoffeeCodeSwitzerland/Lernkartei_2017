@@ -19,20 +19,31 @@ public class Table
 		
 		result += "CREATE TABLE " + tableName +"(";
 		
+		boolean isFirstTime = true;
+		boolean isFirstValue = true;
+		
 		for(String[] sa: attribute)
 		{
-			for(int i = 0; i < sa.length;i++)
+			if(!isFirstTime)
 			{
-				if(i != 0)
+				if(!isFirstValue)
 				{
-					result += "," + sa[i];
+					result += "," + sa[0];
 				}
 				else
 				{
-					result += sa[i];
+					result += sa[0];
+					isFirstValue = false;
 				}
 			}
+			else
+			{
+				isFirstTime = false;
+			}
 		}
+		
+		isFirstTime = true;
+		isFirstValue = true;
 		
 		result += ")";
 		

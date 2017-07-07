@@ -58,17 +58,16 @@ public class DatabaseSelectionModel extends Model
 		String[] dbgroupdbgroup = {"GroupID BIGINT AUTO_INCREMENT"}; dbgroup.add(dbgroupdbgroup);
 		String[] dbgroupName = {"Name TEXT NOT NULL"};dbgroup.add(dbgroupName);
 		String[] dbgroupErstellerID = {"ErstellerID BIGINT NOT NULL"};dbgroup.add(dbgroupErstellerID);
-		String[] dbgroupPRIMARY = {"PRIMARY KEY(GroupID"};dbgroup.add(dbgroupPRIMARY);
-		String[] dbgroupFOREIGN = {"PRIMARY KEY(GroupID"};dbgroup.add(dbgroupPRIMARY);
+		String[] dbgroupPRIMARY = {"PRIMARY KEY(GroupID)"};dbgroup.add(dbgroupPRIMARY);
 
 		ArrayList<String[]> dbuseringroup = new ArrayList<String[]>();
 		String[] dbuseringrouptable = {"dbuseringroup"}; dbuseringroup.add(dbuseringrouptable);
 		String[] dbuseringroupUserInGroupID = {"UserInGroupID BIGINT AUTO_INCREMENT"}; dbuseringroup.add(dbuseringroupUserInGroupID);
 		String[] dbuseringroupUserID = {"UserID BIGINT NOT NULL"};dbuseringroup.add(dbuseringroupUserID);
 		String[] dbuseringroupGroupID = {"GroupID BIGINT NOT NULL"};dbuseringroup.add(dbuseringroupGroupID);
-		String[] dbuseringroupPRIMARY  = {"GroupID BIGINT NOT NULL"};dbuseringroup.add(dbuseringroupGroupID);
+		String[] dbuseringroupPRIMARY  = {"PRIMARY KEY (UserInGroupID)"};dbuseringroup.add(dbuseringroupPRIMARY);
 		String[] dbuseringroupFOREIGN = {"CONSTRAINT fk_dbuserTOdbuseringroup FOREIGN KEY(UserID) REFERENCES User(UserID) ON DELETE CASCADE ON UPDATE CASCADE"};dbuseringroup.add(dbuseringroupFOREIGN);
-		String[] dbuseringroupFOREIGN2 = {"CONSTRAINT fk_dbuserTOdbuseringroup FOREIGN KEY(GroupID) REFERENCES Group(GroupID) ON DELETE SET NULL ON UPDATE CASCADE"};dbuseringroup.add(dbuseringroupFOREIGN2);
+		String[] dbuseringroupFOREIGN2 = {"CONSTRAINT fk_dbuserTOdbuseringroup2 FOREIGN KEY(GroupID) REFERENCES Group(GroupID) ON UPDATE CASCADE"};dbuseringroup.add(dbuseringroupFOREIGN2);
 		
 		ArrayList<String[]> datamanagementtouser = new ArrayList<String[]>();
 		String[] datamanagementtousertable = {"datamanagementtouser"}; datamanagementtouser.add(datamanagementtousertable);
@@ -91,7 +90,7 @@ public class DatabaseSelectionModel extends Model
 		String[] datamanagementPRIMARY = {"PRIMARY KEY (DatamanagementID)"};datamanagement.add(datamanagementPRIMARY);
 		
 		ArrayList<String[]> dbtrash = new ArrayList<String[]>();
-		String[] dbtrashtable = {""}; dbtrash.add(dbtrashtable);
+		String[] dbtrashtable = {"dbtrash"}; dbtrash.add(dbtrashtable);
 		String[] dbtrashID= {"TrashID BIGINT AUTO_INCREMENT"}; dbtrash.add(dbtrashID);
 		String[] dbtrashDatamanagementID = {"DatamanagementID BIGINT NOT NULL"}; dbtrash.add(dbtrashDatamanagementID);
 		String[] dbtrashStackName = {"StackName TEXT NULL"};dbtrash.add(dbtrashStackName);

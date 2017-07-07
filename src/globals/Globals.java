@@ -47,7 +47,7 @@ public abstract class Globals
 	public static String mysqluser = "wisslearncards";
 	public static String mysqlpaswort = "wisslearncards";
 	public static String mysqldb = "wisslearncards";
-	public static String user_Table = "user";
+	public static String user_Table = "dbuser";
 	/*--- globals for the MYSQL-Driver*/
 	
 	public static final int defaultScrollerWidth = 400;

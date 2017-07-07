@@ -97,7 +97,7 @@ public class RegisterView extends FXView
 				getFXController().showView("loginview");
 			} else{
 				Alert alert = new Alert(AlertType.ERROR);
-				alert.setTitle("Fehler 0x0001");
+				alert.setTitle("Fehler 0x0002");
 				alert.setHeaderText("Passwörter stimmen nicht überein!");
 				alert.setContentText("Bitte geben Sie das Passwort erneut ein.");
 				pwPassword.clear();

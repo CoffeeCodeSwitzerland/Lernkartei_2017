@@ -102,7 +102,7 @@ public class LoginView extends FXView
 			} else
 			{
 				Alert alert = new Alert(AlertType.ERROR);
-				alert.setTitle("Fehler 0x0002");
+				alert.setTitle("Fehler 0x0001");
 				alert.setHeaderText("Login-Daten inkorrekt.");
 				alert.setContentText("Benutzername und Passwort stimmen nicht überein oder existieren nicht.\nStellen Sie sicher, dass Ihre Eingaben korrekt sind.");
 				pwPassword.clear();

@@ -1,5 +1,7 @@
 package views;
 
+import org.mindrot.jbcrypt.BCrypt;
+
 import database.jdbc.MYSQLDriver;
 import globals.Globals;
 import javafx.geometry.Insets;
@@ -98,7 +100,7 @@ public class LoginView extends FXView
 			txtName.clear();
 			pwPassword.clear();
 
-			if (name.equals("user@mail.com") && password.equals("gibbiX12345"))
+			if (name.equals("user@mail.com") && BCrypt.checkpw(password, "$2a$12$8hcwdnkJ7uO3FvDEG/1fv.vaSNI/FfZqEzfUZFUYRUHLzRjkV/Z5.")/*plaintext-password: "gibb"*/)
 			{
 				Globals.username = name;
 				getFXController().showView("managementselectionview");

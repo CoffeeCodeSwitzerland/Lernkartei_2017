@@ -30,7 +30,6 @@ public class OwnDBConnectionView extends FXView
 
 	VBox AllFields;
 	
-	TextField txtDriver;
 	TextField txtPath;
 	TextField txtUser;
 	PasswordField pwPassword;
@@ -51,8 +50,6 @@ public class OwnDBConnectionView extends FXView
 		AllFields.setMaxWidth(300);
 		AllFields.setPadding(new Insets(20));
 		
-		txtDriver = new TextField();
-		txtDriver.setPromptText("MySQL-Treiber");
 		txtPath = new TextField();
 		txtPath.setPromptText("Pfad: Bsp. 192.168.2.2/dbname");
 		pwPassword = new PasswordField();
@@ -72,7 +69,6 @@ public class OwnDBConnectionView extends FXView
 		save.setOnAction(e -> {
 			if(pwPassword.getText().equals(pwToCheck.getText()))
 			{
-				Globals.mysqldriver = txtDriver.getText();
 				Globals.mysqlpath += txtPath.getText();
 				Globals.mysqluser = txtUser.getText();
 				Globals.mysqlpassword = pwPassword.getText();
@@ -84,7 +80,6 @@ public class OwnDBConnectionView extends FXView
 				alert.setContentText("Ihre Verbindung wurde erfolgreich abgespeichert.\nDie Datenbank bzw. die Tabellen werden nun erstellt.");
 				alert.showAndWait();
 
-				txtDriver.clear();
 				txtPath.clear();
 				txtUser.clear();
 				pwPassword.clear();
@@ -106,7 +101,7 @@ public class OwnDBConnectionView extends FXView
 		
 		back.setOnAction(e -> getFXController().showView("databaseselectionview"));
 		
-		AllFields.getChildren().addAll(txtPath, txtDB, txtDriver, txtUserTable, txtUser, pwPassword, pwToCheck, save);
+		AllFields.getChildren().addAll(txtPath, txtDB, txtUserTable, txtUser, pwPassword, pwToCheck, save);
 		
 		bp.setCenter(AllFields);
 		

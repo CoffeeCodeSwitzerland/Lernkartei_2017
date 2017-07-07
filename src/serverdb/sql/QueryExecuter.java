@@ -51,7 +51,7 @@ public class QueryExecuter extends Query
 		boolean result = false;
 		
 		System.out.println(input +" definitiv query");
-	/*	
+		
 		try {
 			Class.forName(mysqldriver).newInstance();
 			conn = DriverManager.getConnection(mysqlpath,mysqluser,mysqlpasswort);
@@ -61,7 +61,7 @@ public class QueryExecuter extends Query
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		*/
+		
 		/*SUCCESS_NO_INFO says with the value -2 that the query has been executed successfully, though the number of row affected is unknown */
 		if(stmt.SUCCESS_NO_INFO == -2)
 		{

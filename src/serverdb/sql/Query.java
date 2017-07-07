@@ -26,7 +26,7 @@ public  class Query
 	static String mysqldb = globals.Globals.mysqldb;
 	static String mysqlpath = globals.Globals.mysqlpath;
 	static String mysqluser = globals.Globals.mysqluser;
-	static String mysqlpasswort = globals.Globals.mysqlpaswort;
+	static String mysqlpasswort = globals.Globals.mysqlpassword;
 	
 	/**
 	 * 

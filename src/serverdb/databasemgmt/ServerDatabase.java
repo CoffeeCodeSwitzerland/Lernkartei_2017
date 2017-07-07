@@ -32,7 +32,7 @@ public class ServerDatabase
 	{
 		boolean result = false;
 		
-		globals.Globals.mysqlpaswort = dbpassword;
+		globals.Globals.mysqlpassword = dbpassword;
 		globals.Globals.mysqluser = dbuser;
 		globals.Globals.mysqlpath = dbpath;
 		globals.Globals.mysqldb = dbname;

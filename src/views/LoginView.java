@@ -14,6 +14,7 @@ import mvc.fx.FXController;
 import mvc.fx.FXView;
 import views.components.AppButton;
 import views.components.HomeButton;
+import serverdb.usermgmt.*;
 
 public class LoginView extends FXView
 {
@@ -81,10 +82,11 @@ public class LoginView extends FXView
 		reg.setOnAction(e -> getFXController().showView("registerview"));
 		log.setOnAction(e -> {
 			
-		getFXController().showView("managementselectionview");
-		MYSQLDriver driver = new MYSQLDriver();
-		driver.setConnection();
-		driver.executeCommand("");
+		//getFXController().showView("managementselectionview");
+
+		User u = new User();
+		u.registerUser("Max","Mustermann","gibbiX12345","max@mustermann.ch");
+			
 		});
 		
 		return bp;

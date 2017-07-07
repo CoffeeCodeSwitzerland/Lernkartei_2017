@@ -23,6 +23,8 @@ public class Attribute extends Query
 		
 		attributesQuery = "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = '" + db +"' AND TABLE_NAME = '" + table + "'";
 		
+		System.out.println(attributesQuery + " attr query");
+		
 		QueryExecuter qe = new QueryExecuter(attributesQuery);
 		
 		queryResult = qe.executeAttributeQuery();
@@ -37,11 +39,13 @@ public class Attribute extends Query
 			}
 			else
 			{
-				allAttributes += ","+queryResult;
+				allAttributes += ","+queryResult.get(i);
 			}
 		}
 		
 		allAttributes += ")";
+		
+		System.out.println(allAttributes + " full query");
 		
 	    return allAttributes;
 	}

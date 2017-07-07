@@ -50,17 +50,13 @@ public class User
 		
 	}
 	
-	public void registerUser(String firstName,String lastName,String password,String... username)
+	public void registerUser(String firstName,String lastName,String password,String username)
 	{
 		ArrayList<String>send = new ArrayList<String>();
 		send.add(firstName);
 		send.add(lastName);
 		send.add(password);
-		
-		if(username[0] != "")
-		{
-			send.add(username[0]);
-		}
+		send.add(username);
 		
 		Query.registerUser(send);
 	}

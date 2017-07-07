@@ -30,7 +30,8 @@ public  class Query
 	{
 		Value user = new Value(attr);
 		Attribute attribute = new Attribute(user_Table,mysqldb);
-		Insert i = new Insert(mysqldb,user.getValues(),attribute.getAllAttributes());
+		Insert i = new Insert(user_Table,user.getValues(),attribute.getAllAttributes());
 		QueryExecuter qe = new QueryExecuter(i.createCommand());
+		boolean reult = qe.executeQueryWithoutResult();
 	}
 }

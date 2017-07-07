@@ -17,17 +17,22 @@ public class Value extends Query
 	{
 		String concatValues = "";
 		
+		concatValues+= "(";
+		
 		for(String value: input)
 		{
 			if(value != input.get(input.size()-1))
 			{
-				concatValues += value +",";
+				concatValues += "'"+value +"',";
 			}
 			else
 			{
-				concatValues += value;
+				concatValues += "'"+value+"'";
 			}
 		}	
+		
+		concatValues+= ")";
+		
 		return concatValues;
 	}
 }

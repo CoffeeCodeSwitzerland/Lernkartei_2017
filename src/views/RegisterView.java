@@ -2,6 +2,8 @@ package views;
 
 import java.util.Optional;
 
+import org.mindrot.jbcrypt.BCrypt;
+
 import globals.Globals;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -78,7 +80,8 @@ public class RegisterView extends FXView
 			if(pwPassword.getText().equals(pwToCheck.getText()))
 			{
 				User u = new User();
-				u.registerUser(txtFirstName.getText(),txtLastName.getText(),pwPassword.getText(),txtMail.getText());
+				String hashedPW = BCrypt.hashpw(pwPassword.getText(), BCrypt.gensalt(12));
+				u.registerUser(txtFirstName.getText(),txtLastName.getText(),hashedPW,txtMail.getText());
 				Alert alert = new Alert(AlertType.INFORMATION);
 				alert.setTitle("Registrierung");
 				alert.setHeaderText("Registrierung erfolgreich abgeschlossen!");

@@ -73,8 +73,8 @@ public class MainView extends FXView
 	    gridpane.setAlignment(Pos.CENTER);
 //		gridpane.setHgap(4);
 //		gridpane.setVgap(4);
-	    gridpane.add(lernenStartBtn, 3, 3); 	
-	    gridpane.add(userLoginBtn, 6, 2);  
+	    gridpane.add(lernenStartBtn, 3, 3);
+	    gridpane.add(userLoginBtn, 6, 2);
 	    gridpane.add(statisticBtn, 3, 1);  
 	    gridpane.add(quitBtn, 3, 5);  
 	    gridpane.add(gameBtn, 1, 4); 

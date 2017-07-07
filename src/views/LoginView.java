@@ -98,6 +98,7 @@ public class LoginView extends FXView
 			
 			if(name.equals("user@mail.com") && password.equals("gibbiX12345"))
 			{
+				Globals.username = name;
 				getFXController().showView("managementselectionview");
 			} else
 			{
@@ -117,6 +118,8 @@ public class LoginView extends FXView
 	@Override
 	public void refreshView()
 	{
+		if(Globals.username.equals(""))
+		{
 		bp.setId("loginviewbg");
 		
 		if(!Globals.lastRegisteredUser.equals(""))
@@ -136,6 +139,10 @@ public class LoginView extends FXView
 			}
 		} else {
 			errorText = new Label("Sie müssen die Felder ausfüllen");
+		}
+		} else
+		{
+			getFXController().showView("managementselectionview");
 		}
 		
 	}

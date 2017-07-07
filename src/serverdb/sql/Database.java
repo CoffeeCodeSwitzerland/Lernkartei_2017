@@ -13,7 +13,7 @@ public class Database extends Query
 	{
 		String query = "";
 		
-		query = "CREATE DATABASE " + dbname;
+		query = "CREATE DATABASE IF NOT EXISTS " + dbname;
 		
 		return query;
 	}

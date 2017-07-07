@@ -2,6 +2,8 @@ package views;
 
 import java.util.Optional;
 
+import globals.Globals;
+import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
@@ -32,6 +34,7 @@ public class UserView extends FXView
 	Label passwordText;
 	AppButton changeNachfolger;
 	AppButton deleteAccount;
+	AppButton logOut;
 	PasswordField password; 
 	
 	VBox AllFields;
@@ -39,6 +42,8 @@ public class UserView extends FXView
 	HBox Bottom;
 	VBox TopRight;
 	VBox BottomRight;
+	
+	VBox logout;
 	
 
 	BackButton back;
@@ -54,15 +59,19 @@ public class UserView extends FXView
 		Bottom = new HBox(50);
 		TopRight = new VBox(50);
 		BottomRight = new VBox(50);
+		logout = new VBox(50);
 		
 		Top.setId("Top");
 		Bottom.setId("Bottom");
 		AllFields.setId("AllFields");
 		
+		logout.setPadding(new Insets(250, 100, 0, 0));
+		
 //		username = new Label("Here's the name of the user");
 //		username.setId("username");
 		changeNachfolger = new AppButton("Nachfolger ändern");
 		deleteAccount = new AppButton("Konto entfernen");
+		logOut = new AppButton("Ausloggen");
 		
 		username = new Label("{dein Nachfolger}");
 		nachfolger = new Label("Nachfolger für das DMO:");
@@ -80,9 +89,34 @@ public class UserView extends FXView
 		Bottom.getChildren().addAll(passwordText, BottomRight);
 		
 		AllFields.getChildren().addAll(Top, Bottom);
+		logout.getChildren().addAll(logOut);
 		
 		changeNachfolger.setOnAction(e -> getFXController().showView("userlistview"));
 		back.setOnAction(e -> getFXController().showView("managementselectionview"));
+		
+		logOut.setOnAction(e -> {
+			Alert alert = new Alert(AlertType.CONFIRMATION);
+			alert.setTitle("Logout");
+			alert.setHeaderText("Sie sind gerade dabei sich auszuloggen.");
+			alert.setContentText("Sind Sie sich sicher, dass sie das tun wollen?");
+			Optional<ButtonType> result = alert.showAndWait();
+			if (result.get() == ButtonType.OK){
+				Alert info = new Alert(AlertType.INFORMATION);
+				info.setTitle("Logout");
+				info.setHeaderText("Sie wurden erfolgreich ausgeloggt!");
+				info.setContentText("Um sich erneut anzumelden, klicken Sie bitte im Hauptmenü auf Benutzer.");
+				info.showAndWait();
+				Globals.username = "";
+				getFXController().showMainView();
+			} else {
+				Alert noDeletion = new Alert(AlertType.INFORMATION);
+				noDeletion.setTitle("Logout");
+				noDeletion.setHeaderText("Abmeldung abgebrochen!");
+				noDeletion.setContentText("Sie wurden nicht ausgeloggt und bleiben mit dem Benutzer "+"'"+Globals.username+"'"+" eingeloggt.");
+				noDeletion.showAndWait();
+			    alert.close();
+			}
+		});
 		
 		deleteAccount.setOnAction(e -> {
 			Alert alert = new Alert(AlertType.CONFIRMATION);
@@ -102,6 +136,7 @@ public class UserView extends FXView
 			}});
 		
 		bp.setCenter(AllFields);
+		bp.setRight(logout);
 		
 		return bp;
 	}

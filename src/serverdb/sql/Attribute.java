@@ -25,6 +25,24 @@ public class Attribute extends Query
 		
 		QueryExecuter qe = new QueryExecuter(attributesQuery);
 		
+		queryResult = qe.executeAttributeQuery();
+		
+		allAttributes += "(";
+		
+		for(int i = 0; i < queryResult.size();i++)
+		{
+			if(i == 0)
+			{
+				allAttributes += queryResult.get(i);
+			}
+			else
+			{
+				allAttributes += ","+queryResult;
+			}
+		}
+		
+		allAttributes += ")";
+		
 	    return allAttributes;
 	}
 }

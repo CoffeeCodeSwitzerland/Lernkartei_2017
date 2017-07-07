@@ -4,22 +4,23 @@ import java.util.List;
 
 public class Insert extends Query
 {
-	String database = "";
-	String query = "";
+	String table = "";
+	String values = "";
+	String attributes = "";
 	
-	Insert(String db, String query)
+	Insert(String table, String values,String attributes)
 	{
-		database = db;
-		this.query  = query;
+		this.table = table;
+		this.values  = values;
+		this.attributes = attributes;
 	}
 	
 	public String createCommand()
 	{
 		String fullInsertQuery = "";
 		
-		fullInsertQuery = "INSERT INTO "+database+"VALUES(";
+		fullInsertQuery = "INSERT INTO "+table+" "+attributes+" VALUES "+values;
 		
 		return fullInsertQuery;
-		
 	}
 }

@@ -46,7 +46,8 @@ public abstract class Globals
 	public static String mysqlpath = "jdbc:mysql://192.168.2.2/wisslearncards";
 	public static String mysqluser = "wisslearncards";
 	public static String mysqlpaswort = "wisslearncards";
-	public static String user_DB = "user";
+	public static String mysqldb = "wisslearncards";
+	public static String user_Table = "user";
 	/*--- globals for the MYSQL-Driver*/
 	
 	public static final int defaultScrollerWidth = 400;

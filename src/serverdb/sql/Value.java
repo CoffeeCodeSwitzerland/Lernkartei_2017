@@ -8,26 +8,26 @@ public class Value extends Query
 
 	ArrayList<String> input = new ArrayList<String>();
 	
-	public Value(ArrayList<String> attr) 
+	public Value(ArrayList<String> val) 
 	{
-	   input = attr;
+	   input = val;
 	}
 
-	public String getAttributes()
+	public String getValues()
 	{
-		String concatAttributes = "";
+		String concatValues = "";
 		
-		for(String attribute: input)
+		for(String value: input)
 		{
-			if(attribute != input.get(input.size()-1))
+			if(value != input.get(input.size()-1))
 			{
-				concatAttributes += attribute +",";
+				concatValues += value +",";
 			}
 			else
 			{
-				concatAttributes += attribute;
+				concatValues += value;
 			}
 		}	
-		return concatAttributes;
+		return concatValues;
 	}
 }

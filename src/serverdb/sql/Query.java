@@ -11,10 +11,11 @@ import com.mysql.jdbc.Driver;
 
 import serverdb.sql.Insert;
 
-public abstract class Query 
+public  class Query 
 {	
 	String queryType = "";
-	static String user_DB = globals.Globals.user_DB;
+	static String user_Table = globals.Globals.user_Table;
+	static String mysqldb = globals.Globals.mysqldb;
 	static String mysqlpath = globals.Globals.mysqlpath;
 	static String mysqluser = globals.Globals.mysqluser;
 	static String mysqlpasswort = globals.Globals.mysqlpaswort;
@@ -25,10 +26,11 @@ public abstract class Query
 	}
 	
 	
-	/*public static void registerUser(ArrayList<String> attr)
+	public static void registerUser(ArrayList<String> attr)
 	{
 		Value user = new Value(attr);
-		Attribute attr = new Attribute(user_DB,)
-		Insert i = new Insert(user_DB,user.getAttributes());
-	}*/
+		Attribute attribute = new Attribute(user_Table,mysqldb);
+		Insert i = new Insert(mysqldb,user.getValues(),attribute.getAllAttributes());
+		QueryExecuter qe = new QueryExecuter(i.createCommand());
+	}
 }

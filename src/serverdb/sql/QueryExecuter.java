@@ -6,7 +6,7 @@ import com.mysql.*;
 import java.sql.*;
 public class QueryExecuter extends Query
 {
-	String user_DB = globals.Globals.user_DB;
+	String user_DB = globals.Globals.mysqluser;
 	String mysqldriver = globals.Globals.mysqldirver;
 	String query ="";
 	Connection conn;
@@ -18,7 +18,7 @@ public class QueryExecuter extends Query
 		this.query = query;
 	}
 	
-	public ArrayList<String> executeAttributeCommand()
+	public ArrayList<String> executeAttributeQuery()
 	{
 		ArrayList<String> result = new ArrayList<String>();
 		try {
@@ -46,6 +46,27 @@ public class QueryExecuter extends Query
 	 return result;
 	}
 	
-
-	
+	public boolean executeQueryWithoutResult(String input)
+	{
+		boolean result = false;
+		
+		
+		try {
+			Class.forName(mysqldriver).newInstance();
+			conn = DriverManager.getConnection(mysqlpath,mysqluser,mysqlpasswort);
+			stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(input);
+		} catch (SQLException | InstantiationException | IllegalAccessException | ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		/*SUCCESS_NO_INFO says with the value -2 that the query has been executed successfully, though the number of row affected is unknown */
+		if(stmt.SUCCESS_NO_INFO == -2)
+		{
+			result = true;
+		}
+					
+		return result;
+	}
 }

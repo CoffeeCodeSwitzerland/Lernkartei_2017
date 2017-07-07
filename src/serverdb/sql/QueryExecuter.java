@@ -39,7 +39,7 @@ public class QueryExecuter extends Query
 		} catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (SQLException e) {
+		} catch (SQLException e) { 
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

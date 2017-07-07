@@ -5,9 +5,11 @@ import globals.Globals;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -82,15 +84,31 @@ public class LoginView extends FXView
 		
 		reg.setOnAction(e -> getFXController().showView("registerview"));
 		log.setOnAction(e -> {
+			
 			//So that you can always check again who was logged in last,
 			//but if user logged in, it should be set as ""
 			Globals.lastRegisteredUser = "";
+			
+			String name = txtName.getText();
+			String password = pwPassword.getText();
 			
 			//So that entries don't exist after leaving the view
 			txtName.clear();
 			pwPassword.clear();
 			
-			getFXController().showView("managementselectionview");
+			if(name.equals("user@mail.com") && password.equals("gibbiX12345"))
+			{
+				getFXController().showView("managementselectionview");
+			} else
+			{
+				Alert alert = new Alert(AlertType.ERROR);
+				alert.setTitle("Fehler 0x0002");
+				alert.setHeaderText("Login-Daten inkorrekt.");
+				alert.setContentText("Ihr Passwort und Ihr Benutzername stimmen nicht überein.\nStellen Sie sicher, dass Ihre Eingaben korrekt sind.");
+				pwPassword.clear();
+				txtName.clear();
+				alert.showAndWait();
+			}
 		});
 		
 		return bp;

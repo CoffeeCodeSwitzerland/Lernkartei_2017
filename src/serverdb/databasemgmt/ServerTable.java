@@ -1,5 +1,7 @@
 package serverdb.databasemgmt;
 
+import serverdb.sql.Query;
+import serverdb.sql.QueryExecuter;
 import serverdb.sql.Table;
 import java.util.ArrayList;
 
@@ -24,5 +26,8 @@ public class ServerTable
 			Table t = new Table(table,sa);
 			executeStatements.add(t.createTable());
 		}
+		
+		QueryExecuter q = new QueryExecuter(executeStatements);
+		q.executeQueriesWithoutResult();
 	}
 }

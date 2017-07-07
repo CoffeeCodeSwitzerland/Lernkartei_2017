@@ -19,79 +19,108 @@ public class QueryExecuter extends Query
 {
 	String user_DB = globals.Globals.mysqluser;
 	String mysqldriver = globals.Globals.mysqldirver;
-	String query ="";
+	String query = "";
 	Connection conn;
 	Statement stmt;
 	ResultSet rs;
-	
-	QueryExecuter(String query)
+
+	public QueryExecuter(String query)
 	{
 		this.query = query;
 	}
-	
+
 	public ArrayList<String> executeAttributeQuery()
 	{
 		ArrayList<String> result = new ArrayList<String>();
-		try {
-			
+		try
+		{
+
 			Class.forName(mysqldriver).newInstance();
-			conn = DriverManager.getConnection(mysqlpath,mysqluser,mysqlpasswort);
+			conn = DriverManager.getConnection(mysqlpath, mysqluser, mysqlpasswort);
 			stmt = conn.createStatement();
-		
-			
-		//	System.out.println(rs.get+ " ----");
-			
-			if(stmt.execute(query))
+
+			// System.out.println(rs.get+ " ----");
+
+			if (stmt.execute(query))
 			{
-			
-			rs = stmt.getResultSet();
-			ResultSetMetaData dbmeta = rs.getMetaData();
-			
-			while(rs.next())
-			{	
-				if(!rs.isFirst())
+
+				rs = stmt.getResultSet();
+				ResultSetMetaData dbmeta = rs.getMetaData();
+
+				while (rs.next())
 				{
-					result.add(rs.getString(dbmeta.getColumnName(1)));
-					System.out.println("*** "+rs.getString(dbmeta.getColumnName(1))); 
-				}	 
+					if (!rs.isFirst())
+					{
+						result.add(rs.getString(dbmeta.getColumnName(1)));
+						System.out.println("*** " + rs.getString(dbmeta.getColumnName(1)));
+					}
+				}
 			}
-		}
-			
-			
-			
-		} catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
+
+		} catch (InstantiationException | IllegalAccessException | ClassNotFoundException e)
+		{
 			System.out.println("***Exception 1");
 			e.printStackTrace();
-		} catch (SQLException e) { 
+		} catch (SQLException e)
+		{
 			// TODO Auto-generated catch block
 			System.out.println("***Exception 2");
 			e.printStackTrace();
 		}
-	 return result;
+		return result;
 	}
-	
+
 	public boolean executeQueryWithoutResult()
 	{
 		boolean result = false;
-		
-		System.out.println(query +" definitiv query");
-		
-		try {
+
+		try
+		{
 			Class.forName(mysqldriver).newInstance();
-			conn = DriverManager.getConnection(mysqlpath,mysqluser,mysqlpasswort);
+			conn = DriverManager.getConnection(mysqlpath, mysqluser, mysqlpasswort);
 			stmt = conn.createStatement();
 			boolean rs = stmt.execute(query);
-		} catch (SQLException | InstantiationException | IllegalAccessException | ClassNotFoundException e) {
+		} catch (SQLException | InstantiationException | IllegalAccessException | ClassNotFoundException e)
+		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		/*SUCCESS_NO_INFO says with the value -2 that the query has been executed successfully, though the number of row affected is unknown */
-		if(stmt.SUCCESS_NO_INFO == -2)
+
+		/*
+		 * SUCCESS_NO_INFO says with the value -2 that the query has been
+		 * executed successfully, though the number of row affected is unknown
+		 */
+		if (stmt.SUCCESS_NO_INFO == -2)
 		{
 			result = true;
 		}
-					
+
+		return result;
+	}
+
+	public String executeQueryWithSingleResult()
+	{
+		String result = "";
+
+		try
+		{
+			Class.forName(mysqldriver).newInstance();
+			conn = DriverManager.getConnection(mysqlpath, mysqluser, mysqlpasswort);
+			stmt = conn.createStatement();
+			boolean rs = stmt.execute(query);
+		} catch (SQLException | InstantiationException | IllegalAccessException | ClassNotFoundException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return result;
+	}
+
+	public ArrayList<String[]> executeQueryWithMultipleResult()
+	{
+		ArrayList<String[]> result = new ArrayList<String[]>();
+
 		return result;
 	}
 }

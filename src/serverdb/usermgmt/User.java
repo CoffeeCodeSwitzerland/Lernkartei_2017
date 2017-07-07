@@ -6,6 +6,12 @@ import serverdb.sql.*;
 import globals.Globals;
 import globals.Globals.loginState;
 
+/**
+ * 
+ * @author Frithjof Hoppe
+ *
+ */
+
 public class User 
 {
 	

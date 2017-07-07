@@ -3,6 +3,12 @@ package serverdb.sql;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 
+ * @author Frithjof Hoppe
+ *
+ */
+
 public class Value extends Query
 {
 

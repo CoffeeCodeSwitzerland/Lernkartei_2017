@@ -11,6 +11,14 @@ import com.mysql.jdbc.Driver;
 
 import serverdb.sql.Insert;
 
+/**
+ * <h3>Query-Class</h3>
+ * -Is responsible for creating MYSQL-queries
+ * @author Frithjof Hoppe
+ * @version 1.0
+ * 
+ */
+
 public  class Query 
 {	
 	String queryType = "";
@@ -20,6 +28,9 @@ public  class Query
 	static String mysqluser = globals.Globals.mysqluser;
 	static String mysqlpasswort = globals.Globals.mysqlpaswort;
 	
+	/**
+	 * 
+	 */
 	Query()
 	{
 		

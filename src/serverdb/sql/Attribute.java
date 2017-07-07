@@ -3,6 +3,12 @@ package serverdb.sql;
 import java.util.ArrayList;
 import serverdb.sql.*;
 
+/**
+ * 
+ * @author Frithjof Hoppe
+ *
+ */
+
 public class Attribute extends Query
 {
 	String table = "";

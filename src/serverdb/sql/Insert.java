@@ -2,6 +2,12 @@ package serverdb.sql;
 
 import java.util.List;
 
+/**
+ * 
+ * @author Frithjof Hoppe
+ *
+ */
+
 public class Insert extends Query
 {
 	String table = "";

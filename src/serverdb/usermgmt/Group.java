@@ -2,6 +2,12 @@ package serverdb.usermgmt;
 
 import java.util.ArrayList;
 
+/**
+ * 
+ * @author Frithjof Hoppe
+ *
+ */
+
 public class Group 
 {
 	public ArrayList<String> getGroupMember(String name)

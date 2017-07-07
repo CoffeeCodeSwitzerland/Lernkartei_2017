@@ -8,7 +8,13 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
-//import java.sql.*;
+
+/**
+ * 
+ * @author Frithjof Hoppe
+ *
+ */
+
 public class QueryExecuter extends Query
 {
 	String user_DB = globals.Globals.mysqluser;

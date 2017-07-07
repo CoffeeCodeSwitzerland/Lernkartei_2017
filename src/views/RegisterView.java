@@ -84,6 +84,7 @@ public class RegisterView extends FXView
 				alert.setHeaderText("Registrierung erfolgreich abgeschlossen!");
 				alert.setContentText("Sie wurden erfolgreich bei WISSLearncards registriert und können sich nun einloggen.");
 				alert.showAndWait();
+				//So that user doesn't need to enter his username (mail)
 				Globals.lastRegisteredUser = txtMail.getText();
 				getFXController().showView("loginview");
 			} else{

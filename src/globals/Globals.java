@@ -53,7 +53,7 @@ public abstract class Globals
 	
 	/*--- globals for the MYSQL-Driver_WISS*/
 	public static String mysqldriver_wiss = "com.mysql.jdbc.Driver";
-	public static String mysqlpath_wiss = "jdbc:mysql://192.168.2.2/wisslearncards";
+	public static String mysqlpath_wiss = "jdbc:mysql://192.168.1.108/wisslearncards";
 	public static String mysqluser_wiss = "wisslearncards";
 	public static String mysqlpassword_wiss = "wisslearncards";
 	public static String mysqldb_wiss = "wisslearncards";

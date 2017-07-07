@@ -84,7 +84,7 @@ public class RegisterView extends FXView
 		
 		return bp;
 	}
-
+ 
 	@Override
 	public void refreshView()
 	{

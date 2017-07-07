@@ -18,7 +18,7 @@ import java.sql.ResultSetMetaData;
 public class QueryExecuter extends Query
 {
 	String user_DB = globals.Globals.mysqluser;
-	String mysqldriver = globals.Globals.mysqldirver;
+	String mysqldriver = globals.Globals.mysqldriver;
 	String query = "";
 	Connection conn;
 	Statement stmt;

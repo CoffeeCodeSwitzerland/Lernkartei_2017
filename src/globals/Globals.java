@@ -43,13 +43,22 @@ public abstract class Globals
 	//Example for change the status in a other class => Globals.loginStatus = loginState.LOGGEDOUT;
 
 	/*--- globals for the MYSQL-Driver*/
-	public static String mysqldirver = "com.mysql.jdbc.Driver";
-	public static String mysqlpath = "jdbc:mysql://192.168.2.2/wisslearncards";
-	public static String mysqluser = "wisslearncards";
-	public static String mysqlpaswort = "wisslearncards";
-	public static String mysqldb = "wisslearncards";
-	public static String user_Table = "dbuser";
+	public static String mysqldriver = "com.mysql.jdbc.Driver";
+	public static String mysqlpath = "jdbc:mysql://";
+	public static String mysqluser = "";
+	public static String mysqlpassword = "";
+	public static String mysqldb = "";
+	public static String user_Table = "";
 	/*--- globals for the MYSQL-Driver*/
+	
+	/*--- globals for the MYSQL-Driver_WISS*/
+	public static String mysqldriver_wiss = "com.mysql.jdbc.Driver";
+	public static String mysqlpath_wiss = "jdbc:mysql://192.168.2.2/wisslearncards";
+	public static String mysqluser_wiss = "wisslearncards";
+	public static String mysqlpassword_wiss = "wisslearncards";
+	public static String mysqldb_wiss = "wisslearncards";
+	public static String user_Table_wiss = "dbuser";
+	/*--- globals for the MYSQL-Driver_WISS*/
 	
 	public static final int defaultScrollerWidth = 400;
 	

@@ -86,6 +86,14 @@ public class RegisterView extends FXView
 				alert.showAndWait();
 				//So that user doesn't need to enter his username (mail)
 				Globals.lastRegisteredUser = txtMail.getText();
+				
+				//So that entries don't exist after leaving the view
+				txtFirstName.clear();
+				txtLastName.clear();
+				pwPassword.clear();
+				pwToCheck.clear();
+				txtMail.clear();
+				
 				getFXController().showView("loginview");
 			} else{
 				Alert alert = new Alert(AlertType.ERROR);

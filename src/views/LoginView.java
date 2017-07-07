@@ -85,6 +85,11 @@ public class LoginView extends FXView
 			//So that you can always check again who was logged in last,
 			//but if user logged in, it should be set as ""
 			Globals.lastRegisteredUser = "";
+			
+			//So that entries don't exist after leaving the view
+			txtName.clear();
+			pwPassword.clear();
+			
 			getFXController().showView("managementselectionview");
 		});
 		

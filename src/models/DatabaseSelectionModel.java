@@ -52,9 +52,7 @@ public class DatabaseSelectionModel extends Model
 		String[] dbuserMail = {"Mail TEXT NOT NULL"};dbuser.add(dbuserMail);
 		String[] dbuserPassword = {"Password TEXT  NOT NULL"};dbuser.add(dbuserPassword);
 		String[] dbuserPRIMARY = {"PRIMARY KEY(UserID)"};dbuser.add(dbuserPRIMARY);
-		
-		
-		
+
 		ArrayList<String[]> dbgroup = new ArrayList<String[]>();
 		String[] dbgrouptable = {"dbgroup"}; dbgroup.add(dbgrouptable);
 		String[] dbgroupdbgroup = {"GroupID BIGINT AUTO_INCREMENT"}; dbgroup.add(dbgroupdbgroup);
@@ -82,7 +80,7 @@ public class DatabaseSelectionModel extends Model
 		String[] datamanagementtouserFOREIGN1 = {"COSTRAINT fk_datamgmtTOuser FOREIGN KEY(UserID) REFERENCES User(UserID) ON DELETE SET NULL ON UPDATE CASCADE"};datamanagementtouser.add(datamanagementtouserFOREIGN1);
 		String[] datamanagementtouserFOREIGN2 = {"COSTRAINT fk_datamgmtTOgroup1 FOREIGN KEY(DeriveGroupID) REFERENCES Group(GroupID) ON DELETE SET NULL ON UPDATE CASCADE"};datamanagementtouser.add(datamanagementtouserFOREIGN2);
 		String[] datamanagementtouserFOREIGN3 = {"COSTRAINT fk_datamgmtTOgroup2 FOREIGN KEY(TeamworkGroupID) REFERENCES Group(GroupID) ON DELETE SET NULL ON UPDATE CASCADE"};datamanagementtouser.add(datamanagementtouserFOREIGN3);
-		String[] datamanagementtouserFOREIGN4 = {"COSTRAINT fk_datamgmtTOdatamgmt FOREIGN KEY(DatamanagementID) REFERENCES Group(GroupID) ON DELETE SET NULL ON UPDATE CASCADE"};datamanagementtouser.add(datamanagementtouserFOREIGN3);
+		String[] datamanagementtouserFOREIGN4 = {"COSTRAINT fk_datamgmtTOdatamgmt FOREIGN KEY(DatamanagementID) REFERENCES Datamanagement(DatamanagementID) ON DELETE CASCADE ON UPDATE CASCADE"};datamanagementtouser.add(datamanagementtouserFOREIGN4);
 		
 		ArrayList<String[]> datamanagement = new ArrayList<String[]>();
 		String[] datamanagementtable = {"datamanagement"}; datamanagement.add(datamanagementtable);
@@ -90,6 +88,7 @@ public class DatabaseSelectionModel extends Model
 		String[] datamanagementCardTableReferenceName = {"CardTableReferenceName TEXT NOT NULL"};datamanagement.add(datamanagementCardTableReferenceName);
 		String[] datamanagementDoorTableReferenceName = {"DoorTableReferenceName TEXT NOT NULL"};datamanagement.add(datamanagementDoorTableReferenceName);
 		String[] datamanagementStackTableReferenceName = {"StackTableReferenceName TEXT NOT NULL"};datamanagement.add(datamanagementStackTableReferenceName);
+		String[] datamanagementPRIMARY = {"PRIMARY KEY (DatamanagementID)"};datamanagement.add(datamanagementPRIMARY);
 		
 		ArrayList<String[]> dbtrash = new ArrayList<String[]>();
 		String[] dbtrashtable = {""}; dbtrash.add(dbtrashtable);
@@ -106,7 +105,10 @@ public class DatabaseSelectionModel extends Model
 		String[] dbtrashLink = {"Link TEXT NULL"};dbtrash.add(dbtrashLink);
 		String[] dbtrashDescription = {"Description TEXT NULL"};dbtrash.add(dbtrashDescription);
 		String[] dbtrashDate = {"Date TEXT NULL"};dbtrash.add(dbtrashDate);
-				
+		String[] dbtrashPRIMARY = {"PRIMARY KEY (TrashID)"};datamanagement.add(datamanagementPRIMARY);
+		String[] dbtrashFOREIGN = {"COSTRAINT fk_trashTOdatamgmt FOREIGN KEY(DatamanagementID) REFERENCES Datamanagement(DatamanagementID) ON DELETE CASCADE ON UPDATE CASCADE"};datamanagement.add(dbtrashFOREIGN);		
+		
+		
 		tables.add(dbuser);
 		tables.add(dbgroup);
 		tables.add(dbuseringroup);

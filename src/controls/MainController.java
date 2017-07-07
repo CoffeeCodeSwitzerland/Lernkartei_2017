@@ -28,6 +28,7 @@ import views.DMODoorView;
 import views.DMOModifyDoorView;
 import views.DMOModifyStackView;
 import views.DMOStackView;
+import views.DatabaseSelectionView;
 import views.DoorStackInformationView;
 import views.DoorView;
 import views.EditorView;
@@ -44,6 +45,7 @@ import views.LoginView;
 import views.MainView;
 import views.ManagementSelectionView;
 import views.OptionsView;
+import views.OwnDBConnectionView;
 import views.PostLearnView;
 import views.PreLearnView;
 import views.QuizletImportView;
@@ -158,6 +160,9 @@ public class MainController extends FXController
 		this.addUniqueView(new LearnView("learnview", this));
 		this.addUniqueView(new PostLearnView("postlearn", this));
 		this.addUniqueView(new LernenSelectionView("lernenselectionview", this));
+		
+		this.addUniqueView(new DatabaseSelectionView("databaseselectionview", this));
+		this.addUniqueView(new OwnDBConnectionView("owndbconnectionview", this));
 
 		
 		this.addUniqueView(new ImpressumView("impressumview", this));

@@ -10,6 +10,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import mvc.fx.FXController;
 import mvc.fx.FXView;
+import serverdb.usermgmt.User;
 import views.components.AppButton;
 import views.components.BackButton;
 import views.components.HomeButton;
@@ -28,7 +29,8 @@ public class RegisterView extends FXView
 	VBox AllFields;
 	HBox Controls;
 	
-	TextField txtName;
+	TextField txtFirstName;
+	TextField txtLastName;
 	PasswordField pwPassword;
 	PasswordField pwToCheck;
 	TextField txtMail;
@@ -51,8 +53,10 @@ public class RegisterView extends FXView
 		Controls.setAlignment(Pos.CENTER);
 		Controls.setPadding(new Insets(20));
 		
-		txtName = new TextField();
-		txtName.setPromptText("Username");
+		txtFirstName = new TextField();
+		txtFirstName.setPromptText("Vorname");
+		txtLastName = new TextField();
+		txtLastName.setPromptText("Nachname");
 		pwPassword = new PasswordField();
 		pwPassword.setPromptText("Passwort");
 		pwToCheck = new PasswordField();
@@ -64,7 +68,15 @@ public class RegisterView extends FXView
 		home = new HomeButton(getFXController());
 		back = new BackButton(getFXController(), "Zurück");
 		
-		AllFields.getChildren().addAll(txtName, pwPassword, pwToCheck, txtMail, reg);
+		reg.setOnAction(e -> {
+			if(pwPassword.getText().equals(pwToCheck.getText()))
+			{
+				User u = new User();
+				u.registerUser(txtFirstName.getText(),txtLastName.getText(),pwPassword.getText(),txtMail.getText());
+			}
+		});
+		
+		AllFields.getChildren().addAll(txtFirstName,txtLastName, pwPassword, pwToCheck, txtMail, reg);
 		Controls.getChildren().addAll(back, home);
 		
 		bp.setBottom(Controls);

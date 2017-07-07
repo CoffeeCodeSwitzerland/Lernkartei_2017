@@ -96,7 +96,7 @@ public class OwnDBConnectionView extends FXView
 				alert.setHeaderText("Passwörter stimmen nicht überein!");
 				alert.setContentText("Bitte geben Sie das Passwort erneut ein.");
 				pwPassword.clear();
-				pwToCheck.clear();
+				pwToCheck.clear(); 
 				alert.showAndWait();
 			}
 		});

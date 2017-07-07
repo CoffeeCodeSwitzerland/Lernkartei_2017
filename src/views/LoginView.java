@@ -1,6 +1,7 @@
 package views;
 
 import database.jdbc.MYSQLDriver;
+import globals.Globals;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
@@ -81,10 +82,10 @@ public class LoginView extends FXView
 		
 		reg.setOnAction(e -> getFXController().showView("registerview"));
 		log.setOnAction(e -> {
-			
-		//getFXController().showView("managementselectionview");
-
-			
+			//So that you can always check again who was logged in last,
+			//but if user logged in, it should be set as ""
+			Globals.lastRegisteredUser = "";
+			getFXController().showView("managementselectionview");
 		});
 		
 		return bp;
@@ -94,6 +95,11 @@ public class LoginView extends FXView
 	public void refreshView()
 	{
 		bp.setId("loginviewbg");
+		
+		if(!Globals.lastRegisteredUser.equals(""))
+		{
+			txtName.setText(Globals.lastRegisteredUser);
+		}
 
 		//Zuerst überprüfen ob Felder gefüllt
 		//Dann überprüfen ob Eingaben korrekt

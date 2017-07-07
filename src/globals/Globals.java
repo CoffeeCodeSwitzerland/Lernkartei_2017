@@ -37,6 +37,7 @@ public abstract class Globals
 	public static final int maxStackPartSize = 1000;
 	
 	public static String username = "";
+	public static String lastRegisteredUser = "";
 	public static enum loginState  {LOGGEDIN,LOGGEDOUT};
 	public static loginState loginStatus = loginState.LOGGEDOUT;
 	//Example for change the status in a other class => Globals.loginStatus = loginState.LOGGEDOUT;

@@ -28,6 +28,7 @@ public class ServerTable
 		}
 	
 		QueryExecuter q = new QueryExecuter(executeStatements);
+		System.out.print("---------Ausführer");
 		q.executeQueriesWithoutResult();
 	}
 }

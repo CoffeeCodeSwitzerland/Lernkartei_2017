@@ -68,10 +68,12 @@ public class DatabaseSelectionView extends FXView
 			alert.setHeaderText("Verbindung erfolgreich abgespeichert!");
 			alert.setContentText("Die Verbindung zum WISS-Server wurde erfolgreich abgespeichert.\nDie Datenbank bzw. die Tabellen werden nun erstellt, sollten sie noch nicht existieren.");
 			alert.showAndWait();
+			System.out.println("create database");
 			getFXController().getModel("databaseselectionmodel").buildWissDatabase();
 			getFXController().showMainView();
 		});
 		btnOwnDB.setOnAction(e -> {
+
 			getFXController().showView("owndbconnectionview");
 		});
 		

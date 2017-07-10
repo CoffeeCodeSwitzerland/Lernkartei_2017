@@ -63,23 +63,11 @@ public class DatabaseSelectionModel extends Model
 		ArrayList<String[]> dbuseringroup = new ArrayList<String[]>();
 		String[] dbuseringrouptable = {"dbuseringroup"}; dbuseringroup.add(dbuseringrouptable);
 		String[] dbuseringroupUserInGroupID = {"UserInGroupID BIGINT AUTO_INCREMENT"}; dbuseringroup.add(dbuseringroupUserInGroupID);
-		String[] dbuseringroupUserID = {"UserID BIGINT NOT NULL"};dbuseringroup.add(dbuseringroupUserID);
-		String[] dbuseringroupGroupID = {"GroupID BIGINT NOT NULL"};dbuseringroup.add(dbuseringroupGroupID);
+		String[] dbuseringroupUserID = {"UserID BIGINT  NULL"};dbuseringroup.add(dbuseringroupUserID);
+		String[] dbuseringroupGroupID = {"GroupID BIGINT  NULL"};dbuseringroup.add(dbuseringroupGroupID);
 		String[] dbuseringroupPRIMARY  = {"PRIMARY KEY (UserInGroupID)"};dbuseringroup.add(dbuseringroupPRIMARY);
 		String[] dbuseringroupFOREIGN = {"CONSTRAINT fk_dbuserTOdbuseringroup FOREIGN KEY(UserID) REFERENCES dbuser(UserID) ON DELETE CASCADE ON UPDATE CASCADE"};dbuseringroup.add(dbuseringroupFOREIGN);
 		String[] dbuseringroupFOREIGN2 = {"CONSTRAINT fk_dbuserTOdbuseringroupto FOREIGN KEY(GroupID) REFERENCES dbgroup(GroupID) ON UPDATE CASCADE"};dbuseringroup.add(dbuseringroupFOREIGN2);
-		
-		ArrayList<String[]> dbdatamanagementtouser = new ArrayList<String[]>();
-		String[] dbdatamanagementtousertable = {"datamanagementtouser"}; dbdatamanagementtouser.add(dbdatamanagementtousertable);
-		String[] dbdatamanagementtouserUserID = {"UserID BIGINT AUTO_INCREMENT"}; dbdatamanagementtouser.add(dbdatamanagementtouserUserID);
-		String[] dbdatamanagementtouserDeriveGroupID = {"DeriveGroupID BIGINT NULL"};dbdatamanagementtouser.add(dbdatamanagementtouserDeriveGroupID);
-		String[] dbdatamanagementtouserTeamworkGroupID= {"TeamworkGroupID BIGINT NULL"};dbdatamanagementtouser.add(dbdatamanagementtouserTeamworkGroupID);
-		String[] dbdatamanagementtouserDatamanagementToUserID = {"DatamanagementID BIGINT "};dbdatamanagementtouser.add(dbdatamanagementtouserDatamanagementToUserID);
-		String[] dbdatamanagementtouserPRIMARY = {"PRIMARY KEY (UserID)"};dbdatamanagementtouser.add(dbdatamanagementtouserPRIMARY);
-		String[] dbdatamanagementtouserFOREIGN1 = {"CONSTRAINT fk_datamgmtTOuser FOREIGN KEY(UserID) REFERENCES dbuser(UserID) ON DELETE SET NULL ON UPDATE CASCADE"};dbdatamanagementtouser.add(dbdatamanagementtouserFOREIGN1);
-		String[] dbdatamanagementtouserFOREIGN2 = {"CONSTRAINT fk_datamgmtTOgroup1 FOREIGN KEY(DeriveGroupID) REFERENCES dbgroup(GroupID) ON DELETE SET NULL ON UPDATE CASCADE"};dbdatamanagementtouser.add(dbdatamanagementtouserFOREIGN2);
-		String[] dbdatamanagementtouserFOREIGN3 = {"CONSTRAINT fk_datamgmtTOgroup2 FOREIGN KEY(TeamworkGroupID) REFERENCES dbgroup(GroupID) ON DELETE SET NULL ON UPDATE CASCADE"};dbdatamanagementtouser.add(dbdatamanagementtouserFOREIGN3);
-		String[] dbdatamanagementtouserFOREIGN4 = {"CONSTRAINT fk_datamgmtTOdatamgmt FOREIGN KEY(DatamanagementID) REFERENCES dbdatamanagement(DatamanagementID) ON DELETE CASCADE ON UPDATE CASCADE"};dbdatamanagementtouser.add(dbdatamanagementtouserFOREIGN4);
 		
 		ArrayList<String[]> dbdatamanagement = new ArrayList<String[]>();
 		String[] dbdatamanagementtable = {"dbdatamanagement"}; dbdatamanagement.add(dbdatamanagementtable);
@@ -88,6 +76,18 @@ public class DatabaseSelectionModel extends Model
 		String[] dbdatamanagementDoorTableReferenceName = {"DoorTableReferenceName TEXT NOT NULL"};dbdatamanagement.add(dbdatamanagementDoorTableReferenceName);
 		String[] dbdatamanagementStackTableReferenceName = {"StackTableReferenceName TEXT NOT NULL"};dbdatamanagement.add(dbdatamanagementStackTableReferenceName);
 		String[] dbdatamanagementPRIMARY = {"PRIMARY KEY (DatamanagementID)"};dbdatamanagement.add(dbdatamanagementPRIMARY);
+		
+		ArrayList<String[]> dbdatamanagementtouser = new ArrayList<String[]>();
+		String[] dbdatamanagementtousertable = {"datamanagementtouser"}; dbdatamanagementtouser.add(dbdatamanagementtousertable);
+		String[] dbdatamanagementtouserUserID = {"UserID BIGINT AUTO_INCREMENT"}; dbdatamanagementtouser.add(dbdatamanagementtouserUserID);
+		String[] dbdatamanagementtouserDeriveGroupID = {"DeriveGroupID BIGINT NULL"};dbdatamanagementtouser.add(dbdatamanagementtouserDeriveGroupID);
+		String[] dbdatamanagementtouserTeamworkGroupID= {"TeamworkGroupID BIGINT NULL"};dbdatamanagementtouser.add(dbdatamanagementtouserTeamworkGroupID);
+		String[] dbdatamanagementtouserDatamanagementToUserID = {"DatamanagementID BIGINT "};dbdatamanagementtouser.add(dbdatamanagementtouserDatamanagementToUserID);
+		String[] dbdatamanagementtouserPRIMARY = {"PRIMARY KEY (UserID)"};dbdatamanagementtouser.add(dbdatamanagementtouserPRIMARY);
+		String[] dbdatamanagementtouserFOREIGN1 = {"CONSTRAINT fk_datamgmtTOuser FOREIGN KEY(UserID) REFERENCES dbuser(UserID) ON DELETE CASCADE ON UPDATE CASCADE"};dbdatamanagementtouser.add(dbdatamanagementtouserFOREIGN1);
+		String[] dbdatamanagementtouserFOREIGN2 = {"CONSTRAINT fk_datamgmtTOgroup1 FOREIGN KEY(DeriveGroupID) REFERENCES dbgroup(GroupID) ON DELETE SET NULL ON UPDATE CASCADE"};dbdatamanagementtouser.add(dbdatamanagementtouserFOREIGN2);
+		String[] dbdatamanagementtouserFOREIGN3 = {"CONSTRAINT fk_datamgmtTOgroup2 FOREIGN KEY(TeamworkGroupID) REFERENCES dbgroup(GroupID) ON DELETE SET NULL ON UPDATE CASCADE"};dbdatamanagementtouser.add(dbdatamanagementtouserFOREIGN3);
+		String[] dbdatamanagementtouserFOREIGN4 = {"CONSTRAINT fk_datamgmtTOdatamgmt FOREIGN KEY(DatamanagementID) REFERENCES dbdatamanagement(DatamanagementID) ON DELETE CASCADE ON UPDATE CASCADE"};dbdatamanagementtouser.add(dbdatamanagementtouserFOREIGN4);
 		
 		ArrayList<String[]> dbtrash = new ArrayList<String[]>();
 		String[] dbtrashtable = {"dbtrash"}; dbtrash.add(dbtrashtable);
@@ -105,7 +105,7 @@ public class DatabaseSelectionModel extends Model
 		String[] dbtrashDescription = {"Description TEXT NULL"};dbtrash.add(dbtrashDescription);
 		String[] dbtrashDate = {"Date TEXT NULL"};dbtrash.add(dbtrashDate);
 		String[] dbtrashPRIMARY = {"PRIMARY KEY (TrashID)"};dbtrash.add(dbtrashPRIMARY);
-		//String[] dbtrashFOREIGN = {"FOREIGN KEY(DatamanagementID) REFERENCES dbdatamanagement(DatamanagementID) ON DELETE CASCADE ON UPDATE CASCADE"};dbdatamanagement.add(dbtrashFOREIGN);		
+		String[] dbtrashFOREIGN = {"FOREIGN KEY(DatamanagementID) REFERENCES dbdatamanagement(DatamanagementID) ON DELETE CASCADE ON UPDATE CASCADE"};dbtrash.add(dbtrashFOREIGN);		
 		
 		//CONSTRAINT fk_trashTOdatamgmt 
 		tables.add(dbuser);
@@ -117,6 +117,7 @@ public class DatabaseSelectionModel extends Model
 		
 		ServerTable st = new ServerTable(tables);
 		st.createTables();
+
 	}
 	
 	

@@ -1,5 +1,5 @@
 ﻿#   Short info WISSLearnCards 2016/17
-Developed in order of WISS Bern in Ostermundigen, Switzerland.    
+Developed in order of [WISS](https://www.wiss.ch/de-CH) Bern in Ostermundigen, Switzerland.    
 Contact: André Flury
 
 ## Product description

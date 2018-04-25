@@ -135,7 +135,8 @@ public class User
 	{
 		try
 		{
-			int ut = Integer.parseInt(usertype); // TODO : Fehler behandlung
+			//int ut = 
+					Integer.parseInt(usertype); // TODO : Fehler behandlung
 		} catch (Exception e)
 		{
 			return -1;

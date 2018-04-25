@@ -3,9 +3,6 @@ package views;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -64,9 +61,9 @@ public class SaveUploadstackOnServerDialogView extends FXView
 		bp.setCenter(AllFields);
 		bp.setBottom(bottom);
 		
-		btnOwnDMO.setOnAction(e -> getFXController().showView("savedownloadstackowndmodoorselectionview"));
-		btnForeignDMO.setOnAction(e -> getFXController().showView("savedownloadstackforeigndmoview"));
-		back.setOnAction(e -> getFXController().showView("serverstackview"));
+		btnOwnDMO.setOnAction(e -> getFXController().showAndTrackView("savedownloadstackowndmodoorselectionview"));
+		btnForeignDMO.setOnAction(e -> getFXController().showAndTrackView("savedownloadstackforeigndmoview"));
+		back.setOnAction(e -> getFXController().showAndTrackView("serverstackview"));
 		
 		return bp;
 	}

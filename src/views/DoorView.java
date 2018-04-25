@@ -2,6 +2,7 @@ package views;
 
 import java.util.ArrayList;
 
+import debug.Debugger;
 import globals.Globals;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -24,7 +25,6 @@ import views.components.Alert;
 import views.components.AppButton;
 import views.components.BackButton;
 import views.components.ControlLayout;
-import views.components.HomeButton;
 import views.components.MainLayout;
 
 public class DoorView extends FXViewModel {
@@ -76,7 +76,7 @@ public class DoorView extends FXViewModel {
 			newDoor();
 		});
 		
-		backBtn.setOnAction(e -> getFXController().showView("lernenselectionview"));		
+		backBtn.setOnAction(e -> getFXController().showAndTrackView("lernenselectionview"));		
 		trashImgView.setOnDragOver(event ->
 		{
 			if (event.getGestureSource() != trashImgView && event.getDragboard().hasString())
@@ -100,7 +100,11 @@ public class DoorView extends FXViewModel {
 			event.consume();
 		});
 		
-		getFXController().getModel("cards").registerView(this);
+		try {
+			getFXController().getModel("cards").registerView(this);
+		} catch (Exception e) {
+			Debugger.out("DoorView-constructContainer: did not found a Model named 'cards'!");
+		}		
 		return maLay;
 	}
 
@@ -109,7 +113,13 @@ public class DoorView extends FXViewModel {
 		
 		doorLayout.getChildren().clear();
 	
-		ArrayList<String> doorNames = getFXController().getModel("door").getDataList("doors");
+		ArrayList<String> doorNames=null;
+		try {
+			doorNames = getFXController().getModel("door").getDataList("doors");
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		ArrayList<AppButton> doors = new ArrayList<>();
 		ArrayList<HBox> zeilen = new ArrayList<>();
 		
@@ -125,7 +135,7 @@ public class DoorView extends FXViewModel {
 				d.setOnAction(e ->
 				{
 					getFXController().setViewData("stack", d.getText());
-					getFXController().showView("stack");
+					getFXController().showAndTrackView("stack");
 				});
 
 				d.setOnDragDetected(e ->
@@ -155,7 +165,7 @@ public class DoorView extends FXViewModel {
 				
 				p.setOnAction(e -> {
 				getFXController().setViewData("rename",s);
-				getFXController().showView("rename");
+				getFXController().showAndTrackView("rename");
 				});
 				p.setOnKeyReleased(e -> {
 				if (e.getCode() == KeyCode.ENTER)
@@ -188,7 +198,13 @@ public class DoorView extends FXViewModel {
 			}
 			if (doorName != null && !doorName.equals(""))
 			{
-				int succesful = getFXController().getModel("door").doAction(Command.NEW, doorName);
+				int succesful=-1;
+				try {
+					succesful = getFXController().getModel("door").doAction(Command.NEW, doorName);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				if (succesful == -1)
 				{
 					Alert.simpleInfoBox("Fach wurde nicht erstellt", "Dieser Name ist schon vergeben.");
@@ -204,7 +220,12 @@ public class DoorView extends FXViewModel {
 	{
 		if (Alert.ok("Achtung", "Willst du das Fach '" + door + "' wirklich löschen?"))
 		{
-			getFXController().getModel("door").doAction(Command.DELETE, door);
+			try {
+				getFXController().getModel("door").doAction(Command.DELETE, door);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			refreshView();
 		}
 		return true;

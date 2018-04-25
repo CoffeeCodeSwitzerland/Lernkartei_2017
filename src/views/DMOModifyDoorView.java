@@ -6,9 +6,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.control.ToolBar;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -16,7 +14,6 @@ import mvc.fx.FXController;
 import mvc.fx.FXView;
 import views.components.AppButton;
 import views.components.BackButton;
-import views.components.HomeButton;
 
 public class DMOModifyDoorView extends FXView
 {
@@ -108,7 +105,12 @@ public class DMOModifyDoorView extends FXView
 	public void refreshView()
 	{
 		bp.setId("loginviewbg");
-		actualDoorName = getFXController().getModel("dmomodifydoormodel").getDataList("");
+		try {
+			actualDoorName = getFXController().getModel("dmomodifydoormodel").getDataList("");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		inputName.setText(actualDoorName.get(0));
 		
 	}

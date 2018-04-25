@@ -1,13 +1,12 @@
 package serverdb.sql;
 
-import java.util.ArrayList;
-import database.jdbc.MYSQLDriver;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 
 /**
  * 
@@ -85,7 +84,8 @@ public class QueryExecuter extends Query
 			Class.forName(mysqldriver).newInstance();
 			conn = DriverManager.getConnection(mysqlpath, mysqluser, mysqlpasswort);
 			stmt = conn.createStatement();
-			boolean rs = stmt.execute(query);
+			//boolean rs = 
+					stmt.execute(query);
 		} catch (SQLException | InstantiationException | IllegalAccessException | ClassNotFoundException e)
 		{
 			// TODO Auto-generated catch block
@@ -93,6 +93,7 @@ public class QueryExecuter extends Query
 		}
 
 		/*
+		 * TODO (find a better way to check success...)
 		 * SUCCESS_NO_INFO says with the value -2 that the query has been
 		 * executed successfully, though the number of row affected is unknown
 		 */
@@ -113,7 +114,8 @@ public class QueryExecuter extends Query
 			Class.forName(mysqldriver).newInstance();
 			conn = DriverManager.getConnection(mysqlpath, mysqluser, mysqlpasswort);
 			stmt = conn.createStatement();
-			boolean rs = stmt.execute(query);
+			//boolean rs = 
+					stmt.execute(query);
 		} catch (SQLException | InstantiationException | IllegalAccessException | ClassNotFoundException e)
 		{
 			// TODO Auto-generated catch block
@@ -136,7 +138,8 @@ public class QueryExecuter extends Query
 				Class.forName(mysqldriver).newInstance();
 				conn = DriverManager.getConnection(mysqlpath, mysqluser, mysqlpasswort);
 				stmt = conn.createStatement();
-				boolean rs = stmt.execute(s);
+				//boolean rs = 
+						stmt.execute(s);
 			} catch (SQLException | InstantiationException | IllegalAccessException | ClassNotFoundException e)
 			{
 				// TODO Auto-generated catch block

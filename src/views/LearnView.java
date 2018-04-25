@@ -15,6 +15,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
+import mvc.Model;
 import mvc.ModelInterface.Command;
 import mvc.fx.FXController;
 import mvc.fx.FXViewModel;
@@ -65,7 +66,7 @@ public class LearnView extends FXViewModel
 		AppButton backBtn = new AppButton("_Zurück");
 		backBtn.setOnAction(e ->
 		{
-			getFXController().showView("stack");
+			getFXController().showAndTrackView("stack");
 		});
 
 		headLbl.setId("bold");
@@ -194,7 +195,11 @@ public class LearnView extends FXViewModel
 			}
 		});
 
-		getFXController().getModel("learn").registerView(this);
+		try {
+			getFXController().getModel("learn").registerView(this);
+		} catch (Exception e) {
+			Debugger.out("LearnView-constructContainer: did not found a Model named 'learn'!");
+		}
 		return mainLayout;
 	}
 
@@ -210,29 +215,41 @@ public class LearnView extends FXViewModel
 		}
 		else
 		{
-			ArrayList<String> cards = getFXController().getModel("learn").getDataList(getData());
+			ArrayList<String> cards = null;
+			try {
+				cards = getFXController().getModel("learn").getDataList(getData());
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 
 			int stackPartSize = Globals.defaultStackPartSize;
-			if (getFXController().getModel("config").getDataList("cardLimit") != null)
-			{
-				String cardLimitString = getFXController().getModel("config").getDataList("cardLimit").get(0);
-				if (cardLimitString != null)
+			try {
+				if (getFXController().getModel("config").getDataList("cardLimit") != null)
 				{
-					if (cardLimitString.length() > 0)
+					String cardLimitString = getFXController().getModel("config").getDataList("cardLimit").get(0);
+					if (cardLimitString != null)
 					{
-						stackPartSize = Integer.parseInt(cardLimitString);
-						if (stackPartSize < Globals.minStackPartSize)
+						if (cardLimitString.length() > 0)
 						{
-							stackPartSize = Globals.minStackPartSize;
+							stackPartSize = Integer.parseInt(cardLimitString);
+							if (stackPartSize < Globals.minStackPartSize)
+							{
+								stackPartSize = Globals.minStackPartSize;
+							}
 						}
 					}
 				}
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 
 			headLbl.setText(getData());
 			cardNrLbl.setText("(" + (counter % stackPartSize + 1) + "/"+stackPartSize+")");
 
-			if (counter == counterBase || (counter % stackPartSize > 0 && counter < cards.size()))
+			if ( cards != null &&
+				(counter == counterBase || (counter % stackPartSize > 0 && counter < cards.size()) ) )
 			{
 				doNotSkip = false;
 				successfulBtn.setDisable(false);
@@ -264,15 +281,21 @@ public class LearnView extends FXViewModel
 				counter = counter < cards.size() ? counter : 0;
 				String canComeBack = counter == 0 ? "n" : "y";
 				getFXController().setViewData("postlearn", canComeBack + Globals.SEPARATOR + getData());
-				getFXController().showView("postlearn");
+				getFXController().showAndTrackView("postlearn");
 			}
 		}
 	}
 
 	public void clearShuffle ()
 	{
-		getFXController().getModel("learn").getDataList(null).clear();
-		getFXController().getModel("learn").setString(null);
+		try {
+			Model model = getFXController().getModel("learn");
+			model.getDataList(null).clear();
+			model.setString(null);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	private void turnCard ()
@@ -281,6 +304,14 @@ public class LearnView extends FXViewModel
 		frontIsShowed = !frontIsShowed;
 	}
 
+	/**
+	 * changes card priority
+	 * 
+	 * @param command to data operation
+	 * @return card data[0] (new priority)
+	 *         0 on error
+	 */
+	
 	private int changeCardPriority (Command command)
 	{
 		counter++;
@@ -290,7 +321,13 @@ public class LearnView extends FXViewModel
 			case FALSE: countWrong.setText(Integer.toString(Integer.parseInt(countWrong.getText())+1)); break;
 			default: break;
 		}
-		return getFXController().getModel("learn").doAction(command, cardData[0]);
+		try {
+			return getFXController().getModel("learn").doAction(command, cardData[0]);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return 0; // error
 	}
 
 	@Override

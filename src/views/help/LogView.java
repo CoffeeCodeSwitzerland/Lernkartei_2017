@@ -1,4 +1,4 @@
-package views;
+package views.help;
 
 import java.io.File;
 import java.io.FileNotFoundException;

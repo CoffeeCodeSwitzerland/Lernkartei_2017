@@ -3,23 +3,7 @@ package controls;
 import debug.Logger;
 import javafx.stage.Stage;
 // Nicht ändern
-import models.CardModel;
-import models.ConfigModel;
-import models.DMOModifyDoorModel;
-import models.DMOModifyStackModel;
-import models.DatabaseSelectionModel;
-import models.DoorModel;
-import models.DoorStackInformationModel;
-import models.DruckModel;
-import models.GameModel;
-import models.LearnModel;
-import models.ProfilModel;
-import models.QuizletModel;
-import models.ServerStackModel;
-import models.StackModel;
-import models.StatisticsModel;
-import models.TuttoModel;
-import models.UserSecurityModel;
+import models.*;
 import mvc.fx.FXController;
 // Nicht ändern
 import views.BBCodeInfoView;
@@ -33,12 +17,10 @@ import views.DoorStackInformationView;
 import views.DoorView;
 import views.EditorView;
 import views.GameOptionView;
-import views.GameView;
 import views.GroupCreateView;
 import views.GroupMemberView;
 import views.GroupView;
 import views.HelpView;
-import views.ImpressumView;
 import views.LearnView;
 import views.LernenSelectionView;
 import views.LoginView;
@@ -68,7 +50,10 @@ import views.TeamworkServerDoorView;
 import views.UserListView;
 import views.UserView;
 import views.components.MainViewSettings;
+import views.game.GameView;
 /**
+ * This class controls all models and views in lists managed by the MVC package.
+ * Views are 
  * Diese Klasse Kontrolliert alle Sichten und Models. Den Sichten wird die
  * Navigation zur Verfügung gestellt. Alle Sichten (ausser Modalfenster) werden
  * hier mit eindeutigen Namen versehen.
@@ -86,7 +71,7 @@ public class MainController extends FXController
 	public void initMyModels() {
 		Logger.log("MainController.initMyModels: Instanziere Models....");
 		debug.Debugger.out("MainController.initMyModels: Instanziere Models....");
-		this.addUniqueModel(new DatabaseSelectionModel(), "databaseselectionmodel");
+		//TODO this.addUniqueModel(new DatabaseSelectionModel(), "databaseselectionmodel");
 		this.addUniqueModel(new GameModel(),"game");
 		this.addUniqueModel(new TuttoModel(),"tutto");
 		this.addUniqueModel(new DoorModel(),"door");
@@ -165,7 +150,7 @@ public class MainController extends FXController
 		this.addUniqueView(new OwnDBConnectionView("owndbconnectionview", this));
 
 		
-		this.addUniqueView(new ImpressumView("impressumview", this));
+//		this.addUniqueView(new ImpressumView("impressumview", this));
 	}
 
 	@Override

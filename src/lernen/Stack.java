@@ -1,12 +1,10 @@
 package lernen;
 
-import java.util.ArrayList;
-
 public class Stack
 {
 	private String Name;
 	private String Description;
-	private ArrayList<Karte> Cards = new ArrayList<Karte>();
+	//private ArrayList<Karte> Cards = new ArrayList<Karte>();
 	
 	public String getName() {
 		if (Name != null && Name != "") {

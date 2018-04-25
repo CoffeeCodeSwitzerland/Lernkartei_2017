@@ -1,41 +1,28 @@
 package views;
 
 import java.util.ArrayList;
-import java.util.Optional;
 
+import debug.Debugger;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
-import javafx.geometry.Orientation;
-import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Parent;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
-import javafx.scene.control.ScrollBar;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TabPane.TabClosingPolicy;
 import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
 import mvc.fx.FXController;
 import mvc.fx.FXView;
 import views.components.AppButton;
 import views.components.BackButton;
-import views.components.ContainerLayout;
-import views.components.ControlLayout;
-import views.components.VerticalScroller;
 
 public class TeamworkServerDoorView extends FXView
 {
@@ -100,7 +87,7 @@ public class TeamworkServerDoorView extends FXView
 	    btnSearch = new AppButton("Suchen");
 	    btnCreate = new AppButton("++Erstellen++");
 	    btnCreate.setMinWidth(590);
-	    btnCreate.setOnAction(e -> getFXController().showView("createdoorview"));
+	    btnCreate.setOnAction(e -> getFXController().showAndTrackView("createdoorview"));
 	    
 	    StackShowList.setSpacing(20);
 	    Center.setSpacing(20);
@@ -113,7 +100,7 @@ public class TeamworkServerDoorView extends FXView
 	    Center.getChildren().addAll(StackShowList,btnCreate);
 	    
 		back = new AppButton("Zurück");
-		back.setOnAction(e-> getFXController().showView("lernenselectionview"));
+		back.setOnAction(e-> getFXController().showAndTrackView("lernenselectionview"));
 		
 		
 		Bottom = new VBox();
@@ -125,7 +112,11 @@ public class TeamworkServerDoorView extends FXView
 		bp.setCenter(sMain);
 		bp.setBottom(Bottom);
 		
-		getFXController().getModel("serverstack").registerView(this);
+		try {
+			getFXController().getModel("serverstack").registerView(this);
+		} catch (Exception e) {
+			Debugger.out("TeamworkServerDoorView-constructContainer: did not found a Model named 'serverstack'!");
+		}		
 		
 		return bp;
 	}
@@ -171,8 +162,13 @@ public class TeamworkServerDoorView extends FXView
 			{
 				ArrayList<String> list = new ArrayList<String>();
 				list.add(names.get(counter));
-				getFXController().getModel("doorstackinformationmodel").setDataList(list);				
-				getFXController().showView("doorstackinformationview");
+				try {
+					getFXController().getModel("doorstackinformationmodel").setDataList(list);
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}				
+				getFXController().showAndTrackView("doorstackinformationview");
 			}
 			);
 			

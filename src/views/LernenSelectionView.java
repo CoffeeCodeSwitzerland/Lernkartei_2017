@@ -3,11 +3,7 @@ package views;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import mvc.fx.FXController;
 import mvc.fx.FXView;
@@ -58,9 +54,9 @@ public class LernenSelectionView extends FXView
 		
 		bp.setCenter(AllFields);
 		
-		btnDataMgmt.setOnAction(e -> getFXController().showView("serverdoorview"));
-		btnDmoMgmt.setOnAction(e -> getFXController().showView("dmodoorview"));
-		btnLearning.setOnAction(e -> getFXController().showView("doorview"));
+		btnDataMgmt.setOnAction(e -> getFXController().showAndTrackView("serverdoorview"));
+		btnDmoMgmt.setOnAction(e -> getFXController().showAndTrackView("dmodoorview"));
+		btnLearning.setOnAction(e -> getFXController().showAndTrackView("doorview"));
 		
 		return bp;
 	}

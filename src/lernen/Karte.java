@@ -1,6 +1,5 @@
 package lernen;
 
-import java.util.ArrayList;
 import java.util.Date;
 
 public class Karte
@@ -8,7 +7,7 @@ public class Karte
 	private int ID;
 	private int Priority;
 	//kann noch keine Kartenseiten erstellen nur die schon vorhandenen Laden
-	private ArrayList<Seite> Cardsites = new ArrayList<Seite>();
+	//private ArrayList<Seite> Cardsites = new ArrayList<Seite>();
 	private boolean wasRight = false;
 	private Date lastLearntAt;
 	

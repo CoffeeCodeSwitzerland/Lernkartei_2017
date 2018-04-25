@@ -1,26 +1,27 @@
-package views;
+package views.help;
 
 import java.io.File;
 
 import globals.Functions;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import mvc.fx.FXController;
 import mvc.fx.FXView;
 import views.components.AppButton;
-import views.components.ControlLayout;
-import views.components.MainLayout;
 
-public class ImpressumView extends FXView
+
+public class QuizletInfoView extends FXView
 {
-	
-	public ImpressumView(String newName, FXController newController) {
+	public QuizletInfoView (String newName, FXController newController)
+	{
 		// this constructor is the same for all view's
 		super(newController);
 		construct(newName);
@@ -34,59 +35,56 @@ public class ImpressumView extends FXView
 		try {
 			// To avoid strange chars like "ï»¿", the html -Tag is added here separately:
 			webContent.loadContent("<html>"+Functions.fileToString(new File(
-								   "src/views/txt/impressum.htm"))+"</html>");
+								   "src/views/txt/quizlet.htm"))+"</html>");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		double pageWidth = this.getFXController().getMyFXStage().getOPTIMAL_WIDTH();
 		double pageHeight = this.getFXController().getMyFXStage().getOPTIMAL_HEIGHT();
-		debug.Debugger.out("ImpressumView sizes: w:"+pageWidth+" h:"+pageHeight);
+		debug.Debugger.out("QuizletView sizes: w:"+pageWidth+" h:"+pageHeight);
 		
-		//webPage.setPrefHeight(pageHeight);
 		//webContent.setJavaScriptEnabled(true);
+		webPage.setPrefHeight(pageHeight);
 		webPage.setPrefWidth(pageWidth*.93);
-		webPage.applyCss();
-
-		Label labelTitel = new Label("Impressum");
+		webPage.applyCss();		
+		
+		Label labelTitel = new Label("Quizlet");
 		labelTitel.setId("impressumtitel");
 
 		AppButton backBtn = new AppButton("_Zurück");
 		backBtn.setOnAction(e -> getFXController().showMainView());
 
 		BorderPane headLayout = new BorderPane(labelTitel);
-		headLayout.setPadding(new Insets(20));
-			
-		//Info: Die Links sind nun im Controlllayout damit sie mit dem
-		//ZurückButton auf einer Höhe sind.
-		Hyperlink WISSlink = new Hyperlink("WISS Webseite");
-		WISSlink.setOnAction(e -> Functions.openWebpage("http://www.wiss.ch/"));	
-		Hyperlink BITLink = new Hyperlink("BIT Webseite");
-		BITLink.setOnAction(e -> Functions.openWebpage("https://www.bit.admin.ch/"));		
-		Hyperlink LehrlingeLink = new Hyperlink("Unsere Webseite");
-		LehrlingeLink.setOnAction(e -> Functions.openWebpage("http://bund2015.wiss-bern.ch/"));
-
-		WISSlink.setId("LinkiD");
-		BITLink.setId("LinkiD");
-		LehrlingeLink.setId("LinkiD");
-		
+		headLayout.setPadding(new Insets(5));
+	
 		//ScrollPane scroller = new ScrollPane();
 		//scroller.setMaxWidth(800);
 		//scroller.setHbarPolicy(ScrollBarPolicy.NEVER);
 		//scroller.setVbarPolicy(ScrollBarPolicy.ALWAYS);
 		//scroller.setContent(contentLayout);
+			
+		Hyperlink QuizletLink = new Hyperlink("Quizlet");
+		QuizletLink.setOnAction(e -> Functions.openWebpage("http://quizlet.com/"));
+		QuizletLink.setId("LinkiD");
 		
-		//Contentlayout beinhaltet webpage
-		VBox contentLayout = new VBox(20);
+		VBox contentLayout = new VBox(0);
+		contentLayout.getChildren().addAll(webPage);
 		contentLayout.setMinHeight(pageHeight*0.6);
 		contentLayout.setPrefWidth(pageWidth*.93);		
-		contentLayout.getChildren().addAll(webPage);
 		
-		//Für die ControllButtons und die Links
-		ControlLayout conLay = new ControlLayout(backBtn,WISSlink, BITLink, LehrlingeLink);
-		
-		MainLayout maLay = new MainLayout(contentLayout, headLayout, conLay);
+		HBox controlLayout = new HBox(5);
+		controlLayout.setAlignment(Pos.BOTTOM_CENTER);
+		controlLayout.getChildren().addAll(backBtn,QuizletLink);
+		controlLayout.setPadding(new Insets(5));
 
-		return maLay;
+		BorderPane mainLayout = new BorderPane();
+		mainLayout.setPadding(new Insets(20));
+		mainLayout.setTop(headLayout);
+		mainLayout.setCenter(contentLayout);
+		mainLayout.setBottom(controlLayout);
+
+
+		return mainLayout;
 	}
 
 	@Override

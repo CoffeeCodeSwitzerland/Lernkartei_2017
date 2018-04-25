@@ -91,8 +91,8 @@ public class UserView extends FXView
 		AllFields.getChildren().addAll(Top, Bottom);
 		logout.getChildren().addAll(logOut);
 		
-		changeNachfolger.setOnAction(e -> getFXController().showView("userlistview"));
-		back.setOnAction(e -> getFXController().showView("managementselectionview"));
+		changeNachfolger.setOnAction(e -> getFXController().showAndTrackView("userlistview"));
+		back.setOnAction(e -> getFXController().showAndTrackView("managementselectionview"));
 		
 		logOut.setOnAction(e -> {
 			Alert alert = new Alert(AlertType.CONFIRMATION);
@@ -144,7 +144,12 @@ public class UserView extends FXView
 	@Override
 	public void refreshView()
 	{
-		username = new Label(getFXController().getFXModel("usersecuritymodel").getProperty("name"));
+		try {
+			username = new Label(getFXController().getFXModel("usersecuritymodel").getProperty("name"));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 	}
 

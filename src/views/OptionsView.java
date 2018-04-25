@@ -2,6 +2,7 @@ package views;
 
 import java.util.ArrayList;
 
+import debug.Debugger;
 import globals.ConfigDefaults;
 import globals.ConfigDefaults.Configurations;
 import globals.Globals;
@@ -54,7 +55,11 @@ public class OptionsView extends FXView
 		ConfigDefaults.ini();
 		for (Configurations c : Configurations.values())
 		{
-			optionEntries.add(new CheckBoxOption(c, getFXController()));
+			try {
+				optionEntries.add(new CheckBoxOption(c, getFXController()));
+			} catch (Exception e) {
+				Debugger.out("OptionsView-constructContainer: did not found a Model named '...'!");
+			}		
 		}
 
 		StandardVBox optiLay = new StandardVBox();
@@ -71,7 +76,11 @@ public class OptionsView extends FXView
 		ControlLayout contLay = new ControlLayout(backBtn, delBtn);
 		MainLayout mainLay = new MainLayout(scroLay, contLay);
 
-		getFXController().getModel("config").registerView(this);
+		try {
+			getFXController().getModel("config").registerView(this);
+		} catch (Exception e) {
+			Debugger.out("OptionsView-constructContainer: did not found a Model named 'config'!");
+		}		
 
 		return mainLay;
 	}

@@ -7,7 +7,6 @@ import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
-import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -16,7 +15,6 @@ import mvc.fx.FXController;
 import mvc.fx.FXView;
 import views.components.AppButton;
 import views.components.BackButton;
-import views.components.HomeButton;
 
 public class GroupCreateView extends FXView
 {
@@ -87,11 +85,11 @@ public class GroupCreateView extends FXView
 		
 		bp.setCenter(AllFields);
 		
-		btnAdd.setOnAction(e -> getFXController().showView("userlistview"));
-		back.setOnAction(e -> getFXController().showView("groupview"));
+		btnAdd.setOnAction(e -> getFXController().showAndTrackView("userlistview"));
+		back.setOnAction(e -> getFXController().showAndTrackView("groupview"));
 		
 		/*Has to check if name of group already exists*/
-		btnCheck.setOnAction(e -> getFXController().showView(""));
+		btnCheck.setOnAction(e -> getFXController().showAndTrackView(""));
 				
 		return bp;
 	}

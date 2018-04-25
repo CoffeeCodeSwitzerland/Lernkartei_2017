@@ -64,11 +64,11 @@ public class EditorView extends FXViewModel
 
 		// Zurück Button
 		backBtn = new AppButton("_Zurück");
-		backBtn.setOnAction(e -> getFXController().showView("simpleeditorview"));
+		backBtn.setOnAction(e -> getFXController().showAndTrackView("simpleeditorview"));
 
 		// Info Button
 		infobtn = new AppButton("Hilfe");
-		infobtn.setOnAction(e -> getFXController().showView("bbcodeinfo"));
+		infobtn.setOnAction(e -> getFXController().showAndTrackView("bbcodeinfo"));
 
 		// EditLayout
 		editLayout.setPadding(new Insets(10));
@@ -305,8 +305,13 @@ public class EditorView extends FXViewModel
 			{
 				if (back.getText() != null && !back.getText().equals("") && front.getText() != null && !front.getText().equals(""))
 				{
-					getFXController().getModel("cards").doAction(Command.UPDATE, cardSides[0], front.getText(), back.getText());
-					getFXController().showView("simpleeditorview");
+					try {
+						getFXController().getModel("cards").doAction(Command.UPDATE, cardSides[0], front.getText(), back.getText());
+					} catch (Exception e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					getFXController().showAndTrackView("simpleeditorview");
 				}
 			});
 			
@@ -321,7 +326,7 @@ public class EditorView extends FXViewModel
 			infobtn.setOnAction(e ->
 			{
 
-				getFXController().showView("bbcodeinfo");
+				getFXController().showAndTrackView("bbcodeinfo");
 				frontinfo = front.getText();
 				backinfo = back.getText();
 				engineback.loadContent(back.getText());

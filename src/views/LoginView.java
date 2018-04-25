@@ -2,16 +2,15 @@ package views;
 
 import org.mindrot.jbcrypt.BCrypt;
 
-import database.jdbc.MYSQLDriver;
 import globals.Globals;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -19,7 +18,6 @@ import mvc.fx.FXController;
 import mvc.fx.FXView;
 import views.components.AppButton;
 import views.components.HomeButton;
-import serverdb.usermgmt.*;
 
 public class LoginView extends FXView
 {
@@ -85,7 +83,7 @@ public class LoginView extends FXView
 		bp.setCenter(AllFields);
 		bp.setBottom(Controls);
 
-		reg.setOnAction(e -> getFXController().showView("registerview"));
+		reg.setOnAction(e -> getFXController().showAndTrackView("registerview"));
 		log.setOnAction(e ->
 		{
 
@@ -103,7 +101,7 @@ public class LoginView extends FXView
 			if (name.equals("user@mail.com") && BCrypt.checkpw(password, "$2a$12$8hcwdnkJ7uO3FvDEG/1fv.vaSNI/FfZqEzfUZFUYRUHLzRjkV/Z5.")/*plaintext-password: "gibb"*/)
 			{
 				Globals.username = name;
-				getFXController().showView("managementselectionview");
+				getFXController().showAndTrackView("managementselectionview");
 			} else
 			{
 				Alert alert = new Alert(AlertType.ERROR);
@@ -141,7 +139,7 @@ public class LoginView extends FXView
 			{
 				if (txtName.equals("mama"))
 				{
-					getFXController().showView("userview");
+					getFXController().showAndTrackView("userview");
 				} else
 				{
 					errorText = new Label("Die Eingaben entsprechen nicht unseren Richtlinien");
@@ -152,7 +150,7 @@ public class LoginView extends FXView
 			}
 		} else
 		{
-			getFXController().showView("managementselectionview");
+			getFXController().showAndTrackView("managementselectionview");
 		}
 
 	}

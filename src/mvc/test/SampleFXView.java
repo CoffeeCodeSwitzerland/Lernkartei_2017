@@ -37,10 +37,10 @@ public class SampleFXView extends FXViewModel
 		Button quitBtn    = new Button("Beenden");
 
 		// Verhalten der Button bestimmen (View-Controller's):
-		startBtn.setOnAction ( e -> this.getFXController().showView("simview") );
-		optBtn.setOnAction   ( e -> getFXController().showView("optview") );
-		demoBtn.setOnAction  ( e -> getFXController().showView("demoview") );
-		helpBtn.setOnAction  ( e -> getFXController().showView("helpview") );
+		startBtn.setOnAction ( e -> this.getFXController().showAndTrackView("simview") );
+		optBtn.setOnAction   ( e -> getFXController().showAndTrackView("optview") );
+		demoBtn.setOnAction  ( e -> getFXController().showAndTrackView("demoview") );
+		helpBtn.setOnAction  ( e -> getFXController().showAndTrackView("helpview") );
 		quitBtn.setOnAction  ( e -> { getWindow().close(); } );
 
 		// Zum Bsp. eine VBox als Layout und Container für die Buttons:

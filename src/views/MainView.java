@@ -45,9 +45,21 @@ public class MainView extends FXView
 	 */
 	private void closeAll() {
 		debug.Debugger.out("closing main view...");
-		GameModel gm = (GameModel) getFXController().getModel("game");
+		GameModel gm = null;
+		try {
+			gm = (GameModel) getFXController().getModel("game");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		if (gm != null) gm.dispose();
-		TuttoModel tm = (TuttoModel) getFXController().getModel("tutto");
+		TuttoModel tm = null;
+		try {
+			tm = (TuttoModel) getFXController().getModel("tutto");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		if (tm != null) tm.dispose();
 		LKDatabase.myConfigDB.closeDB();
 		LKDatabase.myWLCDB.closeDB();
@@ -104,7 +116,7 @@ public class MainView extends FXView
 	public void refreshView () {
 		if(Globals.firstOpen)
 		{
-			getFXController().showView("databaseselectionview");
+			getFXController().showAndTrackView("databaseselectionview");
 			Globals.firstOpen = false;
 		}
 	}

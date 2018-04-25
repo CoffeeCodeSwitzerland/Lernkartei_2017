@@ -1,4 +1,4 @@
-package views;
+package views.help;
 
 import java.io.File;
 
@@ -7,9 +7,10 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import mvc.fx.FXController;
@@ -22,9 +23,9 @@ import views.components.BackButton;
  * @author hugo-lucca
  *
  */
-public class ManualView extends FXView {
+public class TroubleShootView extends FXView {
 
-	public ManualView(String newName, FXController newController) {
+	public TroubleShootView(String newName, FXController newController) {
 		// this constructor is the same for all view's
 		super(newController);
 		construct(newName);
@@ -40,7 +41,7 @@ public class ManualView extends FXView {
 		try {
 			// To avoid strange chars like "﻿", the html -Tag is added here separately:
 			webContent.loadContent("<html>"+Functions.fileToString(new File(
-								   "src/views/txt/anleitung.htm"))+"</html>");
+								   "src/views/txt/troubleshoot.htm"))+"</html>");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -48,43 +49,38 @@ public class ManualView extends FXView {
 		double pageHeight = this.getFXController().getMyFXStage().getOPTIMAL_HEIGHT();
 		debug.Debugger.out("ManualView sizes: w:"+pageWidth+" h:"+pageHeight);
 		
-		
 		//webPage.setPrefHeight(pageHeight);
-		//webContent.setJavaScriptEnabled(true);
 		webPage.setPrefWidth(pageWidth*.93);
+		//webContent.setJavaScriptEnabled(true);
 		webPage.applyCss();
-		webPage.setId("anleitung");
 
-		Label labelTitel = new Label("Anleitung");
+		Label labelTitel = new Label("Fehlerbehandlung");
 		labelTitel.setId("anleitungstitel");
 
 		BackButton backBtn = new BackButton(this.getFXController());
 
 		BorderPane headLayout = new BorderPane(labelTitel);
-		headLayout.setPadding(new Insets(5));
+		headLayout.setPadding(new Insets(20));
 
-		//ScrollPane scroller = new ScrollPane();
-		//scroller.setMaxWidth(800);
-		//scroller.setHbarPolicy(ScrollBarPolicy.NEVER);
-		//scroller.setVbarPolicy(ScrollBarPolicy.ALWAYS);
-		//scroller.setContent(contentLayout);
-		
-		VBox contentLayout = new VBox(0);
-		contentLayout.getChildren().addAll(webPage);
-		contentLayout.setMinHeight(pageHeight*0.6);
-		contentLayout.setPrefWidth(pageWidth*.93);		
-		
-		HBox controlLayout = new HBox(5);
+		ScrollPane scroller = new ScrollPane();
+		scroller.setMaxWidth(pageWidth);
+
+		scroller.setContent(webPage);
+		scroller.setHbarPolicy(ScrollBarPolicy.NEVER);
+		scroller.setVbarPolicy(ScrollBarPolicy.ALWAYS);
+		scroller.setId("anleitung");
+
+		HBox controlLayout = new HBox(20);
 		controlLayout.setAlignment(Pos.BOTTOM_CENTER);
 		controlLayout.getChildren().addAll(backBtn);
 		controlLayout.setPadding(new Insets(10));
 
 		BorderPane mainLayout = new BorderPane();
-		mainLayout.setPadding(new Insets(25));
+		mainLayout.setPadding(new Insets(15));
 		mainLayout.setTop(headLayout);
-		mainLayout.setCenter(contentLayout);
+		mainLayout.setCenter(scroller);
 		mainLayout.setBottom(controlLayout);
-		
+
 		return mainLayout;
 	}
 

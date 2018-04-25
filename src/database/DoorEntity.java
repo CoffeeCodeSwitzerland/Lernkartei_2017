@@ -6,7 +6,6 @@ import database.jdbc.DBDriver;
 import database.sql.Attribute;
 import database.sql.Entity;
 import database.sql.SQLHandler;
-import globals.Globals;
 
 public class DoorEntity extends Entity {
 

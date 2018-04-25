@@ -22,19 +22,19 @@ public class CheckBoxOption implements OptionInterface
 	public CheckBox	checkBox;
 	public boolean	oldValue;
 
-	public CheckBoxOption (Configurations c, FXController fxc)
+	public CheckBoxOption (Configurations c, FXController fxc) throws Exception
 	{
 		String[] s = ConfigDefaults.getConfig(c);
 		CheckBoxOptionInit(c.toString(), s[1], s[0], s[2], fxc);
 	}
 
-	public CheckBoxOption (String configKey, String description, String cbDescription, FXController controller)
+	public CheckBoxOption (String configKey, String description, String cbDescription, FXController controller) throws Exception
 	{
 		CheckBoxOptionInit(configKey, description, cbDescription, null, controller);
 	}
 
 	public void CheckBoxOptionInit (String configKey, String description, String cbDescription, String def,
-			FXController controller)
+			FXController controller) throws Exception
 	{
 		this.description = new Label(description);
 		this.description.setWrapText(true);
@@ -84,7 +84,12 @@ public class CheckBoxOption implements OptionInterface
 		{
 			debug.Debugger.out(configKey + " property has changed");
 			String value = checkBox.selectedProperty().getValue() ? "true" : "false";
-			controller.getModel("config").doAction(Command.SET, configKey, value);
+			try {
+				controller.getModel("config").doAction(Command.SET, configKey, value);
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		});
 	}
 

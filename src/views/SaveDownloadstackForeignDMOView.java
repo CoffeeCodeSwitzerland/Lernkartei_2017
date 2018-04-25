@@ -7,11 +7,10 @@ import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
-import javafx.scene.control.PasswordField;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
-import javafx.scene.control.TextField;
 import javafx.scene.control.TabPane.TabClosingPolicy;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -19,7 +18,6 @@ import mvc.fx.FXController;
 import mvc.fx.FXView;
 import views.components.AppButton;
 import views.components.BackButton;
-import views.components.HomeButton;
 
 public class SaveDownloadstackForeignDMOView extends FXView
 {
@@ -96,10 +94,10 @@ public class SaveDownloadstackForeignDMOView extends FXView
 			
 			if(tabPane.getSelectionModel().getSelectedIndex()== 0)
 			{
-				btnContinue.setOnAction(ev -> getFXController().showView("deriveserverdoorview"));
+				btnContinue.setOnAction(ev -> getFXController().showAndTrackView("deriveserverdoorview"));
 			} else
 			{
-				btnContinue.setOnAction(ev -> getFXController().showView("teamworkserverdoorview"));
+				btnContinue.setOnAction(ev -> getFXController().showAndTrackView("teamworkserverdoorview"));
 			}
 		});
 		

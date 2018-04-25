@@ -1,4 +1,4 @@
-package views;
+package views.game;
 
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
@@ -23,7 +23,7 @@ public class TuttoHelpView  extends FXView{
 		VBox itemsLayout = new VBox();
 		itemsLayout.setAlignment(Pos.BOTTOM_CENTER);
 
-		backToGameMenu.setOnAction(e -> getFXController().showView("gameview"));
+		backToGameMenu.setOnAction(e -> getFXController().showAndTrackView("gameview"));
 
 		itemsLayout.getChildren().addAll(backToGameMenu);
 

@@ -2,11 +2,7 @@ package models;
 
 import java.util.ArrayList;
 
-import javax.swing.text.html.parser.AttributeList;
-
 import database.LKDatabase;
-import database.jdbc.DBDriver;
-import database.sql.Attribute;
 import debug.Debugger;
 import debug.Supervisor;
 import globals.Globals;

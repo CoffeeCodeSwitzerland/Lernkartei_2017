@@ -1,7 +1,5 @@
 package serverdb.sql;
 
-import java.util.List;
-
 /**
  * 
  * @author Frithjof Hoppe

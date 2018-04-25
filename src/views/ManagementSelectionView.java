@@ -3,11 +3,7 @@ package views;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import mvc.fx.FXController;
 import mvc.fx.FXView;
@@ -54,8 +50,8 @@ public class ManagementSelectionView extends FXView
 		
 		bp.setCenter(AllFields);
 		
-		btnUserMgmt.setOnAction(e -> getFXController().showView("userview"));
-		btnGroupMgmt.setOnAction(e -> getFXController().showView("groupview"));
+		btnUserMgmt.setOnAction(e -> getFXController().showAndTrackView("userview"));
+		btnGroupMgmt.setOnAction(e -> getFXController().showAndTrackView("groupview"));
 		
 		return bp;
 	}

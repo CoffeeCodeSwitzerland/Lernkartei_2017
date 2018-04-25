@@ -50,12 +50,12 @@ public class SimpleEditorView extends FXViewModel
 		headLbl.setId("bold");
 
 		AppButton backBtn = new AppButton("_Zurück");
-		backBtn.setOnAction(e -> getFXController().showView("stack"));
+		backBtn.setOnAction(e -> getFXController().showAndTrackView("stack"));
 
 		//Info Button
 		AppButton infobtn = new AppButton("Hilfe");
 		infobtn.setOnAction(e ->
-		getFXController().showView("bbcodeinfo"));
+		getFXController().showAndTrackView("bbcodeinfo"));
 		
 		BorderPane headLayout = new BorderPane(headLbl);
 		headLayout.setPadding(new Insets(0, 0, 25, 0));
@@ -69,7 +69,11 @@ public class SimpleEditorView extends FXViewModel
 		
 
 		MainLayout maLay = new MainLayout(scroller, headLayout, new ControlLayout(backBtn, infobtn));
-		getFXController().getModel("cards").registerView(this);
+		try {
+			getFXController().getModel("cards").registerView(this);
+		} catch (Exception e) {
+			Debugger.out("SimpleEditoView-constructContainer: did not found a Model named 'cards'!");
+		}		
 		return maLay;
 	}
 	
@@ -99,121 +103,153 @@ public class SimpleEditorView extends FXViewModel
 
 		if (data != null)
 		{
-			headLbl.setText(data + " - " + getFXController().getViewData("stack"));
-
-			ArrayList<String> cardStrings = getFXController().getModel("cards").getDataList(data);
-			ArrayList<HBox> cards = new ArrayList<>();
-			debug.Debugger.out("" + cardStrings.size());
-			for (String s : cardStrings)
-			{
-				Debugger.out(s);
-				String[] cardSides = s.split(Globals.SEPARATOR);
-				TextField front = new TextField(cardSides[1]);
-				front.setPromptText("Eingabe erforderlich");
-				TextField back = new TextField(cardSides[2]);
-				back.setPromptText("Eingabe erforderlich");
-
-				front.focusedProperty().addListener(e ->
-				{
-					if (!front.isFocused())
-					{
-						if (back.getText() != null && !back.getText().equals("") && front.getText() != null
-								&& !front.getText().equals(""))
-						{
-							getFXController().getModel("cards").doAction(Command.UPDATE, cardSides[0], front.getText(), back.getText());
-						}
-					}
-				});
-
-				back.focusedProperty().addListener(e ->
-				{
-					if (!back.isFocused())
-					{
-						if (back.getText() != null && !back.getText().equals("") && front.getText() != null
-								&& !front.getText().equals(""))
-						{
-							getFXController().getModel("cards").doAction(Command.UPDATE, cardSides[0], front.getText(), back.getText());
-						}
-					}
-				});
-
-				Button delete  = new Button("X");
-				Button editBtn = new Button("\u270E"); // \u270d \u2055 \u2699 \u270E
-				delete.setId("small");
-				editBtn.setId("small");
-				delete.setOnAction(e -> getFXController().getModel("cards").doAction(Command.DELETE, cardSides[0]));
-				delete.setOnKeyReleased(e ->
-				{
-					if (e.getCode() == KeyCode.ENTER)
-						delete.fire();
-				});
-				editBtn.setOnAction(e ->
-				{
-					getFXController().setViewData("editorview",cardSides[0] + Globals.SEPARATOR + front.getText() + Globals.SEPARATOR + back.getText());
-					getFXController().showView("editorview");
-				});
-				editBtn.setOnKeyReleased(e ->
-				{
-					if (e.getCode() == KeyCode.ENTER)
-						editBtn.fire();
-				});
-				HBox v = new HBox(8);
-				v.setAlignment(Pos.CENTER);
-				v.getChildren().addAll(front, back, delete, editBtn);
-				cards.add(v);
+			try {
+				headLbl.setText(data + " - " + getFXController().getViewData("stack"));
+			} catch (Exception e3) {
+				// TODO Auto-generated catch block
+				e3.printStackTrace();
 			}
 
-			TextField front = new TextField();
-			TextField back = new TextField();
-			
-			
-			
-			//Button editBtn = new Button("\u270E"); // \u270d \u2055 \u2699 \u270E
-			
-			Button addBtn = new Button("\u2713");
-			addBtn.setId("small");
-			addBtn.setOnAction(e ->
-			{
-				justCreatedCard = true;
-				if (back.getText() != null && !back.getText().equals("") && front.getText() != null
-						&& !front.getText().equals(""))
+			ArrayList<String> cardStrings;
+			try {
+				cardStrings = getFXController().getModel("cards").getDataList(data);
+				ArrayList<HBox> cards = new ArrayList<>();
+				debug.Debugger.out("" + cardStrings.size());
+				for (String s : cardStrings)
 				{
-					getFXController().getModel("cards").doAction(Command.NEW, front.getText(), back.getText(), data);
+					Debugger.out(s);
+					String[] cardSides = s.split(Globals.SEPARATOR);
+					TextField front = new TextField(cardSides[1]);
+					front.setPromptText("Eingabe erforderlich");
+					TextField back = new TextField(cardSides[2]);
+					back.setPromptText("Eingabe erforderlich");
+
+					front.focusedProperty().addListener(e ->
+					{
+						if (!front.isFocused())
+						{
+							if (back.getText() != null && !back.getText().equals("") && front.getText() != null
+									&& !front.getText().equals(""))
+							{
+								try {
+									getFXController().getModel("cards").doAction(Command.UPDATE, cardSides[0], front.getText(), back.getText());
+								} catch (Exception e1) {
+									// TODO Auto-generated catch block
+									e1.printStackTrace();
+								}
+							}
+						}
+					});
+
+					back.focusedProperty().addListener(e ->
+					{
+						if (!back.isFocused())
+						{
+							if (back.getText() != null && !back.getText().equals("") && front.getText() != null
+									&& !front.getText().equals(""))
+							{
+								try {
+									getFXController().getModel("cards").doAction(Command.UPDATE, cardSides[0], front.getText(), back.getText());
+								} catch (Exception e1) {
+									// TODO Auto-generated catch block
+									e1.printStackTrace();
+								}
+							}
+						}
+					});
+
+					Button delete  = new Button("X");
+					Button editBtn = new Button("\u270E"); // \u270d \u2055 \u2699 \u270E
+					delete.setId("small");
+					editBtn.setId("small");
+					delete.setOnAction(e -> {
+						try {
+							getFXController().getModel("cards").doAction(Command.DELETE, cardSides[0]);
+						} catch (Exception e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+					});
+					delete.setOnKeyReleased(e ->
+					{
+						if (e.getCode() == KeyCode.ENTER)
+							delete.fire();
+					});
+					editBtn.setOnAction(e ->
+					{
+						getFXController().setViewData("editorview",cardSides[0] + Globals.SEPARATOR + front.getText() + Globals.SEPARATOR + back.getText());
+						getFXController().showAndTrackView("editorview");
+					});
+					editBtn.setOnKeyReleased(e ->
+					{
+						if (e.getCode() == KeyCode.ENTER)
+							editBtn.fire();
+					});
+					HBox v = new HBox(8);
+					v.setAlignment(Pos.CENTER);
+					v.getChildren().addAll(front, back, delete, editBtn);
+					cards.add(v);
 				}
-			});
-			addBtn.setOnKeyReleased(e ->
-			{
-				if (e.getCode() == KeyCode.ENTER)
-					addBtn.fire();
-			});
-			front.setOnKeyReleased(e ->
-			{
-				if (e.getCode() == KeyCode.ENTER)
-					addBtn.fire();
-			});
-			back.setOnKeyReleased(e ->
-			{
-				if (e.getCode() == KeyCode.ENTER)
-					addBtn.fire();
-			});
+				TextField front = new TextField();
+				TextField back = new TextField();
+				
+				
+				
+				//Button editBtn = new Button("\u270E"); // \u270d \u2055 \u2699 \u270E
+				
+				Button addBtn = new Button("\u2713");
+				addBtn.setId("small");
+				addBtn.setOnAction(e ->
+				{
+					justCreatedCard = true;
+					if (back.getText() != null && !back.getText().equals("") && front.getText() != null
+							&& !front.getText().equals(""))
+					{
+						try {
+							getFXController().getModel("cards").doAction(Command.NEW, front.getText(), back.getText(), data);
+						} catch (Exception e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+					}
+				});
+				addBtn.setOnKeyReleased(e ->
+				{
+					if (e.getCode() == KeyCode.ENTER)
+						addBtn.fire();
+				});
+				front.setOnKeyReleased(e ->
+				{
+					if (e.getCode() == KeyCode.ENTER)
+						addBtn.fire();
+				});
+				back.setOnKeyReleased(e ->
+				{
+					if (e.getCode() == KeyCode.ENTER)
+						addBtn.fire();
+				});
 
-			Button placeholder = new Button("_");
-			placeholder.setVisible(false);
-			placeholder.setId("small");
-			
-			HBox v = new HBox(8);
+				Button placeholder = new Button("_");
+				placeholder.setVisible(false);
+				placeholder.setId("small");
+				
+				HBox v = new HBox(8);
 
-			v.setAlignment(Pos.CENTER);
-			v.getChildren().addAll(front, back, addBtn, placeholder);
-			cards.add(v);
+				v.setAlignment(Pos.CENTER);
+				v.getChildren().addAll(front, back, addBtn, placeholder);
+				cards.add(v);
 
-			editLayout.getChildren().addAll(cards);
-			
-			front.requestFocus();
-		}
-		
-		scroller.setContent(editLayout);
-		
-		if (justCreatedCard) {setVPos.start();}
+				editLayout.getChildren().addAll(cards);
+				
+				front.requestFocus();
+				scroller.setContent(editLayout);
+				
+				if (justCreatedCard) {setVPos.start();}
+
+			} catch (Exception e2) {
+				// TODO Auto-generated catch block
+				e2.printStackTrace();
+			}
+		}		
 	}
 }

@@ -31,7 +31,7 @@ public class GameOptionView extends FXView
 		VBox itemsLayout = new VBox();
 		itemsLayout.setAlignment(Pos.BOTTOM_CENTER);
 
-		backToGameMenu.setOnAction(e -> getFXController().showView("gameview"));
+		backToGameMenu.setOnAction(e -> getFXController().showAndTrackView("gameview"));
 
 		itemsLayout.getChildren().addAll(backToGameMenu);
 

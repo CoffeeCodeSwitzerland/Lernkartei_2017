@@ -93,12 +93,12 @@ public class StatsView extends FXView
 		String choice = Ranks.getSelectionModel().getSelectedItem();
 		if (choice == "" || choice == null)
 		{
-			getFXController().showView("doorview");
+			getFXController().showAndTrackView("doorview");
 		} else
 		{
 			String[] splittetChoice = choice.split("     ");
 			getFXController().setViewData("prelearn", splittetChoice[0]);
-			getFXController().showView("prelearn");
+			getFXController().showAndTrackView("prelearn");
 		}
 	}
 
@@ -124,7 +124,12 @@ public class StatsView extends FXView
 
 		// Daten für Rangliste abholen über StatisticsModel und dann
 		// Rangliste.java
-		statisticsModel = ((StatisticsModel) getFXController().getFXModel("statistics"));
+		try {
+			statisticsModel = ((StatisticsModel) getFXController().getFXModel("statistics"));
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 
 		xAchse.setLabel("Karteien");
 		yAchse.setLabel("Ergebnis (%)");

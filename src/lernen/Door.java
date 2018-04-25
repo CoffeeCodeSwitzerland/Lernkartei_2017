@@ -1,12 +1,10 @@
 package lernen;
 
-import java.util.ArrayList;
-
 public class Door
 {
 	private int doorId;
 	private String Name;
-	private ArrayList<Stack> Stacks = new ArrayList<Stack>();
+	//private ArrayList<Stack> Stacks = new ArrayList<Stack>();
 
 	public String getName()
 	{

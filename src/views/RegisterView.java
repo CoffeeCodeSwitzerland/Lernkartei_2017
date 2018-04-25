@@ -1,7 +1,5 @@
 package views;
 
-import java.util.Optional;
-
 import org.mindrot.jbcrypt.BCrypt;
 
 import globals.Globals;
@@ -9,10 +7,9 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -97,7 +94,7 @@ public class RegisterView extends FXView
 				pwToCheck.clear();
 				txtMail.clear();
 				
-				getFXController().showView("loginview");
+				getFXController().showAndTrackView("loginview");
 			} else{
 				Alert alert = new Alert(AlertType.ERROR);
 				alert.setTitle("Fehler 0x0002");

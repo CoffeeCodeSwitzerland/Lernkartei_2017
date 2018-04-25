@@ -97,7 +97,12 @@ public class DoorView_withoutDesign extends FXViewModel {
 			event.consume();
 		});
 		
-		getFXController().getModel("cards").registerView(this);
+		try {
+			getFXController().getModel("cards").registerView(this);
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		return maLay;
 	}
 
@@ -107,7 +112,13 @@ public class DoorView_withoutDesign extends FXViewModel {
 
 		doorLayout.getChildren().clear();
 	
-		ArrayList<String> doorNames = getFXController().getModel("door").getDataList("doors");
+		ArrayList<String> doorNames=null;
+		try {
+			doorNames = getFXController().getModel("door").getDataList("doors");
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		ArrayList<AppButton> doors = new ArrayList<>();
 		ArrayList<AppButton> pencils = new ArrayList<>();
 
@@ -123,7 +134,7 @@ public class DoorView_withoutDesign extends FXViewModel {
 				
 				p.setOnAction(e -> {
 				getFXController().setViewData("rename",s);
-				getFXController().showView("rename");
+				getFXController().showAndTrackView("rename");
 				});
 				p.setOnKeyReleased(e -> {
 				if (e.getCode() == KeyCode.ENTER)
@@ -141,7 +152,7 @@ public class DoorView_withoutDesign extends FXViewModel {
 			a.setOnAction(e ->
 			{
 				getFXController().setViewData("stack", a.getText());
-				getFXController().showView("stack");
+				getFXController().showAndTrackView("stack");
 			});
 
 			a.setOnDragDetected(e ->
@@ -185,7 +196,13 @@ public class DoorView_withoutDesign extends FXViewModel {
 			}
 			if (doorName != null && !doorName.equals(""))
 			{
-				int succesful = getFXController().getModel("door").doAction(Command.NEW, doorName);	
+				int succesful=-1;
+				try {
+					succesful = getFXController().getModel("door").doAction(Command.NEW, doorName);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}	
 				if (succesful == -1)
 				{
 					Alert.simpleInfoBox("Fach wurde nicht erstellt", "Dieser Name ist schon vergeben.");
@@ -201,7 +218,12 @@ public class DoorView_withoutDesign extends FXViewModel {
 	{
 		if (Alert.ok("Achtung", "Willst du das Fach '" + door + "' wirklich löschen?"))
 		{
-			getFXController().getModel("door").doAction(Command.DELETE, door);
+			try {
+				getFXController().getModel("door").doAction(Command.DELETE, door);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			refreshView();
 		}
 		return true;

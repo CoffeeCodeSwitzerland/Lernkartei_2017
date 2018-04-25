@@ -2,10 +2,7 @@
 
 import java.util.ArrayList;
 
-import database.LKDatabase;
-import debug.Supervisor;
 import mvc.Model;
-import mvc.ModelInterface.Command;
 import serverdb.databasemgmt.ServerTable;
 
 

@@ -7,10 +7,11 @@ import mvc.Model;
 /**
  * This only shows how to implement a ViewModel:
  * You may have to copy these functions.
+ * The really used ViewModel is the FXViewModel
  * 
  * @author hugo-lucca
  */
-public final class ViewModel extends View
+public final class UnusedViewModel extends View
 {
 	private Model myModel = null; // my local model
 
@@ -19,7 +20,7 @@ public final class ViewModel extends View
 	 * @param setName
 	 * @param newController
 	 */
-	public ViewModel() {
+	public UnusedViewModel() {
 //		super(setName);
 		myModel = new Model();
 		myModel.registerView(this);

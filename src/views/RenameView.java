@@ -1,5 +1,6 @@
 package views;
 
+import debug.Debugger;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
@@ -43,7 +44,7 @@ public class RenameView extends FXViewModel {
 		headLbl.setId("bold");
 
 		AppButton backBtn = new AppButton("_Zurück");
-		backBtn.setOnAction(e -> getFXController().showView("doorview"));
+		backBtn.setOnAction(e -> getFXController().showAndTrackView("doorview"));
 
 		BorderPane headLayout = new BorderPane(headLbl);
 		headLayout.setPadding(new Insets(0, 0, 25, 0));
@@ -56,7 +57,11 @@ public class RenameView extends FXViewModel {
 		scroller.setPadding(new Insets(25));
 
 		MainLayout maLay = new MainLayout(scroller, headLayout, new ControlLayout(backBtn));
-		getFXController().getModel("stack").registerView(this);
+		try {
+			getFXController().getModel("stack").registerView(this);
+		} catch (Exception e) {
+			Debugger.out("RenameView-constructContainer: did not found a Model named 'stack'!");
+		}		
 		return maLay;
 	}
 	
@@ -105,20 +110,42 @@ public class RenameView extends FXViewModel {
 		System.out.println("Doorname= " +doorname);
 		if(doorname != "")
 		{
-			int canCreate = getFXController().getModel("stack").doAction(Command.CAN_CREATE, newName);
+			int canCreate=0;
+			try {
+				canCreate = getFXController().getModel("stack").doAction(Command.CAN_CREATE, newName);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			if (canCreate == 1)
 			{
 				System.out.println("<><> oldValue: "+oldValue+ " newName "+newName+" doorname: "+doorname);
 				//System.out.println(getFXController().getModel("stack").doAction(Command.UPDATE, oldValue, newName, doorname));
-				getFXController().getModel("stack").doAction(Command.UPDATE, oldValue, newName, doorname);
+				try {
+					getFXController().getModel("stack").doAction(Command.UPDATE, oldValue, newName, doorname);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 			getFXController().showLastView();
 		} else
 		{
-			int canCreate = getFXController().getModel("door").doAction(Command.CAN_CREATE, newName);
+			int canCreate=0;
+			try {
+				canCreate = getFXController().getModel("door").doAction(Command.CAN_CREATE, newName);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			if (canCreate == 1)
 			{
-				getFXController().getModel("door").doAction(Command.UPDATE, oldValue, newName);
+				try {
+					getFXController().getModel("door").doAction(Command.UPDATE, oldValue, newName);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 			getFXController().showLastView();
 		}

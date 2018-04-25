@@ -1,5 +1,11 @@
+package controls.archive;
 /*
  * This Class must be in the default Package and remain static !!!
+ */
+
+/*
+ * It seems, that we do not need this class any more?!? HLU 20.4.2018
+ * TODO check it.
  */
 
 import models.*;
@@ -41,7 +47,7 @@ public class UsingProcessing extends PApplet implements Terminator {
 		initNeuerSpielplan();
 	}
 
-	public void draw() {
+	public void xdraw() {
 		spielplan.myDraw();
 		spielplan.buttonUpdate(mouseX, mouseY);
 	}

@@ -1,5 +1,6 @@
 package views.components;
 
+import debug.Debugger;
 import javafx.geometry.Pos;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
@@ -26,10 +27,18 @@ public class HoverButton extends VBox {
 			 *  this all is to be more efficient when handling the event below
 			 */
 // TODO move to model
-			tooltipEnable = v.getFXController().getModel("config").getDataList("tooltipp").get(0);
+			try {
+				tooltipEnable = v.getFXController().getModel("config").getDataList("tooltipp").get(0);
+			} catch (Exception e1) {
+				Debugger.out("HooverButton Konstructor 1: did not found a FXModel named 'config'!");
+			}
 			isTooltipActif = true;
 			if (tooltipEnable == null) {
-				v.getFXController().getModel("config").doAction(Command.SET,"tooltipp","false");
+				try {
+					v.getFXController().getModel("config").doAction(Command.SET,"tooltipp","false");
+				} catch (Exception e1) {
+					Debugger.out("HooverButton Konstructor 2: did not found a FXModel named 'config'!");
+				}
 			}
 			if (tooltipEnable != null && tooltipEnable.equals("true")) {
 				isTooltipActif = false;
@@ -44,7 +53,7 @@ public class HoverButton extends VBox {
 		);
 		bp.setOnMouseExited( e -> lernText.setText("") );
 		if (targetView != null) {
-			bp.setOnMouseClicked( e -> v.getFXController().showView(targetView) );
+			bp.setOnMouseClicked( e -> v.getFXController().showAndTrackView(targetView) );
 		}
 	    bp.setMinSize(FXSettings.HoverButtonWidth,FXSettings.HoverButtonHeight);
 	    if (id != null) bp.setId(id);

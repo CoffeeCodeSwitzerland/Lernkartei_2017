@@ -3,37 +3,24 @@ package views;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import mvc.fx.FXController;
-import mvc.fx.FXView;
 import views.components.AppButton;
 import views.components.BackButton;
 import views.components.HomeButton;
 
-public class DoorSavepathSelectionView extends FXView
+public class DoorSavepathSelectionView extends BasicFXView
 {
 
-	public DoorSavepathSelectionView(String newName, FXController newController)
-	{
-		super(newController);
-		construct(newName);
+	public DoorSavepathSelectionView(String newName, FXController newController) {
+		super(newName, newController);
 	}
-	
-	BorderPane bp = new BorderPane();
-	
+
 	HBox bottom;
 	VBox AllFields;
-
-
 	AppButton btnLocal;
 	AppButton btnServer;
-	BackButton back;
-	
 	HomeButton home;
 	
 	@Override
@@ -50,25 +37,22 @@ public class DoorSavepathSelectionView extends FXView
 		AllFields.setAlignment(Pos.CENTER);
 		AllFields.setMaxWidth(300);
 		AllFields.setPadding(new Insets(100,20,20,20));
-
 		
 		btnLocal = new AppButton("lokal speichern");
 		btnServer = new AppButton("auf dem Server speichern");
-		back = new BackButton(getFXController(), "Zurück");
+		btnBack = new BackButton(getFXController(), "Zurück");
 		
 		home = new HomeButton(getFXController());
 		
-		
-		
 		AllFields.getChildren().addAll(btnLocal, btnServer);
-		bottom.getChildren().addAll(back, home);
+		bottom.getChildren().addAll(btnBack, home);
 		
 		bp.setCenter(AllFields);
 		bp.setBottom(bottom);
 		
-		btnLocal.setOnAction(e -> getFXController().showView("savedownloadstacklocalview"));
-		btnServer.setOnAction(e -> getFXController().showView("savedownloaddooronserverdialogview"));
-		back.setOnAction(e -> getFXController().showView("serverdoorview"));
+		btnLocal.setOnAction(e -> getFXController().showAndTrackView("savedownloadstacklocalview"));
+		btnServer.setOnAction(e -> getFXController().showAndTrackView("savedownloaddooronserverdialogview"));
+		btnBack.setOnAction(e -> getFXController().showAndTrackView("serverdoorview"));
 		
 		return bp;
 	}

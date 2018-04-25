@@ -2,8 +2,6 @@ package globals;
 
 import java.time.format.DateTimeFormatter;
 
-import globals.Globals.loginState;
-
 /**
  * Contains centralized Globals that are used for this application 
  * 

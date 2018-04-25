@@ -1,4 +1,4 @@
-package controls;
+package controls.archive;
 
 import mvc.fx.FXController;
 /**
@@ -9,7 +9,7 @@ import mvc.fx.FXController;
  * @author miro albrecht & hugo-lucca
  *
  */
-public class DummyController extends FXController
+public abstract class DummyController extends FXController
 {
 	@Override
 	public void initMyViews() {

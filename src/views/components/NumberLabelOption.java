@@ -1,5 +1,6 @@
 package views.components;
 
+import debug.Debugger;
 import mvc.ModelInterface.Command;
 import mvc.fx.FXController;
 
@@ -14,7 +15,7 @@ public class NumberLabelOption extends LabelOption
 		updateListener(configKey, def, max, min, controller);
 	}
 	
-	public NumberLabelOption (String configKey, String description, String def, int max, int min, FXController controller)
+	public NumberLabelOption (String configKey, String description, String def, int max, int min, FXController controller) 
 	{
 		super(configKey, description, Integer.toString(validateNumber(def)), controller);
 		updateListener(configKey, validateNumber(def), max, min, controller);
@@ -23,7 +24,11 @@ public class NumberLabelOption extends LabelOption
 	private void updateListener (String config, int def, int max, int min, FXController c)
 	{
 		lastValidNr = def;
-		textField.textProperty().removeListener(listener);
+		try {
+			textField.textProperty().removeListener(listener);
+		} catch (Exception e) {
+			Debugger.out("NumberLabel-updateListener: exception found!");
+		}
 		textField.focusedProperty().addListener(e -> 
 		{
 			if (!blockToWriteValue && !textField.isFocused())
@@ -38,7 +43,12 @@ public class NumberLabelOption extends LabelOption
 				textField.setText(value);
 				blockToWriteValue = false;
 				debug.Debugger.out(config + " property has changed to " + value);
-				c.getModel("config").doAction(Command.SET, config, value);
+				try {
+					c.getModel("config").doAction(Command.SET, config, value);
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		});
 	}

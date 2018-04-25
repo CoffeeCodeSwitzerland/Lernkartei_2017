@@ -80,39 +80,57 @@ public class RenameView_old extends FXViewModel
 //		getFXController().getModel("door").doAction(Command.UPDATE, "name" ,  getFXController().getViewData("rename"); );
 
 		String[] info = getData().split(Globals.SEPARATOR);
-		ArrayList<String> list = getFXController().getModel(info[0]).getDataList(info[1]);
+		ArrayList<String> list=null;
+		try {
+			list = getFXController().getModel(info[0]).getDataList(info[1]);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		headLabel.setText(info[1].equals("doors") ? "Fächer umbenennen" : "Stapel im Fach " + info[1] + " umbenennen");
 		
 		elements.getChildren().clear();
 
-		for (String s : list)
-		{
-			TextField field = new TextField(s);
-			field.focusedProperty().addListener(event ->
+		if (list != null) {
+			for (String s : list)
 			{
-				
-				if (field.isFocused())
+				TextField field = new TextField(s);
+				field.focusedProperty().addListener(event ->
 				{
-					oldValue = field.getText();
-				}
-				else
-				{
-					int canCreate = getFXController().getModel(info[0]).doAction(Command.CAN_CREATE, field.getText());
-					if (canCreate == 1)
+					
+					if (field.isFocused())
 					{
-						getFXController().getModel(info[0]).doAction(Command.UPDATE, oldValue, field.getText(), info[1]);
+						oldValue = field.getText();
 					}
-					else if (canCreate == -1 && !field.getText().equals(oldValue))
+					else
 					{
-						field.setText(oldValue);
+						int canCreate=0;
+						try {
+							canCreate = getFXController().getModel(info[0]).doAction(Command.CAN_CREATE, field.getText());
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						if (canCreate == 1)
+						{
+							try {
+								getFXController().getModel(info[0]).doAction(Command.UPDATE, oldValue, field.getText(), info[1]);
+							} catch (Exception e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+						}
+						else if (canCreate == -1 && !field.getText().equals(oldValue))
+						{
+							field.setText(oldValue);
+						}
 					}
-				}
-			});
-
-			elements.getChildren().add(field);
+				});
+	
+				elements.getChildren().add(field);
+			}
 		}
-		
 		backBtn.requestFocus();
 	}
 

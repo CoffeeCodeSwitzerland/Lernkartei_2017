@@ -43,8 +43,14 @@ public class PreLearnView extends FXViewModel
 	{
 		// Reset the data of the learn model which forces the model to shuffle
 		// again
-		getFXController().getModel("learn").getDataList(null).clear();
-		getFXController().getModel("learn").setString(null);
+		try {
+			// TODO do both in model
+			getFXController().getModel("learn").getDataList(null).clear();
+			getFXController().getModel("learn").setString(null);
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 
 		if (getData() == null || getData().equals(""))
 		{
@@ -55,18 +61,29 @@ public class PreLearnView extends FXViewModel
 		Label stackName = new Label(getData());
 		stackName.setId("bold");
 
-		int stackSize = getFXController().getModel("learn").getDataList(getData()).size();
+		int stackSize=-1;
+		try {
+			stackSize = getFXController().getModel("learn").getDataList(getData()).size();
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		Label stackInfo = new Label("Anzahl Karten: " + stackSize);
 
 		String score = "";
-		if (getFXController().getModel("statistics") != null)
-		{
-			StatisticsModel sm = (StatisticsModel) getFXController().getModel("statistics");
-			if (sm.getDoubleList(getData() + Globals.SEPARATOR + "start") != null)
+		try {
+			if (getFXController().getModel("statistics") != null)
 			{
-				Double roundDouble = ((double) ((int) (sm.getDoubleList(getData() + Globals.SEPARATOR + "start").get(0) * 100)) / 100);
-				score = roundDouble.toString();
+				StatisticsModel sm = (StatisticsModel) getFXController().getModel("statistics");
+				if (sm.getDoubleList(getData() + Globals.SEPARATOR + "start") != null)
+				{
+					Double roundDouble = ((double) ((int) (sm.getDoubleList(getData() + Globals.SEPARATOR + "start").get(0) * 100)) / 100);
+					score = roundDouble.toString();
+				}
 			}
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
 		}
 
 		Label stackScore = new Label("Fortschritt: " + score + " %");
@@ -75,7 +92,7 @@ public class PreLearnView extends FXViewModel
 		goBtn.setOnAction(e ->
 		{
 			getFXController().setViewData("learnview", getData());
-			getFXController().showView("learnview");
+			getFXController().showAndTrackView("learnview");
 		});
 		goBtn.setOnKeyReleased(e ->
 		{
@@ -92,7 +109,7 @@ public class PreLearnView extends FXViewModel
 		}
 
 		AppButton backBtn = new AppButton("Zurück");
-		backBtn.setOnAction(e -> getFXController().showView("stack"));
+		backBtn.setOnAction(e -> getFXController().showAndTrackView("stack"));
 		
 		
 

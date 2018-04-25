@@ -5,7 +5,7 @@ import javax.swing.*;
 import database.LKDatabase;
 import debug.Debugger;
 import models.GameModel;
-import views.GameView;
+import views.game.GameView;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -56,9 +56,14 @@ public class ScrollyV8 extends JFrame implements KeyListener, WindowListener, Ac
 				gamePanel.sound = false;
 				if(GameModel.gameController != null)
 				{
-					if(GameModel.gameController.getModel("game") != null)
-					{
-				GameModel.gameController.getModel("game").refreshViews();
+					try {
+						if(GameModel.gameController.getModel("game") != null)
+						{
+GameModel.gameController.getModel("game").refreshViews();
+						}
+					} catch (Exception e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
 					}
 				}
 			}
@@ -147,7 +152,12 @@ public class ScrollyV8 extends JFrame implements KeyListener, WindowListener, Ac
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 
-		GameModel.gameController.getModel("game").refreshViews();
+		try {
+			GameModel.gameController.getModel("game").refreshViews();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 	}
 }

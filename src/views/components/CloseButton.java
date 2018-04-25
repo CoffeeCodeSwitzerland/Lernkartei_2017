@@ -23,7 +23,13 @@ public class CloseButton extends AppButton {
 			debug.Debugger.out("closing button");
 			Window window = this.getScene().getWindow();   
 			if (myController != null) {
-				GameModel gm = (GameModel) myController.getModel("game");
+				GameModel gm = null;
+				try {
+					gm = (GameModel) myController.getModel("game");
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				if (gm != null) gm.dispose();
 			}
 	        if (window instanceof Stage){

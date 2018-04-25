@@ -99,7 +99,7 @@ public class OwnDBConnectionView extends FXView
 			}
 		});
 		
-		back.setOnAction(e -> getFXController().showView("databaseselectionview"));
+		back.setOnAction(e -> getFXController().showAndTrackView("databaseselectionview"));
 		
 		AllFields.getChildren().addAll(txtPath, txtDB, txtUserTable, txtUser, pwPassword, pwToCheck, save);
 		

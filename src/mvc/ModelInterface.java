@@ -42,7 +42,7 @@ public interface ModelInterface
 	public abstract int  doAction (String functionName, String paramS);
 	public abstract int  doAction (String functionName);
 	
-	public abstract int doAction (Command Command, String... param);
+	public abstract int doAction (Command command, String... param);
 
 	// To handle a single Data element (DataModel only):
 	public abstract void setString (String data);

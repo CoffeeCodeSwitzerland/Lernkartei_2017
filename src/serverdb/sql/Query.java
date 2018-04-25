@@ -1,15 +1,5 @@
 package serverdb.sql;
-import serverdb.sql.*;
-import globals.Globals.*;
-
-
 import java.util.ArrayList;
-import java.util.List;
-
-import com.mysql.jdbc.Connection;
-import com.mysql.jdbc.Driver;
-
-import serverdb.sql.Insert;
 
 /**
  * <h3>Query-Class</h3>
@@ -43,6 +33,7 @@ public  class Query
 		Attribute attribute = new Attribute(user_Table,mysqldb);
 		Insert i = new Insert(user_Table,user.getValues(),attribute.getAllAttributes());
 		QueryExecuter qe = new QueryExecuter(i.createCommand());
-		boolean reult = qe.executeQueryWithoutResult();
+		//boolean reult = 
+				qe.executeQueryWithoutResult();
 	}
 }

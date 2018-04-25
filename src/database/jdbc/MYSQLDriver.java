@@ -2,10 +2,9 @@ package database.jdbc;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.ResultSet;
 import java.sql.Statement;
+
 import debug.Logger;
-import com.mysql.*;
 
 /**
  * Abstract class MYSQL Driver
@@ -57,7 +56,7 @@ final public class MYSQLDriver extends DBDriver {
 			 	Class.forName("com.mysql.jdbc.Driver");  
 	            Connection conn = DriverManager.getConnection(urlBase, username, password);
 	            Statement stmt = conn.createStatement();
-	            ResultSet rs;
+	           // ResultSet rs;
 	            if(stmt.execute("CREATE TABLE test (ID INT AUTO_INCREMENT,Name TEXT,PRIMARY KEY(ID))"))
 	            {
 	            	 System.out.println("Tabelle wurde erstellt");

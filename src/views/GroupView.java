@@ -13,19 +13,14 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TabPane.TabClosingPolicy;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.text.Font;
 import mvc.fx.FXController;
 import mvc.fx.FXView;
-import views.components.AppButton;
 import views.components.BackButton;
-import views.components.ContainerLayout;
-import views.components.ControlLayout;
 
 public class GroupView extends FXView
 {
@@ -94,8 +89,8 @@ public class GroupView extends FXView
 		createGroup = new Button("+");
 		deleteGroup = new Button("-");
 		
-		createGroup.setOnAction(e -> getFXController().showView("groupcreateview"));
-		modifyGroup.setOnAction(e -> getFXController().showView("groupmemberview"));
+		createGroup.setOnAction(e -> getFXController().showAndTrackView("groupcreateview"));
+		modifyGroup.setOnAction(e -> getFXController().showAndTrackView("groupmemberview"));
 		tabPane.setOnMouseClicked(e -> {
 			for(Tab actTab:tabPane.getTabs())
 			{
@@ -124,7 +119,7 @@ public class GroupView extends FXView
 		
 
 		back = new BackButton(getFXController(), "Zurück");
-		back.setOnAction(e -> getFXController().showView("managementselectionview"));
+		back.setOnAction(e -> getFXController().showAndTrackView("managementselectionview"));
 		back.setPadding(new Insets(0,100,0,0));
 		
 		HBox bottom = new HBox(50);

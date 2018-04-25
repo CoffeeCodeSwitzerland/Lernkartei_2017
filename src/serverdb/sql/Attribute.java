@@ -1,7 +1,6 @@
 package serverdb.sql;
 
 import java.util.ArrayList;
-import serverdb.sql.*;
 
 /**
  * 

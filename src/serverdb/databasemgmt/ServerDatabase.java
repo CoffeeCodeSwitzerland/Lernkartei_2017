@@ -39,7 +39,8 @@ public class ServerDatabase
 		
 		Database database = new Database(dbname);
 		QueryExecuter qe = new QueryExecuter(database.create());
-		boolean success = qe.executeQueryWithoutResult();
+		//TODO boolean success = 
+				qe.executeQueryWithoutResult();
 		
 		return result;
 	}

@@ -16,8 +16,18 @@ public class ControllerTest extends Application {
 
 		//assertEquals(true, c.getMainViewName().equals("mainview"));
 		//assertNotEquals(null, c.getModel("auto"));
-		assertNotEquals(null, c.getModel("lkw"));
-		assertEquals(null, c.getModel("xyz"));
+		try {
+			assertNotEquals(null, c.getModel("lkw"));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			assertEquals(null, c.getModel("xyz"));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		//assertEquals(3,c.getViews().size());
 		//Iterator<View> it = c.getViews().iterator();
 //		int found = 0;

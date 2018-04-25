@@ -121,7 +121,7 @@ public class Printer {
 		}
 		
 	}
-
+/*
 	 private static PrintService findPrintService(String printerName) {
 	        PrintService[] printServices = PrintServiceLookup.lookupPrintServices(null, null);
 	        for (PrintService printService : printServices) {
@@ -131,7 +131,7 @@ public class Printer {
 	        }
 	        return null;
 	    }   
-
+*/
 	public static void printContent()
 	{
 		System.out.println("Start");

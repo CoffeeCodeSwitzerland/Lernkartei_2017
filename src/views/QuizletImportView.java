@@ -102,7 +102,7 @@ public class QuizletImportView extends FXViewModel
 		scroLay.setMaxWidth(getWindow().getMaxWidth());
 
 		AppButton backBtn = new AppButton("_Zurück");
-		backBtn.setOnAction(e -> getFXController().showView("stack"));
+		backBtn.setOnAction(e -> getFXController().showAndTrackView("stack"));
 
 		AppButton prevPageBtn = new AppButton("Vorherige Seite");
 		prevPageBtn.setOnAction(e ->
@@ -134,8 +134,12 @@ public class QuizletImportView extends FXViewModel
 		MainLayout maLay = new MainLayout(scroLay, headLayout, additionalInfoLayout, bottomLayout, null);
 		maLay.setPadding(new Insets(0));
 
-		getFXController().getModel("stack").registerView(this);
-		getFXController().getModel("cards").registerView(this);
+		try {
+			getFXController().getModel("stack").registerView(this);
+			getFXController().getModel("cards").registerView(this);
+		} catch (Exception e) {
+			Debugger.out("QuitzletImportView-constructContainer: did not found a Model named 'stack' or 'cards'!");
+		}		
 
 		return maLay;
 	}
@@ -150,7 +154,13 @@ public class QuizletImportView extends FXViewModel
 			if (createtingCard) { return; }
 			createtingCard = true;
 			
-			int result = getFXController().getModel("quizlet").doAction(Command.UPDATE, downloadStackName);
+			int result=0;
+			try {
+				result = getFXController().getModel("quizlet").doAction(Command.UPDATE, downloadStackName);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			Debugger.out(Integer.toString(result));
 			if (result == -7)
 			{
@@ -161,7 +171,7 @@ public class QuizletImportView extends FXViewModel
 				cardNumber = -1;
 
 				loading.setProgress(0);
-				getFXController().showView("stack");
+				getFXController().showAndTrackView("stack");
 			}
 			else if (result != -1)
 			{
@@ -203,7 +213,13 @@ public class QuizletImportView extends FXViewModel
 
 			boolean hideImg = false;
 
-			ArrayList<String> configDataList = getFXController().getModel("config").getDataList("hideImageStacks");
+			ArrayList<String> configDataList=null;
+			try {
+				configDataList = getFXController().getModel("config").getDataList("hideImageStacks");
+			} catch (Exception e2) {
+				// TODO Auto-generated catch block
+				e2.printStackTrace();
+			}
 			if (configDataList != null)
 			{
 				String configData = configDataList.get(0);
@@ -217,7 +233,12 @@ public class QuizletImportView extends FXViewModel
 			}
 
 			quizletSets = new ArrayList<>();
-			searchResult = getFXController().getModel("quizlet").getDataList(currentSearch + Globals.SEPARATOR + page);
+			try {
+				searchResult = getFXController().getModel("quizlet").getDataList(currentSearch + Globals.SEPARATOR + page);
+			} catch (Exception e2) {
+				// TODO Auto-generated catch block
+				e2.printStackTrace();
+			}
 
 			if (searchResult != null)
 			{
@@ -274,29 +295,51 @@ public class QuizletImportView extends FXViewModel
 
 								if (name == null) { return; }
 
-								int possible = getFXController().getModel("stack").doAction(Command.CAN_CREATE, name);
+								int possible = -1;
+								try {
+									possible = getFXController().getModel("stack").doAction(Command.CAN_CREATE, name);
+								} catch (Exception e2) {
+									// TODO Auto-generated catch block
+									e2.printStackTrace();
+								}
 
 								while (name.equals("") || possible < 0)
 								{
 									if (possible < 1)
 									{
 										int i = 1;
-										while (getFXController().getModel("stack").doAction(Command.CAN_CREATE, name + " (" + i + ")") < 0)
-										{
-											i++;
+										try {
+											while (getFXController().getModel("stack").doAction(Command.CAN_CREATE, name + " (" + i + ")") < 0)
+											{
+												i++;
+											}
+										} catch (Exception e2) {
+											// TODO Auto-generated catch block
+											e2.printStackTrace();
 										}
 										name = Alert.simpleString("Neuer Stapel", "'" + name + "' ist nicht gültig. Bitte wählen sie einen Anderen.", name + " (" + i + ")");
 										break;
 									}
 									name = Alert.simpleString("Neuer Stapel", "Dieser Name ist nicht gültig. Bitte wählen sie einen Anderen.", stackInfo[1]);
-									possible = getFXController().getModel("stack").doAction(Command.CAN_CREATE, name);
+									try {
+										possible = getFXController().getModel("stack").doAction(Command.CAN_CREATE, name);
+									} catch (Exception e2) {
+										// TODO Auto-generated catch block
+										e2.printStackTrace();
+									}
 								}
 
 								downloadStackName = name;
 								loading.setProgress(-1);
 								cardNumber = 1;
 								Debugger.out(getData());
-								int success = getFXController().getModel("quizlet").doAction(Command.NEW, stackInfo[0], name, getData());
+								int success=0;
+								try {
+									success = getFXController().getModel("quizlet").doAction(Command.NEW, stackInfo[0], name, getData());
+								} catch (Exception e2) {
+									// TODO Auto-generated catch block
+									e2.printStackTrace();
+								}
 								if (success == 1)
 								{
 									newAnimation.start();

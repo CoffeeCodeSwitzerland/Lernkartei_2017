@@ -1,7 +1,5 @@
 package multiuser;
 
-import java.util.ArrayList;
-
 import database.sql.AttributeInterface;
 
 public class Student extends User
@@ -16,8 +14,8 @@ public class Student extends User
 		
 	}
 
-	private Double Highscore;
-	private ArrayList<String> Karteien = new ArrayList<String>();
+//	private Double Highscore;
+//	private ArrayList<String> Karteien = new ArrayList<String>();
 	
 	// TODO : Wenn Datenbank funktioniert diesen auslesen
 	public void getHighscore() {

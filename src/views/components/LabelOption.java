@@ -1,5 +1,6 @@
 package views.components;
 
+import debug.Debugger;
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
 import javafx.scene.Node;
@@ -20,15 +21,24 @@ public class LabelOption implements OptionInterface
 	
 	public LabelOption (String configKey, String description, String def, FXController controller)
 	{
-		LabelOptionInit(configKey, description, def, controller);
+		try {
+			LabelOptionInit(configKey, description, def, controller);
+		} catch (Exception e) {
+			Debugger.out("LabelOption Konstructor: did not found a Model named '...'!");
+		}
 	}
 	
 	public LabelOption (String configKey, String description, FXController controller)
 	{
-		LabelOptionInit(configKey, description, null, controller);
+		try {
+			LabelOptionInit(configKey, description, null, controller);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
-	private void LabelOptionInit (String configKey, String description, String def, FXController controller)
+	private void LabelOptionInit (String configKey, String description, String def, FXController controller) throws Exception
 	{
 		this.description = new Label(description);
 		this.description.setWrapText(true);
@@ -37,8 +47,12 @@ public class LabelOption implements OptionInterface
 		oldValue = "";
 		
 		boolean noEntry = false;
-		
-		String dataValue = controller.getModel("config").getString(configKey);
+		String dataValue=null;
+		try {
+			dataValue = controller.getModel("config").getString(configKey);
+		} catch (Exception e) {
+			Debugger.out("LabelOption-LabelOptionInit: did not found a Model named 'config'!");
+		}
 		if (dataValue != null)
 		{
 			oldValue = dataValue;
@@ -74,7 +88,12 @@ public class LabelOption implements OptionInterface
 			{
 				String value = textField.getText();
 				debug.Debugger.out(configKey + " property has changed to " + value);
-				controller.getModel("config").doAction(Command.SET, configKey, value);
+				try {
+					controller.getModel("config").doAction(Command.SET, configKey, value);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		};
 		textField.textProperty().addListener(listener);

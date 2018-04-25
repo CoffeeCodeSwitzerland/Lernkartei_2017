@@ -1,19 +1,14 @@
 package views;
 
 import java.util.ArrayList;
-import java.util.Optional;
 
+import debug.Debugger;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
@@ -21,17 +16,13 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TabPane.TabClosingPolicy;
 import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
 import mvc.fx.FXController;
 import mvc.fx.FXView;
 import views.components.AppButton;
 import views.components.BackButton;
-import views.components.ContainerLayout;
-import views.components.ControlLayout;
 
 public class ServerStackView extends FXView
 {
@@ -146,7 +137,7 @@ public class ServerStackView extends FXView
 		modifyGroup.setOnAction(e -> geytFXController().showView("groupmemberview"));*/
 		
 		back = new BackButton(getFXController(), "Zurück");
-		back.setOnAction(e -> getFXController().showView("serverdoorview"));
+		back.setOnAction(e -> getFXController().showAndTrackView("serverdoorview"));
 		
 		
 		HBox bottom = new HBox(50);
@@ -160,7 +151,11 @@ public class ServerStackView extends FXView
 		bp.setCenter(Center);
 		bp.setBottom(bottom);
 
-		getFXController().getModel("serverstack").registerView(this);
+		try {
+			getFXController().getModel("serverstack").registerView(this);
+		} catch (Exception e) {
+			Debugger.out("ServerStackView-constructContainer: did not found a Model named 'serverstack'!");
+		}		
 		
 		return bp;
 	}
@@ -168,10 +163,16 @@ public class ServerStackView extends FXView
 	@Override
 	public void refreshView()
 	{
-		ArrayList<String> givenData = getFXController().getModel("serverstack").getDataList("");
-		
-		int selected = Integer.parseInt(givenData.get(1));
-		tabPane.getSelectionModel().select(selected);
+		ArrayList<String> givenData;
+		try {
+			givenData = getFXController().getModel("serverstack").getDataList("");
+			int selected = Integer.parseInt(givenData.get(1));
+			tabPane.getSelectionModel().select(selected);
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 	
@@ -205,8 +206,8 @@ public class ServerStackView extends FXView
 			lblServerStack.setPadding(new Insets(15,0,0,250));
 			AppButton btnDownload = new AppButton("Hochladen");
 			AppButton btnInformation = new AppButton("i");
-			btnInformation.setOnAction(e -> getFXController().showView("doorstackinformationview"));
-			btnDownload.setOnAction(e -> getFXController().showView("saveuploadstackonserverdialogview"));
+			btnInformation.setOnAction(e -> getFXController().showAndTrackView("doorstackinformationview"));
+			btnDownload.setOnAction(e -> getFXController().showAndTrackView("saveuploadstackonserverdialogview"));
 			
 			entry.getChildren().addAll(lblServerStack,btnDownload,btnInformation);
 			lines.add(entry);
@@ -233,8 +234,8 @@ public class ServerStackView extends FXView
 				lblServerStack.setPadding(new Insets(15,0,0,250));
 				AppButton btnDownload = new AppButton("Herunterladen");
 				AppButton btnInformation = new AppButton("i");
-				btnInformation.setOnAction(e -> getFXController().showView("serverdoorstackinformationview"));
-				btnDownload.setOnAction(e -> getFXController().showView("stacksavepathselectionview"));
+				btnInformation.setOnAction(e -> getFXController().showAndTrackView("serverdoorstackinformationview"));
+				btnDownload.setOnAction(e -> getFXController().showAndTrackView("stacksavepathselectionview"));
 				
 				entry.getChildren().addAll(lblServerStack,btnDownload,btnInformation);
 				lines.add(entry);

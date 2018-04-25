@@ -63,7 +63,14 @@ public class StackView_forDesign extends FXViewModel
 		AppButton backBtn = new AppButton("Zurück");
 		AppButton newStackBtn = new AppButton("Neuer Stapel");
 		
-		printBtn.setOnAction(e ->  getFXController().getModel("drucken").doAction(Command.NEW));
+		printBtn.setOnAction(e ->  {
+			try {
+				getFXController().getModel("drucken").doAction(Command.NEW);
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		});
 		
 
 		Image trashImg = new Image("views/pictures/Papierkorb.png");
@@ -75,7 +82,7 @@ public class StackView_forDesign extends FXViewModel
 		MainLayout maLay = new MainLayout(scroLay, null, placeholder, conLay, options);
 
 		// Behaviour
-		backBtn.setOnAction(event -> getFXController().showView("doorview"));
+		backBtn.setOnAction(event -> getFXController().showAndTrackView("doorview"));
 
 		newStackBtn.setOnAction(e ->
 		{
@@ -91,13 +98,18 @@ public class StackView_forDesign extends FXViewModel
 						{
 							stackName = Alert.simpleString("Name zu lang", "Bitte wählen Sie einen kürzeren Namen. (max "+Globals.maxNameLength+" Zeichen)", stackName.substring(0, Globals.maxNameLength), 300);
 						}
-						getFXController().getModel("stack").doAction(Command.NEW, stackName, getData());
+						try {
+							getFXController().getModel("stack").doAction(Command.NEW, stackName, getData());
+						} catch (Exception e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
 						// TODO Feedback für den User (Fehlermeldungen)
 					}
 					break;
 				case 1:
 					getFXController().setViewData("quizlet", getData());
-					getFXController().showView("quizlet");
+					getFXController().showAndTrackView("quizlet");
 					break;
 				default:
 					break;
@@ -124,7 +136,12 @@ public class StackView_forDesign extends FXViewModel
 				boolean canDeleteStack = Alert.ok("Achtung", "Willst du den Stapel '" + db.getString() + "' wirklich endgültig löschen?");
 				if (canDeleteStack)
 				{
-					getFXController().getModel("stack").doAction(Command.DELETE, db.getString(), getData());
+					try {
+						getFXController().getModel("stack").doAction(Command.DELETE, db.getString(), getData());
+					} catch (Exception e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 					// TODO Feedback für den User (Fehlermeldungen)
 					boolean isLabel = options.getChildren().get(0).getTypeSelector().equals("Label");
 					if (isLabel)
@@ -142,7 +159,12 @@ public class StackView_forDesign extends FXViewModel
 			event.setDropCompleted(success);
 			event.consume();
 		});
-		getFXController().getModel("stack").registerView(this);
+		try {
+			getFXController().getModel("stack").registerView(this);
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		return maLay;
 	}
 
@@ -160,90 +182,99 @@ public class StackView_forDesign extends FXViewModel
 
 		if (localdata != null)
 		{
-			ArrayList<String> setData = getFXController().getModel("stack").getDataList(localdata);
-			ArrayList<AppButton> sets = new ArrayList<AppButton>();
-			ArrayList<AppButton> pencils = new ArrayList<>();
-			ControlLayout setsAndPencils = new ControlLayout();
+			ArrayList<String> setData;
+			try {
+				setData = getFXController().getModel("stack").getDataList(localdata);
+				ArrayList<AppButton> sets = new ArrayList<AppButton>();
+				ArrayList<AppButton> pencils = new ArrayList<>();
+				ControlLayout setsAndPencils = new ControlLayout();
 
-			boolean allButtonsSameSize = false;
-			if (getFXController().getModel("config").getDataList("widthState") != null && getFXController().getModel("config").getDataList("widthState").get(0) != null && getFXController().getModel("config").getDataList("widthState").get(0).equals("true"))
-			{
-				allButtonsSameSize = true;
-			}
-
-			int bigButton = 0;
-			for (String s : setData)
-			{
-				AppButton a = new AppButton(s);
-				
-				AppButton p = new AppButton("\u270E");
-				
-				p.setId("small");
-				
-				p.setOnAction(e -> {
-				ArrayList<String> data = new ArrayList<>();
-				data.add(s);
-				data.add(headLbl.getText());
-				getFXController().addViewData("rename", data);
-				getFXController().setViewData("rename", s);
-				getFXController().showView("rename");
-				});
-				p.setOnKeyReleased(e -> {
-				if (e.getCode() == KeyCode.ENTER)
-				p.fire();
-				});
-				
-				pencils.add((AppButton) p);
-				
-				if (allButtonsSameSize)
-				{
-					bigButton = bigButton >= a.getText().length() * 6 + 150 ? bigButton : a.getText().length() * 6 + 150;
-				}
-				else
-				{
-					a.setMinWidth(a.getText().length() * 6 + 150);
-				}
-
-				sets.add(a);
-				setsAndPencils.add(a);
-				setsAndPencils.add((AppButton) p);
-			}
-
-			for (AppButton a : sets)
-			{
-				if (allButtonsSameSize)
-				{
-					a.setMinWidth(bigButton);
-				}
-
-				a.setId("BoxButtons");
-				a.setOnAction(e ->
-				{
-					setOptions(a.getText());
-				});
-				
-				a.setOnDragDetected(e ->
-				{
-					Dragboard db = a.startDragAndDrop(TransferMode.MOVE);
-
-					ClipboardContent content = new ClipboardContent();
-					content.putString(a.getText());
-					db.setContent(content);
-
-					e.consume();
-				});
-				a.setOnDragDone(event ->
-				{
-					if (event.getTransferMode() == TransferMode.MOVE)
+				boolean allButtonsSameSize = false;
+				try {
+					if (getFXController().getModel("config").getDataList("widthState") != null && getFXController().getModel("config").getDataList("widthState").get(0) != null && getFXController().getModel("config").getDataList("widthState").get(0).equals("true"))
 					{
-						sets.remove(a);
+						allButtonsSameSize = true;
 					}
-					event.consume();
-				});
-			}
+					int bigButton = 0;
+					for (String s : setData)
+					{
+						AppButton a = new AppButton(s);
+						
+						AppButton p = new AppButton("\u270E");
+						
+						p.setId("small");
+						
+						p.setOnAction(e -> {
+						ArrayList<String> data = new ArrayList<>();
+						data.add(s);
+						data.add(headLbl.getText());
+						getFXController().addViewData("rename", data);
+						getFXController().setViewData("rename", s);
+						getFXController().showAndTrackView("rename");
+						});
+						p.setOnKeyReleased(e -> {
+						if (e.getCode() == KeyCode.ENTER)
+						p.fire();
+						});
+						
+						pencils.add((AppButton) p);
+						
+						if (allButtonsSameSize)
+						{
+							bigButton = bigButton >= a.getText().length() * 6 + 150 ? bigButton : a.getText().length() * 6 + 150;
+						}
+						else
+						{
+							a.setMinWidth(a.getText().length() * 6 + 150);
+						}
 
-			boxLayout.getChildren().addAll(headLbl);
-			boxLayout.getChildren().addAll(setsAndPencils);
+						sets.add(a);
+						setsAndPencils.add(a);
+						setsAndPencils.add((AppButton) p);
+					}
+					for (AppButton a : sets)
+					{
+						if (allButtonsSameSize)
+						{
+							a.setMinWidth(bigButton);
+						}
+
+						a.setId("BoxButtons");
+						a.setOnAction(e ->
+						{
+							setOptions(a.getText());
+						});
+						
+						a.setOnDragDetected(e ->
+						{
+							Dragboard db = a.startDragAndDrop(TransferMode.MOVE);
+
+							ClipboardContent content = new ClipboardContent();
+							content.putString(a.getText());
+							db.setContent(content);
+
+							e.consume();
+						});
+						a.setOnDragDone(event ->
+						{
+							if (event.getTransferMode() == TransferMode.MOVE)
+							{
+								sets.remove(a);
+							}
+							event.consume();
+						});
+					}
+
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				boxLayout.getChildren().addAll(headLbl);
+				boxLayout.getChildren().addAll(setsAndPencils);
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}
 	}
 
@@ -262,12 +293,12 @@ public class StackView_forDesign extends FXViewModel
 		lernen.setOnAction(e ->
 		{
 			getFXController().setViewData("prelearn", stack);
-			getFXController().showView("prelearn");
+			getFXController().showAndTrackView("prelearn");
 		});
 		edit.setOnAction(e ->
 		{
 			getFXController().setViewData("simpleeditorview", stack);
-			getFXController().showView("simpleeditorview");
+			getFXController().showAndTrackView("simpleeditorview");
 		});
 		
 		/*
@@ -280,7 +311,12 @@ public class StackView_forDesign extends FXViewModel
 		 * });
 		 */
 									//setString übergibt string und kann durch getString wieder geholt werden
-		getFXController().getModel("drucken").setString(stack);
+		try {
+			getFXController().getModel("drucken").setString(stack);
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		
 		options.getChildren().addAll(stackTitle, lernen, edit, printBtn/* , switcher */);
 	}

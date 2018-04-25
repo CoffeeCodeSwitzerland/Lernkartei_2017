@@ -1,4 +1,4 @@
-package views;
+package views.game;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -7,6 +7,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import database.LKDatabase;
+import debug.Debugger;
 import models.GameModel;
 import mvc.ModelInterface.Command;
 import mvc.fx.FXController;
@@ -55,10 +56,24 @@ public class GameView extends FXView {
 		btnBacktoKartei.setOnAction(e -> getFXController().showMainView()); 
 
 		// Other buttons:
-		btnJumNRun.setOnAction(e -> getFXController().getModel("game").doAction(Command.NEW)); 
-		btnInfoJump.setOnAction(e -> getFXController().showView("gameoptionview")); 
-		btnTutto.setOnAction(e -> getFXController().getModel("tutto").doAction(Command.NEW));
-		btnInfoTutto.setOnAction(e -> getFXController().showView("tuttohelpview"));
+		btnJumNRun.setOnAction(e -> {
+			try {
+				getFXController().getModel("game").doAction(Command.NEW);
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}); 
+		btnInfoJump.setOnAction(e -> getFXController().showAndTrackView("gameoptionview")); 
+		btnTutto.setOnAction(e -> {
+			try {
+				getFXController().getModel("tutto").doAction(Command.NEW);
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		});
+		btnInfoTutto.setOnAction(e -> getFXController().showAndTrackView("tuttohelpview"));
 
 		// Erstellt VBox Layout für beide obige Elemente:
 		JumpNRun.getChildren().addAll( btnJumNRun, btnInfoJump);
@@ -85,7 +100,11 @@ public class GameView extends FXView {
 		
 		MainLayout maLay = new MainLayout(gridpane,null);
 		
-		((GameModel) getFXController().getModel("game")).registerView(this, getFXController());
+		try {
+			((GameModel) getFXController().getModel("game")).registerView(this, getFXController());
+		} catch (Exception e) {
+			Debugger.out("GamerView-constructContainer: did not found a Model named 'game'!");
+		}		
 		return maLay;
 
 		// VBox in neuem Borderpane einfügen, zwingend wenn Hintergrund neu sein

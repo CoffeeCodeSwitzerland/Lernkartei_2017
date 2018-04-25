@@ -73,8 +73,9 @@ public abstract class FXController extends Controller
 	 * - seeks the model by name
 	 * - used in application view classes to address a specific model of
 	 *   a specific controller 
+	 * @throws Exception 
 	 */
-	public FXModel getFXModel (String withName)
+	public FXModel getFXModel (String withName) throws Exception
 	{
 		if (getModel(withName) == null) {
 			Debugger.out("FXController.getFXModel("+withName+") no FXModel found!");
@@ -92,23 +93,31 @@ public abstract class FXController extends Controller
 
 	/**
 	 * To allow direct data interchange between view's and view-model's:
-	 * - gets a data String element from an other view-model 
+	 * @param withViewName
+	 * @return the valid FXViewModel of that name
+	 * @throws Exception if something does not match to the requested name
 	 */
-	public String getViewData (String withName)
-	{
-		if (seekView(withName) == null) {
-			Debugger.out("FXController.getViewData("+withName+") no FXView or FXViewModel found!");
-			return "";
-		} else {
-			// assert the model is not a View or FXView (must be FXViewModel) before casting:
-			if (   seekView(withName).getClass().getGenericSuperclass().toString().endsWith(".View")
-				|| seekView(withName).getClass().getGenericSuperclass().toString().endsWith(".FXView") ) {
-				Debugger.out("FXController.getViewData("+withName+") is not a FXViewModel ("+seekView(withName).getClass().getGenericSuperclass()+")!");
-				return "";
-			} else {
-				return ((FXViewModel)seekView(withName)).getData(); // not found
-			}
+	private FXViewModel getFXViewModel(String withViewName) throws Exception {
+		// assert there is a view with that name that allows data access
+		if (seekViewForDataAccess(withViewName) == null) {
+			throw new Exception ("FXController.getViewData("+withViewName+") no FXView or FXViewModel found!");
 		}
+		// assert the view is an instance of a FXViewModel before casting:
+		if (   seekViewForDataAccess(withViewName).getClass().getGenericSuperclass().toString().endsWith(".View")
+			|| seekViewForDataAccess(withViewName).getClass().getGenericSuperclass().toString().endsWith(".FXView") ) {
+			throw new Exception ( "FXController.getViewData("+withViewName+") is not a FXViewModel ("+
+								  seekViewForDataAccess(withViewName).getClass().getGenericSuperclass()+")!" );
+		}
+		return ((FXViewModel)seekViewForDataAccess(withViewName));
+	}
+	
+	/**
+	 * gets a data String element from an other view-model 
+	 * @throws Exception 
+	 */
+	public String getViewData (String withViewName) throws Exception
+	{
+		return getFXViewModel(withViewName).getData();
 	}
 
 	/**
@@ -117,30 +126,30 @@ public abstract class FXController extends Controller
 	 */
 	public void setViewData (String withName, String data)
 	{
-		if (seekView(withName) == null) {
+		if (seekViewForDataAccess(withName) == null) {
 			Debugger.out("FXController.setViewData("+withName+") no FXView or FXViewModel found!");
 		} else {
 			// assert the model is not a View or FXView (must be FXViewModel) before casting:
-			if (   seekView(withName).getClass().getGenericSuperclass().toString().endsWith(".View")
-				|| seekView(withName).getClass().getGenericSuperclass().toString().endsWith(".FXView") ) {
-				Debugger.out("FXController.setViewData("+withName+") is not a FXViewModel ("+seekView(withName).getClass().getGenericSuperclass()+")!");
+			if (   seekViewForDataAccess(withName).getClass().getGenericSuperclass().toString().endsWith(".View")
+				|| seekViewForDataAccess(withName).getClass().getGenericSuperclass().toString().endsWith(".FXView") ) {
+				Debugger.out("FXController.setViewData("+withName+") is not a FXViewModel ("+seekViewForDataAccess(withName).getClass().getGenericSuperclass()+")!");
 			} else {
-				((FXViewModel)seekView(withName)).setData(data); // not found
+				((FXViewModel)seekViewForDataAccess(withName)).setData(data); // not found
 			}
 		}
 	}
 	
 	public void addViewData (String withName, ArrayList<String> data)
 	{
-		if (seekView(withName) == null) {
+		if (seekViewForDataAccess(withName) == null) {
 			Debugger.out("FXController.setViewData("+withName+") no FXView or FXViewModel found!");
 		} else {
 			// assert the model is not a View or FXView (must be FXViewModel) before casting:
-			if (   seekView(withName).getClass().getGenericSuperclass().toString().endsWith(".View")
-				|| seekView(withName).getClass().getGenericSuperclass().toString().endsWith(".FXView") ) {
-				Debugger.out("FXController.setViewData("+withName+") is not a FXViewModel ("+seekView(withName).getClass().getGenericSuperclass()+")!");
+			if (   seekViewForDataAccess(withName).getClass().getGenericSuperclass().toString().endsWith(".View")
+				|| seekViewForDataAccess(withName).getClass().getGenericSuperclass().toString().endsWith(".FXView") ) {
+				Debugger.out("FXController.setViewData("+withName+") is not a FXViewModel ("+seekViewForDataAccess(withName).getClass().getGenericSuperclass()+")!");
 			} else {
-				((FXViewModel)seekView(withName)).addData(data); // not found
+				((FXViewModel)seekViewForDataAccess(withName)).addData(data); // not found
 			}
 		}
 	}

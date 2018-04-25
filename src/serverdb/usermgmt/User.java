@@ -1,10 +1,10 @@
 package serverdb.usermgmt;
 
 import java.util.ArrayList;
-import java.util.List;
-import serverdb.sql.*;
+
 import globals.Globals;
 import globals.Globals.loginState;
+import serverdb.sql.Query;
 
 /**
  * 

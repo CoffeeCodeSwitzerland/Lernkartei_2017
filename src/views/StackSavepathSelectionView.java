@@ -3,9 +3,6 @@ package views;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -66,9 +63,9 @@ public class StackSavepathSelectionView extends FXView
 		bp.setCenter(AllFields);
 		bp.setBottom(bottom);
 		
-		btnLocal.setOnAction(e -> getFXController().showView("savedownloadstacklocal view"));
-		btnServer.setOnAction(e -> getFXController().showView("savedownloadstackonserverdialogview"));
-		back.setOnAction(e -> getFXController().showView("serverdoorview"));
+		btnLocal.setOnAction(e -> getFXController().showAndTrackView("savedownloadstacklocalview"));
+		btnServer.setOnAction(e -> getFXController().showAndTrackView("savedownloadstackonserverdialogview"));
+		back.setOnAction(e -> getFXController().showAndTrackView("serverdoorview"));
 		
 		return bp;
 	}

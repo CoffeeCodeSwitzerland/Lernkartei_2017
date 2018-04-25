@@ -9,7 +9,7 @@ import mvc.Model;
 
 /**
  * Diese Klasse ist instanzierbar und für das ViewModel nutzbar.
- * Zudem wurde hier die Funktionalität etas erweitert (zum Bsp. mit like()).
+ * Zudem wurde hier die Funktionalität etwas erweitert (zum Bsp. mit like()).
  * 
  * @author hugo-lucca
  */

@@ -38,11 +38,11 @@ public class HelpView extends FXView
 		this.getWindow().setResizable(false);
 
 		
-		impressumBtn.setOnAction(e -> getFXController().showView("impressumview"));
-		quizletBtn.setOnAction(e -> getFXController().showView("quizletview"));
-		anleitungBtn.setOnAction(e -> getFXController().showView("manualview"));
-		indexBtn.setOnAction(e -> getFXController().showView("troubleshootview"));
-		logBtn.setOnAction(e -> getFXController().showView("logview"));
+		impressumBtn.setOnAction(e -> getFXController().showAndTrackView("impressumview"));
+		quizletBtn.setOnAction(e -> getFXController().showAndTrackView("quizletview"));
+		anleitungBtn.setOnAction(e -> getFXController().showAndTrackView("manualview"));
+		indexBtn.setOnAction(e -> getFXController().showAndTrackView("troubleshootview"));
+		logBtn.setOnAction(e -> getFXController().showAndTrackView("logview"));
 
 		tempVBox.setId("helpbox");
 		tempVBox.setPadding(new Insets(10));

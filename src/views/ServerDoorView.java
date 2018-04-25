@@ -1,19 +1,14 @@
 package views;
 
 import java.util.ArrayList;
-import java.util.Optional;
 
+import debug.Debugger;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
@@ -21,17 +16,13 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TabPane.TabClosingPolicy;
 import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
 import mvc.fx.FXController;
 import mvc.fx.FXView;
 import views.components.AppButton;
 import views.components.BackButton;
-import views.components.ContainerLayout;
-import views.components.ControlLayout;
 
 public class ServerDoorView extends FXView
 {
@@ -148,7 +139,7 @@ public class ServerDoorView extends FXView
 
 		back = new BackButton(getFXController(), "Zurück");
 		
-		back.setOnAction(e -> getFXController().showView("lernenselectionview"));
+		back.setOnAction(e -> getFXController().showAndTrackView("lernenselectionview"));
 		
 		
 		HBox bottom = new HBox(50);
@@ -162,7 +153,11 @@ public class ServerDoorView extends FXView
 		bp.setCenter(Center);
 		bp.setBottom(bottom);
 		
-		getFXController().getModel("serverstack").registerView(this);
+		try {
+			getFXController().getModel("serverstack").registerView(this);
+		} catch (Exception e) {
+			Debugger.out("ServerDoorView-constructContainer: did not found a Model named 'serverstack'!");
+		}		
 		
 		return bp;
 	}
@@ -205,19 +200,29 @@ public class ServerDoorView extends FXView
 			{
 				ArrayList<String> list = new ArrayList<String>();
 				list.add(names.get(counter));
-				getFXController().getModel("doorstackinformationmodel").setDataList(list);				
-				getFXController().showView("doorstackinformationview");
+				try {
+					getFXController().getModel("doorstackinformationmodel").setDataList(list);
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}				
+				getFXController().showAndTrackView("doorstackinformationview");
 			}
 			);
 			btnServerDoor.setOnAction(e -> {
 				ArrayList<String> giveData = new ArrayList<String>();
 				giveData.add(names.get(counter));
 				giveData.add(Integer.toString(0));
-				getFXController().getModel("serverstack").setDataList(giveData);
-				getFXController().showView("serverstackview");
+				try {
+					getFXController().getModel("serverstack").setDataList(giveData);
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				getFXController().showAndTrackView("serverstackview");
 			}
 			);
-			btnDownload.setOnAction(e -> getFXController().showView("savedownloaddooronserverdialogview"));
+			btnDownload.setOnAction(e -> getFXController().showAndTrackView("savedownloaddooronserverdialogview"));
 
 			entry.getChildren().addAll(btnServerDoor,btnDownload,btnInformation);
 			lines.add(entry);
@@ -250,18 +255,28 @@ public class ServerDoorView extends FXView
 				{
 					ArrayList<String> list = new ArrayList<String>();
 					list.add(names.get(counter));
-					getFXController().getModel("doorstackinformationmodel").setDataList(list);			
-					getFXController().showView("doorstackinformationview");
+					try {
+						getFXController().getModel("doorstackinformationmodel").setDataList(list);
+					} catch (Exception e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}			
+					getFXController().showAndTrackView("doorstackinformationview");
 				}
 				);
 				btnServerDoor.setOnAction(e -> {
 					ArrayList<String> giveData = new ArrayList<String>();
 					giveData.add(names.get(counter));
 					giveData.add(Integer.toString(1));
-					getFXController().getModel("serverstack").setDataList(giveData);
-					getFXController().showView("serverstackview");
+					try {
+						getFXController().getModel("serverstack").setDataList(giveData);
+					} catch (Exception e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					getFXController().showAndTrackView("serverstackview");
 				});
-				btnDownload.setOnAction(e -> getFXController().showView("doorsavepathselectionview"));
+				btnDownload.setOnAction(e -> getFXController().showAndTrackView("doorsavepathselectionview"));
 				
 				entry.getChildren().addAll(btnServerDoor,btnDownload,btnInformation);
 				lines.add(entry);

@@ -8,12 +8,10 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -21,7 +19,6 @@ import mvc.fx.FXController;
 import mvc.fx.FXView;
 import views.components.AppButton;
 import views.components.BackButton;
-import views.components.HomeButton;
 
 public class GroupMemberView extends FXView
 {
@@ -83,8 +80,8 @@ public class GroupMemberView extends FXView
 		
 		bp.setCenter(AllFields);
 		
-		back.setOnAction(e -> getFXController().showView("groupview"));
-		btnAdd.setOnAction(e -> getFXController().showView("userlistview"));
+		back.setOnAction(e -> getFXController().showAndTrackView("groupview"));
+		btnAdd.setOnAction(e -> getFXController().showAndTrackView("userlistview"));
 		
 		btnRemove.setOnAction(e -> {
 		Alert alert = new Alert(AlertType.CONFIRMATION);

@@ -67,7 +67,7 @@ public class DoorView_old extends FXView
 		renameBtn.setOnAction(e ->
 		{
 			getFXController().setViewData("rename", "door" + Globals.SEPARATOR + "doors");
-			getFXController().showView("rename");
+			getFXController().showAndTrackView("rename");
 		});
 
 		trashImgView.setOnDragOver(event ->
@@ -93,7 +93,12 @@ public class DoorView_old extends FXView
 			event.consume();
 		});
 
-		getFXController().getModel("door").registerView(this);
+		try {
+			getFXController().getModel("door").registerView(this);
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		return maLay;
 	}
 
@@ -102,7 +107,13 @@ public class DoorView_old extends FXView
 	{
 		doorLayout.getChildren().clear();
 
-		ArrayList<String> doorNames = getFXController().getModel("door").getDataList("doors");
+		ArrayList<String> doorNames=null;
+		try {
+			doorNames = getFXController().getModel("door").getDataList("doors");
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		ArrayList<AppButton> doors = new ArrayList<>();
 
 		if (doorNames != null)
@@ -120,7 +131,7 @@ public class DoorView_old extends FXView
 			a.setOnAction(e ->
 			{
 				getFXController().setViewData("stack", a.getText());
-				getFXController().showView("stack");
+				getFXController().showAndTrackView("stack");
 			});
 
 			a.setOnDragDetected(e ->
@@ -160,7 +171,13 @@ public class DoorView_old extends FXView
 			}
 			if (doorName != null && !doorName.equals(""))
 			{
-				int succesful = getFXController().getModel("door").doAction(Command.NEW, doorName);
+				int succesful=-1;
+				try {
+					succesful = getFXController().getModel("door").doAction(Command.NEW, doorName);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				if (succesful == -1)
 				{
 					Alert.simpleInfoBox("Fach wurde nicht erstellt", "Dieser Name ist schon vergeben.");
@@ -173,7 +190,12 @@ public class DoorView_old extends FXView
 	{
 		if (Alert.ok("Achtung", "Willst du das Fach '" + door + "' wirklich löschen?"))
 		{
-			getFXController().getModel("door").doAction(Command.DELETE, door);
+			try {
+				getFXController().getModel("door").doAction(Command.DELETE, door);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		return true;
 	}

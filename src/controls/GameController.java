@@ -1,7 +1,7 @@
 package controls;
 
 import mvc.fx.FXController;
-import views.GameView;
+import views.game.*;
 
 public class GameController extends FXController {
 	
@@ -14,7 +14,7 @@ public class GameController extends FXController {
 	public void initMyViews() {
 		// add only new view's, the helpview is added automaticly as mainView
 		this.addUniqueView(new GameView("gameoptionview",this));
-		this.addUniqueView(new GameView("tuttohelpview",this));
+		this.addUniqueView(new TuttoHelpView("tuttohelpview",this));
 	}
 
 	@Override

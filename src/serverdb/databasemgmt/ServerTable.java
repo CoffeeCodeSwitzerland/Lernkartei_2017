@@ -1,9 +1,9 @@
 package serverdb.databasemgmt;
 
-import serverdb.sql.Query;
+import java.util.ArrayList;
+
 import serverdb.sql.QueryExecuter;
 import serverdb.sql.Table;
-import java.util.ArrayList;
 
 public class ServerTable
 {

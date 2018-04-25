@@ -42,19 +42,24 @@ public class PostLearnView extends FXViewModel
 		
 		String score = "";
 		String dif = "";
-		if (getFXController().getModel("statistics") != null)
-		{
-			StatisticsModel sm = (StatisticsModel) getFXController().getModel("statistics");
-			if (sm.getDoubleList(getData() + Globals.SEPARATOR + "end") != null)
+		try {
+			if (getFXController().getModel("statistics") != null)
 			{
-				Double roundDouble = ((double) ((int)(sm.getDoubleList(getData() + Globals.SEPARATOR + "end").get(0) * 100)) / 100);
-				score = roundDouble.toString();
+				StatisticsModel sm = (StatisticsModel) getFXController().getModel("statistics");
+				if (sm.getDoubleList(getData() + Globals.SEPARATOR + "end") != null)
+				{
+					Double roundDouble = ((double) ((int)(sm.getDoubleList(getData() + Globals.SEPARATOR + "end").get(0) * 100)) / 100);
+					score = roundDouble.toString();
+				}
+				if (sm.getDoubleList(getData() + Globals.SEPARATOR + "difference") != null)
+				{
+					Double difDouble = ((double) ((int)(sm.getDoubleList(getData() + Globals.SEPARATOR + "difference").get(0) * 100)) / 100);
+					dif = difDouble.toString();
+				}
 			}
-			if (sm.getDoubleList(getData() + Globals.SEPARATOR + "difference") != null)
-			{
-				Double difDouble = ((double) ((int)(sm.getDoubleList(getData() + Globals.SEPARATOR + "difference").get(0) * 100)) / 100);
-				dif = difDouble.toString();
-			}
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
 		}
 		
 		Label now = new Label("Jetzt: " + score + " %");
@@ -70,7 +75,7 @@ public class PostLearnView extends FXViewModel
 		}
 		
 		AppButton backBtn = new AppButton("Zur Stapelübersicht");
-		backBtn.setOnAction(e -> getFXController().showView("stack"));
+		backBtn.setOnAction(e -> getFXController().showAndTrackView("stack"));
 		
 		VBox layout = new VBox(20);
 		layout.getChildren().addAll(now, diff, continueBtn, backBtn);
